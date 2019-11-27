@@ -27,7 +27,9 @@
 #
 library(Matrix)
 library(readr)
-library(rsvd)
+library(irbla)
+library(ggplot2)
+library(cowplot)
 
 # SCRIPT PARAMETERS
 # -----------------
@@ -35,6 +37,11 @@ data.dir      <- "../data/fresh_68k_pbmc_donor_a_filtered"
 samples.file  <- "68k_pbmc_barcodes_annotation.tsv.gz"
 genes.file    <- "genes.tsv.gz"
 counts.file   <- "matrix.mtx.gz"
+out.file      <- "68k_pbmc.RData"
+
+# SET UP ENVIRONMENT
+# ------------------
+set.seed(1)
 
 # LOAD THE DATA
 # -------------
@@ -68,3 +75,18 @@ cat(sprintf("Total number of reads: %d\n",nnzero(counts)))
 
 # EXAMINE DATA
 # ------------
+ggplot(data.frame(x = log10(1 + colSums(counts > 0))),aes(x)) +
+  geom_density(fill = "darkorange",color = "darkorange") +
+  scale_x_continuous(breaks = 0:6) +
+  labs(x = "log10(1 + num. nonzero read counts)",
+       y = "proportion of genes") +
+  theme_cowplot(font_size = 12)
+
+# Remove genes that are expressed in fewer than 4 cells.
+j      <- which(colSums(counts > 0) >= 4)
+genes  <- genes[j,]
+counts <- counts[,j]
+
+# SAVE PROCESSED DATA
+# -------------------
+save(list = c("sample","genes","counts"),file = out.file)
