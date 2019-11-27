@@ -1,5 +1,3 @@
-data/fresh_68k_pbmc_donor_a_raw_gene_bc_matrices.tar.gz
-data/fresh_68k_pbmc_donor_barcodes.tsv
-data/fresh_68k_pbmc_donor_genes.tsv
-data/fresh_68k_pbmc_donor_matrix.mtx
+data/fresh_68k_pbmc_donor_a_filtered_gene_bc_matrices.tar.gz
+data/fresh_68k_pbmc_donor_a_filtered
 
