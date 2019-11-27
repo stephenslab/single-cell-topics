@@ -3,6 +3,8 @@
 #  + Downloaded "Fresh 68k PBMCs (Donor A)" data set from:
 #    https://support.10xgenomics.com/single-cell-gene-expression/datasets
 #
+#  + See also: https://community.10xgenomics.com/t5/Data-Sharing/10x-Single-Cell-3-Paper-Zheng-et-al-2016-Datasets/td-p/231
+#
 #  + Associated publication: Zheng et al (2017). Massively parallel
 #    digital transcriptional profiling of single cells. Nature
 #    Communications 8, 14049. doi:10.1038/ncomms14049
@@ -27,7 +29,6 @@
 #
 library(Matrix)
 library(readr)
-library(irbla)
 library(ggplot2)
 library(cowplot)
 
@@ -89,4 +90,4 @@ counts <- counts[,j]
 
 # SAVE PROCESSED DATA
 # -------------------
-save(list = c("sample","genes","counts"),file = out.file)
+save(list = c("samples","genes","counts"),file = out.file)
