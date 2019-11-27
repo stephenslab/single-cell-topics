@@ -11,6 +11,10 @@
 #    tar.gz file. Then I moved the files to
 #    data/fresh_68k_pbmc_donor_a_filtered and compressed them with gzip.
 #
+#  + Additional information about the samples was downloaded from here:
+#    https://github.com/10XGenomics/single-cell-3prime-paper
+#    Specifically, file 68k_pbmc_barcodes_annotation.tsv was downloaded.
+#
 #  + A summary of the data is given here:
 #    http://cf.10xgenomics.com/samples/cell-exp/1.1.0/fresh_68k_pbmc_donor_a/fresh_68k_pbmc_donor_a_web_summary.html
 #   
@@ -28,28 +32,39 @@ library(rsvd)
 # SCRIPT PARAMETERS
 # -----------------
 data.dir      <- "../data/fresh_68k_pbmc_donor_a_filtered"
-barcodes.file <- "barcodes.tsv.gz"
+samples.file  <- "68k_pbmc_barcodes_annotation.tsv.gz"
 genes.file    <- "genes.tsv.gz"
 counts.file   <- "matrix.mtx.gz"
 
 # LOAD THE DATA
 # -------------
-barcodes.file <- file.path(data.dir,barcodes.file)
-genes.file    <- file.path(data.dir,genes.file)
-counts.file   <- file.path(data.dir,counts.file)
-barcodes      <- read_tsv(barcodes.file,col_names = FALSE)[[1]]
-genes         <- read_tsv(genes.file,col_names = FALSE)
-counts        <- read_delim(counts.file,delim = " ",comment = "%",
-                            col_names = FALSE)
-class(genes)  <- "data.frame"
-class(counts) <- "data.frame"
-names(genes)  <- c("ensembl","symbol")
-names(counts) <- c("j","i","x")
+samples.file   <- file.path(data.dir,samples.file)
+genes.file     <- file.path(data.dir,genes.file)
+counts.file    <- file.path(data.dir,counts.file)
+samples        <- read_tsv(samples.file)
+genes          <- read_tsv(genes.file,col_names = FALSE)
+counts         <- read_delim(counts.file,delim = " ",comment = "%",
+                            col_names = FALSE,progress = FALSE)
+class(samples) <- "data.frame"
+class(genes)   <- "data.frame"
+class(counts)  <- "data.frame"
+names(samples) <- c("tsne1","tsne2","barcode","celltype")
+names(genes)   <- c("ensembl","symbol")
+names(counts)  <- c("j","i","x")
+samples        <- transform(samples,celltype = factor(celltype))
 n      <- counts[1,2]
 m      <- counts[1,1]
 counts <- counts[-1,]
 counts <- sparseMatrix(i = counts$i,j = counts$j,x = counts$x,dims = c(n,m),
-                       dimnames = list(sample = barcodes,gene = genes$ensembl))
+                       dimnames = list(sample = samples$barcode,
+                                       gene = genes$ensembl))
+rm(n,m)
+
+# SUMMARIZE DATA
+# --------------
+cat(sprintf("Number of samples:     %d\n",nrow(counts)))
+cat(sprintf("Number of genes:       %d\n",ncol(counts)))
+cat(sprintf("Total number of reads: %d\n",nnzero(counts)))
 
 # EXAMINE DATA
 # ------------

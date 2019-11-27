@@ -1,3 +1,4 @@
 data/fresh_68k_pbmc_donor_a_filtered_gene_bc_matrices.tar.gz
-data/fresh_68k_pbmc_donor_a_filtered
+data/fresh_68k_pbmc_donor_a_filtered/matrix.mtx.gz
+
 
