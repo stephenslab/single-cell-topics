@@ -5,12 +5,24 @@ site: workflowr::wflow_site
 output: workflowr::wflow_html
 ---
 
-## Data preparation
+Data preparation
+----------------
 
-+ [Mixture of FACS-purified PBMCs](prepare_pbmc_purified.html)
++ [Mixture of FACS-purified PBMCs](prepare_purified_pbmc.html)
 
-+ [PBMC 68k](prepare_pbmc_68k.html)
++ [PBMC 68k](prepare_68k_pbmc.html)
 
 + [Droplet](prepare_droplet.html)
 
 + [Pulse-seq](prepare_pulseseq.html)
+
+Assess model fits
+-----------------
+
++ [Mixture of FACS-purified PBMCs](assess_fits_purified_pbmc.html)
+
++ [PBMC 68k](assess_fits_68k_pbmc.html)
+
++ [Droplet](assess_fits_droplet.html)
+
++ [Pulse-seq](assess_fits_pulseseq.html)
