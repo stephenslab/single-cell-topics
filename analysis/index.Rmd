@@ -7,10 +7,10 @@ output: workflowr::wflow_html
 
 ## Data preparation
 
-+ [Mixture of FACS-purified PBMCs][prepare_pbmc_purified.html]
++ [Mixture of FACS-purified PBMCs](prepare_pbmc_purified.html)
 
-+ [PBMC 68k][prepare_pbmc_68k.html]
++ [PBMC 68k](prepare_pbmc_68k.html)
 
-+ [Droplet][prepare_droplet.html]
++ [Droplet](prepare_droplet.html)
 
-+ [Pulse-seq][prepare_pulseseq.html]
++ [Pulse-seq](prepare_pulseseq.html)
