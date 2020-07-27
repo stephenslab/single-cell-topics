@@ -5,9 +5,12 @@ site: workflowr::wflow_site
 output: workflowr::wflow_html
 ---
 
-Welcome to my research website.
+## Data preparation
 
-```{r test}
-set.seed(1)
-rnorm(8)
-```
++ [Mixture of FACS-purified PBMCs][prepare_pbmc_purified.html]
+
++ [PBMC 68k][prepare_pbmc_68k.html]
+
++ [Droplet][prepare_droplet.html]
+
++ [Pulse-seq][prepare_pulseseq.html]
