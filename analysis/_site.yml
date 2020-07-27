@@ -1,17 +1,15 @@
-name: "single-cell-topics"
+name: single-cell topics
 output_dir: ../docs
 navbar:
-  title: "single-cell-topics"
+  title: single-cell topics
   left:
-  - text: Home
+  - text: Overview
     href: index.html
-  - text: About
-    href: about.html
-  - text: License
-    href: license.html
 output:
   workflowr::wflow_html:
-    toc: yes
-    toc_float: yes
-    theme: cosmo
+    toc: no
+    theme: readable
     highlight: textmate
+    lib_dir: site_libs
+    self_contained: no
+
