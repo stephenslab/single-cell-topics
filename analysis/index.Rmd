@@ -1,11 +1,13 @@
 ---
-title: "Home"
+title: Analysis of single-cell RNA-seq data using topic models
+author: Peter Carbonetto
 site: workflowr::wflow_site
-output:
-  workflowr::wflow_html:
-    toc: false
-editor_options:
-  chunk_output_type: console
+output: workflowr::wflow_html
 ---
 
 Welcome to my research website.
+
+```{r test}
+set.seed(1)
+rnorm(8)
+```
