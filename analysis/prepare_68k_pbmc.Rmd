@@ -12,8 +12,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
-Load the packages used in the analysis below, and some functions
-written specifically for loading and preparing these data.
+Load the packages used in the analysis below.
 
 ```{r load-pkgs}
 library(tools)
@@ -23,10 +22,10 @@ library(readr)
 
 Before loading the data, download the "Gene/cell matrix (filtered)"
 tar.gz file for the "Fresh 68k PBMCs (Donor A) data set from
-[10x Genomics website][10x-data], and download
-`68k_pbmc_barcodes_annotation.tsv` from the [companion repository on
-GitHub][zheng-2017-github], then save and compress these files to the
-`data/pbmc_68k` directory.
+[10x Genomics website][10x-data], download
+`68k_pbmc_barcodes_annotation.tsv` from the
+[companion repository on GitHub][zheng-2017-github], and then save and
+compress these files to the `data/pbmc_68k` directory.
 
 ```{r load-data}
 suppressMessages({
