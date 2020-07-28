@@ -321,16 +321,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea75eba1da5355f56405fef2731346156df1a41aetargetblanka75eba1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a75eba1da5355f56405fef2731346156df1a41ae" target="_blank">a75eba1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9d9b47e8513b7bb84471c9fa607deaff6abaa5fatargetblank9d9b47ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9d9b47e8513b7bb84471c9fa607deaff6abaa5fa" target="_blank">9d9b47e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea75eba1da5355f56405fef2731346156df1a41aetargetblanka75eba1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9d9b47e8513b7bb84471c9fa607deaff6abaa5fatargetblank9d9b47ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a75eba1da5355f56405fef2731346156df1a41ae" target="_blank">a75eba1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9d9b47e8513b7bb84471c9fa607deaff6abaa5fa" target="_blank">9d9b47e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -346,6 +346,7 @@ Ignored files:
     Ignored:    data/memory_t/
     Ignored:    data/naive_cytotoxic/
     Ignored:    data/naive_t/
+    Ignored:    data/pbmc_purified.RData
     Ignored:    data/regulatory_t/
 
 </code></pre>
@@ -390,6 +391,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9d9b47e8513b7bb84471c9fa607deaff6abaa5fa/analysis/prepare_purified_pbmc.Rmd" target="_blank">9d9b47e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-07-27
+</td>
+<td>
+wflow_publish(“prepare_purified_pbmc.Rmd”, view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/372e1ac8ff4cffe4e6dc299cf29f9dca5b164834/docs/prepare_purified_pbmc.html" target="_blank">372e1ac</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-07-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/a75eba1da5355f56405fef2731346156df1a41ae/analysis/prepare_purified_pbmc.Rmd" target="_blank">a75eba1</a>
 </td>
 <td>
@@ -409,9 +444,9 @@ Added code and workflowr analysis for preparing FACS-purified PBMC data sets.
 </div>
 </div>
 </div>
-<p>These are the steps taken to prepare the mixture of FACS-purified PBMC data for topic modeling analysis. These data are the reference transcriptome profiles generated via single-cell RNA-seq of 10 bead-enriched subpopulations described in <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>.</p>
-<p><em>Note:</em> In Zheng <em>et al</em> (2017), the clustering analysis suggests that the subpopulations are mostly “homogenous”, with a couple exceptions, the CD14+ and CD34+ subpopulations. For the CD14+ monocytes, two clusters were observed, and they were identified as “CD14+ monocytes” and “dendritic cells”. See Supplementary Figures 6 and 7 in that paper.</p>
-<p>I downloaded the “Gene/cell matrix (filtered)” tar.gz file from the <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets">10x Genomics website</a> for each of the following 10 data sets: CD14+ Monocytes, CD19+ B Cells, CD34+ Cells, CD4+ Helper T Cells, CD4+/CD25+ Regulatory T Cells, CD4+/CD45RA+/CD25- Naive T cells, CD4+/CD45RO+ Memory T Cells, CD56+ Natural Killer Cells, CD8+ Cytotoxic T cells and CD8+/CD45RA+ Naive Cytotoxic T Cells. I unpacked the individual tar archives and re-organized the files into 10 subdirectories, each containing three (compressed) files, <code>barcodes.tsv.gz</code>, <code>genes.tsv.gz</code> and <code>matrix.mtx.gz</code>. The “datasets” variable lists the names of the subdirectories I used, along with the “cell type” labels that Zheng <em>et al</em> (2017) assigned to each of the 10 data sets:</p>
+<p>These are the steps taken to prepare the mixture of FACS-purified PBMC data for topic modeling analysis. These data are the “reference transcriptome” profiles generated via single-cell RNA-seq of 10 bead-enriched subpopulations as described in <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>.</p>
+<p><strong>Note:</strong> In Zheng <em>et al</em> (2017), the clustering analysis suggests that the subpopulations are mostly “homogenous”, with a couple exceptions, the CD14+ and CD34+ subpopulations. For the CD14+ monocytes, two clusters were observed, and they were identified as “CD14+ monocytes” and “dendritic cells”. See Supplementary Figures 6 and 7 in that paper.</p>
+<p>Download the “Gene/cell matrix (filtered)” tar.gz file from the <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets">10x Genomics website</a> for each of the following 10 data sets: CD14+ Monocytes, CD19+ B Cells, CD34+ Cells, CD4+ Helper T Cells, CD4+/CD25+ Regulatory T Cells, CD4+/CD45RA+/CD25- Naive T cells, CD4+/CD45RO+ Memory T Cells, CD56+ Natural Killer Cells, CD8+ Cytotoxic T cells and CD8+/CD45RA+ Naive Cytotoxic T Cells. Unpack the individual tar archives and re-organize the files into 10 subdirectories, each containing three (compressed) files, <code>barcodes.tsv.gz</code>, <code>genes.tsv.gz</code> and <code>matrix.mtx.gz</code>. The “datasets” variable lists the names of all subdirectories used, along with the “cell type” labels that Zheng <em>et al</em> (2017) assigned to each of the 10 data sets:</p>
 <pre class="r"><code>datasets &lt;- list(&quot;CD19+ B&quot;                      = &quot;b_cells&quot;,
                  &quot;CD14+ Monocyte&quot;               = &quot;cd14_monocytes&quot;,
                  &quot;CD34+&quot;                        = &quot;cd34_filtered&quot;,
@@ -468,7 +503,7 @@ rm(out)
 <pre class="r"><code>j      &lt;- which(colSums(counts &gt; 0) &gt;= 1)
 genes  &lt;- genes[j,]
 counts &lt;- counts[,j]</code></pre>
-<p>After filtering out genes with no expression, the count data are stored in a 94,655 x 21,952 sparse matrix, with rows corresponding to samples and columns corresponding to genes. This matrix is very sparse—less than 3% of the counts are greater than zero:</p>
+<p>After filtering out genes with no expression, the count data are stored in a 94,655 x 21,952 sparse matrix, with rows corresponding to samples, and columns corresponding to genes. This matrix is very sparse—less than 3% of the counts are greater than zero:</p>
 <pre class="r"><code>cat(sprintf(&quot;Number of samples: %d\n&quot;,nrow(counts)))
 cat(sprintf(&quot;Number of genes: %d\n&quot;,ncol(counts)))
 cat(sprintf(&quot;Proportion of counts that are non-zero: %0.1f%%.\n&quot;,
@@ -476,7 +511,7 @@ cat(sprintf(&quot;Proportion of counts that are non-zero: %0.1f%%.\n&quot;,
 # Number of samples: 94655
 # Number of genes: 21952
 # Proportion of counts that are non-zero: 2.9%.</code></pre>
-<p>This is the breakdown of samples by data set, or “cell type”:</p>
+<p>This is the breakdown of samples by data set:</p>
 <pre class="r"><code>summary(samples[&quot;celltype&quot;],maxsum = 10)
 #                          celltype    
 #  CD19+ B                     :10085  
