@@ -1,0 +1,63 @@
+---
+title: Prepare PBMC 68k data for topic modeling analysis
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+These are the steps taken to prepare the unsorted 68k PBMC data from
+[Zheng *et al* (2017)][zheng-2017] for topic modeling analysis.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+Load the packages used in the analysis below, and some functions
+written specifically for loading and preparing these data.
+
+```{r load-pkgs}
+library(tools)
+library(Matrix)
+library(readr)
+```
+
+Before loading the data, download the "Gene/cell matrix (filtered)"
+tar.gz file for the "Fresh 68k PBMCs (Donor A) data set from
+[10x Genomics website][10x-data], and download
+`68k_pbmc_barcodes_annotation.tsv` from the [companion repository on
+GitHub][zheng-2017-github], then save and compress these files to the
+`data/pbmc_68k` directory.
+
+```{r load-data}
+suppressMessages({
+  samples <- read_tsv("../data/68k_pbmc_barcodes_annotation.tsv.gz")
+  genes   <- read_tsv("../data/pbmc_68k/genes.tsv.gz",col_names = FALSE)
+  counts  <- read_delim("../data/pbmc_68k/matrix.mtx.gz",delim = " ",
+                        comment = "%",col_names = FALSE,progress = FALSE)
+})
+class(samples) <- "data.frame"
+class(genes)   <- "data.frame"
+class(counts)  <- "data.frame"
+names(samples) <- c("tsne1","tsne2","barcode","celltype")
+names(genes)   <- c("ensembl","symbol")
+names(counts)  <- c("j","i","x")
+samples        <- transform(samples,celltype = factor(celltype))
+n      <- counts[1,2]
+m      <- counts[1,1]
+counts <- counts[-1,]
+counts <- sparseMatrix(i = counts$i,j = counts$j,x = counts$x,dims = c(n,m),
+                       dimnames = list(sample = samples$barcode,
+                                       gene = genes$ensembl))
+```
+
+Remove genes that are not expressed in any of the cells.
+
+```{r filter-genes}
+j      <- which(colSums(counts > 0) >= 1)
+genes  <- genes[j,]
+counts <- counts[,j]
+```
+
+[zheng-2017]: https://doi.org/10.1038/ncomms14049
+[zheng-2017-github]: https://github.com/10XGenomics/single-cell-3prime-paper
+[10x-data]: https://support.10xgenomics.com/single-cell-gene-expression/datasets
