@@ -321,16 +321,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee684eab5307b574219b366c55e00f4e75d3b7285targetblanke684eaba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e684eab5307b574219b366c55e00f4e75d3b7285" target="_blank">e684eab</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4a79355af4e4a57eb4010e87cc0d8041bbc52ca8targetblank4a79355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4a79355af4e4a57eb4010e87cc0d8041bbc52ca8" target="_blank">4a79355</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee684eab5307b574219b366c55e00f4e75d3b7285targetblanke684eaba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4a79355af4e4a57eb4010e87cc0d8041bbc52ca8targetblank4a79355a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e684eab5307b574219b366c55e00f4e75d3b7285" target="_blank">e684eab</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4a79355af4e4a57eb4010e87cc0d8041bbc52ca8" target="_blank">4a79355</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -346,6 +346,7 @@ Ignored files:
     Ignored:    data/memory_t/
     Ignored:    data/naive_cytotoxic/
     Ignored:    data/naive_t/
+    Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_68k/
     Ignored:    data/pbmc_purified.RData
     Ignored:    data/regulatory_t/
@@ -392,6 +393,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4a79355af4e4a57eb4010e87cc0d8041bbc52ca8/analysis/prepare_68k_pbmc.Rmd" target="_blank">4a79355</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-07-28
+</td>
+<td>
+wflow_publish(“prepare_68k_pbmc.Rmd”, view = FALSE, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/9622db8e84a502905e6bebdc97a83a1a6b6b2f88/docs/prepare_68k_pbmc.html" target="_blank">9622db8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-07-28
+</td>
+<td>
+Built first draft of prepare_68k_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e684eab5307b574219b366c55e00f4e75d3b7285/analysis/prepare_68k_pbmc.Rmd" target="_blank">e684eab</a>
 </td>
 <td>
@@ -429,11 +464,11 @@ Working on R Markdown for preparation of 68k pbmc data set.
 </div>
 </div>
 <p>These are the steps taken to prepare the unsorted 68k PBMC data from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a> for topic modeling analysis.</p>
-<p>Load the packages used in the analysis below, and some functions written specifically for loading and preparing these data.</p>
+<p>Load the packages used in the analysis below.</p>
 <pre class="r"><code>library(tools)
 library(Matrix)
 library(readr)</code></pre>
-<p>Before loading the data, download the “Gene/cell matrix (filtered)” tar.gz file for the “Fresh 68k PBMCs (Donor A) data set from <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets">10x Genomics website</a>, and download <code>68k_pbmc_barcodes_annotation.tsv</code> from the <a href="https://github.com/10XGenomics/single-cell-3prime-paper">companion repository on GitHub</a>, then save and compress these files to the <code>data/pbmc_68k</code> directory.</p>
+<p>Before loading the data, download the “Gene/cell matrix (filtered)” tar.gz file for the “Fresh 68k PBMCs (Donor A) data set from <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets">10x Genomics website</a>, download <code>68k_pbmc_barcodes_annotation.tsv</code> from the <a href="https://github.com/10XGenomics/single-cell-3prime-paper">companion repository on GitHub</a>, and then save and compress these files to the <code>data/pbmc_68k</code> directory.</p>
 <pre class="r"><code>suppressMessages({
   samples &lt;- read_tsv(&quot;../data/pbmc_68k/68k_pbmc_barcodes_annotation.tsv.gz&quot;)
   genes   &lt;- read_tsv(&quot;../data/pbmc_68k/genes.tsv.gz&quot;,col_names = FALSE)
