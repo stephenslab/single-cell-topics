@@ -4,13 +4,13 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-These are the steps taken to prepare the mixture of FACS-purified PBMC
-data for topic modeling analysis. These data are the reference
-transcriptome profiles generated via single-cell RNA-seq of 10
-bead-enriched subpopulations described in [Zheng *et al*
-(2017)][zheng-2017].
+These are the steps taken to prepare the mixture of FACS-purified
+PBMC data for topic modeling analysis. These data are the "reference
+transcriptome" profiles generated via single-cell RNA-seq of 10
+bead-enriched subpopulations as described in
+[Zheng *et al* (2017)][zheng-2017].
 
-*Note:* In Zheng *et al* (2017), the clustering analysis suggests that
+**Note:** In Zheng *et al* (2017), the clustering analysis suggests that
 the subpopulations are mostly "homogenous", with a couple exceptions,
 the CD14+ and CD34+ subpopulations. For the CD14+ monocytes, two
 clusters were observed, and they were identified as "CD14+ monocytes"
@@ -22,16 +22,16 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
-I downloaded the "Gene/cell matrix (filtered)" tar.gz file from the
+Download the "Gene/cell matrix (filtered)" tar.gz file from the
 [10x Genomics website][10x-data] for each of the following 10 data
 sets: CD14+ Monocytes, CD19+ B Cells, CD34+ Cells, CD4+ Helper T
 Cells, CD4+/CD25+ Regulatory T Cells, CD4+/CD45RA+/CD25- Naive T
 cells, CD4+/CD45RO+ Memory T Cells, CD56+ Natural Killer Cells, CD8+
-Cytotoxic T cells and CD8+/CD45RA+ Naive Cytotoxic T Cells. I unpacked
-the individual tar archives and re-organized the files into 10
+Cytotoxic T cells and CD8+/CD45RA+ Naive Cytotoxic T Cells. Unpack the
+individual tar archives and re-organize the files into 10
 subdirectories, each containing three (compressed) files,
 `barcodes.tsv.gz`, `genes.tsv.gz` and `matrix.mtx.gz`. The "datasets"
-variable lists the names of the subdirectories I used, along with the
+variable lists the names of all subdirectories used, along with the
 "cell type" labels that Zheng *et al* (2017) assigned to each of the
 10 data sets:
 
@@ -79,7 +79,7 @@ counts <- counts[,j]
 
 After filtering out genes with no expression, the count data are
 stored in a 94,655 x 21,952 sparse matrix, with rows corresponding to
-samples and columns corresponding to genes. This matrix is very
+samples, and columns corresponding to genes. This matrix is very
 sparse---less than 3% of the counts are greater than zero:
 
 ```{r summarize-data-1}
@@ -89,7 +89,7 @@ cat(sprintf("Proportion of counts that are non-zero: %0.1f%%.\n",
             100*mean(counts > 0)))
 ```
 
-This is the breakdown of samples by data set, or "cell type":
+This is the breakdown of samples by data set:
 
 ```{r summarize-data-2}
 summary(samples["celltype"],maxsum = 10)
