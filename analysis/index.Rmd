@@ -8,6 +8,9 @@ output: workflowr::wflow_html
 Data preparation
 ----------------
 
+These pages detail the steps taken to prepare the single-cell RNA-seq
+data sets for topic modeling analysis.
+
 + [Mixture of FACS-purified PBMCs](prepare_purified_pbmc.html)
 
 + [PBMC 68k](prepare_68k_pbmc.html)
