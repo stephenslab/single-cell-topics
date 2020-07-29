@@ -12,3 +12,4 @@ data/pbmc_68k
 data/GSE103354_Trachea_droplet_UMIcounts.txt.gz
 data/pbmc_purified.RData
 data/pbmc_68k.RData
+data/droplet.RData
