@@ -49,8 +49,9 @@ j      <- which(colSums(counts > 0) >= 1)
 counts <- counts[,j]
 ```
 
-This data set contains UMI count data for 7,193 samples and 17,133
-genes. The count data are sparse; over 90% of the counts are zero.
+This data set contains UMI count data for 7,193 samples and 18,388
+genes expressed in at least one cell. The count data are sparse; over
+90% of the counts are zero.
 
 ```{r summarize-data}
 cat(sprintf("Number of genes: %d\n",ncol(counts)))
