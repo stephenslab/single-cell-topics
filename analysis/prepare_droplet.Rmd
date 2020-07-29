@@ -1,0 +1,76 @@
+---
+title: "Prepare droplet data for topic modeling analysis"
+author: "Peter Carbonetto"
+output: workflowr::wflow_html
+---
+
+Here we prepare the "droplet" UMI count data from
+[Montoro *et al* (2018)][montoro-paper]---these are gene expression
+profiles of trachea epithelial cells in C57BL/6 mice obtained using
+droplet-based 3' single-cell RNA-seq---for topic modeling analysis.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+Before running these steps on your computer, download file
+`GSE103354_Trachea_droplet_UMIcounts.txt.gz` from the Gene Expression
+Omnibus (GEO) [website][geo], accession [GSE103354][geo-montoro], and
+save this file to the "data" folder. Edit the first line of this file
+so that the column names are "gene", "M1_GCTTGAGAAGTCGT_Club",
+"M1_GGAACACTTTCGTT_Club", *etc*.
+
+
+Load the readr package, and some functions written specifically for
+loading and preparing the data.
+
+```{r load-pkgs}
+library(Matrix)
+library(readr)
+source("../code/droplet.R")
+```
+
+The UMI count data are imported as a matrix, with one row
+per tissue sample and one column per gene.
+
+```{r read-data}
+out <- read_droplet_data("../data/GSE103354_Trachea_droplet_UMIcounts.txt.gz")
+samples <- out$samples
+counts <- out$counts
+rm(out)
+```
+
+Remove genes that are not expressed in any of the cells.
+
+```{r filter-genes}
+j      <- which(colSums(counts > 0) >= 1)
+counts <- counts[,j]
+```
+
+This data set should contain UMI count data for 7,193 samples and
+17,133 genes.
+
+```{r summarize-data}
+cat(sprintf("Number of genes: %d\n",ncol(counts)))
+cat(sprintf("Number of samples: %d\n",nrow(counts)))
+cat(sprintf("Proportion of counts that are non-zero: %0.1f%%.\n",
+            100*mean(counts > 0)))
+```
+
+Gene expression was profiled in cells from 6 different mice:
+
+```{r summarize-samples-by-mouse}
+table(samples$mouse.id)
+```
+
+In the Montoro *et al* analysis, the samples were subdivided into 7
+cell types:
+
+```{r summarize-samples-by-tissue}
+table(samples$tissue)
+```
+
+[geo]: https://www.ncbi.nlm.nih.gov/geo
+[geo-montoro]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE103354
+[montoro-paper]: http://dx.doi.org/10.1038/s41586-018-0393-7
