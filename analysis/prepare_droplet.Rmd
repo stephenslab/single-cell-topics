@@ -28,6 +28,7 @@ loading and preparing the data.
 ```{r load-pkgs}
 library(Matrix)
 library(readr)
+library(tools)
 source("../code/droplet.R")
 ```
 
@@ -48,8 +49,8 @@ j      <- which(colSums(counts > 0) >= 1)
 counts <- counts[,j]
 ```
 
-This data set should contain UMI count data for 7,193 samples and
-17,133 genes.
+This data set contains UMI count data for 7,193 samples and 17,133
+genes. The count data are sparse; over 90% of the counts are zero.
 
 ```{r summarize-data}
 cat(sprintf("Number of genes: %d\n",ncol(counts)))
@@ -69,6 +70,19 @@ cell types:
 
 ```{r summarize-samples-by-tissue}
 table(samples$tissue)
+```
+
+Convert the count data to a sparse matrix.
+
+```{r convert-counts-sparse}
+counts <- as(counts,"dgCMatrix")
+```
+
+Save the processed data.
+
+```{r save-data}
+save(list = c("samples","counts"),file = "droplet.RData")
+resaveRdaFiles("droplet.RData")
 ```
 
 [geo]: https://www.ncbi.nlm.nih.gov/geo
