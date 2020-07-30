@@ -1,0 +1,87 @@
+---
+title: "Prepare pulse-seq data for topic modeling analysis"
+author: "Peter Carbonetto"
+output: workflowr::wflow_html
+---
+
+Here we prepare the "pulse-seq" UMI count data from
+[Montoro *et al* (2018)][montoro-paper]---these are gene expression
+profiles obtained from a novel assay coupling single-cell RNA-seq with
+*in vivo* genetic lineage tracing---for topic modeling analyses.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+Download file `GSE103354_PulseSeq_UMI_counts.rds.gz` from the Gene
+Expression Omnibus (GEO) [website][geo], accession
+[GSE103354][geo-montoro], and save this file to the "data" folder.
+
+Load a couple packages, and some functions written specifically for
+loading and preparing the data.
+
+```{r load-pkgs}
+library(Matrix)
+library(tools)
+source("../code/pulseseq.R")
+```
+
+The single-cell UMI count data are stored as a sparse matrix, with
+one row per tissue sample and one column per gene.
+
+```{r read-data}
+out     <- read_pulseseq_data("../data/GSE103354_PulseSeq_UMI_counts.rds")
+samples <- out$samples
+counts  <- out$counts
+rm(out)
+```
+
+Remove genes that are not expressed in any of the cells.
+
+```{r filter-genes}
+j      <- which(colSums(counts > 0) >= 1)
+counts <- counts[,j]
+```
+
+After these processing steps, the data set should contain UMI count
+data for 21,621 genes and 66,265 samples.
+
+```{r summarize-data}
+cat(sprintf("Number of genes: %d\n",ncol(counts)))
+cat(sprintf("Number of samples: %d\n",nrow(counts)))
+cat(sprintf("Proportion of counts that are non-zero: %0.1f%%.\n",
+            100*mean(counts > 0)))
+```
+
+Three mice were profiled at 0, 30 and 60 days of homeostatic turnover:
+
+```{r summarize-mice-tp}
+table(samples$mouse,samples$tp)
+```
+
+*Krt5-creER/LSL-mT/mG* mice and progeny were labeled with
+membrane-localized EGFP ("GFP"), whereas non-lineage-labeled cells
+were labeled with membrane-localized tdTomato ("Tom"):
+
+```{r summarize-lineage}
+table(samples$lineage)
+```
+
+In the Montoro *et al* analysis, the samples were subdivided into 13
+cell types:
+
+```{r summarize-tissues}
+table(samples$tissue)
+```
+
+Save the processed data.
+
+```{r save-data}
+save(list = c("samples","counts"),file = "pulseseq.RData")
+resaveRdaFiles("pulseseq.RData")
+```
+
+[geo]: https://www.ncbi.nlm.nih.gov/geo
+[geo-montoro]: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE103354
+[montoro-paper]: http://dx.doi.org/10.1038/s41586-018-0393-7
