@@ -14,16 +14,14 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
-Before running these steps on your computer, download file
-`GSE103354_Trachea_droplet_UMIcounts.txt.gz` from the Gene Expression
-Omnibus (GEO) [website][geo], accession [GSE103354][geo-montoro], and
-save this file to the "data" folder. Edit the first line of this file
-so that the column names are "gene", "M1_GCTTGAGAAGTCGT_Club",
-"M1_GGAACACTTTCGTT_Club", *etc*.
+Download file `GSE103354_Trachea_droplet_UMIcounts.txt.gz` from the
+Gene Expression Omnibus (GEO) [website][geo], accession
+[GSE103354][geo-montoro], and save this file to the "data"
+folder. Edit the first line of this file so that the column names are
+"gene", "M1_GCTTGAGAAGTCGT_Club", "M1_GGAACACTTTCGTT_Club", *etc*.
 
-
-Load the readr package, and some functions written specifically for
-loading and preparing the data.
+Load the readr package, and a couple others, and load some functions
+written specifically for loading and preparing the data.
 
 ```{r load-pkgs}
 library(Matrix)

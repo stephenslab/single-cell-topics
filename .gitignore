@@ -10,6 +10,8 @@ data/naive_t
 data/regulatory_t
 data/pbmc_68k
 data/GSE103354_Trachea_droplet_UMIcounts.txt.gz
+data/GSE103354_PulseSeq_UMI_counts.rds
 data/pbmc_purified.RData
 data/pbmc_68k.RData
 data/droplet.RData
+data/pulseseq.RData
