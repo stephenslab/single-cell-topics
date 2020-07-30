@@ -7,7 +7,7 @@ output: workflowr::wflow_html
 Here we prepare the "pulse-seq" UMI count data from
 [Montoro *et al* (2018)][montoro-paper]---these are gene expression
 profiles obtained from a novel assay coupling single-cell RNA-seq with
-*in vivo* genetic lineage tracing---for topic modeling analyses.
+*in vivo* genetic lineage tracing---for topic modeling analysis.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
