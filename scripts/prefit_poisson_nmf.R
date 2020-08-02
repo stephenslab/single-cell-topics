@@ -26,15 +26,14 @@ library(fastTopics)
 
 # Process the command-line arguments.
 parser <- OptionParser()
-parser <- add_option(parser(c("--counts"),type = "character",
-                            default = "counts.rds"))
-parser <- add_option(parser,c("--out","-o"),type = "character",
-                     default = "out.rds")
+parser <- add_option(parser,c("--counts"),type = "character",
+                            default = "counts.rds")
+parser <- add_option(parser,c("--out","-o"),type="character",default="out.rds")
 parser <- add_option(parser,c("--k","-k"),type = "integer",default = 3)
-parser <- add_option(parser,c("--numiter","n"),type = "integer",default = 1000)
+parser <- add_option(parser,c("--numiter","-n"),type="integer",default=1000)
 parser <- add_option(parser,"--nc",type = "integer",default = 1)
 out    <- parse_args(parser)
-countsfile  <- out$data
+countsfile  <- out$counts
 outfile     <- out$out
 k           <- out$k
 numiter     <- out$numiter
@@ -56,7 +55,8 @@ cat(sprintf("Loaded %d x %d counts matrix.\n",nrow(counts),ncol(counts)))
 # The aim here is to run enough EM updates so that it is difficult for
 # the other algorithms to "escape" this local maximum of the
 # likelihood surface.
-cat("Running %d EM updates to identify a good initialization.\n",numiter)
+cat(sprintf("Running %d EM updates to identify a good initialization.\n",
+            numiter))
 timing <- system.time(
   fit <- fit_poisson_nmf(counts,k = k,numiter = numiter,method = "em",
                          control = list(numiter = 4,nc = nc)))

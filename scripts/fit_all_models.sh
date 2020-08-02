@@ -3,7 +3,7 @@
 # The shell commands below will submit Slurm jobs to perform the
 # Poisson NMF model fitting for different choices of the model
 # parameters and optimization settings.
-SCRIPT_PREFIT=prefit_poisson_nmf_purified_pbmc.sbatch
+SCRIPT_PREFIT=prefit_poisson_nmf.sbatch
 SCRIPT_FIT=fit_poisson_nmf_purified_pbmc.sbatch
 
 # "Pre-fit" the models.

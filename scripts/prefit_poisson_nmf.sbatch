@@ -11,8 +11,10 @@
 # illustrating how to use this script.
 
 # Get the command-line arguments.
-K=${1}
-OUTFILE=${2}
+DATFILE=${1}
+K=${2}
+NUMITER=${3}
+OUTFILE=${4}
 
 # For reproducibility, I add version numbers to the "module load" calls.
 module load R/3.5.1
@@ -20,5 +22,5 @@ module load R/3.5.1
 # Run the R script.
 echo "Running prefit_poisson_nmf.R"
 export OPENBLAS_NUM_THREADS=1
-./prefit_poisson_nmf_.R -k ${K} --nc 8 \
+./prefit_poisson_nmf.R --counts ${DATFILE} -k ${K} -n ${NUMITER} --nc 8 \
   -o ${OUTFILE}.rds > ${OUTFILE}.Rout
