@@ -1,22 +1,25 @@
 #! /usr/bin/env Rscript
 #
-# TO DO: Update this description.
-#
-# Script for "pre-fitting" a Poisson non-negative factorization to one
+# Script for "prefitting" a Poisson non-negative factorization to one
 # of the single-cell RNA-seq data sets.
 #
 # This script is intended to be run from the command-line shell, with
 # options that are processed using the optparse package. For example,
-# to fit a rank-4 Poisson non-negative matrix factorization by running
-# SCD updatees with extrapolation, 2 threads, and with results saved
-# to test.rds, run this command:
+# to fit a rank-4 Poisson non-negative matrix factorization to counts
+# data test.RData by running 500 EM updates, 2 threads, and with
+# results saved to prefit_test.rds, run this command:
 #
-#   ./prefit_poisson_nmf_purified_pbmc.R -k 4 --nc 2 -o test.rds
+#   ./prefit_poisson_nmf_purified_pbmc.R --counts test.RData \
+#      -k 4 -n 500 --nc 2 -o prefit_test.rds
 #
-# Running the script without specifying any options will pre-fit a
-# rank-3 Poisson non-negative matrix factorization by running EM
-# updates (without extrapolation), without multithreading, and with
-# results saved to out.rds.
+# Running the script without specifying any options will prefit a
+# rank-3 Poisson non-negative matrix factorization to data set
+# counts.RData by running 1,000 EM updates without multithreading, and
+# with results saved to out.rds.
+#
+# The input .RData file specified by --counts should contain a matrix,
+# "counts", containing the count data that is provided as input to
+# fit_poisson_nmf.
 #
 
 # Load a few packages.
@@ -26,8 +29,7 @@ library(fastTopics)
 
 # Process the command-line arguments.
 parser <- OptionParser()
-parser <- add_option(parser,c("--counts"),type = "character",
-                            default = "counts.rds")
+parser <- add_option(parser,"--counts",type="character",default="counts.RData")
 parser <- add_option(parser,c("--out","-o"),type="character",default="out.rds")
 parser <- add_option(parser,c("--k","-k"),type = "integer",default = 3)
 parser <- add_option(parser,c("--numiter","-n"),type="integer",default=1000)
@@ -50,8 +52,8 @@ cat(sprintf("Loading data from %s.\n",countsfile))
 load(countsfile)
 cat(sprintf("Loaded %d x %d counts matrix.\n",nrow(counts),ncol(counts)))
 
-# PRE-FIT POISSON NON-NEGATIVE MATRIX FACTORIZATION
-# -------------------------------------------------
+# PREFIT POISSON NON-NEGATIVE MATRIX FACTORIZATION
+# ------------------------------------------------
 # The aim here is to run enough EM updates so that it is difficult for
 # the other algorithms to "escape" this local maximum of the
 # likelihood surface.
