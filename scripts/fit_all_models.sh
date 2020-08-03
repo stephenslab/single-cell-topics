@@ -1,24 +1,18 @@
 #!/bin/bash
 
 # The shell commands below will submit Slurm jobs to perform the
-# Poisson NMF model fitting for different choices of the model
-# parameters and optimization settings.
+# Poisson NMF model fitting for all single-cell RNA-seq data sets, and
+# for different choices of the model parameters and optimization
+# settings.
 SCRIPT_PREFIT=prefit_poisson_nmf.sbatch
 SCRIPT_FIT=fit_poisson_nmf_purified_pbmc.sbatch
 
 # "Pre-fit" the models.
-#                        k outfile
-sbatch ${SCRIPT_PREFIT}  2 prefit-k=2
-sbatch ${SCRIPT_PREFIT}  3 prefit-k=3
-sbatch ${SCRIPT_PREFIT}  4 prefit-k=4
-sbatch ${SCRIPT_PREFIT}  5 prefit-k=5
-sbatch ${SCRIPT_PREFIT}  6 prefit-k=6
-sbatch ${SCRIPT_PREFIT}  7 prefit-k=7
-sbatch ${SCRIPT_PREFIT}  8 prefit-k=8
-sbatch ${SCRIPT_PREFIT}  9 prefit-k=9
-sbatch ${SCRIPT_PREFIT} 10 prefit-k=10
-sbatch ${SCRIPT_PREFIT} 11 prefit-k=11
-sbatch ${SCRIPT_PREFIT} 12 prefit-k=12
+#                       data                 k    n outfile
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 13   40 prefit-pbmc-purified-k=13
+sbatch ${SCRIPT_PREFIT} pbmc_68k.RData      13   40 prefit-pbmc-68k-k=13
+sbatch ${SCRIPT_PREFIT} droplet.RData       13   40 prefit-droplet-k=13
+sbatch ${SCRIPT_PREFIT} pulseseq.RData      13   40 prefit-pulseseq-k=13
 
 # Fit rank-2 factorizations, with and without extrapolation.
 #                    k method  ex outfile
