@@ -37,11 +37,33 @@ sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 11 1000 prefit-pbmc-68k-k=11
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 12 1000 prefit-pbmc-68k-k=12
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 13 1000 prefit-pbmc-68k-k=13
 
-#                       data           k    n outfile
-sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 13   40 prefit-pbmc-purified-k=13
+#                       data                 k    n outfile
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  2 1000 prefit-pbmc-purified-k=2
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  3 1000 prefit-pbmc-purified-k=3
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  4 1000 prefit-pbmc-purified-k=4
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  5 1000 prefit-pbmc-purified-k=5
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  6 1000 prefit-pbmc-purified-k=6
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  7 1000 prefit-pbmc-purified-k=7
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  8 1000 prefit-pbmc-purified-k=8
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  9 1000 prefit-pbmc-purified-k=9
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 10 1000 prefit-pbmc-purified-k=10
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 11 1000 prefit-pbmc-purified-k=11
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 12 1000 prefit-pbmc-purified-k=12
+sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 13 1000 prefit-pbmc-purified-k=13
 
-#                       data           k    n outfile
-sbatch ${SCRIPT_PREFIT} pulseseq.RData      13   40 prefit-pulseseq-k=13
+#                       data            k    n outfile
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  2 1000 prefit-pulseseq-k=2
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  3 1000 prefit-pulseseq-k=3
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  4 1000 prefit-pulseseq-k=4
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  5 1000 prefit-pulseseq-k=5
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  6 1000 prefit-pulseseq-k=6
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  7 1000 prefit-pulseseq-k=7
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  8 1000 prefit-pulseseq-k=8
+sbatch ${SCRIPT_PREFIT} pulseseq.RData  9 1000 prefit-pulseseq-k=9
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 10 1000 prefit-pulseseq-k=10
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 11 1000 prefit-pulseseq-k=11
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 12 1000 prefit-pulseseq-k=12
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 13 1000 prefit-pulseseq-k=13
 
 # Fit rank-2 factorizations, with and without extrapolation.
 #                    k method  ex outfile
