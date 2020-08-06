@@ -45,14 +45,6 @@ extrapolate <- !is.null(out$extrapolate)
 nc          <- out$nc
 rm(parser,out)
 
-print(countsfile)
-print(prefitfile)
-print(outfile)
-print(method)
-print(numiter)
-print(extrapolate)
-print(nc)
-
 # Initialize the sequence of pseudorandom numbers.
 set.seed(1)
 
