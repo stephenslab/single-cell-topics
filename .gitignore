@@ -15,3 +15,5 @@ data/pbmc_purified.RData
 data/pbmc_68k.RData
 data/droplet.RData
 data/pulseseq.RData
+output/droplet/rds/prefit-droplet-k=*.rds
+output/pbmc-68k/rds/prefit-pbmc-68k-k=*.rds
