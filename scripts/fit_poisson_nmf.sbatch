@@ -1,43 +1,43 @@
 #!/bin/bash
 
-#SBATCH --partition=mstephens
+#SBATCH --partition=broadwl
 #SBATCH --account=pi-mstephens
-#SBATCH --cpus-per-task=10
-#SBATCH --mem=12G
+#SBATCH --cpus-per-task=8
+#SBATCH --mem=16G
 #SBATCH --time=22:00:00
 
 # This script allocates computing resources (CPUs, memory), loads R,
-# and runs fit_poisson_nmf_purified_pbmc.R. See fit_all_models.sh for
-# examples illustrating how to use this script.
+# and runs fit_poisson_nmf.R. See fit_all_models.sh for examples
+# illustrating how to use this script.
 
 # Get the command-line arguments.
-K=${1}
-METHOD=${2}
-if [[ ${3} == 'yes' ]]
+DAT=${1}
+K=${2}
+METHOD=${3}
+NUMITER=${4}
+if [[ ${5} == "yes" ]]
 then
   EXTRAPOLATE="--extrapolate"
 else
   EXTRAPOLATE=""
 fi
-OUTFILE=${4}
-if [[ $# -lt 5 ]]
-then
-  NUMITER=""
-else
-  NUMITER="--numiter=${5}"
-fi
-if [[ $# -lt 6 ]]
-then
-  PREFIT=""
-else
-  PREFIT="--prefit=${6}"
-fi
+OUTFILE=${6}
+echo dat=${DAT}
+echo k=${K}
+echo method=${METHOD}
+echo numiter=${NUMITER}
+echo extrapolate=${5}
+echo outfile=${OUTFILE}
+
+DATFILE=../data/${DAT}.RData
+PREFIT=../output/${DAT}/rds/prefix-${DAT}-k=${K}.rds
 
 # For reproducibility, I add version numbers to the "module load" calls.
 module load R/3.5.1
 
 # Run the R script.
-echo "Running fit_poisson_nmf_purified_pbmc.R"
+echo "Running fit_poisson_nmf.R"
 export OPENBLAS_NUM_THREADS=1
-./fit_poisson_nmf_purified_pbmc.R -k ${K} --method ${METHOD} --nc 10 \
-  ${EXTRAPOLATE} ${NUMITER} ${PREFIT} -o ${OUTFILE}.rds > ${OUTFILE}.Rout
+./fit_poisson_nmf.R --counts ${DATFILE} --prefit ${PREFIT} \
+  --method ${METHOD} -n ${NUMITER} ${EXTRAPOLATE} --nc 8 \
+  -o ${OUTFILE}.rds > ${OUTFILE}.Rout
