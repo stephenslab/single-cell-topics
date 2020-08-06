@@ -7,7 +7,7 @@
 SCRIPT_PREFIT=prefit_poisson_nmf.sbatch
 SCRIPT_FIT=fit_poisson_nmf.sbatch
 
-# "Pre-fit" to the droplet data.
+# "Pre-fit" factorizations to the droplet data.
 #                       data           k    n outfile
 sbatch ${SCRIPT_PREFIT} droplet.RData  2 1000 prefit-droplet-k=2
 sbatch ${SCRIPT_PREFIT} droplet.RData  3 1000 prefit-droplet-k=3
@@ -22,7 +22,7 @@ sbatch ${SCRIPT_PREFIT} droplet.RData 11 1000 prefit-droplet-k=11
 sbatch ${SCRIPT_PREFIT} droplet.RData 12 1000 prefit-droplet-k=12
 sbatch ${SCRIPT_PREFIT} droplet.RData 13 1000 prefit-droplet-k=13
 
-# "Pre-fit" to the 68k PBMC data.
+# "Pre-fit" factorizations to the 68k PBMC data.
 #                       data            k    n outfile
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData  2 1000 prefit-pbmc-68k-k=2
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData  3 1000 prefit-pbmc-68k-k=3
@@ -37,7 +37,7 @@ sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 11 1000 prefit-pbmc-68k-k=11
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 12 1000 prefit-pbmc-68k-k=12
 sbatch ${SCRIPT_PREFIT} pbmc_68k.RData 13 1000 prefit-pbmc-68k-k=13
 
-# "Pre-fit" to the purified PBMC data.
+# "Pre-fit" factorizations to the purified PBMC data.
 #                       data                 k    n outfile
 sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  2 1000 prefit-pbmc-purified-k=2
 sbatch ${SCRIPT_PREFIT} pbmc_purified.RData  3 1000 prefit-pbmc-purified-k=3
@@ -52,7 +52,7 @@ sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 11 1000 prefit-pbmc-purified-k=11
 sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 12 1000 prefit-pbmc-purified-k=12
 sbatch ${SCRIPT_PREFIT} pbmc_purified.RData 13 1000 prefit-pbmc-purified-k=13
 
-# "Pre-fit" to the pulse-seq data.
+# "Pre-fit" factorizations to the pulse-seq data.
 #                       data            k    n outfile
 sbatch ${SCRIPT_PREFIT} pulseseq.RData  2 1000 prefit-pulseseq-k=2
 sbatch ${SCRIPT_PREFIT} pulseseq.RData  3 1000 prefit-pulseseq-k=3
@@ -67,6 +67,15 @@ sbatch ${SCRIPT_PREFIT} pulseseq.RData 11 1000 prefit-pulseseq-k=11
 sbatch ${SCRIPT_PREFIT} pulseseq.RData 12 1000 prefit-pulseseq-k=12
 sbatch ${SCRIPT_PREFIT} pulseseq.RData 13 1000 prefit-pulseseq-k=13
 
-# Fit rank-2 factorizations, with and without extrapolation.
-#                    data    k method    n  ex outfile
-sbatch ${SCRIPT_FIT} droplet 2 scd    1000 yes fit-droplet-scd-ex-k=2
+# Fit factorizations to droplet data, with and without extrapolation.
+#                    data     k method    n  ex outfile
+sbatch ${SCRIPT_FIT} droplet  2 em     1000  no fit-droplet-em-k=2
+sbatch ${SCRIPT_FIT} droplet  2 ccd    1000  no fit-droplet-ccd-k=2
+sbatch ${SCRIPT_FIT} droplet  2 scd    1000  no fit-droplet-scd-k=2
+sbatch ${SCRIPT_FIT} droplet  2 em     1000 yes fit-droplet-em-ex-k=2
+sbatch ${SCRIPT_FIT} droplet  2 ccd    1000 yes fit-droplet-ccd-ex-k=2
+sbatch ${SCRIPT_FIT} droplet  2 scd    1000 yes fit-droplet-scd-ex-k=2
+
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified 13 scd      40 yes fit-pbmc-purified-scd-ex-k-13
+sbatch ${SCRIPT_FIT} pulseseq      13 scd      40 yes fit-pulseseq-scd-ex-k-13
