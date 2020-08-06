@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --partition=broadwl
+#SBATCH --partition=mstephens
 #SBATCH --account=pi-mstephens
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=16G
@@ -30,7 +30,8 @@ echo extrapolate=${5}
 echo outfile=${OUTFILE}
 
 DATFILE=../data/${DAT}.RData
-PREFIT=../output/${DAT}/rds/prefit-${DAT}-k=${K}.rds
+PREFIT=${DAT//"_"/"-"}
+PREFIT=../output/${PREFIT}/rds/prefit-${PREFIT}-k=${K}.rds
 
 # For reproducibility, I add version numbers to the "module load" calls.
 module load R/3.5.1
