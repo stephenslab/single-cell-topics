@@ -18,8 +18,8 @@
 # with results saved to out.rds.
 #
 # The input .RData file specified by --counts should contain a matrix,
-# "counts", containing the count data that is provided as input to
-# fit_poisson_nmf.
+# "counts", containing the count data that will be provided as input
+# to fit_poisson_nmf.
 #
 
 # Load a few packages.
