@@ -238,3 +238,89 @@ sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000  no fit-pbmc-68k-scd-k=13
 sbatch ${SCRIPT_FIT} pbmc_68k  13 em     1000 yes fit-pbmc-68k-em-ex-k=13
 sbatch ${SCRIPT_FIT} pbmc_68k  13 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=13
 sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000 yes fit-pbmc-68k-scd-ex-k=13
+
+# Fit factorizations to purified PBMC data, with and without extrapolation.
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified  2 em     1000  no fit-pbmc-purified-em-k=2
+sbatch ${SCRIPT_FIT} pbmc_purified  2 ccd    1000  no fit-pbmc-purified-ccd-k=2
+sbatch ${SCRIPT_FIT} pbmc_purified  2 scd    1000  no fit-pbmc-purified-scd-k=2
+sbatch ${SCRIPT_FIT} pbmc_purified  2 em     1000 yes fit-pbmc-purified-em-ex-k=2
+sbatch ${SCRIPT_FIT} pbmc_purified  2 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=2
+sbatch ${SCRIPT_FIT} pbmc_purified  2 scd    1000 yes fit-pbmc-purified-scd-ex-k=2
+
+sbatch ${SCRIPT_FIT} pbmc_purified  3 em     1000  no fit-pbmc-purified-em-k=3
+sbatch ${SCRIPT_FIT} pbmc_purified  3 ccd    1000  no fit-pbmc-purified-ccd-k=3
+sbatch ${SCRIPT_FIT} pbmc_purified  3 scd    1000  no fit-pbmc-purified-scd-k=3
+sbatch ${SCRIPT_FIT} pbmc_purified  3 em     1000 yes fit-pbmc-purified-em-ex-k=3
+sbatch ${SCRIPT_FIT} pbmc_purified  3 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=3
+sbatch ${SCRIPT_FIT} pbmc_purified  3 scd    1000 yes fit-pbmc-purified-scd-ex-k=3
+
+sbatch ${SCRIPT_FIT} pbmc_purified  4 em     1000  no fit-pbmc-purified-em-k=4
+sbatch ${SCRIPT_FIT} pbmc_purified  4 ccd    1000  no fit-pbmc-purified-ccd-k=4
+sbatch ${SCRIPT_FIT} pbmc_purified  4 scd    1000  no fit-pbmc-purified-scd-k=4
+sbatch ${SCRIPT_FIT} pbmc_purified  4 em     1000 yes fit-pbmc-purified-em-ex-k=4
+sbatch ${SCRIPT_FIT} pbmc_purified  4 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=4
+sbatch ${SCRIPT_FIT} pbmc_purified  4 scd    1000 yes fit-pbmc-purified-scd-ex-k=4
+
+sbatch ${SCRIPT_FIT} pbmc_purified  5 em     1000  no fit-pbmc-purified-em-k=5
+sbatch ${SCRIPT_FIT} pbmc_purified  5 ccd    1000  no fit-pbmc-purified-ccd-k=5
+sbatch ${SCRIPT_FIT} pbmc_purified  5 scd    1000  no fit-pbmc-purified-scd-k=5
+sbatch ${SCRIPT_FIT} pbmc_purified  5 em     1000 yes fit-pbmc-purified-em-ex-k=5
+sbatch ${SCRIPT_FIT} pbmc_purified  5 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=5
+sbatch ${SCRIPT_FIT} pbmc_purified  5 scd    1000 yes fit-pbmc-purified-scd-ex-k=5
+
+sbatch ${SCRIPT_FIT} pbmc_purified  6 em     1000  no fit-pbmc-purified-em-k=6
+sbatch ${SCRIPT_FIT} pbmc_purified  6 ccd    1000  no fit-pbmc-purified-ccd-k=6
+sbatch ${SCRIPT_FIT} pbmc_purified  6 scd    1000  no fit-pbmc-purified-scd-k=6
+sbatch ${SCRIPT_FIT} pbmc_purified  6 em     1000 yes fit-pbmc-purified-em-ex-k=6
+sbatch ${SCRIPT_FIT} pbmc_purified  6 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=6
+sbatch ${SCRIPT_FIT} pbmc_purified  6 scd    1000 yes fit-pbmc-purified-scd-ex-k=6
+
+sbatch ${SCRIPT_FIT} pbmc_purified  7 em     1000  no fit-pbmc-purified-em-k=7
+sbatch ${SCRIPT_FIT} pbmc_purified  7 ccd    1000  no fit-pbmc-purified-ccd-k=7
+sbatch ${SCRIPT_FIT} pbmc_purified  7 scd    1000  no fit-pbmc-purified-scd-k=7
+sbatch ${SCRIPT_FIT} pbmc_purified  7 em     1000 yes fit-pbmc-purified-em-ex-k=7
+sbatch ${SCRIPT_FIT} pbmc_purified  7 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=7
+sbatch ${SCRIPT_FIT} pbmc_purified  7 scd    1000 yes fit-pbmc-purified-scd-ex-k=7
+
+sbatch ${SCRIPT_FIT} pbmc_purified  8 em     1000  no fit-pbmc-purified-em-k=8
+sbatch ${SCRIPT_FIT} pbmc_purified  8 ccd    1000  no fit-pbmc-purified-ccd-k=8
+sbatch ${SCRIPT_FIT} pbmc_purified  8 scd    1000  no fit-pbmc-purified-scd-k=8
+sbatch ${SCRIPT_FIT} pbmc_purified  8 em     1000 yes fit-pbmc-purified-em-ex-k=8
+sbatch ${SCRIPT_FIT} pbmc_purified  8 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=8
+sbatch ${SCRIPT_FIT} pbmc_purified  8 scd    1000 yes fit-pbmc-purified-scd-ex-k=8
+
+sbatch ${SCRIPT_FIT} pbmc_purified  9 em     1000  no fit-pbmc-purified-em-k=9
+sbatch ${SCRIPT_FIT} pbmc_purified  9 ccd    1000  no fit-pbmc-purified-ccd-k=9
+sbatch ${SCRIPT_FIT} pbmc_purified  9 scd    1000  no fit-pbmc-purified-scd-k=9
+sbatch ${SCRIPT_FIT} pbmc_purified  9 em     1000 yes fit-pbmc-purified-em-ex-k=9
+sbatch ${SCRIPT_FIT} pbmc_purified  9 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=9
+sbatch ${SCRIPT_FIT} pbmc_purified  9 scd    1000 yes fit-pbmc-purified-scd-ex-k=9
+
+sbatch ${SCRIPT_FIT} pbmc_purified  10 em     1000  no fit-pbmc-purified-em-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified  10 ccd    1000  no fit-pbmc-purified-ccd-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified  10 scd    1000  no fit-pbmc-purified-scd-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified  10 em     1000 yes fit-pbmc-purified-em-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified  10 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified  10 scd    1000 yes fit-pbmc-purified-scd-ex-k=10
+
+sbatch ${SCRIPT_FIT} pbmc_purified  11 em     1000  no fit-pbmc-purified-em-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified  11 ccd    1000  no fit-pbmc-purified-ccd-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified  11 scd    1000  no fit-pbmc-purified-scd-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified  11 em     1000 yes fit-pbmc-purified-em-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified  11 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified  11 scd    1000 yes fit-pbmc-purified-scd-ex-k=11
+
+sbatch ${SCRIPT_FIT} pbmc_purified  12 em     1000  no fit-pbmc-purified-em-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified  12 ccd    1000  no fit-pbmc-purified-ccd-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified  12 scd    1000  no fit-pbmc-purified-scd-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified  12 em     1000 yes fit-pbmc-purified-em-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified  12 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified  12 scd    1000 yes fit-pbmc-purified-scd-ex-k=12
+
+sbatch ${SCRIPT_FIT} pbmc_purified  13 em     1000  no fit-pbmc-purified-em-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified  13 ccd    1000  no fit-pbmc-purified-ccd-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified  13 scd    1000  no fit-pbmc-purified-scd-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified  13 em     1000 yes fit-pbmc-purified-em-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified  13 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified  13 scd    1000 yes fit-pbmc-purified-scd-ex-k=13
