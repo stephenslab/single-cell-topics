@@ -16,7 +16,8 @@ data/pbmc_68k.RData
 data/droplet.RData
 data/pulseseq.RData
 output/droplet/rds/prefit-droplet-k=*.rds
+output/droplet/rds/fit-droplet-*.rds
 output/pbmc-68k/rds/prefit-pbmc-68k-k=*.rds
+output/pbmc-68k/rds/fit-pbmc-68k-*.rds
 output/pbmc-purified/rds/prefit-pbmc-purified-k=*.rds
 output/pulseseq/rds/prefit-pulseseq-k=*.rds
-output/droplet/rds/fit-droplet-*.rds
