@@ -153,6 +153,88 @@ sbatch ${SCRIPT_FIT} droplet  13 em     1000 yes fit-droplet-em-ex-k=13
 sbatch ${SCRIPT_FIT} droplet  13 ccd    1000 yes fit-droplet-ccd-ex-k=13
 sbatch ${SCRIPT_FIT} droplet  13 scd    1000 yes fit-droplet-scd-ex-k=13
 
-#                    data           k method    n  ex outfile
-sbatch ${SCRIPT_FIT} pbmc_purified 13 scd    1000 yes fit-pbmc-purified-scd-ex-k-13
-sbatch ${SCRIPT_FIT} pulseseq      13 scd    1000 yes fit-pulseseq-scd-ex-k-13
+# Fit factorizations to 68k PBMC data, with and without extrapolation.
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_68k  2 em     1000  no fit-pbmc-68k-em-k=2
+sbatch ${SCRIPT_FIT} pbmc_68k  2 ccd    1000  no fit-pbmc-68k-ccd-k=2
+sbatch ${SCRIPT_FIT} pbmc_68k  2 scd    1000  no fit-pbmc-68k-scd-k=2
+sbatch ${SCRIPT_FIT} pbmc_68k  2 em     1000 yes fit-pbmc-68k-em-ex-k=2
+sbatch ${SCRIPT_FIT} pbmc_68k  2 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=2
+sbatch ${SCRIPT_FIT} pbmc_68k  2 scd    1000 yes fit-pbmc-68k-scd-ex-k=2
+
+sbatch ${SCRIPT_FIT} pbmc_68k  3 em     1000  no fit-pbmc-68k-em-k=3
+sbatch ${SCRIPT_FIT} pbmc_68k  3 ccd    1000  no fit-pbmc-68k-ccd-k=3
+sbatch ${SCRIPT_FIT} pbmc_68k  3 scd    1000  no fit-pbmc-68k-scd-k=3
+sbatch ${SCRIPT_FIT} pbmc_68k  3 em     1000 yes fit-pbmc-68k-em-ex-k=3
+sbatch ${SCRIPT_FIT} pbmc_68k  3 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=3
+sbatch ${SCRIPT_FIT} pbmc_68k  3 scd    1000 yes fit-pbmc-68k-scd-ex-k=3
+
+sbatch ${SCRIPT_FIT} pbmc_68k  4 em     1000  no fit-pbmc-68k-em-k=4
+sbatch ${SCRIPT_FIT} pbmc_68k  4 ccd    1000  no fit-pbmc-68k-ccd-k=4
+sbatch ${SCRIPT_FIT} pbmc_68k  4 scd    1000  no fit-pbmc-68k-scd-k=4
+sbatch ${SCRIPT_FIT} pbmc_68k  4 em     1000 yes fit-pbmc-68k-em-ex-k=4
+sbatch ${SCRIPT_FIT} pbmc_68k  4 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=4
+sbatch ${SCRIPT_FIT} pbmc_68k  4 scd    1000 yes fit-pbmc-68k-scd-ex-k=4
+
+sbatch ${SCRIPT_FIT} pbmc_68k  5 em     1000  no fit-pbmc-68k-em-k=5
+sbatch ${SCRIPT_FIT} pbmc_68k  5 ccd    1000  no fit-pbmc-68k-ccd-k=5
+sbatch ${SCRIPT_FIT} pbmc_68k  5 scd    1000  no fit-pbmc-68k-scd-k=5
+sbatch ${SCRIPT_FIT} pbmc_68k  5 em     1000 yes fit-pbmc-68k-em-ex-k=5
+sbatch ${SCRIPT_FIT} pbmc_68k  5 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=5
+sbatch ${SCRIPT_FIT} pbmc_68k  5 scd    1000 yes fit-pbmc-68k-scd-ex-k=5
+
+sbatch ${SCRIPT_FIT} pbmc_68k  6 em     1000  no fit-pbmc-68k-em-k=6
+sbatch ${SCRIPT_FIT} pbmc_68k  6 ccd    1000  no fit-pbmc-68k-ccd-k=6
+sbatch ${SCRIPT_FIT} pbmc_68k  6 scd    1000  no fit-pbmc-68k-scd-k=6
+sbatch ${SCRIPT_FIT} pbmc_68k  6 em     1000 yes fit-pbmc-68k-em-ex-k=6
+sbatch ${SCRIPT_FIT} pbmc_68k  6 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=6
+sbatch ${SCRIPT_FIT} pbmc_68k  6 scd    1000 yes fit-pbmc-68k-scd-ex-k=6
+
+sbatch ${SCRIPT_FIT} pbmc_68k  7 em     1000  no fit-pbmc-68k-em-k=7
+sbatch ${SCRIPT_FIT} pbmc_68k  7 ccd    1000  no fit-pbmc-68k-ccd-k=7
+sbatch ${SCRIPT_FIT} pbmc_68k  7 scd    1000  no fit-pbmc-68k-scd-k=7
+sbatch ${SCRIPT_FIT} pbmc_68k  7 em     1000 yes fit-pbmc-68k-em-ex-k=7
+sbatch ${SCRIPT_FIT} pbmc_68k  7 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=7
+sbatch ${SCRIPT_FIT} pbmc_68k  7 scd    1000 yes fit-pbmc-68k-scd-ex-k=7
+
+sbatch ${SCRIPT_FIT} pbmc_68k  8 em     1000  no fit-pbmc-68k-em-k=8
+sbatch ${SCRIPT_FIT} pbmc_68k  8 ccd    1000  no fit-pbmc-68k-ccd-k=8
+sbatch ${SCRIPT_FIT} pbmc_68k  8 scd    1000  no fit-pbmc-68k-scd-k=8
+sbatch ${SCRIPT_FIT} pbmc_68k  8 em     1000 yes fit-pbmc-68k-em-ex-k=8
+sbatch ${SCRIPT_FIT} pbmc_68k  8 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=8
+sbatch ${SCRIPT_FIT} pbmc_68k  8 scd    1000 yes fit-pbmc-68k-scd-ex-k=8
+
+sbatch ${SCRIPT_FIT} pbmc_68k  9 em     1000  no fit-pbmc-68k-em-k=9
+sbatch ${SCRIPT_FIT} pbmc_68k  9 ccd    1000  no fit-pbmc-68k-ccd-k=9
+sbatch ${SCRIPT_FIT} pbmc_68k  9 scd    1000  no fit-pbmc-68k-scd-k=9
+sbatch ${SCRIPT_FIT} pbmc_68k  9 em     1000 yes fit-pbmc-68k-em-ex-k=9
+sbatch ${SCRIPT_FIT} pbmc_68k  9 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=9
+sbatch ${SCRIPT_FIT} pbmc_68k  9 scd    1000 yes fit-pbmc-68k-scd-ex-k=9
+
+sbatch ${SCRIPT_FIT} pbmc_68k  10 em     1000  no fit-pbmc-68k-em-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k  10 ccd    1000  no fit-pbmc-68k-ccd-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k  10 scd    1000  no fit-pbmc-68k-scd-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k  10 em     1000 yes fit-pbmc-68k-em-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k  10 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k  10 scd    1000 yes fit-pbmc-68k-scd-ex-k=10
+
+sbatch ${SCRIPT_FIT} pbmc_68k  11 em     1000  no fit-pbmc-68k-em-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k  11 ccd    1000  no fit-pbmc-68k-ccd-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k  11 scd    1000  no fit-pbmc-68k-scd-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k  11 em     1000 yes fit-pbmc-68k-em-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k  11 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k  11 scd    1000 yes fit-pbmc-68k-scd-ex-k=11
+
+sbatch ${SCRIPT_FIT} pbmc_68k  12 em     1000  no fit-pbmc-68k-em-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k  12 ccd    1000  no fit-pbmc-68k-ccd-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k  12 scd    1000  no fit-pbmc-68k-scd-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k  12 em     1000 yes fit-pbmc-68k-em-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k  12 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k  12 scd    1000 yes fit-pbmc-68k-scd-ex-k=12
+
+sbatch ${SCRIPT_FIT} pbmc_68k  13 em     1000  no fit-pbmc-68k-em-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k  13 ccd    1000  no fit-pbmc-68k-ccd-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000  no fit-pbmc-68k-scd-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k  13 em     1000 yes fit-pbmc-68k-em-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k  13 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000 yes fit-pbmc-68k-scd-ex-k=13
