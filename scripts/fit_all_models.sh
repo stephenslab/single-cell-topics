@@ -76,6 +76,7 @@ sbatch ${SCRIPT_FIT} droplet  2 em     1000 yes fit-droplet-em-ex-k=2
 sbatch ${SCRIPT_FIT} droplet  2 ccd    1000 yes fit-droplet-ccd-ex-k=2
 sbatch ${SCRIPT_FIT} droplet  2 scd    1000 yes fit-droplet-scd-ex-k=2
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  3 em     1000  no fit-droplet-em-k=3
 sbatch ${SCRIPT_FIT} droplet  3 ccd    1000  no fit-droplet-ccd-k=3
 sbatch ${SCRIPT_FIT} droplet  3 scd    1000  no fit-droplet-scd-k=3
@@ -83,6 +84,7 @@ sbatch ${SCRIPT_FIT} droplet  3 em     1000 yes fit-droplet-em-ex-k=3
 sbatch ${SCRIPT_FIT} droplet  3 ccd    1000 yes fit-droplet-ccd-ex-k=3
 sbatch ${SCRIPT_FIT} droplet  3 scd    1000 yes fit-droplet-scd-ex-k=3
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  4 em     1000  no fit-droplet-em-k=4
 sbatch ${SCRIPT_FIT} droplet  4 ccd    1000  no fit-droplet-ccd-k=4
 sbatch ${SCRIPT_FIT} droplet  4 scd    1000  no fit-droplet-scd-k=4
@@ -90,6 +92,7 @@ sbatch ${SCRIPT_FIT} droplet  4 em     1000 yes fit-droplet-em-ex-k=4
 sbatch ${SCRIPT_FIT} droplet  4 ccd    1000 yes fit-droplet-ccd-ex-k=4
 sbatch ${SCRIPT_FIT} droplet  4 scd    1000 yes fit-droplet-scd-ex-k=4
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  5 em     1000  no fit-droplet-em-k=5
 sbatch ${SCRIPT_FIT} droplet  5 ccd    1000  no fit-droplet-ccd-k=5
 sbatch ${SCRIPT_FIT} droplet  5 scd    1000  no fit-droplet-scd-k=5
@@ -97,6 +100,7 @@ sbatch ${SCRIPT_FIT} droplet  5 em     1000 yes fit-droplet-em-ex-k=5
 sbatch ${SCRIPT_FIT} droplet  5 ccd    1000 yes fit-droplet-ccd-ex-k=5
 sbatch ${SCRIPT_FIT} droplet  5 scd    1000 yes fit-droplet-scd-ex-k=5
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  6 em     1000  no fit-droplet-em-k=6
 sbatch ${SCRIPT_FIT} droplet  6 ccd    1000  no fit-droplet-ccd-k=6
 sbatch ${SCRIPT_FIT} droplet  6 scd    1000  no fit-droplet-scd-k=6
@@ -104,6 +108,7 @@ sbatch ${SCRIPT_FIT} droplet  6 em     1000 yes fit-droplet-em-ex-k=6
 sbatch ${SCRIPT_FIT} droplet  6 ccd    1000 yes fit-droplet-ccd-ex-k=6
 sbatch ${SCRIPT_FIT} droplet  6 scd    1000 yes fit-droplet-scd-ex-k=6
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  7 em     1000  no fit-droplet-em-k=7
 sbatch ${SCRIPT_FIT} droplet  7 ccd    1000  no fit-droplet-ccd-k=7
 sbatch ${SCRIPT_FIT} droplet  7 scd    1000  no fit-droplet-scd-k=7
@@ -111,6 +116,7 @@ sbatch ${SCRIPT_FIT} droplet  7 em     1000 yes fit-droplet-em-ex-k=7
 sbatch ${SCRIPT_FIT} droplet  7 ccd    1000 yes fit-droplet-ccd-ex-k=7
 sbatch ${SCRIPT_FIT} droplet  7 scd    1000 yes fit-droplet-scd-ex-k=7
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  8 em     1000  no fit-droplet-em-k=8
 sbatch ${SCRIPT_FIT} droplet  8 ccd    1000  no fit-droplet-ccd-k=8
 sbatch ${SCRIPT_FIT} droplet  8 scd    1000  no fit-droplet-scd-k=8
@@ -118,6 +124,7 @@ sbatch ${SCRIPT_FIT} droplet  8 em     1000 yes fit-droplet-em-ex-k=8
 sbatch ${SCRIPT_FIT} droplet  8 ccd    1000 yes fit-droplet-ccd-ex-k=8
 sbatch ${SCRIPT_FIT} droplet  8 scd    1000 yes fit-droplet-scd-ex-k=8
 
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet  9 em     1000  no fit-droplet-em-k=9
 sbatch ${SCRIPT_FIT} droplet  9 ccd    1000  no fit-droplet-ccd-k=9
 sbatch ${SCRIPT_FIT} droplet  9 scd    1000  no fit-droplet-scd-k=9
@@ -125,33 +132,37 @@ sbatch ${SCRIPT_FIT} droplet  9 em     1000 yes fit-droplet-em-ex-k=9
 sbatch ${SCRIPT_FIT} droplet  9 ccd    1000 yes fit-droplet-ccd-ex-k=9
 sbatch ${SCRIPT_FIT} droplet  9 scd    1000 yes fit-droplet-scd-ex-k=9
 
-sbatch ${SCRIPT_FIT} droplet  10 em     1000  no fit-droplet-em-k=10
-sbatch ${SCRIPT_FIT} droplet  10 ccd    1000  no fit-droplet-ccd-k=10
-sbatch ${SCRIPT_FIT} droplet  10 scd    1000  no fit-droplet-scd-k=10
-sbatch ${SCRIPT_FIT} droplet  10 em     1000 yes fit-droplet-em-ex-k=10
-sbatch ${SCRIPT_FIT} droplet  10 ccd    1000 yes fit-droplet-ccd-ex-k=10
-sbatch ${SCRIPT_FIT} droplet  10 scd    1000 yes fit-droplet-scd-ex-k=10
+#                    data     k method    n  ex outfile
+sbatch ${SCRIPT_FIT} droplet 10 em     1000  no fit-droplet-em-k=10
+sbatch ${SCRIPT_FIT} droplet 10 ccd    1000  no fit-droplet-ccd-k=10
+sbatch ${SCRIPT_FIT} droplet 10 scd    1000  no fit-droplet-scd-k=10
+sbatch ${SCRIPT_FIT} droplet 10 em     1000 yes fit-droplet-em-ex-k=10
+sbatch ${SCRIPT_FIT} droplet 10 ccd    1000 yes fit-droplet-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} droplet 10 scd    1000 yes fit-droplet-scd-ex-k=10
 
-sbatch ${SCRIPT_FIT} droplet  11 em     1000  no fit-droplet-em-k=11
-sbatch ${SCRIPT_FIT} droplet  11 ccd    1000  no fit-droplet-ccd-k=11
-sbatch ${SCRIPT_FIT} droplet  11 scd    1000  no fit-droplet-scd-k=11
-sbatch ${SCRIPT_FIT} droplet  11 em     1000 yes fit-droplet-em-ex-k=11
-sbatch ${SCRIPT_FIT} droplet  11 ccd    1000 yes fit-droplet-ccd-ex-k=11
-sbatch ${SCRIPT_FIT} droplet  11 scd    1000 yes fit-droplet-scd-ex-k=11
+#                    data     k method    n  ex outfile
+sbatch ${SCRIPT_FIT} droplet 11 em     1000  no fit-droplet-em-k=11
+sbatch ${SCRIPT_FIT} droplet 11 ccd    1000  no fit-droplet-ccd-k=11
+sbatch ${SCRIPT_FIT} droplet 11 scd    1000  no fit-droplet-scd-k=11
+sbatch ${SCRIPT_FIT} droplet 11 em     1000 yes fit-droplet-em-ex-k=11
+sbatch ${SCRIPT_FIT} droplet 11 ccd    1000 yes fit-droplet-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} droplet 11 scd    1000 yes fit-droplet-scd-ex-k=11
 
-sbatch ${SCRIPT_FIT} droplet  12 em     1000  no fit-droplet-em-k=12
-sbatch ${SCRIPT_FIT} droplet  12 ccd    1000  no fit-droplet-ccd-k=12
-sbatch ${SCRIPT_FIT} droplet  12 scd    1000  no fit-droplet-scd-k=12
-sbatch ${SCRIPT_FIT} droplet  12 em     1000 yes fit-droplet-em-ex-k=12
-sbatch ${SCRIPT_FIT} droplet  12 ccd    1000 yes fit-droplet-ccd-ex-k=12
-sbatch ${SCRIPT_FIT} droplet  12 scd    1000 yes fit-droplet-scd-ex-k=12
+#                    data     k method    n  ex outfile
+sbatch ${SCRIPT_FIT} droplet 12 em     1000  no fit-droplet-em-k=12
+sbatch ${SCRIPT_FIT} droplet 12 ccd    1000  no fit-droplet-ccd-k=12
+sbatch ${SCRIPT_FIT} droplet 12 scd    1000  no fit-droplet-scd-k=12
+sbatch ${SCRIPT_FIT} droplet 12 em     1000 yes fit-droplet-em-ex-k=12
+sbatch ${SCRIPT_FIT} droplet 12 ccd    1000 yes fit-droplet-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} droplet 12 scd    1000 yes fit-droplet-scd-ex-k=12
 
-sbatch ${SCRIPT_FIT} droplet  13 em     1000  no fit-droplet-em-k=13
-sbatch ${SCRIPT_FIT} droplet  13 ccd    1000  no fit-droplet-ccd-k=13
-sbatch ${SCRIPT_FIT} droplet  13 scd    1000  no fit-droplet-scd-k=13
-sbatch ${SCRIPT_FIT} droplet  13 em     1000 yes fit-droplet-em-ex-k=13
-sbatch ${SCRIPT_FIT} droplet  13 ccd    1000 yes fit-droplet-ccd-ex-k=13
-sbatch ${SCRIPT_FIT} droplet  13 scd    1000 yes fit-droplet-scd-ex-k=13
+#                    data     k method    n  ex outfile
+sbatch ${SCRIPT_FIT} droplet 13 em     1000  no fit-droplet-em-k=13
+sbatch ${SCRIPT_FIT} droplet 13 ccd    1000  no fit-droplet-ccd-k=13
+sbatch ${SCRIPT_FIT} droplet 13 scd    1000  no fit-droplet-scd-k=13
+sbatch ${SCRIPT_FIT} droplet 13 em     1000 yes fit-droplet-em-ex-k=13
+sbatch ${SCRIPT_FIT} droplet 13 ccd    1000 yes fit-droplet-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} droplet 13 scd    1000 yes fit-droplet-scd-ex-k=13
 
 # Fit factorizations to 68k PBMC data, with and without extrapolation.
 #                    data      k method    n  ex outfile
@@ -162,6 +173,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  2 em     1000 yes fit-pbmc-68k-em-ex-k=2
 sbatch ${SCRIPT_FIT} pbmc_68k  2 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=2
 sbatch ${SCRIPT_FIT} pbmc_68k  2 scd    1000 yes fit-pbmc-68k-scd-ex-k=2
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  3 em     1000  no fit-pbmc-68k-em-k=3
 sbatch ${SCRIPT_FIT} pbmc_68k  3 ccd    1000  no fit-pbmc-68k-ccd-k=3
 sbatch ${SCRIPT_FIT} pbmc_68k  3 scd    1000  no fit-pbmc-68k-scd-k=3
@@ -169,6 +181,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  3 em     1000 yes fit-pbmc-68k-em-ex-k=3
 sbatch ${SCRIPT_FIT} pbmc_68k  3 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=3
 sbatch ${SCRIPT_FIT} pbmc_68k  3 scd    1000 yes fit-pbmc-68k-scd-ex-k=3
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  4 em     1000  no fit-pbmc-68k-em-k=4
 sbatch ${SCRIPT_FIT} pbmc_68k  4 ccd    1000  no fit-pbmc-68k-ccd-k=4
 sbatch ${SCRIPT_FIT} pbmc_68k  4 scd    1000  no fit-pbmc-68k-scd-k=4
@@ -176,6 +189,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  4 em     1000 yes fit-pbmc-68k-em-ex-k=4
 sbatch ${SCRIPT_FIT} pbmc_68k  4 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=4
 sbatch ${SCRIPT_FIT} pbmc_68k  4 scd    1000 yes fit-pbmc-68k-scd-ex-k=4
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  5 em     1000  no fit-pbmc-68k-em-k=5
 sbatch ${SCRIPT_FIT} pbmc_68k  5 ccd    1000  no fit-pbmc-68k-ccd-k=5
 sbatch ${SCRIPT_FIT} pbmc_68k  5 scd    1000  no fit-pbmc-68k-scd-k=5
@@ -183,6 +197,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  5 em     1000 yes fit-pbmc-68k-em-ex-k=5
 sbatch ${SCRIPT_FIT} pbmc_68k  5 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=5
 sbatch ${SCRIPT_FIT} pbmc_68k  5 scd    1000 yes fit-pbmc-68k-scd-ex-k=5
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  6 em     1000  no fit-pbmc-68k-em-k=6
 sbatch ${SCRIPT_FIT} pbmc_68k  6 ccd    1000  no fit-pbmc-68k-ccd-k=6
 sbatch ${SCRIPT_FIT} pbmc_68k  6 scd    1000  no fit-pbmc-68k-scd-k=6
@@ -190,6 +205,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  6 em     1000 yes fit-pbmc-68k-em-ex-k=6
 sbatch ${SCRIPT_FIT} pbmc_68k  6 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=6
 sbatch ${SCRIPT_FIT} pbmc_68k  6 scd    1000 yes fit-pbmc-68k-scd-ex-k=6
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  7 em     1000  no fit-pbmc-68k-em-k=7
 sbatch ${SCRIPT_FIT} pbmc_68k  7 ccd    1000  no fit-pbmc-68k-ccd-k=7
 sbatch ${SCRIPT_FIT} pbmc_68k  7 scd    1000  no fit-pbmc-68k-scd-k=7
@@ -197,6 +213,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  7 em     1000 yes fit-pbmc-68k-em-ex-k=7
 sbatch ${SCRIPT_FIT} pbmc_68k  7 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=7
 sbatch ${SCRIPT_FIT} pbmc_68k  7 scd    1000 yes fit-pbmc-68k-scd-ex-k=7
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  8 em     1000  no fit-pbmc-68k-em-k=8
 sbatch ${SCRIPT_FIT} pbmc_68k  8 ccd    1000  no fit-pbmc-68k-ccd-k=8
 sbatch ${SCRIPT_FIT} pbmc_68k  8 scd    1000  no fit-pbmc-68k-scd-k=8
@@ -204,6 +221,7 @@ sbatch ${SCRIPT_FIT} pbmc_68k  8 em     1000 yes fit-pbmc-68k-em-ex-k=8
 sbatch ${SCRIPT_FIT} pbmc_68k  8 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=8
 sbatch ${SCRIPT_FIT} pbmc_68k  8 scd    1000 yes fit-pbmc-68k-scd-ex-k=8
 
+#                    data      k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_68k  9 em     1000  no fit-pbmc-68k-em-k=9
 sbatch ${SCRIPT_FIT} pbmc_68k  9 ccd    1000  no fit-pbmc-68k-ccd-k=9
 sbatch ${SCRIPT_FIT} pbmc_68k  9 scd    1000  no fit-pbmc-68k-scd-k=9
@@ -211,33 +229,37 @@ sbatch ${SCRIPT_FIT} pbmc_68k  9 em     1000 yes fit-pbmc-68k-em-ex-k=9
 sbatch ${SCRIPT_FIT} pbmc_68k  9 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=9
 sbatch ${SCRIPT_FIT} pbmc_68k  9 scd    1000 yes fit-pbmc-68k-scd-ex-k=9
 
-sbatch ${SCRIPT_FIT} pbmc_68k  10 em     1000  no fit-pbmc-68k-em-k=10
-sbatch ${SCRIPT_FIT} pbmc_68k  10 ccd    1000  no fit-pbmc-68k-ccd-k=10
-sbatch ${SCRIPT_FIT} pbmc_68k  10 scd    1000  no fit-pbmc-68k-scd-k=10
-sbatch ${SCRIPT_FIT} pbmc_68k  10 em     1000 yes fit-pbmc-68k-em-ex-k=10
-sbatch ${SCRIPT_FIT} pbmc_68k  10 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=10
-sbatch ${SCRIPT_FIT} pbmc_68k  10 scd    1000 yes fit-pbmc-68k-scd-ex-k=10
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_68k 10 em     1000  no fit-pbmc-68k-em-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k 10 ccd    1000  no fit-pbmc-68k-ccd-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k 10 scd    1000  no fit-pbmc-68k-scd-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k 10 em     1000 yes fit-pbmc-68k-em-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k 10 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_68k 10 scd    1000 yes fit-pbmc-68k-scd-ex-k=10
 
-sbatch ${SCRIPT_FIT} pbmc_68k  11 em     1000  no fit-pbmc-68k-em-k=11
-sbatch ${SCRIPT_FIT} pbmc_68k  11 ccd    1000  no fit-pbmc-68k-ccd-k=11
-sbatch ${SCRIPT_FIT} pbmc_68k  11 scd    1000  no fit-pbmc-68k-scd-k=11
-sbatch ${SCRIPT_FIT} pbmc_68k  11 em     1000 yes fit-pbmc-68k-em-ex-k=11
-sbatch ${SCRIPT_FIT} pbmc_68k  11 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=11
-sbatch ${SCRIPT_FIT} pbmc_68k  11 scd    1000 yes fit-pbmc-68k-scd-ex-k=11
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_68k 11 em     1000  no fit-pbmc-68k-em-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k 11 ccd    1000  no fit-pbmc-68k-ccd-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k 11 scd    1000  no fit-pbmc-68k-scd-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k 11 em     1000 yes fit-pbmc-68k-em-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k 11 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_68k 11 scd    1000 yes fit-pbmc-68k-scd-ex-k=11
 
-sbatch ${SCRIPT_FIT} pbmc_68k  12 em     1000  no fit-pbmc-68k-em-k=12
-sbatch ${SCRIPT_FIT} pbmc_68k  12 ccd    1000  no fit-pbmc-68k-ccd-k=12
-sbatch ${SCRIPT_FIT} pbmc_68k  12 scd    1000  no fit-pbmc-68k-scd-k=12
-sbatch ${SCRIPT_FIT} pbmc_68k  12 em     1000 yes fit-pbmc-68k-em-ex-k=12
-sbatch ${SCRIPT_FIT} pbmc_68k  12 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=12
-sbatch ${SCRIPT_FIT} pbmc_68k  12 scd    1000 yes fit-pbmc-68k-scd-ex-k=12
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_68k 12 em     1000  no fit-pbmc-68k-em-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k 12 ccd    1000  no fit-pbmc-68k-ccd-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k 12 scd    1000  no fit-pbmc-68k-scd-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k 12 em     1000 yes fit-pbmc-68k-em-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k 12 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_68k 12 scd    1000 yes fit-pbmc-68k-scd-ex-k=12
 
-sbatch ${SCRIPT_FIT} pbmc_68k  13 em     1000  no fit-pbmc-68k-em-k=13
-sbatch ${SCRIPT_FIT} pbmc_68k  13 ccd    1000  no fit-pbmc-68k-ccd-k=13
-sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000  no fit-pbmc-68k-scd-k=13
-sbatch ${SCRIPT_FIT} pbmc_68k  13 em     1000 yes fit-pbmc-68k-em-ex-k=13
-sbatch ${SCRIPT_FIT} pbmc_68k  13 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=13
-sbatch ${SCRIPT_FIT} pbmc_68k  13 scd    1000 yes fit-pbmc-68k-scd-ex-k=13
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_68k 13 em     1000  no fit-pbmc-68k-em-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k 13 ccd    1000  no fit-pbmc-68k-ccd-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k 13 scd    1000  no fit-pbmc-68k-scd-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k 13 em     1000 yes fit-pbmc-68k-em-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k 13 ccd    1000 yes fit-pbmc-68k-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_68k 13 scd    1000 yes fit-pbmc-68k-scd-ex-k=13
 
 # Fit factorizations to purified PBMC data, with and without extrapolation.
 #                    data           k method    n  ex outfile
@@ -248,6 +270,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  2 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  2 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=2
 sbatch ${SCRIPT_FIT} pbmc_purified  2 scd    1000 yes fit-pbmc-purified-scd-ex-k=2
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  3 em     1000  no fit-pbmc-purified-em-k=3
 sbatch ${SCRIPT_FIT} pbmc_purified  3 ccd    1000  no fit-pbmc-purified-ccd-k=3
 sbatch ${SCRIPT_FIT} pbmc_purified  3 scd    1000  no fit-pbmc-purified-scd-k=3
@@ -255,6 +278,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  3 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  3 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=3
 sbatch ${SCRIPT_FIT} pbmc_purified  3 scd    1000 yes fit-pbmc-purified-scd-ex-k=3
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  4 em     1000  no fit-pbmc-purified-em-k=4
 sbatch ${SCRIPT_FIT} pbmc_purified  4 ccd    1000  no fit-pbmc-purified-ccd-k=4
 sbatch ${SCRIPT_FIT} pbmc_purified  4 scd    1000  no fit-pbmc-purified-scd-k=4
@@ -262,6 +286,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  4 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  4 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=4
 sbatch ${SCRIPT_FIT} pbmc_purified  4 scd    1000 yes fit-pbmc-purified-scd-ex-k=4
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  5 em     1000  no fit-pbmc-purified-em-k=5
 sbatch ${SCRIPT_FIT} pbmc_purified  5 ccd    1000  no fit-pbmc-purified-ccd-k=5
 sbatch ${SCRIPT_FIT} pbmc_purified  5 scd    1000  no fit-pbmc-purified-scd-k=5
@@ -269,6 +294,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  5 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  5 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=5
 sbatch ${SCRIPT_FIT} pbmc_purified  5 scd    1000 yes fit-pbmc-purified-scd-ex-k=5
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  6 em     1000  no fit-pbmc-purified-em-k=6
 sbatch ${SCRIPT_FIT} pbmc_purified  6 ccd    1000  no fit-pbmc-purified-ccd-k=6
 sbatch ${SCRIPT_FIT} pbmc_purified  6 scd    1000  no fit-pbmc-purified-scd-k=6
@@ -276,6 +302,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  6 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  6 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=6
 sbatch ${SCRIPT_FIT} pbmc_purified  6 scd    1000 yes fit-pbmc-purified-scd-ex-k=6
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  7 em     1000  no fit-pbmc-purified-em-k=7
 sbatch ${SCRIPT_FIT} pbmc_purified  7 ccd    1000  no fit-pbmc-purified-ccd-k=7
 sbatch ${SCRIPT_FIT} pbmc_purified  7 scd    1000  no fit-pbmc-purified-scd-k=7
@@ -283,6 +310,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  7 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  7 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=7
 sbatch ${SCRIPT_FIT} pbmc_purified  7 scd    1000 yes fit-pbmc-purified-scd-ex-k=7
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  8 em     1000  no fit-pbmc-purified-em-k=8
 sbatch ${SCRIPT_FIT} pbmc_purified  8 ccd    1000  no fit-pbmc-purified-ccd-k=8
 sbatch ${SCRIPT_FIT} pbmc_purified  8 scd    1000  no fit-pbmc-purified-scd-k=8
@@ -290,6 +318,7 @@ sbatch ${SCRIPT_FIT} pbmc_purified  8 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  8 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=8
 sbatch ${SCRIPT_FIT} pbmc_purified  8 scd    1000 yes fit-pbmc-purified-scd-ex-k=8
 
+#                    data           k method    n  ex outfile
 sbatch ${SCRIPT_FIT} pbmc_purified  9 em     1000  no fit-pbmc-purified-em-k=9
 sbatch ${SCRIPT_FIT} pbmc_purified  9 ccd    1000  no fit-pbmc-purified-ccd-k=9
 sbatch ${SCRIPT_FIT} pbmc_purified  9 scd    1000  no fit-pbmc-purified-scd-k=9
@@ -297,30 +326,131 @@ sbatch ${SCRIPT_FIT} pbmc_purified  9 em     1000 yes fit-pbmc-purified-em-ex-k=
 sbatch ${SCRIPT_FIT} pbmc_purified  9 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=9
 sbatch ${SCRIPT_FIT} pbmc_purified  9 scd    1000 yes fit-pbmc-purified-scd-ex-k=9
 
-sbatch ${SCRIPT_FIT} pbmc_purified  10 em     1000  no fit-pbmc-purified-em-k=10
-sbatch ${SCRIPT_FIT} pbmc_purified  10 ccd    1000  no fit-pbmc-purified-ccd-k=10
-sbatch ${SCRIPT_FIT} pbmc_purified  10 scd    1000  no fit-pbmc-purified-scd-k=10
-sbatch ${SCRIPT_FIT} pbmc_purified  10 em     1000 yes fit-pbmc-purified-em-ex-k=10
-sbatch ${SCRIPT_FIT} pbmc_purified  10 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=10
-sbatch ${SCRIPT_FIT} pbmc_purified  10 scd    1000 yes fit-pbmc-purified-scd-ex-k=10
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified 10 em     1000  no fit-pbmc-purified-em-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified 10 ccd    1000  no fit-pbmc-purified-ccd-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified 10 scd    1000  no fit-pbmc-purified-scd-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified 10 em     1000 yes fit-pbmc-purified-em-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified 10 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} pbmc_purified 10 scd    1000 yes fit-pbmc-purified-scd-ex-k=10
 
-sbatch ${SCRIPT_FIT} pbmc_purified  11 em     1000  no fit-pbmc-purified-em-k=11
-sbatch ${SCRIPT_FIT} pbmc_purified  11 ccd    1000  no fit-pbmc-purified-ccd-k=11
-sbatch ${SCRIPT_FIT} pbmc_purified  11 scd    1000  no fit-pbmc-purified-scd-k=11
-sbatch ${SCRIPT_FIT} pbmc_purified  11 em     1000 yes fit-pbmc-purified-em-ex-k=11
-sbatch ${SCRIPT_FIT} pbmc_purified  11 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=11
-sbatch ${SCRIPT_FIT} pbmc_purified  11 scd    1000 yes fit-pbmc-purified-scd-ex-k=11
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified 11 em     1000  no fit-pbmc-purified-em-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified 11 ccd    1000  no fit-pbmc-purified-ccd-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified 11 scd    1000  no fit-pbmc-purified-scd-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified 11 em     1000 yes fit-pbmc-purified-em-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified 11 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} pbmc_purified 11 scd    1000 yes fit-pbmc-purified-scd-ex-k=11
 
-sbatch ${SCRIPT_FIT} pbmc_purified  12 em     1000  no fit-pbmc-purified-em-k=12
-sbatch ${SCRIPT_FIT} pbmc_purified  12 ccd    1000  no fit-pbmc-purified-ccd-k=12
-sbatch ${SCRIPT_FIT} pbmc_purified  12 scd    1000  no fit-pbmc-purified-scd-k=12
-sbatch ${SCRIPT_FIT} pbmc_purified  12 em     1000 yes fit-pbmc-purified-em-ex-k=12
-sbatch ${SCRIPT_FIT} pbmc_purified  12 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=12
-sbatch ${SCRIPT_FIT} pbmc_purified  12 scd    1000 yes fit-pbmc-purified-scd-ex-k=12
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified 12 em     1000  no fit-pbmc-purified-em-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified 12 ccd    1000  no fit-pbmc-purified-ccd-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified 12 scd    1000  no fit-pbmc-purified-scd-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified 12 em     1000 yes fit-pbmc-purified-em-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified 12 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} pbmc_purified 12 scd    1000 yes fit-pbmc-purified-scd-ex-k=12
 
-sbatch ${SCRIPT_FIT} pbmc_purified  13 em     1000  no fit-pbmc-purified-em-k=13
-sbatch ${SCRIPT_FIT} pbmc_purified  13 ccd    1000  no fit-pbmc-purified-ccd-k=13
-sbatch ${SCRIPT_FIT} pbmc_purified  13 scd    1000  no fit-pbmc-purified-scd-k=13
-sbatch ${SCRIPT_FIT} pbmc_purified  13 em     1000 yes fit-pbmc-purified-em-ex-k=13
-sbatch ${SCRIPT_FIT} pbmc_purified  13 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=13
-sbatch ${SCRIPT_FIT} pbmc_purified  13 scd    1000 yes fit-pbmc-purified-scd-ex-k=13
+#                    data           k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pbmc_purified 13 em     1000  no fit-pbmc-purified-em-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified 13 ccd    1000  no fit-pbmc-purified-ccd-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified 13 scd    1000  no fit-pbmc-purified-scd-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified 13 em     1000 yes fit-pbmc-purified-em-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified 13 ccd    1000 yes fit-pbmc-purified-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} pbmc_purified 13 scd    1000 yes fit-pbmc-purified-scd-ex-k=13
+
+# Fit factorizations to pulse-seq data, with and without extrapolation.
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  2 em     1000  no fit-pulseseq-em-k=2
+sbatch ${SCRIPT_FIT} pulseseq  2 ccd    1000  no fit-pulseseq-ccd-k=2
+sbatch ${SCRIPT_FIT} pulseseq  2 scd    1000  no fit-pulseseq-scd-k=2
+sbatch ${SCRIPT_FIT} pulseseq  2 em     1000 yes fit-pulseseq-em-ex-k=2
+sbatch ${SCRIPT_FIT} pulseseq  2 ccd    1000 yes fit-pulseseq-ccd-ex-k=2
+sbatch ${SCRIPT_FIT} pulseseq  2 scd    1000 yes fit-pulseseq-scd-ex-k=2
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  3 em     1000  no fit-pulseseq-em-k=3
+sbatch ${SCRIPT_FIT} pulseseq  3 ccd    1000  no fit-pulseseq-ccd-k=3
+sbatch ${SCRIPT_FIT} pulseseq  3 scd    1000  no fit-pulseseq-scd-k=3
+sbatch ${SCRIPT_FIT} pulseseq  3 em     1000 yes fit-pulseseq-em-ex-k=3
+sbatch ${SCRIPT_FIT} pulseseq  3 ccd    1000 yes fit-pulseseq-ccd-ex-k=3
+sbatch ${SCRIPT_FIT} pulseseq  3 scd    1000 yes fit-pulseseq-scd-ex-k=3
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  4 em     1000  no fit-pulseseq-em-k=4
+sbatch ${SCRIPT_FIT} pulseseq  4 ccd    1000  no fit-pulseseq-ccd-k=4
+sbatch ${SCRIPT_FIT} pulseseq  4 scd    1000  no fit-pulseseq-scd-k=4
+sbatch ${SCRIPT_FIT} pulseseq  4 em     1000 yes fit-pulseseq-em-ex-k=4
+sbatch ${SCRIPT_FIT} pulseseq  4 ccd    1000 yes fit-pulseseq-ccd-ex-k=4
+sbatch ${SCRIPT_FIT} pulseseq  4 scd    1000 yes fit-pulseseq-scd-ex-k=4
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  5 em     1000  no fit-pulseseq-em-k=5
+sbatch ${SCRIPT_FIT} pulseseq  5 ccd    1000  no fit-pulseseq-ccd-k=5
+sbatch ${SCRIPT_FIT} pulseseq  5 scd    1000  no fit-pulseseq-scd-k=5
+sbatch ${SCRIPT_FIT} pulseseq  5 em     1000 yes fit-pulseseq-em-ex-k=5
+sbatch ${SCRIPT_FIT} pulseseq  5 ccd    1000 yes fit-pulseseq-ccd-ex-k=5
+sbatch ${SCRIPT_FIT} pulseseq  5 scd    1000 yes fit-pulseseq-scd-ex-k=5
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  6 em     1000  no fit-pulseseq-em-k=6
+sbatch ${SCRIPT_FIT} pulseseq  6 ccd    1000  no fit-pulseseq-ccd-k=6
+sbatch ${SCRIPT_FIT} pulseseq  6 scd    1000  no fit-pulseseq-scd-k=6
+sbatch ${SCRIPT_FIT} pulseseq  6 em     1000 yes fit-pulseseq-em-ex-k=6
+sbatch ${SCRIPT_FIT} pulseseq  6 ccd    1000 yes fit-pulseseq-ccd-ex-k=6
+sbatch ${SCRIPT_FIT} pulseseq  6 scd    1000 yes fit-pulseseq-scd-ex-k=6
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  7 em     1000  no fit-pulseseq-em-k=7
+sbatch ${SCRIPT_FIT} pulseseq  7 ccd    1000  no fit-pulseseq-ccd-k=7
+sbatch ${SCRIPT_FIT} pulseseq  7 scd    1000  no fit-pulseseq-scd-k=7
+sbatch ${SCRIPT_FIT} pulseseq  7 em     1000 yes fit-pulseseq-em-ex-k=7
+sbatch ${SCRIPT_FIT} pulseseq  7 ccd    1000 yes fit-pulseseq-ccd-ex-k=7
+sbatch ${SCRIPT_FIT} pulseseq  7 scd    1000 yes fit-pulseseq-scd-ex-k=7
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  8 em     1000  no fit-pulseseq-em-k=8
+sbatch ${SCRIPT_FIT} pulseseq  8 ccd    1000  no fit-pulseseq-ccd-k=8
+sbatch ${SCRIPT_FIT} pulseseq  8 scd    1000  no fit-pulseseq-scd-k=8
+sbatch ${SCRIPT_FIT} pulseseq  8 em     1000 yes fit-pulseseq-em-ex-k=8
+sbatch ${SCRIPT_FIT} pulseseq  8 ccd    1000 yes fit-pulseseq-ccd-ex-k=8
+sbatch ${SCRIPT_FIT} pulseseq  8 scd    1000 yes fit-pulseseq-scd-ex-k=8
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq  9 em     1000  no fit-pulseseq-em-k=9
+sbatch ${SCRIPT_FIT} pulseseq  9 ccd    1000  no fit-pulseseq-ccd-k=9
+sbatch ${SCRIPT_FIT} pulseseq  9 scd    1000  no fit-pulseseq-scd-k=9
+sbatch ${SCRIPT_FIT} pulseseq  9 em     1000 yes fit-pulseseq-em-ex-k=9
+sbatch ${SCRIPT_FIT} pulseseq  9 ccd    1000 yes fit-pulseseq-ccd-ex-k=9
+sbatch ${SCRIPT_FIT} pulseseq  9 scd    1000 yes fit-pulseseq-scd-ex-k=9
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq 10 em     1000  no fit-pulseseq-em-k=10
+sbatch ${SCRIPT_FIT} pulseseq 10 ccd    1000  no fit-pulseseq-ccd-k=10
+sbatch ${SCRIPT_FIT} pulseseq 10 scd    1000  no fit-pulseseq-scd-k=10
+sbatch ${SCRIPT_FIT} pulseseq 10 em     1000 yes fit-pulseseq-em-ex-k=10
+sbatch ${SCRIPT_FIT} pulseseq 10 ccd    1000 yes fit-pulseseq-ccd-ex-k=10
+sbatch ${SCRIPT_FIT} pulseseq 10 scd    1000 yes fit-pulseseq-scd-ex-k=10
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq 11 em     1000  no fit-pulseseq-em-k=11
+sbatch ${SCRIPT_FIT} pulseseq 11 ccd    1000  no fit-pulseseq-ccd-k=11
+sbatch ${SCRIPT_FIT} pulseseq 11 scd    1000  no fit-pulseseq-scd-k=11
+sbatch ${SCRIPT_FIT} pulseseq 11 em     1000 yes fit-pulseseq-em-ex-k=11
+sbatch ${SCRIPT_FIT} pulseseq 11 ccd    1000 yes fit-pulseseq-ccd-ex-k=11
+sbatch ${SCRIPT_FIT} pulseseq 11 scd    1000 yes fit-pulseseq-scd-ex-k=11
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq 12 em     1000  no fit-pulseseq-em-k=12
+sbatch ${SCRIPT_FIT} pulseseq 12 ccd    1000  no fit-pulseseq-ccd-k=12
+sbatch ${SCRIPT_FIT} pulseseq 12 scd    1000  no fit-pulseseq-scd-k=12
+sbatch ${SCRIPT_FIT} pulseseq 12 em     1000 yes fit-pulseseq-em-ex-k=12
+sbatch ${SCRIPT_FIT} pulseseq 12 ccd    1000 yes fit-pulseseq-ccd-ex-k=12
+sbatch ${SCRIPT_FIT} pulseseq 12 scd    1000 yes fit-pulseseq-scd-ex-k=12
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq 13 em     1000  no fit-pulseseq-em-k=13
+sbatch ${SCRIPT_FIT} pulseseq 13 ccd    1000  no fit-pulseseq-ccd-k=13
+sbatch ${SCRIPT_FIT} pulseseq 13 scd    1000  no fit-pulseseq-scd-k=13
+sbatch ${SCRIPT_FIT} pulseseq 13 em     1000 yes fit-pulseseq-em-ex-k=13
+sbatch ${SCRIPT_FIT} pulseseq 13 ccd    1000 yes fit-pulseseq-ccd-ex-k=13
+sbatch ${SCRIPT_FIT} pulseseq 13 scd    1000 yes fit-pulseseq-scd-ex-k=13
