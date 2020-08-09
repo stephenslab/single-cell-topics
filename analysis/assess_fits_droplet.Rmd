@@ -16,13 +16,10 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 These are the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
-library(fastTopics)
 ```
-
-Load results
-------------
 
 Load the results of running `fit_poisson_nmf` on the purified PBMC
 data, with different algorithms, and for various choices of $k$ (the
@@ -33,8 +30,17 @@ file using the `compile_poisson_nmf_fits.R` script.
 load("../output/droplet/fits-droplet.RData")
 ```
 
-Plot improvement in solution over time
---------------------------------------
+This plot shows the improvement in the log-likelihood as the rank,
+$k$, is increased. The log-likelihoods are shown relative to the
+log-likelihood at rank $k = 2$. 
+
+```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
+plot_loglik_vs_rank(fits)
+```
+
+As expected, the likelihood improves with larger rank, $k$, although
+these improvements are large for smaller $k$, and more gradual as $k$
+gets larger.
 
 This first set of plots shows the improvement in the fit over time,
 for all choices of $k$, and for each of the three optimization methods
@@ -43,7 +49,7 @@ of the fit is measured by the log-likelihood, *relative to the best
 log-likelihood that was identified among all methods compared.*
 
 ```{r plot-loglik, fig.height=6, fig.width=9}
-create_progress_plots(dat,fits,"loglik",iterations = 1001:2000)
+create_progress_plots(dat,fits,"loglik")
 ```
 
 The second set of plots shows the evolution of Karush-Kuhn-Tucker
@@ -73,21 +79,7 @@ A few striking trends emerge from these plots:
 + SCD *with extrapolation* always progresses more rapidly to a
   solution, and always identifies the best local solution.
 
-Plot improvement in fit with increasing $k$
-------------------------------------------- 
-
-This plot shows the improvement in the log-likelihood as the rank,
-$k$, is increased. The log-likelihoods are shown relative to the
-log-likelihood at rank $k = 2$. 
-
-```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
-plot_loglik_vs_rank(fits)
+```{r}
+i <- which(dat$k == 8)
+plot_progress_poisson_nmf(fits[i])
 ```
-
-As expected, the likelihood improves with larger rank, $k$, although
-these improvements are large for smaller $k$, and more gradual as $k$
-gets larger.
-
-Note that, because the log-likelihood differences are much larger than
-the differences observed between the different methods, this plot will
-look similar regardless of which optimization algorithm is used.
