@@ -11,10 +11,6 @@
 create_progress_plots <- function (dat, fits, y = c("loglik","res"),
                                    iterations = 1:1000) {
 
-  # These are the colours that will be used to plot the results from
-  # running the three methods: EM, CCD and SCD.
-  clrs <- c("deepskyblue","darkorange","darkmagenta")
-  
   # Process the input arguments.
   y <- match.arg(y)
 
@@ -23,15 +19,37 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res"),
   k            <- 13
   plots        <- vector("list",k)
   names(plots) <- paste0("k",1:k)
-
+  
+  # TO DO: Explain here what these lines of code do.
+  n           <- length(fits)
+  names(fits) <- with(dat,paste0(method,ifelse(extrapolate,"+ex","")))
+  for (i in 1:n) {
+    fit                 <- fits[[i]]
+    fit$progress        <- fit$progress[-(1:1000),]
+    fit$progress$timing <- fit$progress$timing/360
+    fits[[i]]           <- fit
+  }
+   
   # Repeat for each choice of k, the number of topics. The legend is
   # removed from all of these plots.
+  clrs <- c("deepskyblue","darkorange","darkmagenta")
   for (i in 2:k) {
-    rows       <- which(dat$k == i)
-    plots[[i]] <- plot_progress_poisson_nmf(fits[rows]) +
-      guides(color = "none",fill = "none",size = "none",shape = "none",
-             linetype = "none") +
-      theme_cowplot(10)
+    rows <- which(dat$k == i)
+    plots[[i]] <-
+      plot_progress_poisson_nmf(fits[rows],add.point.every = 100,shapes = 21,
+                                colors = rep(c(clrs),2),
+                                fills = c(clrs,rep("white",3))) +
+      labs(x = "runtime (h)",title = paste("k =",i)) +
+      theme_cowplot(font_size = 8) +
+      theme(plot.title = element_text(size = 8,face = "plain"))
+    if (i == 2)
+      plots[[i]] <- plots[[i]] +
+        theme(legend.position = c(0.65,0.5),
+              legend.title = element_blank())
+    else
+      plots[[i]] <- plots[[i]] +
+        guides(color = "none",fill = "none",size = "none",
+               shape = "none",linetype = "none")
   }
 
   # Arrange the 12 plots in a 3 x 4 grid.
