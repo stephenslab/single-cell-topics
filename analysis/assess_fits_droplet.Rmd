@@ -62,7 +62,7 @@ Note that, unlike the likelihood, the residuals of the KKT conditions
 are not expected to decrease monotonically over time.
 
 ```{r plot-res, fig.height=6, fig.width=9}
-create_progress_plots(dat,fits,"res",iterations = 1001:2000)
+create_progress_plots(dat,fits,"res")
 ```
 
 A few striking trends emerge from these plots:
@@ -80,7 +80,3 @@ A few striking trends emerge from these plots:
 + SCD *with extrapolation* always progresses more rapidly to a
   solution, and always identifies the best local solution.
 
-```{r}
-i <- which(dat$k == 8)
-plot_progress_poisson_nmf(fits[i])
-```
