@@ -22,10 +22,9 @@ library(cowplot)
 source("../code/functions_for_assessing_fits.R")
 ```
 
-Load the results of running `fit_poisson_nmf` on the purified PBMC
-data, with different algorithms, and for various choices of $k$ (the
-number of "topics"). These results were then compiled into a single
-file using the `compile_poisson_nmf_fits.R` script.
+Load the results of running `fit_poisson_nmf` on the droplet data,
+with different algorithms, and for various choices of $k$ (the number
+of "topics").
 
 ```{r load-results}
 load("../output/droplet/fits-droplet.RData")
@@ -33,21 +32,21 @@ load("../output/droplet/fits-droplet.RData")
 
 This plot shows the improvement in the log-likelihood as the rank,
 $k$, is increased. The log-likelihoods are shown relative to the
-log-likelihood at rank $k = 2$. 
+log-likelihood at $k = 2$. 
 
 ```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
-plot_loglik_vs_rank(fits)
+plot_loglik_vs_rank(fits) +
+  theme_cowplot(font_size = 12)
 ```
 
-As expected, the likelihood improves with larger rank, $k$, although
-these improvements are large for smaller $k$, and more gradual as $k$
-gets larger.
+Oddly, the likelihood did not improve from $k=4$ to $k=5$.
+Otherwise, the likelihood improved with larger rank, $k$.
 
-This first set of plots shows the improvement in the fit over time,
+The next set of plots shows the improvement in the fit over time,
 for all choices of $k$, and for each of the three optimization methods
 (EM, CCD, SCD), with and without the extrapolation scheme. The quality
-of the fit is measured by the log-likelihood, *relative to the best
-log-likelihood that was identified among all methods compared.*
+of the fit is measured by the log-likelihood relative to the best
+log-likelihood that was identified among all methods compared.
 
 ```{r plot-loglik, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"loglik")
@@ -56,27 +55,11 @@ create_progress_plots(dat,fits,"loglik")
 The second set of plots shows the evolution of Karush-Kuhn-Tucker
 (KKT) residuals over time; the KKT residuals should vanish near a
 stationary point of the log-likelihood, so looking at the largest KKT
-residual can be used to assess how close we are to a solution.
-
-Note that, unlike the likelihood, the residuals of the KKT conditions
-are not expected to decrease monotonically over time.
+residual can be used to assess how close we are to a solution. Note
+that, unlike the likelihood, the residuals of the KKT conditions are
+not expected to decrease monotonically over time.
 
 ```{r plot-res, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"res")
 ```
-
-A few striking trends emerge from these plots:
-
-+ EM (with or without extrapolation) almost always provides the worst
-  fit, and progresses very slowly to a solution.
-
-+ CCD (with or without extrapolation) usually, but not always,
-  progresses to a solution much more quickly than EM, and identifies a
-  better MLE.
-
-+ SCD (with or without extrapolation) almost always progresses more
-  rapidly to a solution.
-
-+ SCD *with extrapolation* always progresses more rapidly to a
-  solution, and always identifies the best local solution.
 
