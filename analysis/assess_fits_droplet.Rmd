@@ -13,7 +13,8 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
-These are the packages used in the analysis below.
+Load the packages used in the analysis below, as well as some
+additional functions for creating the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(fastTopics)
@@ -39,8 +40,9 @@ plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
 
-Oddly, the likelihood did not improve from $k=4$ to $k=5$.
-Otherwise, the likelihood improved with larger rank, $k$.
+Oddly, the likelihood did not improve from $k=4$ to $k=5$, and same
+from $k=8$ to $k=9$. Otherwise, the likelihood improved with larger
+rank, $k$.
 
 The next set of plots shows the improvement in the fit over time,
 for all choices of $k$, and for each of the three optimization methods
@@ -52,12 +54,12 @@ log-likelihood that was identified among all methods compared.
 create_progress_plots(dat,fits,"loglik")
 ```
 
-The second set of plots shows the evolution of Karush-Kuhn-Tucker
-(KKT) residuals over time; the KKT residuals should vanish near a
-stationary point of the log-likelihood, so looking at the largest KKT
-residual can be used to assess how close we are to a solution. Note
-that, unlike the likelihood, the residuals of the KKT conditions are
-not expected to decrease monotonically over time.
+The last set of plots shows the evolution of the KKT residuals over
+time; the KKT residuals should vanish near a stationary point of the
+log-likelihood, so looking at the largest KKT residual can be used to
+assess how close we are to a solution. Note that, unlike the
+log-likelihood, the KKT residuals are not expected to decrease
+monotonically over time.
 
 ```{r plot-res, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"res")
