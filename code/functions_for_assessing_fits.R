@@ -37,12 +37,13 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
   for (i in 2:k) {
     rows <- which(dat$k == i)
     plots[[i]] <-
-      plot_progress_poisson_nmf(fits[rows],add.point.every = 100,
-                                shapes = 21,colors = rep(c(clrs),2),
+      plot_progress_poisson_nmf(fits[rows],x = "timing",y = y,
+                                add.point.every = 100,shapes = 21,
+                                colors = rep(c(clrs),2),
                                 fills = c(clrs,rep("white",3))) +
       labs(x = "runtime (h)",title = paste("k =",i)) +
-      theme_cowplot(font_size = 8) +
-      theme(plot.title = element_text(size = 8,face = "plain"))
+      theme_cowplot(font_size = 10) +
+      theme(plot.title = element_text(size = 10,face = "plain"))
     if (i == 2)
       plots[[i]] <- plots[[i]] +
         theme(legend.position = c(0.95,0.95),
