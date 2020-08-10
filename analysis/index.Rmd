@@ -22,6 +22,10 @@ data sets for topic modeling analysis.
 Assess model fits
 -----------------
 
+In these pages, we compare the quality of the Poisson NMF fits
+obtained by performing the different updates (EM, CCD, SCD, with and
+without extrapolation), and with different ranks, $k$.
+
 + [Mixture of FACS-purified PBMCs](assess_fits_purified_pbmc.html)
 
 + [PBMC 68k](assess_fits_68k_pbmc.html)
@@ -29,3 +33,14 @@ Assess model fits
 + [Droplet](assess_fits_droplet.html)
 
 + [Pulse-seq](assess_fits_pulseseq.html)
+
+fastTopics plots
+----------------
+
++ [Mixture of FACS-purified PBMCs](plots_pbmc.html)
+
++ [PBMC 68k](plots_68k_pbmc.html)
+
++ [Droplet](plots_droplet.html)
+
++ [Pulse-seq](plots_pulseseq.html)
