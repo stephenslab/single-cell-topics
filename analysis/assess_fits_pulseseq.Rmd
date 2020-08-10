@@ -28,7 +28,7 @@ with different algorithms, and for various choices of $k$ (the number
 of "topics").
 
 ```{r load-results}
-load("../output/droplet/fits-pulseseq.RData")
+load("../output/pulseseq/fits-pulseseq.RData")
 ```
 
 This plot shows the improvement in the log-likelihood as the rank,
