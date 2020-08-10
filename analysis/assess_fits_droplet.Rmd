@@ -19,6 +19,7 @@ These are the packages used in the analysis below.
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/functions_for_assessing_fits.R")
 ```
 
 Load the results of running `fit_poisson_nmf` on the purified PBMC
