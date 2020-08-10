@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1ef2ac6e157d203e424ebf3399a96787ccf2bb73targetblank1ef2ac6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1ef2ac6e157d203e424ebf3399a96787ccf2bb73" target="_blank">1ef2ac6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree116c9fb52ff4ad2151bd614054e98106d3d57bddtargetblank116c9fba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/116c9fb52ff4ad2151bd614054e98106d3d57bdd" target="_blank">116c9fb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1ef2ac6e157d203e424ebf3399a96787ccf2bb73targetblank1ef2ac6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree116c9fb52ff4ad2151bd614054e98106d3d57bddtargetblank116c9fba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1ef2ac6e157d203e424ebf3399a96787ccf2bb73" target="_blank">1ef2ac6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/116c9fb52ff4ad2151bd614054e98106d3d57bdd" target="_blank">116c9fb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -429,6 +429,9 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    output/droplet/fits-droplet.RData
+
+Unstaged changes:
+    Modified:   code/functions_for_assessing_fits.R
 
 </code></pre>
 <p>
@@ -467,6 +470,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/116c9fb52ff4ad2151bd614054e98106d3d57bdd/analysis/assess_fits_droplet.Rmd" target="_blank">116c9fb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-09
+</td>
+<td>
+wflow_publish(“assess_fits_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b8a783d0e3ffe4934c06c30065ec46d97f0e0ee1/docs/assess_fits_droplet.html" target="_blank">b8a783d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-09
+</td>
+<td>
+First build of assess_fits_droplet analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -531,26 +568,130 @@ Working on assess_fits_droplet analysis.
 library(ggplot2)
 library(cowplot)
 source(&quot;../code/functions_for_assessing_fits.R&quot;)</code></pre>
-<p>Load the results of running <code>fit_poisson_nmf</code> on the purified PBMC data, with different algorithms, and for various choices of <span class="math inline">\(k\)</span> (the number of “topics”). These results were then compiled into a single file using the <code>compile_poisson_nmf_fits.R</code> script.</p>
+<p>Load the results of running <code>fit_poisson_nmf</code> on the droplet data, with different algorithms, and for various choices of <span class="math inline">\(k\)</span> (the number of “topics”).</p>
 <pre class="r"><code>load(&quot;../output/droplet/fits-droplet.RData&quot;)</code></pre>
-<p>This plot shows the improvement in the log-likelihood as the rank, <span class="math inline">\(k\)</span>, is increased. The log-likelihoods are shown relative to the log-likelihood at rank <span class="math inline">\(k = 2\)</span>.</p>
-<pre class="r"><code>plot_loglik_vs_rank(fits)</code></pre>
+<p>This plot shows the improvement in the log-likelihood as the rank, <span class="math inline">\(k\)</span>, is increased. The log-likelihoods are shown relative to the log-likelihood at <span class="math inline">\(k = 2\)</span>.</p>
+<pre class="r"><code>plot_loglik_vs_rank(fits) +
+  theme_cowplot(font_size = 12)</code></pre>
 <p><img src="figure/assess_fits_droplet.Rmd/plot-loglik-vs-k-1.png" width="336" style="display: block; margin: auto;" /></p>
-<p>As expected, the likelihood improves with larger rank, <span class="math inline">\(k\)</span>, although these improvements are large for smaller <span class="math inline">\(k\)</span>, and more gradual as <span class="math inline">\(k\)</span> gets larger.</p>
-<p>This first set of plots shows the improvement in the fit over time, for all choices of <span class="math inline">\(k\)</span>, and for each of the three optimization methods (EM, CCD, SCD), with and without the extrapolation scheme. The quality of the fit is measured by the log-likelihood, <em>relative to the best log-likelihood that was identified among all methods compared.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-loglik-vs-k-1">
+Past versions of plot-loglik-vs-k-1.png
+</button>
+</p>
+<div id="fig-plot-loglik-vs-k-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b8a783d0e3ffe4934c06c30065ec46d97f0e0ee1/docs/figure/assess_fits_droplet.Rmd/plot-loglik-vs-k-1.png" target="_blank">b8a783d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Oddly, the likelihood did not improve from <span class="math inline">\(k=4\)</span> to <span class="math inline">\(k=5\)</span>. Otherwise, the likelihood improved with larger rank, <span class="math inline">\(k\)</span>.</p>
+<p>The next set of plots shows the improvement in the fit over time, for all choices of <span class="math inline">\(k\)</span>, and for each of the three optimization methods (EM, CCD, SCD), with and without the extrapolation scheme. The quality of the fit is measured by the log-likelihood relative to the best log-likelihood that was identified among all methods compared.</p>
 <pre class="r"><code>create_progress_plots(dat,fits,&quot;loglik&quot;)</code></pre>
 <p><img src="figure/assess_fits_droplet.Rmd/plot-loglik-1.png" width="864" style="display: block; margin: auto;" /></p>
-<p>The second set of plots shows the evolution of Karush-Kuhn-Tucker (KKT) residuals over time; the KKT residuals should vanish near a stationary point of the log-likelihood, so looking at the largest KKT residual can be used to assess how close we are to a solution.</p>
-<p>Note that, unlike the likelihood, the residuals of the KKT conditions are not expected to decrease monotonically over time.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-loglik-1">
+Past versions of plot-loglik-1.png
+</button>
+</p>
+<div id="fig-plot-loglik-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b8a783d0e3ffe4934c06c30065ec46d97f0e0ee1/docs/figure/assess_fits_droplet.Rmd/plot-loglik-1.png" target="_blank">b8a783d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The second set of plots shows the evolution of Karush-Kuhn-Tucker (KKT) residuals over time; the KKT residuals should vanish near a stationary point of the log-likelihood, so looking at the largest KKT residual can be used to assess how close we are to a solution. Note that, unlike the likelihood, the residuals of the KKT conditions are not expected to decrease monotonically over time.</p>
 <pre class="r"><code>create_progress_plots(dat,fits,&quot;res&quot;)</code></pre>
 <p><img src="figure/assess_fits_droplet.Rmd/plot-res-1.png" width="864" style="display: block; margin: auto;" /></p>
-<p>A few striking trends emerge from these plots:</p>
-<ul>
-<li><p>EM (with or without extrapolation) almost always provides the worst fit, and progresses very slowly to a solution.</p></li>
-<li><p>CCD (with or without extrapolation) usually, but not always, progresses to a solution much more quickly than EM, and identifies a better MLE.</p></li>
-<li><p>SCD (with or without extrapolation) almost always progresses more rapidly to a solution.</p></li>
-<li><p>SCD <em>with extrapolation</em> always progresses more rapidly to a solution, and always identifies the best local solution.</p></li>
-</ul>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-res-1">
+Past versions of plot-res-1.png
+</button>
+</p>
+<div id="fig-plot-res-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b8a783d0e3ffe4934c06c30065ec46d97f0e0ee1/docs/figure/assess_fits_droplet.Rmd/plot-res-1.png" target="_blank">b8a783d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-09
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
