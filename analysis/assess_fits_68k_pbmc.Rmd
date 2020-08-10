@@ -40,9 +40,8 @@ plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
 
-Oddly, the likelihood did not improve from $k=4$ to $k=5$, and same
-from $k=8$ to $k=9$. Otherwise, the likelihood improved with larger
-rank, $k$.
+There is a slight dip in the likelihood from $k=12$ to $k=13$,
+otherwise the likelihood improved with increasing $k$.
 
 The next set of plots shows the improvement in the fit over time,
 for all choices of $k$, and for each of the three optimization methods
