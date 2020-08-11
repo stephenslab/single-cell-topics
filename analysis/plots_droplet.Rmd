@@ -1,0 +1,56 @@
+---
+title: Visualize and interpret topics in droplet data
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs}
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the UMI count data.
+
+```{r load-data}
+load("../data/droplet.RData")
+```
+
+Load the $k = 13$ Poisson NMF model fit:
+
+```{r load-fit}
+fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=13.rds")$fit
+```
+
+Loadings plot:
+
+```{r loading-plot}
+p1 <- loadings_plot(poisson2multinom(fit),samples$tissue)
+```
+
+t-SNE plot:
+
+```{r tsne-plot}
+set.seed(1)
+p2 <- tsne_plot(fit,n = 7193,num_threads = 4)
+```
+
+Differential count analysis:
+
+```{r diff-count-analysis}
+diff_count_res <- diff_count_analysis(fit,counts)
+```
+
+Volcano plots:
+
+```{r volcano-plots}
+p3 <- volcano_plot(diff_count_res,labels = genes$symbol,
+                   label_above_quantile = 0.995)
+```
