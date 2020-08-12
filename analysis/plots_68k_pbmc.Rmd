@@ -12,6 +12,8 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages used in the analysis below.
 
 ```{r load-pkgs}
+library(Matrix)
+library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
@@ -28,6 +30,10 @@ Load the $k = 9$ Poisson NMF model fit.
 ```{r load-fit}
 fit <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-ccd-ex-k=9.rds")$fit
 ```
+
+**TO DO:** Compare the $k = 9$ fits produced by the different methods
+against the fit produced by CCD with extrapolation. Do the loadings
+and/or factors look very different?
 
 Loadings plot:
 
@@ -53,4 +59,65 @@ Volcano plots:
 ```{r volcano-plots}
 p3 <- volcano_plot(diff_count_res,labels = genes$symbol,
                    label_above_quantile = 0.995)
+```
+
+Structure plots:
+
+```{r structure-plots}
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD19+ B"))
+p4   <- structure_plot(fit2,n = 2000,num_threads = 4) # B-cells.
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD56+ NK"))
+p5   <- structure_plot(fit2,n = 2000,num_threads = 4) # NK cells.
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD34+"))
+p6   <- structure_plot(fit2,num_threads = 4,perplexity = 50) # CD34+ cells
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD14+ Monocyte"))
+p7   <- structure_plot(fit2,num_threads = 4) # CD14+ monocytes
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "Dendritic"))
+p8   <- structure_plot(fit2,num_threads = 4) # dendritic cells
+plot_grid(p7,p8,nrow = 2)
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD4+ T Helper2"))
+p9   <- structure_plot(fit2,num_threads = 4,perplexity = 30) +
+          ggtitle("CD4+ T Helper2") +
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+          loadings = which(samples$celltype == "CD4+/CD45RA+/CD25- Naive T"))
+p10  <- structure_plot(fit2,num_threads = 4) +
+          ggtitle("CD4+/CD45RA+/CD25- Naive T")
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD4+/CD45RO+ Memory"))
+p11  <- structure_plot(fit2,num_threads = 4) +
+  	      ggtitle("CD4+/CD45RO+ Memory")
+set.seed(1)
+fit2 <- select(poisson2multinom(fit),
+               loadings = which(samples$celltype == "CD4+/CD25 T Reg"))
+p12  <- structure_plot(fit2,num_threads = 4) +
+          ggtitle("CD4+/CD25 T Reg")
+fit2 <- select(poisson2multinom(fit),
+          loadings = which(samples$celltype == "CD8+/CD45RA+ Naive Cytotoxic"))
+p13  <- structure_plot(fit2,num_threads = 4) +
+          ggtitle("CD8+/CD45RA+ Naive Cytotoxic")
+fit2 <- select(poisson2multinom(fit),
+          loadings = which(samples$celltype == "CD8+ Cytotoxic T"))
+p14  <- structure_plot(fit2,num_threads = 4) +
+          ggtitle("CD8+ Cytotoxic T")
+plot_grid(p9,p10,p11,p12,p13,p14,nrow = 6)
+```
+
+Another structure plot:
+
+```{r more-structure-plots}
+p15 <- structure_plot(fit,num_threads = 4)
 ```

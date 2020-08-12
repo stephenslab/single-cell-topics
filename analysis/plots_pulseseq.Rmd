@@ -1,0 +1,77 @@
+---
+title: Visualize and interpret topics in pulse-seq data
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the UMI count data.
+
+```{r load-data}
+load("../data/pulseseq.RData")
+```
+
+Load the $k = 8$ Poisson NMF model fit:
+
+```{r load-fit}
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=8.rds")$fit
+```
+
+Loadings plot:
+
+```{r loading-plot}
+p1 <- loadings_plot(poisson2multinom(fit),samples$tissue)
+```
+
+t-SNE plot:
+
+```{r tsne-plot}
+set.seed(1)
+p2 <- tsne_plot(fit,n = 6000,num_threads = 4)
+```
+
+Structure plot:
+
+```{r structure-plot}
+set.seed(1)
+samples$tissue <- as.character(samples$tissue)
+samples$tissue[samples$tissue == "goblet.1"] <- "goblet"
+samples$tissue[samples$tissue == "goblet.2"] <- "goblet"
+samples$tissue[samples$tissue == "goblet.progenitor"] <- "goblet"
+samples$tissue[samples$tissue == "tuft.1"] <- "tuft"
+samples$tissue[samples$tissue == "tuft.2"] <- "tuft"
+samples$tissue[samples$tissue == "tuft.progenitor"] <- "tuft"
+samples$tissue <- factor(samples$tissue)
+fit2 <- poisson2multinom(fit)
+fit2$L <- fit2$L[samples$tissue == "ionocyte",]
+p3 <- structure_plot(fit2,num_threads = 4,
+                     perplexity = 30)
+p3 <- structure_plot(poisson2multinom(fit),n = 2000,num_threads = 4,
+                     perplexity = 100)
+```
+
+Differential count analysis:
+
+```{r diff-count-analysis}
+diff_count_res <- diff_count_analysis(fit,counts)
+```
+
+Volcano plots:
+
+```{r volcano-plots}
+p3 <- volcano_plot(diff_count_res,labels = genes$symbol,
+                   label_above_quantile = 0.995)
+```
