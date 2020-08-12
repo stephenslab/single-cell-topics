@@ -1,0 +1,11 @@
+---
+title: An illustration of the differences between topic modeling and clustering
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center")
+```
+
