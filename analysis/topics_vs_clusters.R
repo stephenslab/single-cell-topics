@@ -1,11 +1,10 @@
-suppressMessages(library(MCMCpack))
 suppressMessages(library(ggtern))
 suppressMessages(library(ggplot2))
 suppressMessages(library(cowplot))
 
 # SCRIPT PARAMETERS
 # -----------------
-n <- 100
+n <- 200
 m <- 20
 s <- 1000
 k <- 3
@@ -18,7 +17,17 @@ set.seed(1)
 F <- matrix(runif(m*k),m,k)
 
 # Generate the topic proportions.
-L <- rdirichlet(n,rep(1,k))
+L <- matrix(0,n,k)
+for (i in 1:n) {
+  x <- rep(0,k)
+  if (runif(1) < 0.5) {
+    j     <- sample(k,1)
+    x[j]  <- 1
+    x     <- x + abs(rnorm(k,0,0.125))
+  } else
+    x <- rep(1/k,k) + abs(rnorm(k,0,0.2))
+  L[i,] <- x/sum(x)
+}
     
 # Generate the counts.
 X <- matrix(0,n,m)
@@ -30,7 +39,8 @@ for (i in 1:n)
 pdat <- as.data.frame(L)
 names(pdat) <- paste0("k",1:k)
 p1 <- ggtern(pdat,aes(x = k1,y = k2,z = k3)) +
-  geom_point(color = "dodgerblue",size = 1.5) +
+  geom_point(shape = 21,color = "white",fill = "dodgerblue",size = 1.5) +
   theme_classic(base_size = 10) +
-  theme_showarrows()
-
+  theme_showarrows() +
+  theme(tern.panel.mask.show = FALSE)
+print(p1)
