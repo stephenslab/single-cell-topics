@@ -1,12 +1,14 @@
+library(Matrix)
 library(Ternary)
 library(ggplot2)
 library(cowplot)
 library(Rtsne)
+library(fastTopics)
 
 # SCRIPT PARAMETERS
 # -----------------
 n <- 400
-m <- 20
+m <- 40
 s <- 1000
 k <- 3
 
@@ -24,9 +26,9 @@ for (i in 1:n) {
   if (runif(1) < 0.9) {
     j     <- sample(k,1)
     x[j]  <- 1
-    x     <- x + abs(rnorm(k,0,0.2))
+    x     <- x + abs(rnorm(k,0,0.15))
   } else
-    x <- rep(1/k,k) + abs(rnorm(k,0,0.2))
+    x <- rep(1/k,k) + abs(rnorm(k,0,0.15))
   L[i,] <- x/sum(x)
 }
 colnames(L) <- paste0("k",1:k)
@@ -36,6 +38,13 @@ X <- matrix(0,n,m)
 P <- tcrossprod(L,F)
 for (i in 1:n)
   X[i,] <- rmultinom(1,s,P[i,])
+
+fit <- init_poisson_nmf(X,L = L,init.method = "random")
+fit <- fit_poisson_nmf(X,fit0 = fit,numiter = 20,update.loadings = NULL)
+fit <- fit_poisson_nmf(X,fit0 = fit,numiter = 100,
+                       control = list(extrapolate = TRUE))
+Lsim <- L
+L    <- fit$L
 
 # Plot the topic proportions.
 pdat <- as.data.frame(L)

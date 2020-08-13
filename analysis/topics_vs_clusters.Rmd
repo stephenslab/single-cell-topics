@@ -1,5 +1,5 @@
 ---
-title: An illustration of the differences between topic modeling and clustering
+title: Topics vs. clusters: an illustration
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
