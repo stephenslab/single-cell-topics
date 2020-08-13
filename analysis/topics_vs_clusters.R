@@ -122,3 +122,7 @@ out <- calc.eigenmap(tcrossprod(L),2)
 plot(out$R[,1],out$R[,2],pch = 20,col = pdat$k)
 ans <- kmeans(out$R,4,iter.max = 100)
 points(ans$centers[,1],ans$centers[,2],pch = 4,col = "dodgerblue")
+
+library(rsvd)
+out2 <- rpca(L,k = 2,center = TRUE,scale = FALSE)
+plot(out2$x[,1],out2$x[,2],pch = 20,col = pdat$k)
