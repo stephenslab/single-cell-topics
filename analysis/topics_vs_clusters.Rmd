@@ -1,5 +1,5 @@
-x---
-title: Topics vs. clusters: an illustration
+---
+title: "Topics vs. clusters: an illustration"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -9,9 +9,6 @@ output: workflowr::wflow_html
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
-```
-
-```{r load-pkgs}
 ```
 
 Simulate data
