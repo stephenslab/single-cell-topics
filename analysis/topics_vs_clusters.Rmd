@@ -1,11 +1,35 @@
----
+x---
 title: Topics vs. clusters: an illustration
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
+
+*Add introductory text here.*
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
+```{r load-pkgs}
+```
+
+Simulate data
+-------------
+
+*Add text here.*
+
+```{r data-sim-params}
+n <- 400
+m <- 40
+s <- 1000
+k <- 3
+```
+
+Generate the $m \times k$ matrix of gene frequencies, $F$, by drawing
+numbers uniformly at random from $[0, 1]$.
+
+```{r simulate-gene-freqs}
+set.seed(1)
+F <- matrix(runif(m*k),m,k)
+```
