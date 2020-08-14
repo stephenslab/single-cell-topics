@@ -57,6 +57,7 @@ levels(y) <- c("navy",           # basal
 			   "cornflowerblue") # tuft
 y <- as.character(y)
 plot(pca$x[,1],pca$x[,2],pch = 21,col = "white",bg = y,cex = 0.8)
+plot(pca$x[,1],pca$x[,6],pch = 21,col = "white",bg = y,cex = 0.8)
 ```
 
 t-SNE plot:
