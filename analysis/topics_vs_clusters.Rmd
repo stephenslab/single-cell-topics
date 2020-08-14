@@ -1,5 +1,5 @@
 ---
-title: "Topics vs. clusters: an illustration"
+title: "Topics versus clusters: an illustration"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -51,8 +51,23 @@ using the t-SNE method, and, to compare with the topic modeling, label
 the samples by the topic that is estimated to contribute most to that
 sample.
 
-```{r tsne, fig.height=3, fig.width=3}
-tsne <- Rtsne(X,2,pca = FALSE,normalize = FALSE,theta = 0.1,perplexity = 100,
-              max_iter = 1000)
-plot_tsne(tsne,fit$L)
+```{r tsne-counts, fig.height=3, fig.width=3}
+tsne1 <- Rtsne(X,2,pca = FALSE,normalize = FALSE)
+plot_tsne(tsne1,fit$L)
+```
+
+Now use t-SNE in the same way to project the topic proportions onto a
+2-d embedding.
+
+```{r tsne-loadings, fig.height=3, fig.width=3}
+tsne2 <- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
+plot_tsne(tsne2,fit$L)
+```
+
+We can achieve something similar with PCA.
+
+```{r pca-loadings, fig.height=3, fig.width=3}
+pca <- prcomp(fit$L,center = TRUE,scale = FALSE)
+ans <- kmeans(pca$x,centers = 4,iter.max = 100)
+plot_pca(pca,ans$centers,fit$L)
 ```
