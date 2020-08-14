@@ -27,8 +27,7 @@ Simulate a gene expression data set.
 
 ```{r simulate-data}
 set.seed(1)
-dat <- simulate_toy_gene_data(n = 400,m = 40,k = 3,s = 1000)
-X   <- dat$X
+X <- simulate_toy_gene_data(n = 400,m = 40,k = 3,s = 1000)$X
 ```
 
 Fit a multinomial topic model to these data.
@@ -47,27 +46,31 @@ create_ternary_plot(fit$L)
 ```
 
 To illustrate clustering, project the samples onto a 2-d embedding
-using the t-SNE method, and, to compare with the topic modeling, label
-the samples by the topic that is estimated to contribute most to that
-sample.
+using t-SNE.
 
-```{r tsne-counts, fig.height=3, fig.width=3}
+```{r tsne-from-counts-1, fig.height=3, fig.width=3}
 tsne1 <- Rtsne(X,2,pca = FALSE,normalize = FALSE)
-plot_tsne(tsne1,fit$L)
+plot_tsne(tsne1)
+```
+
+Compare with the topic modeling, label the samples by the topic that
+is estimated to contribute most to that sample.
+
+```{r tsne-from-counts-2, fig.height=3, fig.width=3}
+plot_tsne_with_topics(tsne1,fit$L)
 ```
 
 Now use t-SNE in the same way to project the topic proportions onto a
 2-d embedding.
 
-```{r tsne-loadings, fig.height=3, fig.width=3}
+```{r tsne-from-loadings, fig.height=3, fig.width=3}
 tsne2 <- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
-plot_tsne(tsne2,fit$L)
+plot_tsne_with_topics(tsne2,fit$L)
 ```
 
 We can achieve something similar with PCA.
 
-```{r pca-loadings, fig.height=3, fig.width=3}
+```{r pca-from-loadings, fig.height=3, fig.width=3}
 pca <- prcomp(fit$L,center = TRUE,scale = FALSE)
-ans <- kmeans(pca$x,centers = 4,iter.max = 100)
-plot_pca(pca,ans$centers,fit$L)
+plot_pca(pca,fit$L)
 ```
