@@ -8,7 +8,7 @@ output: workflowr::wflow_html
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
-                      fig.align = "center")
+                      fig.align = "center",dpi = 120)
 ```
 
 Load packages used in the analysis below, as well as some functions
@@ -18,6 +18,7 @@ written for this analysis.
 library(ggplot2)
 library(cowplot)
 library(Ternary)
+library(Rtsne)
 library(fastTopics)
 source("../code/functions_for_topics_vs_clusters.R")
 ```
@@ -26,13 +27,13 @@ Simulate a gene expression data set.
 
 ```{r simulate-data}
 set.seed(1)
-out <- simulate_toy_gene_data(n = 400,m = 40,k = 3,s = 1000)
-X   <- out$X
+dat <- simulate_toy_gene_data(n = 400,m = 40,k = 3,s = 1000)
+X   <- dat$X
 ```
 
 Fit a multinomial topic model to these data.
 
-```{r fit-multinom-topic-model}
+```{r fit-multinom-topic-model, message=FALSE}
 fit <- fit_poisson_nmf(X,k = 3,numiter = 100,verbose = FALSE,
                        control = list(extrapolate = TRUE))
 fit <- poisson2multinom(fit)
@@ -40,7 +41,24 @@ fit <- poisson2multinom(fit)
 
 Plot the estimated topic proportions.
 
-```{r plot-topic-proportions, fig.height=4, fig.width=4}
+```{r plot-topic-proportions, fig.height=3, fig.width=3}
 par(mar = c(0,0,0,0))
 create_ternary_plot(fit$L)
+```
+
+To illustrate clustering, project the samples onto a 2-d embedding
+using the t-SNE method, and, to compare with the topic modeling, label
+the samples by the topic that is estimated to contribute most to that
+sample.
+
+```{r tsne, fig.height=3, fig.width=3}
+tsne <- Rtsne(X,2,pca = FALSE,normalize = FALSE,theta = 0.1,perplexity = 100,
+              max_iter = 1000)
+colnames(tsne$Y) <- c("d1","d2")
+pdat <- cbind(tsne$Y,data.frame(k = factor(apply(fit$L,1,which.max))))
+ggplot(pdat,aes(x = d1,y = d2,fill = k)) +
+  geom_point(shape = 21,color = "white",size = 2,show.legend = FALSE) +
+  scale_fill_manual(values = c("dodgerblue","darkorange","darkblue")) +
+  labs(x = "tsne 1",y = "tsne 2") +
+  theme_cowplot(font_size = 12)
 ```
