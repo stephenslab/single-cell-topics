@@ -54,11 +54,5 @@ sample.
 ```{r tsne, fig.height=3, fig.width=3}
 tsne <- Rtsne(X,2,pca = FALSE,normalize = FALSE,theta = 0.1,perplexity = 100,
               max_iter = 1000)
-colnames(tsne$Y) <- c("d1","d2")
-pdat <- cbind(tsne$Y,data.frame(k = factor(apply(fit$L,1,which.max))))
-ggplot(pdat,aes(x = d1,y = d2,fill = k)) +
-  geom_point(shape = 21,color = "white",size = 2,show.legend = FALSE) +
-  scale_fill_manual(values = c("dodgerblue","darkorange","darkblue")) +
-  labs(x = "tsne 1",y = "tsne 2") +
-  theme_cowplot(font_size = 12)
+plot_tsne(tsne,fit$L)
 ```
