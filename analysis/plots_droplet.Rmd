@@ -48,13 +48,18 @@ PCA plots:
 fit2 <- poisson2multinom(fit)
 pca  <- prcomp(fit2$L)
 y    <- samples$tissue
-levels(y) <- c("navy",           # basal
+levels(y) <- c("royalblue",      # basal
                "firebrick",      # ciliated
                "forestgreen",    # club
 			   "gold",           # goblet
 			   "darkmagenta",    # ionocyte
                "darkorange",     # neuroendocrine
-			   "cornflowerblue") # tuft
+			   "darkgray")       # tuft
+pdat <- cbind(samples,pca$x)
+ggplot(pdat,aes(x = PC1,y = PC2,fill = tissue)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  scale_fill_manual(values = levels(y)) +
+  theme_cowplot(font_size = 12)
 y <- as.character(y)
 plot(pca$x[,1],pca$x[,2],pch = 21,col = "white",bg = y,cex = 0.8)
 plot(pca$x[,1],pca$x[,6],pch = 21,col = "white",bg = y,cex = 0.8)
