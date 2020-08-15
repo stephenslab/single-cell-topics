@@ -1,10 +1,19 @@
 ---
-title: "Topics versus clusters: an illustration"
+title: "Topic modeling vs. clustering of gene expression data: an illustration"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add introductory text here.*
+Clustering methods are widely used to discover interesting
+substructure in bulk or single-cell RNA sequencing ("RNA-seq")
+data. An alternative is to use a topic model, which explains each gene
+expression profile (cells) as a *mixture* of "gene expression
+programs" that are estimated from the data. These gene expression
+programs are the topics.
+
+In this short vignette, we show that a topic model picks up a very
+different kind of substructure that cannot be identified by (hard)
+clustering methods.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
