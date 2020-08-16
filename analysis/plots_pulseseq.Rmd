@@ -24,16 +24,40 @@ Load the UMI count data.
 load("../data/pulseseq.RData")
 ```
 
-Load the $k = 8$ Poisson NMF model fit:
+Load the $k = 11$ Poisson NMF model fit:
 
 ```{r load-fit}
-fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=8.rds")$fit
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
 Loadings plot:
 
 ```{r loading-plot}
 p1 <- loadings_plot(poisson2multinom(fit),samples$tissue)
+```
+
+PCA plot:
+
+```{r pca-plot}
+fit2 <- poisson2multinom(fit)
+pca  <- prcomp(fit2$L)
+y    <- samples$tissue
+levels(y) <- c("royalblue",      # basal
+               "firebrick",      # ciliated
+               "forestgreen",    # club
+			   "forestgreen",
+			   "gold",           # goblet
+			   "gold",
+			   "gold",
+			   "darkmagenta",    # ionocyte
+               "darkorange",     # neuroendocrine
+			   "tomato",         # proliferating
+			   "darkgray",       # tuft
+			   "darkgray",       # tuft
+			   "darkgray")       # tuft
+y <- as.character(y)
+i <- 3; j <- 4
+plot(pca$x[,i],pca$x[,j],pch = 21,col = "white",bg = y,cex = 0.8)
 ```
 
 t-SNE plot:
