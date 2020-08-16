@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1d69d0d7ad40fc6f34b39021b6cd07eef79c4cfatargetblank1d69d0da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1d69d0d7ad40fc6f34b39021b6cd07eef79c4cfa" target="_blank">1d69d0d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3fda980278eaef58b08e62c5a8ea6f690585ba78targetblank3fda980a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3fda980278eaef58b08e62c5a8ea6f690585ba78" target="_blank">3fda980</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1d69d0d7ad40fc6f34b39021b6cd07eef79c4cfatargetblank1d69d0da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3fda980278eaef58b08e62c5a8ea6f690585ba78targetblank3fda980a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1d69d0d7ad40fc6f34b39021b6cd07eef79c4cfa" target="_blank">1d69d0d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3fda980278eaef58b08e62c5a8ea6f690585ba78" target="_blank">3fda980</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -476,6 +476,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3fda980278eaef58b08e62c5a8ea6f690585ba78/analysis/topics_vs_clusters.Rmd" target="_blank">3fda980</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-15
+</td>
+<td>
+wflow_publish(“topics_vs_clusters.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b1bebb45a3c276ebb0bf8ee8b119ea566b86240c/docs/topics_vs_clusters.html" target="_blank">b1bebb4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-15
+</td>
+<td>
+Added yet more explanatory text to topics_vs_clusters vignette.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1035,7 +1069,8 @@ Peter Carbonetto
 </div>
 <div id="inferring-clusters-from-the-topic-model" class="section level2">
 <h2>Inferring clusters from the topic model</h2>
-<p>Despite this limitation, it can nonetheless be useful to identity the clusters exhibiting markedly different gene expression patterns. This can also be done within a topic modeling analysis—the topic model contains enough information to identify these clusters. For example, a 2-d <em>t</em>-SNE projection of the topic proportions reveals the same four clusters:</p>
+<p>Despite this limitation, it can nonetheless be useful to identity the clusters exhibiting markedly different gene expression patterns. This can also be done within a topic modeling analysis—the topic model contains enough information to identify these clusters (at least in the artificial setting where the data are simulated from a topic model).</p>
+<p>For example, a 2-d <em>t</em>-SNE projection of the topic proportions reveals the same four clusters:</p>
 <pre class="r"><code>tsne2 &lt;- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
 plot_tsne_with_topics(tsne2,fit$L)</code></pre>
 <p><img src="figure/topics_vs_clusters.Rmd/tsne-from-loadings-1.png" width="360" style="display: block; margin: auto;" /></p>
@@ -1117,6 +1152,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>In summary, the topic modeling analysis retains the benefits of the clustering analysis, while revealing additional insights.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
