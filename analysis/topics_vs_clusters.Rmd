@@ -107,9 +107,12 @@ Inferring clusters from the topic model
 Despite this limitation, it can nonetheless be useful to identity the
 clusters exhibiting markedly different gene expression patterns. This
 can also be done within a topic modeling analysis---the topic model
-contains enough information to identify these clusters. For example, a
-2-d *t*-SNE projection of the topic proportions reveals the same four
-clusters:
+contains enough information to identify these clusters (at least in
+the artificial setting where the data are simulated from a topic
+model).
+
+For example, a 2-d *t*-SNE projection of the topic proportions reveals
+the same four clusters:
 
 ```{r tsne-from-loadings, fig.height=3, fig.width=3}
 tsne2 <- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
@@ -122,3 +125,6 @@ Or we can achieve a similar result using PCA:
 pca <- prcomp(fit$L,center = TRUE,scale = FALSE)
 plot_pca(pca,fit$L)
 ```
+
+In summary, the topic modeling analysis retains the benefits of the
+clustering analysis, while revealing additional insights.
