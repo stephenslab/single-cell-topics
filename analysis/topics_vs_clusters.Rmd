@@ -6,10 +6,10 @@ output: workflowr::wflow_html
 
 Clustering methods are widely used to discover interesting
 substructure in bulk or single-cell RNA sequencing ("RNA-seq")
-data. An alternative is to use a topic model, which explains each gene
-expression profile (cells) as a *mixture* of "gene expression
-programs" that are estimated from the data. These gene expression
-programs are the topics.
+data. An alternative is to use a topic model, which explains each
+expression profile (cells) as a *mixture* of "gene programs" that are
+estimated from the data. These gene expression programs are the
+topics.
 
 In this short vignette, we show that a topic model picks up a very
 different kind of substructure that cannot be identified by (hard)
@@ -32,7 +32,9 @@ library(fastTopics)
 source("../code/functions_for_topics_vs_clusters.R")
 ```
 
-Simulate a gene expression data set.
+Simulate a "toy" gene expression data set from the multinomial topic
+model. Each sample---a vector of 400 counts---is generated as a
+mixture of $k = 3$ "gene programs" (the topics).
 
 ```{r simulate-data}
 set.seed(1)
@@ -54,6 +56,10 @@ par(mar = c(0,0,0,0))
 create_ternary_plot(fit$L)
 ```
 
+From this plot, we see that the samples are either primarily
+attributed to a single gene program (topic), or roughly equally
+attributed to all three gene programs.
+  
 To illustrate clustering, project the samples onto a 2-d embedding
 using t-SNE.
 
