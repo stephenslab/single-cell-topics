@@ -87,8 +87,11 @@ projection.)
 This clustering fails to reveal any insight into the relationship
 between these clusters---in particular, the distribution of genes in
 the middle cluster is an equal mixture of the gene distributions in
-the other clusters. To make this more clear, we label each sample by
-the topic with the highest estimated weight:
+the other clusters. This is a limitation of any clustering algorithm
+that does not allow for partial membership to clusters.
+
+To further understand this point, we label each sample by the topic
+with the highest estimated weight:
 
 ```{r tsne-from-counts-2, fig.height=3, fig.width=3}
 plot_tsne_with_topics(tsne1,fit$L)
@@ -101,19 +104,19 @@ Outside this setting, topic modeling and clustering can diverge.
 Inferring clusters from the topic model
 ---------------------------------------
 
-Despite the limitation of the pure clustering, it nonetheless might be
-useful to identify the four clusters exhibiting different gene
-expression patterns.
-
-Now use t-SNE in the same way to project the topic proportions onto a
-2-d embedding.
+Despite this limitation, it can nonetheless be useful to identity the
+clusters exhibiting markedly different gene expression patterns. This
+can also be done within a topic modeling analysis---the topic model
+contains enough information to identify these clusters. For example, a
+2-d *t*-SNE projection of the topic proportions reveals the same four
+clusters:
 
 ```{r tsne-from-loadings, fig.height=3, fig.width=3}
 tsne2 <- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
 plot_tsne_with_topics(tsne2,fit$L)
 ```
 
-We can achieve something similar with PCA.
+Or we can achieve a similar result using PCA:
 
 ```{r pca-from-loadings, fig.height=3, fig.width=3}
 pca <- prcomp(fit$L,center = TRUE,scale = FALSE)
