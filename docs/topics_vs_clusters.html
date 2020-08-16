@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Topics versus clusters: an illustration</title>
+<title>Topic modeling vs. clustering of gene expression data: an illustration</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -295,7 +295,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Topics versus clusters: an illustration</h1>
+<h1 class="title toc-ignore">Topic modeling vs. clustering of gene expression data: an illustration</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-13
+<strong>Last updated:</strong> 2020-08-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree77a0c2aebad8e6d0c052d0ff6ab3300b586fe703targetblank77a0c2aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/77a0c2aebad8e6d0c052d0ff6ab3300b586fe703" target="_blank">77a0c2a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4accb518dc29916116397682a00be989a9a63ac2targetblank4accb51a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4accb518dc29916116397682a00be989a9a63ac2" target="_blank">4accb51</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree77a0c2aebad8e6d0c052d0ff6ab3300b586fe703targetblank77a0c2aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4accb518dc29916116397682a00be989a9a63ac2targetblank4accb51a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/77a0c2aebad8e6d0c052d0ff6ab3300b586fe703" target="_blank">77a0c2a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4accb518dc29916116397682a00be989a9a63ac2" target="_blank">4accb51</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -476,6 +476,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4accb518dc29916116397682a00be989a9a63ac2/analysis/topics_vs_clusters.Rmd" target="_blank">4accb51</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-15
+</td>
+<td>
+wflow_publish(“topics_vs_clusters.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4e5418870667fb04af67e6f5f499e1a8af7404b8/analysis/topics_vs_clusters.Rmd" target="_blank">4e54188</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-15
+</td>
+<td>
+Added introductory text to topics_vs_clusters.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/97331e9e4a0a63c1685fba2f6a7cb4e96e79834f/docs/topics_vs_clusters.html" target="_blank">97331e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-13
+</td>
+<td>
+Amended plots in topics_vs_clusters analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -755,7 +806,8 @@ Created topics_vs_clusters.Rmd.
 </div>
 </div>
 </div>
-<p><em>Add introductory text here.</em></p>
+<p>Clustering methods are widely used to discover interesting substructure in bulk or single-cell RNA sequencing (“RNA-seq”) data. An alternative is to use a topic model, which explains each expression profile (cells) as a <em>mixture</em> of “gene programs” that are estimated from the data. These gene expression programs are the topics.</p>
+<p>In this short vignette, we show that a topic model picks up a very different kind of substructure that cannot be identified by (hard) clustering methods.</p>
 <p>Load packages used in the analysis below, as well as some functions written for this analysis.</p>
 <pre class="r"><code>library(ggplot2)
 library(cowplot)
@@ -763,7 +815,7 @@ library(Ternary)
 library(Rtsne)
 library(fastTopics)
 source(&quot;../code/functions_for_topics_vs_clusters.R&quot;)</code></pre>
-<p>Simulate a gene expression data set.</p>
+<p>Simulate a “toy” gene expression data set from the multinomial topic model. Each sample—a vector of 400 counts—is generated as a mixture of <span class="math inline">\(k = 3\)</span> “gene programs” (the topics).</p>
 <pre class="r"><code>set.seed(1)
 X &lt;- simulate_toy_gene_data(n = 400,m = 40,k = 3,s = 1000)$X</code></pre>
 <p>Fit a multinomial topic model to these data.</p>
@@ -822,21 +874,170 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>From this plot, we see that the samples are either primarily attributed to a single gene program (topic), or roughly equally attributed to all three gene programs.</p>
 <p>To illustrate clustering, project the samples onto a 2-d embedding using t-SNE.</p>
 <pre class="r"><code>tsne1 &lt;- Rtsne(X,2,pca = FALSE,normalize = FALSE)
 plot_tsne(tsne1)</code></pre>
 <p><img src="figure/topics_vs_clusters.Rmd/tsne-from-counts-1-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tsne-from-counts-1-1">
+Past versions of tsne-from-counts-1-1.png
+</button>
+</p>
+<div id="fig-tsne-from-counts-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/97331e9e4a0a63c1685fba2f6a7cb4e96e79834f/docs/figure/topics_vs_clusters.Rmd/tsne-from-counts-1-1.png" target="_blank">97331e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Compare with the topic modeling, label the samples by the topic that is estimated to contribute most to that sample.</p>
 <pre class="r"><code>plot_tsne_with_topics(tsne1,fit$L)</code></pre>
 <p><img src="figure/topics_vs_clusters.Rmd/tsne-from-counts-2-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tsne-from-counts-2-1">
+Past versions of tsne-from-counts-2-1.png
+</button>
+</p>
+<div id="fig-tsne-from-counts-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/97331e9e4a0a63c1685fba2f6a7cb4e96e79834f/docs/figure/topics_vs_clusters.Rmd/tsne-from-counts-2-1.png" target="_blank">97331e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Now use t-SNE in the same way to project the topic proportions onto a 2-d embedding.</p>
 <pre class="r"><code>tsne2 &lt;- Rtsne(fit$L,2,pca = FALSE,normalize = FALSE)
 plot_tsne_with_topics(tsne2,fit$L)</code></pre>
 <p><img src="figure/topics_vs_clusters.Rmd/tsne-from-loadings-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-tsne-from-loadings-1">
+Past versions of tsne-from-loadings-1.png
+</button>
+</p>
+<div id="fig-tsne-from-loadings-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/97331e9e4a0a63c1685fba2f6a7cb4e96e79834f/docs/figure/topics_vs_clusters.Rmd/tsne-from-loadings-1.png" target="_blank">97331e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>We can achieve something similar with PCA.</p>
 <pre class="r"><code>pca &lt;- prcomp(fit$L,center = TRUE,scale = FALSE)
 plot_pca(pca,fit$L)</code></pre>
 <p><img src="figure/topics_vs_clusters.Rmd/pca-from-loadings-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-from-loadings-1">
+Past versions of pca-from-loadings-1.png
+</button>
+</p>
+<div id="fig-pca-from-loadings-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/97331e9e4a0a63c1685fba2f6a7cb4e96e79834f/docs/figure/topics_vs_clusters.Rmd/pca-from-loadings-1.png" target="_blank">97331e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
