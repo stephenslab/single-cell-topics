@@ -125,5 +125,5 @@ plot_pca(pca,fit$L)
 ```
 
 In short, the topic modeling analysis retains the benefits of the
-clustering analysis, while revealing additional substrcuture that
+clustering analysis, while revealing additional substructure that
 cannot be identified by standard clustering methods.
