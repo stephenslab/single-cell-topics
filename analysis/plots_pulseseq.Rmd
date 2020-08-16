@@ -22,6 +22,15 @@ Load the UMI count data.
 
 ```{r load-data}
 load("../data/pulseseq.RData")
+samples$tissue <- as.character(samples$tissue)
+samples$tissue[samples$tissue == "club (hillock-associated)"] <- "club"
+samples$tissue[samples$tissue == "goblet.1"] <- "goblet"
+samples$tissue[samples$tissue == "goblet.2"] <- "goblet"
+samples$tissue[samples$tissue == "goblet.progenitor"] <- "goblet"
+samples$tissue[samples$tissue == "tuft.1"] <- "tuft"
+samples$tissue[samples$tissue == "tuft.2"] <- "tuft"
+samples$tissue[samples$tissue == "tuft.progenitor"] <- "tuft"
+samples$tissue <- factor(samples$tissue)
 ```
 
 Load the $k = 11$ Poisson NMF model fit:
@@ -45,19 +54,19 @@ y    <- samples$tissue
 levels(y) <- c("royalblue",      # basal
                "firebrick",      # ciliated
                "forestgreen",    # club
-			   "forestgreen",
 			   "gold",           # goblet
-			   "gold",
-			   "gold",
 			   "darkmagenta",    # ionocyte
                "darkorange",     # neuroendocrine
 			   "tomato",         # proliferating
-			   "darkgray",       # tuft
-			   "darkgray",       # tuft
 			   "darkgray")       # tuft
+pdat <- cbind(samples,pca$x)
+ggplot(pdat,aes(x = PC5,y = PC6,fill = tissue)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  scale_fill_manual(values = levels(y)) +
+  theme_cowplot(font_size = 12)
 y <- as.character(y)
-i <- 3; j <- 4
-plot(pca$x[,i],pca$x[,j],pch = 21,col = "white",bg = y,cex = 0.8)
+plot(pca$x[,3],pca$x[,4],pch = 21,col = "white",bg = y,cex = 0.8)
+plot(pca$x[,5],pca$x[,6],pch = 21,col = "white",bg = y,cex = 0.8)
 ```
 
 t-SNE plot:
@@ -71,14 +80,6 @@ Structure plot:
 
 ```{r structure-plot}
 set.seed(1)
-samples$tissue <- as.character(samples$tissue)
-samples$tissue[samples$tissue == "goblet.1"] <- "goblet"
-samples$tissue[samples$tissue == "goblet.2"] <- "goblet"
-samples$tissue[samples$tissue == "goblet.progenitor"] <- "goblet"
-samples$tissue[samples$tissue == "tuft.1"] <- "tuft"
-samples$tissue[samples$tissue == "tuft.2"] <- "tuft"
-samples$tissue[samples$tissue == "tuft.progenitor"] <- "tuft"
-samples$tissue <- factor(samples$tissue)
 fit2 <- poisson2multinom(fit)
 fit2$L <- fit2$L[samples$tissue == "ionocyte",]
 p3 <- structure_plot(fit2,num_threads = 4,
