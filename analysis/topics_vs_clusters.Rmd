@@ -97,7 +97,9 @@ plot_tsne_with_topics(tsne1,fit$L)
 In general, a clustering will align closely with the topic modeling
 whenever the samples can be largely explained by a single topic or
 gene program. Outside this setting, topic modeling and clustering can
-reveal very different sorts of substructure.
+reveal very different sorts of substructure, so a topic modeling
+analysis should not be expected to recapture the results of a
+clustering analysis, and vice versa.
 
 Inferring clusters from the topic model
 ---------------------------------------
