@@ -1,7 +1,7 @@
-# This file implements functions to load and prepare the FACS-purified
-# PBMC data sets described in the paper, "Massively parallel digital
-# transcriptional profiling of single cells" (Zheng et al, Nature
-# Communications 8, 2017, doi:10.1038/ncomms14049).
+# This file implements functions to load and prepare the 68k and
+# FACS-purified PBMC data sets described in the paper, "Massively
+# parallel digital transcriptional profiling of single cells" (Zheng
+# et al, Nature Communications 8, 2017, doi:10.1038/ncomms14049).
 
 # Read the barcodes from the tab-delimited text file, and return a
 # data frame with a single column containing the barcodes.
@@ -12,6 +12,17 @@ read_barcodes <- function (filename) {
   return(out)
 }
 
+# Read the 68k PBMC barcodes and annotations from the tab-delimited
+# text file. The return value is a data frame with four columns: the
+# first two columns give the 2-d t-SNE projection; column 3 gives the
+# barcode; and the last column gives the estimated "cell-type".
+read_barcodes_with_annotations <- function (filename) {
+  out <- read_tsv("../data/pbmc_68k/68k_pbmc_barcodes_annotation.tsv.gz")
+  class(out) <- "data.frame"
+  names(out) <- c("tsne1","tsne2","barcode","celltype")
+  return(transform(out,celltype = factor(celltype)))
+}
+  
 # Read the gene information from the tab-delimited text file, and
 # return a data frame with two columns containing the Ensembl ids and
 # gene symbols.

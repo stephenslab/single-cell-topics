@@ -55,7 +55,7 @@ written specifically for loading and preparing these data.
 library(tools)
 library(Matrix)
 library(readr)
-source("../code/purified_pbmc.R")
+source("../code/pbmc.R")
 ```
 
 Call `read_purified_pbmc_data`, which imports the individual data sets
