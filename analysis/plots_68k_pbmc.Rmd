@@ -25,10 +25,10 @@ Load the UMI count data.
 load("../data/pbmc_68k.RData")
 ```
 
-Load the $k = 9$ Poisson NMF model fit.
+Load the $k = 6$ Poisson NMF model fit.
 
 ```{r load-fit}
-fit <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-ccd-ex-k=9.rds")$fit
+fit <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
 ```
 
 **TO DO:** Compare the $k = 9$ fits produced by the different methods
@@ -39,6 +39,29 @@ Loadings plot:
 
 ```{r loading-plot}
 p1 <- loadings_plot(poisson2multinom(fit),samples$celltype)
+```
+
+PCA plot:
+
+```{r pca-plot}
+clrs <- c("forestgreen",  # CD14+ Monocyte
+          "dodgerblue",   # CD19+ B
+          "darkmagenta",  # CD34+"
+          "yellowgreen",  # CD4+ T Helper2
+          "gold",         # CD4+/CD25 T Reg
+          "limegreen",    # CD4+/CD45RA+/CD25- Naive T
+          "orange",       # CD4+/CD45RO+ Memory"
+          "gray",         # CD56+ NK
+          "tomato",       # CD8+ Cytotoxic T
+          "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
+          "darkblue")     # Dendritic"
+fit2 <- poisson2multinom(fit)
+pca  <- prcomp(fit2$L)
+pdat <- cbind(samples,pca$x)
+ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
+  geom_point(shape = 21,color = "white",size = 1.5) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 10)
 ```
 
 t-SNE plot:
