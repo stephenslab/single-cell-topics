@@ -1,5 +1,5 @@
 ---
-title: Prepare PBMC 68k data for topic modeling analysis
+title: Prepare 68k PBMC data for topic modeling analysis
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
