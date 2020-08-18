@@ -37,10 +37,6 @@ with different $k$.
 Visualize and interpret topics
 ------------------------------
 
-+ [Mixture of FACS-purified PBMCs](plots_pbmc.html)
++ [PBMC](plots_pbmc.html)
 
-+ [PBMC 68k](plots_68k_pbmc.html)
-
-+ [Droplet](plots_droplet.html)
-
-+ [Pulse-seq](plots_pulseseq.html)
++ [Droplet and pulse-seq](plots_tracheal_epithelium.html)
