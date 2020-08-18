@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Prepare PBMC 68k data for topic modeling analysis</title>
+<title>Prepare 68k PBMC data for topic modeling analysis</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -204,7 +204,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Prepare PBMC 68k data for topic modeling analysis</h1>
+<h1 class="title toc-ignore">Prepare 68k PBMC data for topic modeling analysis</h1>
 <h4 class="author"><em>Peter Carbonetto</em></h4>
 
 </div>
@@ -230,7 +230,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-07-28
+<strong>Last updated:</strong> 2020-08-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -321,35 +321,50 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4a79355af4e4a57eb4010e87cc0d8041bbc52ca8targetblank4a79355a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4a79355af4e4a57eb4010e87cc0d8041bbc52ca8" target="_blank">4a79355</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1c1f33b5ec1d08b2c9df965083120a00c658f8d3targetblank1c1f33ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1c1f33b5ec1d08b2c9df965083120a00c658f8d3" target="_blank">1c1f33b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4a79355af4e4a57eb4010e87cc0d8041bbc52ca8targetblank4a79355a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1c1f33b5ec1d08b2c9df965083120a00c658f8d3targetblank1c1f33ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4a79355af4e4a57eb4010e87cc0d8041bbc52ca8" target="_blank">4a79355</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1c1f33b5ec1d08b2c9df965083120a00c658f8d3" target="_blank">1c1f33b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    data/GSE103354_PulseSeq_UMI_counts.rds
+    Ignored:    data/GSE103354_Trachea_droplet_UMIcounts.txt.gz
     Ignored:    data/b_cells/
     Ignored:    data/cd14_monocytes/
     Ignored:    data/cd34_filtered/
     Ignored:    data/cd4_t_helper/
     Ignored:    data/cd56_nk/
     Ignored:    data/cytotoxic_t/
+    Ignored:    data/droplet.RData
     Ignored:    data/memory_t/
     Ignored:    data/naive_cytotoxic/
     Ignored:    data/naive_t/
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_68k/
     Ignored:    data/pbmc_purified.RData
+    Ignored:    data/pulseseq.RData
     Ignored:    data/regulatory_t/
+    Ignored:    output/droplet/fits-droplet.RData
+    Ignored:    output/droplet/rds/
+    Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
+    Ignored:    output/pbmc-68k/rds/
+    Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
+    Ignored:    output/pbmc-purified/rds/
+    Ignored:    output/pulseseq/fits-pulseseq.RData
+    Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/pbmc_68k.RData
 
 </code></pre>
 <p>
@@ -388,6 +403,108 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1c1f33b5ec1d08b2c9df965083120a00c658f8d3/analysis/prepare_68k_pbmc.Rmd" target="_blank">1c1f33b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-17
+</td>
+<td>
+wflow_publish(“prepare_68k_pbmc.Rmd”, verbose = TRUE, view = FALSE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/86ece9bb3ce66eb9f8eb15174f5955db62b6e283/docs/prepare_68k_pbmc.html" target="_blank">86ece9b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-17
+</td>
+<td>
+Re-built prepare_68k_pbmc page.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/16dcd2ae2149d3c244c1cd2f5b9b6627bd47a58c/analysis/prepare_68k_pbmc.Rmd" target="_blank">16dcd2a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-17
+</td>
+<td>
+Merge branch ‘master’ of github.com:stephenslab/single-cell-topics.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a3972f19b898355af3871c7959d790f35ccd1996/analysis/prepare_68k_pbmc.Rmd" target="_blank">a3972f1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-17
+</td>
+<td>
+Improved code in prepare_68k_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0b0b5a5f7e6f4617a28d6c9e99f06bb1d992fc5d/analysis/prepare_68k_pbmc.Rmd" target="_blank">0b0b5a5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-11
+</td>
+<td>
+Working on plots to visualize droplet and 68k pbmc topics.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/dab7448538f16ce2a1e74b4875ef0a1bedd528eb/docs/prepare_68k_pbmc.html" target="_blank">dab7448</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-07-28
+</td>
+<td>
+Made a couple minor revisions to prepare_68k_pbmc.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -464,30 +581,18 @@ Working on R Markdown for preparation of 68k pbmc data set.
 </div>
 </div>
 <p>These are the steps taken to prepare the unsorted 68k PBMC data from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a> for topic modeling analysis.</p>
-<p>Load the packages used in the analysis below.</p>
+<p>Load the packages used in the analysis below, and some functions written specifically for loading and preparing these data.</p>
 <pre class="r"><code>library(tools)
 library(Matrix)
-library(readr)</code></pre>
+library(readr)
+source(&quot;../code/pbmc.R&quot;)</code></pre>
 <p>Before loading the data, download the “Gene/cell matrix (filtered)” tar.gz file for the “Fresh 68k PBMCs (Donor A) data set from <a href="https://support.10xgenomics.com/single-cell-gene-expression/datasets">10x Genomics website</a>, download <code>68k_pbmc_barcodes_annotation.tsv</code> from the <a href="https://github.com/10XGenomics/single-cell-3prime-paper">companion repository on GitHub</a>, and then save and compress these files to the <code>data/pbmc_68k</code> directory.</p>
-<pre class="r"><code>suppressMessages({
-  samples &lt;- read_tsv(&quot;../data/pbmc_68k/68k_pbmc_barcodes_annotation.tsv.gz&quot;)
-  genes   &lt;- read_tsv(&quot;../data/pbmc_68k/genes.tsv.gz&quot;,col_names = FALSE)
-  counts  &lt;- read_delim(&quot;../data/pbmc_68k/matrix.mtx.gz&quot;,delim = &quot; &quot;,
-                        comment = &quot;%&quot;,col_names = FALSE,progress = FALSE)
-})
-class(samples) &lt;- &quot;data.frame&quot;
-class(genes)   &lt;- &quot;data.frame&quot;
-class(counts)  &lt;- &quot;data.frame&quot;
-names(samples) &lt;- c(&quot;tsne1&quot;,&quot;tsne2&quot;,&quot;barcode&quot;,&quot;celltype&quot;)
-names(genes)   &lt;- c(&quot;ensembl&quot;,&quot;symbol&quot;)
-names(counts)  &lt;- c(&quot;j&quot;,&quot;i&quot;,&quot;x&quot;)
-samples        &lt;- transform(samples,celltype = factor(celltype))
-n      &lt;- counts[1,2]
-m      &lt;- counts[1,1]
-counts &lt;- counts[-1,]
-counts &lt;- sparseMatrix(i = counts$i,j = counts$j,x = counts$x,dims = c(n,m),
-                       dimnames = list(sample = samples$barcode,
-                                       gene = genes$ensembl))</code></pre>
+<pre class="r"><code>samples &lt;- read_barcodes_with_annotations(file.path(&quot;../data/pbmc_68k&quot;,
+             &quot;68k_pbmc_barcodes_annotation.tsv.gz&quot;))
+genes   &lt;- read_genes(&quot;../data/pbmc_68k/genes.tsv.gz&quot;)
+counts  &lt;- create_counts_matrix(&quot;../data/pbmc_68k/matrix.mtx.gz&quot;,
+                                sample.names = samples$barcode,
+                                gene.names = genes$ensembl)</code></pre>
 <p>Remove genes that are not expressed in any of the cells.</p>
 <pre class="r"><code>j      &lt;- which(colSums(counts &gt; 0) &gt;= 1)
 genes  &lt;- genes[j,]
