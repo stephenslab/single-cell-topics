@@ -48,28 +48,38 @@ PCA plots:
 fit2 <- poisson2multinom(fit)
 pca  <- prcomp(fit2$L)
 y    <- samples$tissue
-levels(y) <- c("royalblue",      # basal
-               "firebrick",      # ciliated
-               "forestgreen",    # club
-			   "gold",           # goblet
-			   "darkmagenta",    # ionocyte
-               "darkorange",     # neuroendocrine
-			   "darkgray")       # tuft
+clrs <- c("royalblue",      # basal
+          "firebrick",      # ciliated
+          "forestgreen",    # club
+		  "gold",           # goblet
+		  "darkmagenta",    # ionocyte
+          "darkorange",     # neuroendocrine
+		  "darkgray")       # tuft
+levels(y) <- clrs
 pdat <- cbind(samples,pca$x)
 ggplot(pdat,aes(x = PC1,y = PC2,fill = tissue)) +
   geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_manual(values = levels(y)) +
+  scale_fill_manual(values = clrs) +
   theme_cowplot(font_size = 12)
 y <- as.character(y)
 plot(pca$x[,1],pca$x[,2],pch = 21,col = "white",bg = y,cex = 0.8)
 plot(pca$x[,1],pca$x[,6],pch = 21,col = "white",bg = y,cex = 0.8)
 ```
 
-t-SNE plot:
+t-SNE plots:
 
 ```{r tsne-plot}
+library(Rtsne)
 set.seed(1)
-p2 <- tsne_plot(fit,n = 7193,num_threads = 4)
+n    <- nrow(fit$L)
+tsne <- Rtsne(poisson2multinom(fit)$L,pca = FALSE,normalize = FALSE,
+              theta = 0.1,max_iter = 1000,perplexity = 100,eta = n/12,
+              num_threads = 4,verbose = TRUE)
+colnames(tsne$Y) <- c("d1","d2")
+p2 <- ggplot(cbind(samples,tsne$Y),aes(x = d1,y = d2,fill = tissue)) +
+  geom_point(shape = 21,size = 1.5,color = "white") +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)
 ```
 
 Differential count analysis:
