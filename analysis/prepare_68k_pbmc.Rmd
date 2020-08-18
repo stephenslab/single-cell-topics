@@ -12,12 +12,14 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
 ```
 
-Load the packages used in the analysis below.
+Load the packages used in the analysis below, and some functions
+written specifically for loading and preparing these data.
 
 ```{r load-pkgs}
 library(tools)
 library(Matrix)
 library(readr)
+source("../code/pbmc.R")
 ```
 
 Before loading the data, download the "Gene/cell matrix (filtered)"
@@ -28,25 +30,12 @@ tar.gz file for the "Fresh 68k PBMCs (Donor A) data set from
 compress these files to the `data/pbmc_68k` directory.
 
 ```{r load-data}
-suppressMessages({
-  samples <- read_tsv("../data/pbmc_68k/68k_pbmc_barcodes_annotation.tsv.gz")
-  genes   <- read_tsv("../data/pbmc_68k/genes.tsv.gz",col_names = FALSE)
-  counts  <- read_delim("../data/pbmc_68k/matrix.mtx.gz",delim = " ",
-                        comment = "%",col_names = FALSE,progress = FALSE)
-})
-class(samples) <- "data.frame"
-class(genes)   <- "data.frame"
-class(counts)  <- "data.frame"
-names(samples) <- c("tsne1","tsne2","barcode","celltype")
-names(genes)   <- c("ensembl","symbol")
-names(counts)  <- c("j","i","x")
-samples        <- transform(samples,celltype = factor(celltype))
-n      <- counts[1,2]
-m      <- counts[1,1]
-counts <- counts[-1,]
-counts <- sparseMatrix(i = counts$i,j = counts$j,x = counts$x,dims = c(n,m),
-                       dimnames = list(sample = samples$barcode,
-                                       gene = genes$ensembl))
+samples <- read_barcodes_with_annotations(file.path("../data/pbmc_68k",
+             "68k_pbmc_barcodes_annotation.tsv.gz"))
+genes   <- read_genes("../data/pbmc_68k/genes.tsv.gz")
+counts  <- create_counts_matrix("../data/pbmc_68k/matrix.mtx.gz",
+                                sample.names = samples$barcode,
+								gene.names = genes$ensembl)
 ```
 
 Remove genes that are not expressed in any of the cells.
@@ -74,7 +63,7 @@ Save the processed data.
 ```{r save-data}
 save(list = c("samples","genes","counts"),
      file = "pbmc_68k.RData")
-resaveRdaFiles("pbmc_68k.RData")
+# resaveRdaFiles("pbmc_68k.RData")
 ```
 
 [zheng-2017]: https://doi.org/10.1038/ncomms14049
