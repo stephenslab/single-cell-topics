@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-10
+<strong>Last updated:</strong> 2020-08-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -352,26 +352,38 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2b9f856ad1d2beaed80b0703d38789a376e3a0c7targetblank2b9f856a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/2b9f856ad1d2beaed80b0703d38789a376e3a0c7" target="_blank">2b9f856</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree61917ad82d0229261c265c7546d2cb48e3ce2a67targetblank61917ada"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/61917ad82d0229261c265c7546d2cb48e3ce2a67" target="_blank">61917ad</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2b9f856ad1d2beaed80b0703d38789a376e3a0c7targetblank2b9f856a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree61917ad82d0229261c265c7546d2cb48e3ce2a67targetblank61917ada" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/2b9f856ad1d2beaed80b0703d38789a376e3a0c7" target="_blank">2b9f856</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/61917ad82d0229261c265c7546d2cb48e3ce2a67" target="_blank">61917ad</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    data/droplet.RData
+    Ignored:    data/pbmc_68k.RData
+    Ignored:    data/pbmc_purified.RData
+    Ignored:    data/pulseseq.RData
     Ignored:    output/droplet/fits-droplet.RData
+    Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
+    Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
+    Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
+    Ignored:    output/pulseseq/rds/
+
+Unstaged changes:
+    Modified:   analysis/plots_tracheal_epithelium.Rmd
+    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -410,6 +422,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/61917ad82d0229261c265c7546d2cb48e3ce2a67/analysis/index.Rmd" target="_blank">61917ad</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+<td>
+Working on new analysis, plots_tracheal_epithelium.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7b10d810dd41b920d835f074fa224af1325d1a69/docs/index.html" target="_blank">7b10d81</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-10
+</td>
+<td>
+A couple minor edits to the overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -678,10 +724,8 @@ Added workflowr files.
 <div id="visualize-and-interpret-topics" class="section level2">
 <h2>Visualize and interpret topics</h2>
 <ul>
-<li><p><a href="plots_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="plots_68k_pbmc.html">PBMC 68k</a></p></li>
-<li><p><a href="plots_droplet.html">Droplet</a></p></li>
-<li><p><a href="plots_pulseseq.html">Pulse-seq</a></p></li>
+<li><p><a href="plots_pbmc.html">PBMC</a></p></li>
+<li><p><a href="plots_tracheal_epithelium.html">Droplet and pulse-seq</a></p></li>
 </ul>
 </div>
 
