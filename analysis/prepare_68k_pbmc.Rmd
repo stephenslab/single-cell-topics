@@ -29,7 +29,7 @@ tar.gz file for the "Fresh 68k PBMCs (Donor A) data set from
 [companion repository on GitHub][zheng-2017-github], and then save and
 compress these files to the `data/pbmc_68k` directory.
 
-```{r load-data}
+```{r load-data, message=FALSE}
 samples <- read_barcodes_with_annotations(file.path("../data/pbmc_68k",
              "68k_pbmc_barcodes_annotation.tsv.gz"))
 genes   <- read_genes("../data/pbmc_68k/genes.tsv.gz")
@@ -63,7 +63,7 @@ Save the processed data.
 ```{r save-data}
 save(list = c("samples","genes","counts"),
      file = "pbmc_68k.RData")
-# resaveRdaFiles("pbmc_68k.RData")
+resaveRdaFiles("pbmc_68k.RData")
 ```
 
 [zheng-2017]: https://doi.org/10.1038/ncomms14049
