@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed35cb03fade4ee2fc5da4880b31c21d1c2bb9ddatargetblankd35cb03a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d35cb03fade4ee2fc5da4880b31c21d1c2bb9dda" target="_blank">d35cb03</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec7b77ee2b8b9d0ac075a4cfcf78a1a755ca868d6targetblankc7b77eea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c7b77ee2b8b9d0ac075a4cfcf78a1a755ca868d6" target="_blank">c7b77ee</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed35cb03fade4ee2fc5da4880b31c21d1c2bb9ddatargetblankd35cb03a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec7b77ee2b8b9d0ac075a4cfcf78a1a755ca868d6targetblankc7b77eea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d35cb03fade4ee2fc5da4880b31c21d1c2bb9dda" target="_blank">d35cb03</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c7b77ee2b8b9d0ac075a4cfcf78a1a755ca868d6" target="_blank">c7b77ee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c7b77ee2b8b9d0ac075a4cfcf78a1a755ca868d6/analysis/plots_tracheal_epithelium.Rmd" target="_blank">c7b77ee</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/70a4a60fe8655bd8d5609ed02a7f3718c41ae6fa/analysis/plots_tracheal_epithelium.Rmd" target="_blank">70a4a60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+Added note to plots_tracheal_epithelium.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/plots_tracheal_epithelium.html" target="_blank">fb21b3b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+Added very initial Structure plots to plots_tracheal_epithelium analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -790,7 +841,7 @@ rm(samples,counts)</code></pre>
 <p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit for the droplet data, and the <span class="math inline">\(k = 11\)</span> Poisson NMF fit for the pulse-seq data.</p>
 <pre class="r"><code>fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
 fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit</code></pre>
-<p>Rare and abundant cell types in the droplet data:</p>
+<p>The Montoro <em>et al</em> (2018) article mentions that some epithelial cell types are abundant, whereas others are very rare. The topics in the droplet data reflect this:</p>
 <pre class="r"><code>p1 &lt;- create_abundance_plot(fit_droplet)
 print(p1)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundance-plot-droplet-1.png" width="420" style="display: block; margin: auto;" /></p>
@@ -831,10 +882,10 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The first topic is indeed very rare; only 43 samples have a greater than 10% contribution from this topic.</p>
+<p>The first topic—which is not visible in the bar chart—is indeed very rare; only 43 out of 7,193 samples have a greater than 10% contribution from this topic.</p>
 <pre class="r"><code>sum(poisson2multinom(fit_droplet)$L[,1] &gt; 0.1)
 # [1] 43</code></pre>
-<p>Rare and abundant cell types in the pulse-seq data:</p>
+<p>Likewise, we also pick up rare and abundant topics in the pulse-seq data:</p>
 <pre class="r"><code>p2 &lt;- create_abundance_plot(fit_pulseseq)
 print(p2)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundancee-plot-pulseseq-1.png" width="480" style="display: block; margin: auto;" /></p>
@@ -875,7 +926,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>[Explain why we don’t use <em>t</em>-SNE.] Substructure is evident from principal components of droplet topic proportions:</p>
+<p>In this next part of the analysis, we perform PCA on the estimated topic proportions to explore structure in the data as inferred by the topic model. Typically a nonlinear embedding method such as <em>t</em>-SNE or UMAP is used to visualize the structure, but the disadvantage such methods is that it can often be difficult to get the (many) tuning parameters right, and they are sometimes very slow for large data sets; by contrast, PCA has no tuning parameters.</p>
+<p>These three scatterplots show the droplet samples (the topic proportions) projected onto 5 out of the 7 PCs. (PCs 3 and 7 do not reveal any additional structure, so are not shown here.)</p>
 <pre class="r"><code>p3 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;))
 p4 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;))
 p5 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;))
@@ -929,7 +981,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><strong>TO DO:</strong> Add PC plots with topic proportions here.</p>
+<p>Distinct clusters show up in the PC1 vs. PC2 plot, as well as in the PC5 vs. PC6 plot, whereas the structure in PC4 vs. PC5 is very much continuously varying.</p>
+<p>Let’s look more closely at the topics that show variation in the first two PCs:</p>
 <pre class="r"><code>p6 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
                plot_grid_call = function (plots)
                  do.call(plot_grid,c(lapply(plots,
@@ -984,7 +1037,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Principal components 4 and 5:</p>
+<p>The bulk of the samples lie on a continuous gradient between topics 2 and 5. There is a smaller cluster at the bottom of this plot, with high contributions from topic 6.</p>
+<p>Next, we look closely at PCs 4 and 5:</p>
 <pre class="r"><code>p7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
                plot_grid_call = function (plots)
                  do.call(plot_grid,c(lapply(plots,
@@ -1015,6 +1069,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">fb21b3b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/5a35bbd6b181f322bc808840a2df3c20a6b80d94/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">5a35bbd</a>
 </td>
 <td>
@@ -1039,7 +1104,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Principal components 5 and 6:</p>
+<p>Along these PCs, we see that topics 3, 4, 5 and 7 exist in many combinations, with no apparent distinct populations.</p>
+<p>Topic 1 captures a very small discrete population of cells:</p>
 <pre class="r"><code>p8 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
         guides(fill = &quot;none&quot;)
 print(p8)</code></pre>
@@ -1081,7 +1147,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>[Note that PCs 3 and 7 does not reveal any additional substructure, so are not included in our plots.]</p>
+<p>In summary, topics 1 and 6 pick up discrete “cell types”, whereas the other topics characterize more continuous variation in gene expression, perhaps cell types along a continuous trajectory of development. There are some other discrete clusters that seem to be composed of distinct combinations of topics that we will neeed to examine more closely.</p>
 <p>Four suggested by PCA analysis, plus a “background” cluster (<span class="math inline">\(c_0\)</span>):</p>
 <pre class="r"><code>droplet_cluster_colors &lt;- c(&quot;gray&quot;,&quot;darkblue&quot;,&quot;gold&quot;,&quot;yellowgreen&quot;,&quot;firebrick&quot;)
 pca_droplet &lt;- prcomp(poisson2multinom(fit_droplet)$L)$x
@@ -1125,6 +1191,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-1-1.png" target="_blank">fb21b3b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/368a74a30418728c7ae896e6ec1c567e24ace79f/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-1-1.png" target="_blank">368a74a</a>
@@ -1172,6 +1249,117 @@ p12 &lt;- structure_plot(fit_droplet_rare,rows = order(tsne_droplet_rare$Y),
                       colors = droplet_topic_colors[topic_ordering])
 print(p12)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-structure-plot-rare-1">
+Past versions of droplet-structure-plot-rare-1.png
+</button>
+</p>
+<div id="fig-droplet-structure-plot-rare-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">fb21b3b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>temp &lt;- select(poisson2multinom(fit_droplet),
+               loadings = which(samples_droplet$tissue == &quot;Ionocyte&quot;))
+structure_plot(temp,rows = order(temp$L[,3]),
+                      topics = topic_ordering,
+                      colors = droplet_topic_colors[topic_ordering])</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-2.png" width="720" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>temp2 &lt;- select(poisson2multinom(fit_droplet),
+                loadings = which(samples_droplet$tissue == &quot;Tuft&quot;))
+structure_plot(temp2,perplexity = 30,
+               topics = topic_ordering,
+               colors = droplet_topic_colors[topic_ordering])</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-3.png" width="720" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>temp3 &lt;- select(poisson2multinom(fit_droplet),
+                loadings = which(samples_droplet$tissue == &quot;Neuroendocrine&quot;))
+structure_plot(temp3,perplexity = 30,
+               topics = topic_ordering,
+               colors = droplet_topic_colors[topic_ordering])</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-4.png" width="720" style="display: block; margin: auto;" /></p>
+<pre><code># Read the 158 x 7 data matrix successfully!
+# OpenMP is working. 1 threads.
+# Using no_dims = 1, perplexity = 30.000000, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.01 seconds (sparsity = 0.752924)!
+# Learning embedding...
+# Iteration 50: error is 46.264071 (50 iterations in 0.01 seconds)
+# Iteration 100: error is 45.443002 (50 iterations in 0.01 seconds)
+# Iteration 150: error is 44.347590 (50 iterations in 0.01 seconds)
+# Iteration 200: error is 45.517446 (50 iterations in 0.01 seconds)
+# Iteration 250: error is 46.081133 (50 iterations in 0.01 seconds)
+# Iteration 300: error is 0.338211 (50 iterations in 0.02 seconds)
+# Iteration 350: error is 0.262554 (50 iterations in 0.01 seconds)
+# Iteration 400: error is 0.262338 (50 iterations in 0.01 seconds)
+# Iteration 450: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 500: error is 0.262333 (50 iterations in 0.02 seconds)
+# Iteration 550: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 600: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 650: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 700: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 750: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 800: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 850: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 900: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 950: error is 0.262333 (50 iterations in 0.01 seconds)
+# Iteration 1000: error is 0.262333 (50 iterations in 0.01 seconds)
+# Fitting performed in 0.25 seconds.
+# Read the 96 x 7 data matrix successfully!
+# OpenMP is working. 1 threads.
+# Using no_dims = 1, perplexity = 30.000000, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.01 seconds (sparsity = 0.983941)!
+# Learning embedding...
+# Iteration 50: error is 51.369311 (50 iterations in 0.01 seconds)
+# Iteration 100: error is 49.505412 (50 iterations in 0.01 seconds)
+# Iteration 150: error is 49.533513 (50 iterations in 0.01 seconds)
+# Iteration 200: error is 45.739453 (50 iterations in 0.01 seconds)
+# Iteration 250: error is 48.708066 (50 iterations in 0.01 seconds)
+# Iteration 300: error is 1.416143 (50 iterations in 0.01 seconds)
+# Iteration 350: error is 0.382373 (50 iterations in 0.01 seconds)
+# Iteration 400: error is 0.312025 (50 iterations in 0.01 seconds)
+# Iteration 450: error is 0.312065 (50 iterations in 0.01 seconds)
+# Iteration 500: error is 0.312066 (50 iterations in 0.01 seconds)
+# Iteration 550: error is 0.312066 (50 iterations in 0.01 seconds)
+# Iteration 600: error is 0.312065 (50 iterations in 0.01 seconds)
+# Iteration 650: error is 0.312065 (50 iterations in 0.01 seconds)
+# Iteration 700: error is 0.312067 (50 iterations in 0.01 seconds)
+# Iteration 750: error is 0.312067 (50 iterations in 0.01 seconds)
+# Iteration 800: error is 0.312066 (50 iterations in 0.01 seconds)
+# Iteration 850: error is 0.312067 (50 iterations in 0.01 seconds)
+# Iteration 900: error is 0.312065 (50 iterations in 0.01 seconds)
+# Iteration 950: error is 0.312065 (50 iterations in 0.01 seconds)
+# Iteration 1000: error is 0.312067 (50 iterations in 0.01 seconds)
+# Fitting performed in 0.12 seconds.</code></pre>
 <pre class="r"><code>set.seed(1)
 fit_droplet_abundant &lt;-
   select(poisson2multinom(fit_droplet),
@@ -1185,7 +1373,7 @@ p13 &lt;- structure_plot(fit_droplet_abundant,
                       topics = topic_ordering,
                       colors = droplet_topic_colors[topic_ordering])
 print(p13)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundan-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>It is helpful to compare these results with clustering reported in the Montoro <em>et al</em> (2018) paper. To make this comparison, we layer the 7 clusters on top of these PCs:</p>
 <pre class="r"><code>droplet_celltype_colors &lt;-
   c(&quot;royalblue&quot;,      # Basal
@@ -1273,6 +1461,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p><strong>TO DO:</strong> Add Structure plot9s) to compare Montoro <em>et al</em> (2018) clustering.</p>
 <p>And likewise in the pulse-seq data:</p>
 <pre class="r"><code>p5 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC3&quot;,&quot;PC4&quot;))
 p6 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC5&quot;,&quot;PC6&quot;))
