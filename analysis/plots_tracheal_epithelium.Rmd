@@ -106,7 +106,7 @@ We won't dwell much on the clustering reported in the Montoro *et al*
 (2018) paper, but for comparison we layer the 7 clusters on top of
 these PCs:
 
-```{r droplet-pca-with-clusters, fig.height=5.5, fig.width=8}
+```{r droplet-pca-with-clusters, fig.height=5.25, fig.width=8}
 droplet_celltype_colors <-
   c("royalblue",      # Basal
     "firebrick",      # Ciliated
