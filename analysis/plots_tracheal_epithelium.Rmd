@@ -102,9 +102,9 @@ print(p8)
 [Note that PCs 3 and 7 does not reveal any additional substructure, so are not
 included in our plots.]
 
-Clusters suggested by PCA analysis:
+Four suggested by PCA analysis, plus a "background" cluster ($c_0$):
 
-```{r droplet-clustering-1, fig.height=5.25, fig.width=8}
+```{r droplet-clustering-1, fig.height=4, fig.width=8}
 droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
 pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
 n <- nrow(pca_droplet)
@@ -126,7 +126,7 @@ p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$cluster,
 plot_grid(p9,p10,p11)
 ```
 
-Most of the samples are in the first cluster:
+The vast majority of the droplet samples are in the $c_1$ cluster:
 
 ```{r droplet-clustering-2}
 table(samples_droplet$cluster)
