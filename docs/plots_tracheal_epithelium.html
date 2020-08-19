@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef914f7e28e63914b21b1b6a00c7c73e81ee1a961targetblankf914f7ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f914f7e28e63914b21b1b6a00c7c73e81ee1a961" target="_blank">f914f7e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef1c7d028ef9fa5c96cf785283b567f98c26b365btargetblankf1c7d02a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f1c7d028ef9fa5c96cf785283b567f98c26b365b" target="_blank">f1c7d02</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef914f7e28e63914b21b1b6a00c7c73e81ee1a961targetblankf914f7ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef1c7d028ef9fa5c96cf785283b567f98c26b365btargetblankf1c7d02a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f914f7e28e63914b21b1b6a00c7c73e81ee1a961" target="_blank">f914f7e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f1c7d028ef9fa5c96cf785283b567f98c26b365b" target="_blank">f1c7d02</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -443,6 +443,7 @@ Ignored files:
 
 Unstaged changes:
     Modified:   analysis/index.Rmd
+    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -481,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f1c7d028ef9fa5c96cf785283b567f98c26b365b/analysis/plots_tracheal_epithelium.Rmd" target="_blank">f1c7d02</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+<td>
+wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/0a04fc1929d7987b10f019c015f116aa46705bcc/docs/plots_tracheal_epithelium.html" target="_blank">0a04fc1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+<td>
+Added abundance plots to plots_tracheal_epithelium analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -541,6 +576,43 @@ fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11
 <pre class="r"><code>p1 &lt;- create_abundance_plot(fit_droplet)
 print(p1)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundance-plot-droplet-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-abundance-plot-droplet-1">
+Past versions of abundance-plot-droplet-1.png
+</button>
+</p>
+<div id="fig-abundance-plot-droplet-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0a04fc1929d7987b10f019c015f116aa46705bcc/docs/figure/plots_tracheal_epithelium.Rmd/abundance-plot-droplet-1.png" target="_blank">0a04fc1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The first topic is indeed very rare; only 43 samples have a greater than 10% contribution from this topic.</p>
 <pre class="r"><code>sum(poisson2multinom(fit_droplet)$L[,1] &gt; 0.1)
 # [1] 43</code></pre>
@@ -548,14 +620,67 @@ print(p1)</code></pre>
 <pre class="r"><code>p2 &lt;- create_abundance_plot(fit_pulseseq)
 print(p2)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundancee-plot-pulseseq-1.png" width="480" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>fit &lt;- poisson2multinom(droplet_fit)
-pca &lt;- prcomp(fit$L)
-ggplot(as.data.frame(pca$x),aes(x = PC1,y = PC2)) +
-  geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;black&quot;,size = 2) +
-  theme_cowplot(font_size = 12)
-ggplot(as.data.frame(pca$x),aes(x = PC5,y = PC6)) +
-  geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;black&quot;,size = 2) +
-  theme_cowplot(font_size = 12)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-abundancee-plot-pulseseq-1">
+Past versions of abundancee-plot-pulseseq-1.png
+</button>
+</p>
+<div id="fig-abundancee-plot-pulseseq-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0a04fc1929d7987b10f019c015f116aa46705bcc/docs/figure/plots_tracheal_epithelium.Rmd/abundancee-plot-pulseseq-1.png" target="_blank">0a04fc1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>[Explain why we don’t use <em>t</em>-SNE.] Substructure is evident from principal components of droplet topic proportions:</p>
+<pre class="r"><code>p3 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;))
+p4 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;))
+plot_grid(p3,p4)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><strong>TO DO:</strong> Add PC plots with topic proportions here.</p>
+<p>We won’t dwell much on the clustering reported in the Montoro <em>et al</em> (2018) paper, but for comparison we layer the 7 clusters on top of these four PCs:</p>
+<pre class="r"><code>droplet_colors &lt;- c(&quot;royalblue&quot;,      # Basal
+                    &quot;firebrick&quot;,      # Ciliated
+                    &quot;forestgreen&quot;,    # Club
+                    &quot;gold&quot;,           # Goblet
+                    &quot;darkmagenta&quot;,    # Ionocyte
+                    &quot;darkorange&quot;,     # Neuroendocrine
+                    &quot;lightsteelblue&quot;) # Tuft
+p5 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;),samples_droplet$tissue,
+                           droplet_colors)
+p6 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$tissue,
+                           droplet_colors)
+plot_grid(p5,p6)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>And likewise in the pulse-seq data:</p>
+<pre class="r"><code>p5 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC3&quot;,&quot;PC4&quot;))
+p6 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC5&quot;,&quot;PC6&quot;))
+plot_grid(p5,p6)</code></pre>
 <pre class="r"><code>ggplot(cbind(pca$x,data.frame(k2 = fit$L[,2])),
        aes(x = PC1,y = PC2,fill = k2)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
@@ -592,12 +717,21 @@ ggplot(cbind(pca$x,data.frame(k4 = fit$L[,4])),
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
                        midpoint = 0.5) +
   theme_cowplot(font_size = 12)</code></pre>
+<pre class="r"><code>ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)
+ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
+  geom_point(shape = 21,color = &quot;white&quot;,,size = 2) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)</code></pre>
 <pre class="r"><code>clrs &lt;- c(&quot;royalblue&quot;,      # basal
           &quot;firebrick&quot;,      # ciliated
           &quot;forestgreen&quot;,    # club
           &quot;gold&quot;,           # goblet
           &quot;darkmagenta&quot;,    # ionocyte
           &quot;darkorange&quot;,     # neuroendocrine
+          &quot;tomato&quot;,         # proliferating
           &quot;darkgray&quot;)       # tuft
 ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
