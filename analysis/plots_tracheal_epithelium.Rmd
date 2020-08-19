@@ -49,7 +49,7 @@ print(p1)
 The first topic is indeed very rare; only 43 samples have a greater
 than 10% contribution from this topic.
 
-```{r k1-abundance}
+```{r abundance-droplet-k1}
 sum(poisson2multinom(fit_droplet)$L[,1] > 0.1)
 ```
 
@@ -60,15 +60,42 @@ p2 <- create_abundance_plot(fit_pulseseq)
 print(p2)
 ```
 
-```{r droplet-pca, eval=FALSE}
-fit <- poisson2multinom(droplet_fit)
-pca <- prcomp(fit$L)
-ggplot(as.data.frame(pca$x),aes(x = PC1,y = PC2)) +
-  geom_point(shape = 21,color = "white",fill = "black",size = 2) +
-  theme_cowplot(font_size = 12)
-ggplot(as.data.frame(pca$x),aes(x = PC5,y = PC6)) +
-  geom_point(shape = 21,color = "white",fill = "black",size = 2) +
-  theme_cowplot(font_size = 12)
+[Explain why we don't use *t*-SNE.] Substructure is evident from
+principal components of droplet topic proportions:
+
+```{r droplet-pca, fig.height=2.75, fig.width=6}
+p3 <- basic_pca_plot(fit_droplet,c("PC1","PC2"))
+p4 <- basic_pca_plot(fit_droplet,c("PC5","PC6"))
+plot_grid(p3,p4)
+```
+
+**TO DO:** Add PC plots with topic proportions here.
+
+We won't dwell much on the clustering reported in the Montoro *et al*
+(2018) paper, but for comparison we layer the 7 clusters on top of
+these four PCs:
+
+```{r droplet-pca-with-clusters, fig.height=2.75, fig.width=8}
+droplet_colors <- c("royalblue",      # Basal
+                    "firebrick",      # Ciliated
+                    "forestgreen",    # Club
+		            "gold",           # Goblet
+                    "darkmagenta",    # Ionocyte
+                    "darkorange",     # Neuroendocrine
+		            "lightsteelblue") # Tuft
+p5 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$tissue,
+                           droplet_colors)
+p6 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
+                           droplet_colors)
+plot_grid(p5,p6)
+```
+
+And likewise in the pulse-seq data:
+
+```{r pulseseq-pca, fig.height=2, fig.width=4, eval=FALSE}
+p5 <- basic_pca_plot(fit_pulseseq,c("PC3","PC4"))
+p6 <- basic_pca_plot(fit_pulseseq,c("PC5","PC6"))
+plot_grid(p5,p6)
 ```
 
 ```{r droplet-pca-with-topics, eval=FALSE}
@@ -114,12 +141,24 @@ ggplot(cbind(pca$x,data.frame(k4 = fit$L[,4])),
 ```
 
 ```{r, eval=FALSE}
+ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)
+ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
+  geom_point(shape = 21,color = "white",,size = 2) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)
+```
+
+```{r, eval=FALSE}
 clrs <- c("royalblue",      # basal
           "firebrick",      # ciliated
           "forestgreen",    # club
-		  "gold",           # goblet
+	      "gold",           # goblet
 		  "darkmagenta",    # ionocyte
           "darkorange",     # neuroendocrine
+		  "tomato",         # proliferating
 		  "darkgray")       # tuft
 ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
   geom_point(shape = 21,color = "white",size = 2) +
