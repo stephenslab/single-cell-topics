@@ -40,29 +40,42 @@ fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
-Rare and abundant cell types in the droplet data:
+The Montoro *et al* (2018) article mentions that some epithelial cell
+types are abundant, whereas others are very rare. The topics in the
+droplet data reflect this:
 
 ```{r abundance-plot-droplet, fig.width=3.5, fig.height=2}
 p1 <- create_abundance_plot(fit_droplet)
 print(p1)
 ```
 
-The first topic is indeed very rare; only 43 samples have a greater
-than 10% contribution from this topic.
+The first topic---which is not visible in the bar chart---is indeed
+very rare; only 43 out of 7,193 samples have a greater than 10%
+contribution from this topic.
 
 ```{r abundance-droplet-k1}
 sum(poisson2multinom(fit_droplet)$L[,1] > 0.1)
 ```
 
-Rare and abundant cell types in the pulse-seq data:
+Likewise, we also pick up rare and abundant topics in the pulse-seq
+data:
 
 ```{r abundancee-plot-pulseseq, fig.width=4, fig.height=2}
 p2 <- create_abundance_plot(fit_pulseseq)
 print(p2)
 ```
 
-[Explain why we don't use *t*-SNE.] Substructure is evident from
-principal components of droplet topic proportions:
+In this next part of the analysis, we perform PCA on the estimated
+topic proportions to explore structure in the data as inferred by the
+topic model. Typically a nonlinear embedding method such as *t*-SNE or
+UMAP is used to visualize the structure, but the disadvantage such
+methods is that it can often be difficult to get the (many) tuning
+parameters right, and they are sometimes very slow for large data
+sets; by contrast, PCA has no tuning parameters.
+
+These three scatterplots show the droplet samples (the topic
+proportions) projected onto 5 out of the 7 PCs. (PCs 3 and 7 do not
+reveal any additional structure, so are not shown here.)
 
 ```{r droplet-pca, fig.height=2.5, fig.width=8}
 p3 <- basic_pca_plot(fit_droplet,c("PC1","PC2"))
@@ -71,7 +84,12 @@ p5 <- basic_pca_plot(fit_droplet,c("PC5","PC6"))
 plot_grid(p3,p4,p5,nrow = 1)
 ```
 
-**TO DO:** Add PC plots with topic proportions here.
+Distinct clusters show up in the PC1 vs. PC2 plot, as well as in the
+PC5 vs. PC6 plot, whereas the structure in PC4 vs. PC5 is very much
+continuously varying.
+
+Let's look more closely at the topics that show variation in the first
+two PCs:
 
 ```{r droplet-pca-with-topics-1, fig.height=2.1, fig.width=6}
 p6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
@@ -81,9 +99,13 @@ p6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
 print(p6)
 ```
 
-Principal components 4 and 5:
+The bulk of the samples lie on a continuous gradient between topics 2
+and 5. There is a smaller cluster at the bottom of this plot, with
+high contributions from topic 6.
 
-```{r droplet-pca-with-topics-2, fig.height=1.75, fig.width=8}
+Next, we look closely at PCs 4 and 5:
+
+```{r droplet-pca-with-topics-2, fig.height=2, fig.width=8}
 p7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
                plot_grid_call = function (plots)
 			     do.call(plot_grid,c(lapply(plots,
@@ -91,7 +113,10 @@ p7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
 print(p7)
 ```
 
-Principal components 5 and 6:
+Along these PCs, we see that topics 3, 4, 5 and 7 exist in many
+combinations, with no apparent distinct populations.
+
+Topic 1 captures a very small discrete population of cells:
 
 ```{r droplet-pca-with-topics-3, fig.height=2.25, fig.width=2.25}
 p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
@@ -99,8 +124,12 @@ p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
 print(p8)
 ```
 
-[Note that PCs 3 and 7 does not reveal any additional substructure, so are not
-included in our plots.]
+In summary, topics 1 and 6 pick up discrete "cell types", whereas the
+other topics characterize more continuous variation in gene
+expression, perhaps cell types along a continuous trajectory of
+development. There are some other discrete clusters that seem to be
+composed of distinct combinations of topics that we will neeed to
+examine more closely.
 
 Four suggested by PCA analysis, plus a "background" cluster ($c_0$):
 
@@ -150,10 +179,25 @@ p12 <- structure_plot(fit_droplet_rare,rows = order(tsne_droplet_rare$Y),
                       topics = topic_ordering,
 					  colors = droplet_topic_colors[topic_ordering])
 print(p12)
+temp <- select(poisson2multinom(fit_droplet),
+               loadings = which(samples_droplet$tissue == "Ionocyte"))
+structure_plot(temp,rows = order(temp$L[,3]),
+                      topics = topic_ordering,
+					  colors = droplet_topic_colors[topic_ordering])
+temp2 <- select(poisson2multinom(fit_droplet),
+                loadings = which(samples_droplet$tissue == "Tuft"))
+structure_plot(temp2,perplexity = 30,
+               topics = topic_ordering,
+			   colors = droplet_topic_colors[topic_ordering])
+temp3 <- select(poisson2multinom(fit_droplet),
+                loadings = which(samples_droplet$tissue == "Neuroendocrine"))
+structure_plot(temp3,perplexity = 30,
+               topics = topic_ordering,
+			   colors = droplet_topic_colors[topic_ordering])
 ```
 
 
-```{r droplet-structure-plot-abundan, fig.width=8, fig.height=2}
+```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2}
 set.seed(1)
 fit_droplet_abundant <-
   select(poisson2multinom(fit_droplet),
