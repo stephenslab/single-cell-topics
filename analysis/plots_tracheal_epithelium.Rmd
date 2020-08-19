@@ -102,9 +102,39 @@ print(p8)
 [Note that PCs 3 and 7 does not reveal any additional substructure, so are not
 included in our plots.]
 
-We won't dwell much on the clustering reported in the Montoro *et al*
-(2018) paper, but for comparison we layer the 7 clusters on top of
-these PCs:
+Clusters suggested by PCA analysis:
+
+```{r droplet-clustering-1, fig.height=5.25, fig.width=8}
+droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
+pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
+n <- nrow(pca_droplet)
+x <- rep("c0",n)
+pc1 <- pca_droplet[,"PC1"]
+pc2 <- pca_droplet[,"PC2"]
+pc6 <- pca_droplet[,"PC6"]
+x[pc2 > -0.1] <- "c1"
+x[pc6 < -0.04] <- "c2"
+x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09] <- "c3"
+x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 < 0.04] <- "c4"
+samples_droplet$cluster <- factor(x)
+p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$cluster,
+                           droplet_cluster_colors) + labs(fill = "cluster")
+p10 <- pca_plot_with_labels(fit_droplet,c("PC4","PC5"),samples_droplet$cluster,
+                            droplet_cluster_colors) + labs(fill = "cluster")
+p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$cluster,
+                            droplet_cluster_colors) + labs(fill = "cluster")
+plot_grid(p9,p10,p11)
+```
+
+Most of the samples are in the first cluster:
+
+```{r droplet-clustering-2}
+table(samples_droplet$cluster)
+```
+
+It is helpful to compare these results with clustering reported in the
+Montoro *et al* (2018) paper. To make this comparison, we layer the 7
+clusters on top of these PCs:
 
 ```{r droplet-pca-with-clusters, fig.height=5.25, fig.width=8}
 droplet_celltype_colors <-
