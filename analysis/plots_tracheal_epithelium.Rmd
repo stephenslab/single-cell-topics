@@ -14,7 +14,8 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
-library(fastTopics)
+# library(fastTopics)
+devtools::load_all("~/git/fastTopics")
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
@@ -63,13 +64,40 @@ print(p2)
 [Explain why we don't use *t*-SNE.] Substructure is evident from
 principal components of droplet topic proportions:
 
-```{r droplet-pca, fig.height=2.75, fig.width=6}
+```{r droplet-pca, fig.height=2.5, fig.width=8}
 p3 <- basic_pca_plot(fit_droplet,c("PC1","PC2"))
-p4 <- basic_pca_plot(fit_droplet,c("PC5","PC6"))
-plot_grid(p3,p4)
+p4 <- basic_pca_plot(fit_droplet,c("PC4","PC5"))
+p5 <- basic_pca_plot(fit_droplet,c("PC5","PC6"))
+plot_grid(p3,p4,p5,nrow = 1)
 ```
 
 **TO DO:** Add PC plots with topic proportions here.
+
+```{r droplet-pca-with-topics-1, fig.height=2.25, fig.width=6}
+p6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
+               plot_grid_call = function (plots)
+			     do.call(plot_grid,c(lapply(plots,
+				   function (x) x + guides(fill = "none")),list(nrow = 1))))
+print(p6)
+```
+
+Principal components 4 and 5:
+
+```{r droplet-pca-with-topics-2, fig.height=2.25, fig.width=6}
+p7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,7),
+               plot_grid_call = function (plots)
+			     do.call(plot_grid,c(lapply(plots,
+				   function (x) x + guides(fill = "none")),list(nrow = 1))))
+print(p7)
+```
+
+Principal components 5 and 6:
+
+```{r droplet-pca-with-topics-3, fig.height=2.25, fig.width=2.25}
+p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
+        guides(fill = "none")
+print(p8)
+```
 
 We won't dwell much on the clustering reported in the Montoro *et al*
 (2018) paper, but for comparison we layer the 7 clusters on top of
@@ -99,7 +127,7 @@ p6 <- basic_pca_plot(fit_pulseseq,c("PC5","PC6"))
 plot_grid(p5,p6)
 ```
 
-```{r droplet-pca-with-topics, eval=FALSE}
+```{r droplet-pca-with-topics-4, eval=FALSE}
 ggplot(cbind(pca$x,data.frame(k2 = fit$L[,2])),
        aes(x = PC1,y = PC2,fill = k2)) +
   geom_point(shape = 21,color = "white",size = 2) +
