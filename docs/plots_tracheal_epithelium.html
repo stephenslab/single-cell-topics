@@ -412,23 +412,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a7bd7465276742c305377eb2737c52e0e031abetargetblank3a7bd74a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3a7bd7465276742c305377eb2737c52e0e031abe" target="_blank">3a7bd74</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree29a9258d418e4df1553836d2e1a3de7073ce2e3etargetblank29a9258a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/29a9258d418e4df1553836d2e1a3de7073ce2e3e" target="_blank">29a9258</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a7bd7465276742c305377eb2737c52e0e031abetargetblank3a7bd74a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree29a9258d418e4df1553836d2e1a3de7073ce2e3etargetblank29a9258a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3a7bd7465276742c305377eb2737c52e0e031abe" target="_blank">3a7bd74</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/29a9258d418e4df1553836d2e1a3de7073ce2e3e" target="_blank">29a9258</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -479,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/29a9258d418e4df1553836d2e1a3de7073ce2e3e/analysis/plots_tracheal_epithelium.Rmd" target="_blank">29a9258</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/plots_tracheal_epithelium.html" target="_blank">0a16b60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+Fixed structure plot in plots_tracheal_epithelium analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1220,7 +1253,44 @@ p10 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;),sa
 p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$cluster,
                             droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
 plot_grid(p9,p10,p11)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-clustering-2-1">
+Past versions of droplet-clustering-2-1.png
+</button>
+</p>
+<div id="fig-droplet-clustering-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" target="_blank">0a16b60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In the following, we will treat the more abundant clusters, <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_4\)</span>, separately from the rest of the samples.</p>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>droplet_topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;turquoise&quot;,&quot;greenyellow&quot;,
@@ -1260,6 +1330,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">0a16b60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">fb21b3b</a>
 </td>
 <td>
@@ -1279,12 +1360,8 @@ fit_droplet_abundant &lt;-
   select(poisson2multinom(fit_droplet),
                           loadings = which(samples_droplet$cluster == &quot;c1&quot; |
                                            samples_droplet$cluster == &quot;c4&quot;))
-tsne_droplet_abundant &lt;- tsne_from_topics(fit_droplet_abundant,dims = 1,n = 1000,
-                                          perplexity = 100,verbose = FALSE)
-Y   &lt;- tsne_droplet_abundant$Y
-p13 &lt;- structure_plot(fit_droplet_abundant,
-                      rows   = rownames(Y)[order(Y)],
-                      colors = droplet_topic_colors)
+p13 &lt;- structure_plot(fit_droplet_abundant,verbose = FALSE,topics = topics,
+                      colors = droplet_topic_colors[topics])
 print(p13)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1309,6 +1386,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">0a16b60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f4bdf191a428ef8917fdd6f9e386653350125a0d/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">f4bdf19</a>
