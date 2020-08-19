@@ -1,10 +1,12 @@
-# TO DO: Explain here what this function does, and how to use it.
+# For each topic, plot the number of samples exceeding specified topic
+# proportion, as specified by "probs". The topics are ordered in the
+# bar chart from most abundant to least abundant.
 create_abundance_plot <- function (fit, probs = c(0.1,0.25,0.5),
                                    clrs=c("tomato","dodgerblue","darkblue")) {
-  m <- length(probs)
-  k <- ncol(fit$L)
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
+  m      <- length(probs)
+  k      <- ncol(fit$L)
   L      <- fit$L
   out    <- apply(L,2,function (x) rev(cumsum(rev(table(cut(x,c(probs,1)))))))
   topics <- colnames(L)
@@ -16,5 +18,30 @@ create_abundance_plot <- function (fit, probs = c(0.1,0.25,0.5),
          geom_col(color = "white",position = "dodge",width = 0.8) +
          scale_fill_manual(values = clrs) +
          labs(x = "topic",y = "samples") +
+         theme_cowplot(font_size = 10))
+}
+
+# Create a basic scatterplot showing the topic proportions projected
+# onto two principal components (PCs).
+basic_pca_plot <- function (fit, pcs = c("PC1","PC2")) {
+  if (inherits(fit,"poisson_nmf_fit"))
+    fit <- poisson2multinom(fit)
+  out.pca <- prcomp(fit$L)
+  return(ggplot(as.data.frame(out.pca$x),aes_string(x = pcs[1],y = pcs[2])) +
+         geom_point(shape = 21,color = "white",fill = "black",size = 1.25) +
+         theme_cowplot(font_size = 10))
+}
+
+# This is the same as basic_pca_plot, except that the colour of the
+# points is varied according to a factor ("labels").
+pca_plot_with_labels <- function (fit, pcs = c("PC1","PC2"),
+                                  labels, colors) {
+  if (inherits(fit,"poisson_nmf_fit"))
+    fit <- poisson2multinom(fit)
+  out.pca <- prcomp(fit$L)
+  dat     <- cbind(out.pca$x,data.frame(label = labels))
+  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "label")) +
+         geom_point(shape = 21,color = "white",size = 1.25) +
+         scale_fill_manual(values = colors) +
          theme_cowplot(font_size = 10))
 }
