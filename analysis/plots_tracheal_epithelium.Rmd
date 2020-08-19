@@ -73,7 +73,7 @@ plot_grid(p3,p4,p5,nrow = 1)
 
 **TO DO:** Add PC plots with topic proportions here.
 
-```{r droplet-pca-with-topics-1, fig.height=2.25, fig.width=6}
+```{r droplet-pca-with-topics-1, fig.height=2.1, fig.width=6}
 p6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
                plot_grid_call = function (plots)
 			     do.call(plot_grid,c(lapply(plots,
@@ -83,7 +83,7 @@ print(p6)
 
 Principal components 4 and 5:
 
-```{r droplet-pca-with-topics-2, fig.height=2.25, fig.width=6}
+```{r droplet-pca-with-topics-2, fig.height=2, fig.width=6}
 p7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,7),
                plot_grid_call = function (plots)
 			     do.call(plot_grid,c(lapply(plots,
@@ -99,11 +99,14 @@ p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
 print(p8)
 ```
 
+[Note that PCs 3 and 7 does not reveal any additional substructure, so are not
+included in our plots.]
+
 We won't dwell much on the clustering reported in the Montoro *et al*
 (2018) paper, but for comparison we layer the 7 clusters on top of
-these four PCs:
+these PCs:
 
-```{r droplet-pca-with-clusters, fig.height=2.75, fig.width=8}
+```{r droplet-pca-with-clusters, fig.height=5.5, fig.width=8}
 droplet_celltype_colors <-
   c("royalblue",      # Basal
     "firebrick",      # Ciliated
@@ -112,11 +115,13 @@ droplet_celltype_colors <-
     "darkmagenta",    # Ionocyte
     "darkorange",     # Neuroendocrine
     "lightsteelblue") # Tuft
-p5 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$tissue,
+p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$tissue,
                            droplet_celltype_colors) + labs(fill = "celltype")
-p6 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
-                           droplet_celltype_colors) + labs(fill = "celltype")
-plot_grid(p5,p6)
+p10 <- pca_plot_with_labels(fit_droplet,c("PC4","PC5"),samples_droplet$tissue,
+                            droplet_celltype_colors) + labs(fill = "celltype")
+p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
+                            droplet_celltype_colors) + labs(fill = "celltype")
+plot_grid(p9,p10,p11)
 ```
 
 And likewise in the pulse-seq data:
