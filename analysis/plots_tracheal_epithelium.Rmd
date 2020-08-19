@@ -1,5 +1,5 @@
 ---
-title: Visualize and interpret topics in droplet and pulse-seq data
+title: Visualize and interpret droplet and pulse-seq topics
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -8,7 +8,7 @@ output: workflowr::wflow_html
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
-                      fig.align = "center")
+                      fig.align = "center",dpi = 120)
 ```
 
 Load the packages used in the analysis below.
@@ -20,8 +20,8 @@ library(cowplot)
 source("../code/plots.R")
 ```
 
-Load the sample annotations (the count data are not needed at this
-stage of the analysis).
+Load the sample annotations. (The count data are no longer needed at this
+stage of the analysis.)
 
 ```{r load-data}
 load("../data/droplet.RData")
@@ -31,36 +31,36 @@ samples_pulseseq <- samples
 rm(samples,counts)
 ```
 
-Load the $k = 7$ Poisson NMF model fit:
+Load the $k = 7$ Poisson NMF model fit for the droplet data, and the
+$k = 11$ Poisson NMF fit for the pulse-seq data.
 
 ```{r load-fits}
-droplet_fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-pulseseq_fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
-Rare and abundant cell types.
+Rare and abundant cell types in the droplet data:
 
-```{r droplet-plot}
-probs <- c(0.1,0.25,0.5)
-fit   <- poisson2multinom(droplet_fit)
-k     <- ncol(fit$L)
-m     <- length(probs)
-out   <- apply(fit$L,2,function (x) rev(cumsum(rev(table(cut(x,c(probs,1)))))))
-pdat  <- data.frame(k    = factor(rep(paste0("k",1:k),each = m),
-                                  c("k2","k5","k4","k3","k6",""k7,"k1")),
-                    prob = factor(rep(probs,times = k)),
-					n    = as.vector(out))
-ggplot(pdat,aes_string(x = "k",y = "n",fill = "prob")) +
-  geom_col(color = "white",position = "dodge",width = 0.8) +
-  scale_fill_manual(values = c("tomato","dodgerblue","darkblue")) +
-  labs(x = "topic",y = "samples") +
-  theme_cowplot(font_size = 12)
+```{r abundance-plot-droplet, fig.width=3.5, fig.height=2}
+p1 <- create_abundance_plot(fit_droplet)
+print(p1)
 ```
 
-```{r pulseseq-plot}
+The first topic is indeed very rare; only 43 samples have a greater
+than 10% contribution from this topic.
+
+```{r k1-abundance}
+sum(poisson2multinom(fit_droplet)$L[,1] > 0.1)
 ```
 
-```{r droplet-pca}
+Rare and abundant cell types in the pulse-seq data:
+
+```{r abundancee-plot-pulseseq, fig.width=4, fig.height=2}
+p2 <- create_abundance_plot(fit_pulseseq)
+print(p2)
+```
+
+```{r droplet-pca, eval=FALSE}
 fit <- poisson2multinom(droplet_fit)
 pca <- prcomp(fit$L)
 ggplot(as.data.frame(pca$x),aes(x = PC1,y = PC2)) +
@@ -71,7 +71,7 @@ ggplot(as.data.frame(pca$x),aes(x = PC5,y = PC6)) +
   theme_cowplot(font_size = 12)
 ```
 
-```{r droplet-pca-with-topics}
+```{r droplet-pca-with-topics, eval=FALSE}
 ggplot(cbind(pca$x,data.frame(k2 = fit$L[,2])),
        aes(x = PC1,y = PC2,fill = k2)) +
   geom_point(shape = 21,color = "white",size = 2) +
@@ -98,7 +98,7 @@ ggplot(cbind(pca$x,data.frame(k1 = fit$L[,1])),
   theme_cowplot(font_size = 12)
 ```
 
-```{r}
+```{r, eval=FALSE}
 ggplot(cbind(pca$x,data.frame(k3 = fit$L[,3])),
        aes(x = PC1,y = PC2,fill = k3)) +
   geom_point(shape = 21,color = "white",size = 2) +
@@ -110,5 +110,23 @@ ggplot(cbind(pca$x,data.frame(k4 = fit$L[,4])),
   geom_point(shape = 21,color = "white",size = 2) +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
                        midpoint = 0.5) +
+  theme_cowplot(font_size = 12)
+```
+
+```{r, eval=FALSE}
+clrs <- c("royalblue",      # basal
+          "firebrick",      # ciliated
+          "forestgreen",    # club
+		  "gold",           # goblet
+		  "darkmagenta",    # ionocyte
+          "darkorange",     # neuroendocrine
+		  "darkgray")       # tuft
+ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  scale_fill_manual(values = clrs) +
+  theme_cowplot(font_size = 12)
+ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
+  geom_point(shape = 21,color = "white",,size = 2) +
+  scale_fill_manual(values = clrs) +
   theme_cowplot(font_size = 12)
 ```
