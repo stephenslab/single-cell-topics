@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-18
+<strong>Last updated:</strong> 2020-08-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -412,23 +412,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8f5c210a6a93dd5e5c25d35f100e2f3b88f1c3f3targetblank8f5c210a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8f5c210a6a93dd5e5c25d35f100e2f3b88f1c3f3" target="_blank">8f5c210</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeee7cbf157775bd42c882bb897efac8e07994c207targetblankee7cbf1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ee7cbf157775bd42c882bb897efac8e07994c207" target="_blank">ee7cbf1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8f5c210a6a93dd5e5c25d35f100e2f3b88f1c3f3targetblank8f5c210a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeee7cbf157775bd42c882bb897efac8e07994c207targetblankee7cbf1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8f5c210a6a93dd5e5c25d35f100e2f3b88f1c3f3" target="_blank">8f5c210</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ee7cbf157775bd42c882bb897efac8e07994c207" target="_blank">ee7cbf1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -479,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ee7cbf157775bd42c882bb897efac8e07994c207/analysis/plots_tracheal_epithelium.Rmd" target="_blank">ee7cbf1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c517ea207b696aa2815c2c77963d6c305373b7d3/docs/plots_tracheal_epithelium.html" target="_blank">c517ea2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+<td>
+Small fix to one of the PCA plots in plots_tracheal_epithelium.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -590,7 +623,8 @@ Working on new analysis, plots_tracheal_epithelium.Rmd.
 </div>
 <p><strong>TO DO:</strong> Add introductory text here.</p>
 <p>Load the packages used in the analysis below.</p>
-<pre class="r"><code>library(fastTopics)
+<pre class="r"><code># library(fastTopics)
+devtools::load_all(&quot;~/git/fastTopics&quot;)
 library(ggplot2)
 library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
@@ -690,9 +724,10 @@ Peter Carbonetto
 </div>
 <p>[Explain why we don’t use <em>t</em>-SNE.] Substructure is evident from principal components of droplet topic proportions:</p>
 <pre class="r"><code>p3 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;))
-p4 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;))
-plot_grid(p3,p4)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" width="720" style="display: block; margin: auto;" /></p>
+p4 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;))
+p5 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;))
+plot_grid(p3,p4,p5,nrow = 1)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-1">
 Past versions of droplet-pca-1.png
@@ -731,6 +766,24 @@ Peter Carbonetto
 </div>
 </div>
 <p><strong>TO DO:</strong> Add PC plots with topic proportions here.</p>
+<pre class="r"><code>p6 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
+               plot_grid_call = function (plots)
+                 do.call(plot_grid,c(lapply(plots,
+                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
+print(p6)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-1-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Principal components 4 and 5:</p>
+<pre class="r"><code>p7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,7),
+               plot_grid_call = function (plots)
+                 do.call(plot_grid,c(lapply(plots,
+                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
+print(p7)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Principal components 5 and 6:</p>
+<pre class="r"><code>p8 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
+        guides(fill = &quot;none&quot;)
+print(p8)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-3-1.png" width="270" style="display: block; margin: auto;" /></p>
 <p>We won’t dwell much on the clustering reported in the Montoro <em>et al</em> (2018) paper, but for comparison we layer the 7 clusters on top of these four PCs:</p>
 <pre class="r"><code>droplet_celltype_colors &lt;-
   c(&quot;royalblue&quot;,      # Basal
@@ -768,6 +821,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c517ea207b696aa2815c2c77963d6c305373b7d3/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">c517ea2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-18
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/01afbd2b764fd3d6724afa103aeefa2e4c91ff60/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">01afbd2</a>
@@ -870,32 +934,37 @@ ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-159
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-160 testthat_2.3.1    
 # 
 # loaded via a namespace (and not attached):
-#  [1] ggrepel_0.9.0        Rcpp_1.0.3           lattice_0.20-38     
-#  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
-#  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
-# [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
-# [13] evaluate_0.14        coda_0.19-3          httr_1.4.1          
-# [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
-# [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
-# [22] SparseM_1.78         whisker_0.4          Matrix_1.2-18       
-# [25] rmarkdown_2.3        labeling_0.3         Rtsne_0.15          
-# [28] stringr_1.4.0        htmlwidgets_1.5.1    munsell_0.5.0       
-# [31] compiler_3.6.2       httpuv_1.5.2         xfun_0.11           
-# [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
-# [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
-# [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
-# [43] dplyr_0.8.3          withr_2.1.2          later_1.0.0         
-# [46] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
-# [49] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
-# [52] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.4  
-# [55] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
-# [58] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
-# [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
-# [64] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
-# [67] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
+#  [1] httr_1.4.1           tidyr_1.0.0          pkgload_1.0.2       
+#  [4] viridisLite_0.3.0    jsonlite_1.6         RcppParallel_4.4.4  
+#  [7] assertthat_0.2.1     yaml_2.2.0           remotes_2.1.0       
+# [10] progress_1.2.2       ggrepel_0.9.0        sessioninfo_1.1.1   
+# [13] pillar_1.4.3         backports_1.1.5      lattice_0.20-38     
+# [16] quantreg_5.54        glue_1.3.1           quadprog_1.5-8      
+# [19] digest_0.6.23        promises_1.1.0       colorspace_1.4-1    
+# [22] htmltools_0.4.0      httpuv_1.5.2         Matrix_1.2-18       
+# [25] pkgconfig_2.0.3      devtools_2.2.1       SparseM_1.78        
+# [28] purrr_0.3.3          scales_1.1.0         processx_3.4.1      
+# [31] whisker_0.4          later_1.0.0          Rtsne_0.15          
+# [34] MatrixModels_0.4-1   git2r_0.26.1         tibble_2.1.3        
+# [37] farver_2.0.1         usethis_1.6.0        ellipsis_0.3.0      
+# [40] withr_2.1.2          lazyeval_0.2.2       cli_2.0.0           
+# [43] magrittr_1.5         crayon_1.3.4         memoise_1.1.0       
+# [46] mcmc_0.9-6           evaluate_0.14        ps_1.3.0            
+# [49] fs_1.3.1             fansi_0.4.0          MASS_7.3-51.4       
+# [52] pkgbuild_1.0.6       tools_3.6.2          data.table_1.12.8   
+# [55] prettyunits_1.1.1    hms_0.5.2            lifecycle_0.1.0     
+# [58] stringr_1.4.0        MCMCpack_1.4-5       plotly_4.9.2        
+# [61] munsell_0.5.0        irlba_2.3.3          callr_3.4.0         
+# [64] compiler_3.6.2       rlang_0.4.5          grid_3.6.2          
+# [67] rstudioapi_0.10      htmlwidgets_1.5.1    labeling_0.3        
+# [70] rmarkdown_2.3        gtable_0.3.0         R6_2.4.1            
+# [73] knitr_1.26           dplyr_0.8.3          zeallot_0.1.0       
+# [76] workflowr_1.6.2.9000 rprojroot_1.3-2      desc_1.2.0          
+# [79] stringi_1.4.3        Rcpp_1.0.3           vctrs_0.2.1         
+# [82] tidyselect_0.2.5     xfun_0.11            coda_0.19-3</code></pre>
 </div>
 
 
