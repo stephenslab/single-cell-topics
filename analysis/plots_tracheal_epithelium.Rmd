@@ -191,6 +191,8 @@ p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
 plot_grid(p9,p10,p11)
 ```
 
+**TO DO:** Add Structure plot9s) to compare Montoro *et al* (2018) clustering.
+
 And likewise in the pulse-seq data:
 
 ```{r pulseseq-pca, fig.height=2, fig.width=4, eval=FALSE}
