@@ -76,17 +76,18 @@ We won't dwell much on the clustering reported in the Montoro *et al*
 these four PCs:
 
 ```{r droplet-pca-with-clusters, fig.height=2.75, fig.width=8}
-droplet_colors <- c("royalblue",      # Basal
-                    "firebrick",      # Ciliated
-                    "forestgreen",    # Club
-		            "gold",           # Goblet
-                    "darkmagenta",    # Ionocyte
-                    "darkorange",     # Neuroendocrine
-		            "lightsteelblue") # Tuft
+droplet_celltype_colors <-
+  c("royalblue",      # Basal
+    "firebrick",      # Ciliated
+    "forestgreen",    # Club
+    "gold",           # Goblet
+    "darkmagenta",    # Ionocyte
+    "darkorange",     # Neuroendocrine
+    "lightsteelblue") # Tuft
 p5 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$tissue,
-                           droplet_colors)
+                           droplet_celltype_colors) + labs(fill = "celltype")
 p6 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
-                           droplet_colors)
+                           droplet_celltype_colors) + labs(fill = "celltype")
 plot_grid(p5,p6)
 ```
 
