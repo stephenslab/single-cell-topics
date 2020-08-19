@@ -136,7 +136,7 @@ the majority of which are included in cluster labeled c_1$. Here we
 construct this clustering by hand, using the PCs computed from the
 topic cproportions:
 
-```{r droplet-clustering-1, fig.height=4.5, fig.width=6}
+```{r droplet-clustering-1}
 pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
 n    <- nrow(pca_droplet)
 x    <- rep("c0",n)
@@ -156,7 +156,7 @@ Indeed, the vast majority of the cells are in the $c_1$ cluster.
 These next few scatterplots show the same PCs as before, with the
 samples labeled according to their assignment to these clusters:
 
-```{r droplet-clustering-2}
+```{r droplet-clustering-2, fig.height=4.5, fig.width=6}
 droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
 p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$cluster,
                            droplet_cluster_colors) + labs(fill = "cluster")
@@ -195,12 +195,8 @@ fit_droplet_abundant <-
   select(poisson2multinom(fit_droplet),
                           loadings = which(samples_droplet$cluster == "c1" |
 						                   samples_droplet$cluster == "c4"))
-tsne_droplet_abundant <- tsne_from_topics(fit_droplet_abundant,dims = 1,n = 1000,
-                                          perplexity = 100,verbose = FALSE)
-Y   <- tsne_droplet_abundant$Y
-p13 <- structure_plot(fit_droplet_abundant,
-                      rows   = rownames(Y)[order(Y)],
-					  colors = droplet_topic_colors)
+p13 <- structure_plot(fit_droplet_abundant,verbose = FALSE,topics = topics,
+					  colors = droplet_topic_colors[topics])
 print(p13)
 ```
 
