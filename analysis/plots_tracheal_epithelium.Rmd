@@ -131,21 +131,33 @@ development. There are some other discrete clusters that seem to be
 composed of distinct combinations of topics that we will neeed to
 examine more closely.
 
-Four suggested by PCA analysis, plus a "background" cluster ($c_0$):
+As suggested by this analysis, we can easily delineate four clusters,
+the majority of which are included in cluster labeled c_1$. Here we
+construct this clustering by hand, using the PCs computed from the
+topic cproportions:
 
 ```{r droplet-clustering-1, fig.height=4.5, fig.width=6}
-droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
 pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
-n <- nrow(pca_droplet)
-x <- rep("c0",n)
-pc1 <- pca_droplet[,"PC1"]
-pc2 <- pca_droplet[,"PC2"]
-pc6 <- pca_droplet[,"PC6"]
-x[pc2 > -0.1] <- "c1"
+n    <- nrow(pca_droplet)
+x    <- rep("c0",n)
+pc1  <- pca_droplet[,"PC1"]
+pc2  <- pca_droplet[,"PC2"]
+pc6  <- pca_droplet[,"PC6"]
+x[pc2 > -0.1]  <- "c1"
 x[pc6 < -0.04] <- "c2"
-x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09] <- "c3"
+x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09]  <- "c3"
 x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 < 0.04] <- "c4"
 samples_droplet$cluster <- factor(x)
+print(table(samples_droplet$cluster))
+```
+
+Indeed, the vast majority of the cells are in the $c_1$ cluster.
+
+These next few scatterplots show the same PCs as before, with the
+samples labeled according to their assignment to these clusters:
+
+```{r droplet-clustering-2}
+droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
 p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$cluster,
                            droplet_cluster_colors) + labs(fill = "cluster")
 p10 <- pca_plot_with_labels(fit_droplet,c("PC4","PC5"),samples_droplet$cluster,
@@ -155,30 +167,44 @@ p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$cluster,
 plot_grid(p9,p10,p11)
 ```
 
-The vast majority of the droplet samples are in the $c_1$ cluster:
+In the following, we will treat the more abundant clusters, $c_1$ and
+$c_4$, separately from the rest of the samples.
 
-```{r droplet-clustering-2}
-table(samples_droplet$cluster)
-```
-
-This suggests separate treatment of the $c_1$ cluster. 
-
-**TO DO:** Add more text here.
+**TO DO:** Add text here.
 
 ```{r droplet-structure-plot-rare, fig.width=6, fig.height=2}
-set.seed(1)
-droplet_topic_colors <- c("gold","royalblue","turquoise","lightgreen",
+droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
                           "forestgreen","firebrick","olivedrab")
-topic_ordering <- c(1,5,6,2,3,4,7)
+names(droplet_topic_colors) <- paste0("k",1:7)						 
+topics <- c("k1","k3","k4","k5","k7","k2","k6")
+set.seed(1)
 fit_droplet_rare <- select(poisson2multinom(fit_droplet),
                            loadings = which(samples_droplet$cluster != "c1" &
 						                    samples_droplet$cluster != "c4"))
-tsne_droplet_rare <- tsne_from_topics(fit_droplet_rare,dims = 1,perplexity = 30,
-                                      verbose = FALSE)
-p12 <- structure_plot(fit_droplet_rare,rows = order(tsne_droplet_rare$Y),
-                      topics = topic_ordering,
-					  colors = droplet_topic_colors[topic_ordering])
+p12 <- structure_plot(fit_droplet_rare,verbose = FALSE,topics = topics,
+                      scaling = c(1.5,1,1,1,1,1,2),
+                      colors = droplet_topic_colors[topics])
 print(p12)
+```
+
+**TO DO:** Add text here.
+
+```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2}
+set.seed(1)
+fit_droplet_abundant <-
+  select(poisson2multinom(fit_droplet),
+                          loadings = which(samples_droplet$cluster == "c1" |
+						                   samples_droplet$cluster == "c4"))
+tsne_droplet_abundant <- tsne_from_topics(fit_droplet_abundant,dims = 1,n = 1000,
+                                          perplexity = 100,verbose = FALSE)
+Y   <- tsne_droplet_abundant$Y
+p13 <- structure_plot(fit_droplet_abundant,
+                      rows   = rownames(Y)[order(Y)],
+					  colors = droplet_topic_colors)
+print(p13)
+```
+
+```{r, eval=FALSE}
 temp <- select(poisson2multinom(fit_droplet),
                loadings = which(samples_droplet$tissue == "Ionocyte"))
 structure_plot(temp,rows = order(temp$L[,3]),
@@ -196,22 +222,6 @@ structure_plot(temp3,perplexity = 30,
 			   colors = droplet_topic_colors[topic_ordering])
 ```
 
-
-```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2}
-set.seed(1)
-fit_droplet_abundant <-
-  select(poisson2multinom(fit_droplet),
-                          loadings = which(samples_droplet$cluster == "c1" |
-						                   samples_droplet$cluster == "c4"))
-tsne_droplet_abundant <- tsne_from_topics(fit_droplet_abundant,dims = 1,n = 1000,
-                                          perplexity = 100,verbose = FALSE)
-Y   <- tsne_droplet_abundant$Y
-p13 <- structure_plot(fit_droplet_abundant,
-                      rows   = rownames(Y)[order(Y)],
-                      topics = topic_ordering,
-					  colors = droplet_topic_colors[topic_ordering])
-print(p13)
-```
 
 It is helpful to compare these results with clustering reported in the
 Montoro *et al* (2018) paper. To make this comparison, we layer the 7
