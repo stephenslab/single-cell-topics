@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree38f811b28b8ba3f3996f2551c0e0a4eace930da3targetblank38f811ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/38f811b28b8ba3f3996f2551c0e0a4eace930da3" target="_blank">38f811b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree223406b7e0fc6e73efd027e6d1bc00b0b0ad5c6dtargetblank223406ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/223406b7e0fc6e73efd027e6d1bc00b0b0ad5c6d" target="_blank">223406b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree38f811b28b8ba3f3996f2551c0e0a4eace930da3targetblank38f811ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree223406b7e0fc6e73efd027e6d1bc00b0b0ad5c6dtargetblank223406ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/38f811b28b8ba3f3996f2551c0e0a4eace930da3" target="_blank">38f811b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/223406b7e0fc6e73efd027e6d1bc00b0b0ad5c6d" target="_blank">223406b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/223406b7e0fc6e73efd027e6d1bc00b0b0ad5c6d/analysis/plots_tracheal_epithelium.Rmd" target="_blank">223406b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/aca46cc698358965ad25399bf7b19f74a6b5df23/docs/plots_tracheal_epithelium.html" target="_blank">aca46cc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+<td>
+Added manual clustering of droplet samples based on PCs.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1014,7 +1048,7 @@ Peter Carbonetto
 </div>
 </div>
 <p>[Note that PCs 3 and 7 does not reveal any additional substructure, so are not included in our plots.]</p>
-<p>Clusters suggested by PCA analysis:</p>
+<p>Four suggested by PCA analysis, plus a “background” cluster (<span class="math inline">\(c_0\)</span>):</p>
 <pre class="r"><code>droplet_cluster_colors &lt;- c(&quot;gray&quot;,&quot;darkblue&quot;,&quot;gold&quot;,&quot;yellowgreen&quot;,&quot;firebrick&quot;)
 pca_droplet &lt;- prcomp(poisson2multinom(fit_droplet)$L)$x
 n &lt;- nrow(pca_droplet)
@@ -1035,7 +1069,44 @@ p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),sa
                             droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
 plot_grid(p9,p10,p11)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Most of the samples are in the first cluster:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-clustering-1-1">
+Past versions of droplet-clustering-1-1.png
+</button>
+</p>
+<div id="fig-droplet-clustering-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/aca46cc698358965ad25399bf7b19f74a6b5df23/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-1-1.png" target="_blank">aca46cc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The vast majority of the droplet samples are in the <span class="math inline">\(c_1\)</span> cluster:</p>
 <pre class="r"><code>table(samples_droplet$cluster)
 # 
 #   c0   c1   c2   c3   c4 
@@ -1079,6 +1150,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/aca46cc698358965ad25399bf7b19f74a6b5df23/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">aca46cc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/5a35bbd6b181f322bc808840a2df3c20a6b80d94/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">5a35bbd</a>
