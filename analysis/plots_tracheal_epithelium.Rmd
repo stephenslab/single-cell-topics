@@ -33,11 +33,12 @@ rm(samples,counts)
 ```
 
 Load the $k = 7$ Poisson NMF model fit for the droplet data, and the
-$k = 11$ Poisson NMF fit for the pulse-seq data.
+$k = 9$ and $k = 11$ Poisson NMF fits for the pulse-seq data.
 
 ```{r load-fits}
 fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+fit_pulseseq9 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds")$fit
+fit_pulseseq11 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
 The Montoro *et al* (2018) article mentions that some epithelial cell

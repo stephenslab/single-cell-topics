@@ -36,7 +36,7 @@ samples$tissue <- factor(samples$tissue)
 Load the $k = 11$ Poisson NMF model fit:
 
 ```{r load-fit}
-fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds")$fit
 ```
 
 Loadings plot:
@@ -61,9 +61,9 @@ clrs <- c("royalblue",      # basal
 		  "darkgray")       # tuft
 levels(y) <- clrs
 pdat <- cbind(samples,pca$x)
-ggplot(pdat,aes(x = PC5,y = PC6,fill = tissue)) +
+ggplot(pdat,aes(x = PC7,y = PC8,fill = tissue)) +
   geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_manual(values = levels(y)) +
+  scale_fill_manual(values = clrs) +
   theme_cowplot(font_size = 12)
 y <- as.character(y)
 plot(pca$x[,3],pca$x[,4],pch = 21,col = "white",bg = y,cex = 0.8)

@@ -23,10 +23,10 @@ Load the UMI count data.
 load("../data/droplet.RData")
 ```
 
-Load the $k = 7$ Poisson NMF model fit:
+Load the $k = 13$ Poisson NMF model fit:
 
 ```{r load-fit}
-fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=13.rds")$fit
 ```
 
 Loadings plot:
