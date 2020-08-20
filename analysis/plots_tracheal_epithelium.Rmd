@@ -14,7 +14,9 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
-library(fastTopics)
+# library(fastTopics)
+devtools::load_all("~/git/fastTopics")
+library(dplyr)
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
@@ -171,6 +173,14 @@ $c_4$, separately from the rest of the samples.
 
 **TO DO:** Add text here.
 
+```{r pulseseq-pca, fig.width=6, fig.height=2.5}
+p12 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,k = 7)
+p13 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,k = 2)
+plot_grid(p12,p13)
+```
+
+**TO DO:** Add text here.
+
 ```{r droplet-structure-plot-rare, fig.width=6, fig.height=2}
 droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
                           "forestgreen","firebrick","olivedrab")
@@ -180,8 +190,8 @@ set.seed(1)
 fit_droplet_rare <- select(poisson2multinom(fit_droplet),
                            loadings = which(samples_droplet$cluster != "c1" &
 						                    samples_droplet$cluster != "c4"))
-p12 <- structure_plot(fit_droplet_rare,verbose = FALSE,topics = topics,
-                      scaling = c(1.5,1,1,1,1,1,2),
+p12 <- structure_plot(fit_droplet_rare,verbose = FALSE,perplexity = 50,
+                      topics = topics,
                       colors = droplet_topic_colors[topics])
 print(p12)
 ```
@@ -198,7 +208,7 @@ fit_droplet_abundant <-
 p13 <- structure_plot(fit_droplet_abundant,n = 2000,perplexity = 50,
                       verbose = FALSE,topics = topics,
 					  colors = droplet_topic_colors[topics],
-					  scaling= c(1,1,1,1,2,1,1))
+					  scaling = c(1,1,1,1,2,1,1))
 print(p13)
 ```
 
@@ -247,7 +257,7 @@ plot_grid(p9,p10,p11)
 
 And likewise in the pulse-seq data:
 
-```{r pulseseq-pca, fig.height=2, fig.width=4, eval=FALSE}
+```{r pulseseq-pca-old, fig.height=2, fig.width=4, eval=FALSE}
 p5 <- basic_pca_plot(fit_pulseseq,c("PC3","PC4"))
 p6 <- basic_pca_plot(fit_pulseseq,c("PC5","PC6"))
 plot_grid(p5,p6)
