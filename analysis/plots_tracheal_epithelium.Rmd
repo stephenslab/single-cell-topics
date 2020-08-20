@@ -14,8 +14,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
-# library(fastTopics)
-devtools::load_all("~/git/fastTopics")
+library(fastTopics)
 library(dplyr)
 library(ggplot2)
 library(cowplot)
@@ -189,7 +188,7 @@ topics <- c("k1","k3","k4","k5","k7","k2","k6")
 set.seed(1)
 fit_droplet_rare <- select(poisson2multinom(fit_droplet),
                            loadings = which(samples_droplet$cluster != "c1" &
-						                    samples_droplet$cluster != "c4"))
+			                                samples_droplet$cluster != "c4"))
 p12 <- structure_plot(fit_droplet_rare,verbose = FALSE,perplexity = 50,
                       topics = topics,
                       colors = droplet_topic_colors[topics])
