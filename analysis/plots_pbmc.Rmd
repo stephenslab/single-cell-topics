@@ -1,49 +1,55 @@
 ---
-title: Visualize and interpret topics in 68k PBMC data
+title: Visualize and interpret topics in PBMC data
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
+**TO DO:** Add introductory text here.
+
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
-                      fig.align = "center")
+                      fig.align = "center",dpi = 120)
 ```
 
 Load the packages used in the analysis below.
 
-```{r load-pkgs}
-library(Matrix)
+```{r load-pkgs, message=FALSE}
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/plots.R")
 ```
 
-Load the UMI count data.
+Load the sample annotations. (The count data are no longer needed at this
+stage of the analysis.)
 
 ```{r load-data}
+load("../data/pbmc_purified.RData")
+samples_purified <- samples
 load("../data/pbmc_68k.RData")
+samples_68k <- samples
+rm(genes,counts)
 ```
 
-Load the $k = 6$ Poisson NMF model fit.
+Load the $k = 6$ Poisson NMF model fits for the 68k and mixture of
+FACS-purified PBMC data sets.
 
-```{r load-fit}
-fit <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+```{r load-fits}
+fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+fit_purified <-
+  readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 ```
-
-**TO DO:** Compare the $k = 9$ fits produced by the different methods
-against the fit produced by CCD with extrapolation. Do the loadings
-and/or factors look very different?
 
 Loadings plot:
 
-```{r loading-plot}
+```{r loading-plot, eval=FALSE}
 p1 <- loadings_plot(poisson2multinom(fit),samples$celltype)
 ```
 
 PCA plot:
 
-```{r pca-plot}
+```{r pca-plot, eval=FALSE}
 clrs <- c("forestgreen",  # CD14+ Monocyte
           "dodgerblue",   # CD19+ B
           "darkmagenta",  # CD34+"
@@ -66,27 +72,27 @@ ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
 
 t-SNE plot:
 
-```{r tsne-plot}
+```{r tsne-plot, eval=FALSE}
 set.seed(1)
 p2 <- tsne_plot(fit,n = 8000,num_threads = 4)
 ```
 
 Differential count analysis:
 
-```{r diff-count-analysis}
+```{r diff-count-analysis, eval=FALSE}
 diff_count_res <- diff_count_analysis(fit,counts)
 ```
 
 Volcano plots:
 
-```{r volcano-plots}
+```{r volcano-plots, eval=FALSE}
 p3 <- volcano_plot(diff_count_res,labels = genes$symbol,
                    label_above_quantile = 0.995)
 ```
 
 Structure plots:
 
-```{r structure-plots}
+```{r structure-plots, eval=FALSE}
 set.seed(1)
 fit2 <- select(poisson2multinom(fit),
                loadings = which(samples$celltype == "CD19+ B"))
@@ -141,6 +147,6 @@ plot_grid(p9,p10,p11,p12,p13,p14,nrow = 6)
 
 Another structure plot:
 
-```{r more-structure-plots}
+```{r more-structure-plots, eval=FALSE}
 p15 <- structure_plot(fit,num_threads = 4)
 ```
