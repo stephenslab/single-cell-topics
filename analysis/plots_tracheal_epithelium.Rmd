@@ -14,8 +14,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
-# library(fastTopics)
-devtools::load_all("~/git/fastTopics")
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
@@ -190,13 +189,16 @@ print(p12)
 **TO DO:** Add text here.
 
 ```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2}
+topics <- c("k1","k3","k4","k7","k5","k2","k6")
 set.seed(1)
 fit_droplet_abundant <-
   select(poisson2multinom(fit_droplet),
                           loadings = which(samples_droplet$cluster == "c1" |
 						                   samples_droplet$cluster == "c4"))
-p13 <- structure_plot(fit_droplet_abundant,verbose = FALSE,topics = topics,
-					  colors = droplet_topic_colors[topics])
+p13 <- structure_plot(fit_droplet_abundant,n = 2000,perplexity = 50,
+                      verbose = FALSE,topics = topics,
+					  colors = droplet_topic_colors[topics],
+					  scaling= c(1,1,1,1,2,1,1))
 print(p13)
 ```
 
