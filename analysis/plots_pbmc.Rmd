@@ -32,9 +32,10 @@ samples_68k <- samples
 rm(genes,counts)
 ```
 
-Load the $k = 6$ Poisson NMF model fits for the 68k and mixture of
-FACS-purified PBMC data sets. The topics in the 68k fit are reordered
-to better align with the other topics.
+Load the $k = 6$ Poisson NMF model fits for both PBMC data sets. To
+reduce confusion, topics in the `fit_68k` Poisson NMF model fit are
+reordered to better align with the topics in `fit_purified` Poisson
+NMF model fit.
 
 ```{r load-fits}
 fit_purified <-
@@ -45,6 +46,14 @@ fit_68k$F <- fit_68k$F[,cols]
 fit_68k$L <- fit_68k$L[,cols]
 colnames(fit_68k$F) <- paste0("k",1:6)
 colnames(fit_68k$L) <- paste0("k",1:6)
+```
+
+PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
+
+```{r pbmc-purified-pca-basic, fig.width=8, fig.height=3}
+p1 <- basic_pca_plot(fit_purified,c("PC1","PC2"))
+p2 <- basic_pca_plot(fit_purified,c("PC4","PC5"))
+plot_grid(p1,p2)
 ```
 
 **TO DO:** Add text here.
@@ -64,15 +73,15 @@ print(table(samples_purified$cluster))
 
 PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
 
-```{r pbmc-purified-pca, fig.width=8, fig.height=3}
+```{r pbmc-purified-pca-with-clustering, fig.width=8, fig.height=3}
 purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
-p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
+p3 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$cluster,
                            purified_cluster_colors) + labs(fill = "cluster")
-p2 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
+p4 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
                            samples_purified$cluster,
                            purified_cluster_colors) + labs(fill = "cluster")
-plot_grid(p1,p2)
+plot_grid(p3,p4)
 ```
 
 PCs 3 and 4 in 68k PBMC data:
