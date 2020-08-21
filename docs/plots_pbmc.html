@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreefd0316f50098b3f0daabcc56e3861be698737068targetblankfd0316fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/fd0316f50098b3f0daabcc56e3861be698737068" target="_blank">fd0316f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6ec82cafc481b6839d49aa11b1f2c4568fbd0592targetblank6ec82caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6ec82cafc481b6839d49aa11b1f2c4568fbd0592" target="_blank">6ec82ca</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreefd0316f50098b3f0daabcc56e3861be698737068targetblankfd0316fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6ec82cafc481b6839d49aa11b1f2c4568fbd0592targetblank6ec82caa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/fd0316f50098b3f0daabcc56e3861be698737068" target="_blank">fd0316f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6ec82cafc481b6839d49aa11b1f2c4568fbd0592" target="_blank">6ec82ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6ec82cafc481b6839d49aa11b1f2c4568fbd0592/analysis/plots_pbmc.Rmd" target="_blank">6ec82ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/38f07a2440114be440e2efb027050b0e2b13bf5f/docs/plots_pbmc.html" target="_blank">38f07a2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+A few small revisions to the plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -621,7 +655,7 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 </div>
 </div>
 </div>
-<p><strong>TO DO:</strong> Add introductory text here.</p>
+<p><em>TO DO: Add introductory text here.</em></p>
 <p>Load the packages used in the analysis below.</p>
 <pre class="r"><code>library(dplyr)
 library(fastTopics)
@@ -646,13 +680,13 @@ colnames(fit_68k$L) &lt;- paste0(&quot;k&quot;,1:6)</code></pre>
 <p>PCs 1 and 2 in mixture of FACS-purified PBMC data:</p>
 <pre class="r"><code>p1 &lt;- basic_pca_plot(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;))
 print(p1)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-pca-basic-1.png" width="504" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-pca-1.png" width="504" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-pca-basic-1">
-Past versions of pbmc-purified-pca-basic-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-pca-1">
+Past versions of pbmc-purified-pca-1.png
 </button>
 </p>
-<div id="fig-pbmc-purified-pca-basic-1" class="collapse">
+<div id="fig-pbmc-purified-pca-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -671,7 +705,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/606cd97bc0567099ab728910c625f96d0820b62f/docs/figure/plots_pbmc.Rmd/pbmc-purified-pca-basic-1.png" target="_blank">606cd97</a>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/606cd97bc0567099ab728910c625f96d0820b62f/docs/figure/plots_pbmc.Rmd/pbmc-purified-pca-1.png" target="_blank">606cd97</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d6e5d3958d6841c1f5b83f5276f29b2906258bf4/docs/figure/plots_pbmc.Rmd/pbmc-purified-pca-1.png" target="_blank">d6e5d39</a>
 </td>
 <td>
 Peter Carbonetto
@@ -702,13 +747,73 @@ p2 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
       labs(fill = &quot;cluster&quot;)
 print(p2)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-2-1">
+Past versions of pbmc-purified-clustering-2-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-clustering-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/38f07a2440114be440e2efb027050b0e2b13bf5f/docs/figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" target="_blank">38f07a2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Most of the samples are in the first (red) cluster:</p>
 <pre class="r"><code>print(table(samples_purified$cluster))
 # 
 #    c1    c2    c3 
 # 72614 10439 11602</code></pre>
 <p>PCs 3 and 4 in 68k PBMC data:</p>
-<pre class="r"><code>p3 &lt;- pca_plot(poisson2multinom(fit_68k),pcs = 3:4,k = 2:3)</code></pre>
+<pre class="r"><code>p3 &lt;- basic_pca_plot(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;))
+print(p3)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-pca-1.png" width="504" style="display: block; margin: auto;" /></p>
+<p><strong>TO DO:</strong> Add text here.</p>
+<pre class="r"><code>pca_68k &lt;- prcomp(poisson2multinom(fit_68k)$L)$x
+n   &lt;- nrow(pca_68k)
+x   &lt;- rep(&quot;c1&quot;,n)
+pc3 &lt;- pca_68k[,&quot;PC3&quot;]
+pc4 &lt;- pca_68k[,&quot;PC4&quot;]
+x[pc4 &lt; -0.13 | pc3/2 - 0.17 &gt; pc4] &lt;- &quot;c2&quot;
+x[pc4 &lt; -0.75] &lt;- &quot;c3&quot;
+samples_68k$cluster &lt;- factor(x)</code></pre>
+<p>PCs 3 and 4 with the clustering layered on:</p>
+<pre class="r"><code>pbmc_68k_cluster_colors &lt;- c(&quot;cornflowerblue&quot;,&quot;darkorange&quot;,&quot;firebrick&quot;)
+p4 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),factor(x),
+                           pbmc_68k_cluster_colors) +
+      labs(fill = &quot;cluster&quot;)
+print(p4)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>The vast majority of the cells are in the first cluster:</p>
+<pre class="r"><code>table(samples_68k$cluster)
+# 
+#    c1    c2    c3 
+# 63432  4982   165</code></pre>
 <p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data:</p>
 <pre class="r"><code>purified_celltype_colors &lt;-
   c(&quot;dodgerblue&quot;,  # CD19+ B
