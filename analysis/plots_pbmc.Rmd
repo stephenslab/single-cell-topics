@@ -64,7 +64,7 @@ print(table(samples_purified$cluster))
 
 PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-1}
+```{r pbmc-purified-pca, fig.width=8, fig.height=3}
 purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
 p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$cluster,
@@ -75,22 +75,16 @@ p2 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
 plot_grid(p1,p2)
 ```
 
-PCs 4 and 5 in mixture of FACS-purified PBMC data:
-
-```{r pbmc-purified-pca-3}
-p2 <- pca_plot(poisson2multinom(fit_purified),pcs = 4:5,k = 2)
-```
-
 PCs 3 and 4 in 68k PBMC data:
 
-```{r pbmc-68k-pca-1}
+```{r pbmc-68k-pca-1, eval=FALSE}
 p3 <- pca_plot(poisson2multinom(fit_68k),pcs = 3:4,k = 2:3)
 ```
 
 Comparison to Zheng et al (2017) cell-type labeling of the
 FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-with-celltypes}
+```{r pbmc-purified-pca-with-celltypes, eval=FALSE}
 purified_celltype_colors <-
   c("dodgerblue",  # CD19+ B
     "forestgreen", # CD14+ Monocyte
