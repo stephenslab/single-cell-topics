@@ -125,7 +125,7 @@ table(samples_68k$cluster)
 Comparison to Zheng et al (2017) cell-type labeling of the
 FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-with-celltypes, eval=FALSE}
+```{r, eval=FALSE}
 purified_celltype_colors <-
   c("dodgerblue",  # CD19+ B
     "forestgreen", # CD14+ Monocyte
@@ -137,6 +137,42 @@ purified_celltype_colors <-
     "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
     "darkorange",  # CD4+/CD45RA+/CD25- Naive T
     "yellowgreen") # CD4+/CD25 T Reg
+library(Ternary)
+par(mar = c(0,0,0,0))
+rows <- which(samples_purified$cluster == "c1")
+pdat <- cbind(poisson2multinom(fit_purified)$L,samples_purified["celltype"])
+levels(pdat$celltype) <- purified_celltype_colors
+TernaryPlot(alab = "k1",blab = "k4",clab = "k6",grid.col = "skyblue",
+            grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(1,4,6)],pch = 20,
+  			  col = as.character(pdat[rows,"celltype"]),cex = 0.5)
+```
+
+```{r, eval=FALSE}
+clrs <- c("forestgreen",  # CD14+ Monocyte
+          "dodgerblue",   # CD19+ B
+          "darkmagenta",  # CD34+"
+          "yellowgreen",  # CD4+ T Helper2
+          "gold",         # CD4+/CD25 T Reg
+          "limegreen",    # CD4+/CD45RA+/CD25- Naive T
+          "orange",       # CD4+/CD45RO+ Memory"
+          "gray",         # CD56+ NK
+          "tomato",       # CD8+ Cytotoxic T
+          "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
+          "darkblue")     # Dendritic"
+library(Ternary)
+par(mar = c(0,0,0,0))
+L    <- poisson2multinom(fit_68k)$L
+rows <- which(samples_68k$cluster == "c1" & L[,3] < 0.5)
+pdat <- cbind(L,samples_68k["celltype"])
+levels(pdat$celltype) <- clrs
+TernaryPlot(alab = "k4",blab = "k5",clab = "k6",grid.col = "skyblue",
+            grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(4,5,6)],pch = 20,
+  			  col = as.character(pdat[rows,"celltype"]),cex = 0.5)
+```
+
+```{r pbmc-purified-pca-with-celltypes, eval=FALSE}
 p4 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$celltype,
                            purified_celltype_colors) + labs(fill = "celltype")
