@@ -4,7 +4,7 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-**TO DO:** Add introductory text here.
+*TO DO: Add introductory text here.*
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -50,7 +50,7 @@ colnames(fit_68k$L) <- paste0("k",1:6)
 
 PCs 1 and 2 in mixture of FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-basic, fig.width=4.2, fig.height=4}
+```{r pbmc-purified-pca, fig.width=4.2, fig.height=4}
 p1 <- basic_pca_plot(fit_purified,c("PC1","PC2"))
 print(p1)
 ```
@@ -88,8 +88,38 @@ print(table(samples_purified$cluster))
 
 PCs 3 and 4 in 68k PBMC data:
 
-```{r pbmc-68k-pca-1, eval=FALSE}
-p3 <- pca_plot(poisson2multinom(fit_68k),pcs = 3:4,k = 2:3)
+```{r pbmc-68k-pca, fig.width=4.2, fig.height=4}
+p3 <- basic_pca_plot(fit_68k,c("PC3","PC4"))
+print(p3)
+```
+
+**TO DO:** Add text here.
+
+```{r pbmc-68k-clustering-1}
+pca_68k <- prcomp(poisson2multinom(fit_68k)$L)$x
+n   <- nrow(pca_68k)
+x   <- rep("c1",n)
+pc3 <- pca_68k[,"PC3"]
+pc4 <- pca_68k[,"PC4"]
+x[pc4 < -0.13 | pc3/2 - 0.17 > pc4] <- "c2"
+x[pc4 < -0.75] <- "c3"
+samples_68k$cluster <- factor(x)
+```
+
+PCs 3 and 4 with the clustering layered on:
+
+```{r pbmc-68k-clustering-2, fig.width=4.5, fig.height=4}
+pbmc_68k_cluster_colors <- c("cornflowerblue","darkorange","firebrick")
+p4 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),factor(x),
+                           pbmc_68k_cluster_colors) +
+      labs(fill = "cluster")
+print(p4)
+```
+
+The vast majority of the cells are in the first cluster:
+
+```{r pbmc-68k-clustering-3}
+table(samples_68k$cluster)
 ```
 
 Comparison to Zheng et al (2017) cell-type labeling of the
