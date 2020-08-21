@@ -33,18 +33,88 @@ rm(genes,counts)
 ```
 
 Load the $k = 6$ Poisson NMF model fits for the 68k and mixture of
-FACS-purified PBMC data sets.
+FACS-purified PBMC data sets. The topics in the 68k fit are reordered
+to better align with the other topics.
 
 ```{r load-fits}
-fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
 fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
+fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+cols      <- c(1,6,5,3,4,2)
+fit_68k$F <- fit_68k$F[,cols]
+fit_68k$L <- fit_68k$L[,cols]
+colnames(fit_68k$F) <- paste0("k",1:6)
+colnames(fit_68k$L) <- paste0("k",1:6)
+```
+
+**TO DO:** Add text here.
+
+```{r pbmc-purified-clustering}
+pca_purified <- prcomp(poisson2multinom(fit_purified)$L)$x
+n   <- nrow(pca_purified)
+x   <- rep("c3",n)
+pc1 <- pca_purified[,"PC1"]
+pc2 <- pca_purified[,"PC2"]
+x[pc1 + 0.2 > pc2] <- "c1"
+x[pc2 > 0.25] <- "c2"
+x[(pc1 + 0.4)^2 + (pc2 + 0.125)^2 < 0.06] <- "c3"
+samples_purified$cluster <- factor(x)
+print(table(samples_purified$cluster))
+```
+
+PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
+
+```{r pbmc-purified-pca-1}
+purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
+p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
+                           samples_purified$cluster,
+                           purified_cluster_colors) + labs(fill = "cluster")
+p2 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
+                           samples_purified$cluster,
+                           purified_cluster_colors) + labs(fill = "cluster")
+plot_grid(p1,p2)
+```
+
+PCs 4 and 5 in mixture of FACS-purified PBMC data:
+
+```{r pbmc-purified-pca-3}
+p2 <- pca_plot(poisson2multinom(fit_purified),pcs = 4:5,k = 2)
+```
+
+PCs 3 and 4 in 68k PBMC data:
+
+```{r pbmc-68k-pca-1}
+p3 <- pca_plot(poisson2multinom(fit_68k),pcs = 3:4,k = 2:3)
+```
+
+Comparison to Zheng et al (2017) cell-type labeling of the
+FACS-purified PBMC data:
+
+```{r pbmc-purified-pca-with-celltypes}
+purified_celltype_colors <-
+  c("dodgerblue",  # CD19+ B
+    "forestgreen", # CD14+ Monocyte
+    "lightskyblue",# CD34+
+    "plum",        # CD4+ T Helper2
+    "slategray",   # CD56+ NK
+    "tomato",      # CD8+ Cytotoxic T
+    "gold",        # CD4+/CD45RO+ Memory
+    "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
+    "darkorange",  # CD4+/CD45RA+/CD25- Naive T
+    "yellowgreen") # CD4+/CD25 T Reg
+p4 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
+                           samples_purified$celltype,
+                           purified_celltype_colors) + labs(fill = "celltype")
+p5 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
+                           samples_purified$celltype,
+                           purified_celltype_colors) + labs(fill = "celltype")
 ```
 
 Loadings plot:
 
 ```{r loading-plot, eval=FALSE}
-p1 <- loadings_plot(poisson2multinom(fit),samples$celltype)
+loadings_plot(poisson2multinom(fit_purified),samples_purified$celltype)
+loadings_plot(poisson2multinom(fit_68k),samples_68k$celltype)
 ```
 
 PCA plot:

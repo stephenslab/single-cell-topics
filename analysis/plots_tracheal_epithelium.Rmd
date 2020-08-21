@@ -115,13 +115,12 @@ print(p7)
 ```
 
 Along these PCs, we see that topics 3, 4, 5 and 7 exist in many
-combinations, with no apparent distinct populations.
+combinations, with no apparent discrete populations.
 
 Topic 1 captures a very small discrete population of cells:
 
-```{r droplet-pca-with-topics-3, fig.height=2.25, fig.width=2.25}
-p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
-        guides(fill = "none")
+```{r droplet-pca-with-topics-3, fig.height=2.25, fig.width=2.5}
+p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1)
 print(p8)
 ```
 
@@ -139,11 +138,11 @@ topic cproportions:
 
 ```{r droplet-clustering-1}
 pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
-n    <- nrow(pca_droplet)
-x    <- rep("c0",n)
-pc1  <- pca_droplet[,"PC1"]
-pc2  <- pca_droplet[,"PC2"]
-pc6  <- pca_droplet[,"PC6"]
+n   <- nrow(pca_droplet)
+x   <- rep("c0",n)
+pc1 <- pca_droplet[,"PC1"]
+pc2 <- pca_droplet[,"PC2"]
+pc6 <- pca_droplet[,"PC6"]
 x[pc2 > -0.1]  <- "c1"
 x[pc6 < -0.04] <- "c2"
 x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09]  <- "c3"
