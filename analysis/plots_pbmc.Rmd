@@ -48,75 +48,66 @@ colnames(fit_68k$F) <- paste0("k",1:6)
 colnames(fit_68k$L) <- paste0("k",1:6)
 ```
 
-PCs 1 and 2 in mixture of FACS-purified PBMC data:
-
-```{r pbmc-purified-pca, fig.width=4.2, fig.height=4}
-p1 <- basic_pca_plot(fit_purified,c("PC1","PC2"))
-print(p1)
-```
-
-**TO DO:** Add text here.
+We begin my exploring the structure in the PBMC data as inferred by
+the topic model. Here we show that a basic PCA rotation of the topic
+proportions is an effective way to visualize this structure. We begin
+with the mixture of FACS-purified PBMC data sets.
 
 ```{r pbmc-purified-clustering-1}
 pca_purified <- prcomp(poisson2multinom(fit_purified)$L)$x
-n   <- nrow(pca_purified)
-x   <- rep("c3",n)
+```
+
+Three large clusters are evident from first two PCs (with possibly
+more subtle structures within these clusters):
+
+```{r pbmc-purified-clustering-2, fig.width=4.5, fig.height=4}
+n <- nrow(pca_purified)
+x <- rep("c3",n)
 pc1 <- pca_purified[,"PC1"]
 pc2 <- pca_purified[,"PC2"]
 x[pc1 + 0.2 > pc2] <- "c1"
 x[pc2 > 0.25] <- "c2"
 x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 < 0.07] <- "c3"
 samples_purified$cluster <- factor(x)
-```
-
-PCs 1 and 2 in mixture of FACS-purified PBMC data:
-
-```{r pbmc-purified-clustering-2, fig.width=4.5, fig.height=4}
 purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
-p2 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
+p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$cluster,
                            purified_cluster_colors) +
       labs(fill = "cluster")
-print(p2)
+print(p1)
 ```
 
-Most of the samples are in the first (red) cluster:
+Most of the samples are included in the first (red) cluster:
 
 ```{r pbmc-purified-clustering-3}
 print(table(samples_purified$cluster))
 ```
 
-PCs 3 and 4 in 68k PBMC data:
-
-```{r pbmc-68k-pca, fig.width=4.2, fig.height=4}
-p3 <- basic_pca_plot(fit_68k,c("PC3","PC4"))
-print(p3)
-```
-
-**TO DO:** Add text here.
+Next we turn to the 68k PBMC data.
 
 ```{r pbmc-68k-clustering-1}
 pca_68k <- prcomp(poisson2multinom(fit_68k)$L)$x
-n   <- nrow(pca_68k)
-x   <- rep("c1",n)
+```
+
+Here, we see at least three distinct clusters in the projection onto
+PCs 3 and 4:
+
+```{r pbmc-68k-clustering-2, fig.width=4.5, fig.height=4}
+n <- nrow(pca_68k)
+x <- rep("c1",n)
 pc3 <- pca_68k[,"PC3"]
 pc4 <- pca_68k[,"PC4"]
 x[pc4 < -0.13 | pc3/2 - 0.17 > pc4] <- "c2"
 x[pc4 < -0.75] <- "c3"
 samples_68k$cluster <- factor(x)
-```
-
-PCs 3 and 4 with the clustering layered on:
-
-```{r pbmc-68k-clustering-2, fig.width=4.5, fig.height=4}
 pbmc_68k_cluster_colors <- c("cornflowerblue","darkorange","firebrick")
-p4 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),factor(x),
+p2 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),factor(x),
                            pbmc_68k_cluster_colors) +
       labs(fill = "cluster")
-print(p4)
+print(p2)
 ```
 
-The vast majority of the cells are in the first cluster:
+The vast majority of the cells are in the first (blue) cluster:
 
 ```{r pbmc-68k-clustering-3}
 table(samples_68k$cluster)
