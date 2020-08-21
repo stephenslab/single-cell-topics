@@ -48,17 +48,16 @@ colnames(fit_68k$F) <- paste0("k",1:6)
 colnames(fit_68k$L) <- paste0("k",1:6)
 ```
 
-PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
+PCs 1 and 2 in mixture of FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-basic, fig.width=8, fig.height=3}
+```{r pbmc-purified-pca-basic, fig.width=4.2, fig.height=4}
 p1 <- basic_pca_plot(fit_purified,c("PC1","PC2"))
-p2 <- basic_pca_plot(fit_purified,c("PC4","PC5"))
-plot_grid(p1,p2)
+print(p1)
 ```
 
 **TO DO:** Add text here.
 
-```{r pbmc-purified-clustering}
+```{r pbmc-purified-clustering-1}
 pca_purified <- prcomp(poisson2multinom(fit_purified)$L)$x
 n   <- nrow(pca_purified)
 x   <- rep("c3",n)
@@ -66,22 +65,25 @@ pc1 <- pca_purified[,"PC1"]
 pc2 <- pca_purified[,"PC2"]
 x[pc1 + 0.2 > pc2] <- "c1"
 x[pc2 > 0.25] <- "c2"
-x[(pc1 + 0.4)^2 + (pc2 + 0.125)^2 < 0.06] <- "c3"
+x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 < 0.07] <- "c3"
 samples_purified$cluster <- factor(x)
-print(table(samples_purified$cluster))
 ```
 
-PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:
+PCs 1 and 2 in mixture of FACS-purified PBMC data:
 
-```{r pbmc-purified-pca-with-clustering, fig.width=8, fig.height=3}
+```{r pbmc-purified-clustering-2, fig.width=4.5, fig.height=4}
 purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
-p3 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
+p2 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$cluster,
-                           purified_cluster_colors) + labs(fill = "cluster")
-p4 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
-                           samples_purified$cluster,
-                           purified_cluster_colors) + labs(fill = "cluster")
-plot_grid(p3,p4)
+                           purified_cluster_colors) +
+      labs(fill = "cluster")
+print(p2)
+```
+
+Most of the samples are in the first (red) cluster:
+
+```{r pbmc-purified-clustering-3}
+print(table(samples_purified$cluster))
 ```
 
 PCs 3 and 4 in 68k PBMC data:
