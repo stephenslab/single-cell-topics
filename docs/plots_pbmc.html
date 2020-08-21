@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1b41a6061bee5e770f1bdb75fd1d5bd5d90d9fdctargetblank1b41a60a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1b41a6061bee5e770f1bdb75fd1d5bd5d90d9fdc" target="_blank">1b41a60</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreefd0316f50098b3f0daabcc56e3861be698737068targetblankfd0316fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/fd0316f50098b3f0daabcc56e3861be698737068" target="_blank">fd0316f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1b41a6061bee5e770f1bdb75fd1d5bd5d90d9fdctargetblank1b41a60a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreefd0316f50098b3f0daabcc56e3861be698737068targetblankfd0316fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1b41a6061bee5e770f1bdb75fd1d5bd5d90d9fdc" target="_blank">1b41a60</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/fd0316f50098b3f0daabcc56e3861be698737068" target="_blank">fd0316f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fd0316f50098b3f0daabcc56e3861be698737068/analysis/plots_pbmc.Rmd" target="_blank">fd0316f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/606cd97bc0567099ab728910c625f96d0820b62f/docs/plots_pbmc.html" target="_blank">606cd97</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+Added basic PCA plots to plots_pbmc.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -609,11 +643,47 @@ fit_68k$F &lt;- fit_68k$F[,cols]
 fit_68k$L &lt;- fit_68k$L[,cols]
 colnames(fit_68k$F) &lt;- paste0(&quot;k&quot;,1:6)
 colnames(fit_68k$L) &lt;- paste0(&quot;k&quot;,1:6)</code></pre>
-<p>PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:</p>
+<p>PCs 1 and 2 in mixture of FACS-purified PBMC data:</p>
 <pre class="r"><code>p1 &lt;- basic_pca_plot(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;))
-p2 &lt;- basic_pca_plot(fit_purified,c(&quot;PC4&quot;,&quot;PC5&quot;))
-plot_grid(p1,p2)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-pca-basic-1.png" width="960" style="display: block; margin: auto;" /></p>
+print(p1)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-pca-basic-1.png" width="504" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-pca-basic-1">
+Past versions of pbmc-purified-pca-basic-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-pca-basic-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/606cd97bc0567099ab728910c625f96d0820b62f/docs/figure/plots_pbmc.Rmd/pbmc-purified-pca-basic-1.png" target="_blank">606cd97</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>pca_purified &lt;- prcomp(poisson2multinom(fit_purified)$L)$x
 n   &lt;- nrow(pca_purified)
@@ -622,22 +692,21 @@ pc1 &lt;- pca_purified[,&quot;PC1&quot;]
 pc2 &lt;- pca_purified[,&quot;PC2&quot;]
 x[pc1 + 0.2 &gt; pc2] &lt;- &quot;c1&quot;
 x[pc2 &gt; 0.25] &lt;- &quot;c2&quot;
-x[(pc1 + 0.4)^2 + (pc2 + 0.125)^2 &lt; 0.06] &lt;- &quot;c3&quot;
-samples_purified$cluster &lt;- factor(x)
-print(table(samples_purified$cluster))
+x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 &lt; 0.07] &lt;- &quot;c3&quot;
+samples_purified$cluster &lt;- factor(x)</code></pre>
+<p>PCs 1 and 2 in mixture of FACS-purified PBMC data:</p>
+<pre class="r"><code>purified_cluster_colors &lt;- c(&quot;tomato&quot;,&quot;dodgerblue&quot;,&quot;lightskyblue&quot;)
+p2 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
+                           samples_purified$cluster,
+                           purified_cluster_colors) +
+      labs(fill = &quot;cluster&quot;)
+print(p2)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Most of the samples are in the first (red) cluster:</p>
+<pre class="r"><code>print(table(samples_purified$cluster))
 # 
 #    c1    c2    c3 
-# 72647 10439 11569</code></pre>
-<p>PCs (1,2) and (4,5) in mixture of FACS-purified PBMC data:</p>
-<pre class="r"><code>purified_cluster_colors &lt;- c(&quot;tomato&quot;,&quot;dodgerblue&quot;,&quot;lightskyblue&quot;)
-p3 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
-                           samples_purified$cluster,
-                           purified_cluster_colors) + labs(fill = &quot;cluster&quot;)
-p4 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC4&quot;,&quot;PC5&quot;),
-                           samples_purified$cluster,
-                           purified_cluster_colors) + labs(fill = &quot;cluster&quot;)
-plot_grid(p3,p4)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-pca-with-clustering-1.png" width="960" style="display: block; margin: auto;" /></p>
+# 72614 10439 11602</code></pre>
 <p>PCs 3 and 4 in 68k PBMC data:</p>
 <pre class="r"><code>p3 &lt;- pca_plot(poisson2multinom(fit_68k),pcs = 3:4,k = 2:3)</code></pre>
 <p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data:</p>
