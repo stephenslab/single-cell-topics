@@ -41,7 +41,7 @@ NMF model fit.
 fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
-cols      <- c(1,6,5,3,4,2)
+cols      <- c(4,1,5,3,6,2)
 fit_68k$F <- fit_68k$F[,cols]
 fit_68k$L <- fit_68k$L[,cols]
 colnames(fit_68k$F) <- paste0("k",1:6)
@@ -111,6 +111,45 @@ The vast majority of the cells are in the first (blue) cluster:
 
 ```{r pbmc-68k-clustering-3}
 table(samples_68k$cluster)
+```
+
+**TO DO:** Add text here.
+
+```{r pbmc-purified-structure-plot, fig.width=6, fig.height=2}
+set.seed(1)
+pbmc_purified_topics       <- c(2,5,1,3,4,6)
+pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
+                                "gray","greenyellow","magenta")
+rows <- sort(c(sample(which(samples_purified$cluster == "c1"),1200),
+               sample(which(samples_purified$cluster == "c2"),600),
+               sample(which(samples_purified$cluster == "c3"),600)))
+fit2 <- select(poisson2multinom(fit_purified),loadings = rows)
+p3 <- structure_plot(fit2,grouping = samples_purified[rows,"cluster"],
+                     topics = pbmc_purified_topics,
+                     colors = pbmc_purified_topic_colors[pbmc_purified_topics],
+                     gap = 40,num_threads = 4,verbose = FALSE)
+print(p3)
+```
+
+**TO DO:** Add text here.
+
+```{r pbmc-68k-structure-plot, fig.width=6, fig.height=2}
+pbmc_68k_topics       <- c(2,5,1,3,4,6)
+pbmc_68k_topic_colors <- c("darkorange","olivedrab","dodgerblue",
+                           "gray","royalblue","magenta")
+set.seed(1)
+rows <- sort(c(sample(which(samples_68k$cluster == "c1"),1400),
+               sample(which(samples_68k$cluster == "c2"),500),
+               which(samples_68k$cluster == "c3")))
+fit2 <- select(poisson2multinom(fit_68k),loadings = rows)
+p4 <- structure_plot(fit2,grouping = samples_68k[rows,"cluster"],
+                     topics = pbmc_68k_topics,
+                     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                     gap = 40,num_threads = 4,verbose = FALSE)
+print(p4)
+```
+
+```{r}
 ```
 
 Comparison to Zheng et al (2017) cell-type labeling of the
