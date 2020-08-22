@@ -18,6 +18,7 @@ library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+library(Ternary)
 source("../code/plots.R")
 ```
 
@@ -123,8 +124,8 @@ pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
 rows <- sort(c(sample(which(samples_purified$cluster == "c1"),1200),
                sample(which(samples_purified$cluster == "c2"),600),
                sample(which(samples_purified$cluster == "c3"),600)))
-fit2 <- select(poisson2multinom(fit_purified),loadings = rows)
-p3 <- structure_plot(fit2,grouping = samples_purified[rows,"cluster"],
+p3 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+                     grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
@@ -141,62 +142,104 @@ pbmc_68k_topic_colors <- c("darkorange","olivedrab","dodgerblue",
 rows <- sort(c(sample(which(samples_68k$cluster == "c1"),1400),
                sample(which(samples_68k$cluster == "c2"),500),
                which(samples_68k$cluster == "c3")))
-fit2 <- select(poisson2multinom(fit_68k),loadings = rows)
-p4 <- structure_plot(fit2,grouping = samples_68k[rows,"cluster"],
+p4 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                     grouping = samples_68k[rows,"cluster"],
                      topics = pbmc_68k_topics,
                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)
 ```
 
-Comparison to Zheng et al (2017) cell-type labeling of the
-FACS-purified PBMC data:
+**TO DO:** Before comparing to Zheng et al (2017) labeling, do more
+manual identification of clusters from the PCA plots.
 
-```{r, eval=FALSE}
-purified_celltype_colors <-
+Comparison to Zheng et al (2017) cell-type labeling of the
+FACS-purified PBMC data. In `fit_purified`, cluster 2 captures
+B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:
+
+```{r pbmc-purified-vs-celltypes}
+with(samples_purified,table(celltype,cluster))
+```
+
+Let's look more closely at cluster 3 in `fit_purified`:
+
+```{r pbmc-purified-ternary-plot-c3, fig.width=4, fig.height=4}
+pbmc_purified_celltype_colors <-
   c("dodgerblue",  # CD19+ B
     "forestgreen", # CD14+ Monocyte
-    "lightskyblue",# CD34+
+    "palegreen",   # CD34+
     "plum",        # CD4+ T Helper2
-    "slategray",   # CD56+ NK
+    "gray",        # CD56+ NK
     "tomato",      # CD8+ Cytotoxic T
     "gold",        # CD4+/CD45RO+ Memory
     "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
     "darkorange",  # CD4+/CD45RA+/CD25- Naive T
     "yellowgreen") # CD4+/CD25 T Reg
-library(Ternary)
 par(mar = c(0,0,0,0))
-rows <- which(samples_purified$cluster == "c1")
-pdat <- cbind(poisson2multinom(fit_purified)$L,samples_purified["celltype"])
-levels(pdat$celltype) <- purified_celltype_colors
-TernaryPlot(alab = "k1",blab = "k4",clab = "k6",grid.col = "skyblue",
-            grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(1,4,6)],pch = 20,
-  			  col = as.character(pdat[rows,"celltype"]),cex = 0.5)
+L    <- poisson2multinom(fit_purified)$L
+pdat <- cbind(L,samples_purified["celltype"])
+rows <- which(samples_purified$cluster == "c3")
+levels(pdat$celltype) <- pbmc_purified_celltype_colors
+TernaryPlot(alab = "k2",blab = "k5",clab = "k6",
+            grid.col = "gainsboro",grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(2,5,6)],pch = 21,cex = 0.65,col = "white",
+  			  bg = as.character(pdat[rows,"celltype"]))
 ```
 
-```{r, eval=FALSE}
-clrs <- c("forestgreen",  # CD14+ Monocyte
-          "dodgerblue",   # CD19+ B
-          "darkmagenta",  # CD34+"
-          "yellowgreen",  # CD4+ T Helper2
-          "gold",         # CD4+/CD25 T Reg
-          "limegreen",    # CD4+/CD45RA+/CD25- Naive T
-          "orange",       # CD4+/CD45RO+ Memory"
-          "gray",         # CD56+ NK
-          "tomato",       # CD8+ Cytotoxic T
-          "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
-          "darkblue")     # Dendritic"
-library(Ternary)
+Now let's look more closely at cluster 1 in `fit_purified`:
+
+```{r pbmc-purified-ternary-plot-c1, fig.width=4, fig.height=4}
 par(mar = c(0,0,0,0))
+rows <- which(samples_purified$cluster == "c1")
+TernaryPlot(alab = "k1",blab = "k4",clab = "k6",
+            grid.col = "gainsboro",grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(1,4,6)],pch = 21,cex = 0.65,col = "white",
+  			  bg = as.character(pdat[rows,"celltype"]))
+```
+
+In `fit_68k`, cluster 2 mostly consists of CD14+ monocyte and
+dendritic cells, whereas cluster 3 is a small population of CD34+
+cells.
+
+```{r pbmc-68k-vs-celltypes
+with(samples_68k,table(celltype,cluster))
+```
+
+Let's look more closely at cluster 2 in `fit_68k`:
+
+```{r pbmc-68k-ternary-plot-c2, fig.width=4, fig.height=4}
+par(mar = c(0,0,0,0))
+pbmc_68k_celltype_colors <-
+  c("forestgreen",  # CD14+ Monocyte
+    "dodgerblue",   # CD19+ B
+    "palegreen",    # CD34+"
+    "yellowgreen",  # CD4+ T Helper2
+    "gold",         # CD4+/CD25 T Reg
+    "darkorange",   # CD4+/CD45RA+/CD25- Naive T
+    "gold",         # CD4+/CD45RO+ Memory"
+    "gray",         # CD56+ NK
+    "tomato",       # CD8+ Cytotoxic T
+    "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
+    "darkmagenta")  # Dendritic"
 L    <- poisson2multinom(fit_68k)$L
-rows <- which(samples_68k$cluster == "c1" & L[,3] < 0.5)
 pdat <- cbind(L,samples_68k["celltype"])
-levels(pdat$celltype) <- clrs
-TernaryPlot(alab = "k4",blab = "k5",clab = "k6",grid.col = "skyblue",
-            grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(4,5,6)],pch = 20,
-  			  col = as.character(pdat[rows,"celltype"]),cex = 0.5)
+rows <- which(samples_68k$cluster == "c2")
+levels(pdat$celltype) <- pbmc_68k_celltype_colors
+TernaryPlot(alab = "k3",blab = "k5",clab = "k6",
+            grid.col = "gainsboro",grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = "white",
+  			  bg = as.character(pdat[rows,"celltype"]))
+```
+
+Finally, let's look more closely at cluster 1 in `fit_68k`:
+
+```{r pbmc-68k-ternary-plot-c1, fig.width=4, fig.height=4}
+par(mar = c(0,0,0,0))
+rows <- which(samples_68k$cluster == "c1")
+TernaryPlot(alab = "k2",blab = "k4",clab = "k6",
+            grid.col = "gainsboro",grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(2,4,6)],pch = 21,cex = 0.65,col = "white",
+  			  bg = as.character(pdat[rows,"celltype"]))
 ```
 
 ```{r pbmc-purified-pca-with-celltypes, eval=FALSE}
