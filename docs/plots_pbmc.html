@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-21
+<strong>Last updated:</strong> 2020-08-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecdca13ec3fb3f0a81510038deac7a7cb1c4910a0targetblankcdca13ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/cdca13ec3fb3f0a81510038deac7a7cb1c4910a0" target="_blank">cdca13e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed0e9f6eaf7136021833d30a302c0fc06f045a9d0targetblankd0e9f6ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d0e9f6eaf7136021833d30a302c0fc06f045a9d0" target="_blank">d0e9f6e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecdca13ec3fb3f0a81510038deac7a7cb1c4910a0targetblankcdca13ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed0e9f6eaf7136021833d30a302c0fc06f045a9d0targetblankd0e9f6ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/cdca13ec3fb3f0a81510038deac7a7cb1c4910a0" target="_blank">cdca13e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d0e9f6eaf7136021833d30a302c0fc06f045a9d0" target="_blank">d0e9f6e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d0e9f6eaf7136021833d30a302c0fc06f045a9d0/analysis/plots_pbmc.Rmd" target="_blank">d0e9f6e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/fbb0697684addb55df25f7501714a5eac8189e6f/docs/plots_pbmc.html" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -780,6 +814,7 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+library(Ternary)
 source(&quot;../code/plots.R&quot;)</code></pre>
 <p>Load the sample annotations. (The count data are no longer needed at this stage of the analysis.)</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
@@ -896,6 +931,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">216027a</a>
 </td>
 <td>
@@ -933,8 +979,8 @@ pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quo
 rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;c1&quot;),1200),
                sample(which(samples_purified$cluster == &quot;c2&quot;),600),
                sample(which(samples_purified$cluster == &quot;c3&quot;),600)))
-fit2 &lt;- select(poisson2multinom(fit_purified),loadings = rows)
-p3 &lt;- structure_plot(fit2,grouping = samples_purified[rows,&quot;cluster&quot;],
+p3 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+                     grouping = samples_purified[rows,&quot;cluster&quot;],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
@@ -964,6 +1010,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">216027a</a>
 </td>
 <td>
@@ -985,8 +1042,8 @@ pbmc_68k_topic_colors &lt;- c(&quot;darkorange&quot;,&quot;olivedrab&quot;,&quot
 rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;c1&quot;),1400),
                sample(which(samples_68k$cluster == &quot;c2&quot;),500),
                which(samples_68k$cluster == &quot;c3&quot;)))
-fit2 &lt;- select(poisson2multinom(fit_68k),loadings = rows)
-p4 &lt;- structure_plot(fit2,grouping = samples_68k[rows,&quot;cluster&quot;],
+p4 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                     grouping = samples_68k[rows,&quot;cluster&quot;],
                      topics = pbmc_68k_topics,
                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
@@ -1016,6 +1073,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">216027a</a>
 </td>
 <td>
@@ -1029,48 +1097,84 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data:</p>
-<pre class="r"><code>purified_celltype_colors &lt;-
+<p><strong>TO DO:</strong> Before comparing to Zheng et al (2017) labeling, do more manual identification of clusters from the PCA plots.</p>
+<p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data. In <code>fit_purified</code>, cluster 2 captures B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:</p>
+<pre class="r"><code>with(samples_purified,table(celltype,cluster))
+#                               cluster
+# celltype                          c1    c2    c3
+#   CD19+ B                          3 10073     9
+#   CD14+ Monocyte                  30     8  2574
+#   CD34+                           47   352  8833
+#   CD4+ T Helper2               11184     0    29
+#   CD56+ NK                      8363     0    22
+#   CD8+ Cytotoxic T             10156     0    53
+#   CD4+/CD45RO+ Memory          10201     0    23
+#   CD8+/CD45RA+ Naive Cytotoxic 11946     3     4
+#   CD4+/CD45RA+/CD25- Naive T   10441     1    37
+#   CD4+/CD25 T Reg              10243     2    18</code></pre>
+<p>Let’s look more closely at cluster 3 in <code>fit_purified</code>:</p>
+<pre class="r"><code>pbmc_purified_celltype_colors &lt;-
   c(&quot;dodgerblue&quot;,  # CD19+ B
     &quot;forestgreen&quot;, # CD14+ Monocyte
-    &quot;lightskyblue&quot;,# CD34+
+    &quot;palegreen&quot;,   # CD34+
     &quot;plum&quot;,        # CD4+ T Helper2
-    &quot;slategray&quot;,   # CD56+ NK
+    &quot;gray&quot;,        # CD56+ NK
     &quot;tomato&quot;,      # CD8+ Cytotoxic T
     &quot;gold&quot;,        # CD4+/CD45RO+ Memory
     &quot;magenta&quot;,     # CD8+/CD45RA+ Naive Cytotoxic
     &quot;darkorange&quot;,  # CD4+/CD45RA+/CD25- Naive T
     &quot;yellowgreen&quot;) # CD4+/CD25 T Reg
-library(Ternary)
 par(mar = c(0,0,0,0))
+L    &lt;- poisson2multinom(fit_purified)$L
+pdat &lt;- cbind(L,samples_purified[&quot;celltype&quot;])
+rows &lt;- which(samples_purified$cluster == &quot;c3&quot;)
+levels(pdat$celltype) &lt;- pbmc_purified_celltype_colors
+TernaryPlot(alab = &quot;k2&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
+            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(2,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
+              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-ternary-plot-c3-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Now let’s look more closely at cluster 1 in <code>fit_purified</code>:</p>
+<pre class="r"><code>par(mar = c(0,0,0,0))
 rows &lt;- which(samples_purified$cluster == &quot;c1&quot;)
-pdat &lt;- cbind(poisson2multinom(fit_purified)$L,samples_purified[&quot;celltype&quot;])
-levels(pdat$celltype) &lt;- purified_celltype_colors
-TernaryPlot(alab = &quot;k1&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,grid.col = &quot;skyblue&quot;,
-            grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(1,4,6)],pch = 20,
-              col = as.character(pdat[rows,&quot;celltype&quot;]),cex = 0.5)</code></pre>
-<pre class="r"><code>clrs &lt;- c(&quot;forestgreen&quot;,  # CD14+ Monocyte
-          &quot;dodgerblue&quot;,   # CD19+ B
-          &quot;darkmagenta&quot;,  # CD34+&quot;
-          &quot;yellowgreen&quot;,  # CD4+ T Helper2
-          &quot;gold&quot;,         # CD4+/CD25 T Reg
-          &quot;limegreen&quot;,    # CD4+/CD45RA+/CD25- Naive T
-          &quot;orange&quot;,       # CD4+/CD45RO+ Memory&quot;
-          &quot;gray&quot;,         # CD56+ NK
-          &quot;tomato&quot;,       # CD8+ Cytotoxic T
-          &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
-          &quot;darkblue&quot;)     # Dendritic&quot;
-library(Ternary)
-par(mar = c(0,0,0,0))
+TernaryPlot(alab = &quot;k1&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
+            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(1,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
+              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-ternary-plot-c1-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>In <code>fit_68k</code>, cluster 2 mostly consists of CD14+ monocyte and dendritic cells, whereas cluster 3 is a small population of CD34+ cells.</p>
+<p><code>{r pbmc-68k-vs-celltypes with(samples_68k,table(celltype,cluster))</code></p>
+<p>Let’s look more closely at cluster 2 in <code>fit_68k</code>:</p>
+<pre class="r"><code>par(mar = c(0,0,0,0))
+pbmc_68k_celltype_colors &lt;-
+  c(&quot;forestgreen&quot;,  # CD14+ Monocyte
+    &quot;dodgerblue&quot;,   # CD19+ B
+    &quot;palegreen&quot;,    # CD34+&quot;
+    &quot;yellowgreen&quot;,  # CD4+ T Helper2
+    &quot;gold&quot;,         # CD4+/CD25 T Reg
+    &quot;darkorange&quot;,   # CD4+/CD45RA+/CD25- Naive T
+    &quot;gold&quot;,         # CD4+/CD45RO+ Memory&quot;
+    &quot;gray&quot;,         # CD56+ NK
+    &quot;tomato&quot;,       # CD8+ Cytotoxic T
+    &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
+    &quot;darkmagenta&quot;)  # Dendritic&quot;
 L    &lt;- poisson2multinom(fit_68k)$L
-rows &lt;- which(samples_68k$cluster == &quot;c1&quot; &amp; L[,3] &lt; 0.5)
 pdat &lt;- cbind(L,samples_68k[&quot;celltype&quot;])
-levels(pdat$celltype) &lt;- clrs
-TernaryPlot(alab = &quot;k4&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,grid.col = &quot;skyblue&quot;,
-            grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(4,5,6)],pch = 20,
-              col = as.character(pdat[rows,&quot;celltype&quot;]),cex = 0.5)</code></pre>
+rows &lt;- which(samples_68k$cluster == &quot;c2&quot;)
+levels(pdat$celltype) &lt;- pbmc_68k_celltype_colors
+TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
+            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
+              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-ternary-plot-c2-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Finally, let’s look more closely at cluster 1 in <code>fit_68k</code>:</p>
+<pre class="r"><code>par(mar = c(0,0,0,0))
+rows &lt;- which(samples_68k$cluster == &quot;c1&quot;)
+TernaryPlot(alab = &quot;k2&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
+            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(2,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
+              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-ternary-plot-c1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p4 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
                            samples_purified$celltype,
                            purified_celltype_colors) + labs(fill = &quot;celltype&quot;)
@@ -1183,7 +1287,8 @@ plot_grid(p9,p10,p11,p12,p13,p14,nrow = 6)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-163 dplyr_0.8.3       
+# [1] Ternary_1.1.4      cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-163
+# [5] dplyr_0.8.3       
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.3           lattice_0.20-38     
