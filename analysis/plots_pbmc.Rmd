@@ -153,38 +153,31 @@ print(p4)
 **TO DO:** Before comparing to Zheng et al (2017) labeling, do more
 manual identification of clusters from the PCA plots.
 
-Comparison to Zheng et al (2017) cell-type labeling of the
-FACS-purified PBMC data. In `fit_purified`, cluster 2 captures
-B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:
-
 ```{r pbmc-purified-vs-celltypes}
 with(samples_purified,table(celltype,cluster))
 ```
 
-Let's look more closely at cluster 3 in `fit_purified`:
+Let's look more closely at cluster 3 in `fit_purified`.
 
 ```{r pbmc-purified-ternary-plot-c3, fig.width=4, fig.height=4}
-pbmc_purified_celltype_colors <-
-  c("dodgerblue",  # CD19+ B
-    "forestgreen", # CD14+ Monocyte
-    "palegreen",   # CD34+
-    "plum",        # CD4+ T Helper2
-    "gray",        # CD56+ NK
-    "tomato",      # CD8+ Cytotoxic T
-    "gold",        # CD4+/CD45RO+ Memory
-    "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
-    "darkorange",  # CD4+/CD45RA+/CD25- Naive T
-    "yellowgreen") # CD4+/CD25 T Reg
-par(mar = c(0,0,0,0))
-L    <- poisson2multinom(fit_purified)$L
-pdat <- cbind(L,samples_purified["celltype"])
-rows <- which(samples_purified$cluster == "c3")
-levels(pdat$celltype) <- pbmc_purified_celltype_colors
-TernaryPlot(alab = "k2",blab = "k5",clab = "k6",
-            grid.col = "gainsboro",grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(2,5,6)],pch = 21,cex = 0.65,col = "white",
-  			  bg = as.character(pdat[rows,"celltype"]))
+fit2 <- select(poisson2multinom(fit_purified),
+               loadings = which(samples_purified$cluster == "c3"))
+pca <- prcomp(fit2$L)$x
+n   <- nrow(fit2$L)
+x   <- rep("c3",n)
+pc1 <- pca[,1]
+pc2 <- pca[,2]
+x[pc1 < 0] <- "c3a"
+x[pc1 > 0.5 & pc2 < 0.15] <- "c3b"
+p5 <- pca_plot_with_labels(fit2,c("PC1","PC2"),factor(x),
+                           c("gray","forestgreen","greenyellow")) +
+      labs(fill = "cluster")
+print(p5)
 ```
+
+Comparison to Zheng et al (2017) cell-type labeling of the
+FACS-purified PBMC data. In `fit_purified`, cluster 2 captures
+B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:
 
 Now let's look more closely at cluster 1 in `fit_purified`:
 
@@ -251,6 +244,20 @@ p5 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
                            purified_celltype_colors) + labs(fill = "celltype")
 ```
 
+```{r}
+pbmc_purified_celltype_colors <-
+  c("dodgerblue",  # CD19+ B
+    "forestgreen", # CD14+ Monocyte
+    "palegreen",   # CD34+
+    "plum",        # CD4+ T Helper2
+    "gray",        # CD56+ NK
+    "tomato",      # CD8+ Cytotoxic T
+    "gold",        # CD4+/CD45RO+ Memory
+    "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
+    "darkorange",  # CD4+/CD45RA+/CD25- Naive T
+    "yellowgreen") # CD4+/CD25 T Reg
+```
+	
 Loadings plot:
 
 ```{r loading-plot, eval=FALSE}
