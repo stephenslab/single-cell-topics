@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree98888b2fae10880621bb3efd89cc53901190ce81targetblank98888b2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/98888b2fae10880621bb3efd89cc53901190ce81" target="_blank">98888b2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecdca13ec3fb3f0a81510038deac7a7cb1c4910a0targetblankcdca13ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/cdca13ec3fb3f0a81510038deac7a7cb1c4910a0" target="_blank">cdca13e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree98888b2fae10880621bb3efd89cc53901190ce81targetblank98888b2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecdca13ec3fb3f0a81510038deac7a7cb1c4910a0targetblankcdca13ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/98888b2fae10880621bb3efd89cc53901190ce81" target="_blank">98888b2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/cdca13ec3fb3f0a81510038deac7a7cb1c4910a0" target="_blank">cdca13e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/cdca13ec3fb3f0a81510038deac7a7cb1c4910a0/analysis/plots_pbmc.Rmd" target="_blank">cdca13e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/216027a8630c038d35ff5149539a552cc8650fa7/docs/plots_pbmc.html" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+<td>
+Re-built plots_pbmc webpage with structure plots.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -829,8 +863,8 @@ Peter Carbonetto
 x &lt;- rep(&quot;c1&quot;,n)
 pc3 &lt;- pca_68k[,&quot;PC3&quot;]
 pc4 &lt;- pca_68k[,&quot;PC4&quot;]
-x[pc4 &lt; -0.13 | pc3/2 - 0.17 &gt; pc4] &lt;- &quot;c2&quot;
-x[pc4 &lt; -0.75] &lt;- &quot;c3&quot;
+x[pc4 &gt; 0.13 | pc3/1.9 - 0.17 &gt; -pc4] &lt;- &quot;c2&quot;
+x[pc4 &gt; 0.75] &lt;- &quot;c3&quot;
 samples_68k$cluster &lt;- factor(x)
 pbmc_68k_cluster_colors &lt;- c(&quot;cornflowerblue&quot;,&quot;darkorange&quot;,&quot;firebrick&quot;)
 p2 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),factor(x),
@@ -862,6 +896,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6d3d7e4e855a46f2b154a459db16dd9fbaa58ccf/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">6d3d7e4</a>
 </td>
 <td>
@@ -878,8 +923,8 @@ Peter Carbonetto
 <p>The vast majority of the cells are in the first (blue) cluster:</p>
 <pre class="r"><code>table(samples_68k$cluster)
 # 
-#    c1    c2 
-# 63072  5507</code></pre>
+#    c1    c2    c3 
+# 63408  5006   165</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
@@ -894,12 +939,49 @@ p3 &lt;- structure_plot(fit2,grouping = samples_purified[rows,&quot;cluster&quot
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p3)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-structure-plot-1">
+Past versions of pbmc-purified-structure-plot-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><strong>TO DO:</strong> Add text here.</p>
-<pre class="r"><code>pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
+<pre class="r"><code>set.seed(1)
+pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
 pbmc_68k_topic_colors &lt;- c(&quot;darkorange&quot;,&quot;olivedrab&quot;,&quot;dodgerblue&quot;,
                            &quot;gray&quot;,&quot;royalblue&quot;,&quot;magenta&quot;)
-set.seed(1)
 rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;c1&quot;),1400),
                sample(which(samples_68k$cluster == &quot;c2&quot;),500),
                which(samples_68k$cluster == &quot;c3&quot;)))
@@ -909,7 +991,44 @@ p4 &lt;- structure_plot(fit2,grouping = samples_68k[rows,&quot;cluster&quot;],
                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
+Past versions of pbmc-68k-structure-plot-1.png
+</button>
+</p>
+<div id="fig-pbmc-68k-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data:</p>
 <pre class="r"><code>purified_celltype_colors &lt;-
   c(&quot;dodgerblue&quot;,  # CD19+ B
