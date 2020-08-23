@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8daa1311212127a8d82836be381898d738985322targetblank8daa131a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8daa1311212127a8d82836be381898d738985322" target="_blank">8daa131</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeddc6de4d725601617461a520887e5a576ef7cec9targetblankddc6de4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ddc6de4d725601617461a520887e5a576ef7cec9" target="_blank">ddc6de4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8daa1311212127a8d82836be381898d738985322targetblank8daa131a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeddc6de4d725601617461a520887e5a576ef7cec9targetblankddc6de4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8daa1311212127a8d82836be381898d738985322" target="_blank">8daa131</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ddc6de4d725601617461a520887e5a576ef7cec9" target="_blank">ddc6de4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ddc6de4d725601617461a520887e5a576ef7cec9/analysis/plots_pbmc.Rmd" target="_blank">ddc6de4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a406a2f59205b74fc2effbb9620cb3d7d445eb74/docs/plots_pbmc.html" target="_blank">a406a2f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+Added back first PCA plot for 68k pbmc data.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1105,17 +1139,17 @@ table(samples_purified$cluster)
 <p>Next, we turn to the 68k fit.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4:</p>
+<p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4, labeled “A”, “B” and “C”:</p>
 <pre class="r"><code>n &lt;- nrow(pca)
 x &lt;- rep(&quot;A&quot;,n)
 pc3 &lt;- pca[,&quot;PC3&quot;]
 pc4 &lt;- pca[,&quot;PC4&quot;]
-x[pc4 &gt; 0.13 | pc3/1.9 - 0.17 &gt; -pc4] &lt;- &quot;B&quot;
+x[pc4 &gt; 0.13 | 0.17 - pc3/1.9 &lt; pc4] &lt;- &quot;B&quot;
 x[pc4 &gt; 0.75] &lt;- &quot;C&quot;
 samples_68k$cluster &lt;- x
-p2 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+p7 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p2)</code></pre>
+print(p7)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-2-1">
@@ -1139,6 +1173,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a406a2f59205b74fc2effbb9620cb3d7d445eb74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">a406a2f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">7900d17</a>
@@ -1192,6 +1237,28 @@ Peter Carbonetto
 # 
 #     A     B     C 
 # 63408  5006   165</code></pre>
+<p>Let’s look more closely at cluster 2 in <code>fit_68k</code>:</p>
+<pre class="r"><code>par(mar = c(0,0,0,0))
+pbmc_68k_celltype_colors &lt;-
+  c(&quot;forestgreen&quot;,  # CD14+ Monocyte
+    &quot;dodgerblue&quot;,   # CD19+ B
+    &quot;palegreen&quot;,    # CD34+&quot;
+    &quot;yellowgreen&quot;,  # CD4+ T Helper2
+    &quot;gold&quot;,         # CD4+/CD25 T Reg
+    &quot;darkorange&quot;,   # CD4+/CD45RA+/CD25- Naive T
+    &quot;gold&quot;,         # CD4+/CD45RO+ Memory&quot;
+    &quot;gray&quot;,         # CD56+ NK
+    &quot;tomato&quot;,       # CD8+ Cytotoxic T
+    &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
+    &quot;darkmagenta&quot;)  # Dendritic&quot;
+L    &lt;- poisson2multinom(fit_68k)$L
+pdat &lt;- cbind(L,samples_68k[&quot;celltype&quot;])
+rows &lt;- which(samples_68k$cluster == &quot;c2&quot;)
+levels(pdat$celltype) &lt;- pbmc_68k_celltype_colors
+TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
+            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
+              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
@@ -1232,28 +1299,6 @@ TernaryPoints(pdat[rows,c(1,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
               bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
 <p>In <code>fit_68k</code>, cluster 2 mostly consists of CD14+ monocyte and dendritic cells, whereas cluster 3 is a small population of CD34+ cells.</p>
 <pre class="r"><code>with(samples_68k,table(celltype,cluster))</code></pre>
-<p>Let’s look more closely at cluster 2 in <code>fit_68k</code>:</p>
-<pre class="r"><code>par(mar = c(0,0,0,0))
-pbmc_68k_celltype_colors &lt;-
-  c(&quot;forestgreen&quot;,  # CD14+ Monocyte
-    &quot;dodgerblue&quot;,   # CD19+ B
-    &quot;palegreen&quot;,    # CD34+&quot;
-    &quot;yellowgreen&quot;,  # CD4+ T Helper2
-    &quot;gold&quot;,         # CD4+/CD25 T Reg
-    &quot;darkorange&quot;,   # CD4+/CD45RA+/CD25- Naive T
-    &quot;gold&quot;,         # CD4+/CD45RO+ Memory&quot;
-    &quot;gray&quot;,         # CD56+ NK
-    &quot;tomato&quot;,       # CD8+ Cytotoxic T
-    &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
-    &quot;darkmagenta&quot;)  # Dendritic&quot;
-L    &lt;- poisson2multinom(fit_68k)$L
-pdat &lt;- cbind(L,samples_68k[&quot;celltype&quot;])
-rows &lt;- which(samples_68k$cluster == &quot;c2&quot;)
-levels(pdat$celltype) &lt;- pbmc_68k_celltype_colors
-TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
-            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
-              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
 <p>Finally, let’s look more closely at cluster 1 in <code>fit_68k</code>:</p>
 <pre class="r"><code>par(mar = c(0,0,0,0))
 rows &lt;- which(samples_68k$cluster == &quot;c1&quot;)
