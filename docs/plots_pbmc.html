@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeddc6de4d725601617461a520887e5a576ef7cec9targetblankddc6de4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ddc6de4d725601617461a520887e5a576ef7cec9" target="_blank">ddc6de4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec6dd5f23d5d791a9b4f4f66fecf9365617d2be69targetblankc6dd5f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c6dd5f23d5d791a9b4f4f66fecf9365617d2be69" target="_blank">c6dd5f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeddc6de4d725601617461a520887e5a576ef7cec9targetblankddc6de4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec6dd5f23d5d791a9b4f4f66fecf9365617d2be69targetblankc6dd5f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ddc6de4d725601617461a520887e5a576ef7cec9" target="_blank">ddc6de4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c6dd5f23d5d791a9b4f4f66fecf9365617d2be69" target="_blank">c6dd5f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c6dd5f23d5d791a9b4f4f66fecf9365617d2be69/analysis/plots_pbmc.Rmd" target="_blank">c6dd5f2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/ce421ae6b4930c9ab4094deb192af6933b1924c7/docs/plots_pbmc.html" target="_blank">ce421ae</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+A few small revisions to plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1136,10 +1170,87 @@ table(samples_purified$cluster)
 # 
 #    A1    A2     B    C1    C2    C3 
 #  8146 64468 10439  7822  2990   790</code></pre>
+<p>The Structure plot gives a visual summary of topic proportions in each of these six clusters:</p>
+<pre class="r"><code>set.seed(1)
+pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
+pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
+                                &quot;gray&quot;,&quot;greenyellow&quot;,&quot;magenta&quot;)
+rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;A1&quot;),250),
+               sample(which(samples_purified$cluster == &quot;A2&quot;),750),
+               sample(which(samples_purified$cluster == &quot;B&quot;),250),
+               sample(which(samples_purified$cluster == &quot;C1&quot;),250),
+               sample(which(samples_purified$cluster == &quot;C2&quot;),250),
+               sample(which(samples_purified$cluster == &quot;C3&quot;),200)))
+p3 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+                     grouping = samples_purified[rows,&quot;cluster&quot;],
+                     topics = pbmc_purified_topics,
+                     colors = pbmc_purified_topic_colors[pbmc_purified_topics],
+                     gap = 40,num_threads = 4,verbose = FALSE)
+print(p3)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-structure-plot-1">
+Past versions of pbmc-purified-structure-plot-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">7900d17</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Next, we turn to the 68k fit.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4, labeled “A”, “B” and “C”:</p>
+<p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4. We label these clusters “A”, “B” and “C”, as above, but this labeling does not imply a connection between the two sets of clusters.</p>
 <pre class="r"><code>n &lt;- nrow(pca)
 x &lt;- rep(&quot;A&quot;,n)
 pc3 &lt;- pca[,&quot;PC3&quot;]
@@ -1237,21 +1348,8 @@ Peter Carbonetto
 # 
 #     A     B     C 
 # 63408  5006   165</code></pre>
-<p>Let’s look more closely at cluster 2 in <code>fit_68k</code>:</p>
-<pre class="r"><code>par(mar = c(0,0,0,0))
-pbmc_68k_celltype_colors &lt;-
-  c(&quot;forestgreen&quot;,  # CD14+ Monocyte
-    &quot;dodgerblue&quot;,   # CD19+ B
-    &quot;palegreen&quot;,    # CD34+&quot;
-    &quot;yellowgreen&quot;,  # CD4+ T Helper2
-    &quot;gold&quot;,         # CD4+/CD25 T Reg
-    &quot;darkorange&quot;,   # CD4+/CD45RA+/CD25- Naive T
-    &quot;gold&quot;,         # CD4+/CD45RO+ Memory&quot;
-    &quot;gray&quot;,         # CD56+ NK
-    &quot;tomato&quot;,       # CD8+ Cytotoxic T
-    &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
-    &quot;darkmagenta&quot;)  # Dendritic&quot;
-L    &lt;- poisson2multinom(fit_68k)$L
+<p>Looking more closely at cluster B…</p>
+<pre class="r"><code>L    &lt;- poisson2multinom(fit_68k)$L
 pdat &lt;- cbind(L,samples_68k[&quot;celltype&quot;])
 rows &lt;- which(samples_68k$cluster == &quot;c2&quot;)
 levels(pdat$celltype) &lt;- pbmc_68k_celltype_colors
@@ -1259,20 +1357,6 @@ TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
             grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
 TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
               bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<p><strong>TO DO:</strong> Add text here.</p>
-<pre class="r"><code>set.seed(1)
-pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
-pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
-                                &quot;gray&quot;,&quot;greenyellow&quot;,&quot;magenta&quot;)
-rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;c1&quot;),1200),
-               sample(which(samples_purified$cluster == &quot;c2&quot;),600),
-               sample(which(samples_purified$cluster == &quot;c3&quot;),600)))
-p3 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
-                     grouping = samples_purified[rows,&quot;cluster&quot;],
-                     topics = pbmc_purified_topics,
-                     colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     gap = 40,num_threads = 4,verbose = FALSE)
-print(p3)</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
