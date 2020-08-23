@@ -23,7 +23,7 @@ source("../code/plots.R")
 ```
 
 Load the sample annotations. (The count data are no longer needed at this
-stage of the analysis.)
+stage of the analysis, so I have removed them.)
 
 ```{r load-data}
 load("../data/pbmc_purified.RData")
@@ -33,10 +33,12 @@ samples_68k <- samples
 rm(genes,counts)
 ```
 
-Load the $k = 6$ Poisson NMF model fits for both PBMC data sets. To
-reduce confusion, topics in the `fit_68k` Poisson NMF model fit are
-reordered to better align with the topics in `fit_purified` Poisson
-NMF model fit.
+Load the $k = 6$ Poisson NMF model fits for both PBMC data sets. In
+the descriptions below, I refer to these Poisson NMF model fits as the
+"purified" and "68k" fits.
+
+To aid presentation of the results, topics in the 68k fit are
+reordered to better align with the topics in purified Poisson NMF fit.
 
 ```{r load-fits}
 fit_purified <-
@@ -49,51 +51,100 @@ colnames(fit_68k$F) <- paste0("k",1:6)
 colnames(fit_68k$L) <- paste0("k",1:6)
 ```
 
-We begin my exploring the structure in the PBMC data as inferred by
-the topic model. Here we show that a basic PCA rotation of the topic
-proportions is an effective way to visualize this structure. We begin
-with the mixture of FACS-purified PBMC data sets.
+We begin by exploring structure in the data as inferred by the topic
+model. We will visualize this structure by plotting principal
+components (PCs) of the topic proportions. Although PCA is simple, we
+will see that it quite effective, and avoids the complications of
+nonlinear dimensionality reduction techniques such as t-SNE and UMAP.
+
+We begin with the mixture of FACS-purified PBMC data.
 
 ```{r pbmc-purified-clustering-1}
-pca_purified <- prcomp(poisson2multinom(fit_purified)$L)$x
+fit <- poisson2multinom(fit_purified)
+pca <- prcomp(fit$L)$x
 ```
 
-Three large clusters are evident from first two PCs (with possibly
-more subtle structures within these clusters):
+Three large clusters are clearly evident from first two PCs (there is
+also finer-scale structure which we will examine shortly). We label
+these clusters as "A", "B" and "C".
 
-```{r pbmc-purified-clustering-2, fig.width=4.5, fig.height=4}
-n <- nrow(pca_purified)
-x <- rep("c3",n)
-pc1 <- pca_purified[,"PC1"]
-pc2 <- pca_purified[,"PC2"]
-x[pc1 + 0.2 > pc2] <- "c1"
-x[pc2 > 0.25] <- "c2"
-x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 < 0.07] <- "c3"
-samples_purified$cluster <- factor(x)
-purified_cluster_colors <- c("tomato","dodgerblue","lightskyblue")
+```{r pbmc-purified-clustering-2, fig.width=5, fig.height=4}
+n   <- nrow(pca)
+x   <- rep("C",n)
+pc1 <- pca[,"PC1"]
+pc2 <- pca[,"PC2"]
+x[pc1 + 0.2 > pc2] <- "A"
+x[pc2 > 0.25] <- "B"
+x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 < 0.07] <- "C"
+samples_purified$cluster <- x
 p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
-                           samples_purified$cluster,
-                           purified_cluster_colors) +
+                           samples_purified$cluster) +
       labs(fill = "cluster")
 print(p1)
 ```
 
-Most of the samples are included in the first (red) cluster:
+Most of the samples are in cluster A:
 
 ```{r pbmc-purified-clustering-3}
-print(table(samples_purified$cluster))
+table(x)
 ```
 
-Next we turn to the 68k PBMC data.
+In cluster C, there are two well-defined subclusters, labeled "C1" and
+"C2". There are other possible subclusters that are less defined, but
+here we focus on the most obvious clustering:
+
+```{r pbmc-purified-clustering-4, fig.width=5, fig.height=4}
+rows <- which(samples_purified$cluster == "C")
+fit  <- select(poisson2multinom(fit_purified),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("C3",n)
+pc1  <- pca[,1]
+pc2  <- pca[,2]
+x[pc1 < 0 & pc2 < 0.4] <- "C1"
+x[pc1 > 0.5 & pc2 < 0.3] <- "C2"
+samples_purified$cluster[rows] <- x
+p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p5)
+```
+
+The two subclusters C1 and C2 account for most of the samples:
+
+```{r pbmc-purified-clustering-5}
+table(x)
+```
+
+Let's now look more closely at cluster A. There is a large, much less
+distinct subcluster, which we label as "A1". Otherwise, there is are
+other clearly well-defined clusters.
+
+```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
+rows <- which(samples_purified$cluster == "A")
+fit  <- select(poisson2multinom(fit_purified),loadings = rows)
+pca <- prcomp(fit$L)$x
+n   <- nrow(fit$L)
+x   <- rep("A2",n)
+pc1 <- pca[,1]
+pc2 <- pca[,2]
+x[pc1 > 0.6 - pc2] <- "A1"
+samples_purified$cluster[rows] <- x
+p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p6)
+```
+
+Next, we turn to the 68k fit.
 
 ```{r pbmc-68k-clustering-1}
-pca_68k <- prcomp(poisson2multinom(fit_68k)$L)$x
+fit <- poisson2multinom(fit_68k)
+pca <- prcomp(fit$L)$x
 ```
 
-Here, we see at least three distinct clusters in the projection onto
+Here, we find least three distinct clusters in the projection onto
 PCs 3 and 4:
 
-```{r pbmc-68k-clustering-2, fig.width=4.5, fig.height=4}
+```{r pbmc-68k-clustering-2, fig.width=5, fig.height=4, eval=FALSE}
 n <- nrow(pca_68k)
 x <- rep("c1",n)
 pc3 <- pca_68k[,"PC3"]
@@ -110,13 +161,13 @@ print(p2)
 
 The vast majority of the cells are in the first (blue) cluster:
 
-```{r pbmc-68k-clustering-3}
+```{r pbmc-68k-clustering-3, eval=FALSE}
 table(samples_68k$cluster)
 ```
 
 **TO DO:** Add text here.
 
-```{r pbmc-purified-structure-plot, fig.width=7, fig.height=2}
+```{r pbmc-purified-structure-plot, fig.width=7, fig.height=2, eval=FALSE}
 set.seed(1)
 pbmc_purified_topics       <- c(2,5,1,3,4,6)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
@@ -134,7 +185,7 @@ print(p3)
 
 **TO DO:** Add text here.
 
-```{r pbmc-68k-structure-plot, fig.width=7, fig.height=2}
+```{r pbmc-68k-structure-plot, fig.width=7, fig.height=2, eval=FALSE}
 set.seed(1)
 pbmc_68k_topics       <- c(2,5,1,3,4,6)
 pbmc_68k_topic_colors <- c("darkorange","olivedrab","dodgerblue",
@@ -153,26 +204,8 @@ print(p4)
 **TO DO:** Before comparing to Zheng et al (2017) labeling, do more
 manual identification of clusters from the PCA plots.
 
-```{r pbmc-purified-vs-celltypes}
+```{r pbmc-purified-vs-celltypes, eval=FALSE}
 with(samples_purified,table(celltype,cluster))
-```
-
-Let's look more closely at cluster 3 in `fit_purified`.
-
-```{r pbmc-purified-ternary-plot-c3, fig.width=4, fig.height=4}
-fit2 <- select(poisson2multinom(fit_purified),
-               loadings = which(samples_purified$cluster == "c3"))
-pca <- prcomp(fit2$L)$x
-n   <- nrow(fit2$L)
-x   <- rep("c3",n)
-pc1 <- pca[,1]
-pc2 <- pca[,2]
-x[pc1 < 0] <- "c3a"
-x[pc1 > 0.5 & pc2 < 0.15] <- "c3b"
-p5 <- pca_plot_with_labels(fit2,c("PC1","PC2"),factor(x),
-                           c("gray","forestgreen","greenyellow")) +
-      labs(fill = "cluster")
-print(p5)
 ```
 
 Comparison to Zheng et al (2017) cell-type labeling of the
@@ -181,7 +214,7 @@ B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:
 
 Now let's look more closely at cluster 1 in `fit_purified`:
 
-```{r pbmc-purified-ternary-plot-c1, fig.width=4, fig.height=4}
+```{r pbmc-purified-ternary-plot-c1, fig.width=4, fig.height=4, eval=FALSE}
 par(mar = c(0,0,0,0))
 rows <- which(samples_purified$cluster == "c1")
 TernaryPlot(alab = "k1",blab = "k4",clab = "k6",
@@ -194,13 +227,13 @@ In `fit_68k`, cluster 2 mostly consists of CD14+ monocyte and
 dendritic cells, whereas cluster 3 is a small population of CD34+
 cells.
 
-```{r pbmc-68k-vs-celltypes
+```{r pbmc-68k-vs-celltypes, eval=FALSE}
 with(samples_68k,table(celltype,cluster))
 ```
 
 Let's look more closely at cluster 2 in `fit_68k`:
 
-```{r pbmc-68k-ternary-plot-c2, fig.width=4, fig.height=4}
+```{r pbmc-68k-ternary-plot-c2, fig.width=4, fig.height=4, eval=FALSE}
 par(mar = c(0,0,0,0))
 pbmc_68k_celltype_colors <-
   c("forestgreen",  # CD14+ Monocyte
@@ -226,7 +259,7 @@ TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = "white",
 
 Finally, let's look more closely at cluster 1 in `fit_68k`:
 
-```{r pbmc-68k-ternary-plot-c1, fig.width=4, fig.height=4}
+```{r pbmc-68k-ternary-plot-c1, fig.width=4, fig.height=4, eval=FALSE}
 par(mar = c(0,0,0,0))
 rows <- which(samples_68k$cluster == "c1")
 TernaryPlot(alab = "k2",blab = "k4",clab = "k6",
@@ -244,7 +277,7 @@ p5 <- pca_plot_with_labels(fit_purified,c("PC4","PC5"),
                            purified_celltype_colors) + labs(fill = "celltype")
 ```
 
-```{r}
+```{r, eval=FALSE}
 pbmc_purified_celltype_colors <-
   c("dodgerblue",  # CD19+ B
     "forestgreen", # CD14+ Monocyte
