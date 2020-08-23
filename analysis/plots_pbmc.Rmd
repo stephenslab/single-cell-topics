@@ -141,10 +141,10 @@ samples_purified$cluster <- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 ```
 
-The Structure plot gives a visual summary of topic proportions in
-each of these six clusters:
+The Structure plot gives a compact visual summary of topic proportions
+in each of these six clusters:
 
-```{r pbmc-purified-structure-plot, fig.width=7, fig.height=2}
+```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
 set.seed(1)
 pbmc_purified_topics       <- c(2,5,1,3,4,6)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
@@ -161,6 +161,13 @@ p3 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p3)
+```
+
+Compare these clusters with the Zheng *et al* (2017) cell-type
+labeling:
+
+```{r pbmc-purified-clusters-vs-celltypes}
+with(samples_purified,table(celltype,cluster))
 ```
 
 Next, we turn to the 68k fit.
@@ -227,10 +234,6 @@ print(p4)
 
 **TO DO:** Before comparing to Zheng et al (2017) labeling, do more
 manual identification of clusters from the PCA plots.
-
-```{r pbmc-purified-vs-celltypes, eval=FALSE}
-with(samples_purified,table(celltype,cluster))
-```
 
 Comparison to Zheng et al (2017) cell-type labeling of the
 FACS-purified PBMC data. In `fit_purified`, cluster 2 captures
