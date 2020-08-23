@@ -122,12 +122,12 @@ other clearly well-defined clusters.
 ```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
 rows <- which(samples_purified$cluster == "A")
 fit  <- select(poisson2multinom(fit_purified),loadings = rows)
-pca <- prcomp(fit$L)$x
-n   <- nrow(fit$L)
-x   <- rep("A2",n)
-pc1 <- pca[,1]
-pc2 <- pca[,2]
-x[pc1 > 0.6 - pc2] <- "A1"
+pca  <- prcomp(fit$L)$x
+n    <- nrow(fit$L)
+x    <- rep("A2",n)
+pc1  <- pca[,1]
+pc2  <- pca[,2]
+x[pc1 > 0.58 - pc2 | pc1 > 0.7] <- "A1"
 samples_purified$cluster[rows] <- x
 p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
