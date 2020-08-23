@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec6dd5f23d5d791a9b4f4f66fecf9365617d2be69targetblankc6dd5f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c6dd5f23d5d791a9b4f4f66fecf9365617d2be69" target="_blank">c6dd5f2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9cd4a08b3c3352eaed9f8fdf09d0f1ce0a1276c3targetblank9cd4a08a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9cd4a08b3c3352eaed9f8fdf09d0f1ce0a1276c3" target="_blank">9cd4a08</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec6dd5f23d5d791a9b4f4f66fecf9365617d2be69targetblankc6dd5f2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9cd4a08b3c3352eaed9f8fdf09d0f1ce0a1276c3targetblank9cd4a08a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c6dd5f23d5d791a9b4f4f66fecf9365617d2be69" target="_blank">c6dd5f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9cd4a08b3c3352eaed9f8fdf09d0f1ce0a1276c3" target="_blank">9cd4a08</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9cd4a08b3c3352eaed9f8fdf09d0f1ce0a1276c3/analysis/plots_pbmc.Rmd" target="_blank">9cd4a08</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c87ddf8d946c9c5b08d51f7aa13e49181182062f/docs/plots_pbmc.html" target="_blank">c87ddf8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+Added PBMC purified structure plot with the new clustering (A1, A2, B,
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1170,7 +1204,7 @@ table(samples_purified$cluster)
 # 
 #    A1    A2     B    C1    C2    C3 
 #  8146 64468 10439  7822  2990   790</code></pre>
-<p>The Structure plot gives a visual summary of topic proportions in each of these six clusters:</p>
+<p>The Structure plot gives a compact visual summary of topic proportions in each of these six clusters:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
 pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
@@ -1212,6 +1246,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c87ddf8d946c9c5b08d51f7aa13e49181182062f/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">c87ddf8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">7900d17</a>
 </td>
 <td>
@@ -1247,6 +1292,20 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>Compare these clusters with the Zheng <em>et al</em> (2017) cell-type labeling:</p>
+<pre class="r"><code>with(samples_purified,table(celltype,cluster))
+#                               cluster
+# celltype                          A1    A2     B    C1    C2    C3
+#   CD19+ B                          0     3 10073     0     1     8
+#   CD14+ Monocyte                   0    30     8     1  2443   130
+#   CD34+                            3    44   352  7740   545   548
+#   CD4+ T Helper2                   0 11184     0    16     0    13
+#   CD56+ NK                      8129   234     0    17     1     4
+#   CD8+ Cytotoxic T                13 10143     0     0     0    53
+#   CD4+/CD45RO+ Memory              0 10201     0    19     0     4
+#   CD8+/CD45RA+ Naive Cytotoxic     1 11945     3     0     0     4
+#   CD4+/CD45RA+/CD25- Naive T       0 10441     1    25     0    12
+#   CD4+/CD25 T Reg                  0 10243     2     4     0    14</code></pre>
 <p>Next, we turn to the 68k fit.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
 pca &lt;- prcomp(fit$L)$x</code></pre>
@@ -1372,7 +1431,6 @@ p4 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)</code></pre>
 <p><strong>TO DO:</strong> Before comparing to Zheng et al (2017) labeling, do more manual identification of clusters from the PCA plots.</p>
-<pre class="r"><code>with(samples_purified,table(celltype,cluster))</code></pre>
 <p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data. In <code>fit_purified</code>, cluster 2 captures B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:</p>
 <p>Now let’s look more closely at cluster 1 in <code>fit_purified</code>:</p>
 <pre class="r"><code>par(mar = c(0,0,0,0))
