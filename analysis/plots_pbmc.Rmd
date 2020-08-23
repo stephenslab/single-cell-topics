@@ -149,25 +149,51 @@ pca <- prcomp(fit$L)$x
 ```
 
 In this case, we find least three distinct clusters in the projection
-onto PCs 3 and 4:
+onto PCs 3 and 4, labeled "A", "B" and "C":
 
 ```{r pbmc-68k-clustering-2, fig.width=5, fig.height=4}
 n <- nrow(pca)
 x <- rep("A",n)
 pc3 <- pca[,"PC3"]
 pc4 <- pca[,"PC4"]
-x[pc4 > 0.13 | pc3/1.9 - 0.17 > -pc4] <- "B"
+x[pc4 > 0.13 | 0.17 - pc3/1.9 < pc4] <- "B"
 x[pc4 > 0.75] <- "C"
 samples_68k$cluster <- x
-p2 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
+p7 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
       labs(fill = "cluster")
-print(p2)
+print(p7)
 ```
 
 The vast majority of the cells are in cluster A:
 
 ```{r pbmc-68k-clustering-3}
 table(samples_68k$cluster)
+```
+
+Let's look more closely at cluster 2 in `fit_68k`:
+
+```{r pbmc-68k-clustering-4, fig.width=4, fig.height=4, eval=FALSE}
+par(mar = c(0,0,0,0))
+pbmc_68k_celltype_colors <-
+  c("forestgreen",  # CD14+ Monocyte
+    "dodgerblue",   # CD19+ B
+    "palegreen",    # CD34+"
+    "yellowgreen",  # CD4+ T Helper2
+    "gold",         # CD4+/CD25 T Reg
+    "darkorange",   # CD4+/CD45RA+/CD25- Naive T
+    "gold",         # CD4+/CD45RO+ Memory"
+    "gray",         # CD56+ NK
+    "tomato",       # CD8+ Cytotoxic T
+    "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
+    "darkmagenta")  # Dendritic"
+L    <- poisson2multinom(fit_68k)$L
+pdat <- cbind(L,samples_68k["celltype"])
+rows <- which(samples_68k$cluster == "c2")
+levels(pdat$celltype) <- pbmc_68k_celltype_colors
+TernaryPlot(alab = "k3",blab = "k5",clab = "k6",
+            grid.col = "gainsboro",grid.minor.lines = 0)
+TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = "white",
+  			  bg = as.character(pdat[rows,"celltype"]))
 ```
 
 **TO DO:** Add text here.
@@ -234,32 +260,6 @@ cells.
 
 ```{r pbmc-68k-vs-celltypes, eval=FALSE}
 with(samples_68k,table(celltype,cluster))
-```
-
-Let's look more closely at cluster 2 in `fit_68k`:
-
-```{r pbmc-68k-ternary-plot-c2, fig.width=4, fig.height=4, eval=FALSE}
-par(mar = c(0,0,0,0))
-pbmc_68k_celltype_colors <-
-  c("forestgreen",  # CD14+ Monocyte
-    "dodgerblue",   # CD19+ B
-    "palegreen",    # CD34+"
-    "yellowgreen",  # CD4+ T Helper2
-    "gold",         # CD4+/CD25 T Reg
-    "darkorange",   # CD4+/CD45RA+/CD25- Naive T
-    "gold",         # CD4+/CD45RO+ Memory"
-    "gray",         # CD56+ NK
-    "tomato",       # CD8+ Cytotoxic T
-    "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
-    "darkmagenta")  # Dendritic"
-L    <- poisson2multinom(fit_68k)$L
-pdat <- cbind(L,samples_68k["celltype"])
-rows <- which(samples_68k$cluster == "c2")
-levels(pdat$celltype) <- pbmc_68k_celltype_colors
-TernaryPlot(alab = "k3",blab = "k5",clab = "k6",
-            grid.col = "gainsboro",grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = "white",
-  			  bg = as.character(pdat[rows,"celltype"]))
 ```
 
 Finally, let's look more closely at cluster 1 in `fit_68k`:
