@@ -54,8 +54,8 @@ colnames(fit_68k$L) <- paste0("k",1:6)
 We begin by exploring structure in the data as inferred by the topic
 model. We will visualize this structure by plotting principal
 components (PCs) of the topic proportions. Although PCA is simple, we
-will see that it quite effective, and avoids the complications of
-nonlinear dimensionality reduction techniques such as t-SNE and UMAP.
+will see that it quite effective, and avoids the complications of the
+popular t-SNE and UMAP nonlinear dimensionality reduction methods.
 
 We begin with the mixture of FACS-purified PBMC data.
 
@@ -65,8 +65,8 @@ pca <- prcomp(fit$L)$x
 ```
 
 Three large clusters are clearly evident from first two PCs (there is
-also finer-scale structure which we will examine shortly). We label
-these clusters as "A", "B" and "C".
+also finer-scale structure which we will examine below). We label
+these clusters simply as "A", "B" and "C".
 
 ```{r pbmc-purified-clustering-2, fig.width=5, fig.height=4}
 n   <- nrow(pca)
@@ -89,9 +89,10 @@ Most of the samples are in cluster A:
 table(x)
 ```
 
-In cluster C, there are two well-defined subclusters, labeled "C1" and
-"C2". There are other possible subclusters that are less defined, but
-here we focus on the most obvious clustering:
+In cluster C, there are two well-defined subclusters, which we label
+"C1" and "C2". There are perhaps other subclusters that are less
+defined, but we here we ignore this more subtle structure, and focus
+on the most obvious clusters:
 
 ```{r pbmc-purified-clustering-4, fig.width=5, fig.height=4}
 rows <- which(samples_purified$cluster == "C")
@@ -109,7 +110,8 @@ p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p5)
 ```
 
-The two subclusters C1 and C2 account for most of the samples:
+The two subclusters, C1 and C2, account for most of the samples in
+cluster C:
 
 ```{r pbmc-purified-clustering-5}
 table(x)
@@ -117,7 +119,7 @@ table(x)
 
 Let's now look more closely at cluster A. There is a large, much less
 distinct subcluster, which we label as "A1". Otherwise, there are no
-other clearly well-defined clusters.
+other clearly distinct clusters.
 
 ```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
 rows <- which(samples_purified$cluster == "A")
@@ -150,18 +152,20 @@ pbmc_purified_topics       <- c(2,5,1,3,4,6)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
                                 "gray","greenyellow","magenta")
 rows <- sort(c(sample(which(samples_purified$cluster == "A1"),250),
-               sample(which(samples_purified$cluster == "A2"),750),
+               sample(which(samples_purified$cluster == "A2"),1200),
                sample(which(samples_purified$cluster == "B"),250),
                sample(which(samples_purified$cluster == "C1"),250),
                sample(which(samples_purified$cluster == "C2"),250),
                sample(which(samples_purified$cluster == "C3"),200)))
-p3 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+p7 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
-print(p3)
+print(p7)
 ```
+
+**TO DO:** Summarize these topic modeling and clustering results.
 
 Compare these clusters with the Zheng *et al* (2017) cell-type
 labeling:
