@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed0e9f6eaf7136021833d30a302c0fc06f045a9d0targetblankd0e9f6ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d0e9f6eaf7136021833d30a302c0fc06f045a9d0" target="_blank">d0e9f6e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree14dd774ec71c4d5b39b33da03dbe7efcc6c71415targetblank14dd774a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/14dd774ec71c4d5b39b33da03dbe7efcc6c71415" target="_blank">14dd774</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed0e9f6eaf7136021833d30a302c0fc06f045a9d0targetblankd0e9f6ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree14dd774ec71c4d5b39b33da03dbe7efcc6c71415targetblank14dd774a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d0e9f6eaf7136021833d30a302c0fc06f045a9d0" target="_blank">d0e9f6e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/14dd774ec71c4d5b39b33da03dbe7efcc6c71415" target="_blank">14dd774</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/14dd774ec71c4d5b39b33da03dbe7efcc6c71415/analysis/plots_pbmc.Rmd" target="_blank">14dd774</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/944ce0c669f639989be997b97a5e60216854a1c1/analysis/plots_pbmc.Rmd" target="_blank">944ce0c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+Working on new PCA plots for purified PBMC c3 subclusters.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b05232dfedc5ff70024a5a13682fc03ff0533ade/docs/plots_pbmc.html" target="_blank">b05232d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -816,13 +867,14 @@ library(ggplot2)
 library(cowplot)
 library(Ternary)
 source(&quot;../code/plots.R&quot;)</code></pre>
-<p>Load the sample annotations. (The count data are no longer needed at this stage of the analysis.)</p>
+<p>Load the sample annotations. (The count data are no longer needed at this stage of the analysis, so I have removed them.)</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
 samples_purified &lt;- samples
 load(&quot;../data/pbmc_68k.RData&quot;)
 samples_68k &lt;- samples
 rm(genes,counts)</code></pre>
-<p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fits for both PBMC data sets. To reduce confusion, topics in the <code>fit_68k</code> Poisson NMF model fit are reordered to better align with the topics in <code>fit_purified</code> Poisson NMF model fit.</p>
+<p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fits for both PBMC data sets. In the descriptions below, I refer to these Poisson NMF model fits as the “purified” and “68k” fits.</p>
+<p>To aid presentation of the results, topics in the 68k fit are reordered to better align with the topics in purified Poisson NMF fit.</p>
 <pre class="r"><code>fit_purified &lt;-
   readRDS(&quot;../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds&quot;)$fit
 fit_68k &lt;- readRDS(&quot;../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds&quot;)$fit
@@ -831,24 +883,24 @@ fit_68k$F &lt;- fit_68k$F[,cols]
 fit_68k$L &lt;- fit_68k$L[,cols]
 colnames(fit_68k$F) &lt;- paste0(&quot;k&quot;,1:6)
 colnames(fit_68k$L) &lt;- paste0(&quot;k&quot;,1:6)</code></pre>
-<p>We begin my exploring the structure in the PBMC data as inferred by the topic model. Here we show that a basic PCA rotation of the topic proportions is an effective way to visualize this structure. We begin with the mixture of FACS-purified PBMC data sets.</p>
-<pre class="r"><code>pca_purified &lt;- prcomp(poisson2multinom(fit_purified)$L)$x</code></pre>
-<p>Three large clusters are evident from first two PCs (with possibly more subtle structures within these clusters):</p>
-<pre class="r"><code>n &lt;- nrow(pca_purified)
-x &lt;- rep(&quot;c3&quot;,n)
-pc1 &lt;- pca_purified[,&quot;PC1&quot;]
-pc2 &lt;- pca_purified[,&quot;PC2&quot;]
-x[pc1 + 0.2 &gt; pc2] &lt;- &quot;c1&quot;
-x[pc2 &gt; 0.25] &lt;- &quot;c2&quot;
-x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 &lt; 0.07] &lt;- &quot;c3&quot;
-samples_purified$cluster &lt;- factor(x)
-purified_cluster_colors &lt;- c(&quot;tomato&quot;,&quot;dodgerblue&quot;,&quot;lightskyblue&quot;)
+<p>We begin by exploring structure in the data as inferred by the topic model. We will visualize this structure by plotting principal components (PCs) of the topic proportions. Although PCA is simple, we will see that it quite effective, and avoids the complications of nonlinear dimensionality reduction techniques such as t-SNE and UMAP.</p>
+<p>We begin with the mixture of FACS-purified PBMC data.</p>
+<pre class="r"><code>fit &lt;- poisson2multinom(fit_purified)
+pca &lt;- prcomp(fit$L)$x</code></pre>
+<p>Three large clusters are clearly evident from first two PCs (there is also finer-scale structure which we will examine shortly). We label these clusters as “A”, “B” and “C”.</p>
+<pre class="r"><code>n   &lt;- nrow(pca)
+x   &lt;- rep(&quot;C&quot;,n)
+pc1 &lt;- pca[,&quot;PC1&quot;]
+pc2 &lt;- pca[,&quot;PC2&quot;]
+x[pc1 + 0.2 &gt; pc2] &lt;- &quot;A&quot;
+x[pc2 &gt; 0.25] &lt;- &quot;B&quot;
+x[(pc1 + 0.4)^2 + (pc2 + 0.1)^2 &lt; 0.07] &lt;- &quot;C&quot;
+samples_purified$cluster &lt;- x
 p1 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
-                           samples_purified$cluster,
-                           purified_cluster_colors) +
+                           samples_purified$cluster) +
       labs(fill = &quot;cluster&quot;)
 print(p1)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-2-1">
 Past versions of pbmc-purified-clustering-2-1.png
@@ -886,14 +938,49 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Most of the samples are included in the first (red) cluster:</p>
-<pre class="r"><code>print(table(samples_purified$cluster))
-# 
-#    c1    c2    c3 
+<p>Most of the samples are in cluster A:</p>
+<pre class="r"><code>table(x)
+# x
+#     A     B     C 
 # 72614 10439 11602</code></pre>
-<p>Next we turn to the 68k PBMC data.</p>
-<pre class="r"><code>pca_68k &lt;- prcomp(poisson2multinom(fit_68k)$L)$x</code></pre>
-<p>Here, we see at least three distinct clusters in the projection onto PCs 3 and 4:</p>
+<p>In cluster C, there are two well-defined subclusters, labeled “C1” and “C2”. There are other possible subclusters that are less defined, but here we focus on the most obvious clustering:</p>
+<pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;C&quot;)
+fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;C3&quot;,n)
+pc1  &lt;- pca[,1]
+pc2  &lt;- pca[,2]
+x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;C1&quot;
+x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.3] &lt;- &quot;C2&quot;
+samples_purified$cluster[rows] &lt;- x
+p5 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p5)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>The two subclusters C1 and C2 account for most of the samples:</p>
+<pre class="r"><code>table(x)
+# x
+#   C1   C2   C3 
+# 7822 2990  790</code></pre>
+<p>Let’s now look more closely at cluster A. There is a large, much less distinct subcluster, which we label as “A1”. Otherwise, there is are other clearly well-defined clusters.</p>
+<pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A&quot;)
+fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
+pca &lt;- prcomp(fit$L)$x
+n   &lt;- nrow(fit$L)
+x   &lt;- rep(&quot;A2&quot;,n)
+pc1 &lt;- pca[,1]
+pc2 &lt;- pca[,2]
+x[pc1 &gt; 0.6 - pc2] &lt;- &quot;A1&quot;
+samples_purified$cluster[rows] &lt;- x
+p6 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p6)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>Next, we turn to the 68k fit.</p>
+<pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
+pca &lt;- prcomp(fit$L)$x</code></pre>
+<p>Here, we find least three distinct clusters in the projection onto PCs 3 and 4:</p>
 <pre class="r"><code>n &lt;- nrow(pca_68k)
 x &lt;- rep(&quot;c1&quot;,n)
 pc3 &lt;- pca_68k[,&quot;PC3&quot;]
@@ -906,71 +993,8 @@ p2 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),factor(
                            pbmc_68k_cluster_colors) +
       labs(fill = &quot;cluster&quot;)
 print(p2)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-2-1">
-Past versions of pbmc-68k-clustering-2-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-clustering-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">fbb0697</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">216027a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/6d3d7e4e855a46f2b154a459db16dd9fbaa58ccf/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">6d3d7e4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p>The vast majority of the cells are in the first (blue) cluster:</p>
-<pre class="r"><code>table(samples_68k$cluster)
-# 
-#    c1    c2    c3 
-# 63408  5006   165</code></pre>
+<pre class="r"><code>table(samples_68k$cluster)</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
@@ -985,55 +1009,6 @@ p3 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p3)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-structure-plot-1">
-Past versions of pbmc-purified-structure-plot-1.png
-</button>
-</p>
-<div id="fig-pbmc-purified-structure-plot-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">fbb0697</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">216027a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
@@ -1048,92 +1023,9 @@ p4 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
-Past versions of pbmc-68k-structure-plot-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-structure-plot-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">fbb0697</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">216027a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>TO DO:</strong> Before comparing to Zheng et al (2017) labeling, do more manual identification of clusters from the PCA plots.</p>
+<pre class="r"><code>with(samples_purified,table(celltype,cluster))</code></pre>
 <p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data. In <code>fit_purified</code>, cluster 2 captures B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:</p>
-<pre class="r"><code>with(samples_purified,table(celltype,cluster))
-#                               cluster
-# celltype                          c1    c2    c3
-#   CD19+ B                          3 10073     9
-#   CD14+ Monocyte                  30     8  2574
-#   CD34+                           47   352  8833
-#   CD4+ T Helper2               11184     0    29
-#   CD56+ NK                      8363     0    22
-#   CD8+ Cytotoxic T             10156     0    53
-#   CD4+/CD45RO+ Memory          10201     0    23
-#   CD8+/CD45RA+ Naive Cytotoxic 11946     3     4
-#   CD4+/CD45RA+/CD25- Naive T   10441     1    37
-#   CD4+/CD25 T Reg              10243     2    18</code></pre>
-<p>Let’s look more closely at cluster 3 in <code>fit_purified</code>:</p>
-<pre class="r"><code>pbmc_purified_celltype_colors &lt;-
-  c(&quot;dodgerblue&quot;,  # CD19+ B
-    &quot;forestgreen&quot;, # CD14+ Monocyte
-    &quot;palegreen&quot;,   # CD34+
-    &quot;plum&quot;,        # CD4+ T Helper2
-    &quot;gray&quot;,        # CD56+ NK
-    &quot;tomato&quot;,      # CD8+ Cytotoxic T
-    &quot;gold&quot;,        # CD4+/CD45RO+ Memory
-    &quot;magenta&quot;,     # CD8+/CD45RA+ Naive Cytotoxic
-    &quot;darkorange&quot;,  # CD4+/CD45RA+/CD25- Naive T
-    &quot;yellowgreen&quot;) # CD4+/CD25 T Reg
-par(mar = c(0,0,0,0))
-L    &lt;- poisson2multinom(fit_purified)$L
-pdat &lt;- cbind(L,samples_purified[&quot;celltype&quot;])
-rows &lt;- which(samples_purified$cluster == &quot;c3&quot;)
-levels(pdat$celltype) &lt;- pbmc_purified_celltype_colors
-TernaryPlot(alab = &quot;k2&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
-            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(2,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
-              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-ternary-plot-c3-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Now let’s look more closely at cluster 1 in <code>fit_purified</code>:</p>
 <pre class="r"><code>par(mar = c(0,0,0,0))
 rows &lt;- which(samples_purified$cluster == &quot;c1&quot;)
@@ -1141,9 +1033,8 @@ TernaryPlot(alab = &quot;k1&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
             grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
 TernaryPoints(pdat[rows,c(1,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
               bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-ternary-plot-c1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>In <code>fit_68k</code>, cluster 2 mostly consists of CD14+ monocyte and dendritic cells, whereas cluster 3 is a small population of CD34+ cells.</p>
-<p><code>{r pbmc-68k-vs-celltypes with(samples_68k,table(celltype,cluster))</code></p>
+<pre class="r"><code>with(samples_68k,table(celltype,cluster))</code></pre>
 <p>Let’s look more closely at cluster 2 in <code>fit_68k</code>:</p>
 <pre class="r"><code>par(mar = c(0,0,0,0))
 pbmc_68k_celltype_colors &lt;-
@@ -1166,7 +1057,6 @@ TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
             grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
 TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
               bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-ternary-plot-c2-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>Finally, let’s look more closely at cluster 1 in <code>fit_68k</code>:</p>
 <pre class="r"><code>par(mar = c(0,0,0,0))
 rows &lt;- which(samples_68k$cluster == &quot;c1&quot;)
@@ -1174,13 +1064,23 @@ TernaryPlot(alab = &quot;k2&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
             grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
 TernaryPoints(pdat[rows,c(2,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
               bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-ternary-plot-c1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>p4 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
                            samples_purified$celltype,
                            purified_celltype_colors) + labs(fill = &quot;celltype&quot;)
 p5 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC4&quot;,&quot;PC5&quot;),
                            samples_purified$celltype,
                            purified_celltype_colors) + labs(fill = &quot;celltype&quot;)</code></pre>
+<pre class="r"><code>pbmc_purified_celltype_colors &lt;-
+  c(&quot;dodgerblue&quot;,  # CD19+ B
+    &quot;forestgreen&quot;, # CD14+ Monocyte
+    &quot;palegreen&quot;,   # CD34+
+    &quot;plum&quot;,        # CD4+ T Helper2
+    &quot;gray&quot;,        # CD56+ NK
+    &quot;tomato&quot;,      # CD8+ Cytotoxic T
+    &quot;gold&quot;,        # CD4+/CD45RO+ Memory
+    &quot;magenta&quot;,     # CD8+/CD45RA+ Naive Cytotoxic
+    &quot;darkorange&quot;,  # CD4+/CD45RA+/CD25- Naive T
+    &quot;yellowgreen&quot;) # CD4+/CD25 T Reg</code></pre>
 <p>Loadings plot:</p>
 <pre class="r"><code>loadings_plot(poisson2multinom(fit_purified),samples_purified$celltype)
 loadings_plot(poisson2multinom(fit_68k),samples_68k$celltype)</code></pre>
