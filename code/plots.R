@@ -34,12 +34,13 @@ basic_pca_plot <- function (fit, pcs = c("PC1","PC2")) {
 
 # This is the same as basic_pca_plot, except that the colour of the
 # points is varied according to a factor ("labels").
-pca_plot_with_labels <- function (fit, pcs = c("PC1","PC2"),
-                                  labels, colors) {
+pca_plot_with_labels <-
+  function (fit, pcs = c("PC1","PC2"), labels,
+            colors = c("darkorange","darkblue","dodgerblue")) {
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
   out.pca <- prcomp(fit$L)
-  dat     <- cbind(out.pca$x,data.frame(label = labels))
+  dat     <- cbind(out.pca$x,data.frame(label = factor(labels)))
   return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "label")) +
          geom_point(shape = 21,color = "white",size = 1.25) +
          scale_fill_manual(values = colors) +
