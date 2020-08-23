@@ -116,7 +116,7 @@ table(x)
 ```
 
 Let's now look more closely at cluster A. There is a large, much less
-distinct subcluster, which we label as "A1". Otherwise, there is are
+distinct subcluster, which we label as "A1". Otherwise, there are no
 other clearly well-defined clusters.
 
 ```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
@@ -134,6 +134,13 @@ p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p6)
 ```
 
+In summary, we have subdivided these data into 6 clusters:
+
+```{r pbmc-purified-clustering-7}
+samples_purified$cluster <- factor(samples_purified$cluster)
+table(samples_purified$cluster)
+```
+
 Next, we turn to the 68k fit.
 
 ```{r pbmc-68k-clustering-1}
@@ -141,27 +148,25 @@ fit <- poisson2multinom(fit_68k)
 pca <- prcomp(fit$L)$x
 ```
 
-Here, we find least three distinct clusters in the projection onto
-PCs 3 and 4:
+In this case, we find least three distinct clusters in the projection
+onto PCs 3 and 4:
 
-```{r pbmc-68k-clustering-2, fig.width=5, fig.height=4, eval=FALSE}
-n <- nrow(pca_68k)
-x <- rep("c1",n)
-pc3 <- pca_68k[,"PC3"]
-pc4 <- pca_68k[,"PC4"]
-x[pc4 > 0.13 | pc3/1.9 - 0.17 > -pc4] <- "c2"
-x[pc4 > 0.75] <- "c3"
-samples_68k$cluster <- factor(x)
-pbmc_68k_cluster_colors <- c("cornflowerblue","darkorange","firebrick")
-p2 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),factor(x),
-                           pbmc_68k_cluster_colors) +
+```{r pbmc-68k-clustering-2, fig.width=5, fig.height=4}
+n <- nrow(pca)
+x <- rep("A",n)
+pc3 <- pca[,"PC3"]
+pc4 <- pca[,"PC4"]
+x[pc4 > 0.13 | pc3/1.9 - 0.17 > -pc4] <- "B"
+x[pc4 > 0.75] <- "C"
+samples_68k$cluster <- x
+p2 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
       labs(fill = "cluster")
 print(p2)
 ```
 
-The vast majority of the cells are in the first (blue) cluster:
+The vast majority of the cells are in cluster A:
 
-```{r pbmc-68k-clustering-3, eval=FALSE}
+```{r pbmc-68k-clustering-3}
 table(samples_68k$cluster)
 ```
 
