@@ -37,16 +37,10 @@ Load the $k = 6$ Poisson NMF model fits for both PBMC data sets. In
 the descriptions below, I refer to these Poisson NMF model fits as the
 "purified" and "68k" fits.
 
-To aid presentation of the results, topics in the 68k fit are
-reordered to better align with the topics in purified Poisson NMF fit.
-
 ```{r load-fits}
 fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
-cols      <- c(4,1,5,3,6,2)
-fit_68k$F <- fit_68k$F[,cols]
-fit_68k$L <- fit_68k$L[,cols]
 colnames(fit_68k$F) <- paste0("k",1:6)
 colnames(fit_68k$L) <- paste0("k",1:6)
 ```
@@ -105,9 +99,9 @@ pc2  <- pca[,2]
 x[pc1 < 0 & pc2 < 0.4] <- "C1"
 x[pc1 > 0.5 & pc2 < 0.3] <- "C2"
 samples_purified[rows,"cluster"] <- x
-p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p2 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p5)
+print(p2)
 ```
 
 The two subclusters, C1 and C2, account for most of the samples in
@@ -131,9 +125,9 @@ pc1  <- pca[,1]
 pc2  <- pca[,2]
 x[pc1 > 0.58 - pc2 | pc1 > 0.7] <- "A1"
 samples_purified[rows,"cluster"] <- x
-p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p6)
+print(p3)
 ```
 
 In summary, we have subdivided these data into 6 clusters:
@@ -157,12 +151,12 @@ rows <- sort(c(sample(which(samples_purified$cluster == "A1"),250),
                sample(which(samples_purified$cluster == "C1"),250),
                sample(which(samples_purified$cluster == "C2"),250),
                sample(which(samples_purified$cluster == "C3"),200)))
-p7 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+p4 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      gap = 40,num_threads = 4,verbose = FALSE)
-print(p7)
+print(p4)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
@@ -202,12 +196,12 @@ n <- nrow(pca)
 x <- rep("A",n)
 pc3 <- pca[,"PC3"]
 pc4 <- pca[,"PC4"]
-x[pc4 > 0.13 | 0.17 - pc3/1.9 < pc4] <- "B"
-x[pc4 > 0.75] <- "C"
+x[pc4 < -0.13 | pc3/1.9 - 0.17 > pc4] <- "B"
+x[pc4 < -0.75] <- "C"
 samples_68k$cluster <- x
-p7 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
+p5 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
       labs(fill = "cluster")
-print(p7)
+print(p5)
 ```
 
 The vast majority of the cells are in cluster A:
@@ -225,12 +219,12 @@ pca  <- prcomp(fit$L)$x
 n    <- nrow(pca)
 x    <- rep("B3",n)
 pc1  <- pca[,"PC1"]
-x[pc1 < 0.05] <- "B1"
-x[pc1 > 0.3] <- "B2"
+x[pc1 > -0.05] <- "B1"
+x[pc1 < -0.3] <- "B2"
 samples_68k[rows,"cluster"] <- x
-p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p8)
+print(p6)
 ```
 
 Looking more closely at cluster A:
@@ -243,12 +237,12 @@ n    <- nrow(pca)
 x    <- rep("A3",n)
 pc2  <- pca[,"PC2"]
 pc3  <- pca[,"PC3"]
-x[2.5*pc3 < pc2 + 0.3] <- "A1"
-x[pc3 > pc2 + 0.8] <- "A2"
+x[2.5*pc3 < 0.3 - pc2] <- "A1"
+x[pc3 > 0.8 - pc2] <- "A2"
 samples_68k[rows,"cluster"] <- x
-p9 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
+p7 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
       labs(fill = "cluster")
-print(p9)
+print(p7)
 ```
 
 Within cluster A, the vast majority of the samples are assigned to the
@@ -279,77 +273,16 @@ rows <- sort(c(sample(which(samples_68k$cluster == "A1"),1200),
                sample(which(samples_68k$cluster == "B2"),300),
                which(samples_68k$cluster == "B3"),
                which(samples_68k$cluster == "C")))
-p10 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
-                      grouping = samples_68k[rows,"cluster"],
-                      topics = pbmc_68k_topics,
-                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      gap = 40,num_threads = 4,verbose = FALSE)
-print(p10)
+p8 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                     grouping = samples_68k[rows,"cluster"],
+                     topics = pbmc_68k_topics,
+                     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                     gap = 40,num_threads = 4,verbose = FALSE)
+print(p8)
 ```
 
-Comparison to Zheng et al (2017) cell-type labelin:
+Comparison to Zheng et al (2017) cell-type labeling:
 
 ```{r pbmc-68k-clusters-vs-celltypes}
 with(samples_68k,table(celltype,cluster))
-```
-
-In `fit_68k`, cluster 2 mostly consists of CD14+ monocyte and
-dendritic cells, whereas cluster 3 is a small population of CD34+
-cells.
-
-```{r, eval=FALSE}
-pbmc_purified_celltype_colors <-
-  c("dodgerblue",  # CD19+ B
-    "forestgreen", # CD14+ Monocyte
-    "palegreen",   # CD34+
-    "plum",        # CD4+ T Helper2
-    "gray",        # CD56+ NK
-    "tomato",      # CD8+ Cytotoxic T
-    "gold",        # CD4+/CD45RO+ Memory
-    "magenta",     # CD8+/CD45RA+ Naive Cytotoxic
-    "darkorange",  # CD4+/CD45RA+/CD25- Naive T
-    "yellowgreen") # CD4+/CD25 T Reg
-```
-	
-Loadings plot:
-
-```{r loading-plot, eval=FALSE}
-loadings_plot(poisson2multinom(fit_purified),samples_purified$celltype)
-loadings_plot(poisson2multinom(fit_68k),samples_68k$celltype)
-```
-
-PCA plot:
-
-```{r pca-plot, eval=FALSE}
-clrs <- c("forestgreen",  # CD14+ Monocyte
-          "dodgerblue",   # CD19+ B
-          "darkmagenta",  # CD34+"
-          "yellowgreen",  # CD4+ T Helper2
-          "gold",         # CD4+/CD25 T Reg
-          "limegreen",    # CD4+/CD45RA+/CD25- Naive T
-          "orange",       # CD4+/CD45RO+ Memory"
-          "gray",         # CD56+ NK
-          "tomato",       # CD8+ Cytotoxic T
-          "magenta",      # CD8+/CD45RA+ Naive Cytotoxic"
-          "darkblue")     # Dendritic"
-fit2 <- poisson2multinom(fit)
-pca  <- prcomp(fit2$L)
-pdat <- cbind(samples,pca$x)
-ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
-  geom_point(shape = 21,color = "white",size = 1.5) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 10)
-```
-
-Differential count analysis:
-
-```{r diff-count-analysis, eval=FALSE}
-diff_count_res <- diff_count_analysis(fit,counts)
-```
-
-Volcano plots:
-
-```{r volcano-plots, eval=FALSE}
-p3 <- volcano_plot(diff_count_res,labels = genes$symbol,
-                   label_above_quantile = 0.995)
 ```
