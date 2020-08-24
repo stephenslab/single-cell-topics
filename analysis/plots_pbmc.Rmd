@@ -104,7 +104,7 @@ pc1  <- pca[,1]
 pc2  <- pca[,2]
 x[pc1 < 0 & pc2 < 0.4] <- "C1"
 x[pc1 > 0.5 & pc2 < 0.3] <- "C2"
-samples_purified$cluster[rows] <- x
+samples_purified[rows,"cluster"] <- x
 p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
 print(p5)
@@ -130,7 +130,7 @@ x    <- rep("A2",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
 x[pc1 > 0.58 - pc2 | pc1 > 0.7] <- "A1"
-samples_purified$cluster[rows] <- x
+samples_purified[rows,"cluster"] <- x
 p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
 print(p6)
@@ -216,17 +216,53 @@ The vast majority of the cells are in cluster A:
 table(samples_68k$cluster)
 ```
 
-Looking more closely at cluster B...
+Looking more closely at cluster B:
 
-```{r pbmc-68k-clustering-4, fig.width=4, fig.height=4, eval=FALSE}
-L    <- poisson2multinom(fit_68k)$L
-pdat <- cbind(L,samples_68k["celltype"])
-rows <- which(samples_68k$cluster == "c2")
-levels(pdat$celltype) <- pbmc_68k_celltype_colors
-TernaryPlot(alab = "k3",blab = "k5",clab = "k6",
-            grid.col = "gainsboro",grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = "white",
-  			  bg = as.character(pdat[rows,"celltype"]))
+```{r pbmc-68k-clustering-4, fig.width=5, fig.height=4}
+rows <- which(samples_68k$cluster == "B")
+fit  <- select(poisson2multinom(fit_68k),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("B3",n)
+pc1  <- pca[,"PC1"]
+x[pc1 < 0.05] <- "B1"
+x[pc1 > 0.3] <- "B2"
+samples_68k[rows,"cluster"] <- x
+p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p8)
+```
+
+Looking more closely at cluster A:
+
+```{r pbmc-68k-clustering-5, fig.width=5, fig.height=4}
+rows <- which(samples_68k$cluster == "A")
+fit  <- select(poisson2multinom(fit_68k),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A3",n)
+pc2  <- pca[,"PC2"]
+pc3  <- pca[,"PC3"]
+x[2.5*pc3 < pc2 + 0.3] <- "A1"
+x[pc3 > pc2 + 0.8] <- "A2"
+samples_68k[rows,"cluster"] <- x
+p9 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
+      labs(fill = "cluster")
+print(p9)
+```
+
+Within cluster A, the vast majority of the samples are assigned to the
+A1 subcluster:
+
+```{r pbmc-68k-clustering-6}
+table(x)
+```
+
+In summary, we have subdivided these data into 7 clusters:
+
+```{r pbmc-68k-clustering-7}
+samples_68k$cluster <- factor(samples_68k$cluster)
+table(samples_68k$cluster)
 ```
 
 **TO DO:** Add text here.
