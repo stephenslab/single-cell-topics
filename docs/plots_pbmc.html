@@ -321,7 +321,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-23
+<strong>Last updated:</strong> 2020-08-24
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree89d98edb7828de05b62242c529b19e6b98ec8cadtargetblank89d98eda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/89d98edb7828de05b62242c529b19e6b98ec8cad" target="_blank">89d98ed</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9targetblank5b2fb5ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9" target="_blank">5b2fb5c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree89d98edb7828de05b62242c529b19e6b98ec8cadtargetblank89d98eda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9targetblank5b2fb5ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/89d98edb7828de05b62242c529b19e6b98ec8cad" target="_blank">89d98ed</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9" target="_blank">5b2fb5c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9/analysis/plots_pbmc.Rmd" target="_blank">5b2fb5c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b6489db5d0c0b21a2856fd9ce0fac3045ad76688/docs/plots_pbmc.html" target="_blank">b6489db</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+<td>
+Re-built plots_pbmc with new PCA plots from 68k fit.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1336,9 +1370,9 @@ table(samples_purified$cluster)
 #  8271 64343 10439  7822  2990   790</code></pre>
 <p>The Structure plot provides a visual summary of topic proportions in each of these six clusters:</p>
 <pre class="r"><code>set.seed(1)
-pbmc_purified_topics       &lt;- c(2,5,1,3,4,6)
 pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
                                 &quot;gray&quot;,&quot;greenyellow&quot;,&quot;magenta&quot;)
+pbmc_purified_topics &lt;- c(2,5,1,3,4,6)
 rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;A1&quot;),250),
                sample(which(samples_purified$cluster == &quot;A2&quot;),1200),
                sample(which(samples_purified$cluster == &quot;B&quot;),250),
@@ -1586,6 +1620,43 @@ p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
 print(p8)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-4-1">
+Past versions of pbmc-68k-clustering-4-1.png
+</button>
+</p>
+<div id="fig-pbmc-68k-clustering-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b6489db5d0c0b21a2856fd9ce0fac3045ad76688/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" target="_blank">b6489db</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Looking more closely at cluster A:</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
@@ -1601,6 +1672,43 @@ p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
       labs(fill = &quot;cluster&quot;)
 print(p9)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-5-1">
+Past versions of pbmc-68k-clustering-5-1.png
+</button>
+</p>
+<div id="fig-pbmc-68k-clustering-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b6489db5d0c0b21a2856fd9ce0fac3045ad76688/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" target="_blank">b6489db</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Within cluster A, the vast majority of the samples are assigned to the A1 subcluster:</p>
 <pre class="r"><code>table(x)
 # x
@@ -1614,42 +1722,98 @@ table(samples_68k$cluster)
 # 59260  3555   593  3869   819   318   165</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
-pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
-pbmc_68k_topic_colors &lt;- c(&quot;darkorange&quot;,&quot;olivedrab&quot;,&quot;dodgerblue&quot;,
-                           &quot;gray&quot;,&quot;royalblue&quot;,&quot;magenta&quot;)
-rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;c1&quot;),1400),
-               sample(which(samples_68k$cluster == &quot;c2&quot;),500),
-               which(samples_68k$cluster == &quot;c3&quot;)))
-p4 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
-                     grouping = samples_68k[rows,&quot;cluster&quot;],
-                     topics = pbmc_68k_topics,
-                     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                     gap = 40,num_threads = 4,verbose = FALSE)
-print(p4)</code></pre>
-<p><strong>TO DO:</strong> Before comparing to Zheng et al (2017) labeling, do more manual identification of clusters from the PCA plots.</p>
-<p>Comparison to Zheng et al (2017) cell-type labeling of the FACS-purified PBMC data. In <code>fit_purified</code>, cluster 2 captures B-cells; cluster 3 is almost exclusively CD34+ and CD14+ monocytes:</p>
-<p>Now let’s look more closely at cluster 1 in <code>fit_purified</code>:</p>
-<pre class="r"><code>par(mar = c(0,0,0,0))
-rows &lt;- which(samples_purified$cluster == &quot;c1&quot;)
-TernaryPlot(alab = &quot;k1&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
-            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(1,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
-              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+pbmc_68k_topic_colors &lt;- c(&quot;magenta&quot;,&quot;lightskyblue&quot;,&quot;dodgerblue&quot;,
+                           &quot;gray&quot;,&quot;forestgreen&quot;,&quot;gold&quot;)
+pbmc_68k_topics &lt;- c(2,5,1,3,4,6)
+rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1&quot;),1200),
+               sample(which(samples_68k$cluster == &quot;A2&quot;),500),
+               sample(which(samples_68k$cluster == &quot;A3&quot;),300),
+               sample(which(samples_68k$cluster == &quot;B1&quot;),500),
+               sample(which(samples_68k$cluster == &quot;B2&quot;),300),
+               which(samples_68k$cluster == &quot;B3&quot;),
+               which(samples_68k$cluster == &quot;C&quot;)))
+p10 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                      grouping = samples_68k[rows,&quot;cluster&quot;],
+                      topics = pbmc_68k_topics,
+                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                      gap = 40,num_threads = 4,verbose = FALSE)
+print(p10)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
+Past versions of pbmc-68k-structure-plot-1.png
+</button>
+</p>
+<div id="fig-pbmc-68k-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">7900d17</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-22
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">fbb0697</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">216027a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Comparison to Zheng et al (2017) cell-type labelin:</p>
+<pre class="r"><code>with(samples_68k,table(celltype,cluster))
+#                               cluster
+# celltype                          A1    A2    A3    B1    B2    B3     C
+#   CD14+ Monocyte                   7     0     2  2804     1    46     2
+#   CD19+ B                       1981  3547   342     0    37     1     0
+#   CD34+                           11     3    49    21    21     9   163
+#   CD4+ T Helper2                  66     0    17     6     8     0     0
+#   CD4+/CD25 T Reg               6157     0    28     2     0     0     0
+#   CD4+/CD45RA+/CD25- Naive T    1863     1     4     0     3     2     0
+#   CD4+/CD45RO+ Memory           3058     0     1     2     0     0     0
+#   CD56+ NK                      8733     0    25     6     1    11     0
+#   CD8+ Cytotoxic T             20658     1    88    17     0     9     0
+#   CD8+/CD45RA+ Naive Cytotoxic 16648     0    10     0     5     3     0
+#   Dendritic                       78     3    27  1011   743   237     0</code></pre>
 <p>In <code>fit_68k</code>, cluster 2 mostly consists of CD14+ monocyte and dendritic cells, whereas cluster 3 is a small population of CD34+ cells.</p>
-<pre class="r"><code>with(samples_68k,table(celltype,cluster))</code></pre>
-<p>Finally, let’s look more closely at cluster 1 in <code>fit_68k</code>:</p>
-<pre class="r"><code>par(mar = c(0,0,0,0))
-rows &lt;- which(samples_68k$cluster == &quot;c1&quot;)
-TernaryPlot(alab = &quot;k2&quot;,blab = &quot;k4&quot;,clab = &quot;k6&quot;,
-            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(2,4,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
-              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
-<pre class="r"><code>p4 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
-                           samples_purified$celltype,
-                           purified_celltype_colors) + labs(fill = &quot;celltype&quot;)
-p5 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC4&quot;,&quot;PC5&quot;),
-                           samples_purified$celltype,
-                           purified_celltype_colors) + labs(fill = &quot;celltype&quot;)</code></pre>
 <pre class="r"><code>pbmc_purified_celltype_colors &lt;-
   c(&quot;dodgerblue&quot;,  # CD19+ B
     &quot;forestgreen&quot;, # CD14+ Monocyte
@@ -1683,67 +1847,11 @@ ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 1.5) +
   scale_fill_manual(values = clrs) +
   theme_cowplot(font_size = 10)</code></pre>
-<p>t-SNE plot:</p>
-<pre class="r"><code>set.seed(1)
-p2 &lt;- tsne_plot(fit,n = 8000,num_threads = 4)</code></pre>
 <p>Differential count analysis:</p>
 <pre class="r"><code>diff_count_res &lt;- diff_count_analysis(fit,counts)</code></pre>
 <p>Volcano plots:</p>
 <pre class="r"><code>p3 &lt;- volcano_plot(diff_count_res,labels = genes$symbol,
                    label_above_quantile = 0.995)</code></pre>
-<p>Structure plots:</p>
-<pre class="r"><code>set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD19+ B&quot;))
-p4   &lt;- structure_plot(fit2,n = 2000,num_threads = 4) # B-cells.
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD56+ NK&quot;))
-p5   &lt;- structure_plot(fit2,n = 2000,num_threads = 4) # NK cells.
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD34+&quot;))
-p6   &lt;- structure_plot(fit2,num_threads = 4,perplexity = 50) # CD34+ cells
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD14+ Monocyte&quot;))
-p7   &lt;- structure_plot(fit2,num_threads = 4) # CD14+ monocytes
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;Dendritic&quot;))
-p8   &lt;- structure_plot(fit2,num_threads = 4) # dendritic cells
-plot_grid(p7,p8,nrow = 2)
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD4+ T Helper2&quot;))
-p9   &lt;- structure_plot(fit2,num_threads = 4,perplexity = 30) +
-          ggtitle(&quot;CD4+ T Helper2&quot;) +
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-          loadings = which(samples$celltype == &quot;CD4+/CD45RA+/CD25- Naive T&quot;))
-p10  &lt;- structure_plot(fit2,num_threads = 4) +
-          ggtitle(&quot;CD4+/CD45RA+/CD25- Naive T&quot;)
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD4+/CD45RO+ Memory&quot;))
-p11  &lt;- structure_plot(fit2,num_threads = 4) +
-          ggtitle(&quot;CD4+/CD45RO+ Memory&quot;)
-set.seed(1)
-fit2 &lt;- select(poisson2multinom(fit),
-               loadings = which(samples$celltype == &quot;CD4+/CD25 T Reg&quot;))
-p12  &lt;- structure_plot(fit2,num_threads = 4) +
-          ggtitle(&quot;CD4+/CD25 T Reg&quot;)
-fit2 &lt;- select(poisson2multinom(fit),
-          loadings = which(samples$celltype == &quot;CD8+/CD45RA+ Naive Cytotoxic&quot;))
-p13  &lt;- structure_plot(fit2,num_threads = 4) +
-          ggtitle(&quot;CD8+/CD45RA+ Naive Cytotoxic&quot;)
-fit2 &lt;- select(poisson2multinom(fit),
-          loadings = which(samples$celltype == &quot;CD8+ Cytotoxic T&quot;))
-p14  &lt;- structure_plot(fit2,num_threads = 4) +
-          ggtitle(&quot;CD8+ Cytotoxic T&quot;)
-plot_grid(p9,p10,p11,p12,p13,p14,nrow = 6)</code></pre>
-<p>Another structure plot:</p>
-<pre class="r"><code>p15 &lt;- structure_plot(fit,num_threads = 4)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
