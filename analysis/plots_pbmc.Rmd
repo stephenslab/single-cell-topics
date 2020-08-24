@@ -143,7 +143,7 @@ samples_purified$cluster <- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 ```
 
-The Structure plot gives a compact visual summary of topic proportions
+The Structure plot provides a visual summary of topic proportions
 in each of these six clusters:
 
 ```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
@@ -165,14 +165,25 @@ p7 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
 print(p7)
 ```
 
-**TO DO:** Summarize these topic modeling and clustering results.
-
-Compare these clusters with the Zheng *et al* (2017) cell-type
-labeling:
+Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
+the clusters (labeled A1, B, C1, C2). Indeed, they also align closely
+with the FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes}
 with(samples_purified,table(celltype,cluster))
 ```
+
+For example, cluster B corresponds almost perfectly to the B-cell data
+set, and the largest cluster---cluster A2---is comprised of the T-cell
+data sets. It is also interesting that many of the samples labeled as
+"CD34+" are not assigned to the CD34+ cluster (C1), which probably
+reflects the fact that the this population was much less pure (45%)
+than the others, and so probably contained other cell types.
+
+Cluster C3 is a heterogeneous cluster that we do not investigate
+further. Cluster A2---see also the PCA plot above---is a clear example
+where topic modeling is more appropriate than clustering because any
+additional clustering of the data will be arbitrary.
 
 Next, we turn to the 68k fit.
 
