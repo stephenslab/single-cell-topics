@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee766da56adffe7e2e06cdcd795bb7fb7a36b0d7dtargetblanke766da5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e766da56adffe7e2e06cdcd795bb7fb7a36b0d7d" target="_blank">e766da5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree89d98edb7828de05b62242c529b19e6b98ec8cadtargetblank89d98eda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/89d98edb7828de05b62242c529b19e6b98ec8cad" target="_blank">89d98ed</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee766da56adffe7e2e06cdcd795bb7fb7a36b0d7dtargetblanke766da5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree89d98edb7828de05b62242c529b19e6b98ec8cadtargetblank89d98eda" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e766da56adffe7e2e06cdcd795bb7fb7a36b0d7d" target="_blank">e766da5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/89d98edb7828de05b62242c529b19e6b98ec8cad" target="_blank">89d98ed</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/89d98edb7828de05b62242c529b19e6b98ec8cad/analysis/plots_pbmc.Rmd" target="_blank">89d98ed</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+<td>
+Removed basic_pca_plot in plots.R; working on PCA plots for 68k fit.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/13ee038ed5f2e1757c215510ac94e68870ae4074/docs/plots_pbmc.html" target="_blank">13ee038</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+<td>
+Revised notes in plots_pbmc.Rmd.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1185,7 +1219,7 @@ pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;C1&quot;
 x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.3] &lt;- &quot;C2&quot;
-samples_purified$cluster[rows] &lt;- x
+samples_purified[rows,&quot;cluster&quot;] &lt;- x
 p5 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
 print(p5)</code></pre>
@@ -1241,7 +1275,7 @@ x    &lt;- rep(&quot;A2&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 x[pc1 &gt; 0.58 - pc2 | pc1 &gt; 0.7] &lt;- &quot;A1&quot;
-samples_purified$cluster[rows] &lt;- x
+samples_purified[rows,&quot;cluster&quot;] &lt;- x
 p6 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
 print(p6)</code></pre>
@@ -1340,6 +1374,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/13ee038ed5f2e1757c215510ac94e68870ae4074/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">13ee038</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-23
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/97d7e8692b0a40a53f6afc1ed5ee5067b1665d33/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">97d7e86</a>
@@ -1527,15 +1572,46 @@ Peter Carbonetto
 # 
 #     A     B     C 
 # 63408  5006   165</code></pre>
-<p>Looking more closely at cluster B…</p>
-<pre class="r"><code>L    &lt;- poisson2multinom(fit_68k)$L
-pdat &lt;- cbind(L,samples_68k[&quot;celltype&quot;])
-rows &lt;- which(samples_68k$cluster == &quot;c2&quot;)
-levels(pdat$celltype) &lt;- pbmc_68k_celltype_colors
-TernaryPlot(alab = &quot;k3&quot;,blab = &quot;k5&quot;,clab = &quot;k6&quot;,
-            grid.col = &quot;gainsboro&quot;,grid.minor.lines = 0)
-TernaryPoints(pdat[rows,c(3,5,6)],pch = 21,cex = 0.65,col = &quot;white&quot;,
-              bg = as.character(pdat[rows,&quot;celltype&quot;]))</code></pre>
+<p>Looking more closely at cluster B:</p>
+<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;B&quot;)
+fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;B3&quot;,n)
+pc1  &lt;- pca[,&quot;PC1&quot;]
+x[pc1 &lt; 0.05] &lt;- &quot;B1&quot;
+x[pc1 &gt; 0.3] &lt;- &quot;B2&quot;
+samples_68k[rows,&quot;cluster&quot;] &lt;- x
+p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p8)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>Looking more closely at cluster A:</p>
+<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
+fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;A3&quot;,n)
+pc2  &lt;- pca[,&quot;PC2&quot;]
+pc3  &lt;- pca[,&quot;PC3&quot;]
+x[2.5*pc3 &lt; pc2 + 0.3] &lt;- &quot;A1&quot;
+x[pc3 &gt; pc2 + 0.8] &lt;- &quot;A2&quot;
+samples_68k[rows,&quot;cluster&quot;] &lt;- x
+p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p9)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>Within cluster A, the vast majority of the samples are assigned to the A1 subcluster:</p>
+<pre class="r"><code>table(x)
+# x
+#    A1    A2    A3 
+# 59260  3555   593</code></pre>
+<p>In summary, we have subdivided these data into 7 clusters:</p>
+<pre class="r"><code>samples_68k$cluster &lt;- factor(samples_68k$cluster)
+table(samples_68k$cluster)
+# 
+#    A1    A2    A3    B1    B2    B3     C 
+# 59260  3555   593  3869   819   318   165</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
 pbmc_68k_topics       &lt;- c(2,5,1,3,4,6)
