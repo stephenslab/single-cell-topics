@@ -4,7 +4,7 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-Here we look closely, and compare, the topic modeling results for the
+Here we closely examine, and compare, the topic modeling results for the
 two closely related data sets from [Zheng *et al* (2017)][zheng-2017],
 the mixture of FACS-purified PBMC data and the "unsorted" 68k PBMC
 data. The goal is to illustrate how the topic models fitted to these
@@ -140,8 +140,8 @@ samples_purified$cluster <- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 ```
 
-The structure plot provides an evocative visual summary of topic
-proportions in each of these six clusters:
+The structure plot summarizes the topic proportions in each of these 6
+clusters:
 
 ```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
 set.seed(1)
@@ -158,7 +158,7 @@ p4 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     gap = 40,num_threads = 4)
+                     gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)
 ```
 
@@ -166,8 +166,12 @@ Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
 the clusters (labeled A1, B, C1, C2). And, indeed, they align closely
 with their inclusion in the indivvidual FACS-purified data sets:
 
-```{r pbmc-purified-clusters-vs-celltypes}
-with(samples_purified,table(celltype,cluster))
+```{r pbmc-purified-clusters-vs-celltypes, fig.width=3.5, fig.height=4}
+pdat <- as.data.frame(with(samples_purified,table(celltype,cluster)))
+ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
+  geom_point(color = "dodgerblue",show.legend = FALSE) +
+  ylim(rev(levels(samples_purified$celltype))) +
+  theme_cowplot(font_size = 10)
 ```
 
 For example, cluster B corresponds almost perfectly to the B-cell data
