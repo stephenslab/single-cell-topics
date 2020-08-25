@@ -177,10 +177,11 @@ their inclusion in the individual FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes, fig.width=4, fig.height=3.5}
 pdat <- as.data.frame(with(samples_purified,table(celltype,cluster)))
-ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
+p5 <- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = "dodgerblue",na.rm = TRUE,show.legend = FALSE) +
   ylim(rev(levels(samples_purified$celltype))) +
   theme_cowplot(font_size = 10)
+print(p5)
 ```
 
 Based on the above results, we make a few observations:
@@ -245,9 +246,9 @@ pc4 <- pca[,"PC4"]
 x[pc4 < -0.13 | pc3/1.9 - 0.17 > pc4] <- "B"
 x[pc4 < -0.75] <- "C"
 samples_68k$cluster <- x
-p5 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
+p6 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
       labs(fill = "cluster")
-print(p5)
+print(p6)
 ```
 
 The vast majority of the cells are in cluster A.
@@ -270,9 +271,9 @@ pc1  <- pca[,"PC1"]
 x[pc1 > -0.05] <- "B1"
 x[pc1 < -0.3] <- "B2"
 samples_68k[rows,"cluster"] <- x
-p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p7 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p6)
+print(p7)
 ```
 
 The B1 cluster can be further subdivided into clusters (B1a, B1b), with
@@ -290,9 +291,9 @@ pc2  <- pca[,"PC2"]
 x[pc2 > -0.02 & pc1 > -0.25] <- "B1a"
 x[pc1 > 0.1 & pc2 < 0.05 & pc2 > -0.225] <- "B1b"
 samples_68k[rows,"cluster"] <- x
-p7 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p7)
+print(p8)
 ```
 
 Cluster A subdivides fairly neatly into two large clusters, A1 and A2.
@@ -308,9 +309,9 @@ pc3  <- pca[,"PC3"]
 x[2.5*pc3 < 0.3 - pc2] <- "A1"
 x[pc3 > 0.8 - pc2] <- "A2"
 samples_68k[rows,"cluster"] <- x
-p7 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
+p9 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
       labs(fill = "cluster")
-print(p7)
+print(p9)
 ```
 
 Within cluster A, the vast majority of the samples are assigned to the
@@ -350,25 +351,26 @@ rows <- sort(c(sample(which(samples_68k$cluster == "A1"),1200),
                sample(which(samples_68k$cluster == "B2"),300),
                which(samples_68k$cluster == "B3"),
                which(samples_68k$cluster == "C")))
-p8 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
-                     grouping = samples_68k[rows,"cluster"],
-                     topics = pbmc_68k_topics,
-   				     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                     perplexity = c(100,100,50,100,80,80,80,80,50),
-                     n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
-print(p8)
+p10 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                      grouping = samples_68k[rows,"cluster"],
+                      topics = pbmc_68k_topics,
+   	 			      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                      perplexity = c(100,100,50,100,80,80,80,80,50),
+                      n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
+print(p10)
 ```
 
 These subsets do not align as closely with the cell-type labeling
 inferred by Zheng et al (2017), which is not surprising considering
 that this labeling is based on the FACS-purified data set.
 
-```{r pbmc-68k-clusters-vs-celltypes,, fig.width=4.5, fig.height=3.5}
+```{r pbmc-68k-clusters-vs-celltypes, fig.width=4.5, fig.height=3.5}
 pdat <- as.data.frame(with(samples_68k,table(celltype,cluster)))
-ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
+p11 <- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = "dodgerblue",na.rm = TRUE,show.legend = FALSE) +
   ylim(rev(levels(samples_purified$celltype))) +
   theme_cowplot(font_size = 10)
+print(p11)
 ```
 
 A few notes about these results:

@@ -161,65 +161,20 @@ In summary, topics 1 and 6 pick up discrete "cell types", whereas the
 other topics characterize more continuous variation in gene
 expression, perhaps cell types along a continuous trajectory of
 development. There are some other discrete clusters that seem to be
-composed of distinct combinations of topics that we will neeed to
+composed of distinct combinations of topics that we will need to
 examine more closely.
 
-These next few scatterplots show the same PCs as before, with the
-samples labeled according to their assignment to these clusters:
+Compare these clusters with the clusters identified by Montoro *et al*
+(2018):
 
-```{r droplet-clustering-2b, fig.height=4.5, fig.width=6, eval=FALSE}
-droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
-p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$cluster,
-                           droplet_cluster_colors) + labs(fill = "cluster")
-p10 <- pca_plot_with_labels(fit_droplet,c("PC4","PC5"),samples_droplet$cluster,
-                            droplet_cluster_colors) + labs(fill = "cluster")
-p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$cluster,
-                            droplet_cluster_colors) + labs(fill = "cluster")
-plot_grid(p9,p10,p11)
-```
-
-In the following, we will treat the more abundant clusters, $c_1$ and
-$c_4$, separately from the rest of the samples.
-
-**TO DO:** Add text here.
-
-```{r pulseseq-pca, fig.width=6, fig.height=2.5, eval=FALSE}
-p12 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,k = 7)
-p13 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,k = 2)
-plot_grid(p12,p13)
-```
-
-**TO DO:** Add text here.
-
-```{r droplet-structure-plot-rare, fig.width=6, fig.height=2, eval=FALSE}
-droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
-                          "forestgreen","firebrick","olivedrab")
-names(droplet_topic_colors) <- paste0("k",1:7)						 
-topics <- c("k1","k3","k4","k5","k7","k2","k6")
-set.seed(1)
-fit_droplet_rare <- select(poisson2multinom(fit_droplet),
-                           loadings = which(samples_droplet$cluster != "c1" &
-			                                samples_droplet$cluster != "c4"))
-p12 <- structure_plot(fit_droplet_rare,verbose = FALSE,perplexity = 50,
-                      topics = topics,
-                      colors = droplet_topic_colors[topics])
-print(p12)
-```
-
-**TO DO:** Add text here.
-
-```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2, eval=FALSE}
-topics <- c("k1","k3","k4","k7","k5","k2","k6")
-set.seed(1)
-fit_droplet_abundant <-
-  select(poisson2multinom(fit_droplet),
-                          loadings = which(samples_droplet$cluster == "c1" |
-						                   samples_droplet$cluster == "c4"))
-p13 <- structure_plot(fit_droplet_abundant,n = 2000,perplexity = 50,
-                      verbose = FALSE,topics = topics,
-					  colors = droplet_topic_colors[topics],
-					  scaling = c(1,1,1,1,2,1,1))
-print(p13)
+```{r droplet-clusters-vs-celltypes, fig.width=3.5, fig.height=3}
+pdat <- as.data.frame(with(samples_droplet,table(tissue,cluster)))
+p5 <- ggplot(pdat,aes(x = cluster,y = tissue,size = Freq)) +
+  geom_point(color = "dodgerblue",na.rm = TRUE,show.legend = FALSE) +
+  scale_size_continuous(range = c(0.1,8)) +
+  ylim(rev(levels(samples_droplet$tissue))) +
+  theme_cowplot(font_size = 10)
+print(p5)
 ```
 
 Pulse-seq data
