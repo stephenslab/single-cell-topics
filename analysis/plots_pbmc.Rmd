@@ -275,7 +275,7 @@ p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p6)
 ```
 
-The B1 cluster can be further subdivided into clusters (B1a, B1b) with
+The B1 cluster can be further subdivided into clusters (B1a, B1b), with
 subset B1c compresing the B1 samples that do not fit into either
 cluster.
 
@@ -329,8 +329,9 @@ table(samples_68k$cluster)
 
 The wide range in the sizes of these clusters is notable; the smallest
 cluster (C) is less than 1% the size of the largest (A1). By contrast,
-community detection methods such as the Louvain algorithm often have
-difficulty identifying very small clusters.
+community detection methods such as the Louvain algorithm are
+preferentially biased toward more uniformly sized clusters (this is a
+known limitation of community detection methods).
 
 The structure plot summarizes the topic proportions in each of these 9
 subsets:
@@ -360,7 +361,7 @@ print(p8)
 
 These subsets do not align as closely with the cell-type labeling
 inferred by Zheng et al (2017), which is not surprising considering
-that this labeling is based on the FACS-purified data set.:
+that this labeling is based on the FACS-purified data set.
 
 ```{r pbmc-68k-clusters-vs-celltypes,, fig.width=4.5, fig.height=3.5}
 pdat <- as.data.frame(with(samples_68k,table(celltype,cluster)))
@@ -373,21 +374,24 @@ ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
 A few notes about these results:
 
 + As in the purified fit, here we identify a B-cells cluster (B) and
-  topic (5) that closely align.
+  topic (5) that closely match.
 
-+ We also identify what is most likely a cluster of CD34+ cells.
++ We also identify what is most likely a cluster of CD34+ cells (C),
+  although the corresponding topic (6) is not distinctive to this
+  cluster, so it remains to be seen if topic 6 also characterises
+  CD34+ cells.
 
-+ We don't identify a clear-cut cluster for NK cells; the NK cells are
-  mixed in with the T-cells (subset A1), and NK cells will emerge only
-  after subsequent analysis of topic 3.
++ Unlike the FACS-purified data, don't identify a clear-cut cluster
+  for NK cells; the NK cells are mixed in with the T-cells (subset
+  A1). NK cells will emerge only after subsequent analysis of topic 3.
 
 + Some of the distinct clusters (e.g., B1a, B1b, B2) are characterized
   by mixtures of topics, so if these clusters do indeed correspond to
   interesting cell types, analyzing the topics alone may not shed
   light onto these cell types.
 
-In summary, the topics and clusters seem to be more complementary each
-other in this case, and it remains to be seen whether both the topics
-and clusters offer biological insights.
+In summary, the topics and clusters seem to offer very much
+complementary biological insights, although subsequent analysis is
+needed to determine what these insights are.
 
 [zheng-2017]: https://doi.org/10.1038/ncomms14049
