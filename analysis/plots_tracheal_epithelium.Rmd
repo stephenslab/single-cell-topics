@@ -4,125 +4,158 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-**TO DO:** Add introductory text here.
+*TO DO: Add introductory text here.*
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the packages used in the analysis below.
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
-library(fastTopics)
 library(dplyr)
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
 ```
 
-Load the sample annotations. (The count data are no longer needed at this
-stage of the analysis.)
+Droplet data
+------------
 
-```{r load-data}
+We begin with the droplet data. Note that the count data are no longer
+needed at this stage.
+
+```{r load-droplet-data}
 load("../data/droplet.RData")
 samples_droplet <- samples
-load("../data/pulseseq.RData")
-samples_pulseseq <- samples
 rm(samples,counts)
 ```
 
-Load the $k = 7$ Poisson NMF model fit for the droplet data, and the
-$k = 9$ and $k = 11$ Poisson NMF fits for the pulse-seq data.
+Load the $k = 7$ Poisson NMF model fit.
 
-```{r load-fits}
+```{r load-droplet-fit}
 fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-fit_pulseseq9 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds")$fit
-fit_pulseseq11 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
 The Montoro *et al* (2018) article mentions that some epithelial cell
-types are abundant, whereas others are very rare. The topics in the
-droplet data reflect this:
+types are abundant whereas others are rare. The topics inferred from
+the droplet data reflect this:
 
 ```{r abundance-plot-droplet, fig.width=3.5, fig.height=2}
 p1 <- create_abundance_plot(fit_droplet)
 print(p1)
 ```
 
-The first topic---which is not visible in the bar chart---is indeed
-very rare; only 43 out of 7,193 samples have a greater than 10%
+The first topic---which is not actually visible in this bar chart---is
+indeed very rare; only 43 out of 7,193 samples have a greater than 10%
 contribution from this topic.
 
 ```{r abundance-droplet-k1}
 sum(poisson2multinom(fit_droplet)$L[,1] > 0.1)
 ```
 
-Likewise, we also pick up rare and abundant topics in the pulse-seq
-data:
-
-```{r abundancee-plot-pulseseq, fig.width=4, fig.height=2}
-p2 <- create_abundance_plot(fit_pulseseq)
-print(p2)
-```
-
 In this next part of the analysis, we perform PCA on the estimated
 topic proportions to explore structure in the data as inferred by the
-topic model. Typically a nonlinear embedding method such as *t*-SNE or
-UMAP is used to visualize the structure, but the disadvantage such
+topic model. Typically, a nonlinear embedding method such as *t*-SNE
+or UMAP is used to visualize the structure. The disadvantage of such
 methods is that it can often be difficult to get the (many) tuning
-parameters right, and they are sometimes very slow for large data
-sets; by contrast, PCA has no tuning parameters.
+parameters right, they can be slow when applied to large data sets,
+and the embeddings are not unique; by contrast, PCA has no tuning
+parameters, and the principal components (PCs) are unique.
 
-These three scatterplots show the droplet samples (the topic
-proportions) projected onto 5 out of the 7 PCs. (PCs 3 and 7 do not
-reveal any additional structure, so are not shown here.)
-
-```{r droplet-pca, fig.height=2.5, fig.width=8}
-p3 <- basic_pca_plot(fit_droplet,c("PC1","PC2"))
-p4 <- basic_pca_plot(fit_droplet,c("PC4","PC5"))
-p5 <- basic_pca_plot(fit_droplet,c("PC5","PC6"))
-plot_grid(p3,p4,p5,nrow = 1)
+```{r droplet-clustering-1}
+fit <- poisson2multinom(fit_droplet)
+pca <- prcomp(fit$L)$x
 ```
 
-Distinct clusters show up in the PC1 vs. PC2 plot, as well as in the
-PC5 vs. PC6 plot, whereas the structure in PC4 vs. PC5 is very much
-continuously varying.
+In the projection onto four of the PCs---PCs 1, 2, 5 and 6---we can
+delineate 4 clusters. A fifth subset ("E") is used as a "background"
+cluster. (Note that PCs 3 and 4 do not reveal any additional
+substrcture, so are not shown.)
 
-Let's look more closely at the topics that show variation in the first
-two PCs:
+```{r droplet-clustering-2, fig.width=8, fig.height=3.5}
+n   <- nrow(pca)
+x   <- rep("E",n)
+pc1 <- pca[,"PC1"]
+pc2 <- pca[,"PC2"]
+pc6 <- pca[,"PC6"]
+x[pc2 > -0.1]  <- "A"
+x[pc6 < -0.04] <- "B"
+x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09]  <- "C"
+x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 < 0.04] <- "D"
+samples_droplet$cluster <- x
+p1 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+p2 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),x) +
+      labs(fill = "cluster")
+plot_grid(p1,p2)
+```
 
-```{r droplet-pca-with-topics-1, fig.height=2.1, fig.width=6}
-p6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
-               plot_grid_call = function (plots)
-			     do.call(plot_grid,c(lapply(plots,
-				   function (x) x + guides(fill = "none")),list(nrow = 1))))
-print(p6)
+The vast majority of the cells are in cluster A:
+
+```{r droplet-clustering-3}
+table(x)
+```
+
+Cluster A further subdivides into two not-quite-so-distinct
+subclusters, otherwise there does not appear to be any other
+interesting substructure to delineate:
+
+```{r droplet-clustering-4, fig.width=5, fig.height=4}
+rows <- which(samples_droplet$cluster == "A")
+fit  <- select(poisson2multinom(fit_droplet),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A1",n)
+pc1  <- pca[,1]
+x[pc1 > 0.2] <- "A2"
+samples_droplet[rows,"cluster"] <- x
+p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p3)
+```
+
+In summary, we have subdivided the data into 6 subsets:
+
+```{r droplet-clustering-5}
+samples_droplet$cluster <- factor(samples_droplet$cluster)
+table(samples_droplet$cluster)
+```
+
+The structure plot summarizes the topic proportions in each of these 6
+subsets:
+
+```{r droplet-structure-plot, fig.width=7, fig.height=1.5}
+set.seed(2)
+droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
+                          "forestgreen","firebrick","olivedrab")
+droplet_topics <- c(1,3,7,4,5,6,2)
+rows <- sort(c(sample(which(samples_droplet$cluster == "A1"),800),
+               sample(which(samples_droplet$cluster == "A2"),500),
+               which(samples_droplet$cluster == "B"),
+               which(samples_droplet$cluster == "C"),
+               sample(which(samples_droplet$cluster == "D"),200),
+               which(samples_droplet$cluster == "E"),200))
+p4 <- structure_plot(select(poisson2multinom(fit_droplet),loadings = rows),
+                     grouping = samples_droplet[rows,"cluster"],
+                     topics = droplet_topics,
+					 colors = droplet_topic_colors[droplet_topics],
+					 perplexity = c(100,70,12,50,50,20),
+                     n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
+print(p4)
 ```
 
 The bulk of the samples lie on a continuous gradient between topics 2
 and 5. There is a smaller cluster at the bottom of this plot, with
 high contributions from topic 6.
 
-Next, we look closely at PCs 4 and 5:
-
-```{r droplet-pca-with-topics-2, fig.height=2, fig.width=8}
-p7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
-               plot_grid_call = function (plots)
-			     do.call(plot_grid,c(lapply(plots,
-				   function (x) x + guides(fill = "none")),list(nrow = 1))))
-print(p7)
-```
-
 Along these PCs, we see that topics 3, 4, 5 and 7 exist in many
 combinations, with no apparent discrete populations.
 
 Topic 1 captures a very small discrete population of cells:
-
-```{r droplet-pca-with-topics-3, fig.height=2.25, fig.width=2.5}
-p8 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1)
-print(p8)
-```
 
 In summary, topics 1 and 6 pick up discrete "cell types", whereas the
 other topics characterize more continuous variation in gene
@@ -131,32 +164,10 @@ development. There are some other discrete clusters that seem to be
 composed of distinct combinations of topics that we will neeed to
 examine more closely.
 
-As suggested by this analysis, we can easily delineate four clusters,
-the majority of which are included in cluster labeled c_1$. Here we
-construct this clustering by hand, using the PCs computed from the
-topic cproportions:
-
-```{r droplet-clustering-1}
-pca_droplet <- prcomp(poisson2multinom(fit_droplet)$L)$x
-n   <- nrow(pca_droplet)
-x   <- rep("c0",n)
-pc1 <- pca_droplet[,"PC1"]
-pc2 <- pca_droplet[,"PC2"]
-pc6 <- pca_droplet[,"PC6"]
-x[pc2 > -0.1]  <- "c1"
-x[pc6 < -0.04] <- "c2"
-x[(pc1 - 0)^2 + (pc2 + 0.75)^2 < 0.09]  <- "c3"
-x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 < 0.04] <- "c4"
-samples_droplet$cluster <- factor(x)
-print(table(samples_droplet$cluster))
-```
-
-Indeed, the vast majority of the cells are in the $c_1$ cluster.
-
 These next few scatterplots show the same PCs as before, with the
 samples labeled according to their assignment to these clusters:
 
-```{r droplet-clustering-2, fig.height=4.5, fig.width=6}
+```{r droplet-clustering-2b, fig.height=4.5, fig.width=6, eval=FALSE}
 droplet_cluster_colors <- c("gray","darkblue","gold","yellowgreen","firebrick")
 p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$cluster,
                            droplet_cluster_colors) + labs(fill = "cluster")
@@ -172,7 +183,7 @@ $c_4$, separately from the rest of the samples.
 
 **TO DO:** Add text here.
 
-```{r pulseseq-pca, fig.width=6, fig.height=2.5}
+```{r pulseseq-pca, fig.width=6, fig.height=2.5, eval=FALSE}
 p12 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,k = 7)
 p13 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,k = 2)
 plot_grid(p12,p13)
@@ -180,7 +191,7 @@ plot_grid(p12,p13)
 
 **TO DO:** Add text here.
 
-```{r droplet-structure-plot-rare, fig.width=6, fig.height=2}
+```{r droplet-structure-plot-rare, fig.width=6, fig.height=2, eval=FALSE}
 droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
                           "forestgreen","firebrick","olivedrab")
 names(droplet_topic_colors) <- paste0("k",1:7)						 
@@ -197,7 +208,7 @@ print(p12)
 
 **TO DO:** Add text here.
 
-```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2}
+```{r droplet-structure-plot-abundant, fig.width=8, fig.height=2, eval=FALSE}
 topics <- c("k1","k3","k4","k7","k5","k2","k6")
 set.seed(1)
 fit_droplet_abundant <-
@@ -209,6 +220,30 @@ p13 <- structure_plot(fit_droplet_abundant,n = 2000,perplexity = 50,
 					  colors = droplet_topic_colors[topics],
 					  scaling = c(1,1,1,1,2,1,1))
 print(p13)
+```
+
+Pulse-seq data
+--------------
+
+```{r load-pulseseq-data, eval=FALSE}
+load("../data/pulseseq.RData")
+samples_pulseseq <- samples
+rm(samples,counts)
+```
+
+Load the $k = 9$ and $k = 11$ Poisson NMF fits for the pulse-seq data.
+
+```{r load-pulseseq-fits, eval=FALSE}
+fit_pulseseq9 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds")$fit
+fit_pulseseq11 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+```
+
+Likewise, we also pick up rare and abundant topics in the pulse-seq
+data:
+
+```{r abundancee-plot-pulseseq, fig.width=4, fig.height=2, eval=FALSE}
+p2 <- create_abundance_plot(fit_pulseseq)
+print(p2)
 ```
 
 ```{r, eval=FALSE}
@@ -234,7 +269,7 @@ It is helpful to compare these results with clustering reported in the
 Montoro *et al* (2018) paper. To make this comparison, we layer the 7
 clusters on top of these PCs:
 
-```{r droplet-pca-with-clusters, fig.height=5.25, fig.width=8}
+```{r droplet-pca-with-clusters, fig.height=5.25, fig.width=8, eval=FALSE}
 droplet_celltype_colors <-
   c("royalblue",      # Basal
     "firebrick",      # Ciliated

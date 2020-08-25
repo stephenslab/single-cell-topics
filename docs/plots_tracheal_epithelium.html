@@ -303,7 +303,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -312,7 +312,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -321,10 +321,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-20
+<strong>Last updated:</strong> 2020-08-25
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -340,12 +340,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree961570e0d6a33b7b3908c6feb3beca085c401268targetblank961570ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/961570e0d6a33b7b3908c6feb3beca085c401268" target="_blank">961570e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee23f091213b96c5b85f281bcf199e157fca39265targetblanke23f091a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e23f091213b96c5b85f281bcf199e157fca39265" target="_blank">e23f091</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree961570e0d6a33b7b3908c6feb3beca085c401268targetblank961570ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee23f091213b96c5b85f281bcf199e157fca39265targetblanke23f091a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/961570e0d6a33b7b3908c6feb3beca085c401268" target="_blank">961570e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e23f091213b96c5b85f281bcf199e157fca39265" target="_blank">e23f091</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -440,6 +440,13 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/figure/
+
+Unstaged changes:
+    Modified:   analysis/plots_tracheal_epithelium.Rmd
+    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -478,6 +485,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bf23ca096435ce5829d49f79624deb0e64846fb0/analysis/plots_tracheal_epithelium.Rmd" target="_blank">bf23ca0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+Added manual labeling of purified PBMC data to plots_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/077d3d55ca6da2879de67f6d1e866f0b5ef5ac99/analysis/plots_tracheal_epithelium.Rmd" target="_blank">077d3d5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+Added k=9 and k=11 pulseseq fits to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/0ce960489da333344f062deaac7bffdbaf8b5838/docs/plots_tracheal_epithelium.html" target="_blank">0ce9604</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-20
+</td>
+<td>
+Re-built plots_tracheal_epithelium with fastTopics 0.3-162.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -978,23 +1036,22 @@ Working on new analysis, plots_tracheal_epithelium.Rmd.
 </div>
 </div>
 </div>
-<p><strong>TO DO:</strong> Add introductory text here.</p>
-<p>Load the packages used in the analysis below.</p>
-<pre class="r"><code>library(fastTopics)
-library(dplyr)
+<p><em>TO DO: Add introductory text here.</em></p>
+<p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
+<pre class="r"><code>library(dplyr)
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
-<p>Load the sample annotations. (The count data are no longer needed at this stage of the analysis.)</p>
+<div id="droplet-data" class="section level2">
+<h2>Droplet data</h2>
+<p>We begin with the droplet data. Note that the count data are no longer needed at this stage.</p>
 <pre class="r"><code>load(&quot;../data/droplet.RData&quot;)
 samples_droplet &lt;- samples
-load(&quot;../data/pulseseq.RData&quot;)
-samples_pulseseq &lt;- samples
 rm(samples,counts)</code></pre>
-<p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit for the droplet data, and the <span class="math inline">\(k = 11\)</span> Poisson NMF fit for the pulse-seq data.</p>
-<pre class="r"><code>fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
-fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit</code></pre>
-<p>The Montoro <em>et al</em> (2018) article mentions that some epithelial cell types are abundant, whereas others are very rare. The topics in the droplet data reflect this:</p>
+<p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
+<pre class="r"><code>fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
+<p>The Montoro <em>et al</em> (2018) article mentions that some epithelial cell types are abundant, whereas others are very rare. The topics inferred from the droplet data reflect this:</p>
 <pre class="r"><code>p1 &lt;- create_abundance_plot(fit_droplet)
 print(p1)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundance-plot-droplet-1.png" width="420" style="display: block; margin: auto;" /></p>
@@ -1035,310 +1092,29 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The first topic—which is not visible in the bar chart—is indeed very rare; only 43 out of 7,193 samples have a greater than 10% contribution from this topic.</p>
+<p>The first topic—which is not actually visible in the bar chart above—is indeed very rare; only 43 out of 7,193 samples have a greater than 10% contribution from this topic.</p>
 <pre class="r"><code>sum(poisson2multinom(fit_droplet)$L[,1] &gt; 0.1)
 # [1] 43</code></pre>
-<p>Likewise, we also pick up rare and abundant topics in the pulse-seq data:</p>
-<pre class="r"><code>p2 &lt;- create_abundance_plot(fit_pulseseq)
-print(p2)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/abundancee-plot-pulseseq-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-abundancee-plot-pulseseq-1">
-Past versions of abundancee-plot-pulseseq-1.png
-</button>
-</p>
-<div id="fig-abundancee-plot-pulseseq-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/0a04fc1929d7987b10f019c015f116aa46705bcc/docs/figure/plots_tracheal_epithelium.Rmd/abundancee-plot-pulseseq-1.png" target="_blank">0a04fc1</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In this next part of the analysis, we perform PCA on the estimated topic proportions to explore structure in the data as inferred by the topic model. Typically a nonlinear embedding method such as <em>t</em>-SNE or UMAP is used to visualize the structure, but the disadvantage such methods is that it can often be difficult to get the (many) tuning parameters right, and they are sometimes very slow for large data sets; by contrast, PCA has no tuning parameters.</p>
-<p>These three scatterplots show the droplet samples (the topic proportions) projected onto 5 out of the 7 PCs. (PCs 3 and 7 do not reveal any additional structure, so are not shown here.)</p>
-<pre class="r"><code>p3 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;))
-p4 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;))
-p5 &lt;- basic_pca_plot(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;))
-plot_grid(p3,p4,p5,nrow = 1)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-1">
-Past versions of droplet-pca-1.png
-</button>
-</p>
-<div id="fig-droplet-pca-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/8b9b5289e71be99509c2adf86e0bfead46cb50b1/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" target="_blank">8b9b528</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/01afbd2b764fd3d6724afa103aeefa2e4c91ff60/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-1.png" target="_blank">01afbd2</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Distinct clusters show up in the PC1 vs. PC2 plot, as well as in the PC5 vs. PC6 plot, whereas the structure in PC4 vs. PC5 is very much continuously varying.</p>
-<p>Let’s look more closely at the topics that show variation in the first two PCs:</p>
-<pre class="r"><code>p6 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
-               plot_grid_call = function (plots)
-                 do.call(plot_grid,c(lapply(plots,
-                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
-print(p6)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-1-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-with-topics-1-1">
-Past versions of droplet-pca-with-topics-1-1.png
-</button>
-</p>
-<div id="fig-droplet-pca-with-topics-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5a35bbd6b181f322bc808840a2df3c20a6b80d94/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-1-1.png" target="_blank">5a35bbd</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/8b9b5289e71be99509c2adf86e0bfead46cb50b1/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-1-1.png" target="_blank">8b9b528</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The bulk of the samples lie on a continuous gradient between topics 2 and 5. There is a smaller cluster at the bottom of this plot, with high contributions from topic 6.</p>
-<p>Next, we look closely at PCs 4 and 5:</p>
-<pre class="r"><code>p7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
-               plot_grid_call = function (plots)
-                 do.call(plot_grid,c(lapply(plots,
-                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
-print(p7)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-with-topics-2-1">
-Past versions of droplet-pca-with-topics-2-1.png
-</button>
-</p>
-<div id="fig-droplet-pca-with-topics-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/f4bdf191a428ef8917fdd6f9e386653350125a0d/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">f4bdf19</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">fb21b3b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5a35bbd6b181f322bc808840a2df3c20a6b80d94/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">5a35bbd</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/8b9b5289e71be99509c2adf86e0bfead46cb50b1/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-2-1.png" target="_blank">8b9b528</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Along these PCs, we see that topics 3, 4, 5 and 7 exist in many combinations, with no apparent distinct populations.</p>
-<p>Topic 1 captures a very small discrete population of cells:</p>
-<pre class="r"><code>p8 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1) +
-        guides(fill = &quot;none&quot;)
-print(p8)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-3-1.png" width="270" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-with-topics-3-1">
-Past versions of droplet-pca-with-topics-3-1.png
-</button>
-</p>
-<div id="fig-droplet-pca-with-topics-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/8b9b5289e71be99509c2adf86e0bfead46cb50b1/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-topics-3-1.png" target="_blank">8b9b528</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>In summary, topics 1 and 6 pick up discrete “cell types”, whereas the other topics characterize more continuous variation in gene expression, perhaps cell types along a continuous trajectory of development. There are some other discrete clusters that seem to be composed of distinct combinations of topics that we will neeed to examine more closely.</p>
-<p>As suggested by this analysis, we can easily delineate four clusters, the majority of which are included in cluster labeled c_1$. Here we construct this clustering by hand, using the PCs computed from the topic cproportions:</p>
-<pre class="r"><code>pca_droplet &lt;- prcomp(poisson2multinom(fit_droplet)$L)$x
-n    &lt;- nrow(pca_droplet)
-x    &lt;- rep(&quot;c0&quot;,n)
-pc1  &lt;- pca_droplet[,&quot;PC1&quot;]
-pc2  &lt;- pca_droplet[,&quot;PC2&quot;]
-pc6  &lt;- pca_droplet[,&quot;PC6&quot;]
-x[pc2 &gt; -0.1]  &lt;- &quot;c1&quot;
-x[pc6 &lt; -0.04] &lt;- &quot;c2&quot;
-x[(pc1 - 0)^2 + (pc2 + 0.75)^2 &lt; 0.09]  &lt;- &quot;c3&quot;
-x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 &lt; 0.04] &lt;- &quot;c4&quot;
-samples_droplet$cluster &lt;- factor(x)
-print(table(samples_droplet$cluster))
-# 
-#   c0   c1   c2   c3   c4 
-#   73 6533   50  162  375</code></pre>
-<p>Indeed, the vast majority of the cells are in the <span class="math inline">\(c_1\)</span> cluster.</p>
-<p>These next few scatterplots show the same PCs as before, with the samples labeled according to their assignment to these clusters:</p>
-<pre class="r"><code>droplet_cluster_colors &lt;- c(&quot;gray&quot;,&quot;darkblue&quot;,&quot;gold&quot;,&quot;yellowgreen&quot;,&quot;firebrick&quot;)
-p9 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;),samples_droplet$cluster,
-                           droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
-p10 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;),samples_droplet$cluster,
-                            droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
-p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$cluster,
-                            droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
-plot_grid(p9,p10,p11)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>In this next part of the analysis, we perform PCA on the estimated topic proportions to explore structure in the data as inferred by the topic model. Typically, a nonlinear embedding method such as <em>t</em>-SNE or UMAP is used to visualize the structure. The disadvantage of such methods is that it can often be difficult to get the (many) tuning parameters right, and they can be slow when applied to large data sets; by contrast, PCA has no tuning parameters.</p>
+<pre class="r"><code>fit &lt;- poisson2multinom(fit_droplet)
+pca &lt;- prcomp(fit$L)$x</code></pre>
+<p>In the projection onto PCs 1,2 and 5,6, we can delineate 4 clusters, with a fifth subset (E) used as a “background” cluster. (PCs 3 and 4 do not reveal any additional substrcture, so are not shown.)</p>
+<pre class="r"><code>n   &lt;- nrow(pca)
+x   &lt;- rep(&quot;E&quot;,n)
+pc1 &lt;- pca[,&quot;PC1&quot;]
+pc2 &lt;- pca[,&quot;PC2&quot;]
+pc6 &lt;- pca[,&quot;PC6&quot;]
+x[pc2 &gt; -0.1]  &lt;- &quot;A&quot;
+x[pc6 &lt; -0.04] &lt;- &quot;B&quot;
+x[(pc1 - 0)^2 + (pc2 + 0.75)^2 &lt; 0.09]  &lt;- &quot;C&quot;
+x[(pc1 - 0.5)^2 + (pc2 + 0.9)^2 &lt; 0.04] &lt;- &quot;D&quot;
+samples_droplet$cluster &lt;- x
+p1 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+p2 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-clustering-2-1">
 Past versions of droplet-clustering-2-1.png
@@ -1387,49 +1163,43 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>The vast majority of the cells are in cluster A:</p>
+<pre class="r"><code>table(x)
+# x
+#    A    B    C    D    E 
+# 6533   50  162  375   73</code></pre>
+<p>Let’s look more closely at the topics that show variation in the first two PCs:</p>
+<pre class="r"><code>p6 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
+               plot_grid_call = function (plots)
+                 do.call(plot_grid,c(lapply(plots,
+                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
+print(p6)</code></pre>
+<p>The bulk of the samples lie on a continuous gradient between topics 2 and 5. There is a smaller cluster at the bottom of this plot, with high contributions from topic 6.</p>
+<p>Next, we look closely at PCs 4 and 5:</p>
+<pre class="r"><code>p7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
+               plot_grid_call = function (plots)
+                 do.call(plot_grid,c(lapply(plots,
+                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
+print(p7)</code></pre>
+<p>Along these PCs, we see that topics 3, 4, 5 and 7 exist in many combinations, with no apparent discrete populations.</p>
+<p>Topic 1 captures a very small discrete population of cells:</p>
+<pre class="r"><code>p8 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1)
+print(p8)</code></pre>
+<p>In summary, topics 1 and 6 pick up discrete “cell types”, whereas the other topics characterize more continuous variation in gene expression, perhaps cell types along a continuous trajectory of development. There are some other discrete clusters that seem to be composed of distinct combinations of topics that we will neeed to examine more closely.</p>
+<p>These next few scatterplots show the same PCs as before, with the samples labeled according to their assignment to these clusters:</p>
+<pre class="r"><code>droplet_cluster_colors &lt;- c(&quot;gray&quot;,&quot;darkblue&quot;,&quot;gold&quot;,&quot;yellowgreen&quot;,&quot;firebrick&quot;)
+p9 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;),samples_droplet$cluster,
+                           droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
+p10 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;),samples_droplet$cluster,
+                            droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
+p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$cluster,
+                            droplet_cluster_colors) + labs(fill = &quot;cluster&quot;)
+plot_grid(p9,p10,p11)</code></pre>
 <p>In the following, we will treat the more abundant clusters, <span class="math inline">\(c_1\)</span> and <span class="math inline">\(c_4\)</span>, separately from the rest of the samples.</p>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>p12 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,k = 7)
 p13 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,k = 2)
 plot_grid(p12,p13)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/pulseseq-pca-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pulseseq-pca-1">
-Past versions of pulseseq-pca-1.png
-</button>
-</p>
-<div id="fig-pulseseq-pca-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b17bfa4f7de6a68e6b6cee8ed7620188a8411230/docs/figure/plots_tracheal_epithelium.Rmd/pulseseq-pca-1.png" target="_blank">b17bfa4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>droplet_topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;turquoise&quot;,&quot;greenyellow&quot;,
                           &quot;forestgreen&quot;,&quot;firebrick&quot;,&quot;olivedrab&quot;)
@@ -1443,66 +1213,6 @@ p12 &lt;- structure_plot(fit_droplet_rare,verbose = FALSE,perplexity = 50,
                       topics = topics,
                       colors = droplet_topic_colors[topics])
 print(p12)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-structure-plot-rare-1">
-Past versions of droplet-structure-plot-rare-1.png
-</button>
-</p>
-<div id="fig-droplet-structure-plot-rare-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b17bfa4f7de6a68e6b6cee8ed7620188a8411230/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">b17bfa4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">0a16b60</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fb21b3b781ba22db8b89d1fb531cf91e63e4e1d5/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-rare-1.png" target="_blank">fb21b3b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>topics &lt;- c(&quot;k1&quot;,&quot;k3&quot;,&quot;k4&quot;,&quot;k7&quot;,&quot;k5&quot;,&quot;k2&quot;,&quot;k6&quot;)
 set.seed(1)
@@ -1515,77 +1225,18 @@ p13 &lt;- structure_plot(fit_droplet_abundant,n = 2000,perplexity = 50,
                       colors = droplet_topic_colors[topics],
                       scaling = c(1,1,1,1,2,1,1))
 print(p13)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-structure-plot-abundant-1">
-Past versions of droplet-structure-plot-abundant-1.png
-</button>
-</p>
-<div id="fig-droplet-structure-plot-abundant-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b17bfa4f7de6a68e6b6cee8ed7620188a8411230/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">b17bfa4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/adda33faa241fa7ea1abe8bf5eff706d459f5547/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">adda33f</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/0a16b60e3247e5a35fa4637e0133965db35eab0b/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">0a16b60</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/f4bdf191a428ef8917fdd6f9e386653350125a0d/docs/figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-abundant-1.png" target="_blank">f4bdf19</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-</tbody>
-</table>
 </div>
-</div>
+<div id="pulse-seq-data" class="section level2">
+<h2>Pulse-seq data</h2>
+<pre class="r"><code>load(&quot;../data/pulseseq.RData&quot;)
+samples_pulseseq &lt;- samples
+rm(samples,counts)</code></pre>
+<p>Load the <span class="math inline">\(k = 9\)</span> and <span class="math inline">\(k = 11\)</span> Poisson NMF fits for the pulse-seq data.</p>
+<pre class="r"><code>fit_pulseseq9 &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds&quot;)$fit
+fit_pulseseq11 &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit</code></pre>
+<p>Likewise, we also pick up rare and abundant topics in the pulse-seq data:</p>
+<pre class="r"><code>p2 &lt;- create_abundance_plot(fit_pulseseq)
+print(p2)</code></pre>
 <pre class="r"><code>temp &lt;- select(poisson2multinom(fit_droplet),
                loadings = which(samples_droplet$tissue == &quot;Ionocyte&quot;))
 structure_plot(temp,rows = order(temp$L[,3]),
@@ -1617,77 +1268,6 @@ p10 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;),sa
 p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$tissue,
                             droplet_celltype_colors) + labs(fill = &quot;celltype&quot;)
 plot_grid(p9,p10,p11)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-pca-with-clusters-1">
-Past versions of droplet-pca-with-clusters-1.png
-</button>
-</p>
-<div id="fig-droplet-pca-with-clusters-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/aca46cc698358965ad25399bf7b19f74a6b5df23/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">aca46cc</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5a35bbd6b181f322bc808840a2df3c20a6b80d94/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">5a35bbd</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/c517ea207b696aa2815c2c77963d6c305373b7d3/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">c517ea2</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/01afbd2b764fd3d6724afa103aeefa2e4c91ff60/docs/figure/plots_tracheal_epithelium.Rmd/droplet-pca-with-clusters-1.png" target="_blank">01afbd2</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p><strong>TO DO:</strong> Add Structure plot9s) to compare Montoro <em>et al</em> (2018) clustering.</p>
 <p>And likewise in the pulse-seq data:</p>
 <pre class="r"><code>p5 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC3&quot;,&quot;PC4&quot;))
@@ -1776,10 +1356,10 @@ ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      dplyr_0.8.3        fastTopics_0.3-162
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-165 dplyr_0.8.3       
 # 
 # loaded via a namespace (and not attached):
-#  [1] ggrepel_0.9.0        Rcpp_1.0.3           lattice_0.20-38     
+#  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
 #  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
 #  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
 # [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
@@ -1796,12 +1376,13 @@ ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
 # [43] withr_2.1.2          later_1.0.0          MASS_7.3-51.4       
 # [46] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
 # [49] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
-# [52] scales_1.1.0         RcppParallel_4.4.4   stringi_1.4.3       
+# [52] scales_1.1.0         RcppParallel_5.0.2   stringi_1.4.3       
 # [55] farver_2.0.1         fs_1.3.1             promises_1.1.0      
 # [58] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
 # [61] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
 # [64] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
 # [67] quantreg_5.54        MCMCpack_1.4-5</code></pre>
+</div>
 </div>
 
 
