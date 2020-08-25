@@ -303,7 +303,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -312,7 +312,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -324,7 +324,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-08-25
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -340,12 +340,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee23f091213b96c5b85f281bcf199e157fca39265targetblanke23f091a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e23f091213b96c5b85f281bcf199e157fca39265" target="_blank">e23f091</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee11855bf04b544e1fbfd4ef90b0162a8aa8d6df8targetblanke11855ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e11855bf04b544e1fbfd4ef90b0162a8aa8d6df8" target="_blank">e11855b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee23f091213b96c5b85f281bcf199e157fca39265targetblanke23f091a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee11855bf04b544e1fbfd4ef90b0162a8aa8d6df8targetblanke11855ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e23f091213b96c5b85f281bcf199e157fca39265" target="_blank">e23f091</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e11855bf04b544e1fbfd4ef90b0162a8aa8d6df8" target="_blank">e11855b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -440,13 +440,6 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
-
-Untracked files:
-    Untracked:  analysis/figure/
-
-Unstaged changes:
-    Modified:   analysis/plots_tracheal_epithelium.Rmd
-    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -485,6 +478,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e11855bf04b544e1fbfd4ef90b0162a8aa8d6df8/analysis/plots_tracheal_epithelium.Rmd" target="_blank">e11855b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Working on revised analysis of droplet and pulse-seq data sets.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e11855bf04b544e1fbfd4ef90b0162a8aa8d6df8/docs/plots_tracheal_epithelium.html" target="_blank">e11855b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Working on revised analysis of droplet and pulse-seq data sets.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1051,7 +1078,7 @@ samples_droplet &lt;- samples
 rm(samples,counts)</code></pre>
 <p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
-<p>The Montoro <em>et al</em> (2018) article mentions that some epithelial cell types are abundant, whereas others are very rare. The topics inferred from the droplet data reflect this:</p>
+<p>The Montoro <em>et al</em> (2018) article mentions that some epithelial cell types are abundant whereas others are rare. The topics inferred from the droplet data reflect this:</p>
 <pre class="r"><code>p1 &lt;- create_abundance_plot(fit_droplet)
 print(p1)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/abundance-plot-droplet-1.png" width="420" style="display: block; margin: auto;" /></p>
@@ -1092,13 +1119,13 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The first topic—which is not actually visible in the bar chart above—is indeed very rare; only 43 out of 7,193 samples have a greater than 10% contribution from this topic.</p>
+<p>The first topic—which is not actually visible in this bar chart—is indeed very rare; only 43 out of 7,193 samples have a greater than 10% contribution from this topic.</p>
 <pre class="r"><code>sum(poisson2multinom(fit_droplet)$L[,1] &gt; 0.1)
 # [1] 43</code></pre>
-<p>In this next part of the analysis, we perform PCA on the estimated topic proportions to explore structure in the data as inferred by the topic model. Typically, a nonlinear embedding method such as <em>t</em>-SNE or UMAP is used to visualize the structure. The disadvantage of such methods is that it can often be difficult to get the (many) tuning parameters right, and they can be slow when applied to large data sets; by contrast, PCA has no tuning parameters.</p>
+<p>In this next part of the analysis, we perform PCA on the estimated topic proportions to explore structure in the data as inferred by the topic model. Typically, a nonlinear embedding method such as <em>t</em>-SNE or UMAP is used to visualize the structure. The disadvantage of such methods is that it can often be difficult to get the (many) tuning parameters right, they can be slow when applied to large data sets, and the embeddings are not unique; by contrast, PCA has no tuning parameters, and the principal components (PCs) are unique.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_droplet)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>In the projection onto PCs 1,2 and 5,6, we can delineate 4 clusters, with a fifth subset (E) used as a “background” cluster. (PCs 3 and 4 do not reveal any additional substrcture, so are not shown.)</p>
+<p>In the projection onto four of the PCs—PCs 1, 2, 5 and 6—we can delineate 4 clusters. A fifth subset (“E”) is used as a “background” cluster. (Note that PCs 3 and 4 do not reveal any additional substrcture, so are not shown.)</p>
 <pre class="r"><code>n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;E&quot;,n)
 pc1 &lt;- pca[,&quot;PC1&quot;]
@@ -1139,6 +1166,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e11855bf04b544e1fbfd4ef90b0162a8aa8d6df8/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" target="_blank">e11855b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/adda33faa241fa7ea1abe8bf5eff706d459f5547/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clustering-2-1.png" target="_blank">adda33f</a>
 </td>
 <td>
@@ -1168,23 +1206,47 @@ Peter Carbonetto
 # x
 #    A    B    C    D    E 
 # 6533   50  162  375   73</code></pre>
-<p>Let’s look more closely at the topics that show variation in the first two PCs:</p>
-<pre class="r"><code>p6 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,k = c(2,5,6),
-               plot_grid_call = function (plots)
-                 do.call(plot_grid,c(lapply(plots,
-                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
-print(p6)</code></pre>
+<p>Cluster A further subdivides into two not-quite-so-distinct subclusters, otherwise there does not appear to be any other interesting substructure to delineate:</p>
+<pre class="r"><code>rows &lt;- which(samples_droplet$cluster == &quot;A&quot;)
+fit  &lt;- select(poisson2multinom(fit_droplet),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;A1&quot;,n)
+pc1  &lt;- pca[,1]
+x[pc1 &gt; 0.2] &lt;- &quot;A2&quot;
+samples_droplet[rows,&quot;cluster&quot;] &lt;- x
+p3 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p3)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>In summary, we have subdivided the data into 6 subsets:</p>
+<pre class="r"><code>samples_droplet$cluster &lt;- factor(samples_droplet$cluster)
+table(samples_droplet$cluster)
+# 
+#   A1   A2    B    C    D    E 
+# 3968 2565   50  162  375   73</code></pre>
+<p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
+<pre class="r"><code>set.seed(2)
+droplet_topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;turquoise&quot;,&quot;greenyellow&quot;,
+                          &quot;forestgreen&quot;,&quot;firebrick&quot;,&quot;olivedrab&quot;)
+droplet_topics &lt;- c(1,3,7,4,5,6,2)
+rows &lt;- sort(c(sample(which(samples_droplet$cluster == &quot;A1&quot;),800),
+               sample(which(samples_droplet$cluster == &quot;A2&quot;),500),
+               which(samples_droplet$cluster == &quot;B&quot;),
+               which(samples_droplet$cluster == &quot;C&quot;),
+               sample(which(samples_droplet$cluster == &quot;D&quot;),200),
+               which(samples_droplet$cluster == &quot;E&quot;),200))
+p4 &lt;- structure_plot(select(poisson2multinom(fit_droplet),loadings = rows),
+                     grouping = samples_droplet[rows,&quot;cluster&quot;],
+                     topics = droplet_topics,
+                     colors = droplet_topic_colors[droplet_topics],
+                     perplexity = c(100,70,12,50,50,20),
+                     n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
+print(p4)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>The bulk of the samples lie on a continuous gradient between topics 2 and 5. There is a smaller cluster at the bottom of this plot, with high contributions from topic 6.</p>
-<p>Next, we look closely at PCs 4 and 5:</p>
-<pre class="r"><code>p7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 4:5,k = c(3,4,5,7),
-               plot_grid_call = function (plots)
-                 do.call(plot_grid,c(lapply(plots,
-                   function (x) x + guides(fill = &quot;none&quot;)),list(nrow = 1))))
-print(p7)</code></pre>
 <p>Along these PCs, we see that topics 3, 4, 5 and 7 exist in many combinations, with no apparent discrete populations.</p>
 <p>Topic 1 captures a very small discrete population of cells:</p>
-<pre class="r"><code>p8 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,k = 1)
-print(p8)</code></pre>
 <p>In summary, topics 1 and 6 pick up discrete “cell types”, whereas the other topics characterize more continuous variation in gene expression, perhaps cell types along a continuous trajectory of development. There are some other discrete clusters that seem to be composed of distinct combinations of topics that we will neeed to examine more closely.</p>
 <p>These next few scatterplots show the same PCs as before, with the samples labeled according to their assignment to these clusters:</p>
 <pre class="r"><code>droplet_cluster_colors &lt;- c(&quot;gray&quot;,&quot;darkblue&quot;,&quot;gold&quot;,&quot;yellowgreen&quot;,&quot;firebrick&quot;)
