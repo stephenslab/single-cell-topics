@@ -158,7 +158,8 @@ p4 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     gap = 40,num_threads = 4,verbose = FALSE)
+                     n = Inf,perplexity = c(70,100,70,70,50,50),
+					 gap = 40,num_threads = 4,verbose = FALSE)
 print(p4)
 ```
 
