@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree45c3c322b79cc885c82b3411ba56c91d41062956targetblank45c3c32a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/45c3c322b79cc885c82b3411ba56c91d41062956" target="_blank">45c3c32</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee8971d86164615e8337d2690a577bb3e6d465acdtargetblanke8971d8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e8971d86164615e8337d2690a577bb3e6d465acd" target="_blank">e8971d8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree45c3c322b79cc885c82b3411ba56c91d41062956targetblank45c3c32a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee8971d86164615e8337d2690a577bb3e6d465acdtargetblanke8971d8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/45c3c322b79cc885c82b3411ba56c91d41062956" target="_blank">45c3c32</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e8971d86164615e8337d2690a577bb3e6d465acd" target="_blank">e8971d8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e8971d86164615e8337d2690a577bb3e6d465acd/analysis/plots_pbmc.Rmd" target="_blank">e8971d8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9d8bb284f6288d09a547d7ee44ffebe47278da1b/analysis/plots_pbmc.Rmd" target="_blank">9d8bb28</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Revised structure plot in plots_pbmc.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/27f6f51e6d680d7ddd529dbe6aad301f941637d2/analysis/plots_pbmc.Rmd" target="_blank">27f6f51</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+A couple small adjustments to the plotting settings in plots_pbmc.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/abb846e9e32e6a27cd74c5d5d0dc0ca2799d60f6/docs/plots_pbmc.html" target="_blank">abb846e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Added dotplot to compare clusters vs. cell-types.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1250,7 +1318,7 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 </div>
 </div>
 </div>
-<p>Here we closely examine, and compare, the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data and the “unsorted” 68k PBMC data. The goal is to illustrate how the topic models fitted to these data sets can be used to learn about the structure in the data, identify clusters, and interpret the clusters and topics as “cell types” or “gene programs”.</p>
+<p>Here we closely examine, and compare, the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data and the “unsorted” 68k PBMC data. The goal is to illustrate how the topic models fitted to these data sets can be used to learn about the structure in the data, including identifying clusters, and interpret the clusters and topics as “cell types” or “gene programs”.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that will be used to generate some of the plots.</p>
 <pre class="r"><code>library(dplyr)
 library(fastTopics)
@@ -1336,6 +1404,7 @@ Peter Carbonetto
 # x
 #     A     B     C 
 # 72614 10439 11602</code></pre>
+<p>Note that other PCs beyond the first two may also sometimes reveal additional clustering, and we will see examples of this in the 68k PBMC data.</p>
 <p>Within cluster C there are two fairly well-defined subclusters (labeled “C1” and “C2”). There are perhaps other, less defined subclusters that are less defined, but in this analysis we focus on the largest, most obvious clusters.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;C&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
@@ -1393,7 +1462,7 @@ Peter Carbonetto
 # x
 #   C1   C2   C3 
 # 7822 2990  790</code></pre>
-<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”. (This cluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this plot—you may need to zoom in on the plot to see the clustering.) Otherwise, there are is obvious additional clustering of the samples within cluster A.</p>
+<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”. (This cluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this plot—you may need to zoom in on the plot to see the clustering.) Otherwise, there is no obvious additional clustering of the samples within cluster A.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -1476,12 +1545,8 @@ p4 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,&quot;cluster&quot;],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
+                     n = Inf,perplexity = c(70,100,70,70,50,50),
                      gap = 40,num_threads = 4,verbose = FALSE)
-# Perplexity automatically changed to 69 because original setting of 100 was too large for the number of samples (213)
-# Perplexity automatically changed to 69 because original setting of 100 was too large for the number of samples (213)
-# Perplexity automatically changed to 69 because original setting of 100 was too large for the number of samples (213)
-# Perplexity automatically changed to 55 because original setting of 100 was too large for the number of samples (170)
-# Perplexity automatically changed to 55 because original setting of 100 was too large for the number of samples (170)
 print(p4)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
@@ -1506,6 +1571,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/abb846e9e32e6a27cd74c5d5d0dc0ca2799d60f6/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">abb846e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f53c86ce2e664d45e7e8b7299bfada46ae968f15/docs/figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" target="_blank">f53c86c</a>
@@ -1598,15 +1674,58 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with the clusters (labeled A1, B, C1, C2). And, indeed, they align closely with their inclusion in the indivvidual FACS-purified data sets:</p>
+<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with the clusters (labeled A1, B, C1, C2). And, indeed, they align closely with their inclusion in the individual FACS-purified data sets:</p>
 <pre class="r"><code>pdat &lt;- as.data.frame(with(samples_purified,table(celltype,cluster)))
 ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = &quot;dodgerblue&quot;,show.legend = FALSE) +
   ylim(rev(levels(samples_purified$celltype))) +
   theme_cowplot(font_size = 10)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clusters-vs-celltypes-1.png" width="420" style="display: block; margin: auto;" /></p>
-<p>For example, cluster B corresponds almost perfectly to the B-cell data set, and the largest cluster—cluster A2—is comprised of the T-cell data sets. It is also interesting that many of the samples labeled as “CD34+” are not assigned to the CD34+ cluster (C1), which probably reflects the fact that the this population was much less pure (45%) than the others, and so probably contained other cell types.</p>
-<p>Cluster C3 is a heterogeneous cluster that we do not investigate further. Cluster A2—see also the PCA plot above—is a clear example where topic modeling is more appropriate than clustering because any additional clustering of the data will be arbitrary.</p>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clusters-vs-celltypes-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clusters-vs-celltypes-1">
+Past versions of pbmc-purified-clusters-vs-celltypes-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-clusters-vs-celltypes-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/abb846e9e32e6a27cd74c5d5d0dc0ca2799d60f6/docs/figure/plots_pbmc.Rmd/pbmc-purified-clusters-vs-celltypes-1.png" target="_blank">abb846e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Based on the above results, we make a few observations:</p>
+<ul>
+<li><p>Because they correspond very closely, subsequent analysis of topics 2, 3, 4 and 5 should yield similar results to analyzing the clusters A1, B, C1, C2 For example, cluster B corresponds almost perfectly to the B-cell data set. The largest cluster, cluster A2, is mostly comprised of the T-cell data sets.</p></li>
+<li><p>Cluster A2—see also the PCA plot above—is an example where analyzing the most prevalent topics (<span class="math inline">\(k = 1, 6\)</span>) will yield <em>different</em> results than analyzing clusters within cluster A1 as any additional clustering of the data will be necessarily arbitrary (see the PCA plot above).</p></li>
+<li><p>Many samples labeled as “CD34+” are not assigned to the CD34+ cluster (C1). This is probably due to the fact that this population was much less pure (45%) than the others.</p></li>
+<li><p>Cluster C3 is a heterogeneous cluster with a relatively small number of samples (790) that could potentially contain additional clusters of biological relevance, but will likely be more challenging to analyze and interpret than the other clusters, so we do not this investigate further.</p></li>
+</ul>
+<p>In summary, a cluster-based analysis and topic-based analysis should yield mostly similar results, except for the analysis of cluster A2, which should benefit from a topic-based analysis (specifically, analysis of topics 1 and 6).</p>
 </div>
 <div id="unsorted-68k-pbmc-data" class="section level2">
 <h2>Unsorted 68k PBMC data</h2>
@@ -1910,6 +2029,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/abb846e9e32e6a27cd74c5d5d0dc0ca2799d60f6/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">abb846e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f53c86ce2e664d45e7e8b7299bfada46ae968f15/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">f53c86c</a>
 </td>
 <td>
@@ -2005,7 +2135,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-164 dplyr_0.8.3       
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-165 dplyr_0.8.3       
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
