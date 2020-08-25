@@ -137,7 +137,7 @@ p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p3)
 ```
 
-In summary, we have subdivided the data into 6 clusters:
+In summary, we have subdivided the data into 6 subsets:
 
 ```{r pbmc-purified-clustering-7}
 samples_purified$cluster <- factor(samples_purified$cluster)
@@ -149,7 +149,7 @@ clusters and we did not find any of clear examples of subclustering
 withing these clusters.
 
 The structure plot summarizes the topic proportions in each of these 6
-clusters:
+subsets:
 
 ```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
 set.seed(1)
@@ -172,8 +172,8 @@ print(p4)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
-the clusters (labeled A1, B, C1, C2). And, indeed, they align closely
-with their inclusion in the individual FACS-purified data sets:
+clusters (labeled A1, B, C1, C2). And, indeed, they align closely with
+their inclusion in the individual FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes, fig.width=4, fig.height=3.5}
 pdat <- as.data.frame(with(samples_purified,table(celltype,cluster)))
@@ -275,7 +275,9 @@ p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p6)
 ```
 
-**TO DO:** Add text here.
+The B1 cluster can be further subdivided into clusters (B1a, B1b) with
+subset B1c compresing the B1 samples that do not fit into either
+cluster.
 
 ```{r pbmc-68k-clustering-5, fig.width=5, fig.height=4}
 rows <- which(samples_68k$cluster == "B1")
@@ -318,7 +320,7 @@ A1 subcluster:
 table(x)
 ```
 
-In summary, we have subdivided these data into 7 clusters:
+In summary, we have subdivided these data into 9 subsets:
 
 ```{r pbmc-68k-clustering-8}
 samples_68k$cluster <- factor(samples_68k$cluster)
@@ -330,7 +332,8 @@ cluster (C) is less than 1% the size of the largest (A1). By contrast,
 community detection methods such as the Louvain algorithm often have
 difficulty identifying very small clusters.
 
-**TO DO:** Add text here.
+The structure plot summarizes the topic proportions in each of these 9
+subsets:
 
 ```{r pbmc-68k-structure-plot, fig.width=7.5, fig.height=1.5}
 set.seed(1)
@@ -355,7 +358,9 @@ p8 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
 print(p8)
 ```
 
-Comparison to Zheng et al (2017) cell-type labeling:
+These subsets do not align as closely with the cell-type labeling
+inferred by Zheng et al (2017), which is not surprising considering
+that this labeling is based on the FACS-purified data set.:
 
 ```{r pbmc-68k-clusters-vs-celltypes,, fig.width=4.5, fig.height=3.5}
 pdat <- as.data.frame(with(samples_68k,table(celltype,cluster)))
@@ -364,5 +369,25 @@ ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   ylim(rev(levels(samples_purified$celltype))) +
   theme_cowplot(font_size = 10)
 ```
+
+A few notes about these results:
+
++ As in the purified fit, here we identify a B-cells cluster (B) and
+  topic (5) that closely align.
+
++ We also identify what is most likely a cluster of CD34+ cells.
+
++ We don't identify a clear-cut cluster for NK cells; the NK cells are
+  mixed in with the T-cells (subset A1), and NK cells will emerge only
+  after subsequent analysis of topic 3.
+
++ Some of the distinct clusters (e.g., B1a, B1b, B2) are characterized
+  by mixtures of topics, so if these clusters do indeed correspond to
+  interesting cell types, analyzing the topics alone may not shed
+  light onto these cell types.
+
+In summary, the topics and clusters seem to be more complementary each
+other in this case, and it remains to be seen whether both the topics
+and clusters offer biological insights.
 
 [zheng-2017]: https://doi.org/10.1038/ncomms14049
