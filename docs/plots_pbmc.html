@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9targetblank5b2fb5ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9" target="_blank">5b2fb5c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef7c157a99f03eb371705a3201525f9c099aa0edatargetblankf7c157aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f7c157a99f03eb371705a3201525f9c099aa0eda" target="_blank">f7c157a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9targetblank5b2fb5ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef7c157a99f03eb371705a3201525f9c099aa0edatargetblankf7c157aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5b2fb5c11d350f319b9c39d26c37a0d9a8be66b9" target="_blank">5b2fb5c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f7c157a99f03eb371705a3201525f9c099aa0eda" target="_blank">f7c157a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +478,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f7c157a99f03eb371705a3201525f9c099aa0eda/analysis/plots_pbmc.Rmd" target="_blank">f7c157a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e13c17e5af93b7e4decc2bbfac93988a3339f575/analysis/plots_pbmc.Rmd" target="_blank">e13c17e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+<td>
+Removed reordering of 68k fit, and fixed downstream PCA analyses.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/01a0c8bbcec855b7ef0d146d10e1d0d708c24684/analysis/plots_pbmc.Rmd" target="_blank">01a0c8b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+<td>
+Fixed colours in 68k structure plot.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a0cb7c61cd959b2882f75eb4de7a3eda1eb07b0b/docs/plots_pbmc.html" target="_blank">a0cb7c6</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+<td>
+Added 68k fit structure plot to plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1148,35 +1216,26 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 </div>
 </div>
 </div>
-<p><em>TO DO: Add introductory text here.</em></p>
-<p>Load the packages used in the analysis below.</p>
+<p>Here we look closely, and compare, the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data and the “unsorted” 68k PBMC data. The goal is to illustrate how the topic models fitted to these data sets can be used to learn about the structure in the data, identify clusters, and interpret the clusters and topics as “cell types” or “gene programs”.</p>
+<p>Load the packages used in the analysis below, as well as additional functions that will be used to generate some of the plots.</p>
 <pre class="r"><code>library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-library(Ternary)
 source(&quot;../code/plots.R&quot;)</code></pre>
-<p>Load the sample annotations. (The count data are no longer needed at this stage of the analysis, so I have removed them.)</p>
+<div id="mixture-of-facs-purified-pbmc-data" class="section level2">
+<h2>Mixture of FACS-purified PBMC data</h2>
+<p>We begin with the mixture of FACS-purified PBMC data. Note that the count data are no longer needed at this stage.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
 samples_purified &lt;- samples
-load(&quot;../data/pbmc_68k.RData&quot;)
-samples_68k &lt;- samples
-rm(genes,counts)</code></pre>
-<p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fits for both PBMC data sets. In the descriptions below, I refer to these Poisson NMF model fits as the “purified” and “68k” fits.</p>
-<p>To aid presentation of the results, topics in the 68k fit are reordered to better align with the topics in purified Poisson NMF fit.</p>
+rm(samples,genes,counts)</code></pre>
+<p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit_purified &lt;-
-  readRDS(&quot;../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds&quot;)$fit
-fit_68k &lt;- readRDS(&quot;../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds&quot;)$fit
-cols      &lt;- c(4,1,5,3,6,2)
-fit_68k$F &lt;- fit_68k$F[,cols]
-fit_68k$L &lt;- fit_68k$L[,cols]
-colnames(fit_68k$F) &lt;- paste0(&quot;k&quot;,1:6)
-colnames(fit_68k$L) &lt;- paste0(&quot;k&quot;,1:6)</code></pre>
-<p>We begin by exploring structure in the data as inferred by the topic model. We will visualize this structure by plotting principal components (PCs) of the topic proportions. Although PCA is simple, we will see that it quite effective, and avoids the complications of the popular t-SNE and UMAP nonlinear dimensionality reduction methods.</p>
-<p>We begin with the mixture of FACS-purified PBMC data.</p>
+  readRDS(&quot;../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds&quot;)$fit</code></pre>
+<p>Here we explore the structure of the single-cell data as inferred by the topic model. Specifically, we will use PCA to uncover structure in the topic proportions. Although PCA is simple, we will see that it works well, and avoids the complications of the popular t-SNE and UMAP nonlinear dimensionality reduction methods.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_purified)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>Three large clusters are clearly evident from first two PCs (there is also finer-scale structure which we will examine below). We label these clusters simply as “A”, “B” and “C”.</p>
+<p>Three large clusters are evident from first two PCs (there is also finer-scale structure which we will examine below). We label these clusters as “A”, “B” and “C”.</p>
 <pre class="r"><code>n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;C&quot;,n)
 pc1 &lt;- pca[,&quot;PC1&quot;]
@@ -1243,7 +1302,7 @@ Peter Carbonetto
 # x
 #     A     B     C 
 # 72614 10439 11602</code></pre>
-<p>In cluster C, there are two well-defined subclusters, which we label “C1” and “C2”. There are perhaps other subclusters that are less defined, but we here we ignore this more subtle structure, and focus on the most obvious clusters:</p>
+<p>Within cluster C there are two fairly well-defined subclusters (labeled “C1” and “C2”). There are perhaps other, less defined subclusters that are less defined, but in this analysis we focus on the largest, most obvious clusters.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;C&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -1254,9 +1313,9 @@ pc2  &lt;- pca[,2]
 x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;C1&quot;
 x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.3] &lt;- &quot;C2&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
-p5 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p2 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p5)</code></pre>
+print(p2)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-4-1">
@@ -1300,7 +1359,7 @@ Peter Carbonetto
 # x
 #   C1   C2   C3 
 # 7822 2990  790</code></pre>
-<p>Let’s now look more closely at cluster A. There is a large, much less distinct subcluster, which we label as “A1”. Otherwise, there are no other clearly distinct clusters.</p>
+<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”. (This cluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this plot—you may need to zoom in on the plot to see the clustering.) Otherwise, there are is obvious additional clustering of the samples within cluster A.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -1310,9 +1369,9 @@ pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 x[pc1 &gt; 0.58 - pc2 | pc1 &gt; 0.7] &lt;- &quot;A1&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
-p6 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p3 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p6)</code></pre>
+print(p3)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-6-1">
@@ -1362,29 +1421,29 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>In summary, we have subdivided these data into 6 clusters:</p>
+<p>In summary, we have subdivided the data into 6 clusters:</p>
 <pre class="r"><code>samples_purified$cluster &lt;- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 # 
 #    A1    A2     B    C1    C2    C3 
 #  8271 64343 10439  7822  2990   790</code></pre>
-<p>The Structure plot provides a visual summary of topic proportions in each of these six clusters:</p>
+<p>The structure plot provides an evocative visual summary of topic proportions in each of these six clusters:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
                                 &quot;gray&quot;,&quot;greenyellow&quot;,&quot;magenta&quot;)
-pbmc_purified_topics &lt;- c(2,5,1,3,4,6)
+pbmc_purified_topics &lt;- c(2,5,3,1,4,6)
 rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;A1&quot;),250),
                sample(which(samples_purified$cluster == &quot;A2&quot;),1200),
                sample(which(samples_purified$cluster == &quot;B&quot;),250),
                sample(which(samples_purified$cluster == &quot;C1&quot;),250),
-               sample(which(samples_purified$cluster == &quot;C2&quot;),250),
+               sample(which(samples_purified$cluster == &quot;C2&quot;),200),
                sample(which(samples_purified$cluster == &quot;C3&quot;),200)))
-p7 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+p4 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,&quot;cluster&quot;],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     gap = 40,num_threads = 4,verbose = FALSE)
-print(p7)</code></pre>
+                     gap = 40,num_threads = 4)
+print(p4)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-structure-plot-1">
@@ -1489,7 +1548,175 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with the clusters (labeled A1, B, C1, C2). Indeed, they also align closely with the FACS-purified data sets:</p>
+<pre><code># Read the 213 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 69.666667, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.10 seconds (sparsity = 0.994908)!
+# Learning embedding...
+# Iteration 50: error is 41.832334 (50 iterations in 0.06 seconds)
+# Iteration 100: error is 41.738394 (50 iterations in 0.06 seconds)
+# Iteration 150: error is 41.705719 (50 iterations in 0.06 seconds)
+# Iteration 200: error is 41.684595 (50 iterations in 0.05 seconds)
+# Iteration 250: error is 41.689629 (50 iterations in 0.06 seconds)
+# Iteration 300: error is 0.130306 (50 iterations in 0.05 seconds)
+# Iteration 350: error is 0.127091 (50 iterations in 0.05 seconds)
+# Iteration 400: error is 0.127089 (50 iterations in 0.06 seconds)
+# Iteration 450: error is 0.127090 (50 iterations in 0.06 seconds)
+# Iteration 500: error is 0.127089 (50 iterations in 0.06 seconds)
+# Iteration 550: error is 0.127089 (50 iterations in 0.05 seconds)
+# Iteration 600: error is 0.127089 (50 iterations in 0.05 seconds)
+# Iteration 650: error is 0.127090 (50 iterations in 0.05 seconds)
+# Iteration 700: error is 0.127090 (50 iterations in 0.05 seconds)
+# Iteration 750: error is 0.127090 (50 iterations in 0.05 seconds)
+# Iteration 800: error is 0.127089 (50 iterations in 0.05 seconds)
+# Iteration 850: error is 0.127090 (50 iterations in 0.05 seconds)
+# Iteration 900: error is 0.127089 (50 iterations in 0.05 seconds)
+# Iteration 950: error is 0.127089 (50 iterations in 0.05 seconds)
+# Iteration 1000: error is 0.127089 (50 iterations in 0.05 seconds)
+# Fitting performed in 1.09 seconds.
+# Read the 1021 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.72 seconds (sparsity = 0.360162)!
+# Learning embedding...
+# Iteration 50: error is 53.769354 (50 iterations in 0.33 seconds)
+# Iteration 100: error is 47.843628 (50 iterations in 0.31 seconds)
+# Iteration 150: error is 47.761871 (50 iterations in 0.28 seconds)
+# Iteration 200: error is 47.759983 (50 iterations in 0.31 seconds)
+# Iteration 250: error is 47.759939 (50 iterations in 0.30 seconds)
+# Iteration 300: error is 0.487017 (50 iterations in 0.32 seconds)
+# Iteration 350: error is 0.415130 (50 iterations in 0.32 seconds)
+# Iteration 400: error is 0.403105 (50 iterations in 0.42 seconds)
+# Iteration 450: error is 0.400756 (50 iterations in 0.48 seconds)
+# Iteration 500: error is 0.400325 (50 iterations in 0.32 seconds)
+# Iteration 550: error is 0.400290 (50 iterations in 0.30 seconds)
+# Iteration 600: error is 0.400284 (50 iterations in 0.30 seconds)
+# Iteration 650: error is 0.400278 (50 iterations in 0.31 seconds)
+# Iteration 700: error is 0.400275 (50 iterations in 0.31 seconds)
+# Iteration 750: error is 0.400275 (50 iterations in 0.32 seconds)
+# Iteration 800: error is 0.400273 (50 iterations in 0.31 seconds)
+# Iteration 850: error is 0.400273 (50 iterations in 0.27 seconds)
+# Iteration 900: error is 0.400273 (50 iterations in 0.32 seconds)
+# Iteration 950: error is 0.400273 (50 iterations in 0.28 seconds)
+# Iteration 1000: error is 0.400273 (50 iterations in 0.32 seconds)
+# Fitting performed in 6.43 seconds.
+# Read the 213 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 69.666667, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.07 seconds (sparsity = 0.994908)!
+# Learning embedding...
+# Iteration 50: error is 42.168186 (50 iterations in 0.06 seconds)
+# Iteration 100: error is 41.716690 (50 iterations in 0.06 seconds)
+# Iteration 150: error is 41.650894 (50 iterations in 0.06 seconds)
+# Iteration 200: error is 41.637198 (50 iterations in 0.06 seconds)
+# Iteration 250: error is 41.529013 (50 iterations in 0.06 seconds)
+# Iteration 300: error is 0.168742 (50 iterations in 0.05 seconds)
+# Iteration 350: error is 0.166967 (50 iterations in 0.05 seconds)
+# Iteration 400: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 450: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 500: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 550: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 600: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 650: error is 0.166969 (50 iterations in 0.06 seconds)
+# Iteration 700: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 750: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 800: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 850: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 900: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 950: error is 0.166969 (50 iterations in 0.05 seconds)
+# Iteration 1000: error is 0.166969 (50 iterations in 0.05 seconds)
+# Fitting performed in 1.09 seconds.
+# Read the 213 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 69.666667, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.11 seconds (sparsity = 0.994908)!
+# Learning embedding...
+# Iteration 50: error is 42.127836 (50 iterations in 0.06 seconds)
+# Iteration 100: error is 42.139766 (50 iterations in 0.06 seconds)
+# Iteration 150: error is 42.133384 (50 iterations in 0.06 seconds)
+# Iteration 200: error is 42.155207 (50 iterations in 0.06 seconds)
+# Iteration 250: error is 42.146054 (50 iterations in 0.06 seconds)
+# Iteration 300: error is 0.460214 (50 iterations in 0.06 seconds)
+# Iteration 350: error is 0.456147 (50 iterations in 0.05 seconds)
+# Iteration 400: error is 0.456147 (50 iterations in 0.05 seconds)
+# Iteration 450: error is 0.456148 (50 iterations in 0.05 seconds)
+# Iteration 500: error is 0.456148 (50 iterations in 0.05 seconds)
+# Iteration 550: error is 0.456148 (50 iterations in 0.09 seconds)
+# Iteration 600: error is 0.456148 (50 iterations in 0.12 seconds)
+# Iteration 650: error is 0.456148 (50 iterations in 0.09 seconds)
+# Iteration 700: error is 0.456148 (50 iterations in 0.12 seconds)
+# Iteration 750: error is 0.456148 (50 iterations in 0.12 seconds)
+# Iteration 800: error is 0.456147 (50 iterations in 0.11 seconds)
+# Iteration 850: error is 0.456148 (50 iterations in 0.05 seconds)
+# Iteration 900: error is 0.456148 (50 iterations in 0.05 seconds)
+# Iteration 950: error is 0.456148 (50 iterations in 0.05 seconds)
+# Iteration 1000: error is 0.456148 (50 iterations in 0.05 seconds)
+# Fitting performed in 1.43 seconds.
+# Read the 170 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 55.333333, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.06 seconds (sparsity = 0.993356)!
+# Learning embedding...
+# Iteration 50: error is 43.027038 (50 iterations in 0.05 seconds)
+# Iteration 100: error is 42.388525 (50 iterations in 0.05 seconds)
+# Iteration 150: error is 43.266206 (50 iterations in 0.05 seconds)
+# Iteration 200: error is 43.267395 (50 iterations in 0.05 seconds)
+# Iteration 250: error is 43.090607 (50 iterations in 0.05 seconds)
+# Iteration 300: error is 0.590656 (50 iterations in 0.04 seconds)
+# Iteration 350: error is 0.536909 (50 iterations in 0.04 seconds)
+# Iteration 400: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 450: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 500: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 550: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 600: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 650: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 700: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 750: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 800: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 850: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 900: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 950: error is 0.536869 (50 iterations in 0.04 seconds)
+# Iteration 1000: error is 0.536869 (50 iterations in 0.04 seconds)
+# Fitting performed in 0.86 seconds.
+# Read the 170 x 6 data matrix successfully!
+# OpenMP is working. 4 threads.
+# Using no_dims = 1, perplexity = 55.333333, and theta = 0.100000
+# Computing input similarities...
+# Building tree...
+# Done in 0.06 seconds (sparsity = 0.993218)!
+# Learning embedding...
+# Iteration 50: error is 43.358844 (50 iterations in 0.05 seconds)
+# Iteration 100: error is 42.844873 (50 iterations in 0.05 seconds)
+# Iteration 150: error is 43.270390 (50 iterations in 0.05 seconds)
+# Iteration 200: error is 43.061329 (50 iterations in 0.05 seconds)
+# Iteration 250: error is 44.559150 (50 iterations in 0.05 seconds)
+# Iteration 300: error is 0.750566 (50 iterations in 0.04 seconds)
+# Iteration 350: error is 0.627467 (50 iterations in 0.04 seconds)
+# Iteration 400: error is 0.602522 (50 iterations in 0.04 seconds)
+# Iteration 450: error is 0.602508 (50 iterations in 0.04 seconds)
+# Iteration 500: error is 0.602505 (50 iterations in 0.04 seconds)
+# Iteration 550: error is 0.602505 (50 iterations in 0.04 seconds)
+# Iteration 600: error is 0.602510 (50 iterations in 0.04 seconds)
+# Iteration 650: error is 0.602509 (50 iterations in 0.04 seconds)
+# Iteration 700: error is 0.602508 (50 iterations in 0.04 seconds)
+# Iteration 750: error is 0.602510 (50 iterations in 0.04 seconds)
+# Iteration 800: error is 0.602505 (50 iterations in 0.04 seconds)
+# Iteration 850: error is 0.602511 (50 iterations in 0.04 seconds)
+# Iteration 900: error is 0.602506 (50 iterations in 0.04 seconds)
+# Iteration 950: error is 0.602510 (50 iterations in 0.04 seconds)
+# Iteration 1000: error is 0.602505 (50 iterations in 0.04 seconds)
+# Fitting performed in 0.84 seconds.</code></pre>
+<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with the clusters (labeled A1, B, C1, C2). And, indeed, they align closely with their inclusion in the indivvidual FACS-purified data sets:</p>
 <pre class="r"><code>with(samples_purified,table(celltype,cluster))
 #                               cluster
 # celltype                          A1    A2     B    C1    C2    C3
@@ -1505,7 +1732,15 @@ Peter Carbonetto
 #   CD4+/CD25 T Reg                  0 10243     2     4     0    14</code></pre>
 <p>For example, cluster B corresponds almost perfectly to the B-cell data set, and the largest cluster—cluster A2—is comprised of the T-cell data sets. It is also interesting that many of the samples labeled as “CD34+” are not assigned to the CD34+ cluster (C1), which probably reflects the fact that the this population was much less pure (45%) than the others, and so probably contained other cell types.</p>
 <p>Cluster C3 is a heterogeneous cluster that we do not investigate further. Cluster A2—see also the PCA plot above—is a clear example where topic modeling is more appropriate than clustering because any additional clustering of the data will be arbitrary.</p>
-<p>Next, we turn to the 68k fit.</p>
+</div>
+<div id="unsorted-68k-pbmc-data" class="section level2">
+<h2>Unsorted 68k PBMC data</h2>
+<p>Next, we turn to the 68k data set.</p>
+<pre class="r"><code>load(&quot;../data/pbmc_68k.RData&quot;)
+samples_68k &lt;- samples
+rm(samples,genes,counts)</code></pre>
+<p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fit.</p>
+<pre class="r"><code>fit_68k &lt;- readRDS(&quot;../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds&quot;)$fit</code></pre>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
 pca &lt;- prcomp(fit$L)$x</code></pre>
 <p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4. We label these clusters “A”, “B” and “C”, as above, but this labeling does not imply a connection between the two sets of clusters.</p>
@@ -1513,12 +1748,12 @@ pca &lt;- prcomp(fit$L)$x</code></pre>
 x &lt;- rep(&quot;A&quot;,n)
 pc3 &lt;- pca[,&quot;PC3&quot;]
 pc4 &lt;- pca[,&quot;PC4&quot;]
-x[pc4 &gt; 0.13 | 0.17 - pc3/1.9 &lt; pc4] &lt;- &quot;B&quot;
-x[pc4 &gt; 0.75] &lt;- &quot;C&quot;
+x[pc4 &lt; -0.13 | pc3/1.9 - 0.17 &gt; pc4] &lt;- &quot;B&quot;
+x[pc4 &lt; -0.75] &lt;- &quot;C&quot;
 samples_68k$cluster &lt;- x
-p7 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+p5 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p7)</code></pre>
+print(p5)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-2-1">
@@ -1613,12 +1848,12 @@ pca  &lt;- prcomp(fit$L)$x
 n    &lt;- nrow(pca)
 x    &lt;- rep(&quot;B3&quot;,n)
 pc1  &lt;- pca[,&quot;PC1&quot;]
-x[pc1 &lt; 0.05] &lt;- &quot;B1&quot;
-x[pc1 &gt; 0.3] &lt;- &quot;B2&quot;
+x[pc1 &gt; -0.05] &lt;- &quot;B1&quot;
+x[pc1 &lt; -0.3] &lt;- &quot;B2&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p6 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p8)</code></pre>
+print(p6)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-4-1">
@@ -1665,12 +1900,12 @@ n    &lt;- nrow(pca)
 x    &lt;- rep(&quot;A3&quot;,n)
 pc2  &lt;- pca[,&quot;PC2&quot;]
 pc3  &lt;- pca[,&quot;PC3&quot;]
-x[2.5*pc3 &lt; pc2 + 0.3] &lt;- &quot;A1&quot;
-x[pc3 &gt; pc2 + 0.8] &lt;- &quot;A2&quot;
+x[2.5*pc3 &lt; 0.3 - pc2] &lt;- &quot;A1&quot;
+x[pc3 &gt; 0.8 - pc2] &lt;- &quot;A2&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
+p7 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p9)</code></pre>
+print(p7)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-5-1">
@@ -1722,8 +1957,8 @@ table(samples_68k$cluster)
 # 59260  3555   593  3869   819   318   165</code></pre>
 <p><strong>TO DO:</strong> Add text here.</p>
 <pre class="r"><code>set.seed(1)
-pbmc_68k_topic_colors &lt;- c(&quot;magenta&quot;,&quot;lightskyblue&quot;,&quot;dodgerblue&quot;,
-                           &quot;gray&quot;,&quot;forestgreen&quot;,&quot;gold&quot;)
+pbmc_68k_topic_colors &lt;- c(&quot;gold&quot;,&quot;lightskyblue&quot;,&quot;dodgerblue&quot;,
+                           &quot;gray&quot;,&quot;forestgreen&quot;,&quot;magenta&quot;)
 pbmc_68k_topics &lt;- c(2,5,1,3,4,6)
 rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1&quot;),1200),
                sample(which(samples_68k$cluster == &quot;A2&quot;),500),
@@ -1732,12 +1967,12 @@ rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1&quot;),1200),
                sample(which(samples_68k$cluster == &quot;B2&quot;),300),
                which(samples_68k$cluster == &quot;B3&quot;),
                which(samples_68k$cluster == &quot;C&quot;)))
-p10 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
-                      grouping = samples_68k[rows,&quot;cluster&quot;],
-                      topics = pbmc_68k_topics,
-                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      gap = 40,num_threads = 4,verbose = FALSE)
-print(p10)</code></pre>
+p8 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                     grouping = samples_68k[rows,&quot;cluster&quot;],
+                     topics = pbmc_68k_topics,
+                     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                     gap = 40,num_threads = 4,verbose = FALSE)
+print(p8)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
@@ -1761,6 +1996,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a0cb7c61cd959b2882f75eb4de7a3eda1eb07b0b/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">a0cb7c6</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">7900d17</a>
@@ -1798,7 +2044,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Comparison to Zheng et al (2017) cell-type labelin:</p>
+<p>Comparison to Zheng et al (2017) cell-type labeling:</p>
 <pre class="r"><code>with(samples_68k,table(celltype,cluster))
 #                               cluster
 # celltype                          A1    A2    A3    B1    B2    B3     C
@@ -1813,45 +2059,6 @@ Peter Carbonetto
 #   CD8+ Cytotoxic T             20658     1    88    17     0     9     0
 #   CD8+/CD45RA+ Naive Cytotoxic 16648     0    10     0     5     3     0
 #   Dendritic                       78     3    27  1011   743   237     0</code></pre>
-<p>In <code>fit_68k</code>, cluster 2 mostly consists of CD14+ monocyte and dendritic cells, whereas cluster 3 is a small population of CD34+ cells.</p>
-<pre class="r"><code>pbmc_purified_celltype_colors &lt;-
-  c(&quot;dodgerblue&quot;,  # CD19+ B
-    &quot;forestgreen&quot;, # CD14+ Monocyte
-    &quot;palegreen&quot;,   # CD34+
-    &quot;plum&quot;,        # CD4+ T Helper2
-    &quot;gray&quot;,        # CD56+ NK
-    &quot;tomato&quot;,      # CD8+ Cytotoxic T
-    &quot;gold&quot;,        # CD4+/CD45RO+ Memory
-    &quot;magenta&quot;,     # CD8+/CD45RA+ Naive Cytotoxic
-    &quot;darkorange&quot;,  # CD4+/CD45RA+/CD25- Naive T
-    &quot;yellowgreen&quot;) # CD4+/CD25 T Reg</code></pre>
-<p>Loadings plot:</p>
-<pre class="r"><code>loadings_plot(poisson2multinom(fit_purified),samples_purified$celltype)
-loadings_plot(poisson2multinom(fit_68k),samples_68k$celltype)</code></pre>
-<p>PCA plot:</p>
-<pre class="r"><code>clrs &lt;- c(&quot;forestgreen&quot;,  # CD14+ Monocyte
-          &quot;dodgerblue&quot;,   # CD19+ B
-          &quot;darkmagenta&quot;,  # CD34+&quot;
-          &quot;yellowgreen&quot;,  # CD4+ T Helper2
-          &quot;gold&quot;,         # CD4+/CD25 T Reg
-          &quot;limegreen&quot;,    # CD4+/CD45RA+/CD25- Naive T
-          &quot;orange&quot;,       # CD4+/CD45RO+ Memory&quot;
-          &quot;gray&quot;,         # CD56+ NK
-          &quot;tomato&quot;,       # CD8+ Cytotoxic T
-          &quot;magenta&quot;,      # CD8+/CD45RA+ Naive Cytotoxic&quot;
-          &quot;darkblue&quot;)     # Dendritic&quot;
-fit2 &lt;- poisson2multinom(fit)
-pca  &lt;- prcomp(fit2$L)
-pdat &lt;- cbind(samples,pca$x)
-ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 1.5) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 10)</code></pre>
-<p>Differential count analysis:</p>
-<pre class="r"><code>diff_count_res &lt;- diff_count_analysis(fit,counts)</code></pre>
-<p>Volcano plots:</p>
-<pre class="r"><code>p3 &lt;- volcano_plot(diff_count_res,labels = genes$symbol,
-                   label_above_quantile = 0.995)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1875,11 +2082,10 @@ ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] Ternary_1.1.4      cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-163
-# [5] dplyr_0.8.3       
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-163 dplyr_0.8.3       
 # 
 # loaded via a namespace (and not attached):
-#  [1] ggrepel_0.9.0        Rcpp_1.0.3           lattice_0.20-38     
+#  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
 #  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
 #  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
 # [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
@@ -1896,12 +2102,13 @@ ggplot(pdat,aes(x = PC3,y = PC4,fill = celltype)) +
 # [43] withr_2.1.2          later_1.0.0          MASS_7.3-51.4       
 # [46] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
 # [49] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
-# [52] scales_1.1.0         RcppParallel_4.4.4   stringi_1.4.3       
+# [52] scales_1.1.0         RcppParallel_5.0.2   stringi_1.4.3       
 # [55] farver_2.0.1         fs_1.3.1             promises_1.1.0      
 # [58] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
 # [61] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
 # [64] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
 # [67] quantreg_5.54        MCMCpack_1.4-5</code></pre>
+</div>
 </div>
 
 
