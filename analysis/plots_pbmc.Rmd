@@ -4,63 +4,63 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*TO DO: Add introductory text here.*
+Here we look closely, and compare, the topic modeling results for the
+two closely related data sets from [Zheng *et al* (2017)][zheng-2017],
+the mixture of FACS-purified PBMC data and the "unsorted" 68k PBMC
+data. The goal is to illustrate how the topic models fitted to these
+data sets can be used to learn about the structure in the data,
+identify clusters, and interpret the clusters and topics as "cell
+types" or "gene programs".
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the packages used in the analysis below.
+Load the packages used in the analysis below, as well as additional
+functions that will be used to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-library(Ternary)
 source("../code/plots.R")
 ```
 
-Load the sample annotations. (The count data are no longer needed at this
-stage of the analysis, so I have removed them.)
+Mixture of FACS-purified PBMC data
+----------------------------------
 
-```{r load-data}
+We begin with the mixture of FACS-purified PBMC data. Note that the
+count data are no longer needed at this stage.
+
+```{r load-purified-data}
 load("../data/pbmc_purified.RData")
 samples_purified <- samples
-load("../data/pbmc_68k.RData")
-samples_68k <- samples
-rm(genes,counts)
+rm(samples,genes,counts)
 ```
 
-Load the $k = 6$ Poisson NMF model fits for both PBMC data sets. In
-the descriptions below, I refer to these Poisson NMF model fits as the
-"purified" and "68k" fits.
+Load the $k = 6$ Poisson NMF model fit.
 
-```{r load-fits}
+```{r load-purified-fit}
 fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
-fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
-colnames(fit_68k$F) <- paste0("k",1:6)
-colnames(fit_68k$L) <- paste0("k",1:6)
 ```
 
-We begin by exploring structure in the data as inferred by the topic
-model. We will visualize this structure by plotting principal
-components (PCs) of the topic proportions. Although PCA is simple, we
-will see that it quite effective, and avoids the complications of the
-popular t-SNE and UMAP nonlinear dimensionality reduction methods.
-
-We begin with the mixture of FACS-purified PBMC data.
+Here we explore the structure of the single-cell data as inferred by
+the topic model. Specifically, we will use PCA to uncover structure in
+the topic proportions. Although PCA is simple, we will see that it
+works well, and avoids the complications of the popular t-SNE and UMAP
+nonlinear dimensionality reduction methods.
 
 ```{r pbmc-purified-clustering-1}
 fit <- poisson2multinom(fit_purified)
 pca <- prcomp(fit$L)$x
 ```
 
-Three large clusters are clearly evident from first two PCs (there is
-also finer-scale structure which we will examine below). We label
-these clusters simply as "A", "B" and "C".
+Three large clusters are evident from first two PCs (there is also
+finer-scale structure which we will examine below). We label these
+clusters as "A", "B" and "C".
 
 ```{r pbmc-purified-clustering-2, fig.width=5, fig.height=4}
 n   <- nrow(pca)
@@ -83,10 +83,10 @@ Most of the samples are in cluster A:
 table(x)
 ```
 
-In cluster C, there are two well-defined subclusters, which we label
-"C1" and "C2". There are perhaps other subclusters that are less
-defined, but we here we ignore this more subtle structure, and focus
-on the most obvious clusters:
+Within cluster C there are two fairly well-defined subclusters
+(labeled "C1" and "C2"). There are perhaps other, less defined
+subclusters that are less defined, but in this analysis we focus on
+the largest, most obvious clusters.
 
 ```{r pbmc-purified-clustering-4, fig.width=5, fig.height=4}
 rows <- which(samples_purified$cluster == "C")
@@ -111,9 +111,12 @@ cluster C:
 table(x)
 ```
 
-Let's now look more closely at cluster A. There is a large, much less
-distinct subcluster, which we label as "A1". Otherwise, there are no
-other clearly distinct clusters.
+Now we turn to cluster A. Within this cluster, there is a large
+subcluster, which we label as "A1". (This cluster is much less
+distinct than the other clusters we have seen so far, and may not show
+up clearly in this plot---you may need to zoom in on the plot to see
+the clustering.) Otherwise, there are is obvious additional clustering
+of the samples within cluster A.
 
 ```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
 rows <- which(samples_purified$cluster == "A")
@@ -130,38 +133,38 @@ p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
 print(p3)
 ```
 
-In summary, we have subdivided these data into 6 clusters:
+In summary, we have subdivided the data into 6 clusters:
 
 ```{r pbmc-purified-clustering-7}
 samples_purified$cluster <- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 ```
 
-The Structure plot provides a visual summary of topic proportions
-in each of these six clusters:
+The structure plot provides an evocative visual summary of topic
+proportions in each of these six clusters:
 
 ```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
 set.seed(1)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
                                 "gray","greenyellow","magenta")
-pbmc_purified_topics <- c(2,5,1,3,4,6)
+pbmc_purified_topics <- c(2,5,3,1,4,6)
 rows <- sort(c(sample(which(samples_purified$cluster == "A1"),250),
                sample(which(samples_purified$cluster == "A2"),1200),
                sample(which(samples_purified$cluster == "B"),250),
                sample(which(samples_purified$cluster == "C1"),250),
-               sample(which(samples_purified$cluster == "C2"),250),
+               sample(which(samples_purified$cluster == "C2"),200),
                sample(which(samples_purified$cluster == "C3"),200)))
 p4 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     gap = 40,num_threads = 4,verbose = FALSE)
+                     gap = 40,num_threads = 4)
 print(p4)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
-the clusters (labeled A1, B, C1, C2). Indeed, they also align closely
-with the FACS-purified data sets:
+the clusters (labeled A1, B, C1, C2). And, indeed, they align closely
+with their inclusion in the indivvidual FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes}
 with(samples_purified,table(celltype,cluster))
@@ -179,7 +182,22 @@ further. Cluster A2---see also the PCA plot above---is a clear example
 where topic modeling is more appropriate than clustering because any
 additional clustering of the data will be arbitrary.
 
-Next, we turn to the 68k fit.
+Unsorted 68k PBMC data
+----------------------
+
+Next, we turn to the 68k data set.
+
+```{r load-68k-data}
+load("../data/pbmc_68k.RData")
+samples_68k <- samples
+rm(samples,genes,counts)
+```
+
+Load the $k = 6$ Poisson NMF model fit.
+
+```{r load-68k-fit}
+fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+```
 
 ```{r pbmc-68k-clustering-1}
 fit <- poisson2multinom(fit_68k)
@@ -286,3 +304,5 @@ Comparison to Zheng et al (2017) cell-type labeling:
 ```{r pbmc-68k-clusters-vs-celltypes}
 with(samples_68k,table(celltype,cluster))
 ```
+
+[zheng-2017]: https://doi.org/10.1038/ncomms14049
