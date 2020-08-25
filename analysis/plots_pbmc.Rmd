@@ -143,7 +143,7 @@ table(samples_purified$cluster)
 The structure plot summarizes the topic proportions in each of these 6
 clusters:
 
-```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
+```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5, message=FALSE}
 set.seed(1)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
                                 "gray","greenyellow","magenta")
@@ -166,7 +166,7 @@ Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
 the clusters (labeled A1, B, C1, C2). And, indeed, they align closely
 with their inclusion in the indivvidual FACS-purified data sets:
 
-```{r pbmc-purified-clusters-vs-celltypes, fig.width=3.5, fig.height=4}
+```{r pbmc-purified-clusters-vs-celltypes, fig.width=4, fig.height=3.5}
 pdat <- as.data.frame(with(samples_purified,table(celltype,cluster)))
 ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = "dodgerblue",show.legend = FALSE) +
