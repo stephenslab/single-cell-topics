@@ -412,16 +412,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2defe6d80efff8e3f48136d45ef1464755c0d740targetblank2defe6da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/2defe6d80efff8e3f48136d45ef1464755c0d740" target="_blank">2defe6d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb731a4a8be11b3d714d52d28a6c7fd9196630e43targetblankb731a4aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b731a4a8be11b3d714d52d28a6c7fd9196630e43" target="_blank">b731a4a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2defe6d80efff8e3f48136d45ef1464755c0d740targetblank2defe6da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb731a4a8be11b3d714d52d28a6c7fd9196630e43targetblankb731a4aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/2defe6d80efff8e3f48136d45ef1464755c0d740" target="_blank">2defe6d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b731a4a8be11b3d714d52d28a6c7fd9196630e43" target="_blank">b731a4a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -440,6 +440,9 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Unstaged changes:
+    Modified:   analysis/plots_pbmc.Rmd
 
 </code></pre>
 <p>
@@ -478,6 +481,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b731a4a8be11b3d714d52d28a6c7fd9196630e43/analysis/plots_tracheal_epithelium.Rmd" target="_blank">b731a4a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c3c1b123eda35d894e3f2ffc836aaec5650530e6/docs/plots_tracheal_epithelium.html" target="_blank">c3c1b12</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1251,6 +1288,7 @@ Peter Carbonetto
 # x
 #    A    B    C    D    E 
 # 6533   50  162  375   73</code></pre>
+<p><em>TO DO: Point out the wide range in cluster sizes.</em></p>
 <p>Cluster A further subdivides into two not-quite-so-distinct subclusters, otherwise there does not appear to be any other interesting substructure to delineate:</p>
 <pre class="r"><code>rows &lt;- which(samples_droplet$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_droplet),loadings = rows)
@@ -1308,7 +1346,7 @@ table(samples_droplet$cluster)
 #   A1   A2    B    C    D    E 
 # 3968 2565   50  162  375   73</code></pre>
 <p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
-<pre class="r"><code>set.seed(2)
+<pre class="r"><code>set.seed(1)
 droplet_topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;turquoise&quot;,&quot;greenyellow&quot;,
                           &quot;forestgreen&quot;,&quot;firebrick&quot;,&quot;olivedrab&quot;)
 droplet_topics &lt;- c(1,3,7,4,5,6,2)
@@ -1317,7 +1355,7 @@ rows &lt;- sort(c(sample(which(samples_droplet$cluster == &quot;A1&quot;),800),
                which(samples_droplet$cluster == &quot;B&quot;),
                which(samples_droplet$cluster == &quot;C&quot;),
                sample(which(samples_droplet$cluster == &quot;D&quot;),200),
-               which(samples_droplet$cluster == &quot;E&quot;),200))
+               which(samples_droplet$cluster == &quot;E&quot;)))
 p4 &lt;- structure_plot(select(poisson2multinom(fit_droplet),loadings = rows),
                      grouping = samples_droplet[rows,&quot;cluster&quot;],
                      topics = droplet_topics,
@@ -1376,114 +1414,152 @@ p5 &lt;- ggplot(pdat,aes(x = cluster,y = tissue,size = Freq)) +
   theme_cowplot(font_size = 10)
 print(p5)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/droplet-clusters-vs-celltypes-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-droplet-clusters-vs-celltypes-1">
+Past versions of droplet-clusters-vs-celltypes-1.png
+</button>
+</p>
+<div id="fig-droplet-clusters-vs-celltypes-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c3c1b123eda35d894e3f2ffc836aaec5650530e6/docs/figure/plots_tracheal_epithelium.Rmd/droplet-clusters-vs-celltypes-1.png" target="_blank">c3c1b12</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="pulse-seq-data" class="section level2">
 <h2>Pulse-seq data</h2>
+<p>Next, we turn to the larger pulse-seq data set.</p>
 <pre class="r"><code>load(&quot;../data/pulseseq.RData&quot;)
 samples_pulseseq &lt;- samples
+x &lt;- as.character(samples_pulseseq$tissue)
+x[x == &quot;club (hillock-associated)&quot;] &lt;- &quot;hillock&quot;
+x[x == &quot;goblet.1&quot;]          &lt;- &quot;goblet&quot;
+x[x == &quot;goblet.2&quot;]          &lt;- &quot;goblet&quot;
+x[x == &quot;goblet.progenitor&quot;] &lt;- &quot;goblet&quot;
+x[x == &quot;tuft.1&quot;]            &lt;- &quot;tuft&quot;
+x[x == &quot;tuft.2&quot;]            &lt;- &quot;tuft&quot;
+x[x == &quot;tuft.progenitor&quot;]   &lt;- &quot;tuft&quot;
+samples_pulseseq$tissue &lt;- factor(x)
 rm(samples,counts)</code></pre>
-<p>Load the <span class="math inline">\(k = 9\)</span> and <span class="math inline">\(k = 11\)</span> Poisson NMF fits for the pulse-seq data.</p>
-<pre class="r"><code>fit_pulseseq9 &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds&quot;)$fit
-fit_pulseseq11 &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit</code></pre>
-<p>Likewise, we also pick up rare and abundant topics in the pulse-seq data:</p>
-<pre class="r"><code>p2 &lt;- create_abundance_plot(fit_pulseseq)
-print(p2)</code></pre>
-<pre class="r"><code>temp &lt;- select(poisson2multinom(fit_droplet),
-               loadings = which(samples_droplet$tissue == &quot;Ionocyte&quot;))
-structure_plot(temp,rows = order(temp$L[,3]),
-                      topics = topic_ordering,
-                      colors = droplet_topic_colors[topic_ordering])
-temp2 &lt;- select(poisson2multinom(fit_droplet),
-                loadings = which(samples_droplet$tissue == &quot;Tuft&quot;))
-structure_plot(temp2,perplexity = 30,
-               topics = topic_ordering,
-               colors = droplet_topic_colors[topic_ordering])
-temp3 &lt;- select(poisson2multinom(fit_droplet),
-                loadings = which(samples_droplet$tissue == &quot;Neuroendocrine&quot;))
-structure_plot(temp3,perplexity = 30,
-               topics = topic_ordering,
-               colors = droplet_topic_colors[topic_ordering])</code></pre>
-<p>It is helpful to compare these results with clustering reported in the Montoro <em>et al</em> (2018) paper. To make this comparison, we layer the 7 clusters on top of these PCs:</p>
-<pre class="r"><code>droplet_celltype_colors &lt;-
-  c(&quot;royalblue&quot;,      # Basal
-    &quot;firebrick&quot;,      # Ciliated
-    &quot;forestgreen&quot;,    # Club
-    &quot;gold&quot;,           # Goblet
-    &quot;darkmagenta&quot;,    # Ionocyte
-    &quot;darkorange&quot;,     # Neuroendocrine
-    &quot;lightsteelblue&quot;) # Tuft
-p9 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC1&quot;,&quot;PC2&quot;),samples_droplet$tissue,
-                           droplet_celltype_colors) + labs(fill = &quot;celltype&quot;)
-p10 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC4&quot;,&quot;PC5&quot;),samples_droplet$tissue,
-                            droplet_celltype_colors) + labs(fill = &quot;celltype&quot;)
-p11 &lt;- pca_plot_with_labels(fit_droplet,c(&quot;PC5&quot;,&quot;PC6&quot;),samples_droplet$tissue,
-                            droplet_celltype_colors) + labs(fill = &quot;celltype&quot;)
-plot_grid(p9,p10,p11)</code></pre>
-<p><strong>TO DO:</strong> Add Structure plot9s) to compare Montoro <em>et al</em> (2018) clustering.</p>
-<p>And likewise in the pulse-seq data:</p>
-<pre class="r"><code>p5 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC3&quot;,&quot;PC4&quot;))
-p6 &lt;- basic_pca_plot(fit_pulseseq,c(&quot;PC5&quot;,&quot;PC6&quot;))
-plot_grid(p5,p6)</code></pre>
-<pre class="r"><code>ggplot(cbind(pca$x,data.frame(k2 = fit$L[,2])),
-       aes(x = PC1,y = PC2,fill = k2)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k5 = fit$L[,5])),
-       aes(x = PC1,y = PC2,fill = k5)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k6 = fit$L[,6])),
-       aes(x = PC1,y = PC2,fill = k6)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k1 = fit$L[,1])),
-       aes(x = PC5,y = PC6,fill = k1)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)</code></pre>
-<pre class="r"><code>ggplot(cbind(pca$x,data.frame(k3 = fit$L[,3])),
-       aes(x = PC1,y = PC2,fill = k3)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k4 = fit$L[,4])),
-       aes(x = PC1,y = PC2,fill = k4)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)</code></pre>
-<pre class="r"><code>ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
-  geom_point(shape = 21,color = &quot;white&quot;,,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)</code></pre>
-<pre class="r"><code>clrs &lt;- c(&quot;royalblue&quot;,      # basal
-          &quot;firebrick&quot;,      # ciliated
-          &quot;forestgreen&quot;,    # club
-          &quot;gold&quot;,           # goblet
-          &quot;darkmagenta&quot;,    # ionocyte
-          &quot;darkorange&quot;,     # neuroendocrine
-          &quot;tomato&quot;,         # proliferating
-          &quot;darkgray&quot;)       # tuft
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
-  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
-  geom_point(shape = 21,color = &quot;white&quot;,,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)</code></pre>
+<p>Load the <span class="math inline">\(k = 11\)</span> Poisson NMF fits for the pulse-seq data.</p>
+<pre class="r"><code>fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit</code></pre>
+<p>Like the droplet data, we also pick up rare and abundant topics in the pulse-seq data:</p>
+<pre class="r"><code>p6 &lt;- create_abundance_plot(fit_pulseseq)
+print(p6)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/abundance-plot-pulseseq-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Following the steps taken for the droplet data, next we compute PCs, and inspect the projection of the samples onto PCs to identify clusters.</p>
+<pre class="r"><code>fit &lt;- poisson2multinom(fit_pulseseq)
+pca &lt;- prcomp(fit$L)$x</code></pre>
+<p>Here we identify clusters in PCs 3 and 4.</p>
+<pre class="r"><code>n   &lt;- nrow(pca)
+x   &lt;- rep(&quot;C&quot;,n)
+pc3 &lt;- pca[,&quot;PC3&quot;]
+pc4 &lt;- pca[,&quot;PC4&quot;]
+pc5 &lt;- pca[,&quot;PC5&quot;]
+pc6 &lt;- pca[,&quot;PC6&quot;]
+x[5*pc3 + 0.475 &gt; pc4] &lt;- &quot;A&quot;
+x[(pc3 + 0.725)^2 + (pc4 - 0.1)^2 &lt; 0.04] &lt;- &quot;B&quot;
+samples_pulseseq$cluster &lt;- x
+p7 &lt;- pca_plot_with_labels(fit_pulseseq,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p7)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pulseseq-clustering-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>Clustering in PCs 3 and 4 of cluster A:</p>
+<pre class="r"><code>rows &lt;- which(samples_pulseseq$cluster == &quot;A&quot;)
+fit  &lt;- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;A3&quot;,n)
+pc3  &lt;- pca[,&quot;PC3&quot;]
+pc4  &lt;- pca[,&quot;PC4&quot;]
+x[pc4 &lt; 0.3] &lt;- &quot;A1&quot;
+x[pc4 &gt; pc3 + 0.975] &lt;- &quot;A2&quot;
+samples_pulseseq[rows,&quot;cluster&quot;] &lt;- x
+p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p8)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pulseseq-clustering-4-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>Subclustering in PCs 1 and 3 of cluster A3:</p>
+<pre class="r"><code>rows &lt;- which(samples_pulseseq$cluster == &quot;A3&quot;)
+fit  &lt;- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;A3b&quot;,n)
+pc1  &lt;- pca[,&quot;PC1&quot;]
+pc2  &lt;- pca[,&quot;PC2&quot;]
+x[pc1 &lt; 0.08 &amp; pc2 &gt; -0.08] &lt;- &quot;A3a&quot;
+samples_pulseseq[rows,&quot;cluster&quot;] &lt;- x
+p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p9)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pulseseq-clustering-5-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>In summary, we have subdivided the pulse-seq data into 6 subsets. The vast majority of the samples are in cluster A1:</p>
+<pre class="r"><code>samples_pulseseq$cluster &lt;- factor(samples_pulseseq$cluster)
+table(samples_pulseseq$cluster)
+# 
+#    A1    A2   A3a   A3b     B     C 
+# 61360  1291   214   130  2905   365</code></pre>
+<p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
+<pre class="r"><code>set.seed(1)
+pulseseq_topic_colors &lt;- c(&quot;#8dd3c7&quot;,&quot;darkorange&quot;,
+  &quot;#bebada&quot;,&quot;#fb8072&quot;,&quot;#80b1d3&quot;,
+  &quot;#fdb462&quot;,&quot;firebrick&quot;,&quot;#b3de69&quot;,&quot;royalblue&quot;,&quot;forestgreen&quot;,&quot;slategray&quot;)
+pulseseq_topics &lt;- c(1,2,3,4,5,6,7,8,10,11,9)
+rows &lt;- sort(c(sample(which(samples_pulseseq$cluster == &quot;A1&quot;),1200),
+               sample(which(samples_pulseseq$cluster == &quot;A2&quot;),500),
+               which(samples_pulseseq$cluster == &quot;A3a&quot;),
+               which(samples_pulseseq$cluster == &quot;A3b&quot;),
+               sample(which(samples_pulseseq$cluster == &quot;B&quot;),500),
+               which(samples_pulseseq$cluster == &quot;C&quot;)))
+p10 &lt;- structure_plot(select(poisson2multinom(fit_pulseseq),loadings = rows),
+                      grouping = samples_pulseseq[rows,&quot;cluster&quot;],
+                      topics = pulseseq_topics,
+                      colors = pulseseq_topic_colors[pulseseq_topics],
+                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
+# Perplexity automatically changed to 70 because original setting of 100 was too large for the number of samples (214)
+# Perplexity automatically changed to 42 because original setting of 100 was too large for the number of samples (130)
+print(p10)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pulseseq-structure-plot-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>Compare the clusters with the clusters identified by Montoro <em>et al</em> (2018):</p>
+<pre class="r"><code>with(samples_pulseseq,table(tissue,cluster))
+#                 cluster
+# tissue              A1    A2   A3a   A3b     B     C
+#   basal          42071     0     0     8     0    14
+#   ciliated           5     0     0     1  2896   114
+#   club           13549     1     3     5     0    10
+#   goblet           399     0     0     1     0     3
+#   hillock         4129     0     0     0     0     3
+#   ionocyte          53     5   188    29     0     1
+#   neuroendocrine     1   612     9     5     0     3
+#   proliferating   1132     0     3    54     9   215
+#   tuft              21   673    11    27     0     2</code></pre>
+<p><em>Note:</em> The <span class="math inline">\(k = 9\)</span> fit does <em>not</em> have a separate topic for the neuroendocrine/tuft cells.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
