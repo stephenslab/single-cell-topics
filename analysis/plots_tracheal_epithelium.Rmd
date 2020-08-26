@@ -224,7 +224,7 @@ pca <- prcomp(fit$L)$x
 
 Here we identify clusters in PCs 3 and 4.
 
-```{r pulseseq-clustering-2, fig.width=4.5, fig.height=4}
+```{r pulseseq-clustering-2, fig.width=5, fig.height=4}
 n   <- nrow(pca)
 x   <- rep("C",n)
 pc3 <- pca[,"PC3"]
@@ -241,7 +241,7 @@ print(p7)
 
 Clustering in PCs 3 and 4 of cluster A:
 
-```{r pulseseq-clustering-3, fig.width=4.5, fig.height=4}
+```{r pulseseq-clustering-3, fig.width=5, fig.height=4}
 rows <- which(samples_pulseseq$cluster == "A")
 fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -259,7 +259,7 @@ print(p8)
 
 Subclustering in PCs 1 and 3 of cluster A3:
 
-```{r pulseseq-clustering-4, fig.width=4.5, fig.height=4}
+```{r pulseseq-clustering-4, fig.width=5, fig.height=4}
 rows <- which(samples_pulseseq$cluster == "A3")
 fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 pca  <- prcomp(fit$L)$x

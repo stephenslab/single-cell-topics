@@ -51,7 +51,8 @@ Here we explore the structure of the single-cell data as inferred by
 the topic model. Specifically, we will use PCA to uncover structure in
 the topic proportions. Although PCA is simple, we will see that it
 works well, and avoids the complications of the popular t-SNE and UMAP
-nonlinear dimensionality reduction methods.
+nonlinear dimensionality reduction methods. (Note that, since the
+topic proportions sum to 1, there are only 5 PCs to examine, not 6.)
 
 ```{r pbmc-purified-clustering-1}
 fit <- poisson2multinom(fit_purified)
