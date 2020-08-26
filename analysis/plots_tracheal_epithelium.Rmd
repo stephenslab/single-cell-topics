@@ -241,7 +241,7 @@ print(p7)
 
 Clustering in PCs 3 and 4 of cluster A:
 
-```{r pulseseq-clustering-4}
+```{r pulseseq-clustering-3, fig.width=4.5, fig.height=4}
 rows <- which(samples_pulseseq$cluster == "A")
 fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -259,7 +259,7 @@ print(p8)
 
 Subclustering in PCs 1 and 3 of cluster A3:
 
-```{r pulseseq-clustering-5}
+```{r pulseseq-clustering-4, fig.width=4.5, fig.height=4}
 rows <- which(samples_pulseseq$cluster == "A3")
 fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -277,7 +277,7 @@ print(p9)
 In summary, we have subdivided the pulse-seq data into 6 subsets. The
 vast majority of the samples are in cluster A1:
 
-```{r pulseseq-clustering-3}
+```{r pulseseq-clustering-6}
 samples_pulseseq$cluster <- factor(samples_pulseseq$cluster)
 table(samples_pulseseq$cluster)
 ```
