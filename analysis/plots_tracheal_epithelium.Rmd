@@ -100,6 +100,8 @@ The vast majority of the cells are in cluster A:
 table(x)
 ```
 
+*TO DO: Point out the wide range in cluster sizes.*
+
 Cluster A further subdivides into two not-quite-so-distinct
 subclusters, otherwise there does not appear to be any other
 interesting substructure to delineate:
@@ -129,7 +131,7 @@ The structure plot summarizes the topic proportions in each of these 6
 subsets:
 
 ```{r droplet-structure-plot, fig.width=7, fig.height=1.5}
-set.seed(2)
+set.seed(1)
 droplet_topic_colors <- c("gold","royalblue","turquoise","greenyellow",
                           "forestgreen","firebrick","olivedrab")
 droplet_topics <- c(1,3,7,4,5,6,2)
@@ -138,7 +140,7 @@ rows <- sort(c(sample(which(samples_droplet$cluster == "A1"),800),
                which(samples_droplet$cluster == "B"),
                which(samples_droplet$cluster == "C"),
                sample(which(samples_droplet$cluster == "D"),200),
-               which(samples_droplet$cluster == "E"),200))
+               which(samples_droplet$cluster == "E")))
 p4 <- structure_plot(select(poisson2multinom(fit_droplet),loadings = rows),
                      grouping = samples_droplet[rows,"cluster"],
                      topics = droplet_topics,
@@ -180,146 +182,135 @@ print(p5)
 Pulse-seq data
 --------------
 
-```{r load-pulseseq-data, eval=FALSE}
+Next, we turn to the larger pulse-seq data set.
+
+```{r load-pulseseq-data}
 load("../data/pulseseq.RData")
 samples_pulseseq <- samples
+x <- as.character(samples_pulseseq$tissue)
+x[x == "club (hillock-associated)"] <- "hillock"
+x[x == "goblet.1"]          <- "goblet"
+x[x == "goblet.2"]          <- "goblet"
+x[x == "goblet.progenitor"] <- "goblet"
+x[x == "tuft.1"]            <- "tuft"
+x[x == "tuft.2"]            <- "tuft"
+x[x == "tuft.progenitor"]   <- "tuft"
+samples_pulseseq$tissue <- factor(x)
 rm(samples,counts)
 ```
 
-Load the $k = 9$ and $k = 11$ Poisson NMF fits for the pulse-seq data.
+Load the $k = 11$ Poisson NMF fits for the pulse-seq data.
 
-```{r load-pulseseq-fits, eval=FALSE}
-fit_pulseseq9 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=9.rds")$fit
-fit_pulseseq11 <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+```{r load-pulseseq-fits}
+fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 ```
 
-Likewise, we also pick up rare and abundant topics in the pulse-seq
-data:
+Like the droplet data, we also pick up rare and abundant topics in the
+pulse-seq data:
 
-```{r abundancee-plot-pulseseq, fig.width=4, fig.height=2, eval=FALSE}
-p2 <- create_abundance_plot(fit_pulseseq)
-print(p2)
+```{r abundance-plot-pulseseq, fig.width=4, fig.height=2}
+p6 <- create_abundance_plot(fit_pulseseq)
+print(p6)
 ```
 
-```{r, eval=FALSE}
-temp <- select(poisson2multinom(fit_droplet),
-               loadings = which(samples_droplet$tissue == "Ionocyte"))
-structure_plot(temp,rows = order(temp$L[,3]),
-                      topics = topic_ordering,
-					  colors = droplet_topic_colors[topic_ordering])
-temp2 <- select(poisson2multinom(fit_droplet),
-                loadings = which(samples_droplet$tissue == "Tuft"))
-structure_plot(temp2,perplexity = 30,
-               topics = topic_ordering,
-			   colors = droplet_topic_colors[topic_ordering])
-temp3 <- select(poisson2multinom(fit_droplet),
-                loadings = which(samples_droplet$tissue == "Neuroendocrine"))
-structure_plot(temp3,perplexity = 30,
-               topics = topic_ordering,
-			   colors = droplet_topic_colors[topic_ordering])
+Following the steps taken for the droplet data, next we compute PCs,
+and inspect the projection of the samples onto PCs to identify
+clusters.
+
+```{r pulseseq-clustering-1}
+fit <- poisson2multinom(fit_pulseseq)
+pca <- prcomp(fit$L)$x
 ```
 
+Here we identify clusters in PCs 3 and 4.
 
-It is helpful to compare these results with clustering reported in the
-Montoro *et al* (2018) paper. To make this comparison, we layer the 7
-clusters on top of these PCs:
-
-```{r droplet-pca-with-clusters, fig.height=5.25, fig.width=8, eval=FALSE}
-droplet_celltype_colors <-
-  c("royalblue",      # Basal
-    "firebrick",      # Ciliated
-    "forestgreen",    # Club
-    "gold",           # Goblet
-    "darkmagenta",    # Ionocyte
-    "darkorange",     # Neuroendocrine
-    "lightsteelblue") # Tuft
-p9 <- pca_plot_with_labels(fit_droplet,c("PC1","PC2"),samples_droplet$tissue,
-                           droplet_celltype_colors) + labs(fill = "celltype")
-p10 <- pca_plot_with_labels(fit_droplet,c("PC4","PC5"),samples_droplet$tissue,
-                            droplet_celltype_colors) + labs(fill = "celltype")
-p11 <- pca_plot_with_labels(fit_droplet,c("PC5","PC6"),samples_droplet$tissue,
-                            droplet_celltype_colors) + labs(fill = "celltype")
-plot_grid(p9,p10,p11)
+```{r pulseseq-clustering-2, fig.width=4.5, fig.height=4}
+n   <- nrow(pca)
+x   <- rep("C",n)
+pc3 <- pca[,"PC3"]
+pc4 <- pca[,"PC4"]
+pc5 <- pca[,"PC5"]
+pc6 <- pca[,"PC6"]
+x[5*pc3 + 0.475 > pc4] <- "A"
+x[(pc3 + 0.725)^2 + (pc4 - 0.1)^2 < 0.04] <- "B"
+samples_pulseseq$cluster <- x
+p7 <- pca_plot_with_labels(fit_pulseseq,c("PC3","PC4"),x) +
+      labs(fill = "cluster")
+print(p7)
 ```
 
-**TO DO:** Add Structure plot9s) to compare Montoro *et al* (2018) clustering.
+Clustering in PCs 3 and 4 of cluster A:
 
-And likewise in the pulse-seq data:
-
-```{r pulseseq-pca-old, fig.height=2, fig.width=4, eval=FALSE}
-p5 <- basic_pca_plot(fit_pulseseq,c("PC3","PC4"))
-p6 <- basic_pca_plot(fit_pulseseq,c("PC5","PC6"))
-plot_grid(p5,p6)
+```{r pulseseq-clustering-4}
+rows <- which(samples_pulseseq$cluster == "A")
+fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A3",n)
+pc3  <- pca[,"PC3"]
+pc4  <- pca[,"PC4"]
+x[pc4 < 0.3] <- "A1"
+x[pc4 > pc3 + 0.975] <- "A2"
+samples_pulseseq[rows,"cluster"] <- x
+p8 <- pca_plot_with_labels(fit,c("PC3","PC4"),x) +
+      labs(fill = "cluster")
+print(p8)
 ```
 
-```{r droplet-pca-with-topics-4, eval=FALSE}
-ggplot(cbind(pca$x,data.frame(k2 = fit$L[,2])),
-       aes(x = PC1,y = PC2,fill = k2)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k5 = fit$L[,5])),
-       aes(x = PC1,y = PC2,fill = k5)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k6 = fit$L[,6])),
-       aes(x = PC1,y = PC2,fill = k6)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k1 = fit$L[,1])),
-       aes(x = PC5,y = PC6,fill = k1)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
+Subclustering in PCs 1 and 3 of cluster A3:
+
+```{r pulseseq-clustering-5}
+rows <- which(samples_pulseseq$cluster == "A3")
+fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A3b",n)
+pc1  <- pca[,"PC1"]
+pc2  <- pca[,"PC2"]
+x[pc1 < 0.08 & pc2 > -0.08] <- "A3a"
+samples_pulseseq[rows,"cluster"] <- x
+p9 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p9)
 ```
 
-```{r, eval=FALSE}
-ggplot(cbind(pca$x,data.frame(k3 = fit$L[,3])),
-       aes(x = PC1,y = PC2,fill = k3)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(pca$x,data.frame(k4 = fit$L[,4])),
-       aes(x = PC1,y = PC2,fill = k4)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 0.5) +
-  theme_cowplot(font_size = 12)
+In summary, we have subdivided the pulse-seq data into 6 subsets. The
+vast majority of the samples are in cluster A1:
+
+```{r pulseseq-clustering-3}
+samples_pulseseq$cluster <- factor(samples_pulseseq$cluster)
+table(samples_pulseseq$cluster)
 ```
 
-```{r, eval=FALSE}
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
-  geom_point(shape = 21,color = "white",,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
+The structure plot summarizes the topic proportions in each of these 6
+subsets:
+
+```{r pulseseq-structure-plot, fig.width=7.5, fig.height=1.5}
+set.seed(1)
+pulseseq_topic_colors <- c("#8dd3c7","darkorange",
+  "#bebada","#fb8072","#80b1d3",
+  "#fdb462","firebrick","#b3de69","royalblue","forestgreen","slategray")
+pulseseq_topics <- c(1,2,3,4,5,6,7,8,10,11,9)
+rows <- sort(c(sample(which(samples_pulseseq$cluster == "A1"),1200),
+               sample(which(samples_pulseseq$cluster == "A2"),500),
+               which(samples_pulseseq$cluster == "A3a"),
+               which(samples_pulseseq$cluster == "A3b"),
+               sample(which(samples_pulseseq$cluster == "B"),500),
+               which(samples_pulseseq$cluster == "C")))
+p10 <- structure_plot(select(poisson2multinom(fit_pulseseq),loadings = rows),
+                      grouping = samples_pulseseq[rows,"cluster"],
+                      topics = pulseseq_topics,
+   					  colors = pulseseq_topic_colors[pulseseq_topics],
+                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
+print(p10)
 ```
 
-```{r, eval=FALSE}
-clrs <- c("royalblue",      # basal
-          "firebrick",      # ciliated
-          "forestgreen",    # club
-	      "gold",           # goblet
-		  "darkmagenta",    # ionocyte
-          "darkorange",     # neuroendocrine
-		  "tomato",         # proliferating
-		  "darkgray")       # tuft
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC1,y = PC2,fill = tissue)) +
-  geom_point(shape = 21,color = "white",size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
-ggplot(cbind(samples_droplet,pca$x),aes(x = PC5,y = PC6,fill = tissue)) +
-  geom_point(shape = 21,color = "white",,size = 2) +
-  scale_fill_manual(values = clrs) +
-  theme_cowplot(font_size = 12)
+Compare the clusters with the clusters identified by Montoro *et al*
+(2018):
+
+```{r pulseseq-clusters-vs-celltypes}
+with(samples_pulseseq,table(tissue,cluster))
 ```
+
+*Note:* The $k = 9$ fit does *not* have a separate topic for the
+neuroendocrine/tuft cells.
