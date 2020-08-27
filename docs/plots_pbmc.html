@@ -414,22 +414,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6507d90c6920dcf58f15c18a639dfbe4a2412266targetblank6507d90a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6507d90c6920dcf58f15c18a639dfbe4a2412266" target="_blank">6507d90</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8bfc9089f5f2eef21ae638c42df50e5daa51fde4targetblank8bfc908a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8bfc9089f5f2eef21ae638c42df50e5daa51fde4" target="_blank">8bfc908</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6507d90c6920dcf58f15c18a639dfbe4a2412266targetblank6507d90a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8bfc9089f5f2eef21ae638c42df50e5daa51fde4targetblank8bfc908a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6507d90c6920dcf58f15c18a639dfbe4a2412266" target="_blank">6507d90</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8bfc9089f5f2eef21ae638c42df50e5daa51fde4" target="_blank">8bfc908</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -480,6 +481,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8bfc9089f5f2eef21ae638c42df50e5daa51fde4/analysis/plots_pbmc.Rmd" target="_blank">8bfc908</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d4f9ec757dfc4121de56185b8a878f1eecd8f178/analysis/plots_pbmc.Rmd" target="_blank">d4f9ec7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+A couple small edits to the text in plots_pbmc.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/30d2ef1fa568ca329fe63d8bc498c3dec56ad55e/docs/plots_pbmc.html" target="_blank">30d2ef1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Added hex plot to plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1526,7 +1578,8 @@ rm(samples,genes,counts)</code></pre>
 <p>Here, we explore the structure of the single-cell data as inferred by the topic model. Specifically, we use PCA to uncover structure in the estimated topic proportions of the multinomial topic model. Although PCA is simple, we will see that it works well, both for visualization and identifying clusters, and avoids the complications of the popular <em>t</em>-SNE and UMAP nonlinear dimensionality reduction methods. (Note that, since the topic proportions sum to 1, there are only 5 PCs to examine, not 6.)</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_purified)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>Three large clusters are evident from first two PCs. We label the three large clusters as “A”, “B” and “C”. Since there are so many samples, the scatterplot suffers from “overplotting”, so it also helpful to view this PC projection as a density plot (“hex plot”).</p>
+<p>Three large clusters are evident from first two PCs. We label the three large clusters as “A”, “B” and “C”.</p>
+<p>Since there are so many samples, the scatterplot suffers from “overplotting”. So it also helpful to view this PC projection as a density plot.</p>
 <pre class="r"><code>n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;C&quot;,n)
 pc1 &lt;- pca[,&quot;PC1&quot;]
@@ -1565,6 +1618,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/30d2ef1fa568ca329fe63d8bc498c3dec56ad55e/docs/figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" target="_blank">30d2ef1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" target="_blank">7900d17</a>
 </td>
 <td>
@@ -1589,23 +1653,15 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>A small number of outlying data points do not seem to belong to any the three clusters, or they fall in between the clusters. For these data points, we assign them rather arbitrarily to one of the three clusters.</p>
-<p>There also appears to be finer scale structure. We will examine this finer scale structure below.</p>
-<pre class="r"><code>pdat &lt;- as.data.frame(pca)
-p2 &lt;- ggplot(pdat,aes(x = PC1,y = PC2,
-             fill = cut(..count..,c(0,1,10,100,1000,Inf)))) +
-  stat_bin_hex(bins = 40) +
-  scale_fill_manual(values = c(&quot;gainsboro&quot;,&quot;lightskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,
-                               &quot;magenta&quot;)) +     
-  labs(fill = &quot;count&quot;) +
-  theme_cowplot(font_size = 10)</code></pre>
 <p>Most of the samples are in cluster A:</p>
 <pre class="r"><code>table(x)
 # x
 #     A     B     C 
 # 72614 10439 11602</code></pre>
-<p>Note that other PCs beyond the first two may also sometimes reveal additional clustering, and we will see examples of this in the 68k PBMC data.</p>
-<p>Within cluster C there are two fairly well-defined subclusters (labeled “C1” and “C2”). There are perhaps other, less defined subclusters that are less defined, but in this analysis we focus on the largest, most obvious clusters.</p>
+<p>A small number of outlying data points do not seem to belong to any the three clusters, or they fall in between the clusters. For these data points, we assign them (rather arbitrarily) to one of the three clusters.</p>
+<p>From these plots, there also also appears to be finer scale structure. For example, judging by the density plot, cluster A appears to split into two subclusters. We will examine this finer scale structure below.</p>
+<p>Also note that other PCs beyond the first two may also sometimes reveal additional clustering, and we will see examples of this in the 68k PBMC data.</p>
+<p>Within cluster C, there are two mostly well-defined subclusters (labeled “C1” and “C2”). There appear to be at least a couple other smaller, less well-defined subclusters, but in this analysis we focus on the largest, most obvious clusters.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;C&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -1614,12 +1670,13 @@ x    &lt;- rep(&quot;C3&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;C1&quot;
-x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.3] &lt;- &quot;C2&quot;
+x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.15] &lt;- &quot;C2&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
-p2 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p3 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p2)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+p4 &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),bins = c(0,1,5,10,100,Inf))
+plot_grid(p3,p4,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-4-1">
 Past versions of pbmc-purified-clustering-4-1.png
@@ -1657,13 +1714,12 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The two subclusters, C1 and C2, account for most of the samples in cluster C.</p>
-<p>TO DO: Mention idea of a “background cluster”—a third subset of samples that do not fit well in the two clusters.</p>
+<p>The two subclusters, C1 and C2, account for most of the samples in cluster C. We also define a third subset, C3—a “background cluster”—containing all the samples that were not assigned to C1 or C2.</p>
 <pre class="r"><code>table(x)
 # x
 #   C1   C2   C3 
-# 7822 2990  790</code></pre>
-<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”. (This cluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this plot—you may need to zoom in on the plot to see the clustering.) Otherwise, there is no obvious additional clustering of the samples within cluster A.</p>
+# 7822 2909  871</code></pre>
+<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”; the subset of samples that are not assigned to this cluster are labeled “A2”. (The A1 subcluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this scatterplot—it is more apparent from the density plot.) Otherwise, there is no obvious additional clustering of the samples within cluster A.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -1671,12 +1727,13 @@ n    &lt;- nrow(fit$L)
 x    &lt;- rep(&quot;A2&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
-x[pc1 &gt; 0.58 - pc2 | pc1 &gt; 0.7] &lt;- &quot;A1&quot;
+x[pc1 &gt; 0.55 - pc2 | pc1 &gt; 0.65] &lt;- &quot;A1&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
-p3 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p5 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p3)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
+p6 &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;))
+plot_grid(p5,p6,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-6-1">
 Past versions of pbmc-purified-clustering-6-1.png
@@ -1730,8 +1787,8 @@ Peter Carbonetto
 table(samples_purified$cluster)
 # 
 #    A1    A2     B    C1    C2    C3 
-#  8271 64343 10439  7822  2990   790</code></pre>
-<p>We also inspected principal components individually in each of these 6 clusters and we did not find any of clear examples of subclustering withing these clusters.</p>
+#  8352 64262 10439  7822  2909   871</code></pre>
+<p>We also inspected principal components individually in each of these 6 clusters and we did not find any of clear-cut examples of subclustering withing these clusters.</p>
 <p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
@@ -2426,6 +2483,43 @@ p11 &lt;- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   theme_cowplot(font_size = 10)
 print(p11)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clusters-vs-celltypes-1">
+Past versions of pbmc-68k-clusters-vs-celltypes-1.png
+</button>
+</p>
+<div id="fig-pbmc-68k-clusters-vs-celltypes-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/30d2ef1fa568ca329fe63d8bc498c3dec56ad55e/docs/figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes-1.png" target="_blank">30d2ef1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>A few notes about these results:</p>
 <ul>
 <li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match.</p></li>
