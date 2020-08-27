@@ -62,9 +62,11 @@ pca <- prcomp(fit$L)$x
 ```
 
 Three large clusters are evident from first two PCs.  We label the
-three large clusters as "A", "B" and "C". Since there are so many
-samples, the scatterplot suffers from "overplotting", so it also
-helpful to view this PC projection as a density plot ("hex plot").
+three large clusters as "A", "B" and "C".
+
+Since there are so many samples, the scatterplot suffers from
+"overplotting", so it also helpful to view this PC projection as a
+density plot (a "hex plot").
 
 ```{r pbmc-purified-clustering-2, fig.width=8, fig.height=3}
 n   <- nrow(pca)
