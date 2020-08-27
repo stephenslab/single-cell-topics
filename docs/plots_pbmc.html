@@ -285,7 +285,9 @@ $(document).ready(function () {
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        
+        <li>
+  <a href="https://github.com/stephenslab/single-cell-topics">source</a>
+</li>
       </ul>
     </div><!--/.nav-collapse -->
   </div><!--/.container -->
@@ -321,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-25
+<strong>Last updated:</strong> 2020-08-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -412,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0ca90f127afa06582b290f3cc36fa16296ca446etargetblank0ca90f1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0ca90f127afa06582b290f3cc36fa16296ca446e" target="_blank">0ca90f1</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6507d90c6920dcf58f15c18a639dfbe4a2412266targetblank6507d90a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6507d90c6920dcf58f15c18a639dfbe4a2412266" target="_blank">6507d90</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0ca90f127afa06582b290f3cc36fa16296ca446etargetblank0ca90f1a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6507d90c6920dcf58f15c18a639dfbe4a2412266targetblank6507d90a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0ca90f127afa06582b290f3cc36fa16296ca446e" target="_blank">0ca90f1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6507d90c6920dcf58f15c18a639dfbe4a2412266" target="_blank">6507d90</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -478,6 +480,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6507d90c6920dcf58f15c18a639dfbe4a2412266/analysis/plots_pbmc.Rmd" target="_blank">6507d90</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3ab7da1135c1021866310fb12a88c4ad3b237395/analysis/plots_pbmc.Rmd" target="_blank">3ab7da1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+A few minor edits.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/2defe6d80efff8e3f48136d45ef1464755c0d740/analysis/plots_pbmc.Rmd" target="_blank">2defe6d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Added crosstab plot to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e23f091213b96c5b85f281bcf199e157fca39265/docs/plots_pbmc.html" target="_blank">e23f091</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-25
+</td>
+<td>
+Added a few more notes to plots_pbmc.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1437,7 +1507,7 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 </div>
 </div>
 </div>
-<p>Here we closely examine, and compare, the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data and the “unsorted” 68k PBMC data. The goal is to illustrate how the topic models fitted to these data sets can be used to learn about the structure in the data, including identifying clusters, and interpret the clusters and topics as “cell types” or “gene programs”.</p>
+<p>Here we examine and compare the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data sets, and the “unsorted” 68k PBMC data. The goal of this analysis is to illustrate how the topic models fitted to these data sets can be used to learn about structure in the data. In particular, we would like to identify clusters, and interpret clusters and topics as “cell types” or “gene expression programs”.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that will be used to generate some of the plots.</p>
 <pre class="r"><code>library(dplyr)
 library(fastTopics)
@@ -1453,10 +1523,10 @@ rm(samples,genes,counts)</code></pre>
 <p>Load the <span class="math inline">\(k = 6\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit_purified &lt;-
   readRDS(&quot;../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds&quot;)$fit</code></pre>
-<p>Here we explore the structure of the single-cell data as inferred by the topic model. Specifically, we will use PCA to uncover structure in the topic proportions. Although PCA is simple, we will see that it works well, and avoids the complications of the popular t-SNE and UMAP nonlinear dimensionality reduction methods.</p>
+<p>Here, we explore the structure of the single-cell data as inferred by the topic model. Specifically, we use PCA to uncover structure in the estimated topic proportions of the multinomial topic model. Although PCA is simple, we will see that it works well, both for visualization and identifying clusters, and avoids the complications of the popular <em>t</em>-SNE and UMAP nonlinear dimensionality reduction methods. (Note that, since the topic proportions sum to 1, there are only 5 PCs to examine, not 6.)</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_purified)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>Three large clusters are evident from first two PCs (there is also finer-scale structure which we will examine below). We label these clusters as “A”, “B” and “C”.</p>
+<p>Three large clusters are evident from first two PCs. We label the three large clusters as “A”, “B” and “C”. Since there are so many samples, the scatterplot suffers from “overplotting”, so it also helpful to view this PC projection as a density plot (“hex plot”).</p>
 <pre class="r"><code>n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;C&quot;,n)
 pc1 &lt;- pca[,&quot;PC1&quot;]
@@ -1468,8 +1538,9 @@ samples_purified$cluster &lt;- x
 p1 &lt;- pca_plot_with_labels(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;),
                            samples_purified$cluster) +
       labs(fill = &quot;cluster&quot;)
-print(p1)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
+p2 &lt;- pca_hex_plot(fit_purified,c(&quot;PC1&quot;,&quot;PC2&quot;))
+plot_grid(p1,p2,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clustering-2-1">
 Past versions of pbmc-purified-clustering-2-1.png
@@ -1518,6 +1589,16 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>A small number of outlying data points do not seem to belong to any the three clusters, or they fall in between the clusters. For these data points, we assign them rather arbitrarily to one of the three clusters.</p>
+<p>There also appears to be finer scale structure. We will examine this finer scale structure below.</p>
+<pre class="r"><code>pdat &lt;- as.data.frame(pca)
+p2 &lt;- ggplot(pdat,aes(x = PC1,y = PC2,
+             fill = cut(..count..,c(0,1,10,100,1000,Inf)))) +
+  stat_bin_hex(bins = 40) +
+  scale_fill_manual(values = c(&quot;gainsboro&quot;,&quot;lightskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,
+                               &quot;magenta&quot;)) +     
+  labs(fill = &quot;count&quot;) +
+  theme_cowplot(font_size = 10)</code></pre>
 <p>Most of the samples are in cluster A:</p>
 <pre class="r"><code>table(x)
 # x
@@ -1576,7 +1657,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The two subclusters, C1 and C2, account for most of the samples in cluster C:</p>
+<p>The two subclusters, C1 and C2, account for most of the samples in cluster C.</p>
+<p>TO DO: Mention idea of a “background cluster”—a third subset of samples that do not fit well in the two clusters.</p>
 <pre class="r"><code>table(x)
 # x
 #   C1   C2   C3 
@@ -1818,10 +1900,11 @@ Peter Carbonetto
 </div>
 <p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with clusters (labeled A1, B, C1, C2). And, indeed, they align closely with their inclusion in the individual FACS-purified data sets:</p>
 <pre class="r"><code>pdat &lt;- as.data.frame(with(samples_purified,table(celltype,cluster)))
-ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
+p5 &lt;- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = &quot;dodgerblue&quot;,na.rm = TRUE,show.legend = FALSE) +
   ylim(rev(levels(samples_purified$celltype))) +
-  theme_cowplot(font_size = 10)</code></pre>
+  theme_cowplot(font_size = 10)
+print(p5)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clusters-vs-celltypes-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-clusters-vs-celltypes-1">
@@ -1909,9 +1992,9 @@ pc4 &lt;- pca[,&quot;PC4&quot;]
 x[pc4 &lt; -0.13 | pc3/1.9 - 0.17 &gt; pc4] &lt;- &quot;B&quot;
 x[pc4 &lt; -0.75] &lt;- &quot;C&quot;
 samples_68k$cluster &lt;- x
-p5 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+p6 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p5)</code></pre>
+print(p6)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-2-1">
@@ -2020,9 +2103,9 @@ pc1  &lt;- pca[,&quot;PC1&quot;]
 x[pc1 &gt; -0.05] &lt;- &quot;B1&quot;
 x[pc1 &lt; -0.3] &lt;- &quot;B2&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p6 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p7 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p6)</code></pre>
+print(p7)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-4-1">
@@ -2083,9 +2166,9 @@ pc2  &lt;- pca[,&quot;PC2&quot;]
 x[pc2 &gt; -0.02 &amp; pc1 &gt; -0.25] &lt;- &quot;B1a&quot;
 x[pc1 &gt; 0.1 &amp; pc2 &lt; 0.05 &amp; pc2 &gt; -0.225] &lt;- &quot;B1b&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p7 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p7)</code></pre>
+print(p8)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-5-1">
@@ -2157,9 +2240,9 @@ pc3  &lt;- pca[,&quot;PC3&quot;]
 x[2.5*pc3 &lt; 0.3 - pc2] &lt;- &quot;A1&quot;
 x[pc3 &gt; 0.8 - pc2] &lt;- &quot;A2&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p7 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
+p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p7)</code></pre>
+print(p9)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-6-1">
@@ -2224,13 +2307,13 @@ rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1&quot;),1200),
                sample(which(samples_68k$cluster == &quot;B2&quot;),300),
                which(samples_68k$cluster == &quot;B3&quot;),
                which(samples_68k$cluster == &quot;C&quot;)))
-p8 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
-                     grouping = samples_68k[rows,&quot;cluster&quot;],
-                     topics = pbmc_68k_topics,
-                     colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                     perplexity = c(100,100,50,100,80,80,80,80,50),
-                     n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
-print(p8)</code></pre>
+p10 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+                      grouping = samples_68k[rows,&quot;cluster&quot;],
+                      topics = pbmc_68k_topics,
+                      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
+                      perplexity = c(100,100,50,100,80,80,80,80,50),
+                      n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
+print(p10)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
@@ -2337,48 +2420,12 @@ Peter Carbonetto
 </div>
 <p>These subsets do not align as closely with the cell-type labeling inferred by Zheng et al (2017), which is not surprising considering that this labeling is based on the FACS-purified data set.</p>
 <pre class="r"><code>pdat &lt;- as.data.frame(with(samples_68k,table(celltype,cluster)))
-ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
+p11 &lt;- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
   geom_point(color = &quot;dodgerblue&quot;,na.rm = TRUE,show.legend = FALSE) +
   ylim(rev(levels(samples_purified$celltype))) +
-  theme_cowplot(font_size = 10)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes,-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clusters-vs-celltypes,-1">
-Past versions of pbmc-68k-clusters-vs-celltypes,-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-clusters-vs-celltypes,-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/399c5976cb5d054fae7e214567e39a71315ce0aa/docs/figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes,-1.png" target="_blank">399c597</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-25
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+  theme_cowplot(font_size = 10)
+print(p11)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>A few notes about these results:</p>
 <ul>
 <li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match.</p></li>
@@ -2420,22 +2467,22 @@ Peter Carbonetto
 # [13] evaluate_0.14        coda_0.19-3          httr_1.4.1          
 # [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
 # [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
-# [22] SparseM_1.78         whisker_0.4          Matrix_1.2-18       
-# [25] rmarkdown_2.3        labeling_0.3         Rtsne_0.15          
-# [28] stringr_1.4.0        htmlwidgets_1.5.1    munsell_0.5.0       
-# [31] compiler_3.6.2       httpuv_1.5.2         xfun_0.11           
-# [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
-# [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
-# [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
-# [43] withr_2.1.2          later_1.0.0          MASS_7.3-51.4       
-# [46] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
-# [49] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
-# [52] scales_1.1.0         RcppParallel_5.0.2   stringi_1.4.3       
-# [55] farver_2.0.1         fs_1.3.1             promises_1.1.0      
-# [58] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
-# [61] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
-# [64] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
-# [67] quantreg_5.54        MCMCpack_1.4-5</code></pre>
+# [22] SparseM_1.78         hexbin_1.28.0        whisker_0.4         
+# [25] Matrix_1.2-18        rmarkdown_2.3        labeling_0.3        
+# [28] Rtsne_0.15           stringr_1.4.0        htmlwidgets_1.5.1   
+# [31] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
+# [34] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
+# [37] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
+# [40] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
+# [43] crayon_1.3.4         withr_2.1.2          later_1.0.0         
+# [46] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
+# [49] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
+# [52] magrittr_1.5         scales_1.1.0         RcppParallel_5.0.2  
+# [55] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
+# [58] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
+# [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
+# [64] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
+# [67] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 </div>
 
