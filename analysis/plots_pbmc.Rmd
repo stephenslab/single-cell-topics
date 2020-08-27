@@ -65,8 +65,8 @@ Three large clusters are evident from first two PCs.  We label the
 three large clusters as "A", "B" and "C".
 
 Since there are so many samples, the scatterplot suffers from
-"overplotting", so it also helpful to view this PC projection as a
-density plot (a "hex plot").
+"overplotting". So it also helpful to view this PC projection as a
+density plot.
 
 ```{r pbmc-purified-clustering-2, fig.width=8, fig.height=3}
 n   <- nrow(pca)
@@ -84,41 +84,32 @@ p2 <- pca_hex_plot(fit_purified,c("PC1","PC2"))
 plot_grid(p1,p2,rel_widths = c(9,10))
 ```
 
-A small number of outlying data points do not seem to belong to any
-the three clusters, or they fall in between the clusters. For these
-data points, we assign them rather arbitrarily to one of the three
-clusters.
-
-There also appears to be finer scale structure. We will examine this
-finer scale structure below.
-
-```{r}
-pdat <- as.data.frame(pca)
-p2 <- ggplot(pdat,aes(x = PC1,y = PC2,
-             fill = cut(..count..,c(0,1,10,100,1000,Inf)))) +
-  stat_bin_hex(bins = 40) +
-  scale_fill_manual(values = c("gainsboro","lightskyblue","gold","orange",
-                               "magenta")) +	 
-  labs(fill = "count") +
-  theme_cowplot(font_size = 10)
-```
-
 Most of the samples are in cluster A:
 
 ```{r pbmc-purified-clustering-3}
 table(x)
 ```
 
-Note that other PCs beyond the first two may also sometimes reveal
-additional clustering, and we will see examples of this in the 68k
-PBMC data.
+A small number of outlying data points do not seem to belong to any
+the three clusters, or they fall in between the clusters. For these
+data points, we assign them (rather arbitrarily) to one of the three
+clusters.
 
-Within cluster C there are two fairly well-defined subclusters
-(labeled "C1" and "C2"). There are perhaps other, less defined
-subclusters that are less defined, but in this analysis we focus on
-the largest, most obvious clusters.
+From these plots, there also also appears to be finer scale structure.
+For example, judging by the density plot, cluster A appears to split
+into two subclusters. We will examine this finer scale structure
+below.
 
-```{r pbmc-purified-clustering-4, fig.width=5, fig.height=4}
+Also note that other PCs beyond the first two may also sometimes
+reveal additional clustering, and we will see examples of this in the
+68k PBMC data.
+
+Within cluster C, there are two mostly well-defined subclusters
+(labeled "C1" and "C2"). There appear to be at least a couple other
+smaller, less well-defined subclusters, but in this analysis we focus
+on the largest, most obvious clusters.
+
+```{r pbmc-purified-clustering-4, fig.width=8, fig.height=3}
 rows <- which(samples_purified$cluster == "C")
 fit  <- select(poisson2multinom(fit_purified),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -127,31 +118,32 @@ x    <- rep("C3",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
 x[pc1 < 0 & pc2 < 0.4] <- "C1"
-x[pc1 > 0.5 & pc2 < 0.3] <- "C2"
+x[pc1 > 0.5 & pc2 < 0.15] <- "C2"
 samples_purified[rows,"cluster"] <- x
-p2 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p2)
+p4 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,5,10,100,Inf))
+plot_grid(p3,p4,rel_widths = c(9,10))
 ```
 
 The two subclusters, C1 and C2, account for most of the samples in
-cluster C.
-
-TO DO: Mention idea of a "background cluster"---a third subset of
-samples that do not fit well in the two clusters.
+cluster C. We also define a third subset, C3---a "background
+cluster"---containing all the samples that were not assigned to C1 or
+C2.
 
 ```{r pbmc-purified-clustering-5}
 table(x)
 ```
 
 Now we turn to cluster A. Within this cluster, there is a large
-subcluster, which we label as "A1". (This cluster is much less
-distinct than the other clusters we have seen so far, and may not show
-up clearly in this plot---you may need to zoom in on the plot to see
-the clustering.) Otherwise, there is no obvious additional clustering
-of the samples within cluster A.
+subcluster, which we label as "A1"; the subset of samples that are not
+assigned to this cluster are labeled "A2". (The A1 subcluster is much
+less distinct than the other clusters we have seen so far, and may not
+show up clearly in this scatterplot---it is more apparent from the
+density plot.) Otherwise, there is no obvious additional clustering of
+the samples within cluster A.
 
-```{r pbmc-purified-clustering-6, fig.width=5, fig.height=4}
+```{r pbmc-purified-clustering-6, fig.width=8, fig.height=3}
 rows <- which(samples_purified$cluster == "A")
 fit  <- select(poisson2multinom(fit_purified),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -159,11 +151,12 @@ n    <- nrow(fit$L)
 x    <- rep("A2",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
-x[pc1 > 0.58 - pc2 | pc1 > 0.7] <- "A1"
+x[pc1 > 0.55 - pc2 | pc1 > 0.65] <- "A1"
 samples_purified[rows,"cluster"] <- x
-p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p3)
+p6 <- pca_hex_plot(fit,c("PC1","PC2"))
+plot_grid(p5,p6,rel_widths = c(9,10))
 ```
 
 In summary, we have subdivided the data into 6 subsets:
@@ -174,7 +167,7 @@ table(samples_purified$cluster)
 ```
 
 We also inspected principal components individually in each of these 6
-clusters and we did not find any of clear examples of subclustering
+clusters and we did not find any of clear-cut examples of subclustering
 withing these clusters.
 
 The structure plot summarizes the topic proportions in each of these 6
