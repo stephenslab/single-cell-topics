@@ -37,3 +37,20 @@ pca_plot_with_labels <-
          scale_fill_manual(values = colors) +
          theme_cowplot(font_size = 10))
 }
+
+# Create a "hex plot" showing the density of the data points
+# (specifically, the topic proportions) as they are projected onto two
+# principal ccomponents (PCs).
+pca_hex_plot <-
+  function (fit, pcs = c("PC1","PC2"), n = 40, bins = c(0,1,10,100,1000,Inf),
+            colors = c("gainsboro","lightskyblue","gold","orange","magenta")) {
+  if (inherits(fit,"poisson_nmf_fit"))
+    fit <- poisson2multinom(fit)
+  pdat <- as.data.frame(prcomp(fit$L)$x)
+  return(ggplot(pdat,aes_q(x = quote(PC1),y = quote(PC2),
+               fill = quote(cut(..count..,bins)))) +
+         stat_bin_hex(bins = n) +
+         scale_fill_manual(values = colors) +
+         labs(fill = "count") +
+         theme_cowplot(font_size = 10))
+}

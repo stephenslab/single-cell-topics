@@ -37,7 +37,7 @@ with different $k$.
 Visualize and interpret topics
 ------------------------------
 
-**TO DO:** Add brief description here.
+*TO DO: Add brief description here.*
 
 + [PBMC](plots_pbmc.html)
 
