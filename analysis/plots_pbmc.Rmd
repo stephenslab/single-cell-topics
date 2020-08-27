@@ -4,13 +4,13 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-Here we closely examine, and compare, the topic modeling results for the
-two closely related data sets from [Zheng *et al* (2017)][zheng-2017],
-the mixture of FACS-purified PBMC data and the "unsorted" 68k PBMC
-data. The goal is to illustrate how the topic models fitted to these
-data sets can be used to learn about the structure in the data,
-including identifying clusters, and interpret the clusters and topics
-as "cell types" or "gene programs".
+Here we examine and compare the topic modeling results for the two
+closely related data sets from [Zheng *et al* (2017)][zheng-2017], the
+mixture of FACS-purified PBMC data sets, and the "unsorted" 68k PBMC
+data. The goal of this analysis is to illustrate how the topic models
+fitted to these data sets can be used to learn about structure in the
+data. In particular, we would like to identify clusters, and interpret
+clusters and topics as "cell types" or "gene expression programs".
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -47,23 +47,26 @@ fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 ```
 
-Here we explore the structure of the single-cell data as inferred by
-the topic model. Specifically, we will use PCA to uncover structure in
-the topic proportions. Although PCA is simple, we will see that it
-works well, and avoids the complications of the popular t-SNE and UMAP
-nonlinear dimensionality reduction methods. (Note that, since the
-topic proportions sum to 1, there are only 5 PCs to examine, not 6.)
+Here, we explore the structure of the single-cell data as inferred by
+the topic model. Specifically, we use PCA to uncover structure in the
+estimated topic proportions of the multinomial topic model. Although
+PCA is simple, we will see that it works well, both for visualization
+and identifying clusters, and avoids the complications of the popular
+*t*-SNE and UMAP nonlinear dimensionality reduction methods. (Note
+that, since the topic proportions sum to 1, there are only 5 PCs to
+examine, not 6.)
 
 ```{r pbmc-purified-clustering-1}
 fit <- poisson2multinom(fit_purified)
 pca <- prcomp(fit$L)$x
 ```
 
-Three large clusters are evident from first two PCs (there is also
-finer-scale structure which we will examine below). We label these
-clusters as "A", "B" and "C".
+Three large clusters are evident from first two PCs.  We label the
+three large clusters as "A", "B" and "C". Since there are so many
+samples, the scatterplot suffers from "overplotting", so it also
+helpful to view this PC projection as a density plot ("hex plot").
 
-```{r pbmc-purified-clustering-2, fig.width=5, fig.height=4}
+```{r pbmc-purified-clustering-2, fig.width=8, fig.height=3}
 n   <- nrow(pca)
 x   <- rep("C",n)
 pc1 <- pca[,"PC1"]
@@ -75,7 +78,27 @@ samples_purified$cluster <- x
 p1 <- pca_plot_with_labels(fit_purified,c("PC1","PC2"),
                            samples_purified$cluster) +
       labs(fill = "cluster")
-print(p1)
+p2 <- pca_hex_plot(fit_purified,c("PC1","PC2"))
+plot_grid(p1,p2,rel_widths = c(9,10))
+```
+
+A small number of outlying data points do not seem to belong to any
+the three clusters, or they fall in between the clusters. For these
+data points, we assign them rather arbitrarily to one of the three
+clusters.
+
+There also appears to be finer scale structure. We will examine this
+finer scale structure below.
+
+```{r}
+pdat <- as.data.frame(pca)
+p2 <- ggplot(pdat,aes(x = PC1,y = PC2,
+             fill = cut(..count..,c(0,1,10,100,1000,Inf)))) +
+  stat_bin_hex(bins = 40) +
+  scale_fill_manual(values = c("gainsboro","lightskyblue","gold","orange",
+                               "magenta")) +	 
+  labs(fill = "count") +
+  theme_cowplot(font_size = 10)
 ```
 
 Most of the samples are in cluster A:
@@ -110,7 +133,10 @@ print(p2)
 ```
 
 The two subclusters, C1 and C2, account for most of the samples in
-cluster C:
+cluster C.
+
+TO DO: Mention idea of a "background cluster"---a third subset of
+samples that do not fit well in the two clusters.
 
 ```{r pbmc-purified-clustering-5}
 table(x)
