@@ -197,7 +197,7 @@ Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
 clusters (labeled A1, B, C1, C2). And, indeed, they align closely with
 their inclusion in the individual FACS-purified data sets:
 
-```{r pbmc-purified-clusters-vs-celltypes, fig.width=4, fig.height=3.5}
+```{r pbmc-purified-clusters-vs-celltypes}
 with(samples_purified,table(celltype,cluster))
 ```
 
@@ -248,72 +248,61 @@ fit <- poisson2multinom(fit_68k)
 pca <- prcomp(fit$L)$x
 ```
 
-In this case, we find least three distinct clusters in the projection
-onto PCs 3 and 4. We label these clusters "A", "B" and "C", as above,
-noting that this labeling does not imply a connection with the
-purified PBMC clusters above.
+From the $k = 6$ fit, we find least three distinct clusters in the
+projection onto PCs 3 and 4. We label these clusters "A", "B" and "C",
+as above, while cautioning that this labeling does not imply a
+connection with the purified PBMC clusters above.
 
-```{r pbmc-68k-clustering-2, fig.width=5, fig.height=4}
-n <- nrow(pca)
-x <- rep("A",n)
+```{r pbmc-68k-clustering-1, fig.width=8, fig.height=3}
+n   <- nrow(pca)
+x   <- rep("A",n)
 pc3 <- pca[,"PC3"]
 pc4 <- pca[,"PC4"]
-x[pc4 < -0.13 | pc3/1.9 - 0.17 > pc4] <- "B"
+x[pc4 < -0.12 | pc3/1.9 - 0.17 > pc4] <- "B"
 x[pc4 < -0.75] <- "C"
 samples_68k$cluster <- x
-p6 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
+p8 <- pca_plot_with_labels(fit_68k,c("PC3","PC4"),x) +
       labs(fill = "cluster")
-print(p6)
+p9 <- pca_hex_plot(fit_68k,c("PC3","PC4"))
+plot_grid(p8,p9,rel_widths = c(9,10))
 ```
 
 The vast majority of the cells are in cluster A.
 
-```{r pbmc-68k-clustering-3}
+```{r pbmc-68k-clustering-2}
 table(samples_68k$cluster)
 ```
 
-Looking more closely at the top two PCs in cluster B, we identify two
-large clusters, with the remaining samples assigned to the "B3"
-subset.
+The wide range in the sizes of these clusters is striking; the
+smallest cluster (C) is less than 1% the size of the largest (A1). By
+contrast, community detection methods such as the Louvain algorithm
+are preferentially biased toward more uniformly sized clusters (this
+is a known limitation of community detection methods).
 
-```{r pbmc-68k-clustering-4, fig.width=5, fig.height=4}
+Looking more closely at the top two PCs in cluster B, we identify two
+large clusters, with the remaining samples assigned to a "background"
+cluster, B3.
+
+```{r pbmc-68k-clustering-3, fig.width=8, fig.height=3}
 rows <- which(samples_68k$cluster == "B")
 fit  <- select(poisson2multinom(fit_68k),loadings = rows)
 pca  <- prcomp(fit$L)$x
 n    <- nrow(pca)
 x    <- rep("B3",n)
 pc1  <- pca[,"PC1"]
-x[pc1 > -0.05] <- "B1"
-x[pc1 < -0.3] <- "B2"
+x[pc1 > -0.12] <- "B1"
+x[pc1 < -0.3]  <- "B2"
 samples_68k[rows,"cluster"] <- x
-p7 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
-      labs(fill = "cluster")
-print(p7)
+p10 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+       labs(fill = "cluster")
+p11 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,5,10,20,Inf))
+plot_grid(p10,p11,rel_widths = c(9,10))
 ```
 
-The B1 cluster can be further subdivided into clusters (B1a, B1b), with
-subset B1c compresing the B1 samples that do not fit into either
-cluster.
+Cluster A subdivides fairly into two large clusters, labeled A1 and
+A2. The remaining in-between samples are assigned to subset A3.
 
-```{r pbmc-68k-clustering-5, fig.width=5, fig.height=4}
-rows <- which(samples_68k$cluster == "B1")
-fit  <- select(poisson2multinom(fit_68k),loadings = rows)
-pca  <- prcomp(fit$L)$x
-n    <- nrow(pca)
-x    <- rep("B1c",n)
-pc1  <- pca[,"PC1"]
-pc2  <- pca[,"PC2"]
-x[pc2 > -0.02 & pc1 > -0.25] <- "B1a"
-x[pc1 > 0.1 & pc2 < 0.05 & pc2 > -0.225] <- "B1b"
-samples_68k[rows,"cluster"] <- x
-p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
-      labs(fill = "cluster")
-print(p8)
-```
-
-Cluster A subdivides fairly neatly into two large clusters, A1 and A2.
-
-```{r pbmc-68k-clustering-6, fig.width=5, fig.height=4}
+```{r pbmc-68k-clustering-4, fig.width=8, fig.height=3}
 rows <- which(samples_68k$cluster == "A")
 fit  <- select(poisson2multinom(fit_68k),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -321,35 +310,30 @@ n    <- nrow(pca)
 x    <- rep("A3",n)
 pc2  <- pca[,"PC2"]
 pc3  <- pca[,"PC3"]
-x[2.5*pc3 < 0.3 - pc2] <- "A1"
-x[pc3 > 0.8 - pc2] <- "A2"
+x[2.5*pc3 < 0.4 - pc2] <- "A1"
+x[pc3 > 0.75 - pc2] <- "A2"
 samples_68k[rows,"cluster"] <- x
-p9 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
+p12 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
       labs(fill = "cluster")
-print(p9)
+p13 <- pca_hex_plot(fit,c("PC2","PC3"),bins = c(0,1,5,10,100,Inf))
+plot_grid(p12,p13,rel_widths = c(9,10))
 ```
 
 Within cluster A, the vast majority of the samples are assigned to the
 A1 subcluster:
 
-```{r pbmc-68k-clustering-7}
+```{r pbmc-68k-clustering-5}
 table(x)
 ```
 
-In summary, we have subdivided these data into 9 subsets:
+In summary, we have subdivided these data into 7 subsets:
 
-```{r pbmc-68k-clustering-8}
+```{r pbmc-68k-clustering-6}
 samples_68k$cluster <- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 ```
 
-The wide range in the sizes of these clusters is notable; the smallest
-cluster (C) is less than 1% the size of the largest (A1). By contrast,
-community detection methods such as the Louvain algorithm are
-preferentially biased toward more uniformly sized clusters (this is a
-known limitation of community detection methods).
-
-The structure plot summarizes the topic proportions in each of these 9
+The structure plot summarizes the topic proportions in each of these 7
 subsets:
 
 ```{r pbmc-68k-structure-plot, fig.width=7.5, fig.height=1.5}
@@ -366,26 +350,21 @@ rows <- sort(c(sample(which(samples_68k$cluster == "A1"),1200),
                sample(which(samples_68k$cluster == "B2"),300),
                which(samples_68k$cluster == "B3"),
                which(samples_68k$cluster == "C")))
-p10 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+p14 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       grouping = samples_68k[rows,"cluster"],
                       topics = pbmc_68k_topics,
    	 			      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                       perplexity = c(100,100,50,100,80,80,80,80,50),
                       n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
-print(p10)
+print(p14)
 ```
 
 These subsets do not align as closely with the cell-type labeling
 inferred by Zheng et al (2017), which is not surprising considering
 that this labeling is based on the FACS-purified data set.
 
-```{r pbmc-68k-clusters-vs-celltypes, fig.width=4.5, fig.height=3.5}
-pdat <- as.data.frame(with(samples_68k,table(celltype,cluster)))
-p11 <- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
-  geom_point(color = "dodgerblue",na.rm = TRUE,show.legend = FALSE) +
-  ylim(rev(levels(samples_purified$celltype))) +
-  theme_cowplot(font_size = 10)
-print(p11)
+```{r pbmc-68k-clusters-vs-celltypes}
+with(samples_68k,table(celltype,cluster))
 ```
 
 A few notes about these results:
