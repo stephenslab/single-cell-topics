@@ -47,9 +47,9 @@ pca_hex_plot <-
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
   pdat <- as.data.frame(prcomp(fit$L)$x)
-  return(ggplot(pdat,aes_q(x = quote(PC1),y = quote(PC2),
-               fill = quote(cut(..count..,bins)))) +
-         stat_bin_hex(bins = n) +
+  return(ggplot(pdat,aes_string(x = pcs[1],y = pcs[2])) +
+         stat_bin_hex(mapping = aes_q(fill = quote(cut(..count..,bins))),
+                      bins = n) +
          scale_fill_manual(values = colors) +
          labs(fill = "count") +
          theme_cowplot(font_size = 10))
