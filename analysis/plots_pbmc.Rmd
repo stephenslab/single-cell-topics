@@ -233,7 +233,7 @@ Unsorted 68k PBMC data
 
 Next, we turn to the 68k data set. One feature of this data set is
 that it is not biased by the FACS purification, so we expect to
-observe a greater variety or more continuous range of of cells
+observe a greater variety---or more continuous range---of cells
 states.
 
 ```{r load-68k-data}
@@ -277,14 +277,13 @@ table(samples_68k$cluster)
 ```
 
 The wide range in the sizes of these clusters is striking; the
-smallest cluster (C) is less than 1% the size of the largest (A1). By
+smallest cluster (C) is less than 1% the size of the largest (A). By
 contrast, community detection methods such as the Louvain algorithm
-are preferentially biased toward more uniformly sized clusters (this
-is a known limitation of community detection methods).
+are biased toward more uniformly sized clusters (this is a known
+limitation of community detection methods).
 
-Looking more closely at the top two PCs in cluster B, we identify two
-large clusters, with the remaining samples assigned to a "background"
-cluster, B3.
+Examine the top two PCs in cluster B, we identify two large clusters,
+with the remaining assigned to a "background cluster", B3.
 
 ```{r pbmc-68k-clustering-3, fig.width=8, fig.height=3}
 rows <- which(samples_68k$cluster == "B")
@@ -302,8 +301,8 @@ p11 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,5,10,20,Inf))
 plot_grid(p10,p11)
 ```
 
-Cluster A subdivides fairly into two large clusters, labeled A1 and
-A2. The remaining in-between samples are assigned to subset A3.
+Cluster A subdivides into two large clusters, labeled as A1 and
+A2. The remaining samples are assigned to a subset labeled "A3".
 
 ```{r pbmc-68k-clustering-4, fig.width=8, fig.height=3}
 rows <- which(samples_68k$cluster == "A")
@@ -329,7 +328,9 @@ A1 subcluster:
 table(x)
 ```
 
-*Add text here.*
+Although we do not find additional clusters within the large A1
+subset, the continuous structure is nonetheless quite interesting, and
+worth investigating. 
 
 ```{r pbmc-68k-clustering-6, fig.width=7.5, fig.height=3}
 rows <- which(samples_68k$cluster == "A1")
@@ -338,12 +339,19 @@ p14 <- pca_plot(fit,k = 3:4)
 print(p14)
 ```
 
-*Add text here.*
+From these two plots, we observe that topics 3 and 4 exist on a
+continuous spectrum, but that *mixtures of topics 3 and 4 are
+relatively rare.* This is particularly evident from a density plot:
 
 ```{r pbmc-68k-clustering-7, fig.width=4, fig.height=3}
 p15 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,10,20,100,Inf))
 print(p15)
 ```
+
+Topic 3 characterizes natural killer cells, and topic 4 has yet to be
+characterized, but may represent some subset of naive T-cells. This is
+an example with interesting substructure that can't be captured by
+clusters.
 
 In summary, we have subdivided these data into 7 subsets:
 
@@ -351,6 +359,8 @@ In summary, we have subdivided these data into 7 subsets:
 samples_68k$cluster <- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 ```
+
+Again, the wide range in cluster sizes is striking.
 
 The structure plot summarizes the topic proportions in each of these 7
 subsets:
