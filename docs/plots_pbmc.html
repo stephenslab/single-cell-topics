@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6959d21321df251be7533a421e983d3bd9585bbdtargetblank6959d21a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6959d21321df251be7533a421e983d3bd9585bbd" target="_blank">6959d21</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8b37a441e50440248f9a5bab11a5a72268fb2ed3targetblank8b37a44a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8b37a441e50440248f9a5bab11a5a72268fb2ed3" target="_blank">8b37a44</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6959d21321df251be7533a421e983d3bd9585bbdtargetblank6959d21a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8b37a441e50440248f9a5bab11a5a72268fb2ed3targetblank8b37a44a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6959d21321df251be7533a421e983d3bd9585bbd" target="_blank">6959d21</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8b37a441e50440248f9a5bab11a5a72268fb2ed3" target="_blank">8b37a44</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -480,6 +480,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8b37a441e50440248f9a5bab11a5a72268fb2ed3/analysis/plots_pbmc.Rmd" target="_blank">8b37a44</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c516da1cf79ee96e2b86257fe975bc826d8bb731/docs/plots_pbmc.html" target="_blank">c516da1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Added more notes/thoughts to plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2500,7 +2534,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Topic 3 characterizes natural killer cells, and topic 4 has yet to be characterized, but may represent some subset of naive T-cells. This is an example with interesting substructure that can’t be captured by clusters.</p>
+<p>Topic 3 characterizes natural killer cells, and topic 4 has yet to be characterized, but may represent some subset of naive T-cells. This is an example with interesting substructure that can’t be captured by clusters. This is also an example of substructure that is much better captured by linear representations such as PCA as opposed to nonlinear dimensionality reduction methods such as <em>t</em>-SNP and UMAP.</p>
 <p>In summary, we have subdivided these data into 7 subsets:</p>
 <pre class="r"><code>samples_68k$cluster &lt;- factor(samples_68k$cluster)
 table(samples_68k$cluster)
@@ -2524,7 +2558,7 @@ p16 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       grouping = samples_68k[rows,&quot;cluster&quot;],
                       topics = pbmc_68k_topics,
                       colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      perplexity = c(100,100,50,100,50,50,50),
+                      perplexity = c(160,100,70,80,50,50,50),
                       n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
 print(p16)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="900" style="display: block; margin: auto;" /></p>
@@ -2642,7 +2676,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>These subsets do not align as closely with the cell-type labeling inferred by Zheng et al (2017), which is not surprising considering that this labeling is based on the FACS-purified data set.</p>
+<p>These subsets do not align as closely with the cell-type labeling inferred by Zheng <em>et al</em> (2017). This is not surprising considering that the Zheng <em>et al</em> labeling is based on the FACS-purified data set.</p>
 <pre class="r"><code>with(samples_68k,table(celltype,cluster))
 #                               cluster
 # celltype                          A1    A2    A3    B1    B2    B3     C
@@ -2657,12 +2691,13 @@ Peter Carbonetto
 #   CD8+ Cytotoxic T             20672     1    74    24     0     2     0
 #   CD8+/CD45RA+ Naive Cytotoxic 16649     0     9     0     5     3     0
 #   Dendritic                       77     4    26  1094   743   155     0</code></pre>
-<p>A few notes about these results:</p>
+<p>A few more notes about these results:</p>
 <ul>
 <li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match.</p></li>
 <li><p>We also identify what is most likely a cluster of CD34+ cells (C), although the corresponding topic (6) is not distinctive to this cluster, so it remains to be seen if topic 6 also characterises CD34+ cells.</p></li>
 <li><p>Unlike the FACS-purified data, don’t identify a clear-cut cluster for NK cells; the NK cells are mixed in with the T-cells (subset A1). NK cells will emerge only after subsequent analysis of topic 3.</p></li>
 <li><p>Some of the distinct clusters (e.g., B1a, B1b, B2) are characterized by mixtures of topics, so if these clusters do indeed correspond to interesting cell types, analyzing the topics alone may not shed light onto these cell types.</p></li>
+<li><p>The small number (~1%) of A3 and B3 cells aren’t distinct subpopulations <em>per se</em> but rather appear to be in some “intermediate” developmental state, and the mixture of topics captures this.</p></li>
 </ul>
 <p>In summary, the topics and clusters seem to offer very much complementary biological insights, although subsequent analysis is needed to determine what these insights are.</p>
 <br>
