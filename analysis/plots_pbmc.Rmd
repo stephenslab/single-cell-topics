@@ -231,7 +231,10 @@ which should benefit from a topic-based analysis.
 Unsorted 68k PBMC data
 ----------------------
 
-Next, we turn to the 68k data set.
+Next, we turn to the 68k data set. One feature of this data set is
+that it is not biased by the FACS purification, so we expect to
+observe a greater variety or more continuous range of of cells
+states.
 
 ```{r load-68k-data}
 load("../data/pbmc_68k.RData")
@@ -296,7 +299,7 @@ samples_68k[rows,"cluster"] <- x
 p10 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
        labs(fill = "cluster")
 p11 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,5,10,20,Inf))
-plot_grid(p10,p11,rel_widths = c(9,10))
+plot_grid(p10,p11)
 ```
 
 Cluster A subdivides fairly into two large clusters, labeled A1 and
@@ -316,7 +319,7 @@ samples_68k[rows,"cluster"] <- x
 p12 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
        labs(fill = "cluster")
 p13 <- pca_hex_plot(fit,c("PC2","PC3"),bins = c(0,1,5,10,100,Inf))
-plot_grid(p12,p13,rel_widths = c(9,10))
+plot_grid(p12,p13)
 ```
 
 Within cluster A, the vast majority of the samples are assigned to the
@@ -326,14 +329,18 @@ A1 subcluster:
 table(x)
 ```
 
-```{r pbmc-68k-clustering-6, fig.width=8, fig.height=3}
+*Add text here.*
+
+```{r pbmc-68k-clustering-6, fig.width=7.5, fig.height=3}
 rows <- which(samples_68k$cluster == "A1")
 fit  <- select(poisson2multinom(fit_68k),loadings = rows)
 p14 <- pca_plot(fit,k = 3:4)
 print(p14)
 ```
 
-```{r pbmc-68k-clustering-7, fig.width=3.5, fig.height=3}
+*Add text here.*
+
+```{r pbmc-68k-clustering-7, fig.width=4, fig.height=3}
 p15 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,10,20,100,Inf))
 print(p15)
 ```
