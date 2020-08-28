@@ -351,7 +351,9 @@ print(p15)
 Topic 3 characterizes natural killer cells, and topic 4 has yet to be
 characterized, but may represent some subset of naive T-cells. This is
 an example with interesting substructure that can't be captured by
-clusters.
+clusters. This is also an example of substructure that is much better
+captured by linear representations such as PCA as opposed to nonlinear
+dimensionality reduction methods such as *t*-SNP and UMAP.
 
 In summary, we have subdivided these data into 7 subsets:
 
@@ -381,20 +383,20 @@ p16 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       grouping = samples_68k[rows,"cluster"],
                       topics = pbmc_68k_topics,
    	 			      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      perplexity = c(100,100,50,100,50,50,50),
+                      perplexity = c(160,100,70,80,50,50,50),
                       n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
 print(p16)
 ```
 
 These subsets do not align as closely with the cell-type labeling
-inferred by Zheng et al (2017), which is not surprising considering
-that this labeling is based on the FACS-purified data set.
+inferred by Zheng *et al* (2017). This is not surprising considering
+that the Zheng *et al* labeling is based on the FACS-purified data set.
 
 ```{r pbmc-68k-clusters-vs-celltypes}
 with(samples_68k,table(celltype,cluster))
 ```
 
-A few notes about these results:
+A few more notes about these results:
 
 + As in the purified fit, here we identify a B-cells cluster (B) and
   topic (5) that closely match.
@@ -412,6 +414,11 @@ A few notes about these results:
   by mixtures of topics, so if these clusters do indeed correspond to
   interesting cell types, analyzing the topics alone may not shed
   light onto these cell types.
+
++ The small number (~1%) of A3 and B3 cells aren't distinct
+  subpopulations *per se* but rather appear to be in some
+  "intermediate" developmental state, and the mixture of topics
+  captures this.
 
 In summary, the topics and clusters seem to offer very much
 complementary biological insights, although subsequent analysis is
