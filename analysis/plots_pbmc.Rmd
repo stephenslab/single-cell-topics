@@ -184,13 +184,13 @@ rows <- sort(c(sample(which(samples_purified$cluster == "A1"),250),
                sample(which(samples_purified$cluster == "C1"),250),
                sample(which(samples_purified$cluster == "C2"),200),
                sample(which(samples_purified$cluster == "C3"),200)))
-p4 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+p7 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                      grouping = samples_purified[rows,"cluster"],
                      topics = pbmc_purified_topics,
                      colors = pbmc_purified_topic_colors[pbmc_purified_topics],
                      n = Inf,perplexity = c(70,100,70,70,50,50),
 					 gap = 40,num_threads = 4,verbose = FALSE)
-print(p4)
+print(p7)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
@@ -198,42 +198,35 @@ clusters (labeled A1, B, C1, C2). And, indeed, they align closely with
 their inclusion in the individual FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes, fig.width=4, fig.height=3.5}
-pdat <- as.data.frame(with(samples_purified,table(celltype,cluster)))
-p5 <- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
-  geom_point(color = "dodgerblue",na.rm = TRUE,show.legend = FALSE) +
-  ylim(rev(levels(samples_purified$celltype))) +
-  theme_cowplot(font_size = 10)
-print(p5)
+with(samples_purified,table(celltype,cluster))
 ```
 
 Based on the above results, we make a few observations:
 
-+ Because they correspond very closely, subsequent analysis of topics
++ Because of their close correspondence, subsequent analysis of topics
   2, 3, 4 and 5 should yield similar results to analyzing the clusters
-  A1, B, C1, C2 For example, cluster B corresponds almost perfectly to
+  A1, B, C1, C2. For example, cluster B corresponds almost exactly to
   the B-cell data set. The largest cluster, cluster A2, is mostly
-  comprised of the T-cell data sets.
+  comprised of T-cells.
 
 + Cluster A2---see also the PCA plot above---is an example where
   analyzing the most prevalent topics ($k = 1, 6$) will yield
-  *different* results than analyzing clusters within cluster A1 as any
-  additional clustering of the data will be necessarily arbitrary (see
-  the PCA plot above).
+  different results than a cluster-based analysis.
 
 + Many samples labeled as "CD34+" are not assigned to the CD34+
-  cluster (C1). This is probably due to the fact that this
-  population was much less pure (45%) than the others.
+  cluster (C1). This reflects the fact that this population was much
+  less pure (45%) than the others, so we would expect some cells
+  labeled as "CD34+" to not necessarily be CD34+ cells.
 
 + Cluster C3 is a heterogeneous cluster with a relatively small number
   of samples (790) that could potentially contain additional clusters
   of biological relevance, but will likely be more challenging to
-  analyze and interpret than the other clusters, so we do not this
-  investigate further.
+  analyze and interpret than the other clusters, so we do not
+  investigate this cluster further.
 
 In summary, a cluster-based analysis and topic-based analysis should
 yield mostly similar results, except for the analysis of cluster A2,
-which should benefit from a topic-based analysis (specifically,
-analysis of topics 1 and 6).
+which should benefit from a topic-based analysis.
 
 Unsorted 68k PBMC data
 ----------------------
