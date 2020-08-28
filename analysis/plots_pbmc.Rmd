@@ -399,25 +399,22 @@ with(samples_68k,table(celltype,cluster))
 A few more notes about these results:
 
 + As in the purified fit, here we identify a B-cells cluster (B) and
-  topic (5) that closely match.
+  topic (5) that closely match. Other close matches include CD34+
+  cells (C), CD14+ monocytes (B1) and dendritic cells (B2).
 
-+ We also identify what is most likely a cluster of CD34+ cells (C),
-  although the corresponding topic (6) is not distinctive to this
-  cluster, so it remains to be seen if topic 6 also characterises
-  CD34+ cells.
-
-+ Unlike the FACS-purified data, don't identify a clear-cut cluster
-  for NK cells; the NK cells are mixed in with the T-cells (subset
-  A1). NK cells will emerge only after subsequent analysis of topic 3.
++ As we discovered about, unlike the FACS-purified data, don't
+  identify a clear-cut cluster for NK cells; the NK cells are mixed in
+  with the T-cells (subset A1). NK cells will therefore only emerge
+  only after subsequent analysis of topic 3.
 
 + Some of the distinct clusters (e.g., B1a, B1b, B2) are characterized
   by mixtures of topics, so if these clusters do indeed correspond to
   interesting cell types, analyzing the topics alone may not shed
   light onto these cell types.
 
-+ The small number (~1%) of A3 and B3 cells aren't distinct
-  subpopulations *per se* but rather appear to be in some
-  "intermediate" developmental state, and the mixture of topics
++ The small number (~1%) in the A3 and B3 subsets aren't distinct
+  subpopulations *per se* but rather appear to be in some intermediate
+  developmental state, and the mixture of topics in these subsets
   captures this.
 
 In summary, the topics and clusters seem to offer very much
