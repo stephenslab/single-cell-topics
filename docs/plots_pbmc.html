@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9625e81eb18cfe66c240ab121cfdab207eb0900btargetblank9625e81a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9625e81eb18cfe66c240ab121cfdab207eb0900b" target="_blank">9625e81</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6959d21321df251be7533a421e983d3bd9585bbdtargetblank6959d21a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6959d21321df251be7533a421e983d3bd9585bbd" target="_blank">6959d21</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9625e81eb18cfe66c240ab121cfdab207eb0900btargetblank9625e81a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6959d21321df251be7533a421e983d3bd9585bbdtargetblank6959d21a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9625e81eb18cfe66c240ab121cfdab207eb0900b" target="_blank">9625e81</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6959d21321df251be7533a421e983d3bd9585bbd" target="_blank">6959d21</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -480,6 +480,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6959d21321df251be7533a421e983d3bd9585bbd/analysis/plots_pbmc.Rmd" target="_blank">6959d21</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/858a54b232230e4089e954f657df91c1e5912d74/docs/plots_pbmc.html" target="_blank">858a54b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Fixed dimensions of some of the plots in plots_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2131,7 +2165,7 @@ Peter Carbonetto
 </div>
 <div id="unsorted-68k-pbmc-data" class="section level2">
 <h2>Unsorted 68k PBMC data</h2>
-<p>Next, we turn to the 68k data set. One feature of this data set is that it is not biased by the FACS purification, so we expect to observe a greater variety or more continuous range of of cells states.</p>
+<p>Next, we turn to the 68k data set. One feature of this data set is that it is not biased by the FACS purification, so we expect to observe a greater variety—or more continuous range—of cells states.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_68k.RData&quot;)
 samples_68k &lt;- samples
 rm(samples,genes,counts)</code></pre>
@@ -2194,8 +2228,8 @@ Peter Carbonetto
 # 
 #     A     B     C 
 # 63405  5009   165</code></pre>
-<p>The wide range in the sizes of these clusters is striking; the smallest cluster (C) is less than 1% the size of the largest (A1). By contrast, community detection methods such as the Louvain algorithm are preferentially biased toward more uniformly sized clusters (this is a known limitation of community detection methods).</p>
-<p>Looking more closely at the top two PCs in cluster B, we identify two large clusters, with the remaining samples assigned to a “background” cluster, B3.</p>
+<p>The wide range in the sizes of these clusters is striking; the smallest cluster (C) is less than 1% the size of the largest (A). By contrast, community detection methods such as the Louvain algorithm are biased toward more uniformly sized clusters (this is a known limitation of community detection methods).</p>
+<p>Examine the top two PCs in cluster B, we identify two large clusters, with the remaining assigned to a “background cluster”, B3.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;B&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -2234,6 +2268,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/858a54b232230e4089e954f657df91c1e5912d74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-3-1.png" target="_blank">858a54b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/04a90b5f2cb4f3baf9bf246cbf0d505edeff6c8c/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-3-1.png" target="_blank">04a90b5</a>
 </td>
 <td>
@@ -2247,7 +2292,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Cluster A subdivides fairly into two large clusters, labeled A1 and A2. The remaining in-between samples are assigned to subset A3.</p>
+<p>Cluster A subdivides into two large clusters, labeled as A1 and A2. The remaining samples are assigned to a subset labeled “A3”.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -2285,6 +2330,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/858a54b232230e4089e954f657df91c1e5912d74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" target="_blank">858a54b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/04a90b5f2cb4f3baf9bf246cbf0d505edeff6c8c/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" target="_blank">04a90b5</a>
@@ -2327,7 +2383,7 @@ Peter Carbonetto
 # x
 #    A1    A2    A3 
 # 59294  3589   522</code></pre>
-<p><em>Add text here.</em></p>
+<p>Although we do not find additional clusters within the large A1 subset, the continuous structure is nonetheless quite interesting, and worth investigating.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A1&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 p14 &lt;- pca_plot(fit,k = 3:4)
@@ -2357,6 +2413,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/858a54b232230e4089e954f657df91c1e5912d74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-6-1.png" target="_blank">858a54b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/04a90b5f2cb4f3baf9bf246cbf0d505edeff6c8c/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-6-1.png" target="_blank">04a90b5</a>
 </td>
 <td>
@@ -2381,7 +2448,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>From these two plots, we observe that topics 3 and 4 exist on a continuous spectrum, but that <em>mixtures of topics 3 and 4 are relatively rare.</em> This is particularly evident from a density plot:</p>
 <pre class="r"><code>p15 &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),bins = c(0,1,10,20,100,Inf))
 print(p15)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-7-1.png" width="480" style="display: block; margin: auto;" /></p>
@@ -2409,6 +2476,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/858a54b232230e4089e954f657df91c1e5912d74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-7-1.png" target="_blank">858a54b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/04a90b5f2cb4f3baf9bf246cbf0d505edeff6c8c/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-7-1.png" target="_blank">04a90b5</a>
 </td>
 <td>
@@ -2422,12 +2500,14 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>Topic 3 characterizes natural killer cells, and topic 4 has yet to be characterized, but may represent some subset of naive T-cells. This is an example with interesting substructure that can’t be captured by clusters.</p>
 <p>In summary, we have subdivided these data into 7 subsets:</p>
 <pre class="r"><code>samples_68k$cluster &lt;- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 # 
 #    A1    A2    A3    B1    B2    B3     C 
 # 59294  3589   522  4011   819   179   165</code></pre>
+<p>Again, the wide range in cluster sizes is striking.</p>
 <p>The structure plot summarizes the topic proportions in each of these 7 subsets:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_68k_topic_colors &lt;- c(&quot;yellow&quot;,&quot;lightskyblue&quot;,&quot;salmon&quot;,
