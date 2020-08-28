@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree655dfae4b6ca1aca66e19dbaafaa58619f280365targetblank655dfaea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/655dfae4b6ca1aca66e19dbaafaa58619f280365" target="_blank">655dfae</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree070f612e95a8ff9ad8f82b4df8587e862ade37fftargetblank070f612a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/070f612e95a8ff9ad8f82b4df8587e862ade37ff" target="_blank">070f612</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree655dfae4b6ca1aca66e19dbaafaa58619f280365targetblank655dfaea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree070f612e95a8ff9ad8f82b4df8587e862ade37fftargetblank070f612a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/655dfae4b6ca1aca66e19dbaafaa58619f280365" target="_blank">655dfae</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/070f612e95a8ff9ad8f82b4df8587e862ade37ff" target="_blank">070f612</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -480,6 +480,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/070f612e95a8ff9ad8f82b4df8587e862ade37ff/analysis/plots_pbmc.Rmd" target="_blank">070f612</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+workflowr::wflow_publish(“plots_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ee1a1d0167cf8492293fbdba38467e129bf264e/analysis/plots_pbmc.Rmd" target="_blank">5ee1a1d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Made some refinements to the 68k pbmc analysis in plots_pbmc.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/25a24f7d55ff38cf99b1c23f3e3e7bfb84419c67/docs/plots_pbmc.html" target="_blank">25a24f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-27
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2054,129 +2105,56 @@ rm(samples,genes,counts)</code></pre>
 <pre class="r"><code>fit_68k &lt;- readRDS(&quot;../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds&quot;)$fit
 fit &lt;- poisson2multinom(fit_68k)
 pca &lt;- prcomp(fit$L)$x</code></pre>
-<p>In this case, we find least three distinct clusters in the projection onto PCs 3 and 4. We label these clusters “A”, “B” and “C”, as above, noting that this labeling does not imply a connection with the purified PBMC clusters above.</p>
-<pre class="r"><code>n &lt;- nrow(pca)
-x &lt;- rep(&quot;A&quot;,n)
+<p>From the <span class="math inline">\(k = 6\)</span> fit, we find least three distinct clusters in the projection onto PCs 3 and 4. We label these clusters “A”, “B” and “C”, as above, while cautioning that this labeling does not imply a connection with the purified PBMC clusters above.</p>
+<pre class="r"><code>n   &lt;- nrow(pca)
+x   &lt;- rep(&quot;A&quot;,n)
 pc3 &lt;- pca[,&quot;PC3&quot;]
 pc4 &lt;- pca[,&quot;PC4&quot;]
-x[pc4 &lt; -0.13 | pc3/1.9 - 0.17 &gt; pc4] &lt;- &quot;B&quot;
+x[pc4 &lt; -0.12 | pc3/1.9 - 0.17 &gt; pc4] &lt;- &quot;B&quot;
 x[pc4 &lt; -0.75] &lt;- &quot;C&quot;
 samples_68k$cluster &lt;- x
-p6 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
+p8 &lt;- pca_plot_with_labels(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;),x) +
       labs(fill = &quot;cluster&quot;)
-print(p6)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" width="600" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-2-1">
-Past versions of pbmc-68k-clustering-2-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-clustering-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/f53c86ce2e664d45e7e8b7299bfada46ae968f15/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">f53c86c</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/a406a2f59205b74fc2effbb9620cb3d7d445eb74/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">a406a2f</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/7900d171e513796cb2e56f95abf713355845a5ae/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">7900d17</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/fbb0697684addb55df25f7501714a5eac8189e6f/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">fbb0697</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/216027a8630c038d35ff5149539a552cc8650fa7/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">216027a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/6d3d7e4e855a46f2b154a459db16dd9fbaa58ccf/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-2-1.png" target="_blank">6d3d7e4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+p9 &lt;- pca_hex_plot(fit_68k,c(&quot;PC3&quot;,&quot;PC4&quot;))
+plot_grid(p8,p9,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>The vast majority of the cells are in cluster A.</p>
 <pre class="r"><code>table(samples_68k$cluster)
 # 
 #     A     B     C 
-# 63408  5006   165</code></pre>
-<p>Looking more closely at the top two PCs in cluster B, we identify two large clusters, with the remaining samples assigned to the “B3” subset.</p>
+# 63405  5009   165</code></pre>
+<p>The wide range in the sizes of these clusters is striking; the smallest cluster (C) is less than 1% the size of the largest (A1). By contrast, community detection methods such as the Louvain algorithm are preferentially biased toward more uniformly sized clusters (this is a known limitation of community detection methods).</p>
+<p>Looking more closely at the top two PCs in cluster B, we identify two large clusters, with the remaining samples assigned to a “background” cluster, B3.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;B&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
 n    &lt;- nrow(pca)
 x    &lt;- rep(&quot;B3&quot;,n)
 pc1  &lt;- pca[,&quot;PC1&quot;]
-x[pc1 &gt; -0.05] &lt;- &quot;B1&quot;
-x[pc1 &lt; -0.3] &lt;- &quot;B2&quot;
+x[pc1 &gt; -0.12] &lt;- &quot;B1&quot;
+x[pc1 &lt; -0.3]  &lt;- &quot;B2&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p7 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
-      labs(fill = &quot;cluster&quot;)
-print(p7)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="600" style="display: block; margin: auto;" /></p>
+p10 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+       labs(fill = &quot;cluster&quot;)
+p11 &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),bins = c(0,1,5,10,20,Inf))
+plot_grid(p10,p11,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Cluster A subdivides fairly into two large clusters, labeled A1 and A2. The remaining in-between samples are assigned to subset A3.</p>
+<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
+fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
+pca  &lt;- prcomp(fit$L)$x
+n    &lt;- nrow(pca)
+x    &lt;- rep(&quot;A3&quot;,n)
+pc2  &lt;- pca[,&quot;PC2&quot;]
+pc3  &lt;- pca[,&quot;PC3&quot;]
+x[2.5*pc3 &lt; 0.4 - pc2] &lt;- &quot;A1&quot;
+x[pc3 &gt; 0.75 - pc2] &lt;- &quot;A2&quot;
+samples_68k[rows,&quot;cluster&quot;] &lt;- x
+p12 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
+       labs(fill = &quot;cluster&quot;)
+p13 &lt;- pca_hex_plot(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),bins = c(0,1,5,10,100,Inf))
+plot_grid(p12,p13,rel_widths = c(9,10))</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-4-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-4-1">
 Past versions of pbmc-68k-clustering-4-1.png
@@ -2225,95 +2203,16 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The B1 cluster can be further subdivided into clusters (B1a, B1b), with subset B1c compresing the B1 samples that do not fit into either cluster.</p>
-<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;B1&quot;)
+<p>Within cluster A, the vast majority of the samples are assigned to the A1 subcluster:</p>
+<pre class="r"><code>table(x)
+# x
+#    A1    A2    A3 
+# 59294  3589   522</code></pre>
+<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A1&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
-pca  &lt;- prcomp(fit$L)$x
-n    &lt;- nrow(pca)
-x    &lt;- rep(&quot;B1c&quot;,n)
-pc1  &lt;- pca[,&quot;PC1&quot;]
-pc2  &lt;- pca[,&quot;PC2&quot;]
-x[pc2 &gt; -0.02 &amp; pc1 &gt; -0.25] &lt;- &quot;B1a&quot;
-x[pc1 &gt; 0.1 &amp; pc2 &lt; 0.05 &amp; pc2 &gt; -0.225] &lt;- &quot;B1b&quot;
-samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p8 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
-      labs(fill = &quot;cluster&quot;)
-print(p8)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" width="600" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-5-1">
-Past versions of pbmc-68k-clustering-5-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-clustering-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/399c5976cb5d054fae7e214567e39a71315ce0aa/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" target="_blank">399c597</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-25
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/f53c86ce2e664d45e7e8b7299bfada46ae968f15/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" target="_blank">f53c86c</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b6489db5d0c0b21a2856fd9ce0fac3045ad76688/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-5-1.png" target="_blank">b6489db</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-23
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Cluster A subdivides fairly neatly into two large clusters, A1 and A2.</p>
-<pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
-fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
-pca  &lt;- prcomp(fit$L)$x
-n    &lt;- nrow(pca)
-x    &lt;- rep(&quot;A3&quot;,n)
-pc2  &lt;- pca[,&quot;PC2&quot;]
-pc3  &lt;- pca[,&quot;PC3&quot;]
-x[2.5*pc3 &lt; 0.3 - pc2] &lt;- &quot;A1&quot;
-x[pc3 &gt; 0.8 - pc2] &lt;- &quot;A2&quot;
-samples_68k[rows,&quot;cluster&quot;] &lt;- x
-p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
-      labs(fill = &quot;cluster&quot;)
-print(p9)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
+p14 &lt;- pca_plot(fit,k = 3:4)
+print(p14)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clustering-6-1">
 Past versions of pbmc-68k-clustering-6-1.png
@@ -2351,19 +2250,16 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Within cluster A, the vast majority of the samples are assigned to the A1 subcluster:</p>
-<pre class="r"><code>table(x)
-# x
-#    A1    A2    A3 
-# 59260  3555   593</code></pre>
-<p>In summary, we have subdivided these data into 9 subsets:</p>
+<pre class="r"><code>p15 &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),bins = c(0,1,10,20,100,Inf))
+print(p15)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clustering-7-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p>In summary, we have subdivided these data into 7 subsets:</p>
 <pre class="r"><code>samples_68k$cluster &lt;- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 # 
-#    A1    A2    A3   B1a   B1b   B1c    B2    B3     C 
-# 59260  3555   593  2115   947   807   819   318   165</code></pre>
-<p>The wide range in the sizes of these clusters is notable; the smallest cluster (C) is less than 1% the size of the largest (A1). By contrast, community detection methods such as the Louvain algorithm are preferentially biased toward more uniformly sized clusters (this is a known limitation of community detection methods).</p>
-<p>The structure plot summarizes the topic proportions in each of these 9 subsets:</p>
+#    A1    A2    A3    B1    B2    B3     C 
+# 59294  3589   522  4011   819   179   165</code></pre>
+<p>The structure plot summarizes the topic proportions in each of these 7 subsets:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_68k_topic_colors &lt;- c(&quot;yellow&quot;,&quot;lightskyblue&quot;,&quot;salmon&quot;,
                            &quot;firebrick&quot;,&quot;royalblue&quot;,&quot;olivedrab&quot;)
@@ -2371,19 +2267,17 @@ pbmc_68k_topics &lt;- c(2,5,1,3,4,6)
 rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1&quot;),1200),
                sample(which(samples_68k$cluster == &quot;A2&quot;),500),
                sample(which(samples_68k$cluster == &quot;A3&quot;),300),
-               sample(which(samples_68k$cluster == &quot;B1a&quot;),500),
-               sample(which(samples_68k$cluster == &quot;B1b&quot;),300),
-               sample(which(samples_68k$cluster == &quot;B1c&quot;),300),
+               sample(which(samples_68k$cluster == &quot;B1&quot;),500),
                sample(which(samples_68k$cluster == &quot;B2&quot;),300),
                which(samples_68k$cluster == &quot;B3&quot;),
                which(samples_68k$cluster == &quot;C&quot;)))
-p10 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+p16 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       grouping = samples_68k[rows,&quot;cluster&quot;],
                       topics = pbmc_68k_topics,
                       colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      perplexity = c(100,100,50,100,80,80,80,80,50),
-                      n = Inf,gap = 32,num_threads = 4,verbose = FALSE)
-print(p10)</code></pre>
+                      perplexity = c(100,100,50,100,50,50,50),
+                      n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
+print(p16)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-structure-plot-1">
@@ -2489,50 +2383,20 @@ Peter Carbonetto
 </div>
 </div>
 <p>These subsets do not align as closely with the cell-type labeling inferred by Zheng et al (2017), which is not surprising considering that this labeling is based on the FACS-purified data set.</p>
-<pre class="r"><code>pdat &lt;- as.data.frame(with(samples_68k,table(celltype,cluster)))
-p11 &lt;- ggplot(pdat,aes(x = cluster,y = celltype,size = Freq)) +
-  geom_point(color = &quot;dodgerblue&quot;,na.rm = TRUE,show.legend = FALSE) +
-  ylim(rev(levels(samples_purified$celltype))) +
-  theme_cowplot(font_size = 10)
-print(p11)</code></pre>
-<p><img src="figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-68k-clusters-vs-celltypes-1">
-Past versions of pbmc-68k-clusters-vs-celltypes-1.png
-</button>
-</p>
-<div id="fig-pbmc-68k-clusters-vs-celltypes-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/30d2ef1fa568ca329fe63d8bc498c3dec56ad55e/docs/figure/plots_pbmc.Rmd/pbmc-68k-clusters-vs-celltypes-1.png" target="_blank">30d2ef1</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-27
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<pre class="r"><code>with(samples_68k,table(celltype,cluster))
+#                               cluster
+# celltype                          A1    A2    A3    B1    B2    B3     C
+#   CD14+ Monocyte                   6     1     1  2840     1    11     2
+#   CD19+ B                       1983  3577   310     0    37     1     0
+#   CD34+                           10     5    47    30    21     1   163
+#   CD4+ T Helper2                  67     0    16     6     8     0     0
+#   CD4+/CD25 T Reg               6174     0    11     2     0     0     0
+#   CD4+/CD45RA+/CD25- Naive T    1863     1     4     1     3     1     0
+#   CD4+/CD45RO+ Memory           3059     0     0     2     0     0     0
+#   CD56+ NK                      8734     0    24    12     1     5     0
+#   CD8+ Cytotoxic T             20672     1    74    24     0     2     0
+#   CD8+/CD45RA+ Naive Cytotoxic 16649     0     9     0     5     3     0
+#   Dendritic                       77     4    26  1094   743   155     0</code></pre>
 <p>A few notes about these results:</p>
 <ul>
 <li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match.</p></li>
