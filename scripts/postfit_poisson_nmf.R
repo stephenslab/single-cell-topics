@@ -43,11 +43,13 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 # ---------------------
 # Prepare the gene-set data and gene statistics for gene-set enrichment
 # analysis. First, align the gene data with the gene statistics.
-out <- align_gene_data_by_ensembl(gene_info,gene_sets,genes,diff_count_res)
-gene_info      <- out$gene_info
-gene_sets      <- out$gene_sets
-genes          <- out$genes
-diff_count_res <- out$diff_count_res
+names(gene_info) <- tolower(names(gene_info))
+out              <- align_gene_data_by_ensembl(gene_info,gene_sets,
+                                               genes,diff_count_res)
+gene_info        <- out$gene_info
+gene_sets        <- out$gene_sets
+genes            <- out$genes
+diff_count_res   <- out$diff_count_res
 rm(out)
 
 # Next, remove gene sets with fewer than 4 genes, and with more than
