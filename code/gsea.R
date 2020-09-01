@@ -70,10 +70,10 @@ perform_gsea <- function (gene_sets, gene_scores, eps = 1e-32,
   class(out) <- "data.frame"
 
   # Post-process the fgsea output.
-  # rownames(out) <- out$pathway
-  # out <- out[c("pval","log2err","ES","NES")]
-  # out <- out[colnames(gene_sets),]
-  # out[is.na(out$log2err),] <- NA
+  rownames(out) <- out$pathway
+  out <- out[c("pval","log2err","ES","NES")]
+  out <- out[colnames(gene_sets),]
+  out[is.na(out$log2err),] <- NA
   return(out)
 }
 

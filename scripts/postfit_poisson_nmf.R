@@ -65,7 +65,8 @@ rm(i)
 # ------------
 # For each topic, perform a gene-set enrichment analysis using fgsea.
 cat("Performing gene-set enrichment analysis.\n")
-out <- perform_gsea(gene_sets[1:200,],diff_count_res$Z[,1],nproc = 8)
+rownames(gene_sets) <- rownames(diff_count_res$Z)
+out <- perform_gsea_all_topics(gene_sets,diff_count_res$Z,nproc = 8)
 
 # SAVE RESULTS
 # ------------
