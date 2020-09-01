@@ -31,13 +31,12 @@ source("../code/plots.R")
 Mixture of FACS-purified PBMC data
 ----------------------------------
 
-We begin with the mixture of FACS-purified PBMC data. Note that the
-count data are no longer needed at this stage.
+We begin with the mixture of FACS-purified PBMC data.
 
 ```{r load-purified-data}
 load("../data/pbmc_purified.RData")
 samples_purified <- samples
-rm(samples,genes,counts)
+rm(samples,genes)
 ```
 
 Load the $k = 6$ Poisson NMF model fit.
