@@ -66,10 +66,14 @@ rm(i)
 # ------------
 # For each topic, perform a gene-set enrichment analysis using fgsea.
 cat("Performing gene-set enrichment analysis.\n")
-out <- perform_gsea_all_topics(gene_sets,diff_count_res,nproc = 8)
+timing <- system.time(
+  gsea_res <- perform_gsea_all_topics(gene_sets,diff_count_res,nproc = 8))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # SAVE RESULTS
 # ------------
 cat("Saving results.\n")
-# TO DO.
-# resaveRdaFiles
+save(list = c("gene_info","gene_set_info","gene_sets","genes",
+              "diff_count_res","gsea_res"),
+     file = outfile)
+resaveRdaFiles(outfile)

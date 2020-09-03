@@ -98,7 +98,12 @@ perform_gsea_all_topics <- function (gene_sets, diff_count_res,
   colnames(out$NES)     <- colnames(Z)
   
   # Run the gene-set enrichment analysis for each topic.
+  cat("k = ")
   for (i in 1:k) {
+    if (i == 1)
+      cat("1")
+    else
+      cat(",",i)
     z               <- Z[,i]
     names(z)        <- rownames(Z)
     ans             <- perform_gsea(gene_sets,z,eps,nproc,...)
@@ -107,7 +112,8 @@ perform_gsea_all_topics <- function (gene_sets, diff_count_res,
     out$ES[,i]      <- ans$ES
     out$NES[,i]     <- ans$NES
   }
-
+  cat("\n")
+  
   # Output the results of the gene-set enrichment analysis.
   return(out)
 }
