@@ -48,7 +48,10 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 out            <- align_gene_data(gene_sets,diff_count_res)
 gene_sets      <- out$gene_sets
 diff_count_res <- out$diff_count_res
-rm(out)
+ids            <- rownames(gene_sets)
+gene_info      <- gene_info[match(ids,gene_info$Ensembl),]
+genes          <- genes[match(ids,genes$ensembl),]
+rm(out,ids)
 
 # Next, remove gene sets with fewer than 4 genes, and with more than
 # 400 genes. Gene sets with a large number of genes are less likely to
@@ -63,8 +66,7 @@ rm(i)
 # ------------
 # For each topic, perform a gene-set enrichment analysis using fgsea.
 cat("Performing gene-set enrichment analysis.\n")
-rownames(gene_sets) <- rownames(diff_count_res$Z)
-out <- perform_gsea_all_topics(gene_sets,diff_count_res$Z,nproc = 8)
+out <- perform_gsea_all_topics(gene_sets,diff_count_res,nproc = 8)
 
 # SAVE RESULTS
 # ------------

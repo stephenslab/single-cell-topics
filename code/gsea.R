@@ -48,23 +48,21 @@ matrix2pathways <- function (A) {
 # Input argument "gene_sets" should be an n x m matrix, in which n is
 # the number of genes, and m is the number of gene sets, and entry
 # (i,j) is greater than zero if and only if gene i is included in gene
-# set j. Input argument "gene_scores" should be a numeric vector of
-# length n containing gene-wise statistics, such as z-scores. The
-# elements of gene_scores should be named.
+# set j. Input argument z should be a numeric vector of length n
+# containing gene-wise statistics, such as z-scores. The elements of
+# z should be named.
 #
 # Input argument "eps" controls the accuracy of the small p-values.
 # Here I set it to be much lower than the default setting since some
 # of the gene-set enrichment p-values can be quite small.
-perform_gsea <- function (gene_sets, gene_scores, eps = 1e-32,
-                          nproc = 1, ...) {
+perform_gsea <- function (gene_sets, z, eps = 1e-32, nproc = 1, ...) {
 
   # Convert the gene-sets adjacency matrix into the fgsea gene-sets
   # format.
   pathways <- matrix2pathways(gene_sets)
 
   # Perform the gene-set enrichment analysis using fgsea.
-  out <- suppressWarnings(fgsea(pathways,gene_scores,eps = eps,
-                                nproc = nproc,...))
+  out <- suppressWarnings(fgsea(pathways,z,eps = eps,nproc = nproc,...))
   class(out) <- "data.frame"
 
   # Post-process the fgsea output.
@@ -77,12 +75,13 @@ perform_gsea <- function (gene_sets, gene_scores, eps = 1e-32,
 
 # Perform fgsea gene-set enrichment analysis once per column of the
 # gene_scores matrix.
-perform_gsea_all_topics <- function (gene_sets, gene_scores, eps = 1e-32,
-                                     nproc = 1, ...) {
+perform_gsea_all_topics <- function (gene_sets, diff_count_res,
+                                     eps = 1e-32, nproc = 1, ...) {
 
   # Get the number of gene sets (n) and the number of topics (k).
+  Z <- diff_count_res$Z
   n <- ncol(gene_sets)
-  k <- ncol(gene_scores)
+  k <- ncol(Z)
 
   # Initialize the outputs.
   out <- list(pval    = matrix(0,n,k),
@@ -93,15 +92,15 @@ perform_gsea_all_topics <- function (gene_sets, gene_scores, eps = 1e-32,
   rownames(out$log2err) <- colnames(gene_sets)
   rownames(out$ES)      <- colnames(gene_sets)
   rownames(out$NES)     <- colnames(gene_sets)
-  colnames(out$pval)    <- colnames(gene_scores)
-  colnames(out$log2err) <- colnames(gene_scores)
-  colnames(out$ES)      <- colnames(gene_scores)
-  colnames(out$NES)     <- colnames(gene_scores)
+  colnames(out$pval)    <- colnames(Z)
+  colnames(out$log2err) <- colnames(Z)
+  colnames(out$ES)      <- colnames(Z)
+  colnames(out$NES)     <- colnames(Z)
   
   # Run the gene-set enrichment analysis for each topic.
   for (i in 1:k) {
-    z               <- gene_scores[,i]
-    names(z)        <- rownames(gene_scores)
+    z               <- Z[,i]
+    names(z)        <- rownames(Z)
     ans             <- perform_gsea(gene_sets,z,eps,nproc,...)
     out$pval[,i]    <- ans$pval
     out$log2err[,i] <- ans$log2err
@@ -109,6 +108,6 @@ perform_gsea_all_topics <- function (gene_sets, gene_scores, eps = 1e-32,
     out$NES[,i]     <- ans$NES
   }
 
-  # Output the gene-set enrichment results.
+  # Output the results of the gene-set enrichment analysis.
   return(out)
 }
