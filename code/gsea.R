@@ -1,16 +1,15 @@
-# This function aligns the gene-set data (gene_info, gene_sets) with
-# the gene-wise statistics (genes, diff_count_res) by their Ensembl
-# ids to prepare these data for a gene-set enrichment analysis. It is
-# assumed that gene_info and genes each have an "ensembl" column
-# containing the Ensembl gene ids.
-align_gene_data_by_ensembl <- function (gene_info, gene_sets, 
-                                        genes, diff_count_res) {
-  ids       <- intersect(gene_info$ensembl,genes$ensembl)
-  i         <- match(ids,gene_info$ensembl)
-  j         <- match(ids,genes$ensembl)
-  gene_info <- gene_info[i,]
-  gene_sets <- gene_sets[i,]
-  genes     <- genes[j,]
+# This function aligns the gene-set data (gene_sets) with the
+# gene-wise statistics (diff_count_res) by their Ensembl ids to
+# prepare these data for a gene-set enrichment analysis. It is assumed
+# that the row names of gene_sets and the row names of diff_count_res
+# matrices give the unique gene symbols or ids (e.g., Ensembl ids).
+align_gene_data <- function (gene_sets, diff_count_res) {
+  x   <- rownames(gene_sets)
+  y   <- rownames(diff_count_res$Z)
+  ids <- intersect(x,y)
+  i   <- match(ids,x)
+  j   <- match(ids,y)
+  gene_sets               <- gene_sets[i,]
   diff_count_res$colmeans <- diff_count_res$colmeans[j]
   diff_count_res$F0       <- diff_count_res$F0[j,]
   diff_count_res$F1       <- diff_count_res$F1[j,]
@@ -18,8 +17,7 @@ align_gene_data_by_ensembl <- function (gene_info, gene_sets,
   diff_count_res$se       <- diff_count_res$se[j,]
   diff_count_res$Z        <- diff_count_res$Z[j,]
   diff_count_res$pval     <- diff_count_res$pval[j,]
-  return(list(gene_info = gene_info,gene_sets = gene_sets,
-              genes = genes,diff_count_res = diff_count_res))
+  return(list(gene_sets = gene_sets,diff_count_res = diff_count_res))
 }
 
 # Recover a list of gene sets from n x m adjacency matrix A, in which
