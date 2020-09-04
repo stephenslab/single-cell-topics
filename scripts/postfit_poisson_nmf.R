@@ -1,6 +1,10 @@
-# TO DO: Explain here what this script does, and how to use it. Also,
-# give Slurm settings I used to run script, and combinations of script
-# parameters settings I used.
+# Perform a gene-set enrichment analysis using differential expression
+# statistics based on a multinomial topic model.
+#
+# These are the Slurm settings I used:
+#
+#   sinteractive --mem=16G --cpus-per-task=8
+#
 library(tools)
 library(Matrix)
 library(fastTopics)
@@ -9,7 +13,6 @@ source("../code/gsea.R")
 
 # SCRIPT PARAMETERS
 # -----------------
-# TO DO: Explain here what these script parameters are for.
 genesetfile  <- "../data/gene_sets_human.RData"
 countsfile   <- "../data/pbmc_purified.RData"
 modelfitfile <- "../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds"
