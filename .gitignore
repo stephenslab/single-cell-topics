@@ -28,3 +28,4 @@ output/pbmc-68k/fits-pbmc-68k.RData
 output/pbmc-purified/fits-pbmc-purified.RData
 output/pulseseq/fits-pulseseq.RData
 output/pbmc-purified/rds/postfit-pbmc-purified-scd-ex-k=6.rds
+output/pbmc-68k/rds/postfit-pbmc-68k-scd-ex-k=6.rds
