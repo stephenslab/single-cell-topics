@@ -16,12 +16,12 @@ source("../code/gsea.R")
 # genesetfile  <- "../data/gene_sets_human.RData"
 # countsfile   <- "../data/pbmc_68k.RData"
 # modelfitfile <- "../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds"
-# outfile      <- "postfit-pbmc-68k-scd-ex-k=6.rds"
+# outfile      <- "postfit-pbmc-68k-scd-ex-k=6.RData"
 #
 genesetfile  <- "../data/gene_sets_human.RData"
 countsfile   <- "../data/pbmc_purified.RData"
 modelfitfile <- "../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds"
-outfile      <- "postfit-pbmc-purified-scd-ex-k=6.rds"
+outfile      <- "postfit-pbmc-purified-scd-ex-k=6.RData"
 
 # LOAD DATA
 # ---------
