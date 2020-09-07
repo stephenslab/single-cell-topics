@@ -351,16 +351,30 @@ p15 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,10,20,100,Inf))
 print(p15)
 ```
 
-Topic 3 characterizes natural killer cells, and topic 4 has yet to be
-characterized, but may represent some subset of naive T-cells. This is
-an example with interesting substructure that can't be captured by
-clusters. This is also an example of substructure that is much better
-captured by linear representations such as PCA as opposed to nonlinear
-dimensionality reduction methods such as *t*-SNP and UMAP.
-
-In summary, we have subdivided these data into 7 subsets:
+Topic 3 appears to characterize natural killer cells, and topic 4 has
+yet to be characterized, but may represent some subset of naive
+T-cells. This is an example with interesting substructure that can't
+be captured by clusters. This is also an example of substructure that
+is much better captured by linear representations such as PCA as
+opposed to nonlinear dimensionality reduction methods such as *t*-SNE
+and UMAP.
 
 ```{r pbmc-68k-clustering-8}
+fit  <- select(poisson2multinom(fit_68k),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A1a",n)
+pc1  <- pca[,"PC1"]
+x[pc1 > 0.25] <- "A1b"
+samples_68k[rows,"cluster"] <- x
+p16 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+  labs(fill = "cluster")
+print(p16)
+```
+
+In summary, we have subdivided these data into 8 subsets:
+
+```{r pbmc-68k-clustering-9}
 samples_68k$cluster <- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 ```
@@ -375,20 +389,21 @@ set.seed(1)
 pbmc_68k_topic_colors <- c("yellow","lightskyblue","salmon",
                            "firebrick","royalblue","olivedrab")
 pbmc_68k_topics <- c(2,5,1,3,4,6)
-rows <- sort(c(sample(which(samples_68k$cluster == "A1"),1200),
+rows <- sort(c(sample(which(samples_68k$cluster == "A1a"),1000),
+               sample(which(samples_68k$cluster == "A1b"),800),
                sample(which(samples_68k$cluster == "A2"),500),
                sample(which(samples_68k$cluster == "A3"),300),
                sample(which(samples_68k$cluster == "B1"),500),
                sample(which(samples_68k$cluster == "B2"),300),
                which(samples_68k$cluster == "B3"),
                which(samples_68k$cluster == "C")))
-p16 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
+p17 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       grouping = samples_68k[rows,"cluster"],
                       topics = pbmc_68k_topics,
    	 			      colors = pbmc_68k_topic_colors[pbmc_68k_topics],
-                      perplexity = c(160,100,70,80,50,50,50),
+                      perplexity = c(100,100,100,70,80,50,50,50),
                       n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
-print(p16)
+print(p17)
 ```
 
 These subsets do not align as closely with the cell-type labeling
