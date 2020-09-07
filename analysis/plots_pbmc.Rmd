@@ -25,7 +25,6 @@ library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-source("../code/misc.R")
 source("../code/plots.R")
 ```
 
@@ -37,21 +36,14 @@ We begin with the mixture of FACS-purified PBMC data.
 ```{r load-purified-data}
 load("../data/pbmc_purified.RData")
 samples_purified <- samples
-rm(samples,genes)
+rm(counts,samples,genes)
 ```
 
-Load the $k = 6$ Poisson NMF model fit, and the results of the
-differential expression analysis.
+Load the $k = 6$ Poisson NMF model fit.
 
 ```{r load-purified-fit}
-resultdir <- "../output/pbmc-purified"
 fit_purified <-
-  readRDS(file.path(resultdir,"rds/fit-pbmc-purified-scd-ex-k=6.rds"))$fit
-load(file.path(resultdir,"postfit-pbmc-purified-scd-ex-k=6.RData"))
-diff_count_purified <- diff_count_res
-genes_purified <- genes
-rm(genes,gene_info,diff_count_res)
-rm(gene_set_info,gene_sets,gsea_res)
+  readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 ```
 
 Here, we explore the structure of the single-cell data as inferred by
@@ -246,20 +238,13 @@ states.
 ```{r load-68k-data}
 load("../data/pbmc_68k.RData")
 samples_68k <- samples
-rm(samples,genes)
+rm(counts,samples,genes)
 ```
 
-Load the $k = 6$ Poisson NMF model fit, and the results of the
-differential expression analysis.
+Load the $k = 6$ Poisson NMF model fit.
 
 ```{r load-68k-fit}
-resultdir <- "../output/pbmc-68k"
-fit_68k <- readRDS(file.path(resultdir,"rds/fit-pbmc-68k-scd-ex-k=6.rds"))$fit
-load(file.path(resultdir,"postfit-pbmc-68k-scd-ex-k=6.RData"))
-diff_count_68k <- diff_count_res
-genes_68k <- genes
-rm(genes,gene_info,diff_count_res)
-rm(gene_set_info,gene_sets,gsea_res)
+-fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
 ```
 
 Compute PCs from the topic proportions.
@@ -433,86 +418,5 @@ A few more notes about these results:
 In summary, the topics and clusters seem to offer very much
 complementary biological insights, although subsequent analysis is
 needed to determine what these insights are.
-
-B-cells
--------
-
-*Add text here.*
-
-```{r b-cells, eval=FALSE}
-pdat <- data.frame(x     = diff_count_res_clusters$Z[,"B"],
-                   y     = diff_count_res$Z[,"k3"],
-                   label = genes$symbol,
-				   stringsAsFactors = FALSE)
-pdat[with(pdat,abs(x) < 150 & abs(y) < 150),"label"] <- ""
-p10 <- ggplot(pdat,aes(x = x,y = y,label = label)) +
-  geom_point(shape = 21,fill = "dodgerblue",color = "white") +
-  geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                  box.padding = 0.1,point.padding = 0.1,
-                  segment.color = "black",segment.size = 0.25,
-                  na.rm = TRUE) +
-  geom_abline(slope = 1,intercept = 0,color = "lightskyblue",
-              linetype = "dotted") + 
-  theme_cowplot(font_size = 10)
-print(p10)
-```
-
-
-```{r, eval=FALSE}
-pdat <- data.frame(x     = diff_count_res_clusters$Z[,"C2"],
-                   y     = diff_count_res$Z[,"k2"],
-                   label = genes$symbol,
-				   stringsAsFactors = FALSE)
-pdat[with(pdat,abs(x) < 175 & abs(y) < 175),"label"] <- ""
-p8 <- ggplot(pdat,aes(x = x,y = y,label = label)) +
-  geom_point(shape = 21,fill = "dodgerblue",color = "white") +
-  geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                  box.padding = 0.1,point.padding = 0.1,
-                  segment.color = "black",segment.size = 0.25,
-                  na.rm = TRUE) +
-  geom_abline(slope = 1,intercept = 0,color = "lightskyblue",
-              linetype = "dotted") + 
-  theme_cowplot(font_size = 10)
-print(p8)
-```
-
-```{r cd14, eval=FALSE}
-pdat <- data.frame(x     = diff_count_res_clusters$Z[,"C2"],
-                   y     = diff_count_res$Z[,"k2"],
-                   label = genes$symbol,
-				   stringsAsFactors = FALSE)
-pdat[with(pdat,abs(x) < 175 & abs(y) < 175),"label"] <- ""
-p9 <- ggplot(pdat,aes(x = x,y = y,label = label)) +
-  geom_point(shape = 21,fill = "dodgerblue",color = "white") +
-  geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                  box.padding = 0.1,point.padding = 0.1,
-                  segment.color = "black",segment.size = 0.25,
-                  na.rm = TRUE) +
-  geom_abline(slope = 1,intercept = 0,color = "lightskyblue",
-              linetype = "dotted") + 
-  theme_cowplot(font_size = 10)
-print(p9)
-```
-
-```{r nk-cells, eval=FALSE}
-pdat <- data.frame(x     = diff_count_res_clusters$Z[,"A1"],
-                   y     = diff_count_res$Z[,"k4"],
-                   mean  = diff_count_res$colmeans,
-                   label = genes$symbol,
-				   stringsAsFactors = FALSE)
-pdat[with(pdat,abs(x) < 150 & abs(y) < 150),"label"] <- ""
-p11 <- ggplot(pdat,aes(x = x,y = y,fill = mean,label = label)) +
-  geom_point(shape = 21,color = "white") +
-  geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                  box.padding = 0.1,point.padding = 0.1,
-                  segment.color = "black",segment.size = 0.25,
-                  na.rm = TRUE) +
-  geom_abline(slope = 1,intercept = 0,color = "lightskyblue",
-              linetype = "dotted") + 
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = 10) +
-  theme_cowplot(font_size = 10)
-print(p11)
-```
 
 [zheng-2017]: https://doi.org/10.1038/ncomms14049
