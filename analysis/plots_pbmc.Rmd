@@ -244,7 +244,7 @@ rm(counts,samples,genes)
 Load the $k = 6$ Poisson NMF model fit.
 
 ```{r load-68k-fit}
--fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
 ```
 
 Compute PCs from the topic proportions.
