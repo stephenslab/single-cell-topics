@@ -80,7 +80,7 @@ p3 <- ggplot(pdat,aes(x = x,y = y)) +
   theme_cowplot(font_size = 10)
 
 # Examine in greater detail relationship between topic 5 proportions
-# and expression level of key genes, in 68k data.
+# and expression level of CD79A in 68k data.
 load("../data/pbmc_68k.RData")
 counts <- counts[,genes_68k$ensembl]
 rm(samples,genes)
