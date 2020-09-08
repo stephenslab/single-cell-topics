@@ -1,4 +1,5 @@
-# TO DO: Explain here what this function does, and how to use it.
+# Create a scatterplot comparing two sets of z-scores generated from
+# two different differential expression analyses of the same data.
 diff_count_scatterplot <- function (z1, z2, colmeans, genes,
                                     label_above_score = 200) {
   pdat <- data.frame(mean = cut(colmeans,c(0,0.01,0.1,1,10,Inf)),
