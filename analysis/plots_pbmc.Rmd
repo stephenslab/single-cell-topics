@@ -355,12 +355,9 @@ print(p15)
 Topic 3 appears to characterize natural killer cells, and topic 4 has
 yet to be characterized, but may represent some subset of naive
 T-cells. This is an example with interesting substructure that can't
-be captured by clusters. This is also an example of substructure that
-is much better captured by linear representations such as PCA as
-opposed to nonlinear dimensionality reduction methods such as *t*-SNE
-and UMAP.
-
-*Add text here.*
+be captured well by clusters. Nonetheless, here we (somewhat
+arbitrarily) designate two subsets, A1b and A1c, in which all samples
+in these subsets are mostly explained by topic 3 and 4, respectively:
 
 ```{r pbmc-68k-clustering-8, fig.width=4, fig.height=3}
 fit  <- select(poisson2multinom(fit_68k),loadings = rows)

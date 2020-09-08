@@ -1,0 +1,28 @@
+---
+title: Examine B-cell and NK cell topics and clusters
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
+model fit.
+
+```{r load-purified-data}
+load("../data/pbmc_purified.RData")
+rm(counts,samples,genes)
+```
+
+*Add text here.*
+
+```{r load-clustering}
+load("../output/pbmc-clustering.RData")
+```
+
+
