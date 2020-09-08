@@ -11,18 +11,48 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
-model fit.
+Load the packages used in the analysis below.
 
-```{r load-purified-data}
-load("../data/pbmc_purified.RData")
-rm(counts,samples,genes)
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(ggplot2)
+library(cowplot)
 ```
 
-*Add text here.*
+Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
+model fit, and the results of the differential expression analysis
+using this model fit.
+
+```{r load-purified-data}
+fit_purified <-
+  readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
+load("../output/pbmc-purified/postfit-pbmc-purified-scd-ex-k=6.RData")
+load("../data/pbmc_purified.RData")
+counts_purified     <- counts[,rownames(diff_count_res$Z)]
+genes_purified      <- genes
+diff_count_purified <- diff_count_res
+rm(samples,genes,counts,diff_count_res,gene_info)
+rm(gene_set_info,gene_sets,gsea_res)
+```
+
+Load the "unsorted" 68k PBMC data, the $k = 6$ Poisson NMF model fit,
+and the results of the differential expression analysis using this
+model fit.
+
+```{r load-68k-data}
+fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
+load("../output/pbmc-68k/postfit-pbmc-68k-scd-ex-k=6.RData")
+load("../data/pbmc_68k.RData")
+counts_68k     <- counts[,rownames(diff_count_res$Z)]
+genes_68k      <- genes
+diff_count_68k <- diff_count_res
+rm(samples,genes,counts,diff_count_res,gene_set_info,gene_sets,gsea_res)
+```
+
+Load the clustering of the purified and 68k data set that was
+determined in the "plots_pbmc" analysis.
 
 ```{r load-clustering}
 load("../output/pbmc-clustering.RData")
 ```
-
 
