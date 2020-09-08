@@ -17,7 +17,9 @@ Load the packages used in the analysis below.
 library(Matrix)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
+source("../code/more_plots.R")
 ```
 
 Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
@@ -29,10 +31,11 @@ fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
 load("../output/pbmc-purified/postfit-pbmc-purified-scd-ex-k=6.RData")
 load("../data/pbmc_purified.RData")
-counts_purified     <- counts[,rownames(diff_count_res$Z)]
-genes_purified      <- genes
+ids                 <- rownames(diff_count_res$Z)
+counts_purified     <- counts[,ids]
+genes_purified      <- genes[match(ids,genes$ensembl),]
 diff_count_purified <- diff_count_res
-rm(samples,genes,counts,diff_count_res,gene_info)
+rm(samples,genes,counts,diff_count_res,gene_info,ids)
 rm(gene_set_info,gene_sets,gsea_res)
 ```
 
@@ -44,10 +47,11 @@ model fit.
 fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
 load("../output/pbmc-68k/postfit-pbmc-68k-scd-ex-k=6.RData")
 load("../data/pbmc_68k.RData")
-counts_68k     <- counts[,rownames(diff_count_res$Z)]
-genes_68k      <- genes
+ids            <- rownames(diff_count_res$Z)
+counts_68k     <- counts[,ids]
+genes_68k      <- genes[match(ids,genes$ensembl),]
 diff_count_68k <- diff_count_res
-rm(samples,genes,counts,diff_count_res,gene_set_info,gene_sets,gsea_res)
+rm(samples,genes,counts,diff_count_res,ids,gene_set_info,gene_sets,gsea_res)
 ```
 
 Load the clustering of the purified and 68k data set that was
@@ -57,21 +61,59 @@ determined in the "plots_pbmc" analysis.
 load("../output/pbmc-clustering.RData")
 ```
 
-Perform differential expression analysis using the clustering of the
+Perform a differential expression analysis using the clustering of the
 purified data.
 
-```{r diff-count-analysis-clusters-purified}
+```{r diff-count-analysis-clusters-purified, cache=TRUE}
 fit_clusters_purified <-
   init_poisson_nmf_from_clustering(counts_purified,samples_purified$cluster)
 diff_count_clusters_purified <- diff_count_analysis(fit_clusters_purified,
                                                     counts_purified)
 ```
 
-Perform differential expression analysis using the clustering of the
+Perform a differential expression analysis using the clustering of the
 68k data.
 
-```{r diff-count-analysis-clusters-68k}
+```{r diff-count-analysis-clusters-68k, cache=TRUE}
 fit_clusters_68k <- init_poisson_nmf_from_clustering(counts_68k,
                                                      samples_68k$cluster)
 diff_count_clusters_68k <- diff_count_analysis(fit_clusters_68k,counts_68k)
+```
+
+In the purified data set, compare the gene-wise *z*-scores from topic
+3 to the $z$-scores from cluster B.
+
+```{r z-scores-scatterplot-pbmc-purified, fig.height, fig.width=4}
+p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
+                             diff_count_purified$Z[,3],
+							 diff_count_purified$colmeans,
+							 genes_purified$symbol,
+							 label_above_score = 100) +
+  labs(x = "cluster B",y = "topic 3",title = "z-scores")
+print(p1)
+```
+
+In the 68k data, compare the gene-wise *z*-scores from topic 5 to the
+$z$-scores from cluster A2.
+
+```{r z-scores-scatterplot-pbmc-68k, fig.height=3, fig.width=4}
+p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
+                             diff_count_68k$Z[,5],
+							 diff_count_68k$colmeans,
+							 genes_68k$symbol,
+							 label_above_score = 100) +
+  labs(x = "cluster A2",y = "topic 5",title = "z-scores")
+print(p2)
+```
+
+Plot histograms of the topic 3 proportions inside and outside
+cluster B in the purified data.
+
+```{r}
+```
+
+Plot histograms of the topic 5 proportions inside and outside cluster
+A3 in the 68k data.
+
+```{r}
 ```
