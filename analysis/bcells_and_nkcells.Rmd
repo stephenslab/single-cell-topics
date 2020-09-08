@@ -83,7 +83,7 @@ diff_count_clusters_68k <- diff_count_analysis(fit_clusters_68k,counts_68k)
 In the purified data set, compare the gene-wise *z*-scores from topic
 3 to the $z$-scores from cluster B.
 
-```{r z-scores-scatterplot-pbmc-purified, fig.height, fig.width=4}
+```{r z-scores-scatterplot-pbmc-purified, fig.height=4, fig.width=4.5}
 p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
                              diff_count_purified$Z[,3],
 							 diff_count_purified$colmeans,
@@ -96,7 +96,7 @@ print(p1)
 In the 68k data, compare the gene-wise *z*-scores from topic 5 to the
 $z$-scores from cluster A2.
 
-```{r z-scores-scatterplot-pbmc-68k, fig.height=3, fig.width=4}
+```{r z-scores-scatterplot-pbmc-68k, fig.height=4, fig.width=4.5}
 p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
                              diff_count_68k$Z[,5],
 							 diff_count_68k$colmeans,
@@ -109,11 +109,34 @@ print(p2)
 Plot histograms of the topic 3 proportions inside and outside
 cluster B in the purified data.
 
-```{r}
+```{r fig.width=6, fig.height=2}
+fit <- poisson2multinom(fit_purified)
+p3 <- ggplot(data.frame(x = fit$L[,3]),aes(x)) +
+  geom_histogram(bins = 50,color = "white",fill = "black",na.rm = TRUE) +
+  ylim(c(0,2000)) +
+  labs(x = "topic 3 proportion",y = "number of cells") +
+  theme_cowplot(font_size = 10)
+p4 <- ggplot(data.frame(x = fit$L[samples_purified$cluster == "B",3]),aes(x)) +
+  geom_histogram(bins = 30,color = "white",fill = "black",na.rm = TRUE) +
+  labs(x = "topic 3 proportion",y = "number of cells") +
+  theme_cowplot(font_size = 10)
+plot_grid(p3,p4)
 ```
 
 Plot histograms of the topic 5 proportions inside and outside cluster
 A3 in the 68k data.
 
-```{r}
+```{r fig.width=6, fig.height=2}
+fit <- poisson2multinom(fit_68k)
+p5 <- ggplot(data.frame(x = fit$L[,5]),aes(x)) +
+  geom_histogram(bins = 50,color = "white",fill = "black",na.rm = TRUE) +
+  ylim(c(0,1200)) +
+  labs(x = "topic 5 proportion",y = "number of cells") +
+  theme_cowplot(font_size = 10)
+p6 <- ggplot(data.frame(x = fit$L[samples_68k$cluster == "A2",5]),aes(x)) +
+  geom_histogram(bins = 30,color = "white",fill = "black",na.rm = TRUE) +
+  labs(x = "topic 5 proportion",y = "number of cells") +
+  theme_cowplot(font_size = 10)
+plot_grid(p5,p6)
 ```
+
