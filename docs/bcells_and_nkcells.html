@@ -423,16 +423,16 @@ diff-count-analysis-clusters-purified
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4525edab2b4abb83075d0f52043764bbb96091bctargetblank4525edaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4525edab2b4abb83075d0f52043764bbb96091bc" target="_blank">4525eda</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreedc544c4dd9fb1ac021556bef86243d8067ee68aetargetblankdc544c4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/dc544c4dd9fb1ac021556bef86243d8067ee68ae" target="_blank">dc544c4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4525edab2b4abb83075d0f52043764bbb96091bctargetblank4525edaa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreedc544c4dd9fb1ac021556bef86243d8067ee68aetargetblankdc544c4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4525edab2b4abb83075d0f52043764bbb96091bc" target="_blank">4525eda</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/dc544c4dd9fb1ac021556bef86243d8067ee68ae" target="_blank">dc544c4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -494,6 +494,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dc544c4dd9fb1ac021556bef86243d8067ee68ae/analysis/bcells_and_nkcells.Rmd" target="_blank">dc544c4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+<td>
+workflowr::wflow_publish(“bcells_and_nkcells.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/02953bd165e93566f48d4d5722a98a62dd9fae6e/docs/bcells_and_nkcells.html" target="_blank">02953bd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -669,6 +703,43 @@ diff_count_clusters_68k &lt;- diff_count_analysis(fit_clusters_68k,counts_68k)
   labs(x = &quot;cluster B&quot;,y = &quot;topic 3&quot;,title = &quot;z-scores&quot;)
 print(p1)</code></pre>
 <p><img src="figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-purified-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-scatterplot-pbmc-purified-1">
+Past versions of z-scores-scatterplot-pbmc-purified-1.png
+</button>
+</p>
+<div id="fig-z-scores-scatterplot-pbmc-purified-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/02953bd165e93566f48d4d5722a98a62dd9fae6e/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-purified-1.png" target="_blank">02953bd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In the 68k data, compare the gene-wise <em>z</em>-scores from topic 5 to the <span class="math inline">\(z\)</span>-scores from cluster A2.</p>
 <pre class="r"><code>p2 &lt;- diff_count_scatterplot(diff_count_clusters_68k$Z[,&quot;A2&quot;],
                              diff_count_68k$Z[,5],
@@ -702,6 +773,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/02953bd165e93566f48d4d5722a98a62dd9fae6e/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" target="_blank">02953bd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/2e5917deb81d61870cbbc275e8352ab61012440c/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" target="_blank">2e5917d</a>
 </td>
 <td>
@@ -727,7 +809,7 @@ p4 &lt;- ggplot(data.frame(x = fit$L[samples_purified$cluster == &quot;B&quot;,3
   labs(x = &quot;topic 3 proportion&quot;,y = &quot;number of cells&quot;) +
   theme_cowplot(font_size = 10)
 plot_grid(p3,p4)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/unnamed-chunk-1-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bcells_and_nkcells.Rmd/topic-3-histogram-pbmc-purified-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Plot histograms of the topic 5 proportions inside and outside cluster A3 in the 68k data.</p>
 <pre class="r"><code>fit &lt;- poisson2multinom(fit_68k)
 p5 &lt;- ggplot(data.frame(x = fit$L[,5]),aes(x)) +
@@ -740,7 +822,37 @@ p6 &lt;- ggplot(data.frame(x = fit$L[samples_68k$cluster == &quot;A2&quot;,5]),a
   labs(x = &quot;topic 5 proportion&quot;,y = &quot;number of cells&quot;) +
   theme_cowplot(font_size = 10)
 plot_grid(p5,p6)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/unnamed-chunk-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bcells_and_nkcells.Rmd/topic-5-histogram-pbmc-68k-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Examine closely the relationship between topic 3 and expression of <em>CD79A</em> in the purified data.</p>
+<pre class="r"><code>fit  &lt;- poisson2multinom(fit_purified)
+i    &lt;- which(genes_purified$symbol == &quot;CD79A&quot;)
+pdat &lt;- data.frame(x = cut(fit$L[,3],seq(0,1,0.05)),
+                   y = counts_purified[,i])
+pdat &lt;- data.frame(x = seq(0,0.95,0.05),
+                   y = with(pdat,tapply(y,x,mean)))
+names(pdat) &lt;- c(&quot;x&quot;,&quot;y&quot;)
+p7 &lt;- ggplot(pdat,aes(x = x,y = y)) +
+  geom_col(color = &quot;white&quot;,fill = &quot;black&quot;) +
+  labs(x = &quot;topic 3 proportion&quot;,
+       y = &quot;CD79A expression level&quot;) +
+  theme_cowplot(font_size = 10)
+print(p7)</code></pre>
+<p><img src="figure/bcells_and_nkcells.Rmd/topic-3-vs-cd79a-pbmc-purified-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>Examine closely the relationship between topic 5 and expression of <em>CD79A</em> in the 68k data.</p>
+<pre class="r"><code>fit  &lt;- poisson2multinom(fit_68k)
+i    &lt;- which(genes_68k$symbol == &quot;CD79A&quot;)
+pdat &lt;- data.frame(x = cut(fit$L[,5],seq(0,1,0.05)),
+                   y = counts_68k[,i])
+pdat &lt;- data.frame(x = seq(0,0.95,0.05),
+                   y = with(pdat,tapply(y,x,mean)))
+names(pdat) &lt;- c(&quot;x&quot;,&quot;y&quot;)
+p8 &lt;- ggplot(pdat,aes(x = x,y = y)) +
+  geom_col(color = &quot;white&quot;,fill = &quot;black&quot;) +
+  labs(x = &quot;topic 5 proportion&quot;,
+       y = &quot;CD79A expression level&quot;) +
+  theme_cowplot(font_size = 10)
+print(p8)</code></pre>
+<p><img src="figure/bcells_and_nkcells.Rmd/topic-5-vs-cd79a-pbmc-68k-1.png" width="360" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
