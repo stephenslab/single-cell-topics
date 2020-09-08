@@ -15,6 +15,7 @@ Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
 ```
@@ -56,3 +57,21 @@ determined in the "plots_pbmc" analysis.
 load("../output/pbmc-clustering.RData")
 ```
 
+Perform differential expression analysis using the clustering of the
+purified data.
+
+```{r diff-count-analysis-clusters-purified}
+fit_clusters_purified <-
+  init_poisson_nmf_from_clustering(counts_purified,samples_purified$cluster)
+diff_count_clusters_purified <- diff_count_analysis(fit_clusters_purified,
+                                                    counts_purified)
+```
+
+Perform differential expression analysis using the clustering of the
+68k data.
+
+```{r diff-count-analysis-clusters-68k}
+fit_clusters_68k <- init_poisson_nmf_from_clustering(counts_68k,
+                                                     samples_68k$cluster)
+diff_count_clusters_68k <- diff_count_analysis(fit_clusters_68k,counts_68k)
+```
