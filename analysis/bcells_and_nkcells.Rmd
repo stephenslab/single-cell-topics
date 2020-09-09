@@ -97,7 +97,7 @@ B-cells
 -------
 
 In the purified data set, compare the gene-wise *z*-scores from topic
-3 to the $z$-scores from cluster B.
+3 to the *z*-scores from cluster B.
 
 ```{r z-scores-pbmc-purified-3-vs-B, fig.height=3.75, fig.width=4.5}
 p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
@@ -112,7 +112,7 @@ print(p1)
 B-cell marker *CD79A* only emerges in the cluster, and shows no
 enrichment in the corresponding topic. This is not a fluke---we
 observe the exact same result in the 68k data when we compare the
-gene-wise *z*-scores from topic 5 to the $z$-scores from cluster A2:
+gene-wise *z*-scores from topic 5 to the *z*-scores from cluster A2:
 
 ```{r z-scores-pbmc-68k-5-vs-A2, fig.height=3.75, fig.width=4.5}
 p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
@@ -129,7 +129,7 @@ NK cells
 
 We observe a similar---yet more striking---result in natural killer
 cells. In the purified data set, compare the gene-wise *z*-scores from
-topic 4 to the $z$-scores from cluster A1:
+topic 4 to the *z*-scores from cluster A1:
 
 ```{r z-scores-pbmc-purified-4-vs-A1, fig.height=4, fig.width=4.5}
 p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
@@ -146,7 +146,7 @@ are very strongly enriched in the cluster, and not at all in the
 topic.
 
 The 68k data, comparing the gene-wise *z*-scores from topic 3 to the
-$z$-scores from cluster A1b, replicates this striking result:
+*z*-scores from cluster A1b, replicates this striking result:
 
 ```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5}
 p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
@@ -154,7 +154,7 @@ p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
 							 diff_count_68k$colmeans,
 							 genes_68k$symbol,
 							 label_above_score = 100) +
-  labs(x = "cluster A2",y = "topic 5",title = "z-scores")
+  labs(x = "cluster A1b",y = "topic 3",title = "z-scores")
 print(p4)
 ```
 
