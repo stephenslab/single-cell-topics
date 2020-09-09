@@ -4,7 +4,13 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add text here.*
+In the [previous analysis](plots_pbmc.html) of the purified and 68k
+PBMC data sets, we identified clusters in both data sets corresponding
+to B-cells and natural killer cells. Each of these clusters is
+characterized by high proportions from a single topic. Here we show a
+surprising result: the clusters are enriched for the top marker genes
+for these cell types (e.g., *CD79A*, *NKG7*), but not the associated
+topics.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -22,6 +28,9 @@ library(ggrepel)
 library(cowplot)
 source("../code/more_plots.R")
 ```
+
+Load data and results
+---------------------
 
 Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
 model fit, and the results of the differential expression analysis
@@ -62,6 +71,9 @@ determined in the "plots_pbmc" analysis.
 load("../output/pbmc-clustering.RData")
 ```
 
+Perform cluster-based differential expression analysis
+------------------------------------------------------
+
 Perform a differential expression analysis using the clustering of the
 purified data.
 
@@ -81,6 +93,9 @@ fit_clusters_68k <- init_poisson_nmf_from_clustering(counts_68k,
 diff_count_clusters_68k <- diff_count_analysis(fit_clusters_68k,counts_68k)
 ```
 
+B-cells
+-------
+
 In the purified data set, compare the gene-wise *z*-scores from topic
 3 to the $z$-scores from cluster B.
 
@@ -94,8 +109,10 @@ p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
 print(p1)
 ```
 
-In the 68k data, compare the gene-wise *z*-scores from topic 5 to the
-$z$-scores from cluster A2.
+B-cell marker *CD79A* only emerges in the cluster, and shows no
+enrichment in the corresponding topic. This is not a fluke---we
+observe the exact same result in the 68k data when we compare the
+gene-wise *z*-scores from topic 5 to the $z$-scores from cluster A2:
 
 ```{r z-scores-pbmc-68k-5-vs-A2, fig.height=3.75, fig.width=4.5}
 p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
@@ -107,8 +124,12 @@ p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
 print(p2)
 ```
 
-In the purified data set, compare the gene-wise *z*-scores from topic
-4 to the $z$-scores from cluster A1.
+NK cells
+--------
+
+We observe a similar---yet more striking---result in natural killer
+cells. In the purified data set, compare the gene-wise *z*-scores from
+topic 4 to the $z$-scores from cluster A1:
 
 ```{r z-scores-pbmc-purified-4-vs-A1, fig.height=4, fig.width=4.5}
 p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
@@ -120,8 +141,12 @@ p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
 print(p3)
 ```
 
-In the 68k data, compare the gene-wise *z*-scores from topic 3 to the
-$z$-scores from cluster A1b.
+Genes *NKG7* and *GNLY* (granulysin), both characteristic NK genes,
+are very strongly enriched in the cluster, and not at all in the
+topic.
+
+The 68k data, comparing the gene-wise *z*-scores from topic 3 to the
+$z$-scores from cluster A1b, replicates this striking result:
 
 ```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5}
 p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
@@ -132,3 +157,6 @@ p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
   labs(x = "cluster A2",y = "topic 5",title = "z-scores")
 print(p4)
 ```
+
+These results suggest the clusters and topics appear to be
+highlighting different biological patterns.
