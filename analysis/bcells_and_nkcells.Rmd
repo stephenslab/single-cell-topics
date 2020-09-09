@@ -15,6 +15,7 @@ Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
+library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(ggrepel)
@@ -104,76 +105,4 @@ p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
 							 label_above_score = 100) +
   labs(x = "cluster A2",y = "topic 5",title = "z-scores")
 print(p2)
-```
-
-Plot histograms of the topic 3 proportions inside and outside
-cluster B in the purified data.
-
-```{r topic-3-histogram-pbmc-purified, fig.width=6, fig.height=2}
-fit <- poisson2multinom(fit_purified)
-p3 <- ggplot(data.frame(x = fit$L[,3]),aes(x)) +
-  geom_histogram(bins = 50,color = "white",fill = "black",na.rm = TRUE) +
-  ylim(c(0,2000)) +
-  labs(x = "topic 3 proportion",y = "number of cells") +
-  theme_cowplot(font_size = 10)
-p4 <- ggplot(data.frame(x = fit$L[samples_purified$cluster == "B",3]),aes(x)) +
-  geom_histogram(bins = 30,color = "white",fill = "black",na.rm = TRUE) +
-  labs(x = "topic 3 proportion",y = "number of cells") +
-  theme_cowplot(font_size = 10)
-plot_grid(p3,p4)
-```
-
-Plot histograms of the topic 5 proportions inside and outside cluster
-A3 in the 68k data.
-
-```{r topic-5-histogram-pbmc-68k, fig.width=6, fig.height=2}
-fit <- poisson2multinom(fit_68k)
-p5 <- ggplot(data.frame(x = fit$L[,5]),aes(x)) +
-  geom_histogram(bins = 50,color = "white",fill = "black",na.rm = TRUE) +
-  ylim(c(0,1200)) +
-  labs(x = "topic 5 proportion",y = "number of cells") +
-  theme_cowplot(font_size = 10)
-p6 <- ggplot(data.frame(x = fit$L[samples_68k$cluster == "A2",5]),aes(x)) +
-  geom_histogram(bins = 30,color = "white",fill = "black",na.rm = TRUE) +
-  labs(x = "topic 5 proportion",y = "number of cells") +
-  theme_cowplot(font_size = 10)
-plot_grid(p5,p6)
-```
-
-Examine closely the relationship between topic 3 and expression of
-*CD79A* in the purified data.
-
-```{r topic-3-vs-cd79a-pbmc-purified, fig.width=3, fig.height=2.5}
-fit  <- poisson2multinom(fit_purified)
-i    <- which(genes_purified$symbol == "CD79A")
-pdat <- data.frame(x = cut(fit$L[,3],seq(0,1,0.05)),
-                   y = counts_purified[,i])
-pdat <- data.frame(x = seq(0,0.95,0.05),
-                   y = with(pdat,tapply(y,x,mean)))
-names(pdat) <- c("x","y")
-p7 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_col(color = "white",fill = "black") +
-  labs(x = "topic 3 proportion",
-       y = "CD79A expression level") +
-  theme_cowplot(font_size = 10)
-print(p7)
-```
-
-Examine closely the relationship between topic 5 and expression of
-*CD79A* in the 68k data.
-
-```{r topic-5-vs-cd79a-pbmc-68k, fig.width=3, fig.height=2.5}
-fit  <- poisson2multinom(fit_68k)
-i    <- which(genes_68k$symbol == "CD79A")
-pdat <- data.frame(x = cut(fit$L[,5],seq(0,1,0.05)),
-                   y = counts_68k[,i])
-pdat <- data.frame(x = seq(0,0.95,0.05),
-                   y = with(pdat,tapply(y,x,mean)))
-names(pdat) <- c("x","y")
-p8 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_col(color = "white",fill = "black") +
-  labs(x = "topic 5 proportion",
-       y = "CD79A expression level") +
-  theme_cowplot(font_size = 10)
-print(p8)
 ```
