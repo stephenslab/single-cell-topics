@@ -84,7 +84,7 @@ diff_count_clusters_68k <- diff_count_analysis(fit_clusters_68k,counts_68k)
 In the purified data set, compare the gene-wise *z*-scores from topic
 3 to the $z$-scores from cluster B.
 
-```{r z-scores-scatterplot-pbmc-purified, fig.height=4, fig.width=4.5}
+```{r z-scores-pbmc-purified-3-vs-B, fig.height=3.75, fig.width=4.5}
 p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
                              diff_count_purified$Z[,3],
 							 diff_count_purified$colmeans,
@@ -97,7 +97,7 @@ print(p1)
 In the 68k data, compare the gene-wise *z*-scores from topic 5 to the
 $z$-scores from cluster A2.
 
-```{r z-scores-scatterplot-pbmc-68k, fig.height=4, fig.width=4.5}
+```{r z-scores-pbmc-68k-5-vs-A2, fig.height=3.75, fig.width=4.5}
 p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
                              diff_count_68k$Z[,5],
 							 diff_count_68k$colmeans,
@@ -105,4 +105,30 @@ p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
 							 label_above_score = 100) +
   labs(x = "cluster A2",y = "topic 5",title = "z-scores")
 print(p2)
+```
+
+In the purified data set, compare the gene-wise *z*-scores from topic
+4 to the $z$-scores from cluster A1.
+
+```{r z-scores-pbmc-purified-4-vs-A1, fig.height=4, fig.width=4.5}
+p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
+                             diff_count_purified$Z[,4],
+							 diff_count_purified$colmeans,
+							 genes_purified$symbol,
+							 label_above_score = 200) +
+  labs(x = "cluster A1",y = "topic 4",title = "z-scores")
+print(p3)
+```
+
+In the 68k data, compare the gene-wise *z*-scores from topic 3 to the
+$z$-scores from cluster A1b.
+
+```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5}
+p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
+                             diff_count_68k$Z[,3],
+							 diff_count_68k$colmeans,
+							 genes_68k$symbol,
+							 label_above_score = 100) +
+  labs(x = "cluster A2",y = "topic 5",title = "z-scores")
+print(p4)
 ```
