@@ -423,16 +423,16 @@ diff-count-analysis-clusters-purified
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef5a2e424c47d18caba45ba721d88cc7b59d11ddbtargetblankf5a2e42a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f5a2e424c47d18caba45ba721d88cc7b59d11ddb" target="_blank">f5a2e42</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8ba727c7f980650d6fa611937f335cabbd149743targetblank8ba727ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8ba727c7f980650d6fa611937f335cabbd149743" target="_blank">8ba727c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef5a2e424c47d18caba45ba721d88cc7b59d11ddbtargetblankf5a2e42a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8ba727c7f980650d6fa611937f335cabbd149743targetblank8ba727ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f5a2e424c47d18caba45ba721d88cc7b59d11ddb" target="_blank">f5a2e42</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8ba727c7f980650d6fa611937f335cabbd149743" target="_blank">8ba727c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -494,6 +494,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8ba727c7f980650d6fa611937f335cabbd149743/analysis/bcells_and_nkcells.Rmd" target="_blank">8ba727c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+<td>
+workflowr::wflow_publish(“bcells_and_nkcells.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/bffd7cd1467ba60b6556d78c5f878e958c0719b9/docs/bcells_and_nkcells.html" target="_blank">bffd7cd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+<td>
+Removed the additional histograms in the bcells_and_nkcells analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -737,55 +771,7 @@ diff_count_clusters_68k &lt;- diff_count_analysis(fit_clusters_68k,counts_68k)
                              label_above_score = 100) +
   labs(x = &quot;cluster B&quot;,y = &quot;topic 3&quot;,title = &quot;z-scores&quot;)
 print(p1)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-purified-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-scatterplot-pbmc-purified-1">
-Past versions of z-scores-scatterplot-pbmc-purified-1.png
-</button>
-</p>
-<div id="fig-z-scores-scatterplot-pbmc-purified-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/abb8ab4b32254a4445bfa8dcd2a0c4d532a09815/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-purified-1.png" target="_blank">abb8ab4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/02953bd165e93566f48d4d5722a98a62dd9fae6e/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-purified-1.png" target="_blank">02953bd</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-3-vs-B-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>In the 68k data, compare the gene-wise <em>z</em>-scores from topic 5 to the <span class="math inline">\(z\)</span>-scores from cluster A2.</p>
 <pre class="r"><code>p2 &lt;- diff_count_scatterplot(diff_count_clusters_68k$Z[,&quot;A2&quot;],
                              diff_count_68k$Z[,5],
@@ -794,66 +780,25 @@ Peter Carbonetto
                              label_above_score = 100) +
   labs(x = &quot;cluster A2&quot;,y = &quot;topic 5&quot;,title = &quot;z-scores&quot;)
 print(p2)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-scatterplot-pbmc-68k-1">
-Past versions of z-scores-scatterplot-pbmc-68k-1.png
-</button>
-</p>
-<div id="fig-z-scores-scatterplot-pbmc-68k-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/abb8ab4b32254a4445bfa8dcd2a0c4d532a09815/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" target="_blank">abb8ab4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/02953bd165e93566f48d4d5722a98a62dd9fae6e/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" target="_blank">02953bd</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-08
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/2e5917deb81d61870cbbc275e8352ab61012440c/docs/figure/bcells_and_nkcells.Rmd/z-scores-scatterplot-pbmc-68k-1.png" target="_blank">2e5917d</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-08
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-5-vs-A2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>In the purified data set, compare the gene-wise <em>z</em>-scores from topic 4 to the <span class="math inline">\(z\)</span>-scores from cluster A1.</p>
+<pre class="r"><code>p3 &lt;- diff_count_scatterplot(diff_count_clusters_purified$Z[,&quot;A1&quot;],
+                             diff_count_purified$Z[,4],
+                             diff_count_purified$colmeans,
+                             genes_purified$symbol,
+                             label_above_score = 200) +
+  labs(x = &quot;cluster A1&quot;,y = &quot;topic 4&quot;,title = &quot;z-scores&quot;)
+print(p3)</code></pre>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-4-vs-A1-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>In the 68k data, compare the gene-wise <em>z</em>-scores from topic 3 to the <span class="math inline">\(z\)</span>-scores from cluster A1b.</p>
+<pre class="r"><code>p4 &lt;- diff_count_scatterplot(diff_count_clusters_68k$Z[,&quot;A1b&quot;],
+                             diff_count_68k$Z[,3],
+                             diff_count_68k$colmeans,
+                             genes_68k$symbol,
+                             label_above_score = 100) +
+  labs(x = &quot;cluster A2&quot;,y = &quot;topic 5&quot;,title = &quot;z-scores&quot;)
+print(p4)</code></pre>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-3-vs-A1b-1.png" width="540" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
