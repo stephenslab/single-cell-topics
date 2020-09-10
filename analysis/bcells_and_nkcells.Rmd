@@ -66,7 +66,7 @@ Perform differential expression analysis with the topic model
 
 Compute the differential expression statistics for the purified data.
 
-```{r diff-count-analysis-pbmc-purified}
+```{r diff-count-analysis-pbmc-purified, cache=TRUE}
 timing <- system.time(
   diff_count_purified <- diff_count_analysis(fit_purified,counts_purified))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
@@ -74,7 +74,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 Compute the differential expression statistics for the 68k data.
 
-```{r diff-count-analysis-pbmc-68k}
+```{r diff-count-analysis-pbmc-68k, cache=TRUE}
 timing <- system.time(
   diff_count_68k <- diff_count_analysis(fit_68k,counts_68k))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
@@ -108,14 +108,19 @@ B-cells
 In the purified data set, compare the gene-wise *z*-scores from topic
 3 to the *z*-scores from cluster B.
 
-```{r z-scores-pbmc-purified-3-vs-B, fig.height=3.75, fig.width=4.5}
-p1 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"B"],
-                             diff_count_purified$Z[,3],
-							 diff_count_purified$colmeans,
-							 genes_purified$symbol,
-							 label_above_score = 100) +
+```{r pbmc-purified-3-vs-B, fig.width=7, fig.height=3}
+p1 <- logfoldchange_scatterplot(diff_count_clusters_purified$beta[,"B"],
+                                diff_count_purified$beta[,3],
+					   		    diff_count_purified$colmeans) +
+  labs(x = "cluster B",y = "topic 3",title = "log-fold change (beta)")
+p2 <- zscores_scatterplot(diff_count_clusters_purified$Z[,"B"],
+                          diff_count_purified$Z[,3],
+						  diff_count_purified$colmeans,
+						  genes_purified$symbol,
+						  label_above_score = 250,
+						  zmax = 650) +
   labs(x = "cluster B",y = "topic 3",title = "z-scores")
-print(p1)
+plot_grid(p1,p2)
 ```
 
 B-cell marker *CD79A* only emerges in the cluster, and shows no
@@ -124,13 +129,18 @@ observe the exact same result in the 68k data when we compare the
 gene-wise *z*-scores from topic 5 to the *z*-scores from cluster A2:
 
 ```{r z-scores-pbmc-68k-5-vs-A2, fig.height=3.75, fig.width=4.5}
-p2 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A2"],
-                             diff_count_68k$Z[,5],
-							 diff_count_68k$colmeans,
-							 genes_68k$symbol,
-							 label_above_score = 100) +
+p3 <- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,"A2"],
+                                diff_count_68k$beta[,5],
+					   		    diff_count_68k$colmeans) +
+  labs(x = "cluster A2",y = "topic 5",title = "log-fold change (beta)")
+p4 <- zscores_scatterplot(diff_count_clusters_68k$Z[,"A2"],
+                          diff_count_68k$Z[,5],
+						  diff_count_68k$colmeans,
+						  genes_68k$symbol,
+						  label_above_score = 175,
+						  zmax = 500) +
   labs(x = "cluster A2",y = "topic 5",title = "z-scores")
-print(p2)
+plot_grid(p3,p4)
 ```
 
 NK cells
@@ -140,7 +150,7 @@ We observe a similar---yet more striking---result in natural killer
 cells. In the purified data set, compare the gene-wise *z*-scores from
 topic 4 to the *z*-scores from cluster A1:
 
-```{r z-scores-pbmc-purified-4-vs-A1, fig.height=3.75, fig.width=4.5}
+```{r z-scores-pbmc-purified-4-vs-A1, eval=FALSE}
 p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
                              diff_count_purified$Z[,4],
 							 diff_count_purified$colmeans,
@@ -157,7 +167,7 @@ topic.
 The 68k data, comparing the gene-wise *z*-scores from topic 3 to the
 *z*-scores from cluster A1b, replicates this striking result:
 
-```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5}
+```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5, eval=FALSE}
 p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
                              diff_count_68k$Z[,3],
 							 diff_count_68k$colmeans,
