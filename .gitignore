@@ -27,5 +27,3 @@ output/droplet/fits-droplet.RData
 output/pbmc-68k/fits-pbmc-68k.RData
 output/pbmc-purified/fits-pbmc-purified.RData
 output/pulseseq/fits-pulseseq.RData
-output/pbmc-purified/postfit-pbmc-purified-scd-ex-k=6.RData
-output/pbmc-68k/postfit-pbmc-68k-scd-ex-k=6.RData

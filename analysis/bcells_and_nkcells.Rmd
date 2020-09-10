@@ -32,36 +32,26 @@ source("../code/more_plots.R")
 Load data and results
 ---------------------
 
-Load the mixture of FACS-purified PBMC data, the $k = 6$ Poisson NMF
-model fit, and the results of the differential expression analysis
-using this model fit.
+Load the mixture of FACS-purified PBMC data and the $k = 6$ Poisson
+NMF model fit.
 
 ```{r load-purified-data}
 fit_purified <-
   readRDS("../output/pbmc-purified/rds/fit-pbmc-purified-scd-ex-k=6.rds")$fit
-load("../output/pbmc-purified/postfit-pbmc-purified-scd-ex-k=6.RData")
 load("../data/pbmc_purified.RData")
-ids                 <- rownames(diff_count_res$Z)
-counts_purified     <- counts[,ids]
-genes_purified      <- genes[match(ids,genes$ensembl),]
-diff_count_purified <- diff_count_res
-rm(samples,genes,counts,diff_count_res,gene_info,ids)
-rm(gene_set_info,gene_sets,gsea_res)
+counts_purified <- counts
+genes_purified  <- genes
+rm(samples,genes,counts)
 ```
 
-Load the "unsorted" 68k PBMC data, the $k = 6$ Poisson NMF model fit,
-and the results of the differential expression analysis using this
-model fit.
+Load the "unsorted" 68k PBMC data and the $k = 6$ Poisson NMF model fit.
 
 ```{r load-68k-data}
 fit_68k <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=6.rds")$fit
-load("../output/pbmc-68k/postfit-pbmc-68k-scd-ex-k=6.RData")
 load("../data/pbmc_68k.RData")
-ids            <- rownames(diff_count_res$Z)
-counts_68k     <- counts[,ids]
-genes_68k      <- genes[match(ids,genes$ensembl),]
-diff_count_68k <- diff_count_res
-rm(samples,genes,counts,diff_count_res,ids,gene_set_info,gene_sets,gsea_res)
+counts_68k <- counts
+genes_68k  <- genes
+rm(samples,genes,counts)
 ```
 
 Load the clustering of the purified and 68k data set that was
@@ -71,8 +61,27 @@ determined in the "plots_pbmc" analysis.
 load("../output/pbmc-clustering.RData")
 ```
 
-Perform cluster-based differential expression analysis
-------------------------------------------------------
+Perform differential expression analysis with the topic model
+-------------------------------------------------------------
+
+Compute the differential expression statistics for the purified data.
+
+```{r diff-count-analysis-pbmc-purified}
+timing <- system.time(
+  diff_count_purified <- diff_count_analysis(fit_purified,counts_purified))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Compute the differential expression statistics for the 68k data.
+
+```{r diff-count-analysis-pbmc-68k}
+timing <- system.time(
+  diff_count_68k <- diff_count_analysis(fit_68k,counts_68k))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Perform differential expression analysis using the clusters
+-----------------------------------------------------------
 
 Perform a differential expression analysis using the clustering of the
 purified data.
@@ -131,7 +140,7 @@ We observe a similar---yet more striking---result in natural killer
 cells. In the purified data set, compare the gene-wise *z*-scores from
 topic 4 to the *z*-scores from cluster A1:
 
-```{r z-scores-pbmc-purified-4-vs-A1, fig.height=4, fig.width=4.5}
+```{r z-scores-pbmc-purified-4-vs-A1, fig.height=3.75, fig.width=4.5}
 p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
                              diff_count_purified$Z[,4],
 							 diff_count_purified$colmeans,
