@@ -128,7 +128,7 @@ enrichment in the corresponding topic. This is not a fluke---we
 observe the exact same result in the 68k data when we compare the
 gene-wise *z*-scores from topic 5 to the *z*-scores from cluster A2:
 
-```{r z-scores-pbmc-68k-5-vs-A2, fig.height=3.75, fig.width=4.5}
+```{r z-scores-pbmc-68k-5-vs-A2, fig.width=7, fig.height=3}
 p3 <- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,"A2"],
                                 diff_count_68k$beta[,5],
 					   		    diff_count_68k$colmeans) +
@@ -150,14 +150,19 @@ We observe a similar---yet more striking---result in natural killer
 cells. In the purified data set, compare the gene-wise *z*-scores from
 topic 4 to the *z*-scores from cluster A1:
 
-```{r z-scores-pbmc-purified-4-vs-A1, eval=FALSE}
-p3 <- diff_count_scatterplot(diff_count_clusters_purified$Z[,"A1"],
-                             diff_count_purified$Z[,4],
-							 diff_count_purified$colmeans,
-							 genes_purified$symbol,
-							 label_above_score = 200) +
+```{r z-scores-pbmc-purified-4-vs-A1, fig.width=7, fig.height=3}
+p5 <- logfoldchange_scatterplot(diff_count_clusters_purified$beta[,"A1"],
+                                diff_count_purified$beta[,4],
+					   		    diff_count_purified$colmeans) +
+  labs(x = "cluster A1",y = "topic 4",title = "log-fold change (beta)")
+p6 <- zscores_scatterplot(diff_count_clusters_purified$Z[,"A1"],
+                          diff_count_purified$Z[,4],
+						  diff_count_purified$colmeans,
+						  genes_purified$symbol,
+						  label_above_score = 250,
+						  zmax = 750) +
   labs(x = "cluster A1",y = "topic 4",title = "z-scores")
-print(p3)
+plot_grid(p5,p6)
 ```
 
 Genes *NKG7* and *GNLY* (granulysin), both characteristic NK genes,
@@ -168,13 +173,17 @@ The 68k data, comparing the gene-wise *z*-scores from topic 3 to the
 *z*-scores from cluster A1b, replicates this striking result:
 
 ```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5, eval=FALSE}
-p4 <- diff_count_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
-                             diff_count_68k$Z[,3],
-							 diff_count_68k$colmeans,
-							 genes_68k$symbol,
-							 label_above_score = 100) +
+p7 <- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,"A1b"],
+                                diff_count_68k$beta[,3],
+					   		    diff_count_68k$colmeans) +
+  labs(x = "cluster A1b",y = "topic 3",title = "log-fold change (beta)")
+p8 <- zscores_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
+                          diff_count_68k$Z[,3],
+						  diff_count_68k$colmeans,
+						  genes_68k$symbol,
+						  label_above_score = 250) +
   labs(x = "cluster A1b",y = "topic 3",title = "z-scores")
-print(p4)
+plot_grid(p7,p8)
 ```
 
 These results suggest the clusters and topics appear to be
