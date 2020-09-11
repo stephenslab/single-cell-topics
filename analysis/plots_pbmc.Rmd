@@ -12,6 +12,18 @@ fitted to these data sets can be used to learn about structure in the
 data. In particular, we would like to identify clusters, and interpret
 clusters and topics as "cell types" or "gene expression programs".
 
+TO DO:
+
++ Run differential expression analysis using the topic model (cache
+  the results).
+
++ Run the differential expression analysis using the clusters (cache
+  these results, too).
+
++ Give better names to the clusters in the purified data.
+
++ Give better names to the clusters in the 68k data.
+
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
@@ -136,8 +148,8 @@ table(x)
 ```
 
 Now we turn to cluster A. Within this cluster, there is a large
-subcluster, which we label as "A1"; the subset of samples that are not
-assigned to this cluster are labeled "A2". (The A1 subcluster is much
+subcluster, which we label as "NK"; the subset of samples that are not
+assigned to this cluster are labeled "A2". (The NK subcluster is much
 less distinct than the other clusters we have seen so far, and may not
 show up clearly in this scatterplot---it is more apparent from the
 density plot.) Otherwise, there is no obvious additional clustering of
@@ -151,7 +163,7 @@ n    <- nrow(fit$L)
 x    <- rep("A2",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
-x[pc1 > 0.55 - pc2 | pc1 > 0.65] <- "A1"
+x[pc1 > 0.55 - pc2 | pc1 > 0.65] <- "NK"
 samples_purified[rows,"cluster"] <- x
 p5 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
@@ -159,18 +171,35 @@ p6 <- pca_hex_plot(fit,c("PC1","PC2"))
 plot_grid(p5,p6,rel_widths = c(9,10))
 ```
 
-In summary, we have subdivided the data into 6 subsets:
+```{r pbmc-purified-clustering-7, fig.width=8, fig.height=3}
+rows <- which(samples_purified$cluster == "A2")
+fit  <- select(poisson2multinom(fit_purified),loadings = rows)
+p7   <- pca_plot(fit,k = 4)
+p8   <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,10,20,100,Inf))
+plot_grid(p7,p8)
+```
 
-```{r pbmc-purified-clustering-7}
+```{r pbmc-purified-clustering-8, fig.width=4, fig.height=3}
+pca <- prcomp(fit$L)$x
+n   <- nrow(fit$L)
+x   <- rep("A2b",n)
+pc1 <- pca[,1]
+pc2 <- pca[,2]
+x[pc1 < 0.2 & pc2 < -0.3] <- "A2a"
+samples_purified[rows,"cluster"] <- x
+p9 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+print(p9)
+```
+
+In summary, we have subdivided the data into 7 subsets:
+
+```{r pbmc-purified-clustering-9}
 samples_purified$cluster <- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 ```
 
-We also inspected principal components individually in each of these 6
-clusters and we did not find any of clear-cut examples of subclustering
-withing these clusters.
-
-The structure plot summarizes the topic proportions in each of these 6
+The structure plot summarizes the topic proportions in each of these 7
 subsets:
 
 ```{r pbmc-purified-structure-plot, fig.width=7, fig.height=1.5}
@@ -178,23 +207,24 @@ set.seed(1)
 pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
                                 "gray","greenyellow","magenta")
 pbmc_purified_topics <- c(2,5,3,1,4,6)
-rows <- sort(c(sample(which(samples_purified$cluster == "A1"),250),
-               sample(which(samples_purified$cluster == "A2"),1200),
+rows <- sort(c(sample(which(samples_purified$cluster == "NK"),250),
+               sample(which(samples_purified$cluster == "A2a"),250),
+               sample(which(samples_purified$cluster == "A2b"),1200),
                sample(which(samples_purified$cluster == "B"),250),
                sample(which(samples_purified$cluster == "C1"),250),
                sample(which(samples_purified$cluster == "C2"),200),
                sample(which(samples_purified$cluster == "C3"),200)))
-p7 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
-                     grouping = samples_purified[rows,"cluster"],
-                     topics = pbmc_purified_topics,
-                     colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     n = Inf,perplexity = c(70,100,70,70,50,50),
-					 gap = 40,num_threads = 4,verbose = FALSE)
-print(p7)
+p10 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+                      grouping = samples_purified[rows,"cluster"],
+                      topics = pbmc_purified_topics,
+                      colors=pbmc_purified_topic_colors[pbmc_purified_topics],
+                      n = Inf,perplexity = c(70,50,100,70,70,50,50),
+ 					  gap = 40,num_threads = 4,verbose = FALSE)
+print(p10)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
-clusters (labeled A1, B, C1, C2). And, indeed, they align closely with
+clusters (labeled NK, B, C1, C2). And, indeed, they align closely with
 their inclusion in the individual FACS-purified data sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes}
@@ -205,7 +235,7 @@ Based on the above results, we make a few observations:
 
 + Because of their close correspondence, subsequent analysis of topics
   2, 3, 4 and 5 should yield similar results to analyzing the clusters
-  A1, B, C1, C2. For example, cluster B corresponds almost exactly to
+  NK, B, C1, C2. For example, cluster B corresponds almost exactly to
   the B-cell data set. The largest cluster, cluster A2, is mostly
   comprised of T-cells.
 
@@ -436,6 +466,21 @@ A few more notes about these results:
 In summary, the topics and clusters seem to offer very much
 complementary biological insights, although subsequent analysis is
 needed to determine what these insights are.
+
+Differential expression analysis
+--------------------------------
+
+*Add code and text here.*
+
+B-cells
+-------
+
+*Add code and text here.*
+
+Natural killer cells
+--------------------
+
+*Add code and text here.*
 
 ```{r save-clustering-results}
 save(list = c("samples_purified","samples_68k"),
