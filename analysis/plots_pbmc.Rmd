@@ -20,8 +20,6 @@ TO DO:
 + Run the differential expression analysis using the clusters (cache
   these results, too).
 
-+ Give better names to the clusters in the purified data.
-
 + Give better names to the clusters in the 68k data.
 
 ```{r knitr-opts, include=FALSE}
@@ -117,7 +115,7 @@ reveal additional clustering, and we will see examples of this in the
 68k PBMC data.
 
 Within cluster C, there are two mostly well-defined subclusters
-(labeled "C1" and "C2"). There appear to be at least a couple other
+(labeled "CD34+" and "CD14+"). There appear to be at least a couple other
 smaller, less well-defined subclusters, but in this analysis we focus
 on the largest, most obvious clusters.
 
@@ -126,11 +124,11 @@ rows <- which(samples_purified$cluster == "C")
 fit  <- select(poisson2multinom(fit_purified),loadings = rows)
 pca  <- prcomp(fit$L)$x
 n    <- nrow(pca)
-x    <- rep("C3",n)
+x    <- rep("X",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
-x[pc1 < 0 & pc2 < 0.4] <- "C1"
-x[pc1 > 0.5 & pc2 < 0.15] <- "C2"
+x[pc1 < 0 & pc2 < 0.4] <- "CD34+"
+x[pc1 > 0.5 & pc2 < 0.15] <- "CD14+"
 samples_purified[rows,"cluster"] <- x
 p3 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
@@ -138,10 +136,10 @@ p4 <- pca_hex_plot(fit,c("PC1","PC2"),bins = c(0,1,5,10,100,Inf))
 plot_grid(p3,p4,rel_widths = c(9,10))
 ```
 
-The two subclusters, C1 and C2, account for most of the samples in
-cluster C. We also define a third subset, C3---a "background
-cluster"---containing all the samples that were not assigned to C1 or
-C2.
+The two subclusters, CD34+ and CD14+, account for most of the samples in
+cluster C. We also define a third subset, X---a "background
+cluster"---containing all the samples that were not assigned to CD34+ or
+CD14+.
 
 ```{r pbmc-purified-clustering-5}
 table(x)
@@ -182,10 +180,10 @@ plot_grid(p7,p8)
 ```{r pbmc-purified-clustering-8, fig.width=4, fig.height=3}
 pca <- prcomp(fit$L)$x
 n   <- nrow(fit$L)
-x   <- rep("A2b",n)
+x   <- rep("T",n)
 pc1 <- pca[,1]
 pc2 <- pca[,2]
-x[pc1 < 0.2 & pc2 < -0.3] <- "A2a"
+x[pc1 < 0.2 & pc2 < -0.3] <- "CD8+"
 samples_purified[rows,"cluster"] <- x
 p9 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
@@ -208,12 +206,12 @@ pbmc_purified_topic_colors <- c("gold","forestgreen","dodgerblue",
                                 "gray","greenyellow","magenta")
 pbmc_purified_topics <- c(2,5,3,1,4,6)
 rows <- sort(c(sample(which(samples_purified$cluster == "NK"),250),
-               sample(which(samples_purified$cluster == "A2a"),250),
-               sample(which(samples_purified$cluster == "A2b"),1200),
+               sample(which(samples_purified$cluster == "CD8+"),250),
+               sample(which(samples_purified$cluster == "T"),1200),
                sample(which(samples_purified$cluster == "B"),250),
-               sample(which(samples_purified$cluster == "C1"),250),
-               sample(which(samples_purified$cluster == "C2"),200),
-               sample(which(samples_purified$cluster == "C3"),200)))
+               sample(which(samples_purified$cluster == "CD34+"),250),
+               sample(which(samples_purified$cluster == "CD14+"),200),
+               sample(which(samples_purified$cluster == "X"),200)))
 p10 <- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
                       grouping = samples_purified[rows,"cluster"],
                       topics = pbmc_purified_topics,
@@ -224,8 +222,9 @@ print(p10)
 ```
 
 Out of the 6 topics, 4 of them ($k = 2, 3, 4, 5$) align closely with
-clusters (labeled NK, B, C1, C2). And, indeed, they align closely with
-their inclusion in the individual FACS-purified data sets:
+clusters (labeled NK, B, CD34+, CD14+). And, indeed, they align
+closely with their inclusion in the individual FACS-purified data
+sets:
 
 ```{r pbmc-purified-clusters-vs-celltypes}
 with(samples_purified,table(celltype,cluster))
@@ -235,20 +234,20 @@ Based on the above results, we make a few observations:
 
 + Because of their close correspondence, subsequent analysis of topics
   2, 3, 4 and 5 should yield similar results to analyzing the clusters
-  NK, B, C1, C2. For example, cluster B corresponds almost exactly to
-  the B-cell data set. The largest cluster, cluster A2, is mostly
-  comprised of T-cells.
+  NK, B, CD34+, CD14+. For example, cluster B corresponds almost
+  exactly to the B-cell data set. The largest cluster, cluster A2, is
+  mostly comprised of T-cells.
 
 + Cluster A2---see also the PCA plot above---is an example where
   analyzing the most prevalent topics ($k = 1, 6$) will yield
   different results than a cluster-based analysis.
 
 + Many samples labeled as "CD34+" are not assigned to the CD34+
-  cluster (C1). This reflects the fact that this population was much
+  cluster ("CD34+"). This reflects the fact that this population was much
   less pure (45%) than the others, so we would expect some cells
   labeled as "CD34+" to not necessarily be CD34+ cells.
 
-+ Cluster C3 is a heterogeneous cluster with a relatively small number
++ Cluster X is a heterogeneous cluster with a relatively small number
   of samples (790) that could potentially contain additional clusters
   of biological relevance, but will likely be more challenging to
   analyze and interpret than the other clusters, so we do not

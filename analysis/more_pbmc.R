@@ -24,3 +24,29 @@ p2 <- volcano_plot(diff_count_clusters_purified,k = "NK",
                    labels = genes_purified$symbol,
                    label_above_quantile = 0.995)
 print(p2)
+
+# Volcano plot for T-cells.
+p3 <- volcano_plot(diff_count_clusters_purified,k = "T",
+                   labels = genes_purified$symbol,
+                   label_above_quantile = 0.995)
+print(p3)
+
+# Volcano plot for CD34+ cells.
+genes <- genes_purified$symbol
+i     <- which(diff_count_clusters_purified$beta[,"CD34+"] < 7.5 &
+               diff_count_clusters_purified$Z[,"CD34+"] < 80)
+genes[i] <- ""
+p4 <- volcano_plot(diff_count_clusters_purified,k = "CD34+",
+                   labels = genes,label_above_quantile = 0)
+print(p4)
+
+# Volcano plot for CD14+ monocytes.
+p5 <- volcano_plot(diff_count_clusters_purified,k = "CD14+",
+                   labels = genes_purified$symbol,
+                   label_above_quantile = 0.995)
+
+# Volcano plot for X.
+p6 <- volcano_plot(diff_count_clusters_purified,k = "CD8+",
+                   labels = genes_purified$symbol,
+                   label_above_quantile = 0.998)
+print(p6)
