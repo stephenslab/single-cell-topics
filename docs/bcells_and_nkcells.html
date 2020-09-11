@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-09-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -390,12 +390,27 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+diff-count-analysis-clusters-68k
+</li>
+<li>
+diff-count-analysis-clusters-purified
+</li>
+<li>
+diff-count-analysis-pbmc-68k
+</li>
+<li>
+diff-count-analysis-pbmc-purified
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>bcells_and_nkcells_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
@@ -414,16 +429,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5a29ee04a5f2f3c1c5ec0107da42f79c2cad2c09targetblank5a29ee0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5a29ee04a5f2f3c1c5ec0107da42f79c2cad2c09" target="_blank">5a29ee0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebfdd87662263d8f19ca0c98a34f386b5acd5a230targetblankbfdd876a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/bfdd87662263d8f19ca0c98a34f386b5acd5a230" target="_blank">bfdd876</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5a29ee04a5f2f3c1c5ec0107da42f79c2cad2c09targetblank5a29ee0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebfdd87662263d8f19ca0c98a34f386b5acd5a230targetblankbfdd876a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5a29ee04a5f2f3c1c5ec0107da42f79c2cad2c09" target="_blank">5a29ee0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/bfdd87662263d8f19ca0c98a34f386b5acd5a230" target="_blank">bfdd876</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -442,6 +457,9 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/bcells_and_nkcells_cache/
 
 </code></pre>
 <p>
@@ -480,6 +498,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bfdd87662263d8f19ca0c98a34f386b5acd5a230/analysis/bcells_and_nkcells.Rmd" target="_blank">bfdd876</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+<td>
+workflowr::wflow_publish(“bcells_and_nkcells.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/23834e36dfc7b62c2be1a456220157034ca9974d/docs/bcells_and_nkcells.html" target="_blank">23834e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+<td>
+Fixed results in bcells_and_nkcells analysis after addressing
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -810,7 +862,7 @@ Added notes to plots_pbmc; committed pbmc-clustering.RData output.
 </div>
 </div>
 </div>
-<p>In the <a href="plots_pbmc.html">previous analysis</a> of the purified and 68k PBMC data sets, we identified clusters in both data sets corresponding to B-cells and natural killer cells. Each of these clusters is characterized by high proportions from a single topic. Here we show a surprising result: the clusters are enriched for the top marker genes for these cell types (e.g., <em>CD79A</em>, <em>NKG7</em>), but not the associated topics.</p>
+<p>In the <a href="plots_pbmc.html">previous analysis</a> of the purified and 68k PBMC data sets, we identified clusters in both data sets corresponding to B-cells and natural killer cells. Each of these clusters is characterized by high proportions from a single topic. Here we show that the clusters are enriched for top marker genes for these cell types (e.g., <em>CD79A</em>, <em>NKG7</em>), but the topics always show increased enrichment for these genes.</p>
 <p>Load the packages used in the analysis below.</p>
 <pre class="r"><code>library(Matrix)
 library(dplyr)
@@ -911,8 +963,45 @@ p2 &lt;- zscores_scatterplot(diff_count_clusters_purified$Z[,&quot;B&quot;],
                           zmax = 650) +
   labs(x = &quot;cluster B&quot;,y = &quot;topic 3&quot;,title = &quot;z-scores&quot;)
 plot_grid(p1,p2)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/pbmc-purified-3-vs-B-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p>B-cell marker <em>CD79A</em> only emerges in the cluster, and shows no enrichment in the corresponding topic. This is not a fluke—we observe the exact same result in the 68k data when we compare the gene-wise <em>z</em>-scores from topic 5 to the <em>z</em>-scores from cluster A2:</p>
+<p><img src="figure/bcells_and_nkcells.Rmd/pbmc-purified-3-vs-B-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-3-vs-B-1">
+Past versions of pbmc-purified-3-vs-B-1.png
+</button>
+</p>
+<div id="fig-pbmc-purified-3-vs-B-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23834e36dfc7b62c2be1a456220157034ca9974d/docs/figure/bcells_and_nkcells.Rmd/pbmc-purified-3-vs-B-1.png" target="_blank">23834e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>B-cell marker <em>CD79A</em>, for example, emerges in the cluster and the topic, but its enrichment is much stronger in the topic. We observe the same result in the 68k data when we compare the gene-wise <em>z</em>-scores from topic 5 to the <em>z</em>-scores from cluster A2:</p>
 <pre class="r"><code>p3 &lt;- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,&quot;A2&quot;],
                                 diff_count_68k$beta[,5],
                                 diff_count_68k$colmeans) +
@@ -925,7 +1014,7 @@ p4 &lt;- zscores_scatterplot(diff_count_clusters_68k$Z[,&quot;A2&quot;],
                           zmax = 500) +
   labs(x = &quot;cluster A2&quot;,y = &quot;topic 5&quot;,title = &quot;z-scores&quot;)
 plot_grid(p3,p4)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-5-vs-A2-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-5-vs-A2-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-pbmc-68k-5-vs-A2-1">
 Past versions of z-scores-pbmc-68k-5-vs-A2-1.png
@@ -948,6 +1037,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23834e36dfc7b62c2be1a456220157034ca9974d/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-5-vs-A2-1.png" target="_blank">23834e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/8cdad6c2d9eea4282b8057cbd614a86ec8792db9/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-5-vs-A2-1.png" target="_blank">8cdad6c</a>
@@ -977,7 +1077,7 @@ Peter Carbonetto
 </div>
 <div id="nk-cells" class="section level2">
 <h2>NK cells</h2>
-<p>We observe a similar—yet more striking—result in natural killer cells. In the purified data set, compare the gene-wise <em>z</em>-scores from topic 4 to the <em>z</em>-scores from cluster A1:</p>
+<p>We observe a similar result in natural killer cells. In the purified data set, compare the gene-wise <em>z</em>-scores from topic 4 to the <em>z</em>-scores from cluster A1:</p>
 <pre class="r"><code>p5 &lt;- logfoldchange_scatterplot(diff_count_clusters_purified$beta[,&quot;A1&quot;],
                                 diff_count_purified$beta[,4],
                                 diff_count_purified$colmeans) +
@@ -990,7 +1090,7 @@ p6 &lt;- zscores_scatterplot(diff_count_clusters_purified$Z[,&quot;A1&quot;],
                           zmax = 750) +
   labs(x = &quot;cluster A1&quot;,y = &quot;topic 4&quot;,title = &quot;z-scores&quot;)
 plot_grid(p5,p6)</code></pre>
-<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-4-vs-A1-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-4-vs-A1-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-pbmc-purified-4-vs-A1-1">
 Past versions of z-scores-pbmc-purified-4-vs-A1-1.png
@@ -1013,6 +1113,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23834e36dfc7b62c2be1a456220157034ca9974d/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-4-vs-A1-1.png" target="_blank">23834e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/8cdad6c2d9eea4282b8057cbd614a86ec8792db9/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-purified-4-vs-A1-1.png" target="_blank">8cdad6c</a>
@@ -1039,8 +1150,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Genes <em>NKG7</em> and <em>GNLY</em> (granulysin), both characteristic NK genes, are very strongly enriched in the cluster, and not at all in the topic.</p>
-<p>The 68k data, comparing the gene-wise <em>z</em>-scores from topic 3 to the <em>z</em>-scores from cluster A1b, replicates this striking result:</p>
+<p>Genes <em>NKG7</em> and <em>GNLY</em> (granulysin), both examples of characteristic NK genes, are strongly enriched in the cluster, and moreso in the topic. The 68k data yields a similar result:</p>
 <pre class="r"><code>p7 &lt;- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,&quot;A1b&quot;],
                                 diff_count_68k$beta[,3],
                                 diff_count_68k$colmeans) +
@@ -1049,9 +1159,70 @@ p8 &lt;- zscores_scatterplot(diff_count_clusters_68k$Z[,&quot;A1b&quot;],
                           diff_count_68k$Z[,3],
                           diff_count_68k$colmeans,
                           genes_68k$symbol,
-                          label_above_score = 250) +
+                          label_above_score = 200,
+                          zmax = 750) +
   labs(x = &quot;cluster A1b&quot;,y = &quot;topic 3&quot;,title = &quot;z-scores&quot;)
 plot_grid(p7,p8)</code></pre>
+<p><img src="figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-3-vs-A1b-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-pbmc-68k-3-vs-A1b-1">
+Past versions of z-scores-pbmc-68k-3-vs-A1b-1.png
+</button>
+</p>
+<div id="fig-z-scores-pbmc-68k-3-vs-A1b-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23834e36dfc7b62c2be1a456220157034ca9974d/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-3-vs-A1b-1.png" target="_blank">23834e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8cdad6c2d9eea4282b8057cbd614a86ec8792db9/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-3-vs-A1b-1.png" target="_blank">8cdad6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/35d7ca956fd58dc08832828276e03e2940d9eae5/docs/figure/bcells_and_nkcells.Rmd/z-scores-pbmc-68k-3-vs-A1b-1.png" target="_blank">35d7ca9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>These results suggest the clusters and topics appear to be highlighting different biological patterns.</p>
 <br>
 <p>
@@ -1092,17 +1263,16 @@ plot_grid(p7,p8)</code></pre>
 # [28] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
 # [31] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
 # [34] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
-# [37] workflowr_1.6.2.9000 quadprog_1.5-8       codetools_0.2-16    
-# [40] viridisLite_0.3.0    crayon_1.3.4         withr_2.1.2         
-# [43] later_1.0.0          MASS_7.3-51.4        grid_3.6.2          
-# [46] jsonlite_1.6         gtable_0.3.0         lifecycle_0.1.0     
-# [49] git2r_0.26.1         magrittr_1.5         scales_1.1.0        
-# [52] RcppParallel_4.4.2   stringi_1.4.3        farver_2.0.1        
-# [55] fs_1.3.1             promises_1.1.0       vctrs_0.2.1         
-# [58] tools_3.6.2          glue_1.3.1           purrr_0.3.3         
-# [61] hms_0.5.2            yaml_2.2.0           colorspace_1.4-1    
-# [64] plotly_4.9.2         knitr_1.26           quantreg_5.54       
-# [67] MCMCpack_1.4-5</code></pre>
+# [37] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
+# [40] crayon_1.3.4         withr_2.1.2          later_1.0.0         
+# [43] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
+# [46] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
+# [49] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
+# [52] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
+# [55] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
+# [58] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
+# [61] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
+# [64] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 </div>
 
