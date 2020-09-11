@@ -7,10 +7,10 @@ output: workflowr::wflow_html
 In the [previous analysis](plots_pbmc.html) of the purified and 68k
 PBMC data sets, we identified clusters in both data sets corresponding
 to B-cells and natural killer cells. Each of these clusters is
-characterized by high proportions from a single topic. Here we show a
-surprising result: the clusters are enriched for the top marker genes
-for these cell types (e.g., *CD79A*, *NKG7*), but not the associated
-topics.
+characterized by high proportions from a single topic. Here we show
+that the clusters are enriched for top marker genes for these cell
+types (e.g., *CD79A*, *NKG7*), but the topics always show increased
+enrichment for these genes.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -108,7 +108,7 @@ B-cells
 In the purified data set, compare the gene-wise *z*-scores from topic
 3 to the *z*-scores from cluster B.
 
-```{r pbmc-purified-3-vs-B, fig.width=7, fig.height=3}
+```{r pbmc-purified-3-vs-B, fig.width=7.5, fig.height=3}
 p1 <- logfoldchange_scatterplot(diff_count_clusters_purified$beta[,"B"],
                                 diff_count_purified$beta[,3],
 					   		    diff_count_purified$colmeans) +
@@ -123,12 +123,12 @@ p2 <- zscores_scatterplot(diff_count_clusters_purified$Z[,"B"],
 plot_grid(p1,p2)
 ```
 
-B-cell marker *CD79A* only emerges in the cluster, and shows no
-enrichment in the corresponding topic. This is not a fluke---we
-observe the exact same result in the 68k data when we compare the
-gene-wise *z*-scores from topic 5 to the *z*-scores from cluster A2:
+B-cell marker *CD79A*, for example, emerges in the cluster and the
+topic, but its enrichment is much stronger in the topic. We observe
+the same result in the 68k data when we compare the gene-wise
+*z*-scores from topic 5 to the *z*-scores from cluster A2:
 
-```{r z-scores-pbmc-68k-5-vs-A2, fig.width=7, fig.height=3}
+```{r z-scores-pbmc-68k-5-vs-A2, fig.width=7.5, fig.height=3}
 p3 <- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,"A2"],
                                 diff_count_68k$beta[,5],
 					   		    diff_count_68k$colmeans) +
@@ -146,11 +146,11 @@ plot_grid(p3,p4)
 NK cells
 --------
 
-We observe a similar---yet more striking---result in natural killer
-cells. In the purified data set, compare the gene-wise *z*-scores from
-topic 4 to the *z*-scores from cluster A1:
+We observe a similar result in natural killer cells. In the purified
+data set, compare the gene-wise *z*-scores from topic 4 to the
+*z*-scores from cluster A1:
 
-```{r z-scores-pbmc-purified-4-vs-A1, fig.width=7, fig.height=3}
+```{r z-scores-pbmc-purified-4-vs-A1, fig.width=7.5, fig.height=3}
 p5 <- logfoldchange_scatterplot(diff_count_clusters_purified$beta[,"A1"],
                                 diff_count_purified$beta[,4],
 					   		    diff_count_purified$colmeans) +
@@ -165,14 +165,11 @@ p6 <- zscores_scatterplot(diff_count_clusters_purified$Z[,"A1"],
 plot_grid(p5,p6)
 ```
 
-Genes *NKG7* and *GNLY* (granulysin), both characteristic NK genes,
-are very strongly enriched in the cluster, and not at all in the
-topic.
+Genes *NKG7* and *GNLY* (granulysin), both examples of characteristic
+NK genes, are strongly enriched in the cluster, and moreso in the
+topic. The 68k data yields a similar result:
 
-The 68k data, comparing the gene-wise *z*-scores from topic 3 to the
-*z*-scores from cluster A1b, replicates this striking result:
-
-```{r z-scores-pbmc-68k-3-vs-A1b, fig.height=3.75, fig.width=4.5, eval=FALSE}
+```{r z-scores-pbmc-68k-3-vs-A1b, fig.width=7.5, fig.height=3}
 p7 <- logfoldchange_scatterplot(diff_count_clusters_68k$beta[,"A1b"],
                                 diff_count_68k$beta[,3],
 					   		    diff_count_68k$colmeans) +
@@ -181,7 +178,8 @@ p8 <- zscores_scatterplot(diff_count_clusters_68k$Z[,"A1b"],
                           diff_count_68k$Z[,3],
 						  diff_count_68k$colmeans,
 						  genes_68k$symbol,
-						  label_above_score = 250) +
+						  label_above_score = 200,
+						  zmax = 750) +
   labs(x = "cluster A1b",y = "topic 3",title = "z-scores")
 plot_grid(p7,p8)
 ```
