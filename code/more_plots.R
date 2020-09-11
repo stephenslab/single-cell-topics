@@ -1,4 +1,7 @@
-# TO DO: Explain here what this function does, and how to use it.
+# Create a scatterplot comparing two sets of log-fold change
+# statistics generated from two different differential expression
+# analyses of the same data. Argument "betamin" is useful for not
+# including very large, negative log-fold change ("beta") estimates.
 logfoldchange_scatterplot <- function (x, y, colmeans, betamin = -20) {
   i        <- which(x >= betamin & y >= betamin)
   x        <- x[i]
