@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-07
+<strong>Last updated:</strong> 2020-09-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,22 +414,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef06eda574f2cea50dbc2a8141d6f93b9411e2723targetblankf06eda5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f06eda574f2cea50dbc2a8141d6f93b9411e2723" target="_blank">f06eda5</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1d0f457735b62b561b72068ac40f2ae61308d2dbtargetblank1d0f457a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1d0f457735b62b561b72068ac40f2ae61308d2db" target="_blank">1d0f457</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef06eda574f2cea50dbc2a8141d6f93b9411e2723targetblankf06eda5a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1d0f457735b62b561b72068ac40f2ae61308d2dbtargetblank1d0f457a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f06eda574f2cea50dbc2a8141d6f93b9411e2723" target="_blank">f06eda5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1d0f457735b62b561b72068ac40f2ae61308d2db" target="_blank">1d0f457</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -437,10 +438,8 @@ Ignored files:
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
-    Ignored:    output/pbmc-68k/postfit-pbmc-68k-scd-ex-k=6.RData
     Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
-    Ignored:    output/pbmc-purified/postfit-pbmc-purified-scd-ex-k=6.RData
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
@@ -485,6 +484,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1d0f457735b62b561b72068ac40f2ae61308d2db/analysis/plots_pbmc.Rmd" target="_blank">1d0f457</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-11
+</td>
+<td>
+Added some volcano plots for 68k data to yet_more_pbmc.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8d8e2e9ed85ccdd91b30c31f34bd191a367db186/analysis/plots_pbmc.Rmd" target="_blank">8d8e2e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-11
+</td>
+<td>
+Improved names of clusters in PBMC purified data for plots_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/88d80e192f04bf5dd1074e624d4784a1001ab233/analysis/plots_pbmc.Rmd" target="_blank">88d80e1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-11
+</td>
+<td>
+Added subclustering of cluster A2 in plots_pbmc.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d749c177819e8b94ad1bd1c61af81cc4290557b9/analysis/plots_pbmc.Rmd" target="_blank">d749c17</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-07
+</td>
+<td>
+Added notes to plots_pbmc; committed pbmc-clustering.RData output.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a0aeead0491ef21b23a08458d1bf66beeff22479/docs/plots_pbmc.html" target="_blank">a0aeead</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-07
+</td>
+<td>
+Added subclustering of A1 cluster, and added step to save clustering results.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1989,6 +2073,13 @@ workflowr::wflow_publish(“plots_pbmc.Rmd”)
 </div>
 </div>
 <p>Here we examine and compare the topic modeling results for the two closely related data sets from <a href="https://doi.org/10.1038/ncomms14049">Zheng <em>et al</em> (2017)</a>, the mixture of FACS-purified PBMC data sets, and the “unsorted” 68k PBMC data. The goal of this analysis is to illustrate how the topic models fitted to these data sets can be used to learn about structure in the data. In particular, we would like to identify clusters, and interpret clusters and topics as “cell types” or “gene expression programs”.</p>
+<p>TO DO:</p>
+<ul>
+<li><p>Try 68k data with a larger number of topics (e.g., k=8).</p></li>
+<li><p>Run differential expression analysis using the topic model (cache the results).</p></li>
+<li><p>Run the differential expression analysis using the clusters (cache these results, too).</p></li>
+<li><p>Give better names to the clusters in the 68k data.</p></li>
+</ul>
 <p>Load the packages used in the analysis below, as well as additional functions that will be used to generate some of the plots.</p>
 <pre class="r"><code>library(tools)
 library(dplyr)
@@ -2091,16 +2182,16 @@ Peter Carbonetto
 <p>A small number of outlying data points do not seem to belong to any the three clusters, or they fall in between the clusters. For these data points, we assign them (rather arbitrarily) to one of the three clusters.</p>
 <p>From these plots, there also also appears to be finer scale structure. For example, judging by the density plot, cluster A appears to split into two subclusters. We will examine this finer scale structure below.</p>
 <p>Also note that other PCs beyond the first two may also sometimes reveal additional clustering, and we will see examples of this in the 68k PBMC data.</p>
-<p>Within cluster C, there are two mostly well-defined subclusters (labeled “C1” and “C2”). There appear to be at least a couple other smaller, less well-defined subclusters, but in this analysis we focus on the largest, most obvious clusters.</p>
+<p>Within cluster C, there are two mostly well-defined subclusters (labeled “CD34+” and “CD14+”). There appear to be at least a couple other smaller, less well-defined subclusters, but in this analysis we focus on the largest, most obvious clusters.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;C&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
 n    &lt;- nrow(pca)
-x    &lt;- rep(&quot;C3&quot;,n)
+x    &lt;- rep(&quot;X&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
-x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;C1&quot;
-x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.15] &lt;- &quot;C2&quot;
+x[pc1 &lt; 0 &amp; pc2 &lt; 0.4] &lt;- &quot;CD34+&quot;
+x[pc1 &gt; 0.5 &amp; pc2 &lt; 0.15] &lt;- &quot;CD14+&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
 p3 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
@@ -2155,12 +2246,12 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The two subclusters, C1 and C2, account for most of the samples in cluster C. We also define a third subset, C3—a “background cluster”—containing all the samples that were not assigned to C1 or C2.</p>
+<p>The two subclusters, CD34+ and CD14+, account for most of the samples in cluster C. We also define a third subset, X—a “background cluster”—containing all the samples that were not assigned to CD34+ or CD14+.</p>
 <pre class="r"><code>table(x)
 # x
-#   C1   C2   C3 
-# 7822 2909  871</code></pre>
-<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “A1”; the subset of samples that are not assigned to this cluster are labeled “A2”. (The A1 subcluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this scatterplot—it is more apparent from the density plot.) Otherwise, there is no obvious additional clustering of the samples within cluster A.</p>
+# CD14+ CD34+     X 
+#  2909  7822   871</code></pre>
+<p>Now we turn to cluster A. Within this cluster, there is a large subcluster, which we label as “NK”; the subset of samples that are not assigned to this cluster are labeled “A2”. (The NK subcluster is much less distinct than the other clusters we have seen so far, and may not show up clearly in this scatterplot—it is more apparent from the density plot.) Otherwise, there is no obvious additional clustering of the samples within cluster A.</p>
 <pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -2168,7 +2259,7 @@ n    &lt;- nrow(fit$L)
 x    &lt;- rep(&quot;A2&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
-x[pc1 &gt; 0.55 - pc2 | pc1 &gt; 0.65] &lt;- &quot;A1&quot;
+x[pc1 &gt; 0.55 - pc2 | pc1 &gt; 0.65] &lt;- &quot;NK&quot;
 samples_purified[rows,&quot;cluster&quot;] &lt;- x
 p5 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
       labs(fill = &quot;cluster&quot;)
@@ -2234,31 +2325,49 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>In summary, we have subdivided the data into 6 subsets:</p>
+<pre class="r"><code>rows &lt;- which(samples_purified$cluster == &quot;A2&quot;)
+fit  &lt;- select(poisson2multinom(fit_purified),loadings = rows)
+p7   &lt;- pca_plot(fit,k = 4)
+p8   &lt;- pca_hex_plot(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),bins = c(0,1,10,20,100,Inf))
+plot_grid(p7,p8)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-7-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pca &lt;- prcomp(fit$L)$x
+n   &lt;- nrow(fit$L)
+x   &lt;- rep(&quot;T&quot;,n)
+pc1 &lt;- pca[,1]
+pc2 &lt;- pca[,2]
+x[pc1 &lt; 0.2 &amp; pc2 &lt; -0.3] &lt;- &quot;CD8+&quot;
+samples_purified[rows,&quot;cluster&quot;] &lt;- x
+p9 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
+      labs(fill = &quot;cluster&quot;)
+print(p9)</code></pre>
+<p><img src="figure/plots_pbmc.Rmd/pbmc-purified-clustering-8-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>In summary, we have subdivided the data into 7 subsets:</p>
 <pre class="r"><code>samples_purified$cluster &lt;- factor(samples_purified$cluster)
 table(samples_purified$cluster)
 # 
-#    A1    A2     B    C1    C2    C3 
-#  8352 64262 10439  7822  2909   871</code></pre>
-<p>We also inspected principal components individually in each of these 6 clusters and we did not find any of clear-cut examples of subclustering withing these clusters.</p>
-<p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
+#     B CD14+ CD34+  CD8+    NK     T     X 
+# 10439  2909  7822  1685  8352 62577   871</code></pre>
+<p>The structure plot summarizes the topic proportions in each of these 7 subsets:</p>
 <pre class="r"><code>set.seed(1)
 pbmc_purified_topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,
                                 &quot;gray&quot;,&quot;greenyellow&quot;,&quot;magenta&quot;)
 pbmc_purified_topics &lt;- c(2,5,3,1,4,6)
-rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;A1&quot;),250),
-               sample(which(samples_purified$cluster == &quot;A2&quot;),1200),
+rows &lt;- sort(c(sample(which(samples_purified$cluster == &quot;NK&quot;),250),
+               sample(which(samples_purified$cluster == &quot;CD8+&quot;),250),
+               sample(which(samples_purified$cluster == &quot;T&quot;),1200),
                sample(which(samples_purified$cluster == &quot;B&quot;),250),
-               sample(which(samples_purified$cluster == &quot;C1&quot;),250),
-               sample(which(samples_purified$cluster == &quot;C2&quot;),200),
-               sample(which(samples_purified$cluster == &quot;C3&quot;),200)))
-p7 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
-                     grouping = samples_purified[rows,&quot;cluster&quot;],
-                     topics = pbmc_purified_topics,
-                     colors = pbmc_purified_topic_colors[pbmc_purified_topics],
-                     n = Inf,perplexity = c(70,100,70,70,50,50),
-                     gap = 40,num_threads = 4,verbose = FALSE)
-print(p7)</code></pre>
+               sample(which(samples_purified$cluster == &quot;CD34+&quot;),250),
+               sample(which(samples_purified$cluster == &quot;CD14+&quot;),200),
+               sample(which(samples_purified$cluster == &quot;X&quot;),200)))
+p10 &lt;- structure_plot(select(poisson2multinom(fit_purified),loadings = rows),
+                      grouping = samples_purified[rows,&quot;cluster&quot;],
+                      topics = pbmc_purified_topics,
+                      colors=pbmc_purified_topic_colors[pbmc_purified_topics],
+                      n = Inf,perplexity = c(70,50,100,70,70,50,50),
+                      gap = 40,num_threads = 4,verbose = FALSE)
+# Perplexity automatically changed to 82 because original setting of 100 was too large for the number of samples (250)
+print(p10)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-purified-structure-plot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pbmc-purified-structure-plot-1">
@@ -2418,26 +2527,26 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with clusters (labeled A1, B, C1, C2). And, indeed, they align closely with their inclusion in the individual FACS-purified data sets:</p>
+<p>Out of the 6 topics, 4 of them (<span class="math inline">\(k = 2, 3, 4, 5\)</span>) align closely with clusters (labeled NK, B, CD34+, CD14+). And, indeed, they align closely with their inclusion in the individual FACS-purified data sets:</p>
 <pre class="r"><code>with(samples_purified,table(celltype,cluster))
 #                               cluster
-# celltype                          A1    A2     B    C1    C2    C3
-#   CD19+ B                          0     3 10073     0     0     9
-#   CD14+ Monocyte                   0    30     8     1  2369   204
-#   CD34+                            4    43   352  7740   539   554
-#   CD4+ T Helper2                   1 11183     0    16     0    13
-#   CD56+ NK                      8285    78     0    17     1     4
-#   CD8+ Cytotoxic T                60 10096     0     0     0    53
-#   CD4+/CD45RO+ Memory              0 10201     0    19     0     4
-#   CD8+/CD45RA+ Naive Cytotoxic     1 11945     3     0     0     4
-#   CD4+/CD45RA+/CD25- Naive T       1 10440     1    25     0    12
-#   CD4+/CD25 T Reg                  0 10243     2     4     0    14</code></pre>
+# celltype                           B CD14+ CD34+  CD8+    NK     T     X
+#   CD19+ B                      10073     0     0     0     0     3     9
+#   CD14+ Monocyte                   8  2369     1     3     0    27   204
+#   CD34+                          352   539  7740    15     4    28   554
+#   CD4+ T Helper2                   0     0    16     3     1 11180    13
+#   CD56+ NK                         0     1    17    50  8285    28     4
+#   CD8+ Cytotoxic T                 0     0     0  1538    60  8558    53
+#   CD4+/CD45RO+ Memory              0     0    19    60     0 10141     4
+#   CD8+/CD45RA+ Naive Cytotoxic     3     0     0    13     1 11932     4
+#   CD4+/CD45RA+/CD25- Naive T       1     0    25     2     1 10438    12
+#   CD4+/CD25 T Reg                  2     0     4     1     0 10242    14</code></pre>
 <p>Based on the above results, we make a few observations:</p>
 <ul>
-<li><p>Because of their close correspondence, subsequent analysis of topics 2, 3, 4 and 5 should yield similar results to analyzing the clusters A1, B, C1, C2. For example, cluster B corresponds almost exactly to the B-cell data set. The largest cluster, cluster A2, is mostly comprised of T-cells.</p></li>
+<li><p>Because of their close correspondence, subsequent analysis of topics 2, 3, 4 and 5 should yield similar results to analyzing the clusters NK, B, CD34+, CD14+. For example, cluster B corresponds almost exactly to the B-cell data set. The largest cluster, cluster A2, is mostly comprised of T-cells.</p></li>
 <li><p>Cluster A2—see also the PCA plot above—is an example where analyzing the most prevalent topics (<span class="math inline">\(k = 1, 6\)</span>) will yield different results than a cluster-based analysis.</p></li>
-<li><p>Many samples labeled as “CD34+” are not assigned to the CD34+ cluster (C1). This reflects the fact that this population was much less pure (45%) than the others, so we would expect some cells labeled as “CD34+” to not necessarily be CD34+ cells.</p></li>
-<li><p>Cluster C3 is a heterogeneous cluster with a relatively small number of samples (790) that could potentially contain additional clusters of biological relevance, but will likely be more challenging to analyze and interpret than the other clusters, so we do not investigate this cluster further.</p></li>
+<li><p>Many samples labeled as “CD34+” are not assigned to the CD34+ cluster (“CD34+”). This reflects the fact that this population was much less pure (45%) than the others, so we would expect some cells labeled as “CD34+” to not necessarily be CD34+ cells.</p></li>
+<li><p>Cluster X is a heterogeneous cluster with a relatively small number of samples (790) that could potentially contain additional clusters of biological relevance, but will likely be more challenging to analyze and interpret than the other clusters, so we do not investigate this cluster further.</p></li>
 </ul>
 <p>In summary, a cluster-based analysis and topic-based analysis should yield mostly similar results, except for the analysis of cluster A2, which should benefit from a topic-based analysis.</p>
 </div>
@@ -2515,8 +2624,8 @@ pca  &lt;- prcomp(fit$L)$x
 n    &lt;- nrow(pca)
 x    &lt;- rep(&quot;B3&quot;,n)
 pc1  &lt;- pca[,&quot;PC1&quot;]
-x[pc1 &gt; -0.12] &lt;- &quot;B1&quot;
-x[pc1 &lt; -0.3]  &lt;- &quot;B2&quot;
+x[pc1 &gt; -0.12] &lt;- &quot;CD14+&quot;
+x[pc1 &lt; -0.3]  &lt;- &quot;D&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
 p10 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
        labs(fill = &quot;cluster&quot;)
@@ -2571,7 +2680,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Cluster A subdivides into two large clusters, labeled as A1 and A2. The remaining samples are assigned to a subset labeled “A3”.</p>
+<p>Cluster A subdivides into two large clusters, labeled as A1 and B. The remaining samples are assigned to a subset labeled “A3”.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
@@ -2580,7 +2689,7 @@ x    &lt;- rep(&quot;A3&quot;,n)
 pc2  &lt;- pca[,&quot;PC2&quot;]
 pc3  &lt;- pca[,&quot;PC3&quot;]
 x[2.5*pc3 &lt; 0.4 - pc2] &lt;- &quot;A1&quot;
-x[pc3 &gt; 0.75 - pc2] &lt;- &quot;A2&quot;
+x[pc3 &gt; 0.75 - pc2] &lt;- &quot;B&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
 p12 &lt;- pca_plot_with_labels(fit,c(&quot;PC2&quot;,&quot;PC3&quot;),x) +
        labs(fill = &quot;cluster&quot;)
@@ -2660,8 +2769,8 @@ Peter Carbonetto
 <p>Within cluster A, the vast majority of the samples are assigned to the A1 subcluster:</p>
 <pre class="r"><code>table(x)
 # x
-#    A1    A2    A3 
-# 59294  3589   522</code></pre>
+#    A1    A3     B 
+# 59294   522  3589</code></pre>
 <p>Although we do not find additional clusters within the large A1 subset, the continuous structure is nonetheless quite interesting, and worth investigating.</p>
 <pre class="r"><code>rows &lt;- which(samples_68k$cluster == &quot;A1&quot;)
 fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
@@ -2779,15 +2888,14 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Topic 3 appears to characterize natural killer cells, and topic 4 has yet to be characterized, but may represent some subset of naive T-cells. This is an example with interesting substructure that can’t be captured by clusters. This is also an example of substructure that is much better captured by linear representations such as PCA as opposed to nonlinear dimensionality reduction methods such as <em>t</em>-SNE and UMAP.</p>
-<p><em>Add text here.</em></p>
+<p>Topic 3 appears to characterize natural killer cells, and topic 4 has yet to be characterized, but may represent some subset of naive T-cells. This is an example with interesting substructure that can’t be captured well by clusters. Nonetheless, here we (somewhat arbitrarily) designate two subsets, NK and A1c, in which all samples in these subsets are mostly explained by topic 3 and 4, respectively:</p>
 <pre class="r"><code>fit  &lt;- select(poisson2multinom(fit_68k),loadings = rows)
 pca  &lt;- prcomp(fit$L)$x
 n    &lt;- nrow(pca)
 x    &lt;- rep(&quot;A1a&quot;,n)
 q3   &lt;- fit$L[,&quot;k3&quot;]
 q4   &lt;- fit$L[,&quot;k4&quot;]
-x[q3 &gt; 0.5] &lt;- &quot;A1b&quot;
+x[q3 &gt; 0.5] &lt;- &quot;NK&quot;
 x[q4 &gt; 0.6] &lt;- &quot;A1c&quot;
 samples_68k[rows,&quot;cluster&quot;] &lt;- x
 p16 &lt;- pca_plot_with_labels(fit,c(&quot;PC1&quot;,&quot;PC2&quot;),x) +
@@ -2818,6 +2926,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a0aeead0491ef21b23a08458d1bf66beeff22479/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-8-1.png" target="_blank">a0aeead</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-07
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/87cfee1d8ffe90f86ed37925fcbb3bd51df1d518/docs/figure/plots_pbmc.Rmd/pbmc-68k-clustering-8-1.png" target="_blank">87cfee1</a>
 </td>
 <td>
@@ -2846,8 +2965,8 @@ Peter Carbonetto
 <pre class="r"><code>samples_68k$cluster &lt;- factor(samples_68k$cluster)
 table(samples_68k$cluster)
 # 
-#   A1a   A1b   A1c    A2    A3    B1    B2    B3     C 
-# 28485  9967 20842  3589   522  4011   819   179   165</code></pre>
+#   A1a   A1c    A3     B    B3     C CD14+     D    NK 
+# 28485 20842   522  3589   179   165  4011   819  9967</code></pre>
 <p>Again, the wide range in cluster sizes is striking.</p>
 <p>The structure plot summarizes the topic proportions in each of these 9 subsets:</p>
 <pre class="r"><code>set.seed(1)
@@ -2855,12 +2974,12 @@ pbmc_68k_topic_colors &lt;- c(&quot;yellow&quot;,&quot;lightskyblue&quot;,&quot;
                            &quot;firebrick&quot;,&quot;royalblue&quot;,&quot;olivedrab&quot;)
 pbmc_68k_topics &lt;- c(2,5,1,3,4,6)
 rows &lt;- sort(c(sample(which(samples_68k$cluster == &quot;A1a&quot;),1000),
-               sample(which(samples_68k$cluster == &quot;A1b&quot;),500),
+               sample(which(samples_68k$cluster == &quot;NK&quot;),500),
                sample(which(samples_68k$cluster == &quot;A1c&quot;),800),
-               sample(which(samples_68k$cluster == &quot;A2&quot;),500),
+               sample(which(samples_68k$cluster == &quot;B&quot;),500),
                sample(which(samples_68k$cluster == &quot;A3&quot;),300),
-               sample(which(samples_68k$cluster == &quot;B1&quot;),500),
-               sample(which(samples_68k$cluster == &quot;B2&quot;),300),
+               sample(which(samples_68k$cluster == &quot;CD14+&quot;),500),
+               sample(which(samples_68k$cluster == &quot;D&quot;),300),
                which(samples_68k$cluster == &quot;B3&quot;),
                which(samples_68k$cluster == &quot;C&quot;)))
 p17 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
@@ -2869,6 +2988,9 @@ p17 &lt;- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
                       colors = pbmc_68k_topic_colors[pbmc_68k_topics],
                       perplexity = c(100,100,100,100,70,80,50,50,50),
                       n = Inf,gap = 40,num_threads = 4,verbose = FALSE)
+# Perplexity automatically changed to 98 because original setting of 100 was too large for the number of samples (300)
+# Perplexity automatically changed to 58 because original setting of 70 was too large for the number of samples (179)
+# Perplexity automatically changed to 53 because original setting of 80 was too large for the number of samples (165)
 print(p17)</code></pre>
 <p><img src="figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
@@ -2893,6 +3015,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a0aeead0491ef21b23a08458d1bf66beeff22479/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">a0aeead</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/87cfee1d8ffe90f86ed37925fcbb3bd51df1d518/docs/figure/plots_pbmc.Rmd/pbmc-68k-structure-plot-1.png" target="_blank">87cfee1</a>
@@ -3021,38 +3154,50 @@ Peter Carbonetto
 <p>These subsets do not align as closely with the cell-type labeling inferred by Zheng <em>et al</em> (2017). This is not surprising considering that the Zheng <em>et al</em> labeling is based on the FACS-purified data set.</p>
 <pre class="r"><code>with(samples_68k,table(celltype,cluster))
 #                               cluster
-# celltype                         A1a   A1b   A1c    A2    A3    B1    B2    B3
-#   CD14+ Monocyte                   6     0     0     1     1  2840     1    11
-#   CD19+ B                        541     0  1442  3577   310     0    37     1
-#   CD34+                           10     0     0     5    47    30    21     1
-#   CD4+ T Helper2                  46     0    21     0    16     6     8     0
-#   CD4+/CD25 T Reg               5237     2   935     0    11     2     0     0
-#   CD4+/CD45RA+/CD25- Naive T     491     0  1372     1     4     1     3     1
-#   CD4+/CD45RO+ Memory           2842     2   215     0     0     2     0     0
-#   CD56+ NK                       776  7958     0     0    24    12     1     5
-#   CD8+ Cytotoxic T             14338  2005  4329     1    74    24     0     2
-#   CD8+/CD45RA+ Naive Cytotoxic  4155     0 12494     0     9     0     5     3
-#   Dendritic                       43     0    34     4    26  1094   743   155
+# celltype                         A1a   A1c    A3     B    B3     C CD14+     D
+#   CD14+ Monocyte                   6     0     1     1    11     2  2840     1
+#   CD19+ B                        541  1442   310  3577     1     0     0    37
+#   CD34+                           10     0    47     5     1   163    30    21
+#   CD4+ T Helper2                  46    21    16     0     0     0     6     8
+#   CD4+/CD25 T Reg               5237   935    11     0     0     0     2     0
+#   CD4+/CD45RA+/CD25- Naive T     491  1372     4     1     1     0     1     3
+#   CD4+/CD45RO+ Memory           2842   215     0     0     0     0     2     0
+#   CD56+ NK                       776     0    24     0     5     0    12     1
+#   CD8+ Cytotoxic T             14338  4329    74     1     2     0    24     0
+#   CD8+/CD45RA+ Naive Cytotoxic  4155 12494     9     0     3     0     0     5
+#   Dendritic                       43    34    26     4   155     0  1094   743
 #                               cluster
-# celltype                           C
-#   CD14+ Monocyte                   2
+# celltype                          NK
+#   CD14+ Monocyte                   0
 #   CD19+ B                          0
-#   CD34+                          163
+#   CD34+                            0
 #   CD4+ T Helper2                   0
-#   CD4+/CD25 T Reg                  0
+#   CD4+/CD25 T Reg                  2
 #   CD4+/CD45RA+/CD25- Naive T       0
-#   CD4+/CD45RO+ Memory              0
-#   CD56+ NK                         0
-#   CD8+ Cytotoxic T                 0
+#   CD4+/CD45RO+ Memory              2
+#   CD56+ NK                      7958
+#   CD8+ Cytotoxic T              2005
 #   CD8+/CD45RA+ Naive Cytotoxic     0
 #   Dendritic                        0</code></pre>
 <p>A few more notes about these results:</p>
 <ul>
-<li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match. Other close matches include CD34+ cells (C), CD14+ monocytes (B1) and dendritic cells (B2).</p></li>
+<li><p>As in the purified fit, here we identify a B-cells cluster (B) and topic (5) that closely match. Other close matches include CD34+ cells (C), CD14+ monocytes (CD14+) and dendritic cells (D).</p></li>
 <li><p>As we found above, unlike the FACS-purified data, we don’t identify a clear-cut cluster for NK cells from the 68k data; the NK cells are mixed in with the T-cells (subset A1). NK cells will therefore only emerge only after subsequent analysis of topic 3.</p></li>
 <li><p>The small number (~1%) in the A3 and B3 subsets aren’t distinct subpopulations <em>per se</em> but rather appear to be in some intermediate developmental state, and the mixture of topics in these subsets captures this.</p></li>
 </ul>
 <p>In summary, the topics and clusters seem to offer very much complementary biological insights, although subsequent analysis is needed to determine what these insights are.</p>
+</div>
+<div id="differential-expression-analysis" class="section level2">
+<h2>Differential expression analysis</h2>
+<p><em>Add code and text here.</em></p>
+</div>
+<div id="b-cells" class="section level2">
+<h2>B-cells</h2>
+<p><em>Add code and text here.</em></p>
+</div>
+<div id="natural-killer-cells" class="section level2">
+<h2>Natural killer cells</h2>
+<p><em>Add code and text here.</em></p>
 <pre class="r"><code>save(list = c(&quot;samples_purified&quot;,&quot;samples_68k&quot;),
      file = &quot;pbmc-clustering.RData&quot;)
 resaveRdaFiles(&quot;pbmc-clustering.RData&quot;)</code></pre>
@@ -3080,7 +3225,7 @@ resaveRdaFiles(&quot;pbmc-clustering.RData&quot;)</code></pre>
 # [8] base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-165 dplyr_0.8.3       
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-175 dplyr_0.8.3       
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
