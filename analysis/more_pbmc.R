@@ -1,4 +1,5 @@
 # NOTE: Run plots_pbmc analysis first before running this code.
+library(ggrepel)
 load("../data/pbmc_purified.RData")
 counts_purified <- counts
 genes_purified <- genes
@@ -45,8 +46,21 @@ p5 <- volcano_plot(diff_count_clusters_purified,k = "CD14+",
                    labels = genes_purified$symbol,
                    label_above_quantile = 0.995)
 
-# Volcano plot for X.
+# Volcano plot for CD8+ cytotoxic cells.
 p6 <- volcano_plot(diff_count_clusters_purified,k = "CD8+",
                    labels = genes_purified$symbol,
                    label_above_quantile = 0.998)
 print(p6)
+
+# Volcano plots for topics 1 and 6 in T-cells.
+rows <- which(samples_purified$cluster == "T")
+fit  <- select(poisson2multinom(fit_purified),loadings = rows)
+diff_count_purified_T <- diff_count_analysis(fit,counts_purified[rows,])
+diff_count_purified_T$colmeans <- pmax(diff_count_purified_T$colmeans,0.001)
+p7a <- volcano_plot(diff_count_purified_T,k = 1,
+                    labels = genes_purified$symbol,
+                    label_above_quantile = 0.995)
+p7b <- volcano_plot(diff_count_purified_T,k = 6,
+                    labels = genes_purified$symbol,
+                    label_above_quantile = 0.995)
+plot_grid(p7a,p7b)
