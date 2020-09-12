@@ -14,6 +14,8 @@ clusters and topics as "cell types" or "gene expression programs".
 
 TO DO:
 
++ Try 68k data with a larger number of topics (e.g., k=8).
+
 + Run differential expression analysis using the topic model (cache
   the results).
 
@@ -325,8 +327,8 @@ pca  <- prcomp(fit$L)$x
 n    <- nrow(pca)
 x    <- rep("B3",n)
 pc1  <- pca[,"PC1"]
-x[pc1 > -0.12] <- "B1"
-x[pc1 < -0.3]  <- "B2"
+x[pc1 > -0.12] <- "CD14+"
+x[pc1 < -0.3]  <- "D"
 samples_68k[rows,"cluster"] <- x
 p10 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
        labs(fill = "cluster")
@@ -335,7 +337,7 @@ plot_grid(p10,p11)
 ```
 
 Cluster A subdivides into two large clusters, labeled as A1 and
-A2. The remaining samples are assigned to a subset labeled "A3".
+B. The remaining samples are assigned to a subset labeled "A3".
 
 ```{r pbmc-68k-clustering-4, fig.width=8, fig.height=3}
 rows <- which(samples_68k$cluster == "A")
@@ -346,7 +348,7 @@ x    <- rep("A3",n)
 pc2  <- pca[,"PC2"]
 pc3  <- pca[,"PC3"]
 x[2.5*pc3 < 0.4 - pc2] <- "A1"
-x[pc3 > 0.75 - pc2] <- "A2"
+x[pc3 > 0.75 - pc2] <- "B"
 samples_68k[rows,"cluster"] <- x
 p12 <- pca_plot_with_labels(fit,c("PC2","PC3"),x) +
        labs(fill = "cluster")
@@ -385,7 +387,7 @@ Topic 3 appears to characterize natural killer cells, and topic 4 has
 yet to be characterized, but may represent some subset of naive
 T-cells. This is an example with interesting substructure that can't
 be captured well by clusters. Nonetheless, here we (somewhat
-arbitrarily) designate two subsets, A1b and A1c, in which all samples
+arbitrarily) designate two subsets, NK and A1c, in which all samples
 in these subsets are mostly explained by topic 3 and 4, respectively:
 
 ```{r pbmc-68k-clustering-8, fig.width=4, fig.height=3}
@@ -395,7 +397,7 @@ n    <- nrow(pca)
 x    <- rep("A1a",n)
 q3   <- fit$L[,"k3"]
 q4   <- fit$L[,"k4"]
-x[q3 > 0.5] <- "A1b"
+x[q3 > 0.5] <- "NK"
 x[q4 > 0.6] <- "A1c"
 samples_68k[rows,"cluster"] <- x
 p16 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
@@ -421,12 +423,12 @@ pbmc_68k_topic_colors <- c("yellow","lightskyblue","salmon",
                            "firebrick","royalblue","olivedrab")
 pbmc_68k_topics <- c(2,5,1,3,4,6)
 rows <- sort(c(sample(which(samples_68k$cluster == "A1a"),1000),
-               sample(which(samples_68k$cluster == "A1b"),500),
+               sample(which(samples_68k$cluster == "NK"),500),
                sample(which(samples_68k$cluster == "A1c"),800),
-               sample(which(samples_68k$cluster == "A2"),500),
+               sample(which(samples_68k$cluster == "B"),500),
                sample(which(samples_68k$cluster == "A3"),300),
-               sample(which(samples_68k$cluster == "B1"),500),
-               sample(which(samples_68k$cluster == "B2"),300),
+               sample(which(samples_68k$cluster == "CD14+"),500),
+               sample(which(samples_68k$cluster == "D"),300),
                which(samples_68k$cluster == "B3"),
                which(samples_68k$cluster == "C")))
 p17 <- structure_plot(select(poisson2multinom(fit_68k),loadings = rows),
@@ -450,7 +452,7 @@ A few more notes about these results:
 
 + As in the purified fit, here we identify a B-cells cluster (B) and
   topic (5) that closely match. Other close matches include CD34+
-  cells (C), CD14+ monocytes (B1) and dendritic cells (B2).
+  cells (C), CD14+ monocytes (CD14+) and dendritic cells (D).
 
 + As we found above, unlike the FACS-purified data, we don't identify
   a clear-cut cluster for NK cells from the 68k data; the NK cells are
