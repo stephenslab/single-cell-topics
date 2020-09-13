@@ -22,7 +22,7 @@ create_abundance_plot <- function (fit, prob = 0.5) {
 pca_plot_with_labels <-
   function (fit, pcs = c("PC1","PC2"), labels,
             colors = c("darkorange","darkblue","dodgerblue","magenta",
-                       "gold")) {
+                       "gold","forestgreen","greenyellow","darkmagenta")) {
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
   out.pca <- prcomp(fit$L)

@@ -40,7 +40,6 @@ x[x == "tuft.2"]            <- "tuft"
 x[x == "tuft.progenitor"]   <- "tuft"
 samples_pulseseq$tissue <- factor(x)
 rm(samples,counts)
-stop()
 ```
 
 Load the $k = 11$ Poisson NMF fits for the pulse-seq data.
@@ -70,7 +69,7 @@ We identify two distinct clusters in the projection of the topic
 proportions onto PCs 3 and 4, with a third subset (C) acting as a
 "background cluster".
 
-```{r pulseseq-clustering-3, fig.width=8, fig.height=3}
+```{r pulseseq-clustering-2, fig.width=8, fig.height=3}
 n   <- nrow(pca)
 x   <- rep("C",n)
 pc3 <- pca[,"PC3"]
@@ -94,17 +93,36 @@ n    <- nrow(pca)
 x    <- rep("A3",n)
 pc3  <- pca[,"PC3"]
 pc4  <- pca[,"PC4"]
-x[pc4 < 0.3] <- "A1"
-x[pc4 > pc3 + 0.975] <- "A2"
+x[pc4 < 0.35] <- "A1"
+x[pc4 > pc3 + 0.95] <- "A2"
 samples_pulseseq[rows,"cluster"] <- x
-p8 <- pca_plot_with_labels(fit,c("PC3","PC4"),x) +
+p4 <- pca_plot_with_labels(fit,c("PC3","PC4"),x) +
       labs(fill = "cluster")
-print(p8)
+p5 <- pca_hex_plot(fit,c("PC3","PC4"))
+plot_grid(p4,p5)
+```
+
+Subclustering in cluster A1:
+
+```{r pulseseq-clustering-4}
+rows <- which(samples_pulseseq$cluster == "A1")
+fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A1b",n)
+pc1  <- pca[,"PC1"]
+pc2  <- pca[,"PC2"]
+x[pc1 + 0.18 < -pc2] <- "A1a"
+samples_pulseseq[rows,"cluster"] <- x
+p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+      labs(fill = "cluster")
+p7 <- pca_hex_plot(fit,c("PC1","PC2"))
+plot_grid(p6,p7)
 ```
 
 Subclustering in PCs 1 and 3 of cluster A3:
 
-```{r pulseseq-clustering-4, fig.width=5, fig.height=4}
+```{r pulseseq-clustering-5, fig.width=5, fig.height=4}
 rows <- which(samples_pulseseq$cluster == "A3")
 fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 pca  <- prcomp(fit$L)$x
@@ -112,15 +130,31 @@ n    <- nrow(pca)
 x    <- rep("A3b",n)
 pc1  <- pca[,"PC1"]
 pc2  <- pca[,"PC2"]
-x[pc1 < 0.08 & pc2 > -0.08] <- "A3a"
+x[pc1 > -0.15 & pc2 > -0.15] <- "A3a"
 samples_pulseseq[rows,"cluster"] <- x
-p9 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
+p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-print(p9)
+print(p8)
 ```
 
-In summary, we have subdivided the pulse-seq data into 6 subsets. The
-vast majority of the samples are in cluster A1:
+TO DO: See if I can find this same "proliferating" cluster from PCs in
+cluster A1.
+
+```{r}
+rows <- which(samples_pulseseq$cluster == "A1b")
+fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
+pca  <- prcomp(fit$L)$x
+n    <- nrow(pca)
+x    <- rep("A1b",n)
+p9  <- pca_plot_with_labels(fit,c("PC5","PC6"),x) +
+       labs(fill = "cluster")
+p10 <- pca_hex_plot(fit,c("PC5","PC6"))
+pca_plot(fit,pcs = c("PC5","PC6"),k = 2)
+plot_grid(p9,p10)
+```
+
+In summary, we have subdivided the pulse-seq data into 7 subsets. The
+vast majority of the samples are in clusters A1a and A1b:
 
 ```{r pulseseq-clustering-6}
 samples_pulseseq$cluster <- factor(samples_pulseseq$cluster)
