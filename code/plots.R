@@ -1,22 +1,17 @@
-# For each topic, plot the number of samples exceeding specified topic
-# proportion, as specified by "probs". The topics are ordered in the
-# bar chart from most abundant to least abundant.
-create_abundance_plot <- function (fit, probs = c(0.1,0.25,0.5),
-                                   clrs=c("tomato","dodgerblue","darkblue")) {
+# For each topic, plot the number of samples exceeding a specified
+# topic proportion, as specified by "prob". The topics are ordered in
+# the bar chart from most to least abundant.
+create_abundance_plot <- function (fit, prob = 0.5) {
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
-  m      <- length(probs)
-  k      <- ncol(fit$L)
   L      <- fit$L
-  out    <- apply(L,2,function (x) rev(cumsum(rev(table(cut(x,c(probs,1)))))))
+  n      <- colSums(L > prob)
   topics <- colnames(L)
-  topics <- topics[order(out[1,],decreasing = TRUE)]
-  dat    <- data.frame(topic = factor(rep(colnames(L),each = m),topics),
-                       prob  = factor(rep(probs,times = k)),
-                       n     = as.vector(out))
-  return(ggplot(dat,aes_string(x = "topic",y = "n",fill = "prob")) +
-         geom_col(color = "white",position = "dodge",width = 0.8) +
-         scale_fill_manual(values = clrs) +
+  topics <- topics[order(n,decreasing = TRUE)]
+  dat    <- data.frame(topic = factor(topics,topics),
+                       n     = n[topics])
+  return(ggplot(dat,aes_string(x = "topic",y = "n")) +
+         geom_col(fill = "royalblue",color = "white",width = 0.5) +
          labs(x = "topic",y = "samples") +
          theme_cowplot(font_size = 10))
 }
