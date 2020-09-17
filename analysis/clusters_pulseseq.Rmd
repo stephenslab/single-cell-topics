@@ -147,8 +147,21 @@ y[pc5 > 0.1 & pc6 < 0] <- "P"
 x[rows] <- y
 ```
 
+In summary:
+
+```{r clustering-10, fig.width=5, fig.height=5}
+colors <- c("royalblue","forestgreen","firebrick","darkmagenta",
+            "darkorange","peru","gainsboro")
+p16 <- labeled_pca_plot(fit,1:2,x,colors,"tissue") +
+       xlim(0,0) + ylim(0,0)
+p17 <- labeled_pca_plot(fit,1:2,x,colors) + guides(fill = "none")
+p18 <- labeled_pca_plot(fit,3:4,x,colors) + guides(fill = "none")
+p19 <- labeled_pca_plot(fit,5:6,x,colors) + guides(fill = "none")
+plot_grid(p16,p17,p18,p19)
+```
+
 Compare to Montoro et al (2018) clustering:
 
-```{r}
+```{r clustering-11}
 table(samples$tissue,x)
 ```
