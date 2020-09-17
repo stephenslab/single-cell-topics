@@ -49,6 +49,9 @@ Identify clusters from principal components
 
 *Explain the process used to identify clusters.*
 
+Show the PCA projection of the cells. Note that only 10 PCs are needed
+for 11 topics.
+
 ```{r clustering-1, fig.width=8, fig.height=5}
 p1 <- basic_pca_plot(poisson2multinom(fit),1:2)
 p2 <- basic_pca_plot(poisson2multinom(fit),3:4)
@@ -58,11 +61,18 @@ p5 <- basic_pca_plot(poisson2multinom(fit),9:10)
 plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
 ```
 
+```{r clustering-2, fig.width=8, fig.height=5}
+```
+
 ```{r, eval=FALSE}
-p1 <- labeled_pca_plot(fit_pulseseq,c("PC1","PC2"),samples_pulseseq$tissue)
-p2 <- labeled_pca_plot(fit_pulseseq,c("PC3","PC4"),samples_pulseseq$tissue)
-p3 <- pca_plot_with_labels(fit_pulseseq,c("PC5","PC6"),samples_pulseseq$tissue)
-p4 <- pca_plot_with_labels(fit_pulseseq,c("PC7","PC8"),samples_pulseseq$tissue)
-p5<-pca_plot_with_labels(fit_pulseseq,c("PC9","PC10"),samples_pulseseq$tissue)
-plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
+colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
+            "darkmagenta","darkorange","skyblue","peru")
+q0 <- labeled_pca_plot(fit,1:2,samples$tissue,colors,"tissue") +
+      xlim(0,0) + ylim(0,0)
+q1 <- labeled_pca_plot(fit,1:2,samples$tissue,colors) + guides(fill = "none")
+q2 <- labeled_pca_plot(fit,3:4,samples$tissue,colors) + guides(fill = "none")
+q3 <- labeled_pca_plot(fit,5:6,samples$tissue,colors) + guides(fill = "none")
+q4 <- labeled_pca_plot(fit,7:8,samples$tissue,colors) + guides(fill = "none")
+q5 <- labeled_pca_plot(fit,9:10,samples$tissue,colors) + guides(fill = "none")
+plot_grid(q1,q2,q3,q4,q5,q0,nrow = 2,ncol = 3)
 ```
