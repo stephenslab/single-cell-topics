@@ -76,14 +76,18 @@ Identify clusters from PC plots above.
 ```{r clustering-3}
 pca <- prcomp(poisson2multinom(fit)$L)$x
 n   <- nrow(pca)
-x   <- rep("C",nrow(pca))
+x   <- rep("U",nrow(pca))
 pc3 <- pca[,3]
 pc4 <- pca[,4]
-x[5.5*pc3 + 0.5 > pc4] <- "A"
-x[(pc3 + 0.7)^2 + (pc4 - 0.1)^2 < 0.18^2] <- "B"
+pc5 <- pca[,5]
+pc6 <- pca[,6]
+x[pc4 < 5.5*pc3 + 0.5] <- "A"
+x[(pc3 + 0.7)^2 + (pc4 - 0.1)^2 < 0.18^2] <- "Cil"
+x[x == "A" & pc6 > 1.3*pc5 + 0.87] <- "T+N"
+x[x == "A" & pc5 > -0.4 & pc6 < 1.3*pc5 + 0.49] <- "C"
 ```
 
-```{r, echo=FALSE, eval=FALSE}
+```{r temp-1, echo=FALSE, eval=FALSE}
 q1 <- labeled_pca_plot(fit,1:2,x)
 q2 <- labeled_pca_plot(fit,3:4,x)
 q3 <- labeled_pca_plot(fit,5:6,x)
@@ -92,14 +96,20 @@ q5 <- labeled_pca_plot(fit,9:10,x)
 plot_grid(q1,q2,q3,q4,q5,nrow = 2,ncol = 3)
 ```
 
-```{r}
+```{r temp-2, echo=FALSE, eval=FALSE}
 p2 +
   scale_x_continuous(n.breaks = 10) +
   scale_y_continuous(n.breaks = 10)
+p8 +
+  scale_x_continuous(n.breaks = 20) +
+  scale_y_continuous(n.breaks = 20)
 labeled_pca_plot(fit,3:4,x)
+labeled_pca_plot(fit,5:6,x)
+table(x)
+table(samples$tissue,x)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
+```{r temp-3, echo=FALSE, eval=FALSE}
 colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
             "darkmagenta","darkorange","skyblue","peru")
 q0 <- labeled_pca_plot(fit,1:2,samples$tissue,colors,"tissue") +
