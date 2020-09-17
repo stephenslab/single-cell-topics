@@ -29,7 +29,6 @@ Load the pulse-seq data. The UMI counts are not needed for this analysis.
 
 ```{r load-data}
 load("../data/pulseseq.RData")
-samples <- samples
 x <- as.character(samples$tissue)
 x[x == "club (hillock-associated)"] <- "hillock"
 x[x == "goblet.1" | x == "goblet.2" | x == "goblet.progenitor"] <- "goblet"
@@ -62,6 +61,12 @@ plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
 ```
 
 ```{r clustering-2, fig.width=8, fig.height=5}
+p6 <- pca_hexbin_plot(poisson2multinom(fit),1:2) + guides(fill = "none")
+p7 <- pca_hexbin_plot(poisson2multinom(fit),3:4) + guides(fill = "none")
+p8 <- pca_hexbin_plot(poisson2multinom(fit),5:6) + guides(fill = "none")
+p9 <- pca_hexbin_plot(poisson2multinom(fit),7:8) + guides(fill = "none")
+p10 <- pca_hexbin_plot(poisson2multinom(fit),9:10) + guides(fill = "none")
+plot_grid(p6,p7,p8,p9,p10,nrow = 2,ncol = 3)
 ```
 
 ```{r, eval=FALSE}
