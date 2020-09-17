@@ -71,6 +71,34 @@ p10 <- pca_hexbin_plot(poisson2multinom(fit),9:10) + guides(fill = "none")
 plot_grid(p6,p7,p8,p9,p10,nrow = 2,ncol = 3)
 ```
 
+Identify clusters from PC plots above.
+
+```{r clustering-3}
+pca <- prcomp(poisson2multinom(fit)$L)$x
+n   <- nrow(pca)
+x   <- rep("C",nrow(pca))
+pc3 <- pca[,3]
+pc4 <- pca[,4]
+x[5.5*pc3 + 0.5 > pc4] <- "A"
+x[(pc3 + 0.7)^2 + (pc4 - 0.1)^2 < 0.18^2] <- "B"
+```
+
+```{r, echo=FALSE, eval=FALSE}
+q1 <- labeled_pca_plot(fit,1:2,x)
+q2 <- labeled_pca_plot(fit,3:4,x)
+q3 <- labeled_pca_plot(fit,5:6,x)
+q4 <- labeled_pca_plot(fit,7:8,x)
+q5 <- labeled_pca_plot(fit,9:10,x)
+plot_grid(q1,q2,q3,q4,q5,nrow = 2,ncol = 3)
+```
+
+```{r}
+p2 +
+  scale_x_continuous(n.breaks = 10) +
+  scale_y_continuous(n.breaks = 10)
+labeled_pca_plot(fit,3:4,x)
+```
+
 ```{r, echo=FALSE, eval=FALSE}
 colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
             "darkmagenta","darkorange","skyblue","peru")
@@ -84,14 +112,3 @@ q5 <- labeled_pca_plot(fit,9:10,samples$tissue,colors) + guides(fill = "none")
 plot_grid(q1,q2,q3,q4,q5,q0,nrow = 2,ncol = 3)
 ```
 
-```{r, echo=FALSE, eval=FALSE}
-colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
-            "darkmagenta","darkorange","skyblue","peru")
-q0 <- labeled_pca_plot(fit,1:2,x,colors,"tissue") + xlim(0,0) + ylim(0,0)
-q1 <- labeled_pca_plot(fit,1:2,x,colors) + guides(fill = "none")
-q2 <- labeled_pca_plot(fit,3:4,x,colors) + guides(fill = "none")
-q3 <- labeled_pca_plot(fit,5:6,x,colors) + guides(fill = "none")
-q4 <- labeled_pca_plot(fit,7:8,x,colors) + guides(fill = "none")
-q5 <- labeled_pca_plot(fit,9:10,x,colors) + guides(fill = "none")
-plot_grid(q1,q2,q3,q4,q5,q0,nrow = 2,ncol = 3)
-```
