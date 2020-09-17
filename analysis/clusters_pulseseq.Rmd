@@ -60,6 +60,8 @@ p5 <- basic_pca_plot(poisson2multinom(fit),9:10)
 plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
 ```
 
+These next plots show the *density* of the points in the PCA projection.
+
 ```{r clustering-2, fig.width=8, fig.height=5}
 p6 <- pca_hexbin_plot(poisson2multinom(fit),1:2) + guides(fill = "none")
 p7 <- pca_hexbin_plot(poisson2multinom(fit),3:4) + guides(fill = "none")
@@ -69,7 +71,7 @@ p10 <- pca_hexbin_plot(poisson2multinom(fit),9:10) + guides(fill = "none")
 plot_grid(p6,p7,p8,p9,p10,nrow = 2,ncol = 3)
 ```
 
-```{r, eval=FALSE}
+```{r, echo=FALSE, eval=FALSE}
 colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
             "darkmagenta","darkorange","skyblue","peru")
 q0 <- labeled_pca_plot(fit,1:2,samples$tissue,colors,"tissue") +
@@ -79,5 +81,17 @@ q2 <- labeled_pca_plot(fit,3:4,samples$tissue,colors) + guides(fill = "none")
 q3 <- labeled_pca_plot(fit,5:6,samples$tissue,colors) + guides(fill = "none")
 q4 <- labeled_pca_plot(fit,7:8,samples$tissue,colors) + guides(fill = "none")
 q5 <- labeled_pca_plot(fit,9:10,samples$tissue,colors) + guides(fill = "none")
+plot_grid(q1,q2,q3,q4,q5,q0,nrow = 2,ncol = 3)
+```
+
+```{r, echo=FALSE, eval=FALSE}
+colors <- c("royalblue","firebrick","forestgreen","gold","greenyellow",
+            "darkmagenta","darkorange","skyblue","peru")
+q0 <- labeled_pca_plot(fit,1:2,x,colors,"tissue") + xlim(0,0) + ylim(0,0)
+q1 <- labeled_pca_plot(fit,1:2,x,colors) + guides(fill = "none")
+q2 <- labeled_pca_plot(fit,3:4,x,colors) + guides(fill = "none")
+q3 <- labeled_pca_plot(fit,5:6,x,colors) + guides(fill = "none")
+q4 <- labeled_pca_plot(fit,7:8,x,colors) + guides(fill = "none")
+q5 <- labeled_pca_plot(fit,9:10,x,colors) + guides(fill = "none")
 plot_grid(q1,q2,q3,q4,q5,q0,nrow = 2,ncol = 3)
 ```
