@@ -1,0 +1,68 @@
+---
+title: "Identify clusters in pulse-seq data using topic model"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Briefly explain the aims of this analysis, and what we find.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
+library(dplyr)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/plots.R")
+```
+
+Load data and results
+---------------------
+
+Load the pulse-seq data. The UMI counts are not needed for this analysis.
+
+```{r load-data}
+load("../data/pulseseq.RData")
+samples <- samples
+x <- as.character(samples$tissue)
+x[x == "club (hillock-associated)"] <- "hillock"
+x[x == "goblet.1" | x == "goblet.2" | x == "goblet.progenitor"] <- "goblet"
+x[x == "tuft.1" | x == "tuft.2" | x == "tuft.progenitor"] <- "tuft"
+samples$tissue <- factor(x)
+rm(counts)
+```
+
+Load the $k = 11$ Poisson NMF fit.
+
+```{r load-fit}
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+```
+
+Identify clusters from principal components
+-------------------------------------------
+
+*Explain the process used to identify clusters.*
+
+```{r clustering-1, fig.width=8, fig.height=5}
+p1 <- basic_pca_plot(poisson2multinom(fit),1:2)
+p2 <- basic_pca_plot(poisson2multinom(fit),3:4)
+p3 <- basic_pca_plot(poisson2multinom(fit),5:6)
+p4 <- basic_pca_plot(poisson2multinom(fit),7:8)
+p5 <- basic_pca_plot(poisson2multinom(fit),9:10)
+plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
+```
+
+```{r, eval=FALSE}
+p1 <- labeled_pca_plot(fit_pulseseq,c("PC1","PC2"),samples_pulseseq$tissue)
+p2 <- labeled_pca_plot(fit_pulseseq,c("PC3","PC4"),samples_pulseseq$tissue)
+p3 <- pca_plot_with_labels(fit_pulseseq,c("PC5","PC6"),samples_pulseseq$tissue)
+p4 <- pca_plot_with_labels(fit_pulseseq,c("PC7","PC8"),samples_pulseseq$tissue)
+p5<-pca_plot_with_labels(fit_pulseseq,c("PC9","PC10"),samples_pulseseq$tissue)
+plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
+```

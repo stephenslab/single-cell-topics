@@ -17,19 +17,36 @@ create_abundance_plot <- function (fit, prob = 0.5) {
 }
 
 # Create a basic scatterplot showing the topic proportions projected
-# onto two principal components (PCs), and the colour of the points is
-# varied according to a factor ("labels").
-pca_plot_with_labels <-
-  function (fit, pcs = c("PC1","PC2"), labels,
-            colors = c("darkorange","darkblue","dodgerblue","magenta",
-                       "gold","forestgreen","greenyellow","darkmagenta")) {
+# onto two principal components (PCs).
+basic_pca_plot <- function (fit, pcs = 1:2) {
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
-  out.pca <- prcomp(fit$L)
-  dat     <- cbind(out.pca$x,data.frame(label = factor(labels)))
+  dat <- as.data.frame(prcomp(fit$L)$x)
+  if (is.numeric(pcs))
+    pcs <- names(dat)[pcs]
+  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2])) +
+         geom_point(shape = 21,color = "white",fill = "black",size = 1.25) +
+         theme_cowplot(font_size = 10))
+}
+
+# Create a basic scatterplot showing the topic proportions projected
+# onto two principal components (PCs), and the colour of the points is
+# varied according to a factor ("labels").
+labeled_pca_plot <-
+  function (fit, pcs = 1:2, labels,
+            colors = c("firebrick","dodgerblue","forestgreen","darkmagenta",
+                       "darkorange","gold","darkblue","peru","greenyellow"),
+            legend_label = "label") {
+  if (inherits(fit,"poisson_nmf_fit"))
+    fit <- poisson2multinom(fit)
+  dat <- as.data.frame(prcomp(fit$L)$x)
+  if (is.numeric(pcs))
+    pcs <- names(dat)[pcs]
+  dat <- cbind(data.frame(label = factor(labels)),dat)
   return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "label")) +
-         geom_point(shape = 21,color = "white",size = 1.25) +
+         geom_point(shape = 21,color = "white",size = 1.2,na.rm = TRUE) +
          scale_fill_manual(values = colors) +
+         labs(fill = legend_label) +
          theme_cowplot(font_size = 10))
 }
 
