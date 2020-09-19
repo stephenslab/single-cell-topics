@@ -47,9 +47,8 @@ fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 Identify clusters from principal components
 -------------------------------------------
 
-To identify clusters, we begin by plotting PCs computed from the rows
-of the topic proportions matrix. (Note that only 10 PCs are needed
-for the multinomial topic model with $k = 11$ topics.)
+To identify clusters, we begin by plotting PCs computed from the topic
+proportions. (Note that only 10 PCs are needed for 11 topics.)
 
 ```{r clustering-1, fig.width=8, fig.height=5}
 p1 <- basic_pca_plot(fit,1:2)
@@ -60,10 +59,9 @@ p5 <- basic_pca_plot(fit,9:10)
 plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
 ```
 
-Structure is more evident from the following "hexbin" plots showing
-the *density* of the points in the PCA projection. For example, the
-two clusters in PCs 1 and 2 is not evident from the scatterplot, but
-emerges in the hexbin plots:
+The structure is more evident from "hexbin" plots showing the density
+of the points example, two clusters in PCs 1 and 2 emerge in the
+hexbin plot:
 
 ```{r clustering-2, fig.width=8, fig.height=5}
 p6  <- pca_hexbin_plot(fit,1:2) + guides(fill = "none")
@@ -74,10 +72,10 @@ p10 <- pca_hexbin_plot(fit,9:10) + guides(fill = "none")
 plot_grid(p6,p7,p8,p9,p10,nrow = 2,ncol = 3)
 ```
 
-From the PC plots above, we define 4 clusters, labeled A, C, Cil and
-T+N. (The reason for these labels will become more clear later on.)
+From these PCA plots, we define 4 clusters, labeled A, C, Cil and
+T+N. (The reasoning behind these labels will become clear later.)
 Points that do not fit in any of these clusters are assigned to a
-"background cluster" (this subset is labeled U for "Unknown").
+"background cluster", labeled U for "unknown".
 
 ```{r clustering-3}
 pca <- prcomp(poisson2multinom(fit)$L)$x
@@ -92,10 +90,10 @@ x[x == "A" & pc6 > 1.3*pc5 + 0.87] <- "T+N"
 x[x == "A" & pc5 > -0.4 & pc6 < 1.3*pc5 + 0.49] <- "C"
 ```
 
-We can refine cluster A somewhat by plotting PCs computed from the
-samples in cluster A *only*:
+We can refine cluster A somewhat by plotting PCs computed from cluster
+A only:
 
-```{r clustering-4, fig.width=3, fig.height=3}
+```{r clustering-4, fig.width=3, fig.height=2.5}
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p11  <- basic_pca_plot(fit2,1:2)
@@ -115,7 +113,7 @@ x[rows] <- y
 
 Likewise, we inspect cluster C for further structure:
 
-```{r clustering-6, fig.width=6, fig.height=3}
+```{r clustering-6, fig.width=6, fig.height=2.5}
 rows <- which(x == "C")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p12  <- basic_pca_plot(fit2,1:2)
@@ -124,8 +122,8 @@ plot_grid(p12,p13)
 ```
 
 The hexbin plot suggests two clusters. Although these clusters are not
-distinct, it may nonetheless be useful to subdivide these points
-(somewhat arbitrarily) into two subsets, labeled B and C.
+at all distinct, it may nonetheless be useful to subdivide these
+points (somewhat arbitrarily) into two subsets, labeled B and C.
 
 ```{r clustering-7}
 pca  <- prcomp(fit2$L)$x
@@ -136,7 +134,8 @@ y[pc2 > -pc1 - 0.15] <- "B"
 x[rows] <- y
 ```
 
-In cluster B, there is some interesting structure along PCs 5 and 6:
+Within cluster B, there is some interesting structure along PCs 5 and
+6:
 
 ```{r clustering-8, fig.width=6, fig.height=3}
 rows <- which(x == "B")
@@ -146,8 +145,8 @@ p15  <- pca_hexbin_plot(fit2,5:6) + guides(fill = "none")
 plot_grid(p14,p15)
 ```
 
-We define a new cluster, "P", recognizing that this cluster is again
-not very distinct.
+From PCs 5 and 6 define a new cluster, "P", recognizing that this
+cluster is not particularly distinct.
 
 ```{r clustering-9}
 pca <- prcomp(fit2$L)$x
@@ -159,9 +158,9 @@ x[rows] <- y
 ```
 
 In summary, we have subdivided the pulse-seq samples into 7 subsets,
-including a background cluster ("U"):
+which includes a background cluster (U).
 
-```{r clustering-10, fig.width=6, fig.height=5}
+```{r clustering-10, fig.width=6, fig.height=5.5}
 colors <- c("royalblue","forestgreen","firebrick","darkmagenta",
             "darkorange","peru","gainsboro")
 p16 <- labeled_pca_plot(fit,1:2,x,colors) + guides(fill = "none")
@@ -172,11 +171,11 @@ p19 <- labeled_pca_plot(fit,1:2,x,colors,"tissue") +
 plot_grid(p16,p17,p18,p19)
 ```
 
-Comparing this to the Montoro *et al* (2018) clustering, we see that
-some close correspondence (e.g., B and basal cells, P and
-proliferating cells). The B and C clusters appear to contain
-additional structure that cannot be captured by distinct clusters. We
-will explore this structure in a subsequent analysis.
+Comparing this to the Montoro *et al* (2018) clustering, we observe
+some close correspondence (e.g., B and "basal cells", P and
+"proliferating cells"). The B and C clusters appear to contain
+additional structure that is not well-captured by clusters. We will
+explore this additional structure in a subsequent analysis.
 
 ```{r clustering-11}
 table(samples$tissue,x)
@@ -185,7 +184,9 @@ table(samples$tissue,x)
 Save results
 ------------
 
-*Add text here.*
+Save the clustering of the pulse-seq data to an RDS file.
 
 ```{r save-results}
+samples$cluster <- factor(x)
+saveRDS(samples,"clustering-pulseseq.rds")
 ```
