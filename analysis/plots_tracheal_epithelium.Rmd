@@ -32,12 +32,8 @@ load("../data/pulseseq.RData")
 samples_pulseseq <- samples
 x <- as.character(samples_pulseseq$tissue)
 x[x == "club (hillock-associated)"] <- "hillock"
-x[x == "goblet.1"]          <- "goblet"
-x[x == "goblet.2"]          <- "goblet"
-x[x == "goblet.progenitor"] <- "goblet"
-x[x == "tuft.1"]            <- "tuft"
-x[x == "tuft.2"]            <- "tuft"
-x[x == "tuft.progenitor"]   <- "tuft"
+x[x == "goblet.1" | x == "goblet.2" | x == "goblet.progenitor"] <- "goblet"
+x[x == "tuft.1" | x == "tuft.2" | x == "tuft.progenitor"] <- "tuft"
 samples_pulseseq$tissue <- factor(x)
 rm(samples,counts)
 ```
@@ -112,12 +108,13 @@ n    <- nrow(pca)
 x    <- rep("A1b",n)
 pc1  <- pca[,"PC1"]
 pc2  <- pca[,"PC2"]
-x[pc1 + 0.18 < -pc2] <- "A1a"
 samples_pulseseq[rows,"cluster"] <- x
 p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
       labs(fill = "cluster")
-p7 <- pca_hex_plot(fit,c("PC1","PC2"))
+p7 <- pca_hex_plot(fit,c("PC1","PC2"),bins=c(0,1,10,20,100,Inf))
+x[pc1 + 0.18 < -pc2] <- "A1a"
 plot_grid(p6,p7)
+stop()
 ```
 
 Subclustering in PCs 1 and 3 of cluster A3:
