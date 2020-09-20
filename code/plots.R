@@ -36,7 +36,7 @@ labeled_pca_plot <-
   function (fit, pcs = 1:2, labels,
             colors = c("firebrick","dodgerblue","forestgreen","darkmagenta",
                        "darkorange","gold","darkblue","peru","greenyellow"),
-            legend_label = "label") {
+            legend_label = "label", font_size = 10) {
   if (inherits(fit,"poisson_nmf_fit"))
     fit <- poisson2multinom(fit)
   dat <- as.data.frame(prcomp(fit$L)$x)
@@ -47,7 +47,7 @@ labeled_pca_plot <-
          geom_point(shape = 21,color = "white",size = 1.2,na.rm = TRUE) +
          scale_fill_manual(values = colors) +
          labs(fill = legend_label) +
-         theme_cowplot(font_size = 10))
+         theme_cowplot(font_size = font_size))
 }
 
 # Create a "hexbin plot" showing the density of the data points
