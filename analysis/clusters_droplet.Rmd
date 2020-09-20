@@ -63,7 +63,10 @@ p6 <- pca_hexbin_plot(fit,5:6,bins = bins) + guides(fill = "none")
 plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
 ```
 
-*Add text here.*
+From these PCA plots, we define 4 clusters, labeled A, Cil, G and
+T+N. (The reasoning behind these labels will become clear later.)
+Points that do not fit in any of these clusters are assigned to a
+"background cluster", labeled U for "unknown".
 
 ```{r clustering-3}
 pca <- prcomp(poisson2multinom(fit)$L)$x
@@ -77,9 +80,10 @@ x[pc1 <= 0.3 & pc2 >= -0.75 & pc2 < -0.4] <- "T+N"
 x[pc6 < -0.05] <- "G"
 ```
 
-*Add text here.*
+There is additional substructure in cluster A, which is more apparent
+from the top 2 PCs computed from cluster A only.
 
-```{r clustering-4}
+```{r clustering-4, fig.width=6, fig.height=2.75}
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p7   <- basic_pca_plot(fit2,1:2)
@@ -87,7 +91,8 @@ p8   <- pca_hexbin_plot(fit2,1:2,bins = bins) + guides(fill = "none")
 plot_grid(p7,p8)
 ```
 
-*Add text here.*
+We label the two more distinct subclusters as B and C, and assign the
+remaining samples to the background cluster (U).
 
 ```{r clustering-5}
 pca <- prcomp(fit2$L)$x
@@ -99,7 +104,24 @@ y[pc1 > 0.4 & pc2 < 0.45] <- "C"
 x[rows] <- y
 ```
 
-```{r clustering-X}
+In summary, we have subdivided the droplet data into 6 subsets, which
+includes a background cluster (U).
+
+```{r clustering-6, fig.width=8, fig.height=2.5}
+colors <- c("royalblue","forestgreen","firebrick","darkmagenta",
+            "darkorange","peru","gainsboro")
+p9  <- labeled_pca_plot(fit,1:2,x,colors)
+p10 <- labeled_pca_plot(fit,3:4,x,colors)
+p11 <- labeled_pca_plot(fit,5:6,x,colors)
+plot_grid(p9,p10,p11,nrow = 1,ncol = 3)
+```
+
+The clusters identified here correspond well to the Montoro *et al*
+(2018) clustering, with some exceptions (e.g., we do not identify an
+ionocytes cluster, and the neuroendocrine and tuft cells are included
+in the same cluster).
+
+```{r clustering-7}
 samples$cluster <- factor(x)
 with(samples,table(tissue,cluster))
 ```
@@ -107,4 +129,8 @@ with(samples,table(tissue,cluster))
 Save results
 ------------
 
-TO DO.
+Save the clustering of the droplet data to an RDS file.
+
+```{r save-results}
+saveRDS(samples,"clustering-droplet.rds")
+```
