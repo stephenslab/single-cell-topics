@@ -1,0 +1,110 @@
+---
+title: "Identify clusters in droplet data using topic model"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we perform PCA on the topic proportions to identify clusters in
+the droplet data. 
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
+library(dplyr)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/plots.R")
+```
+
+Load data and results
+---------------------
+
+Load the droplet data. The UMI counts are not needed for this analysis.
+
+```{r load-data}
+load("../data/droplet.RData")
+rm(counts)
+```
+
+Load the $k = 7$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+```
+
+Identify clusters from principal components
+-------------------------------------------
+
+To identify clusters, we begin by plotting PCs computed from the topic
+proportions. (Note that only 6 PCs are needed for 7 topics.)
+
+```{r clustering-1, fig.width=8, fig.height=2.5}
+p1 <- basic_pca_plot(fit,1:2)
+p2 <- basic_pca_plot(fit,3:4)
+p3 <- basic_pca_plot(fit,5:6)
+plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
+```
+
+Some of the structure is more evident from "hexbin" plots showing the
+density of the points.
+
+```{r clustering-2, fig.width=8, fig.height=2.5}
+bins <- c(0,1,5,10,100,Inf)
+p4 <- pca_hexbin_plot(fit,1:2,bins = bins) + guides(fill = "none")
+p5 <- pca_hexbin_plot(fit,3:4,bins = bins) + guides(fill = "none")
+p6 <- pca_hexbin_plot(fit,5:6,bins = bins) + guides(fill = "none")
+plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
+```
+
+*Add text here.*
+
+```{r clustering-3}
+pca <- prcomp(poisson2multinom(fit)$L)$x
+x   <- rep("U",nrow(pca))
+pc1 <- pca[,1]
+pc2 <- pca[,2]
+pc6 <- pca[,6]
+x[pc2 > -0.15] <- "A"
+x[pc1 > 0.3 & pc2 < -0.75] <- "Cil"
+x[pc1 <= 0.3 & pc2 >= -0.75 & pc2 < -0.4] <- "T+N"
+x[pc6 < -0.05] <- "G"
+```
+
+*Add text here.*
+
+```{r clustering-4}
+rows <- which(x == "A")
+fit2 <- select(poisson2multinom(fit),loadings = rows)
+p7   <- basic_pca_plot(fit2,1:2)
+p8   <- pca_hexbin_plot(fit2,1:2,bins = bins) + guides(fill = "none")
+plot_grid(p7,p8)
+```
+
+*Add text here.*
+
+```{r clustering-5}
+pca <- prcomp(fit2$L)$x
+y   <- rep("U",nrow(pca))
+pc1 <- pca[,1]
+pc2 <- pca[,2]
+y[pc1 < 0.1] <- "B"
+y[pc1 > 0.4 & pc2 < 0.45] <- "C"
+x[rows] <- y
+```
+
+```{r clustering-X}
+samples$cluster <- factor(x)
+with(samples,table(tissue,cluster))
+```
+
+Save results
+------------
+
+TO DO.
