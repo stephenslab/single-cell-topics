@@ -59,9 +59,9 @@ p5 <- basic_pca_plot(fit,9:10)
 plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
 ```
 
-The structure is more evident from "hexbin" plots showing the density
-of the points example, two clusters in PCs 1 and 2 emerge in the
-hexbin plot:
+Some of the structure is more evident from "hexbin" plots showing the
+density of the points. For example, two clusters in PCs 1 and 2 emerge
+in the hexbin plot:
 
 ```{r clustering-2, fig.width=8, fig.height=5}
 p6  <- pca_hexbin_plot(fit,1:2) + guides(fill = "none")

@@ -39,9 +39,9 @@ Visualize and interpret topics
 
 *TO DO: Add brief description here.*
 
-+ [Droplet clusters.](clusters_droplet.html)
-
 + [Pulse-seq clusters.](clusters_pulseseq.html)
+
++ [Droplet clusters.](clusters_droplet.html)
 
 + [PBMC](plots_pbmc.html)
 
