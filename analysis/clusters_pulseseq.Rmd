@@ -38,7 +38,7 @@ samples$tissue <- factor(x)
 rm(counts)
 ```
 
-Load the $k = 11$ Poisson NMF fit.
+Load the $k = 11$ Poisson NMF model fit.
 
 ```{r load-fit}
 fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
