@@ -4,8 +4,9 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-Here we perform PCA on the topic proportions to identify clusters in
-the pulse-seq data. 
+In this next part of the analysis, we perform PCA on the estimated
+topic proportions to explore structure in the data as inferred by the
+topic model.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -31,7 +32,7 @@ Load the pulse-seq data. The UMI counts are not needed for this analysis.
 ```{r load-data}
 load("../data/pulseseq.RData")
 x <- as.character(samples$tissue)
-x[x == "club (hillock-associated)"] <- "hillock"
+x[x == "club (hillock-associated)"] <- "club"
 x[x == "goblet.1" | x == "goblet.2" | x == "goblet.progenitor"] <- "goblet"
 x[x == "tuft.1" | x == "tuft.2" | x == "tuft.progenitor"] <- "tuft"
 samples$tissue <- factor(x)
