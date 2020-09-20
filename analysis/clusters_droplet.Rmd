@@ -81,9 +81,9 @@ x[pc6 < -0.05] <- "G"
 ```
 
 There is additional substructure in cluster A, which is more apparent
-from the top 2 PCs computed from cluster A only.
+in the projection onto the top 2 PCs computed from cluster A only.
 
-```{r clustering-4, fig.width=6, fig.height=2.75}
+```{r clustering-4, fig.width=6, fig.height=3}
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p7   <- basic_pca_plot(fit2,1:2)
@@ -107,12 +107,12 @@ x[rows] <- y
 In summary, we have subdivided the droplet data into 6 subsets, which
 includes a background cluster (U).
 
-```{r clustering-6, fig.width=8, fig.height=2.5}
-colors <- c("royalblue","forestgreen","firebrick","darkmagenta",
-            "darkorange","peru","gainsboro")
-p9  <- labeled_pca_plot(fit,1:2,x,colors)
-p10 <- labeled_pca_plot(fit,3:4,x,colors)
-p11 <- labeled_pca_plot(fit,5:6,x,colors)
+```{r clustering-6, fig.width=8, fig.height=2}
+colors <- c("royalblue","forestgreen","firebrick","gold","darkorange",
+            "gainsboro")
+p9  <- labeled_pca_plot(fit,1:2,x,colors,font_size = 8)
+p10 <- labeled_pca_plot(fit,3:4,x,colors,font_size = 8)
+p11 <- labeled_pca_plot(fit,5:6,x,colors,font_size = 8)
 plot_grid(p9,p10,p11,nrow = 1,ncol = 3)
 ```
 
