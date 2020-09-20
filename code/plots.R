@@ -1,21 +1,3 @@
-# For each topic, plot the number of samples exceeding a specified
-# topic proportion, as specified by "prob". The topics are ordered in
-# the bar chart from most to least abundant.
-create_abundance_plot <- function (fit, prob = 0.5) {
-  if (inherits(fit,"poisson_nmf_fit"))
-    fit <- poisson2multinom(fit)
-  L      <- fit$L
-  n      <- colSums(L > prob)
-  topics <- colnames(L)
-  topics <- topics[order(n,decreasing = TRUE)]
-  dat    <- data.frame(topic = factor(topics,topics),
-                       n     = n[topics])
-  return(ggplot(dat,aes_string(x = "topic",y = "n")) +
-         geom_col(fill = "royalblue",color = "white",width = 0.5) +
-         labs(x = "topic",y = "samples") +
-         theme_cowplot(font_size = 10))
-}
-
 # Create a basic scatterplot showing the topic proportions projected
 # onto two principal components (PCs).
 basic_pca_plot <- function (fit, pcs = 1:2) {

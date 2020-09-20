@@ -25,171 +25,44 @@ source("../code/plots.R")
 Pulse-seq data
 --------------
 
-We begin with the larger pulse-seq data.
+We begin with the larger "pulse-seq" data set. Load the data, the $k =
+11$ Poisson NMF model fit, and the clustering determined from the
+[clustering analysis](clusters_pulseseq.html).
 
 ```{r load-pulseseq-data}
 load("../data/pulseseq.RData")
-samples_pulseseq <- samples
-x <- as.character(samples_pulseseq$tissue)
-x[x == "club (hillock-associated)"] <- "hillock"
-x[x == "goblet.1" | x == "goblet.2" | x == "goblet.progenitor"] <- "goblet"
-x[x == "tuft.1" | x == "tuft.2" | x == "tuft.progenitor"] <- "tuft"
-samples_pulseseq$tissue <- factor(x)
+counts_pulseseq  <- counts
+samples_pulseseq <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
+fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 rm(samples,counts)
 ```
 
-Load the $k = 11$ Poisson NMF fits for the pulse-seq data.
-
-```{r load-pulseseq-fits}
-fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
-```
-
-The Montoro *et al* (2018) article mentions that some epithelial cell
-types are abundant whereas others are rare. The topics inferred from
-the pulse-seq data reflect this:
-
-```{r abundance-plot-pulseseq, fig.width=2.5, fig.height=2}
-p1 <- create_abundance_plot(fit_pulseseq)
-print(p1)
-```
-
-Next, we compute PCs, and inspect the projection of the samples onto
-PCs to identify clusters.
-
-```{r pulseseq-clustering-1}
-fit <- poisson2multinom(fit_pulseseq)
-pca <- prcomp(fit$L)$x
-```
-
-We identify two distinct clusters in the projection of the topic
-proportions onto PCs 3 and 4, with a third subset (C) acting as a
-"background cluster".
-
-```{r pulseseq-clustering-2, fig.width=8, fig.height=3}
-n   <- nrow(pca)
-x   <- rep("C",n)
-pc3 <- pca[,"PC3"]
-pc4 <- pca[,"PC4"]
-x[5*pc3 + 0.475 > pc4] <- "A"
-x[(pc3 + 0.725)^2 + (pc4 - 0.1)^2 < 0.04] <- "B"
-samples_pulseseq$cluster <- x
-p2 <- pca_plot_with_labels(fit_pulseseq,c("PC3","PC4"),x) +
-      labs(fill = "cluster")
-p3 <- pca_hex_plot(fit_pulseseq,c("PC3","PC4"))
-plot_grid(p2,p3)
-```
-
-Clustering in PCs 3 and 4 of cluster A:
-
-```{r pulseseq-clustering-3, fig.width=5, fig.height=4}
-rows <- which(samples_pulseseq$cluster == "A")
-fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
-pca  <- prcomp(fit$L)$x
-n    <- nrow(pca)
-x    <- rep("A3",n)
-pc3  <- pca[,"PC3"]
-pc4  <- pca[,"PC4"]
-x[pc4 < 0.35] <- "A1"
-x[pc4 > pc3 + 0.95] <- "A2"
-samples_pulseseq[rows,"cluster"] <- x
-p4 <- pca_plot_with_labels(fit,c("PC3","PC4"),x) +
-      labs(fill = "cluster")
-p5 <- pca_hex_plot(fit,c("PC3","PC4"))
-plot_grid(p4,p5)
-```
-
-Subclustering in cluster A1:
-
-```{r pulseseq-clustering-4}
-rows <- which(samples_pulseseq$cluster == "A1")
-fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
-pca  <- prcomp(fit$L)$x
-n    <- nrow(pca)
-x    <- rep("A1b",n)
-pc1  <- pca[,"PC1"]
-pc2  <- pca[,"PC2"]
-samples_pulseseq[rows,"cluster"] <- x
-p6 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
-      labs(fill = "cluster")
-p7 <- pca_hex_plot(fit,c("PC1","PC2"),bins=c(0,1,10,20,100,Inf))
-x[pc1 + 0.18 < -pc2] <- "A1a"
-plot_grid(p6,p7)
-stop()
-```
-
-Subclustering in PCs 1 and 3 of cluster A3:
-
-```{r pulseseq-clustering-5, fig.width=5, fig.height=4}
-rows <- which(samples_pulseseq$cluster == "A3")
-fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
-pca  <- prcomp(fit$L)$x
-n    <- nrow(pca)
-x    <- rep("A3b",n)
-pc1  <- pca[,"PC1"]
-pc2  <- pca[,"PC2"]
-x[pc1 > -0.15 & pc2 > -0.15] <- "A3a"
-samples_pulseseq[rows,"cluster"] <- x
-p8 <- pca_plot_with_labels(fit,c("PC1","PC2"),x) +
-      labs(fill = "cluster")
-print(p8)
-```
-
-TO DO: See if I can find this same "proliferating" cluster from PCs in
-cluster A1.
-
-```{r}
-rows <- which(samples_pulseseq$cluster == "A1b")
-fit  <- select(poisson2multinom(fit_pulseseq),loadings = rows)
-pca  <- prcomp(fit$L)$x
-n    <- nrow(pca)
-x    <- rep("A1b",n)
-p9  <- pca_plot_with_labels(fit,c("PC5","PC6"),x) +
-       labs(fill = "cluster")
-p10 <- pca_hex_plot(fit,c("PC5","PC6"))
-pca_plot(fit,pcs = c("PC5","PC6"),k = 2)
-plot_grid(p9,p10)
-```
-
-In summary, we have subdivided the pulse-seq data into 7 subsets. The
-vast majority of the samples are in clusters A1a and A1b:
-
-```{r pulseseq-clustering-6}
-samples_pulseseq$cluster <- factor(samples_pulseseq$cluster)
-table(samples_pulseseq$cluster)
-```
-
-The structure plot summarizes the topic proportions in each of these 6
+The structure plot summarizes the topic proportions in each of the 7
 subsets:
 
 ```{r pulseseq-structure-plot, fig.width=7.5, fig.height=1.5}
 set.seed(1)
-pulseseq_topic_colors <- c("#8dd3c7","darkorange",
-  "#bebada","#fb8072","#80b1d3",
-  "#fdb462","firebrick","#b3de69","royalblue","forestgreen","slategray")
-pulseseq_topics <- c(1,2,3,4,5,6,7,8,10,11,9)
-rows <- sort(c(sample(which(samples_pulseseq$cluster == "A1"),1200),
-               sample(which(samples_pulseseq$cluster == "A2"),500),
-               which(samples_pulseseq$cluster == "A3a"),
-               which(samples_pulseseq$cluster == "A3b"),
-               sample(which(samples_pulseseq$cluster == "B"),500),
-               which(samples_pulseseq$cluster == "C")))
-p10 <- structure_plot(select(poisson2multinom(fit_pulseseq),loadings = rows),
-                      grouping = samples_pulseseq[rows,"cluster"],
-                      topics = pulseseq_topics,
-   					  colors = pulseseq_topic_colors[pulseseq_topics],
-                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p10)
+pulseseq_topic_colors <- c("cornflowerblue","darkorange","dodgerblue","gold",
+  "peru","greenyellow","firebrick","olivedrab","royalblue","forestgreen","gray")
+pulseseq_topics <- c(11,1,3,4,5,6,8,10,9,2,7)
+rows <- sort(c(sample(which(samples_pulseseq$cluster == "B"),1000),
+               sample(which(samples_pulseseq$cluster == "C"),1000),
+               sample(which(samples_pulseseq$cluster == "Cil"),500),
+               sample(which(samples_pulseseq$cluster == "P"),500),
+               sample(which(samples_pulseseq$cluster == "T+N"),500),
+               which(samples_pulseseq$cluster == "I"),
+               which(samples_pulseseq$cluster == "U")))
+p1 <- structure_plot(select(poisson2multinom(fit_pulseseq),loadings = rows),
+                     grouping = samples_pulseseq[rows,"cluster"],
+                     topics = pulseseq_topics,
+   					 colors = pulseseq_topic_colors[pulseseq_topics],
+					 perplexity = c(80,80,70,50,50,50,50),
+                     n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
+print(p1)
 ```
 
-Compare the clusters with the clusters identified by Montoro *et al*
-(2018):
-
-```{r pulseseq-clusters-vs-celltypes}
-with(samples_pulseseq,table(tissue,cluster))
-```
-
-*Note:* The $k = 9$ fit does *not* have a separate topic for the
-neuroendocrine/tuft cells.
+(Note: The $k = 9$ fit does *not* have a separate topic for the
+neuroendocrine/tuft cells.)
 
 Droplet data
 ------------
