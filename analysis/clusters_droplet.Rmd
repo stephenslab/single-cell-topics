@@ -93,7 +93,7 @@ plot_grid(p7,p8)
 
 *Add text here.*
 
-```{r clustering-5, fig.width=5, fig.height=5}
+```{r clustering-5, fig.width=5.5, fig.height=4}
 p9 <- pca_plot(fit2,pcs = 1:2,k = c(2,4,5))
 print(p9)
 ```
@@ -139,7 +139,7 @@ Structure plot
 
 *Add text here.*
 
-```{r structure-plot}
+```{r structure-plot, fig.width=8, fig.height=1.5}
 set.seed(1)
 topic_colors <- c("gold","royalblue","salmon","turquoise","olivedrab",
                   "firebrick","forestgreen")
@@ -154,12 +154,12 @@ rows <- sort(c(sample(which(samples$cluster == "B"),800),
 p13 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,"cluster"],
                       topics = topics,colors = topic_colors[topics],
-		  			  perplexity = c(50,50,30,50,30,12,30),
+		  			  perplexity = c(70,70,30,50,30,12,50),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
 print(p13)
 ```
 
-TO DO: Show PCA plots suggesting additional hetergeneity in cluster C.
+TO DO: Show PCA plots suggesting additional hetergeneity in C cluster.
 
 Save results
 ------------
