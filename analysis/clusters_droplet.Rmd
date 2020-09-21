@@ -159,6 +159,9 @@ p13 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
 print(p13)
 ```
 
+TO DO: Add more notes about the structure of these data based on the
+PCA plots and the structure plot.
+
 TO DO: Show PCA plots suggesting additional hetergeneity in C cluster.
 
 Save results
