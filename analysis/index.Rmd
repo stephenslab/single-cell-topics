@@ -34,14 +34,20 @@ with different $k$.
 
 + [Pulse-seq](assess_fits_pulseseq.html)
 
+Identify clusters
+-----------------
+
+In these pages, we perform PCA on the estimated topic proportions, and
+use this to identify clusters.
+
++ [Droplet](clusters_droplet.html)
+
++ [Pulse-seq](clusters_pulseseq.html)
+
 Visualize and interpret topics
 ------------------------------
 
 *TO DO: Add brief description here.*
-
-+ [Pulse-seq clusters.](clusters_pulseseq.html)
-
-+ [Droplet clusters.](clusters_droplet.html)
 
 + [PBMC](plots_pbmc.html)
 
