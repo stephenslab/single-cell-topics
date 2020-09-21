@@ -185,12 +185,13 @@ clustering. Therefore,the cluster labels B, C, B+C and H are useful as
 a guide but should be taken with a grain of salt as the boundaries
 between these clusters are somewhat arbitrary.
 
-Note the distribution of the topics in cluster C that there is further
-substantial heterogeneity in these cells beyond what can be captured
-by hard clustering. In particular, there is additional continuous
-variation in gene expression primarily captured by topics 5 and 7:
+Note the distribution of the topics in cluster C suggests that there
+is further substantial heterogeneity in these cells beyond what can be
+captured by identifying "hard" clusters. In particular, there is
+additional continuous variation in gene expression primarily captured
+by topics 5 and 7:
 
-```{r pca-plot, fig.width=6, fig.height=5}
+```{r pca-plot, fig.width=6, fig.height=4.75}
 rows <- which(is.element(x,c("B","C","H","B+C")))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
