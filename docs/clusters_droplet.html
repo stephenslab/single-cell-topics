@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree69d1f0acfefba68a060ac2cf92be177a66c3e5e2targetblank69d1f0aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/69d1f0acfefba68a060ac2cf92be177a66c3e5e2" target="_blank">69d1f0a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree605b540a24de563c843aac3d235d28ec1d14eb49targetblank605b540a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/605b540a24de563c843aac3d235d28ec1d14eb49" target="_blank">605b540</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree69d1f0acfefba68a060ac2cf92be177a66c3e5e2targetblank69d1f0aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree605b540a24de563c843aac3d235d28ec1d14eb49targetblank605b540a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/69d1f0acfefba68a060ac2cf92be177a66c3e5e2" target="_blank">69d1f0a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/605b540a24de563c843aac3d235d28ec1d14eb49" target="_blank">605b540</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -442,6 +442,9 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
 
 </code></pre>
 <p>
@@ -480,6 +483,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/605b540a24de563c843aac3d235d28ec1d14eb49/analysis/clusters_droplet.Rmd" target="_blank">605b540</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/db6135c17587e1bb862ac005452ee934662b0c7b/docs/clusters_droplet.html" target="_blank">db6135c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+<td>
+Added B+C cluster to clustering of droplet data, and added plot
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -721,7 +758,6 @@ source(&quot;../code/plots.R&quot;)</code></pre>
 <pre class="r"><code>load(&quot;../data/droplet.RData&quot;)</code></pre>
 <p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
-<p><em>Add text here.</em></p>
 </div>
 <div id="identify-clusters-from-principal-components" class="section level2">
 <h2>Identify clusters from principal components</h2>
@@ -916,6 +952,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">db6135c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/b5e1a7e1b9f1357e79255b0d1fe780e995036c03/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">b5e1a7e</a>
 </td>
 <td>
@@ -954,7 +1001,7 @@ p10 &lt;- ggplot(pdat,aes(x = PC1,y = PC2,fill = Krt13)) +
   theme_cowplot(font_size = 10) +
   labs(fill = &quot;log10 expression level&quot;)
 print(p10)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
 Past versions of clustering-6-1.png
@@ -977,6 +1024,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">db6135c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/417202458ee4055297b95a2ea3994a867c13866f/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">4172024</a>
@@ -1029,6 +1087,43 @@ p12 &lt;- labeled_pca_plot(fit,3:4,x,cluster_colors,font_size = 8)
 p13 &lt;- labeled_pca_plot(fit,5:6,x,cluster_colors,font_size = 8)
 plot_grid(p11,p12,p13,nrow = 1,ncol = 3)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-8-1">
+Past versions of clustering-8-1.png
+</button>
+</p>
+<div id="fig-clustering-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">db6135c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>The clusters identified here correspond well to the Montoro <em>et al</em> (2018) clustering, with some exceptions (e.g., we do not identify an ionocytes cluster, and the neuroendocrine and tuft cells are included in the same cluster).</p>
 <pre class="r"><code>with(samples,table(tissue,cluster))
 #                 cluster
@@ -1087,6 +1182,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/structure-plot-1.png" target="_blank">db6135c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/b5e1a7e1b9f1357e79255b0d1fe780e995036c03/docs/figure/clusters_droplet.Rmd/structure-plot-1.png" target="_blank">b5e1a7e</a>
 </td>
 <td>
@@ -1111,8 +1217,13 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>TO DO: Add more notes about the structure of these data based on the PCA plots and the structure plot.</p>
-<p>TO DO: Show PCA plots suggesting additional hetergeneity in C cluster.</p>
+<p>Based on this structure plot, and the above results, we roughly subdivide the droplet data into two: (1) the Cil, T+N and G clusters that give rise to well-separated clusters, and (2) the B, C, B+C and H subsets that contain interesting substructure but much less distinct clustering. Therefore,the cluster labels B, C, B+C and H are useful as a guide but should be taken with a grain of salt as the boundaries between these clusters are somewhat arbitrary.</p>
+<p>Note the distribution of the topics in cluster C that there is further substantial heterogeneity in these cells beyond what can be captured by hard clustering. In particular, there is additional continuous variation in gene expression primarily captured by topics 5 and 7:</p>
+<pre class="r"><code>rows &lt;- which(is.element(x,c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C&quot;)))
+fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+p15  &lt;- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
+print(p15)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/pca-plot-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
