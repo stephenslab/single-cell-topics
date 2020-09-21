@@ -38,12 +38,6 @@ Load the $k = 7$ Poisson NMF model fit.
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 ```
 
-*Add text here.*
-
-
-```{r load-hillock-data}
-```
-
 Identify clusters from principal components
 -------------------------------------------
 
@@ -107,7 +101,7 @@ Topic 4 in particular corresponds closely to expression of *Krt13*
 which was identified as being uniquely expressed by transitional
 "hillock" cells.
 
-```{r clustering-6, fig.width=3.5, fig.height=2}
+```{r clustering-6, fig.width=4, fig.height=2.5}
 pca  <- prcomp(fit2$L)$x
 pc1  <- pca[,1]
 pc2  <- pca[,2]
@@ -183,10 +177,25 @@ p14 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
 print(p14)
 ```
 
-TO DO: Add more notes about the structure of these data based on the
-PCA plots and the structure plot.
+Based on this structure plot, and the above results, we roughly
+subdivide the droplet data into two: (1) the Cil, T+N and G clusters
+that give rise to well-separated clusters, and (2) the B, C, B+C and H
+subsets that contain interesting substructure but much less distinct
+clustering. Therefore,the cluster labels B, C, B+C and H are useful as
+a guide but should be taken with a grain of salt as the boundaries
+between these clusters are somewhat arbitrary.
 
-TO DO: Show PCA plots suggesting additional hetergeneity in C cluster.
+Note the distribution of the topics in cluster C that there is further
+substantial heterogeneity in these cells beyond what can be captured
+by hard clustering. In particular, there is additional continuous
+variation in gene expression primarily captured by topics 5 and 7:
+
+```{r pca-plot, fig.width=6, fig.height=5}
+rows <- which(is.element(x,c("B","C","H","B+C")))
+fit2 <- select(poisson2multinom(fit),loadings = rows)
+p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
+print(p15)
+```
 
 Save results
 ------------
