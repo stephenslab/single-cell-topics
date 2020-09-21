@@ -26,17 +26,22 @@ source("../code/plots.R")
 Load data and results
 ---------------------
 
-Load the droplet data. The UMI counts are not needed for this analysis.
+Load the droplet data.
 
 ```{r load-data}
 load("../data/droplet.RData")
-rm(counts)
 ```
 
 Load the $k = 7$ Poisson NMF model fit.
 
 ```{r load-fit}
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+```
+
+*Add text here.*
+
+
+```{r load-hillock-data}
 ```
 
 Identify clusters from principal components
@@ -91,37 +96,55 @@ p8   <- pca_hexbin_plot(fit2,1:2,bins = bins) + guides(fill = "none")
 plot_grid(p7,p8)
 ```
 
-*Add text here.*
+The variation in PCs 1 and 2 is mostly produced by topics 2, 4 and 5.
 
-```{r clustering-5, fig.width=5.5, fig.height=4}
+```{r clustering-5, fig.width=5.5, fig.height=4.5}
 p9 <- pca_plot(fit2,pcs = 1:2,k = c(2,4,5))
 print(p9)
 ```
 
-We label the three more-or-less distinct subclusters as B, C and H,
-and assign the remaining samples to the background cluster.
+Topic 4 in particular corresponds closely to expression of *Krt13*
+which was identified as being uniquely expressed by transitional
+"hillock" cells.
 
-```{r clustering-6}
-pca <- prcomp(fit2$L)$x
-y   <- rep("U",nrow(pca))
-pc1 <- pca[,1]
-pc2 <- pca[,2]
+```{r clustering-6, fig.width=3.5, fig.height=2}
+pca  <- prcomp(fit2$L)$x
+pc1  <- pca[,1]
+pc2  <- pca[,2]
+pdat <- data.frame(PC1   = pc1,
+                   PC2   = pc2,
+				   Krt13 = log10(counts[rows,"Krt13"]))
+p10 <- ggplot(pdat,aes(x = PC1,y = PC2,fill = Krt13)) +
+  geom_point(shape = 21,color = "white",size = 1.25) +
+  scale_fill_gradientn(colors = c("skyblue","gold","darkorange","magenta"),
+                        na.value = "lightskyblue") +
+  theme_cowplot(font_size = 10) +
+  labs(fill = "log10 expression level")
+print(p10)
+```
+
+We label the three more-or-less distinct subclusters as B, C and H,
+and assign the remaining "in between" data points to a new "background
+cluster", B+C.
+
+```{r clustering-7}
+y   <- rep("B+C",nrow(pca))
 y[pc1 < 0.1] <- "B"
 y[pc1 > 0.4 & pc2 < 0.45] <- "C"
 y[pc2 > 0.55] <- "H"
 x[rows] <- y
 ```
 
-In summary, we have subdivided the droplet data into 7 subsets,
-including a background cluster (U).
+In summary, we have subdivided the droplet data into 8 subsets.
 
-```{r clustering-7, fig.width=8, fig.height=2}
-colors <- c("royalblue","forestgreen","firebrick","gold","turquoise",
-            "darkorange","gainsboro")
-p10 <- labeled_pca_plot(fit,1:2,x,colors,font_size = 8)
-p11 <- labeled_pca_plot(fit,3:4,x,colors,font_size = 8)
-p12 <- labeled_pca_plot(fit,5:6,x,colors,font_size = 8)
-plot_grid(p10,p11,p12,nrow = 1,ncol = 3)
+```{r clustering-8, fig.width=8, fig.height=2}
+samples$cluster <- factor(x,c("B","C","B+C","H","Cil","T+N","G","U"))
+cluster_colors <- c("royalblue","slategray","forestgreen","firebrick","gold",
+                    "turquoise","darkorange","gainsboro")
+p11 <- labeled_pca_plot(fit,1:2,x,cluster_colors,font_size = 8)
+p12 <- labeled_pca_plot(fit,3:4,x,cluster_colors,font_size = 8)
+p13 <- labeled_pca_plot(fit,5:6,x,cluster_colors,font_size = 8)
+plot_grid(p11,p12,p13,nrow = 1,ncol = 3)
 ```
 
 The clusters identified here correspond well to the Montoro *et al*
@@ -129,15 +152,15 @@ The clusters identified here correspond well to the Montoro *et al*
 ionocytes cluster, and the neuroendocrine and tuft cells are included
 in the same cluster).
 
-```{r clustering-8}
-samples$cluster <- factor(x,c("B","C","H","Cil","T+N","G","U"))
+```{r clustering-9}
 with(samples,table(tissue,cluster))
 ```
 
 Structure plot
 --------------
 
-*Add text here.*
+The structure plot summarizes the topic proportions in each of these 8
+subsets:
 
 ```{r structure-plot, fig.width=8, fig.height=1.5}
 set.seed(1)
@@ -146,17 +169,18 @@ topic_colors <- c("gold","royalblue","salmon","turquoise","olivedrab",
 topics <- c(3,4,5,1,7,2,6)
 rows <- sort(c(sample(which(samples$cluster == "B"),800),
                sample(which(samples$cluster == "C"),800),
+			   which(samples$cluster == "B+C"),
                which(samples$cluster == "H"),
                which(samples$cluster == "Cil"),
                which(samples$cluster == "T+N"),
                which(samples$cluster == "G"),
 			   which(samples$cluster == "U")))
-p13 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p14 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,"cluster"],
                       topics = topics,colors = topic_colors[topics],
-		  			  perplexity = c(70,70,30,50,30,12,50),
+		  			  perplexity = c(70,70,30,30,50,30,12,18),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p13)
+print(p14)
 ```
 
 TO DO: Add more notes about the structure of these data based on the
