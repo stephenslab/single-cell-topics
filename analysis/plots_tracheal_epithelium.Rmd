@@ -63,3 +63,41 @@ the topic proportions in each of the 7 subsets:
 Differential expression analysis
 --------------------------------
 
+Perform differential expression analysis for the droplet data using
+the multinomial topic model.
+
+```{r diff-count-analysis-topics-droplet, cache=TRUE}
+timing <- system.time(
+  diff_count_droplet <- diff_count_analysis(fit_droplet,counts_droplet))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Perform a differential expression analysis for the pulse-seq data
+using the multinomial topic model.
+
+```{r diff-count-analysis-topics-pulseseq, cache=TRUE}
+timing <- system.time(
+  diff_count_pulseseq <- diff_count_analysis(fit_pulseseq,counts_pulseseq))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Perform a standard (cluster-based) differential expression analysis
+for the droplet data.
+
+```{r diff-count-analysis-clusters-droplet, cache=TRUE}
+fit_clusters_droplet <-
+  init_poisson_nmf_from_clustering(counts_droplet,samples_droplet$cluster)
+diff_count_clusters_droplet <- diff_count_analysis(fit_clusters_droplet,
+                                                   counts_droplet)
+```
+
+Perform a standard (cluster-based) differential expression analysis for
+the pulseseq data.
+
+```{r diff-count-analysis-clusters-pulseseq, cache=TRUE}
+fit_clusters_pulseseq <-
+  init_poisson_nmf_from_clustering(counts_pulseseq,samples_pulseseq$cluster)
+diff_count_clusters_pulseseq <- diff_count_analysis(fit_clusters_pulseseq,
+                                                    counts_pulseseq)
+```
+
