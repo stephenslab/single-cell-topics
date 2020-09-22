@@ -16,6 +16,7 @@ Load the packages used in the analysis below, as well as additional
 functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
+library(Matrix)
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
@@ -133,11 +134,17 @@ In summary, we have subdivided the droplet data into 8 subsets.
 
 ```{r clustering-8, fig.width=8, fig.height=2}
 samples$cluster <- factor(x,c("B","C","B+C","H","Cil","T+N","G","U"))
-cluster_colors <- c("royalblue","slategray","forestgreen","firebrick","gold",
-                    "turquoise","darkorange","gainsboro")
-p11 <- labeled_pca_plot(fit,1:2,x,cluster_colors,font_size = 8)
-p12 <- labeled_pca_plot(fit,3:4,x,cluster_colors,font_size = 8)
-p13 <- labeled_pca_plot(fit,5:6,x,cluster_colors,font_size = 8)
+cluster_colors <- c("royalblue",   # B
+                    "forestgreen", # C
+                    "slategray",   # B+C
+                    "turquoise",   # H
+					"firebrick",   # Cil
+					"darkorange",  # T+N
+					"gold",        # G
+					"gainsboro")   # U
+p11 <- labeled_pca_plot(fit,1:2,samples$cluster,cluster_colors,font_size = 8)
+p12 <- labeled_pca_plot(fit,3:4,samples$cluster,cluster_colors,font_size = 8)
+p13 <- labeled_pca_plot(fit,5:6,samples$cluster,cluster_colors,font_size = 8)
 plot_grid(p11,p12,p13,nrow = 1,ncol = 3)
 ```
 
