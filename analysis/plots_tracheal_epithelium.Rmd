@@ -4,7 +4,7 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*TO DO: Add introductory text here.*
+*Add introductory text here.*
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -15,6 +15,7 @@ Load the packages used in the analysis below, as well as additional
 functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
+library(Matrix)
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
@@ -22,55 +23,12 @@ library(cowplot)
 source("../code/plots.R")
 ```
 
-Pulse-seq data
---------------
+Load data and results
+---------------------
 
-We begin with the larger "pulse-seq" data set. Load the data, the $k =
-11$ Poisson NMF model fit, and the clustering determined from the
-[topic-model-based clustering analysis](clusters_pulseseq.html).
-
-```{r load-pulseseq-data}
-load("../data/pulseseq.RData")
-counts_pulseseq  <- counts
-samples_pulseseq <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
-fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
-rm(samples,counts)
-```
-
-The structure plot summarizes the topic proportions in each of the 7
-subsets:
-
-```{r pulseseq-structure-plot, fig.width=7.5, fig.height=1.5}
-set.seed(1)
-pulseseq_topic_colors <- c("cornflowerblue","darkorange","dodgerblue","gold",
-                           "peru","greenyellow","firebrick","olivedrab",
-                           "royalblue","forestgreen","gray")
-pulseseq_topics <- c(11,1,3,4,5,6,8,10,9,2,7)
-rows <- sort(c(sample(which(samples_pulseseq$cluster == "B"),1000),
-               sample(which(samples_pulseseq$cluster == "C"),1000),
-               sample(which(samples_pulseseq$cluster == "Cil"),500),
-               sample(which(samples_pulseseq$cluster == "P"),500),
-               sample(which(samples_pulseseq$cluster == "T+N"),500),
-               which(samples_pulseseq$cluster == "I"),
-               which(samples_pulseseq$cluster == "U")))
-p1 <- structure_plot(select(poisson2multinom(fit_pulseseq),loadings = rows),
-                     grouping = samples_pulseseq[rows,"cluster"],
-                     topics = pulseseq_topics,
-   					 colors = pulseseq_topic_colors[pulseseq_topics],
-					 perplexity = c(80,80,70,50,50,50,50),
-                     n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p1)
-```
-
-(Note: The $k = 9$ fit does *not* have a separate topic for the
-neuroendocrine/tuft cells.)
-
-Droplet data
-------------
-
-Load the droplet data, the $k = 7$ Poisson NMF model fit for these
-data, and the clustering determined from the [topic-model-based clustering
-analysis](clusters_droplet.html).
+Load the smaller "droplet" data set, the $k = 7$ Poisson NMF model fit
+for these data, and the 8 clusters identified in the
+[clustering analysis](clusters_droplet.html).
 
 ```{r load-droplet-data}
 load("../data/droplet.RData")
@@ -80,38 +38,28 @@ fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 rm(samples,counts)
 ```
 
-```{r droplet-structure-plot, fig.width=7.5, fig.height=1.5}
-set.seed(1)
-droplet_topic_colors <- c("gold","royalblue","salmon","peru",
-                          "olivedrab","firebrick","forestgreen")
-droplet_topics <- c(3,4,5,1,7,2,6)
-rows <- sort(c(sample(which(samples_droplet$cluster == "B"),800),
-               sample(which(samples_droplet$cluster == "C"),800),
-               which(samples_droplet$cluster == "Cil"),
-               which(samples_droplet$cluster == "T+N"),
-               which(samples_droplet$cluster == "G"),
-               which(samples_droplet$cluster == "U")))
-p2 <- structure_plot(select(poisson2multinom(fit_droplet),loadings = rows),
-                     grouping = samples_droplet[rows,"cluster"],
-                     topics = droplet_topics,
-   					 colors = droplet_topic_colors[droplet_topics],
-					 perplexity = c(50,50,50,12,30,50),
-                     n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p2)
+For convenience, we show the Structure plot again, which summarizes
+the topic proportions in each of the 8 subsets:
+
+![](figure/clusters_droplet.Rmd/structure-plot-1.png)
+
+Next, load the larger "pulse-seq" data set, the $k = 11$ Poisson NMF
+model fit for these data, and the 7 clusters identified in the
+[clustering analysis](clusters_pulseseq.html).
+
+```{r load-pulseseq-data}
+load("../data/pulseseq.RData")
+counts_pulseseq  <- counts
+samples_pulseseq <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
+fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+rm(samples,counts)
 ```
 
-The bulk of the samples lie on a continuous gradient between topics 2
-and 5. There is a smaller cluster at the bottom of this plot, with
-high contributions from topic 6.
+For convenience, we show the Structure plot again, which summarizes
+the topic proportions in each of the 7 subsets:
 
-Along these PCs, we see that topics 3, 4, 5 and 7 exist in many
-combinations, with no apparent discrete populations.
+![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
 
-Topic 1 captures a very small discrete population of cells:
+Differential expression analysis
+--------------------------------
 
-In summary, topics 1 and 6 pick up discrete "cell types", whereas the
-other topics characterize more continuous variation in gene
-expression, perhaps cell types along a continuous trajectory of
-development. There are some other discrete clusters that seem to be
-composed of distinct combinations of topics that we will need to
-examine more closely.
