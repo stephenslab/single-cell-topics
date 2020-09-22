@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree62fef5a31dfe22d31f12807031f5eed93ccfc0ectargetblank62fef5aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/62fef5a31dfe22d31f12807031f5eed93ccfc0ec" target="_blank">62fef5a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeec4a70acf23792b039d388e44a6e8f0a0130f6e6targetblankec4a70aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ec4a70acf23792b039d388e44a6e8f0a0130f6e6" target="_blank">ec4a70a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree62fef5a31dfe22d31f12807031f5eed93ccfc0ectargetblank62fef5aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeec4a70acf23792b039d388e44a6e8f0a0130f6e6targetblankec4a70aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/62fef5a31dfe22d31f12807031f5eed93ccfc0ec" target="_blank">62fef5a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ec4a70acf23792b039d388e44a6e8f0a0130f6e6" target="_blank">ec4a70a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -443,8 +443,11 @@ Ignored files:
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
+Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
+    Untracked:  analysis/clustering-pulseseq.rds
+
 Unstaged changes:
-    Modified:   analysis/clusters_droplet.Rmd
     Modified:   analysis/temp.R
 
 </code></pre>
@@ -484,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ec4a70acf23792b039d388e44a6e8f0a0130f6e6/analysis/clusters_pulseseq.Rmd" target="_blank">ec4a70a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+workflowr::wflow_publish(“clusters_pulseseq.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6e4ccddaac9c949b976897c3787fc486d0405848/docs/clusters_pulseseq.html" target="_blank">6e4ccdd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+Made a few minor improvements to the clusters_pulseseq analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1260,7 +1297,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>From PCs 5 and 6 define a new cluster, “P”, recognizing that this cluster is not particularly distinct.</p>
+<p>From PCs 5 and 6, define a new cluster, “P”, recognizing that this cluster is not particularly distinct.</p>
 <pre class="r"><code>pca &lt;- prcomp(fit2$L)$x
 y   &lt;- rep(&quot;B&quot;,nrow(pca))
 pc5 &lt;- pca[,5]
@@ -1268,12 +1305,21 @@ pc6 &lt;- pca[,6]
 y[pc5 &gt; 0.1 &amp; pc6 &lt; 0] &lt;- &quot;P&quot;
 x[rows] &lt;- y</code></pre>
 <p>In summary, we have subdivided the pulse-seq data into 7 subsets, which includes a background cluster (U).</p>
-<pre class="r"><code>colors &lt;- c(&quot;royalblue&quot;,&quot;forestgreen&quot;,&quot;firebrick&quot;,&quot;darkmagenta&quot;,
-            &quot;darkorange&quot;,&quot;peru&quot;,&quot;gainsboro&quot;)
-p16 &lt;- labeled_pca_plot(fit,1:2,x,colors) + guides(fill = &quot;none&quot;)
-p17 &lt;- labeled_pca_plot(fit,3:4,x,colors) + guides(fill = &quot;none&quot;)
-p18 &lt;- labeled_pca_plot(fit,5:6,x,colors) + guides(fill = &quot;none&quot;)
-p19 &lt;- labeled_pca_plot(fit,1:2,x,colors,&quot;tissue&quot;) +
+<pre class="r"><code>samples$cluster &lt;- factor(x,c(&quot;B&quot;,&quot;C&quot;,&quot;P&quot;,&quot;Cil&quot;,&quot;T+N&quot;,&quot;I&quot;,&quot;U&quot;))
+cluster_colors  &lt;- c(&quot;royalblue&quot;,   # B
+                     &quot;forestgreen&quot;, # C
+                     &quot;peru&quot;,        # P
+                     &quot;firebrick&quot;,   # Cil
+                     &quot;darkorange&quot;,  # T+N
+                     &quot;darkmagenta&quot;, # I
+                     &quot;gainsboro&quot;)   # U
+p16 &lt;- labeled_pca_plot(fit,1:2,samples$cluster,cluster_colors) +
+       guides(fill = &quot;none&quot;)
+p17 &lt;- labeled_pca_plot(fit,3:4,samples$cluster,cluster_colors) +
+       guides(fill = &quot;none&quot;)
+p18 &lt;- labeled_pca_plot(fit,5:6,samples$cluster,cluster_colors) +
+       guides(fill = &quot;none&quot;)
+p19 &lt;- labeled_pca_plot(fit,1:2,samples$cluster,cluster_colors,&quot;tissue&quot;) +
        xlim(0,0) + ylim(0,0)
 plot_grid(p16,p17,p18,p19)</code></pre>
 <p><img src="figure/clusters_pulseseq.Rmd/clustering-10-1.png" width="720" style="display: block; margin: auto;" /></p>
@@ -1369,28 +1415,70 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Comparing this to the Montoro <em>et al</em> (2018) clustering, we observe some close correspondence (e.g., B and “basal cells”, P and “proliferating cells”). The B and C clusters appear to contain additional structure that is not well-captured by clusters. We will explore this additional structure in subsequent analyses.</p>
-<pre class="r"><code>samples$cluster &lt;- factor(x)
-with(samples,table(tissue,cluster))
+<p>Comparing this to the Montoro <em>et al</em> (2018) clustering, we observe some close correspondence (e.g., B and “basal cells”, P and “proliferating cells”).</p>
+<pre class="r"><code>with(samples,table(tissue,cluster))
 #                 cluster
-# tissue               B     C   Cil     I     P   T+N     U
-#   basal          40389  1468     0     0   199     0    37
-#   ciliated           0     0  2896     0     6     0   114
-#   club            1766 15870     0     6    36     1    21
-#   goblet             3   396     0     0     2     0     2
-#   ionocyte           0    45     0   193    15     8    15
-#   neuroendocrine     0     1     0     7     0   619     3
-#   proliferating     61   194     9     4   914     0   231
-#   tuft               0    18     0    12     4   691     9</code></pre>
+# tissue               B     C     P   Cil   T+N     I     U
+#   basal          40389  1468   199     0     0     0    37
+#   ciliated           0     0     6  2896     0     0   114
+#   club            1766 15870    36     0     1     6    21
+#   goblet             3   396     2     0     0     0     2
+#   ionocyte           0    45    15     0     8   193    15
+#   neuroendocrine     0     1     0     0   619     7     3
+#   proliferating     61   194   914     9     0     4   231
+#   tuft               0    18     4     0   691    12     9</code></pre>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
-<p>TO DO:</p>
-<ul>
-<li><p>Add structure plot.</p></li>
-<li><p>Add plot(s) showing continuous substructure in club cells.</p></li>
-<li><p>Add plot(s) showing presence of Krt13+ hillock cells in B (“basal”) cluster.</p></li>
-</ul>
+<p>The structure plot summarizes the topic proportions in each of the 7 subsets:</p>
+<pre class="r"><code>set.seed(1)
+topic_colors &lt;- c(&quot;turquoise&quot;,&quot;darkorange&quot;,&quot;dodgerblue&quot;,&quot;gold&quot;,&quot;peru&quot;,
+                  &quot;greenyellow&quot;,&quot;firebrick&quot;,&quot;olivedrab&quot;,&quot;royalblue&quot;,
+                  &quot;forestgreen&quot;,&quot;gray&quot;)
+topics &lt;- c(11,1,3,4,5,6,8,10,9,2,7)
+rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),1000),
+               sample(which(samples$cluster == &quot;C&quot;),1000),
+               sample(which(samples$cluster == &quot;P&quot;),500),
+               sample(which(samples$cluster == &quot;Cil&quot;),500),
+               sample(which(samples$cluster == &quot;T+N&quot;),500),
+               which(samples$cluster == &quot;I&quot;),
+               which(samples$cluster == &quot;U&quot;)))
+p20 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+                      grouping = samples[rows,&quot;cluster&quot;],
+                      topics = topics,
+                      colors = topic_colors[topics],
+                      perplexity = c(70,70,30,50,50,30,70),
+                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
+print(p20)</code></pre>
+<p><img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Based on this structure plot, and from the other results above, we roughly subdivide the pulse-seq data into two subsets: (1) the Cil, T+N and I clusters that give rise to fairly well-separated clusters, and (2) the B, C and P subsets that contain interesting substructure but much less distinct clusters. Therefore,the cluster labels B, C and P are useful as a guide but should be taken with a grain of salt as the boundaries between these clusters are somewhat arbitrary.</p>
+<p>The structure plot suggests that there is substantial heterogeneity in the C cluster beyond what can be captured by “hard” clusters. In particular, three topics (<span class="math inline">\(k = 5, 6, 10\)</span>) are largely unique to the cells in this cluster, and two other topics (<span class="math inline">\(k = 4, 8\)</span>) primarily contribute to the cells in this cluster, although can be found in small proportions elsewhere.</p>
+<p>These topics indeed pick up continuous variation in gene expression among the cells in this cluster:</p>
+<pre class="r"><code>rows &lt;- which(x == &quot;C&quot;)
+fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+p21 &lt;- pca_plot(fit2,pcs = 1:2,k = c(5,8,10))
+print(p21)</code></pre>
+<p><img src="figure/clusters_pulseseq.Rmd/pca-plot-club-1-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>And in PCs 3 and 4:</p>
+<pre class="r"><code>p22 &lt;- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
+print(p22)</code></pre>
+<p><img src="figure/clusters_pulseseq.Rmd/pca-plot-club-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>The B cell also shows a lot of heterogeneity. Topic 1 is of particular interest because of its close connection to expression of the “hillock” gene <em>Krt13</em>:</p>
+<pre class="r"><code>rows &lt;- which(x == &quot;B&quot;)
+fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+pca  &lt;- prcomp(fit2$L)$x
+p23  &lt;- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = &quot;none&quot;)
+pdat &lt;- data.frame(PC2   = pca[,2],
+                   PC3   = pca[,3],
+                   Krt13 = log10(counts[rows,&quot;Krt13&quot;]))
+p24 &lt;- ggplot(pdat,aes(x = PC2,y = PC3,fill = Krt13)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 1.25) +
+  scale_fill_gradientn(colors = c(&quot;skyblue&quot;,&quot;gold&quot;,&quot;darkorange&quot;,&quot;magenta&quot;),
+                        na.value = &quot;lightskyblue&quot;) +
+  labs(fill = &quot;log10 expression level&quot;) +
+  theme_cowplot(font_size = 10)
+plot_grid(p23,p24,rel_widths = c(7,10))</code></pre>
+<p><img src="figure/clusters_pulseseq.Rmd/pca-plot-basal-1.png" width="720" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
