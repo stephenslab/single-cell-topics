@@ -220,7 +220,7 @@ Based on this structure plot, and from the other results above, we
 roughly subdivide the pulse-seq data into two subsets: (1) the Cil,
 T+N and I clusters that give rise to fairly well-separated clusters,
 and (2) the B, C and P subsets that contain interesting substructure
-but much less distinct clusters. Therefore,the cluster labels B, C and
+but much less distinct clusters. Therefore, the cluster labels B, C and
 P are useful as a guide but should be taken with a grain of salt as
 the boundaries between these clusters are somewhat arbitrary.
 
@@ -234,7 +234,7 @@ small proportions elsewhere.
 These topics indeed pick up continuous variation in gene expression
 among the cells in this cluster:
 
-```{r pca-plot-club-1, fig.width=6, fig.height=2}
+```{r pca-plot-club-1, fig.width=6, fig.height=4.5}
 rows <- which(x == "C")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p21 <- pca_plot(fit2,pcs = 1:2,k = c(5,8,10))
@@ -243,7 +243,7 @@ print(p21)
 
 And in PCs 3 and 4:
 
-```{r pca-plot-club-2, fig.width=6, fig.height=2}
+```{r pca-plot-club-2, fig.width=6, fig.height=4.5}
 p22 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
 print(p22)
 ```
@@ -252,7 +252,7 @@ The B cell also shows a lot of heterogeneity. Topic 1 is of particular
 interest because of its close connection to expression of the "hillock"
 gene *Krt13*:
 
-```{r pca-plot-basal, fig.width=6, fig.height=3}
+```{r pca-plot-basal, fig.width=6, fig.height=2}
 rows <- which(x == "B")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 pca  <- prcomp(fit2$L)$x
@@ -265,8 +265,8 @@ p24 <- ggplot(pdat,aes(x = PC2,y = PC3,fill = Krt13)) +
   scale_fill_gradientn(colors = c("skyblue","gold","darkorange","magenta"),
                         na.value = "lightskyblue") +
   labs(fill = "log10 expression level") +
-  theme_cowplot(font_size = 10)
-plot_grid(p23,p24,rel_widths = c(7,10))
+  theme_cowplot(font_size = 9)
+plot_grid(p23,p24,rel_widths = c(3,5))
 ```
 
 Save results
