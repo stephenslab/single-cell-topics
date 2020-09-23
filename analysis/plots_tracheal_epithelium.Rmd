@@ -112,10 +112,9 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 Ciliated cells
 --------------
 
-Volcano plot for "Cil" cluster in droplet data. Notes: The cluster for
-the ciliated cells is one of the best separated clusters in both the
-droplet and pulse-seq data. Marker genes and transcription factors for
-ciliated cells mentioned in Montoro *et al* (2018) are shown in black.
+We begin with the cluster that captures ciliated cells in the droplet
+data. This cluster is one of the most clearly separated clusters in
+both the droplet and pulse-seq data sets.
 
 ```{r volcano-plot-droplet-cil, fig.width=4.5, fig.height=4}
 cilitated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
@@ -125,7 +124,11 @@ p1 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"Cil",
 print(p1)
 ```
 
-Volcano plot for "Cil" cluster in pulse-seq data:
+In this volcano plot, marker genes and transcription factors
+identified in Montoro *et al* (2018) are highlighted in black.
+
+We obtain similar top differentially expressed genes in the pulse-seq
+data:
 
 ```{r volcano-plot-pulseseq-cil, fig.width=4.5, fig.height=4}
 p2 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"Cil",
