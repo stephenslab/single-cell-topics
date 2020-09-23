@@ -429,23 +429,22 @@ diff-count-analysis-topics-pulseseq
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree516a32ee85f8000ea1fd0998fc5030b2db66f660targetblank516a32ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/516a32ee85f8000ea1fd0998fc5030b2db66f660" target="_blank">516a32e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8198c07fd1f92ea5ae43cc52b33f2a1b4288f340targetblank8198c07a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8198c07fd1f92ea5ae43cc52b33f2a1b4288f340" target="_blank">8198c07</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree516a32ee85f8000ea1fd0998fc5030b2db66f660targetblank516a32ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8198c07fd1f92ea5ae43cc52b33f2a1b4288f340targetblank8198c07a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/516a32ee85f8000ea1fd0998fc5030b2db66f660" target="_blank">516a32e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8198c07fd1f92ea5ae43cc52b33f2a1b4288f340" target="_blank">8198c07</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -499,6 +498,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8198c07fd1f92ea5ae43cc52b33f2a1b4288f340/analysis/plots_tracheal_epithelium.Rmd" target="_blank">8198c07</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-23
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/23f87bb202ad31fcb5ebc7aaaba8bf0344e09343/docs/plots_tracheal_epithelium.html" target="_blank">23f87bb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-23
+</td>
+<td>
+Improved volcano plots for ciliated cell type in
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1517,7 +1550,7 @@ cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&q
 </div>
 <div id="ciliated-cells" class="section level2">
 <h2>Ciliated cells</h2>
-<p>Volcano plot for “Cil” cluster in droplet data. Notes: The cluster for the ciliated cells is one of the best separated clusters in both the droplet and pulse-seq data. Marker genes and transcription factors for ciliated cells mentioned in Montoro <em>et al</em> (2018) are shown in black.</p>
+<p>We begin with the cluster that captures ciliated cells in the droplet data. This cluster is one of the most clearly separated clusters in both the droplet and pulse-seq data sets.</p>
 <pre class="r"><code>cilitated_genes &lt;- c(&quot;Ccdc113&quot;,&quot;Ccdc153&quot;,&quot;Cdhr3&quot;,&quot;Foxj1&quot;,&quot;Lztfl1&quot;,&quot;Mlf1&quot;)
 p1 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;Cil&quot;,
                                           cilitated_genes,
@@ -1548,6 +1581,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23f87bb202ad31fcb5ebc7aaaba8bf0344e09343/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">23f87bb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-23
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/0ed5061eff987ada9a6387e5a2dd43b314014be5/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">0ed5061</a>
 </td>
 <td>
@@ -1561,7 +1605,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Volcano plot for “Cil” cluster in pulse-seq data:</p>
+<p>In this volcano plot, marker genes and transcription factors identified in Montoro <em>et al</em> (2018) are highlighted in black.</p>
+<p>We obtain similar top differentially expressed genes in the pulse-seq data:</p>
 <pre class="r"><code>p2 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;Cil&quot;,
                                           cilitated_genes,
                                           label_above_quantile = 0.998)
@@ -1589,6 +1634,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23f87bb202ad31fcb5ebc7aaaba8bf0344e09343/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">23f87bb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-23
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/0ed5061eff987ada9a6387e5a2dd43b314014be5/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">0ed5061</a>
