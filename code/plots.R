@@ -94,7 +94,6 @@ zscores_scatterplot <- function (z1, z2, colmeans, genes,
                                 label = "gene")) +
          geom_point(shape = 21,size = 1.5,color = "white") +
          geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                         box.padding = 0.1,point.padding = 0.1,
                          segment.color = "black",segment.size = 0.25,
                          na.rm = TRUE) +
          scale_fill_manual(values = c("skyblue","cornflowerblue","orange",

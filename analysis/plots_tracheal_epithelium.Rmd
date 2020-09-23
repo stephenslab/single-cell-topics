@@ -19,6 +19,7 @@ library(Matrix)
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
 source("../code/plots.R")
 ```
@@ -38,8 +39,9 @@ fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 rm(samples,counts)
 ```
 
-For convenience, we show the Structure plot again, which summarizes
-the topic proportions in each of the 8 subsets:
+For convenience, we show the Structure plot from the
+[clustering analysis](clusters_droplet.html), which summarizes the
+topic proportions in each of the 8 subsets:
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
 
@@ -55,8 +57,9 @@ fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$f
 rm(samples,counts)
 ```
 
-For convenience, we show the Structure plot again, which summarizes
-the topic proportions in each of the 7 subsets:
+For convenience, we show the Structure plot from the
+[clustering analysis](clusters_pulseseq.html), which summarizes the
+topic proportions in each of the 7 subsets:
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
 
@@ -87,8 +90,10 @@ for the droplet data.
 ```{r diff-count-analysis-clusters-droplet, cache=TRUE}
 fit_clusters_droplet <-
   init_poisson_nmf_from_clustering(counts_droplet,samples_droplet$cluster)
-diff_count_clusters_droplet <- diff_count_analysis(fit_clusters_droplet,
-                                                   counts_droplet)
+timing <- system.time(
+  diff_count_clusters_droplet <- diff_count_analysis(fit_clusters_droplet,
+                                                     counts_droplet))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
 Perform a standard (cluster-based) differential expression analysis for
@@ -97,7 +102,49 @@ the pulseseq data.
 ```{r diff-count-analysis-clusters-pulseseq, cache=TRUE}
 fit_clusters_pulseseq <-
   init_poisson_nmf_from_clustering(counts_pulseseq,samples_pulseseq$cluster)
-diff_count_clusters_pulseseq <- diff_count_analysis(fit_clusters_pulseseq,
-                                                    counts_pulseseq)
+timing <- system.time(
+  diff_count_clusters_pulseseq <- diff_count_analysis(fit_clusters_pulseseq,
+                                                      counts_pulseseq))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
+Ciliated cells
+--------------
+
+Volcano plot for "Cil" cluster in droplet data:
+
+```{r volcano-plot-droplet-cil, fig.width=3, fig.height=4}
+ggplot_call <- function (dat, y.label, topic.label)
+  ggplot(dat,aes_string(x = "beta",y = "y",fill = "mean",label = "label")) +
+    geom_point(color = "white",stroke = 0.3,shape = 21,na.rm = TRUE) +
+    scale_y_continuous(trans = "sqrt",
+      breaks = c(0,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4,2e4,5e4)) +
+    scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                         midpoint = mean(range(dat$mean))) +
+    geom_text_repel(color = "black",size = 2.25,fontface = "italic",
+                    segment.color = "black",segment.size = 0.25,
+                    max.overlaps = Inf,na.rm = TRUE) +
+    labs(x = "log-fold change (\u03b2)",y = y.label,fill = "log10 mean",
+         title = paste("topic",topic.label)) +
+    theme_cowplot(font_size = 9)
+genes_ciliated <- c("Cdhr3","Foxj1","Ccdc153","Mlf1","Lztfl1")
+genes <- colnames(counts_droplet)
+genes[!is.element(genes,genes_ciliated) &
+      diff_count_clusters_droplet$Z[,"Cil"] < 150] <- ""
+p1 <- volcano_plot(diff_count_clusters_droplet,k = "Cil",labels = genes,
+                   label_above_quantile = 0,ggplot_call = ggplot_call) +
+      labs(title = "")
+print(p1)
+```
+
+Volcano plot for "Cil" cluster in pulse-seq data:
+
+```{r volcano-plot-pulseseq-cil, fig.width=3, fig.height=4}
+genes <- colnames(counts_pulseseq)
+genes[!is.element(genes,genes_ciliated) &
+      diff_count_clusters_pulseseq$Z[,"Cil"] < 300] <- ""
+p2 <- volcano_plot(diff_count_clusters_pulseseq,k = "Cil",labels = genes,
+                   label_above_quantile = 0,ggplot_call = ggplot_call) +
+      labs(title = "")
+print(p2)
+```
