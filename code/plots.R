@@ -51,6 +51,36 @@ pca_hexbin_plot <-
          theme_cowplot(font_size = 10))
 }
 
+# TO DO: Explain here what this function does, and how to use it.
+volcano_plot_with_highlighted_genes <- function (diff_count_res, k, genes,
+                                                 ...) {
+  dat <- data.frame(beta  = diff_count_res$beta[genes,k],
+                    y     = diff_count_res$Z[genes,k],
+                    label = genes)
+  return(volcano_plot(diff_count_res,k = k,
+                      ggplot_call = ggplot_call_for_volcano_plot,...) +
+         geom_text_repel(data = dat,
+                         mapping = aes(x = beta,y = y,label = label),
+                         inherit.aes = FALSE,color = "black",size = 2.25,
+                         fontface = "italic",segment.color = "black",
+                         segment.size = 0.25,max.overlaps = Inf,
+                         na.rm = TRUE))
+}
+
+# TO DO: Explain here what this function is for, and how to use it.
+ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
+  ggplot(dat,aes_string(x = "beta",y = "y",fill = "mean",label = "label")) +
+    geom_point(color = "white",stroke = 0.3,shape = 21,na.rm = TRUE) +
+    scale_y_continuous(trans = "sqrt",
+      breaks = c(0,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4,2e4,5e4)) +
+    scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                         midpoint = mean(range(dat$mean))) +
+    geom_text_repel(color = "gray",size = 2.25,fontface = "italic",
+                    segment.color = "gray",segment.size = 0.25,
+                    max.overlaps = 10,na.rm = TRUE) +
+    labs(x = "log-fold change (\u03b2)",y = y.label,fill = "log10 mean") +
+    theme_cowplot(font_size = 9)
+
 # Create a scatterplot comparing two sets of log-fold change
 # statistics generated from two different differential expression
 # analyses of the same data. Argument "betamin" is useful for not
