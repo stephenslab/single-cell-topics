@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-09-22
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -390,12 +390,27 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+diff-count-analysis-clusters-droplet
+</li>
+<li>
+diff-count-analysis-clusters-pulseseq
+</li>
+<li>
+diff-count-analysis-topics-droplet
+</li>
+<li>
+diff-count-analysis-topics-pulseseq
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>plots_tracheal_epithelium_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
@@ -414,16 +429,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0877a1fbd66259386965572ab33f1c4697937348targetblank0877a1fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0877a1fbd66259386965572ab33f1c4697937348" target="_blank">0877a1f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6ccf99810c29df43cfb1efe7c7a636c8058ed8fbtargetblank6ccf998a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6ccf99810c29df43cfb1efe7c7a636c8058ed8fb" target="_blank">6ccf998</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0877a1fbd66259386965572ab33f1c4697937348targetblank0877a1fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6ccf99810c29df43cfb1efe7c7a636c8058ed8fbtargetblank6ccf998a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0877a1fbd66259386965572ab33f1c4697937348" target="_blank">0877a1f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6ccf99810c29df43cfb1efe7c7a636c8058ed8fb" target="_blank">6ccf998</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -442,6 +457,9 @@ Ignored files:
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/plots_tracheal_epithelium_cache/
 
 </code></pre>
 <p>
@@ -480,6 +498,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6ccf99810c29df43cfb1efe7c7a636c8058ed8fb/analysis/plots_tracheal_epithelium.Rmd" target="_blank">6ccf998</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/de36d3106fd4290326ae4c105179949a80fef267/analysis/plots_tracheal_epithelium.Rmd" target="_blank">de36d31</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+Added volcano plots for ciliated cells to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/082352a69f0c7749ec5296a4555e6b230ec58bcb/analysis/plots_tracheal_epithelium.Rmd" target="_blank">082352a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+Added steps to plots_tracheal_epithelium analysis to compute differential expression statistics.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/06d0b30f47d955a1f399fc678ba6bfbe1b0c07a2/docs/plots_tracheal_epithelium.html" target="_blank">06d0b30</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-22
+</td>
+<td>
+I’m starting to revamp the plots_tracheal_epithelium analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1309,6 +1395,7 @@ Working on new analysis, plots_tracheal_epithelium.Rmd.
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
 <div id="load-data-and-results" class="section level2">
@@ -1319,7 +1406,7 @@ counts_droplet &lt;- counts
 samples_droplet &lt;- readRDS(&quot;../output/droplet/clustering-droplet.rds&quot;)
 fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
 rm(samples,counts)</code></pre>
-<p>For convenience, we show the Structure plot again, which summarizes the topic proportions in each of the 8 subsets:</p>
+<p>For convenience, we show the Structure plot from the <a href="clusters_droplet.html">clustering analysis</a>, which summarizes the topic proportions in each of the 8 subsets:</p>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" /></p>
 <p>Next, load the larger “pulse-seq” data set, the <span class="math inline">\(k = 11\)</span> Poisson NMF model fit for these data, and the 7 clusters identified in the <a href="clusters_pulseseq.html">clustering analysis</a>.</p>
 <pre class="r"><code>load(&quot;../data/pulseseq.RData&quot;)
@@ -1327,11 +1414,143 @@ counts_pulseseq  &lt;- counts
 samples_pulseseq &lt;- readRDS(&quot;../output/pulseseq/clustering-pulseseq.rds&quot;)
 fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit
 rm(samples,counts)</code></pre>
-<p>For convenience, we show the Structure plot again, which summarizes the topic proportions in each of the 7 subsets:</p>
+<p>For convenience, we show the Structure plot from the <a href="clusters_pulseseq.html">clustering analysis</a>, which summarizes the topic proportions in each of the 7 subsets:</p>
 <p><img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" /></p>
 </div>
 <div id="differential-expression-analysis" class="section level2">
 <h2>Differential expression analysis</h2>
+<p>Perform differential expression analysis for the droplet data using the multinomial topic model.</p>
+<pre class="r"><code>timing &lt;- system.time(
+  diff_count_droplet &lt;- diff_count_analysis(fit_droplet,counts_droplet))
+cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
+# Fitting 18388 x 7 = 128716 univariate Poisson models.
+# Computing log-fold change statistics.
+# Computation took 21.57 seconds.</code></pre>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+<p>Perform a differential expression analysis for the pulse-seq data using the multinomial topic model.</p>
+<pre class="r"><code>timing &lt;- system.time(
+  diff_count_pulseseq &lt;- diff_count_analysis(fit_pulseseq,counts_pulseseq))
+cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
+# Fitting 21621 x 11 = 237831 univariate Poisson models.
+# Computing log-fold change statistics.
+# Computation took 1068.47 seconds.</code></pre>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+<p>Perform a standard (cluster-based) differential expression analysis for the droplet data.</p>
+<pre class="r"><code>fit_clusters_droplet &lt;-
+  init_poisson_nmf_from_clustering(counts_droplet,samples_droplet$cluster)
+timing &lt;- system.time(
+  diff_count_clusters_droplet &lt;- diff_count_analysis(fit_clusters_droplet,
+                                                     counts_droplet))
+# All topic proportions are either zero or one; using simpler single-topic calculations for model parameter estimates
+cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
+# Fitting 18388 x 8 = 147104 univariate Poisson models.
+# Computing log-fold change statistics.
+# Computation took 30.32 seconds.</code></pre>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+<p>Perform a standard (cluster-based) differential expression analysis for the pulseseq data.</p>
+<pre class="r"><code>fit_clusters_pulseseq &lt;-
+  init_poisson_nmf_from_clustering(counts_pulseseq,samples_pulseseq$cluster)
+timing &lt;- system.time(
+  diff_count_clusters_pulseseq &lt;- diff_count_analysis(fit_clusters_pulseseq,
+                                                      counts_pulseseq))
+# All topic proportions are either zero or one; using simpler single-topic calculations for model parameter estimates
+cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
+# Fitting 21621 x 7 = 151347 univariate Poisson models.
+# Computing log-fold change statistics.
+# Computation took 540.97 seconds.</code></pre>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+</div>
+<div id="ciliated-cells" class="section level2">
+<h2>Ciliated cells</h2>
+<p>Volcano plot for “Cil” cluster in droplet data:</p>
+<pre class="r"><code>ggplot_call &lt;- function (dat, y.label, topic.label)
+  ggplot(dat,aes_string(x = &quot;beta&quot;,y = &quot;y&quot;,fill = &quot;mean&quot;,label = &quot;label&quot;)) +
+    geom_point(color = &quot;white&quot;,stroke = 0.3,shape = 21,na.rm = TRUE) +
+    scale_y_continuous(trans = &quot;sqrt&quot;,
+      breaks = c(0,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4,2e4,5e4)) +
+    scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
+                         midpoint = mean(range(dat$mean))) +
+    geom_text_repel(color = &quot;black&quot;,size = 2.25,fontface = &quot;italic&quot;,
+                    segment.color = &quot;black&quot;,segment.size = 0.25,
+                    max.overlaps = Inf,na.rm = TRUE) +
+    labs(x = &quot;log-fold change (\u03b2)&quot;,y = y.label,fill = &quot;log10 mean&quot;,
+         title = paste(&quot;topic&quot;,topic.label)) +
+    theme_cowplot(font_size = 9)
+genes_ciliated &lt;- c(&quot;Cdhr3&quot;,&quot;Foxj1&quot;,&quot;Ccdc153&quot;,&quot;Mlf1&quot;,&quot;Lztfl1&quot;)
+genes &lt;- colnames(counts_droplet)
+genes[!is.element(genes,genes_ciliated) &amp;
+      diff_count_clusters_droplet$Z[,&quot;Cil&quot;] &lt; 150] &lt;- &quot;&quot;
+p1 &lt;- volcano_plot(diff_count_clusters_droplet,k = &quot;Cil&quot;,labels = genes,
+                   label_above_quantile = 0,ggplot_call = ggplot_call) +
+      labs(title = &quot;&quot;)
+print(p1)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Volcano plot for “Cil” cluster in pulse-seq data:</p>
+<pre class="r"><code>genes &lt;- colnames(counts_pulseseq)
+genes[!is.element(genes,genes_ciliated) &amp;
+      diff_count_clusters_pulseseq$Z[,&quot;Cil&quot;] &lt; 300] &lt;- &quot;&quot;
+p2 &lt;- volcano_plot(diff_count_clusters_pulseseq,k = &quot;Cil&quot;,labels = genes,
+                   label_above_quantile = 0,ggplot_call = ggplot_call) +
+      labs(title = &quot;&quot;)
+print(p2)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ionocytes" class="section level2">
+<h2>Ionocytes</h2>
+<p>Volcano plot for “I” cluster in pulse-seq data:</p>
+<pre class="r"><code>genes_ionocytes &lt;- c(&quot;Ascl3&quot;,&quot;Asgr1&quot;,&quot;Atp6v1c2&quot;,&quot;Cftr&quot;,&quot;Foxi1&quot;,
+                     &quot;Moxd1&quot;,&quot;P2ry14&quot;)
+genes &lt;- colnames(counts_pulseseq)
+genes[!is.element(genes,genes_ionocytes) &amp;
+      diff_count_clusters_pulseseq$Z[,&quot;I&quot;] &lt; 100] &lt;- &quot;&quot;
+p3 &lt;- volcano_plot(diff_count_clusters_pulseseq,k = &quot;I&quot;,labels = genes,
+                   label_above_quantile = 0,ggplot_call = ggplot_call) +
+      labs(title = &quot;&quot;)
+print(p3)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>We detect a very small cluster of ionocytes in the droplet data, at least using <em>Foxi1</em> as a marker for ionocytes:</p>
+<pre class="r"><code>pca  &lt;- prcomp(poisson2multinom(fit_droplet)$L)$x
+pdat &lt;- data.frame(PC1  = pca[,1],
+                   PC2  = pca[,2],
+                   Foxi1 = counts_droplet[,&quot;Foxi1&quot;])
+p4 &lt;- ggplot(pdat,aes(x = PC1,y = PC2,fill = Foxi1)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 1.25) +
+  scale_fill_gradientn(colors = c(&quot;skyblue&quot;,&quot;gold&quot;,&quot;darkorange&quot;,&quot;magenta&quot;),
+                        na.value = &quot;lightskyblue&quot;) +
+  theme_cowplot(font_size = 10) +
+  labs(fill = &quot;expression level&quot;)
+print(p4)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pca-plot-droplet-Foxi1-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+<div id="goblet-cells" class="section level2">
+<h2>Goblet cells</h2>
+<p>Volcano plot for “G” cluster in droplet data:</p>
+<pre class="r"><code>genes_goblet &lt;- &quot;Gp2&quot;
+genes &lt;- colnames(counts_droplet)
+p5 &lt;- volcano_plot(diff_count_clusters_droplet,k = &quot;G&quot;,labels = genes) +
+      labs(title = &quot;&quot;)
+print(p5)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" width="360" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1355,32 +1574,32 @@ rm(samples,counts)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-175 dplyr_0.8.3       
-# [5] Matrix_1.2-18     
+# [1] cowplot_1.0.0      ggrepel_0.9.0      ggplot2_3.3.0      fastTopics_0.3-175
+# [5] dplyr_0.8.3        Matrix_1.2-18     
 # 
 # loaded via a namespace (and not attached):
-#  [1] progress_1.2.2       tidyselect_0.2.5     xfun_0.11           
-#  [4] purrr_0.3.3          lattice_0.20-38      vctrs_0.2.1         
-#  [7] colorspace_1.4-1     viridisLite_0.3.0    htmltools_0.4.0     
-# [10] yaml_2.2.0           MCMCpack_1.4-5       plotly_4.9.2        
-# [13] rlang_0.4.5          later_1.0.0          pillar_1.4.3        
-# [16] withr_2.1.2          glue_1.3.1           lifecycle_0.1.0     
-# [19] stringr_1.4.0        MatrixModels_0.4-1   munsell_0.5.0       
-# [22] gtable_0.3.0         workflowr_1.6.2.9000 htmlwidgets_1.5.1   
-# [25] coda_0.19-3          evaluate_0.14        knitr_1.26          
-# [28] SparseM_1.78         httpuv_1.5.2         quantreg_5.54       
-# [31] irlba_2.3.3          Rcpp_1.0.5           promises_1.1.0      
-# [34] backports_1.1.5      scales_1.1.0         jsonlite_1.6        
-# [37] RcppParallel_4.4.2   fs_1.3.1             mcmc_0.9-6          
-# [40] hms_0.5.2            digest_0.6.23        stringi_1.4.3       
-# [43] Rtsne_0.15           ggrepel_0.9.0        grid_3.6.2          
-# [46] rprojroot_1.3-2      quadprog_1.5-8       tools_3.6.2         
-# [49] magrittr_1.5         lazyeval_0.2.2       tibble_2.1.3        
-# [52] zeallot_0.1.0        tidyr_1.0.0          crayon_1.3.4        
-# [55] whisker_0.4          pkgconfig_2.0.3      MASS_7.3-51.4       
-# [58] prettyunits_1.1.1    data.table_1.12.8    assertthat_0.2.1    
-# [61] rmarkdown_2.3        httr_1.4.1           R6_2.4.1            
-# [64] git2r_0.26.1         compiler_3.6.2</code></pre>
+#  [1] Rcpp_1.0.5           lattice_0.20-38      tidyr_1.0.0         
+#  [4] prettyunits_1.1.1    assertthat_0.2.1     zeallot_0.1.0       
+#  [7] rprojroot_1.3-2      digest_0.6.23        R6_2.4.1            
+# [10] backports_1.1.5      MatrixModels_0.4-1   evaluate_0.14       
+# [13] coda_0.19-3          httr_1.4.1           pillar_1.4.3        
+# [16] rlang_0.4.5          progress_1.2.2       lazyeval_0.2.2      
+# [19] data.table_1.12.8    irlba_2.3.3          SparseM_1.78        
+# [22] whisker_0.4          rmarkdown_2.3        labeling_0.3        
+# [25] Rtsne_0.15           stringr_1.4.0        htmlwidgets_1.5.1   
+# [28] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
+# [31] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
+# [34] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
+# [37] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
+# [40] crayon_1.3.4         withr_2.1.2          later_1.0.0         
+# [43] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
+# [46] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
+# [49] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
+# [52] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
+# [55] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
+# [58] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
+# [61] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
+# [64] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 </div>
 
