@@ -39,9 +39,10 @@ fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 rm(samples,counts)
 ```
 
-For convenience, we show the Structure plot from the
-[clustering analysis](clusters_droplet.html), which summarizes the
-topic proportions in each of the 8 subsets:
+For reference, we show here the Structure plot from the
+[clustering analysis of the droplet data](clusters_droplet.html). This
+Structure plot summarizes the topic proportions in each of the 8
+subsets.
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
 
@@ -57,17 +58,18 @@ fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$f
 rm(samples,counts)
 ```
 
-For convenience, we show the Structure plot from the
-[clustering analysis](clusters_pulseseq.html), which summarizes the
-topic proportions in each of the 7 subsets:
+For reference, we show here the Structure plot from the
+[clustering analysis of the pulse-seq data](clusters_pulseseq.html).
+This Structure plot summarizes the topic proportions in each of the 7
+subsets:
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
 
 Differential expression analysis
 --------------------------------
 
-Perform differential expression analysis for the droplet data using
-the multinomial topic model.
+Perform differential expression analysis using the topic model fitted
+to the droplet data.
 
 ```{r diff-count-analysis-topics-droplet, cache=TRUE}
 timing <- system.time(
@@ -75,8 +77,8 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Perform a differential expression analysis for the pulse-seq data
-using the multinomial topic model.
+Perform a differential expression analysis using the topic model
+fitted to the pulse-seq data.
 
 ```{r diff-count-analysis-topics-pulseseq, cache=TRUE}
 timing <- system.time(
@@ -84,8 +86,8 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Perform a standard (cluster-based) differential expression analysis
-for the droplet data.
+Now, calculate differential expression statistics using the clusters
+identified in the droplet data.
 
 ```{r diff-count-analysis-clusters-droplet, cache=TRUE}
 fit_clusters_droplet <-
@@ -96,8 +98,7 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Perform a standard (cluster-based) differential expression analysis for
-the pulseseq data.
+And do the same in the pulse-seq data.
 
 ```{r diff-count-analysis-clusters-pulseseq, cache=TRUE}
 fit_clusters_pulseseq <-
@@ -111,41 +112,25 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 Ciliated cells
 --------------
 
-Volcano plot for "Cil" cluster in droplet data:
+Volcano plot for "Cil" cluster in droplet data. Notes: The cluster for
+the ciliated cells is one of the best separated clusters in both the
+droplet and pulse-seq data. Marker genes and transcription factors for
+ciliated cells mentioned in Montoro *et al* (2018) are shown in black.
 
-```{r volcano-plot-droplet-cil, fig.width=4, fig.height=4}
-ggplot_call <- function (dat, y.label, topic.label)
-  ggplot(dat,aes_string(x = "beta",y = "y",fill = "mean",label = "label")) +
-    geom_point(color = "white",stroke = 0.3,shape = 21,na.rm = TRUE) +
-    scale_y_continuous(trans = "sqrt",
-      breaks = c(0,1,2,5,10,20,50,100,200,500,1e3,2e3,5e3,1e4,2e4,5e4)) +
-    scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                         midpoint = mean(range(dat$mean))) +
-    geom_text_repel(color = "black",size = 2.25,fontface = "italic",
-                    segment.color = "black",segment.size = 0.25,
-                    max.overlaps = Inf,na.rm = TRUE) +
-    labs(x = "log-fold change (\u03b2)",y = y.label,fill = "log10 mean",
-         title = paste("topic",topic.label)) +
-    theme_cowplot(font_size = 9)
-genes_ciliated <- c("Cdhr3","Foxj1","Ccdc153","Mlf1","Lztfl1")
-genes <- colnames(counts_droplet)
-genes[!is.element(genes,genes_ciliated) &
-      diff_count_clusters_droplet$Z[,"Cil"] < 150] <- ""
-p1 <- volcano_plot(diff_count_clusters_droplet,k = "Cil",labels = genes,
-                   label_above_quantile = 0,ggplot_call = ggplot_call) +
-      labs(title = "")
+```{r volcano-plot-droplet-cil, fig.width=4.5, fig.height=4}
+cilitated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
+p1 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"Cil",
+                                          cilitated_genes,
+										  label_above_quantile = 0.998)
 print(p1)
 ```
 
 Volcano plot for "Cil" cluster in pulse-seq data:
 
-```{r volcano-plot-pulseseq-cil, fig.width=4, fig.height=4}
-genes <- colnames(counts_pulseseq)
-genes[!is.element(genes,genes_ciliated) &
-      diff_count_clusters_pulseseq$Z[,"Cil"] < 300] <- ""
-p2 <- volcano_plot(diff_count_clusters_pulseseq,k = "Cil",labels = genes,
-                   label_above_quantile = 0,ggplot_call = ggplot_call) +
-      labs(title = "")
+```{r volcano-plot-pulseseq-cil, fig.width=4.5, fig.height=4}
+p2 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"Cil",
+                                          cilitated_genes,
+										  label_above_quantile = 0.998)
 print(p2)
 ```
 
@@ -154,7 +139,7 @@ Ionocytes
 
 Volcano plot for "I" cluster in pulse-seq data:
 
-```{r volcano-plot-pulseseq-I, fig.width=4, fig.height=4}
+```{r volcano-plot-pulseseq-I, fig.width=4, fig.height=4, eval=FALSE}
 genes_ionocytes <- c("Ascl3","Asgr1","Atp6v1c2","Cftr","Foxi1",
                      "Moxd1","P2ry14")
 genes <- colnames(counts_pulseseq)
@@ -169,7 +154,7 @@ print(p3)
 We detect a very small cluster of ionocytes in the droplet data, at
 least using *Foxi1* as a marker for ionocytes:
 
-```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3}
+```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3, eval=FALSE}
 pca  <- prcomp(poisson2multinom(fit_droplet)$L)$x
 pdat <- data.frame(PC1  = pca[,1],
                    PC2  = pca[,2],
@@ -188,7 +173,7 @@ Goblet cells
 
 Volcano plot for "G" cluster in droplet data:
 
-```{r volcano-plot-droplet-G, fig.width=3, fig.height=4}
+```{r volcano-plot-droplet-G, fig.width=3, fig.height=4, eval=FALSE}
 genes_goblet <- "Gp2"
 genes <- colnames(counts_droplet)
 p5 <- volcano_plot(diff_count_clusters_droplet,k = "G",labels = genes) +
