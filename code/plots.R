@@ -141,3 +141,25 @@ zscores_scatterplot <- function (z1, z2, colmeans, genes,
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
+
+# Layer count data onto a basic PCA plot; the colour of the points are
+# varied by the counts (when log = FALSE), or the log-counts (when log
+# = TRUE).
+pca_plot_with_counts <- function (fit, counts, pcs = 1:2, log = FALSE,
+                                  font_size = 10) {
+  if (inherits(fit,"poisson_nmf_fit"))
+    fit <- poisson2multinom(fit)
+  dat <- as.data.frame(prcomp(fit$L)$x)
+  if (is.numeric(pcs))
+    pcs <- names(dat)[pcs]
+  dat <- cbind(dat,data.frame(count = counts))
+  if (log)
+    dat$count <- log(dat$count)
+  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "count")) +
+         geom_point(shape = 21,color = "white",size = 1.25) +
+         scale_fill_gradientn(colors = c("skyblue","gold","darkorange",
+                                         "magenta"),
+                              na.value = "lightskyblue") +
+         labs(fill = ifelse(log,"log-count","count")) +
+         theme_cowplot(font_size = font_size))
+}
