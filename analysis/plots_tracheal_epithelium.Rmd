@@ -165,7 +165,7 @@ is not surprising in light of the fact that only a very small number
 of cells in the droplet data set appear to be ionocytes, at least
 judging by expression of the *Foxi1* ionocyte marker gene:
 
-```{r pca-plot-droplet-Foxi1, fig.width=4.25, fig.height=3}
+```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3}
 p4 <- pca_plot_with_counts(fit_droplet,counts_droplet[,"Foxi1"],1:2)
 print(p4)
 ```
@@ -173,12 +173,45 @@ print(p4)
 Goblet cells
 ------------
 
-Volcano plot for "G" cluster in droplet data:
+Notes: We identify a cluster of Goblet cells in the droplet data, but
+not in the pulse-seq data (this is consistent with Montoro *et al*,
+2018). 
 
-```{r volcano-plot-droplet-G, fig.width=3, fig.height=4, eval=FALSE}
-genes_goblet <- "Gp2"
-genes <- colnames(counts_droplet)
-p5 <- volcano_plot(diff_count_clusters_droplet,k = "G",labels = genes) +
-      labs(title = "")
+```{r volcano-plot-droplet-G, fig.width=4.5, fig.height=4}
+goblet_genes <- "Gp2"
+p5 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"G",
+                                          goblet_genes,
+										  label_above_quantile = 0.998)
 print(p5)
 ```
+
+Topic $k = 1$ is unique to this cluster suggesting that the this topic
+characterizes the goblet cell type.
+
+```{r volcano-plot-goblet, fig.width=4.5, fig.height=4}
+goblet_genes <- "Gp2"
+p6 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k1",
+                                          goblet_genes,
+										  label_above_quantile = 0.998)
+print(p6)
+```
+
+Indeed, there is a very close correspondence between the topic and
+cluster, with several genes (e.g. *Gp2*) showing somewhat stronger
+enrichment in the topic.
+
+```{r z-scores-droplet-G-vs-k1, fig.width=3.5, fig.height=3}
+p7 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"G"],
+                          diff_count_droplet$Z[,1],
+						  diff_count_droplet$colmeans,
+						  colnames(counts_droplet),
+						  label_above_score = 150,
+						  zmax = 800) +
+  labs(x = "cluster G",y = "topic 1",title = "z-scores")
+print(p7)
+```
+
+Tuft and pulmonary neuroendocrine cells
+---------------------------------------
+
+*Text and code goes here.*
