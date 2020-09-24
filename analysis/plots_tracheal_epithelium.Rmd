@@ -113,8 +113,8 @@ Ciliated cells
 --------------
 
 We begin with the cluster that captures ciliated cells in the droplet
-data. This cluster is one of the most clearly separated clusters in
-both the droplet and pulse-seq data sets.
+data. This cluster is one of the most distinctive in both the droplet
+and pulse-seq data sets.
 
 ```{r volcano-plot-droplet-cil, fig.width=4.5, fig.height=4}
 cilitated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
@@ -125,7 +125,8 @@ print(p1)
 ```
 
 In this volcano plot, marker genes and transcription factors
-identified in Montoro *et al* (2018) are highlighted in black.
+identified in Montoro *et al* (2018) are highlighted in black, and
+other top differentially expressed genes are shown with gray labels.
 
 We obtain similar top differentially expressed genes in the pulse-seq
 data:
@@ -140,24 +141,25 @@ print(p2)
 Ionocytes
 ---------
 
-Volcano plot for "I" cluster in pulse-seq data:
+In the pulse-seq data, we identify a distinctive cluster for the newly
+discovered ionocyte cell type. Gene expression in these cells is not
+fully captured by any single topic.
 
-```{r volcano-plot-pulseseq-I, fig.width=4, fig.height=4, eval=FALSE}
-genes_ionocytes <- c("Ascl3","Asgr1","Atp6v1c2","Cftr","Foxi1",
-                     "Moxd1","P2ry14")
-genes <- colnames(counts_pulseseq)
-genes[!is.element(genes,genes_ionocytes) &
-      diff_count_clusters_pulseseq$Z[,"I"] < 100] <- ""
-p3 <- volcano_plot(diff_count_clusters_pulseseq,k = "I",labels = genes,
-                   label_above_quantile = 0,ggplot_call = ggplot_call) +
-      labs(title = "")
+```{r volcano-plot-pulseseq-I, fig.width=4.4, fig.height=4}
+ionocyte_genes <- c("Ascl3","Asgr1","Atp6v0d2","Atp6v1c2","Cftr","Foxi1",
+                    "Moxd1","P2ry14","Stap1")
+p3 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"I",
+                                          ionocyte_genes,
+										  label_above_quantile = 0.998)
 print(p3)
 ```
 
-We detect a very small cluster of ionocytes in the droplet data, at
-least using *Foxi1* as a marker for ionocytes:
+We do not identify a cluster for ionocytes in the droplet data,
+probably because only a handful of cells in this data set appear to be
+ionocytes, at least judging by expression of the *Foxi1* ionocyte
+marker gene:
 
-```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3, eval=FALSE}
+```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3}
 pca  <- prcomp(poisson2multinom(fit_droplet)$L)$x
 pdat <- data.frame(PC1  = pca[,1],
                    PC2  = pca[,2],
