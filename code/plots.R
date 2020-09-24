@@ -51,12 +51,17 @@ pca_hexbin_plot <-
          theme_cowplot(font_size = 10))
 }
 
-# TO DO: Explain here what this function does, and how to use it.
-volcano_plot_with_highlighted_genes <- function (diff_count_res, k, genes,
-                                                 ...) {
+# This is a refinement of the volcano plot implemented in the
+# fastTopics package. Here, an additional set of genes is highlighted
+# by labeling the points with darker text.
+volcano_plot_with_highlighted_genes <- function (diff_count_res, k, 
+                                                 genes, ...) {
   dat <- data.frame(beta  = diff_count_res$beta[genes,k],
                     y     = diff_count_res$Z[genes,k],
-                    label = genes)
+                    label = genes) 
+  rows <- match(genes,rownames(diff_count_res$beta))
+  rownames(diff_count_res$beta)[rows] <- ""
+  rownames(diff_count_res$Z)[rows] <- ""
   return(volcano_plot(diff_count_res,k = k,
                       ggplot_call = ggplot_call_for_volcano_plot,...) +
          geom_text_repel(data = dat,
@@ -67,7 +72,8 @@ volcano_plot_with_highlighted_genes <- function (diff_count_res, k, genes,
                          na.rm = TRUE))
 }
 
-# TO DO: Explain here what this function is for, and how to use it.
+# This is used by volcano_plot_with_highlighted_genes to create the
+# volcano plot.
 ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
   ggplot(dat,aes_string(x = "beta",y = "y",fill = "mean",label = "label")) +
     geom_point(color = "white",stroke = 0.3,shape = 21,na.rm = TRUE) +
