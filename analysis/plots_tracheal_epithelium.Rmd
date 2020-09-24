@@ -165,7 +165,7 @@ is not surprising in light of the fact that only a very small number
 of cells in the droplet data set appear to be ionocytes, at least
 judging by expression of the *Foxi1* ionocyte marker gene:
 
-```{r pca-plot-droplet-Foxi1, fig.width=4, fig.height=3}
+```{r pca-plot-droplet-Foxi1, fig.width=3.75, fig.height=3}
 p4 <- pca_plot_with_counts(fit_droplet,counts_droplet[,"Foxi1"],1:2)
 print(p4)
 ```
@@ -173,9 +173,8 @@ print(p4)
 Goblet cells
 ------------
 
-Notes: We identify a cluster of Goblet cells in the droplet data, but
-not in the pulse-seq data (this is consistent with Montoro *et al*,
-2018). 
+Consistent with Montoro *et al* (2018), we identify a cluster of
+Goblet cells in the droplet data, but not in the pulse-seq data.
 
 ```{r volcano-plot-droplet-G, fig.width=4.5, fig.height=4}
 goblet_genes <- "Gp2"
@@ -197,10 +196,10 @@ print(p6)
 ```
 
 Indeed, there is a very close correspondence between the topic and
-cluster, with several genes (e.g. *Gp2*) showing somewhat stronger
-enrichment in the topic.
+cluster, with several characteristic genes (e.g. *Gp2*) showing
+somewhat stronger enrichment in the topic.
 
-```{r z-scores-droplet-G-vs-k1, fig.width=3.5, fig.height=3}
+```{r z-scores-droplet-G-vs-k1, fig.width=4, fig.height=3}
 p7 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"G"],
                           diff_count_droplet$Z[,1],
 						  diff_count_droplet$colmeans,
@@ -214,4 +213,36 @@ print(p7)
 Tuft and pulmonary neuroendocrine cells
 ---------------------------------------
 
-*Text and code goes here.*
+In both data sets, we identify clusters for tuft and pulmonary
+neuroendocrine cells. The topic models do not clearly distinguish
+between these two rare cell types; we identify them in a single
+cluster.
+
+```{r volcano-plot-droplet-T+N, fig.width=4.5, fig.height=4}
+tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1","Rgs13")
+p8 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"T+N",
+                                          tuft_neuroendocrine_genes,
+										  label_above_quantile = 0.998)
+print(p8)
+```
+
+Here is the volcano plot from the pulse-seq data:
+
+```{r volcano-plot-pulseseq-T+N, fig.width=4.5, fig.height=4}
+p9 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
+                                          tuft_neuroendocrine_genes,
+										  label_above_quantile = 0.998)
+print(p9)
+```
+
+Proliferating cells
+-------------------
+
+```{r}
+```
+
+Basal, club and hillock cells
+-----------------------------
+
+We end our exploration with the large subset of cells that do not form
+distinct clusters.
