@@ -57,7 +57,7 @@ pca_hexbin_plot <-
 volcano_plot_with_highlighted_genes <- function (diff_count_res, k, 
                                                  genes, ...) {
   dat <- data.frame(beta  = diff_count_res$beta[genes,k],
-                    y     = diff_count_res$Z[genes,k],
+                    y     = abs(diff_count_res$Z[genes,k]),
                     label = genes) 
   rows <- match(genes,rownames(diff_count_res$beta))
   rownames(diff_count_res$beta)[rows] <- ""
