@@ -208,6 +208,12 @@ p7 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"G"],
 						  zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
 print(p7)
+rows <- which(abs(diff_count_clusters_droplet$Z[,"G"] > 2) |
+              abs(diff_count_droplet$Z[,1]) > 2)
+p7b <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"G"],
+                                 diff_count_droplet$beta[rows,1],
+								 diff_count_droplet$colmeans[rows])
+print(p7b)
 ```
 
 Tuft and pulmonary neuroendocrine cells
@@ -235,14 +241,71 @@ p9 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
 print(p9)
 ```
 
-Proliferating cells
--------------------
-
-```{r}
-```
-
-Basal, club and hillock cells
+Club, basal and hillock cells
 -----------------------------
 
-We end our exploration with the large subset of cells that do not form
-distinct clusters.
+We end our exploration with the large subset of cells that does not
+decompose to form distinct clusters.
+
+Abundant basal cells:
+
+```{r}
+basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
+p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
+                                           basal_genes,
+	 								 	   label_above_quantile = 0.995)
+print(p10)
+p11 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k2",
+                                           basal_genes,
+	 								 	   label_above_quantile = 0.995)
+print(p11)
+rows <- which(abs(diff_count_clusters_droplet$Z[,"B"] > 2) |
+              abs(diff_count_droplet$Z[,2]) > 2)
+rows <- is.element(rownames(diff_count_droplet$Z),basal_genes)
+p12  <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"B"],
+                                  diff_count_droplet$beta[rows,2], 
+ 								  diff_count_droplet$colmeans[rows])
+print(p12)
+```
+
+Hillock cells:
+
+```{r}
+hillock_genes <- c("Krt4","Krt13","Ecm1","S100a11","Cldn3","Lgals3","Anxa1")
+p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
+                                           hillock_genes,
+	 								 	   label_above_quantile = 0.998)
+print(p10)
+p11 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k4",
+                                           hillock_genes,
+	 								 	   label_above_quantile = 0.998)
+print(p11)
+p12 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
+                           diff_count_droplet$Z[,4],
+ 						   diff_count_droplet$colmeans,
+ 						   colnames(counts_droplet),
+ 						   label_above_score = 100,
+						   zmax = 400) +
+  labs(x = "cluster H",y = "topic 4",title = "z-scores")
+print(p12)
+rows <- which(abs(diff_count_clusters_droplet$Z[,"H"] > 2) |
+              abs(diff_count_droplet$Z[,4]) > 2)
+rows <- is.element(rownames(diff_count_droplet$Z),hillock_genes)
+p12b <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"H"],
+                                  diff_count_droplet$beta[rows,4], 
+ 								  diff_count_droplet$colmeans[rows])
+print(p12b)
+p13 <- volcano_plot_with_highlighted_genes(diff_count_pulseseq,"k1",
+                                           hillock_genes,
+	 								 	   label_above_quantile = 0.995)
+print(p13)
+```
+
+TO DO:
+
++ Add volcano plots for B (basal) and C (club) clusters.
+
++ Add volcano plot for P cluster (proliferating cells).
+
++ Add plots for hillock cells.
+
