@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Analysis of single-cell RNA-seq data using topic models</title>
+<title>Perform differential expression analysis with droplet topics and clusters</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Analysis of single-cell RNA-seq data using topic models</h1>
+<h1 class="title toc-ignore">Perform differential expression analysis with droplet topics and clusters</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-09-24
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -348,6 +348,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed1code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(1)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed1code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(1)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -399,7 +459,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/diff_count_droplet.Rmd</code>) and HTML (<code>docs/diff_count_droplet.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -428,7 +488,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/ab228245aad3d56143219be9797028fcfe9bb6b8/analysis/index.Rmd" target="_blank">ab22824</a>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ab228245aad3d56143219be9797028fcfe9bb6b8/analysis/diff_count_droplet.Rmd" target="_blank">ab22824</a>
 </td>
 <td>
 Peter Carbonetto
@@ -440,499 +500,6 @@ Peter Carbonetto
 workflowr::wflow_publish(“index.Rmd”)
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/485628f58e0c985b706faab9357ffe61d3101ac6/docs/index.html" target="_blank">485628f</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-21
-</td>
-<td>
-Revised overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/dd9d050507778102679e0ecaeaa6f96c800f1ffd/analysis/index.Rmd" target="_blank">dd9d050</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-21
-</td>
-<td>
-workflowr::wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/04e1761611f3c352a77a9aaa99708daabb76042d/analysis/index.Rmd" target="_blank">04e1761</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-<td>
-A couple minor edits to the R Markdown.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/48209624d34951f447be3677c7302d91191ac223/docs/index.html" target="_blank">4820962</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-18
-</td>
-<td>
-Added a couple links to overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/979b21706060487fad7e34d9c6c3a47b5575f24b/analysis/index.Rmd" target="_blank">979b217</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-18
-</td>
-<td>
-workflowr::wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/279f62d03a1b5042fbc0060a36206b7c171b9635/docs/index.html" target="_blank">279f62d</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-11
-</td>
-<td>
-Fixed link in overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/19f5623c40193219551896b9854da210b02afc8c/analysis/index.Rmd" target="_blank">19f5623</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-11
-</td>
-<td>
-workflowr::wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/0208a0832efa1c70bbb5861a75d8dc1a8288a8f1/docs/index.html" target="_blank">0208a08</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-11
-</td>
-<td>
-Added link to overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d32e14c8d2d32352b446dc89c0994e09a6fe67fa/analysis/index.Rmd" target="_blank">d32e14c</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-11
-</td>
-<td>
-workflowr::wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/00e800241f9154c9283dac0bf27e056d282a2705/analysis/index.Rmd" target="_blank">00e8002</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-27
-</td>
-<td>
-Implemented new function pca_hex_plot in plots.R.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e77420b3227da196445b482796b110350c646eb7/docs/index.html" target="_blank">e77420b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-25
-</td>
-<td>
-Added “source” button to navbar.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/66bbdf45e7ac8c5cf4f960fd9187e5df90cdf688/analysis/index.Rmd" target="_blank">66bbdf4</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-<td>
-Implemented functions basic_pca_plot and pca_plot_with_labels in plots.R.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/64b881d029ba8534aff6e8c6b85de9213edfc132/docs/index.html" target="_blank">64b881d</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-<td>
-Updated links in overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/61917ad82d0229261c265c7546d2cb48e3ce2a67/analysis/index.Rmd" target="_blank">61917ad</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-18
-</td>
-<td>
-Working on new analysis, plots_tracheal_epithelium.Rmd.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7b10d810dd41b920d835f074fa224af1325d1a69/docs/index.html" target="_blank">7b10d81</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-10
-</td>
-<td>
-A couple minor edits to the overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/2b9f856ad1d2beaed80b0703d38789a376e3a0c7/analysis/index.Rmd" target="_blank">2b9f856</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-10
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/94e55aeb00f1ce339ab858bd01a1dd2a4197d981/docs/index.html" target="_blank">94e55ae</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-10
-</td>
-<td>
-Updated overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/bd72e7de1d71bafc1016f6aec37d485cc3846523/analysis/index.Rmd" target="_blank">bd72e7d</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-08-10
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c6520997658f6d0bf93528d7a6bfde86a01a679d/docs/index.html" target="_blank">c652099</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-28
-</td>
-<td>
-Added some explanatory text to the overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/7d5e9c8376dfe25f61b8d48bd563a96ea9d67ef0/analysis/index.Rmd" target="_blank">7d5e9c8</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-28
-</td>
-<td>
-wflow_publish(“index.Rmd”, view = FALSE, verbose = TRUE)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e8da7669cc56e5ba2ac478b7d51fad09c249c96f/docs/index.html" target="_blank">e8da766</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-Added more links to overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/3136222f56b79c5ca8a2478f8c1f0eaa9514e191/analysis/index.Rmd" target="_blank">3136222</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a42d6cc9fd46abae669e5eec53576796bcfe69a5/docs/index.html" target="_blank">a42d6cc</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-Fixed links in overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/67d1667f23c0fec070145eb1c4d5a2f6af0d5a6d/analysis/index.Rmd" target="_blank">67d1667</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/15b3a5713dc47ef4e6ea85e18c5baa18872eb89f/docs/index.html" target="_blank">15b3a57</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-Added links to overview page.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/be55916d0f44b2dd9ffabdcb7a13206262afaaae/analysis/index.Rmd" target="_blank">be55916</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c46e2fe483ac964aebbb11fed1029796cafb6e9f/docs/index.html" target="_blank">c46e2fe</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-Build home page and populated docs folder.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/8890f6b09c74d8975bc4c4d41f4500d4fc6c96aa/analysis/index.Rmd" target="_blank">8890f6b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-wflow_publish(“index.Rmd”)
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/82378421d5f51066577890de30d10fd131d9130d/analysis/index.Rmd" target="_blank">8237842</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-07-26
-</td>
-<td>
-Added workflowr files.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -940,50 +507,68 @@ Added workflowr files.
 </div>
 </div>
 </div>
-<div id="data-preparation" class="section level2">
-<h2>Data preparation</h2>
-<p>These pages detail the steps taken to prepare the single-cell RNA-seq data sets for topic modeling analysis.</p>
-<ul>
-<li><p><a href="prepare_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="prepare_68k_pbmc.html">PBMC 68k</a></p></li>
-<li><p><a href="prepare_droplet.html">Droplet</a></p></li>
-<li><p><a href="prepare_pulseseq.html">Pulse-seq</a></p></li>
-</ul>
+<p><em>Add introductory text here.</em></p>
+<p>Load the packages used in the analysis below.</p>
+<pre class="r"><code>library(Matrix)
+library(dplyr)
+library(fastTopics)</code></pre>
+<div id="load-data-and-results" class="section level2">
+<h2>Load data and results</h2>
+<p>Load the droplet data.</p>
+<pre class="r"><code>load(&quot;../data/droplet.RData&quot;)</code></pre>
+<p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
+<pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
+<p>Load the clusters identified in the <a href="clusters_droplet.html">clustering analysis</a>.</p>
+<pre class="r"><code>samples_droplet &lt;- readRDS(&quot;../output/droplet/clustering-droplet.rds&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()
+# R version 3.6.2 (2019-12-12)
+# Platform: x86_64-apple-darwin15.6.0 (64-bit)
+# Running under: macOS Catalina 10.15.6
+# 
+# Matrix products: default
+# BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
+# LAPACK: /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRlapack.dylib
+# 
+# locale:
+# [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+# 
+# attached base packages:
+# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# 
+# other attached packages:
+# [1] fastTopics_0.3-175 dplyr_0.8.3        Matrix_1.2-18     
+# 
+# loaded via a namespace (and not attached):
+#  [1] progress_1.2.2       tidyselect_0.2.5     xfun_0.11           
+#  [4] purrr_0.3.3          lattice_0.20-38      vctrs_0.2.1         
+#  [7] colorspace_1.4-1     viridisLite_0.3.0    htmltools_0.4.0     
+# [10] yaml_2.2.0           MCMCpack_1.4-5       plotly_4.9.2        
+# [13] rlang_0.4.5          later_1.0.0          pillar_1.4.3        
+# [16] glue_1.3.1           lifecycle_0.1.0      stringr_1.4.0       
+# [19] MatrixModels_0.4-1   munsell_0.5.0        gtable_0.3.0        
+# [22] workflowr_1.6.2.9000 htmlwidgets_1.5.1    coda_0.19-3         
+# [25] evaluate_0.14        knitr_1.26           SparseM_1.78        
+# [28] httpuv_1.5.2         quantreg_5.54        irlba_2.3.3         
+# [31] Rcpp_1.0.5           promises_1.1.0       backports_1.1.5     
+# [34] scales_1.1.0         jsonlite_1.6         RcppParallel_4.4.2  
+# [37] fs_1.3.1             mcmc_0.9-6           hms_0.5.2           
+# [40] ggplot2_3.3.0        digest_0.6.23        stringi_1.4.3       
+# [43] Rtsne_0.15           ggrepel_0.9.0        grid_3.6.2          
+# [46] rprojroot_1.3-2      cowplot_1.0.0        quadprog_1.5-8      
+# [49] tools_3.6.2          magrittr_1.5         lazyeval_0.2.2      
+# [52] tibble_2.1.3         zeallot_0.1.0        tidyr_1.0.0         
+# [55] crayon_1.3.4         whisker_0.4          pkgconfig_2.0.3     
+# [58] MASS_7.3-51.4        prettyunits_1.1.1    data.table_1.12.8   
+# [61] assertthat_0.2.1     rmarkdown_2.3        httr_1.4.1          
+# [64] R6_2.4.1             git2r_0.26.1         compiler_3.6.2</code></pre>
 </div>
-<div id="assess-model-fits" class="section level2">
-<h2>Assess model fits</h2>
-<p>In these pages, we compare the quality of the Poisson NMF fits with different updates (EM, CCD, SCD, with and without extrapolation), and with different <span class="math inline">\(k\)</span>.</p>
-<ul>
-<li><p><a href="assess_fits_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="assess_fits_68k_pbmc.html">PBMC 68k</a></p></li>
-<li><p><a href="assess_fits_droplet.html">Droplet</a></p></li>
-<li><p><a href="assess_fits_pulseseq.html">Pulse-seq</a></p></li>
-</ul>
-</div>
-<div id="identify-clusters" class="section level2">
-<h2>Identify clusters</h2>
-<p>In these pages, we perform PCA on the estimated topic proportions, and use this to identify clusters.</p>
-<ul>
-<li><p><a href="clusters_droplet.html">Droplet</a></p></li>
-<li><p><a href="clusters_pulseseq.html">Pulse-seq</a></p></li>
-</ul>
-</div>
-<div id="analysis-of-differential-gene-expression" class="section level2">
-<h2>Analysis of differential gene expression</h2>
-<p><em>TO DO: Add brief description here.</em></p>
-<ul>
-<li><p><a href="diff_count_droplet.html">Droplet</a></p></li>
-<li><p><a href="diff_count_pulseseq.html">Pulse-seq</a></p></li>
-</ul>
-</div>
-<div id="visualize-and-interpret-topics" class="section level2">
-<h2>Visualize and interpret topics</h2>
-<p><em>TO DO: Add brief description here.</em></p>
-<ul>
-<li><p><a href="plots_pbmc.html">PBMC</a></p></li>
-<li><p><a href="plots_tracheal_epithelium.html">Droplet and pulse-seq</a></p></li>
-<li><p><a href="bcells_and_nkcells.html">Closer look at B-cells and NK cells in PBMC data</a></p></li>
-</ul>
 </div>
 
 
