@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed2b4bd2bbdf158fb21560b0bfd9a3df337852876targetblankd2b4bd2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d2b4bd2bbdf158fb21560b0bfd9a3df337852876" target="_blank">d2b4bd2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree420f865d96e3ab2a62a38d7fa612ff007c14fbfftargetblank420f865a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/420f865d96e3ab2a62a38d7fa612ff007c14fbff" target="_blank">420f865</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed2b4bd2bbdf158fb21560b0bfd9a3df337852876targetblankd2b4bd2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree420f865d96e3ab2a62a38d7fa612ff007c14fbfftargetblank420f865a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d2b4bd2bbdf158fb21560b0bfd9a3df337852876" target="_blank">d2b4bd2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/420f865d96e3ab2a62a38d7fa612ff007c14fbff" target="_blank">420f865</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,6 +444,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
+    Untracked:  analysis/diff-count-droplet.RData
     Untracked:  analysis/plots_tracheal_epithelium_cache/
 
 </code></pre>
@@ -483,6 +484,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/420f865d96e3ab2a62a38d7fa612ff007c14fbff/analysis/diff_count_droplet.Rmd" target="_blank">420f865</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-25
+</td>
+<td>
+workflowr::wflow_publish(“diff_count_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/741c00a323767214b3e09bb7f7bfa8c35e550513/docs/diff_count_droplet.html" target="_blank">741c00a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-25
+</td>
+<td>
+Built page for new analysis diff_count_droplet.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -558,7 +593,7 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 </div>
-<p>Here we perform a differential expression analysis using the topic model fit to the droplet data.</p>
+<p>Here we perform a differential expression analysis using the topic model fit to the droplet data, as well as the clusters identified from this topic model.</p>
 <p>Load the packages used in the analysis below.</p>
 <pre class="r"><code>library(Matrix)
 library(dplyr)
@@ -566,12 +601,10 @@ library(fastTopics)
 library(tools)</code></pre>
 <div id="load-data-and-results" class="section level2">
 <h2>Load data and results</h2>
-<p>Load the droplet data.</p>
-<pre class="r"><code>load(&quot;../data/droplet.RData&quot;)</code></pre>
-<p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
-<pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
-<p>Load the clusters identified in the <a href="clusters_droplet.html">clustering analysis</a>.</p>
-<pre class="r"><code>samples &lt;- readRDS(&quot;../output/droplet/clustering-droplet.rds&quot;)</code></pre>
+<p>Load the droplet data, the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit, and the clusters identified in the <a href="clusters_droplet.html">clustering analysis</a>.</p>
+<pre class="r"><code>load(&quot;../data/droplet.RData&quot;)
+fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
+samples &lt;- readRDS(&quot;../output/droplet/clustering-droplet.rds&quot;)</code></pre>
 </div>
 <div id="perform-differential-expression-analysis" class="section level2">
 <h2>Perform differential expression analysis</h2>
@@ -581,7 +614,7 @@ library(tools)</code></pre>
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 18388 x 7 = 128716 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 23.76 seconds.</code></pre>
+# Computation took 21.33 seconds.</code></pre>
 <p>Next, calculate differential expression statistics using the clusters that were identified from the topic proportion PCs.</p>
 <pre class="r"><code>fit_clusters &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 timing &lt;- system.time(
@@ -590,15 +623,15 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 18388 x 8 = 147104 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 25.88 seconds.</code></pre>
-<p>Finally, perform one more differential expression analysis after first merging the two topics for club cells.</p>
+# Computation took 25.17 seconds.</code></pre>
+<p>Finally, perform one more differential expression analysis after merging the two club cell topics.</p>
 <pre class="r"><code>fit_merge_club &lt;- merge_topics(poisson2multinom(fit),c(5,7))
 timing &lt;- system.time(
   diff_count_merge_club &lt;- diff_count_analysis(fit_merge_club,counts))
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 18388 x 6 = 110328 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 17.14 seconds.</code></pre>
+# Computation took 16.73 seconds.</code></pre>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
