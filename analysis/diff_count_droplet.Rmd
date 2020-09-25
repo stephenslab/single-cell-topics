@@ -5,7 +5,8 @@ output: workflowr::wflow_html
 ---
 
 Here we perform a differential expression analysis using the topic
-model fit to the droplet data.
+model fit to the droplet data, as well as the clusters identified from
+this topic model.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -24,22 +25,12 @@ library(tools)
 Load data and results
 ---------------------
 
-Load the droplet data.
+Load the droplet data, the $k = 7$ Poisson NMF model fit, and the
+clusters identified in the [clustering analysis](clusters_droplet.html).
 
 ```{r load-data}
 load("../data/droplet.RData")
-```
-
-Load the $k = 7$ Poisson NMF model fit.
-
-```{r load-fit}
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-```
-
-Load the clusters identified in the [clustering
-analysis](clusters_droplet.html).
-
-```{r load-clusters}
 samples <- readRDS("../output/droplet/clustering-droplet.rds")
 ```
 
@@ -65,8 +56,8 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Finally, perform one more differential expression analysis after first
-merging the two topics for club cells.
+Finally, perform one more differential expression analysis after
+merging the two club cell topics.
 
 ```{r diff-count-analysis-topics-merge-club}
 fit_merge_club <- merge_topics(poisson2multinom(fit),c(5,7))
