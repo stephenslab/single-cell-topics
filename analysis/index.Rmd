@@ -44,6 +44,15 @@ use this to identify clusters.
 
 + [Pulse-seq](clusters_pulseseq.html)
 
+Analysis of differential gene expression
+----------------------------------------
+
+*TO DO: Add brief description here.*
+
++ [Droplet](diff_count_droplet.html)
+
++ [Pulse-seq](diff_count_pulseseq.html)
+
 Visualize and interpret topics
 ------------------------------
 

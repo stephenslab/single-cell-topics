@@ -1,0 +1,42 @@
+---
+title: Perform differential expression analysis with droplet topics and clusters
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add introductory text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(dplyr)
+library(fastTopics)
+```
+
+Load data and results
+---------------------
+
+Load the droplet data.
+
+```{r load-data}
+load("../data/droplet.RData")
+```
+
+Load the $k = 7$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+```
+
+Load the clusters identified in the [clustering
+analysis](clusters_droplet.html).
+
+```{r load-clusters}
+samples_droplet <- readRDS("../output/droplet/clustering-droplet.rds")
+```
