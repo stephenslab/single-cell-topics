@@ -28,15 +28,21 @@ Load data and results
 ---------------------
 
 Load the smaller "droplet" data set, the $k = 7$ Poisson NMF model fit
-for these data, and the 8 clusters identified in the
-[clustering analysis](clusters_droplet.html).
+for these data, the 8 clusters identified in the
+[clustering analysis](clusters_droplet.html), and the results of the
+differential expression analysis.
 
 ```{r load-droplet-data}
 load("../data/droplet.RData")
+load("../output/droplet/diff-count-droplet.RData")
 counts_droplet <- counts
 samples_droplet <- readRDS("../output/droplet/clustering-droplet.rds")
 fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+diff_count_droplet <- diff_count_topics
+diff_count_clusters_droplet <- diff_count_clusters
+diff_count_merge_droplet <- diff_count_merge_club
 rm(samples,counts)
+rm(diff_count_topics,diff_count_clusters,diff_count_merge_club)
 ```
 
 For reference, we show here the Structure plot from the
@@ -52,10 +58,15 @@ model fit for these data, and the 7 clusters identified in the
 
 ```{r load-pulseseq-data}
 load("../data/pulseseq.RData")
+load("../output/pulseseq/diff-count-pulseseq.RData")
 counts_pulseseq  <- counts
 samples_pulseseq <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
 fit_pulseseq <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+diff_count_pulseseq <- diff_count_topics
+diff_count_clusters_pulseseq <- diff_count_clusters
+diff_count_merge_pulseseq <- diff_count_merge_bc
 rm(samples,counts)
+rm(diff_count_topics,diff_count_clusters,diff_count_merge_bc)
 ```
 
 For reference, we show here the Structure plot from the
@@ -64,50 +75,6 @@ This Structure plot summarizes the topic proportions in each of the 7
 subsets:
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
-
-Differential expression analysis
---------------------------------
-
-Perform differential expression analysis using the topic model fitted
-to the droplet data.
-
-```{r diff-count-analysis-topics-droplet, cache=TRUE}
-timing <- system.time(
-  diff_count_droplet <- diff_count_analysis(fit_droplet,counts_droplet))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
-```
-
-Perform a differential expression analysis using the topic model
-fitted to the pulse-seq data.
-
-```{r diff-count-analysis-topics-pulseseq, cache=TRUE}
-timing <- system.time(
-  diff_count_pulseseq <- diff_count_analysis(fit_pulseseq,counts_pulseseq))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
-```
-
-Now, calculate differential expression statistics using the clusters
-identified in the droplet data.
-
-```{r diff-count-analysis-clusters-droplet, cache=TRUE}
-fit_clusters_droplet <-
-  init_poisson_nmf_from_clustering(counts_droplet,samples_droplet$cluster)
-timing <- system.time(
-  diff_count_clusters_droplet <- diff_count_analysis(fit_clusters_droplet,
-                                                     counts_droplet))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
-```
-
-And do the same in the pulse-seq data.
-
-```{r diff-count-analysis-clusters-pulseseq, cache=TRUE}
-fit_clusters_pulseseq <-
-  init_poisson_nmf_from_clustering(counts_pulseseq,samples_pulseseq$cluster)
-timing <- system.time(
-  diff_count_clusters_pulseseq <- diff_count_analysis(fit_clusters_pulseseq,
-                                                      counts_pulseseq))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
-```
 
 Ciliated cells
 --------------
@@ -200,12 +167,9 @@ cluster, with several characteristic genes (e.g. *Gp2*) showing
 somewhat stronger enrichment in the topic.
 
 ```{r z-scores-droplet-G-vs-k1, fig.width=4, fig.height=3}
-p7 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"G"],
-                          diff_count_droplet$Z[,1],
-						  diff_count_droplet$colmeans,
-						  colnames(counts_droplet),
-						  label_above_score = 150,
-						  zmax = 800) +
+p7 <- zscores_scatterplot(diff_count_clusters_droplet,
+                          diff_count_droplet,"G","k1",goblet_genes,
+						  label_above_score = 200,zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
 print(p7)
 rows <- which(abs(diff_count_clusters_droplet$Z[,"G"] > 2) |

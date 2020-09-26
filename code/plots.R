@@ -114,18 +114,22 @@ logfoldchange_scatterplot <- function (x, y, colmeans, betamin = -20) {
 # two different differential expression analyses of the same data.
 # Points with the largest z-scores (in magnitude) are labeled
 # (according ot the "label_above_score" argument). The "zmax" argument
-# is useful when a small number of the z-scores are much larger than
-# the others.
-zscores_scatterplot <- function (z1, z2, colmeans, genes,
-                                 label_above_score = 100,
-                                 zmax = 1000) {
-  z1   <- pmin(z1,zmax)
-  z2   <- pmin(z2,zmax)
+# is useful for creating a nice scatterplot when a small number of the
+# z-scores are much larger than the others. An additional set of genes
+# can be highlighted with the "genes" argument.
+zscores_scatterplot <- function (dcres1, dcres2, k1, k2, genes = NULL,
+                                 label_above_score = 100, zmax = 1000) {
+  colmeans <- dcres1$colmeans
+  z1   <- pmin(dcres1$Z[,k1],zmax)
+  z2   <- pmin(dcres2$Z[,k2],zmax)
   pdat <- data.frame(mean = cut(colmeans,c(0,0.01,0.1,1,10,Inf)),
-                     z1 = z1,z2 = z2,gene = genes,stringsAsFactors = FALSE)
-  rows <- which(abs(z1) < label_above_score &
-                abs(z2) < label_above_score)
-  pdat[rows,"gene"] <- ""
+                     z1   = z1,
+                     z2   = z2,
+                     gene = rownames(dcres1$Z),
+                     stringsAsFactors = FALSE)
+  pdat[!(is.element(rownames(dcres1$Z),genes) |
+         abs(z1) > label_above_score |
+         abs(z2) > label_above_score),"gene"] <- ""
   return(ggplot(pdat,aes_string(x = "z1",y = "z2",fill = "mean",
                                 label = "gene")) +
          geom_point(shape = 21,size = 1.5,color = "white") +

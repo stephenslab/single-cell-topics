@@ -1,12 +1,12 @@
 ---
-title: Perform differential expression analysis on droplet topics and clusters
+title: Perform differential expression analysis on pulse-seq topics and clusters
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
 Here we perform a differential expression analysis using the topic
-model fit to the droplet data, as well as the clusters identified from
-this topic model.
+model fit to the pulse-seq data, as well as the clusters identified
+from this topic model.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -25,13 +25,13 @@ library(tools)
 Load data and results
 ---------------------
 
-Load the droplet data, the $k = 7$ Poisson NMF model fit, and the
-clusters identified in the [clustering analysis](clusters_droplet.html).
+Load the pulse-seq data, the $k = 11$ Poisson NMF model fit, and the
+clusters identified in the [clustering analysis](clusters_pulseseq.html).
 
 ```{r load-data}
-load("../data/droplet.RData")
-fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-samples <- readRDS("../output/droplet/clustering-droplet.rds")
+load("../data/pulseseq.RData")
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+samples <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
 ```
 
 Perform differential expression analysis
@@ -57,12 +57,14 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
 Finally, perform one more differential expression analysis after
-merging the two club cell topics.
+merging the 5 club cell topics and the 3 basal cell topics.
 
 ```{r diff-count-analysis-topics-merge-club}
-fit_merge_club <- merge_topics(poisson2multinom(fit),c(5,7))
+fit_merge_bc <- merge_topics(poisson2multinom(fit),
+                             c("k4","k5","k6","k8","k10"))
+fit_merge_bc <- merge_topics(fit_merge_bc,c("k1","k3","k9"))
 timing <- system.time(
-  diff_count_merge_club <- diff_count_analysis(fit_merge_club,counts))
+  diff_count_merge_bc <- diff_count_analysis(fit_merge_bc,counts))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
@@ -75,7 +77,7 @@ file.
 ```{r save-results}
 save(list = c("diff_count_topics",
               "diff_count_clusters",
-			  "diff_count_merge_club"),
-     file = "diff-count-droplet.RData")
-resaveRdaFiles("diff-count-droplet.RData")
+			  "diff_count_merge_bc"),
+     file = "diff-count-pulseseq.RData")
+resaveRdaFiles("diff-count-pulseseq.RData")
 ```
