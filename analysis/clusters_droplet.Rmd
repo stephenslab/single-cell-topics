@@ -103,18 +103,7 @@ which was identified as being uniquely expressed by transitional
 "hillock" cells.
 
 ```{r clustering-6, fig.width=4, fig.height=2.5}
-pca  <- prcomp(fit2$L)$x
-pc1  <- pca[,1]
-pc2  <- pca[,2]
-pdat <- data.frame(PC1   = pc1,
-                   PC2   = pc2,
-				   Krt13 = log10(counts[rows,"Krt13"]))
-p10 <- ggplot(pdat,aes(x = PC1,y = PC2,fill = Krt13)) +
-  geom_point(shape = 21,color = "white",size = 1.25) +
-  scale_fill_gradientn(colors = c("skyblue","gold","darkorange","magenta"),
-                        na.value = "lightskyblue") +
-  theme_cowplot(font_size = 10) +
-  labs(fill = "log10 expression level")
+p10 <- pca_plot_with_counts(fit2,counts[rows,"Krt13"],pcs = 1:2,log = TRUE)
 print(p10)
 ```
 
@@ -123,6 +112,9 @@ and assign the remaining "in between" data points to a new "background
 cluster", B+C.
 
 ```{r clustering-7}
+pca <- prcomp(fit2$L)$x
+pc1 <- pca[,1]
+pc2 <- pca[,2]
 y   <- rep("B+C",nrow(pca))
 y[pc1 < 0.1] <- "B"
 y[pc1 > 0.4 & pc2 < 0.45] <- "C"
