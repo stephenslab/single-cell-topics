@@ -166,18 +166,17 @@ Indeed, there is a very close correspondence between the topic and
 cluster, with several characteristic genes (e.g. *Gp2*) showing
 somewhat stronger enrichment in the topic.
 
-```{r z-scores-droplet-G-vs-k1, fig.width=4, fig.height=3}
+```{r z-scores-droplet-G-vs-k1, fig.width=8, fig.height=3}
 p7 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
 						  label_above_score = 200,zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
-print(p7)
-rows <- which(abs(diff_count_clusters_droplet$Z[,"G"] > 2) |
-              abs(diff_count_droplet$Z[,1]) > 2)
-p7b <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"G"],
-                                 diff_count_droplet$beta[rows,1],
-								 diff_count_droplet$colmeans[rows])
-print(p7b)
+p8 <- logfoldchange_scatterplot(diff_count_clusters_droplet,
+                                diff_count_droplet,
+                                "G","k1",goblet_genes,
+								label_above_score = Inf) +
+  labs(x = "cluster G",y = "topic 1",title = "log-fold change (beta)")
+plot_grid(p7,p8)
 ```
 
 Tuft and pulmonary neuroendocrine cells

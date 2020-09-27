@@ -89,23 +89,38 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
 
 # Create a scatterplot comparing two sets of log-fold change
 # statistics generated from two different differential expression
-# analyses of the same data. Argument "betamin" is useful for not
-# including very large, negative log-fold change ("beta") estimates.
-logfoldchange_scatterplot <- function (x, y, colmeans, betamin = -20) {
-  i        <- which(x >= betamin & y >= betamin)
-  x        <- x[i]
-  y        <- y[i]
-  colmeans <- colmeans[i]
-  pdat     <- data.frame(mean = cut(colmeans,c(0,0.01,0.1,1,10,Inf)),
-                         x = x,y = y,stringsAsFactors = FALSE)
-  return(ggplot(pdat,aes_string(x = "x",y = "y",fill = "mean")) +
+# analyses of the same data.
+logfoldchange_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
+                                       label_above_score = 100, zmin = 10,
+                                       betamax = 10) {
+  z1   <- res1$Z[,k1]
+  z2   <- res2$Z[,k2]
+  pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
+                     b1   = res1$beta[,k1],
+                     b2   = res2$beta[,k2],
+                     gene = rownames(res1$Z),
+                     stringsAsFactors = FALSE)
+  pdat <- transform(pdat,
+                    b1 = sign(b1) * pmin(abs(b1),betamax),
+                    b2 = sign(b2) * pmin(abs(b2),betamax))
+  rows <- which(!(is.element(rownames(res1$Z),genes) |
+                  abs(z1) > label_above_score |
+                  abs(z2) > label_above_score))
+  pdat[rows,"gene"] <- ""
+  rows <- which(abs(z1) > zmin | abs(z2) > zmin)
+  pdat <- pdat[rows,]
+  return(ggplot(pdat,aes_string(x = "b1",y = "b2",fill = "mean",
+                                label = "gene")) +
          geom_point(shape = 21,size = 1.5,color = "white") +
+         geom_text_repel(color = "black",size = 2.25,fontface = "italic",
+                         segment.color = "black",segment.size = 0.25,
+                         max.overlaps = Inf,na.rm = TRUE) +
          scale_fill_manual(values = c("skyblue","cornflowerblue","orange",
                                       "tomato","firebrick")) +
          geom_abline(slope = 1,intercept = 0,color = "black",
                      linetype = "dotted") +
-         xlim(range(c(x,y))) + 
-         ylim(range(c(x,y))) +
+         xlim(range(c(pdat$b1,pdat$b2))) + 
+         ylim(range(c(pdat$b1,pdat$b2))) +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
@@ -117,25 +132,25 @@ logfoldchange_scatterplot <- function (x, y, colmeans, betamin = -20) {
 # is useful for creating a nice scatterplot when a small number of the
 # z-scores are much larger than the others. An additional set of genes
 # can be highlighted with the "genes" argument.
-zscores_scatterplot <- function (dcres1, dcres2, k1, k2, genes = NULL,
+zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                                  label_above_score = 100, zmax = 1000) {
-  colmeans <- dcres1$colmeans
-  z1   <- pmin(dcres1$Z[,k1],zmax)
-  z2   <- pmin(dcres2$Z[,k2],zmax)
-  pdat <- data.frame(mean = cut(colmeans,c(0,0.01,0.1,1,10,Inf)),
+  z1   <- pmin(res1$Z[,k1],zmax)
+  z2   <- pmin(res2$Z[,k2],zmax)
+  pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
                      z1   = z1,
                      z2   = z2,
-                     gene = rownames(dcres1$Z),
+                     gene = rownames(res1$Z),
                      stringsAsFactors = FALSE)
-  pdat[!(is.element(rownames(dcres1$Z),genes) |
-         abs(z1) > label_above_score |
-         abs(z2) > label_above_score),"gene"] <- ""
+  rows <- which(!(is.element(rownames(res1$Z),genes) |
+                  abs(z1) > label_above_score |
+                  abs(z2) > label_above_score))
+  pdat[rows,"gene"] <- ""
   return(ggplot(pdat,aes_string(x = "z1",y = "z2",fill = "mean",
                                 label = "gene")) +
          geom_point(shape = 21,size = 1.5,color = "white") +
          geom_text_repel(color = "black",size = 2.25,fontface = "italic",
                          segment.color = "black",segment.size = 0.25,
-                         na.rm = TRUE) +
+                         max.overlaps = Inf,na.rm = TRUE) +
          scale_fill_manual(values = c("skyblue","cornflowerblue","orange",
                                       "tomato","firebrick")) +
          geom_abline(slope = 1,intercept = 0,color = "black",
