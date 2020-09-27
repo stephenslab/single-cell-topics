@@ -252,7 +252,7 @@ The B cell also shows a lot of heterogeneity. Topic 1 is of particular
 interest because of its close connection to expression of the "hillock"
 gene *Krt13*:
 
-```{r pca-plot-basal, fig.width=6, fig.height=2}
+```{r pca-plot-basal, fig.width=6, fig.height=3}
 rows <- which(x == "B")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p23  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
