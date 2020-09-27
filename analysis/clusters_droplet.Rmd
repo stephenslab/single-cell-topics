@@ -102,7 +102,7 @@ Topic 4 in particular corresponds closely to expression of *Krt13*
 which was identified as being uniquely expressed by transitional
 "hillock" cells.
 
-```{r clustering-6, fig.width=4, fig.height=2.5}
+```{r clustering-6, fig.width=3.25, fig.height=2.5}
 p10 <- pca_plot_with_counts(fit2,counts[rows,"Krt13"],pcs = 1:2,log = TRUE)
 print(p10)
 ```
