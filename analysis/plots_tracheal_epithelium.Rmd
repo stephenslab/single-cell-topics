@@ -152,28 +152,19 @@ print(p5)
 ```
 
 Topic $k = 1$ is unique to this cluster suggesting that the this topic
-characterizes the goblet cell type.
+characterizes the goblet cell type. Indeed, there is a very close
+correspondence between the topic and cluster, with several
+characteristic genes (e.g. *Gp2*) showing somewhat stronger enrichment
+in the topic.
 
-```{r volcano-plot-goblet, fig.width=4.5, fig.height=4}
-goblet_genes <- "Gp2"
-p6 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k1",
-                                          goblet_genes,
-										  label_above_quantile = 0.998)
-print(p6)
-```
-
-Indeed, there is a very close correspondence between the topic and
-cluster, with several characteristic genes (e.g. *Gp2*) showing
-somewhat stronger enrichment in the topic.
-
-```{r z-scores-droplet-G-vs-k1, fig.width=8, fig.height=3}
+```{r scatterplots-droplet-G-vs-k1, fig.width=8, fig.height=3}
 p7 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
 						  label_above_score = 200,zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
 p8 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
                        "G","k1",goblet_genes,label_above_score = Inf) +
-  labs(x = "cluster G",y = "topic 1",title = "log-fold change (beta)")
+  labs(x = "cluster G",y = "topic 1",title = "log-fold change (\u03b2)")
 plot_grid(p7,p8)
 ```
 
@@ -208,62 +199,72 @@ Club, basal and hillock cells
 We end our exploration with the large subset of cells that does not
 decompose to form distinct clusters.
 
-Abundant basal cells:
+Abundant basal cells in droplet data:
 
-```{r, eval=FALSE}
+```{r, fig.width=4.5, fig.height=4}
 basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
 p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
 print(p10)
-p11 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k2",
+```
+
+Compare basal topic ($k = 2$) against basal cluster in droplet data:
+
+```{r, fig.width=4, fig.height=3}
+p11 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        "B","k2",basal_genes,label_above_score = Inf) +
+  labs(x = "cluster B",y = "topic 2",title = "log-fold change (\u03b2)")
+print(p11)
+```
+
+Basal cells in pulse-seq data:
+
+```{r, fig.width=4.5, fig.height=4}
+p12 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p11)
-p12 <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"B"],
-                                  diff_count_droplet$beta[rows,2], 
- 								  diff_count_droplet$colmeans[rows])
 print(p12)
 ```
 
-Hillock cells:
+Compare combined basal topics ($k = 1, 3, 9$) against cluster in
+pulse-seq data:
 
-```{r, eval=FALSE}
+```{r, fig.width=4, fig.height=3}
+p13 <- beta_scatterplot(diff_count_clusters_pulseseq,
+                        diff_count_merge_pulseseq,
+                        "B","k1+k3+k9",basal_genes,label_above_score = Inf) +
+  labs(x = "cluster B",y = "topics 1, 3 and 9",
+ 	   title = "log-fold change (\u03b2)")
+print(p13)
+```
+
+Hillock cells in droplet data:
+
+```{r, fig.width=4.5, fig.height=4}
 hillock_genes <- c("Krt4","Krt13","Ecm1","S100a11","Cldn3","Lgals3","Anxa1")
-p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
+p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
                                            hillock_genes,
 	 								 	   label_above_quantile = 0.998)
-print(p10)
-p11 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k4",
-                                           hillock_genes,
-	 								 	   label_above_quantile = 0.998)
-print(p11)
-p12 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
+print(p14)
+```
+
+Compare Hillock topic ($k = 4$) against cluster in droplet data:
+
+```{r, fig.width=4, fig.height=3}
+p15 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        "H","k4",hillock_genes,label_above_score = Inf) +
+  labs(x = "cluster H",y = "topic 4",title = "log-fold change (\u03b2)")
+print(p15)
+p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
                            diff_count_droplet$Z[,4],
  						   diff_count_droplet$colmeans,
  						   colnames(counts_droplet),
  						   label_above_score = 100,
 						   zmax = 400) +
   labs(x = "cluster H",y = "topic 4",title = "z-scores")
-print(p12)
-rows <- which(abs(diff_count_clusters_droplet$Z[,"H"] > 2) |
-              abs(diff_count_droplet$Z[,4]) > 2)
-rows <- is.element(rownames(diff_count_droplet$Z),hillock_genes)
-p12b <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"H"],
-                                  diff_count_droplet$beta[rows,4], 
- 								  diff_count_droplet$colmeans[rows])
-print(p12b)
-p13 <- volcano_plot_with_highlighted_genes(diff_count_pulseseq,"k1",
-                                           hillock_genes,
-	 								 	   label_above_quantile = 0.995)
-print(p13)
 ```
 
-TO DO:
+TO DO: Add volcano plots for C (club) clusters and topics.
 
-+ Add volcano plots for B (basal) and C (club) clusters.
-
-+ Add volcano plot for P cluster (proliferating cells).
-
-+ Add plots for hillock cells.
 
