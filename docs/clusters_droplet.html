@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree54f44d3ba8417cf7f20dbc146eb58dbf97ffd5a4targetblank54f44d3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/54f44d3ba8417cf7f20dbc146eb58dbf97ffd5a4" target="_blank">54f44d3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree306f5dcd98ae0eb0e656e58b7cc7d70d752e773atargetblank306f5dca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/306f5dcd98ae0eb0e656e58b7cc7d70d752e773a" target="_blank">306f5dc</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree54f44d3ba8417cf7f20dbc146eb58dbf97ffd5a4targetblank54f44d3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree306f5dcd98ae0eb0e656e58b7cc7d70d752e773atargetblank306f5dca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/54f44d3ba8417cf7f20dbc146eb58dbf97ffd5a4" target="_blank">54f44d3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/306f5dcd98ae0eb0e656e58b7cc7d70d752e773a" target="_blank">306f5dc</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -445,6 +444,9 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
 
 </code></pre>
 <p>
@@ -483,6 +485,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/306f5dcd98ae0eb0e656e58b7cc7d70d752e773a/analysis/clusters_droplet.Rmd" target="_blank">306f5dc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-27
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/bf299b96b71c97ebe700d19ad9de13f44ad23f41/docs/clusters_droplet.html" target="_blank">bf299b9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-27
+</td>
+<td>
+Use pca_plot_with_counts in clusters_droplet analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1093,7 +1129,7 @@ Peter Carbonetto
 <p>Topic 4 in particular corresponds closely to expression of <em>Krt13</em> which was identified as being uniquely expressed by transitional “hillock” cells.</p>
 <pre class="r"><code>p10 &lt;- pca_plot_with_counts(fit2,counts[rows,&quot;Krt13&quot;],pcs = 1:2,log = TRUE)
 print(p10)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="390" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
 Past versions of clustering-6-1.png
@@ -1116,6 +1152,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bf299b96b71c97ebe700d19ad9de13f44ad23f41/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">bf299b9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-27
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/0a8b5712281df02f14f686e1b9556794094d97f7/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">0a8b571</a>
