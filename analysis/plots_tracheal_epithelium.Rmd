@@ -157,6 +157,8 @@ correspondence between the topic and cluster, with several
 characteristic genes (e.g. *Gp2*) showing somewhat stronger enrichment
 in the topic.
 
+TO DO: Show z-scores in scatterplot on square-root scale.
+
 ```{r scatterplots-droplet-G-vs-k1, fig.width=8, fig.height=3}
 p7 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
@@ -263,6 +265,11 @@ p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
  						   label_above_score = 100,
 						   zmax = 400) +
   labs(x = "cluster H",y = "topic 4",title = "z-scores")
+```
+
+TO DO: Hillock topic ($k = 1$) in pulse-seq data:
+
+```{r}
 ```
 
 Club cells in droplet data:
