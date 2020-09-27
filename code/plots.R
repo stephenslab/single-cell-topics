@@ -89,10 +89,14 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
 
 # Create a scatterplot comparing two sets of log-fold change
 # statistics generated from two different differential expression
-# analyses of the same data.
-logfoldchange_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
-                                       label_above_score = 100, zmin = 10,
-                                       betamax = 10) {
+# analyses of the same data. Only log-fold change statistics with
+# z-scores greater than zmin are shown. Points with the largest
+# z-scores (in magnitude) are labeled (controlled by the
+# "label_above_score" argument). An additional set of genes can be
+# highlighted with the "genes" argument.
+beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
+                              label_above_score = 100, zmin = 10,
+                              betamax = 10) {
   z1   <- res1$Z[,k1]
   z2   <- res2$Z[,k2]
   pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
@@ -128,7 +132,7 @@ logfoldchange_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
 # Create a scatterplot comparing two sets of z-scores generated from
 # two different differential expression analyses of the same data.
 # Points with the largest z-scores (in magnitude) are labeled
-# (according ot the "label_above_score" argument). The "zmax" argument
+# (controlled by the "label_above_score" argument). The "zmax" argument
 # is useful for creating a nice scatterplot when a small number of the
 # z-scores are much larger than the others. An additional set of genes
 # can be highlighted with the "genes" argument.
