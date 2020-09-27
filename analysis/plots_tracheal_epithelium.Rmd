@@ -171,10 +171,8 @@ p7 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
 						  label_above_score = 200,zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
-p8 <- logfoldchange_scatterplot(diff_count_clusters_droplet,
-                                diff_count_droplet,
-                                "G","k1",goblet_genes,
-								label_above_score = Inf) +
+p8 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                       "G","k1",goblet_genes,label_above_score = Inf) +
   labs(x = "cluster G",y = "topic 1",title = "log-fold change (beta)")
 plot_grid(p7,p8)
 ```
@@ -212,7 +210,7 @@ decompose to form distinct clusters.
 
 Abundant basal cells:
 
-```{r}
+```{r, eval=FALSE}
 basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
 p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
                                            basal_genes,
@@ -222,10 +220,7 @@ p11 <- volcano_plot_with_highlighted_genes(diff_count_droplet,"k2",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
 print(p11)
-rows <- which(abs(diff_count_clusters_droplet$Z[,"B"] > 2) |
-              abs(diff_count_droplet$Z[,2]) > 2)
-rows <- is.element(rownames(diff_count_droplet$Z),basal_genes)
-p12  <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"B"],
+p12 <- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,"B"],
                                   diff_count_droplet$beta[rows,2], 
  								  diff_count_droplet$colmeans[rows])
 print(p12)
@@ -233,7 +228,7 @@ print(p12)
 
 Hillock cells:
 
-```{r}
+```{r, eval=FALSE}
 hillock_genes <- c("Krt4","Krt13","Ecm1","S100a11","Cldn3","Lgals3","Anxa1")
 p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
                                            hillock_genes,
