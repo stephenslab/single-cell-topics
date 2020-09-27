@@ -242,7 +242,7 @@ print(p13)
 Hillock cells in droplet data:
 
 ```{r, fig.width=4.5, fig.height=4}
-hillock_genes <- c("Krt4","Krt13","Ecm1","S100a11","Cldn3","Lgals3","Anxa1")
+hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
 p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
                                            hillock_genes,
 	 								 	   label_above_quantile = 0.998)
@@ -265,6 +265,38 @@ p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
   labs(x = "cluster H",y = "topic 4",title = "z-scores")
 ```
 
-TO DO: Add volcano plots for C (club) clusters and topics.
+Club cells in droplet data:
 
+```{r, fig.width=4.5, fig.height=4}
+club_genes <- c("Nfia","Cbr2","Krt15","Cyp2f2","Lypd2","Scgb1a1")
+p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
+                                           club_genes,
+	 								 	   label_above_quantile = 0.995)
+print(p16)
+```
 
+Club cells in pulse-seq data:
+
+```{r, fig.width=4.5, fig.height=4}
+p17 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
+                                           club_genes,
+	 								 	   label_above_quantile = 0.995)
+print(p17)
+```
+
+Club topic in droplet data:
+
+```{r}
+p18 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
+                        "C","k5+k7",club_genes,label_above_score = Inf)
+print(p18)
+```
+
+Club topic in pulse-seq data:
+
+```{r}
+p19 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
+                        "C","k4+k5+k6+k8+k10",club_genes,
+                        label_above_score = Inf)
+print(p19)
+```
