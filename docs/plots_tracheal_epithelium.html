@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -323,10 +323,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-24
+<strong>Last updated:</strong> 2020-09-26
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -390,27 +390,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-diff-count-analysis-clusters-droplet
-</li>
-<li>
-diff-count-analysis-clusters-pulseseq
-</li>
-<li>
-diff-count-analysis-topics-droplet
-</li>
-<li>
-diff-count-analysis-topics-pulseseq
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>plots_tracheal_epithelium_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
@@ -429,26 +414,28 @@ diff-count-analysis-topics-pulseseq
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7262a9632efd20559839c3a8480faaf0c3b583cdtargetblank7262a96a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/7262a9632efd20559839c3a8480faaf0c3b583cd" target="_blank">7262a96</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef9fe3eb4d532228fe192425e0191e5f44952073atargetblankf9fe3eba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f9fe3eb4d532228fe192425e0191e5f44952073a" target="_blank">f9fe3eb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7262a9632efd20559839c3a8480faaf0c3b583cdtargetblank7262a96a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef9fe3eb4d532228fe192425e0191e5f44952073atargetblankf9fe3eba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/7262a9632efd20559839c3a8480faaf0c3b583cd" target="_blank">7262a96</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f9fe3eb4d532228fe192425e0191e5f44952073a" target="_blank">f9fe3eb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
     Ignored:    data/pulseseq.RData
+    Ignored:    output/droplet/diff-count-droplet.RData
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
@@ -459,8 +446,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/.#plots_tracheal_epithelium.Rmd
-    Untracked:  analysis/plots_tracheal_epithelium_cache/
+    Untracked:  output/pulseseq/diff-count-pulseseq.RData
 
 Unstaged changes:
     Modified:   code/plots.R
@@ -502,6 +488,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f9fe3eb4d532228fe192425e0191e5f44952073a/analysis/plots_tracheal_epithelium.Rmd" target="_blank">f9fe3eb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/95f91d46a8ac16ffc8c8b9e84e77f4b7753dd83f/analysis/plots_tracheal_epithelium.Rmd" target="_blank">95f91d4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Improved functions logfoldchange_scatterplot and zscores_scatterplot in plots.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/73ef43975b21edb847356104b0f20f3bb0b55fb5/analysis/plots_tracheal_epithelium.Rmd" target="_blank">73ef439</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Made some improvements to zscore_scatterplot in plots.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/56bb5fdc9321a6ce288f6afc63c47855866446b5/analysis/plots_tracheal_epithelium.Rmd" target="_blank">56bb5fd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+<td>
+Adding some scatterplots and volcano plots to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/plots_tracheal_epithelium.html" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+<td>
+Added volcano plots for T+N celels to plots_tracheal_epithelium
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1608,85 +1679,32 @@ library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
 <div id="load-data-and-results" class="section level2">
 <h2>Load data and results</h2>
-<p>Load the smaller “droplet” data set, the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit for these data, and the 8 clusters identified in the <a href="clusters_droplet.html">clustering analysis</a>.</p>
+<p>Load the smaller “droplet” data set, the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit for these data, the 8 clusters identified in the <a href="clusters_droplet.html">clustering analysis</a>, and the results of the differential expression analysis.</p>
 <pre class="r"><code>load(&quot;../data/droplet.RData&quot;)
+load(&quot;../output/droplet/diff-count-droplet.RData&quot;)
 counts_droplet &lt;- counts
 samples_droplet &lt;- readRDS(&quot;../output/droplet/clustering-droplet.rds&quot;)
 fit_droplet &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
-rm(samples,counts)</code></pre>
+diff_count_droplet &lt;- diff_count_topics
+diff_count_clusters_droplet &lt;- diff_count_clusters
+diff_count_merge_droplet &lt;- diff_count_merge_club
+rm(samples,counts)
+rm(diff_count_topics,diff_count_clusters,diff_count_merge_club)</code></pre>
 <p>For reference, we show here the Structure plot from the <a href="clusters_droplet.html">clustering analysis of the droplet data</a>. This Structure plot summarizes the topic proportions in each of the 8 subsets.</p>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" /></p>
 <p>Next, load the larger “pulse-seq” data set, the <span class="math inline">\(k = 11\)</span> Poisson NMF model fit for these data, and the 7 clusters identified in the <a href="clusters_pulseseq.html">clustering analysis</a>.</p>
 <pre class="r"><code>load(&quot;../data/pulseseq.RData&quot;)
+load(&quot;../output/pulseseq/diff-count-pulseseq.RData&quot;)
 counts_pulseseq  &lt;- counts
 samples_pulseseq &lt;- readRDS(&quot;../output/pulseseq/clustering-pulseseq.rds&quot;)
 fit_pulseseq &lt;- readRDS(&quot;../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds&quot;)$fit
-rm(samples,counts)</code></pre>
+diff_count_pulseseq &lt;- diff_count_topics
+diff_count_clusters_pulseseq &lt;- diff_count_clusters
+diff_count_merge_pulseseq &lt;- diff_count_merge_bc
+rm(samples,counts)
+rm(diff_count_topics,diff_count_clusters,diff_count_merge_bc)</code></pre>
 <p>For reference, we show here the Structure plot from the <a href="clusters_pulseseq.html">clustering analysis of the pulse-seq data</a>. This Structure plot summarizes the topic proportions in each of the 7 subsets:</p>
 <p><img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" /></p>
-</div>
-<div id="differential-expression-analysis" class="section level2">
-<h2>Differential expression analysis</h2>
-<p>Perform differential expression analysis using the topic model fitted to the droplet data.</p>
-<pre class="r"><code>timing &lt;- system.time(
-  diff_count_droplet &lt;- diff_count_analysis(fit_droplet,counts_droplet))
-cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
-# Fitting 18388 x 7 = 128716 univariate Poisson models.
-# Computing log-fold change statistics.
-# Computation took 21.57 seconds.</code></pre>
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
-<p>Perform a differential expression analysis using the topic model fitted to the pulse-seq data.</p>
-<pre class="r"><code>timing &lt;- system.time(
-  diff_count_pulseseq &lt;- diff_count_analysis(fit_pulseseq,counts_pulseseq))
-cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
-# Fitting 21621 x 11 = 237831 univariate Poisson models.
-# Computing log-fold change statistics.
-# Computation took 1068.47 seconds.</code></pre>
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
-<p>Now, calculate differential expression statistics using the clusters identified in the droplet data.</p>
-<pre class="r"><code>fit_clusters_droplet &lt;-
-  init_poisson_nmf_from_clustering(counts_droplet,samples_droplet$cluster)
-timing &lt;- system.time(
-  diff_count_clusters_droplet &lt;- diff_count_analysis(fit_clusters_droplet,
-                                                     counts_droplet))
-# All topic proportions are either zero or one; using simpler single-topic calculations for model parameter estimates
-cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
-# Fitting 18388 x 8 = 147104 univariate Poisson models.
-# Computing log-fold change statistics.
-# Computation took 30.32 seconds.</code></pre>
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
-<p>And do the same in the pulse-seq data.</p>
-<pre class="r"><code>fit_clusters_pulseseq &lt;-
-  init_poisson_nmf_from_clustering(counts_pulseseq,samples_pulseseq$cluster)
-timing &lt;- system.time(
-  diff_count_clusters_pulseseq &lt;- diff_count_analysis(fit_clusters_pulseseq,
-                                                      counts_pulseseq))
-# All topic proportions are either zero or one; using simpler single-topic calculations for model parameter estimates
-cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
-# Fitting 21621 x 7 = 151347 univariate Poisson models.
-# Computing log-fold change statistics.
-# Computation took 540.97 seconds.</code></pre>
-<div class="alert alert-warning">
-<p>
-<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
->knitr cache options</a> for more details.
-</p>
-</div>
 </div>
 <div id="ciliated-cells" class="section level2">
 <h2>Ciliated cells</h2>
@@ -1719,6 +1737,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">30194ad</a>
@@ -1820,6 +1849,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/c0fa2db2320a5627d877475e7e86d56710b76603/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">c0fa2db</a>
 </td>
 <td>
@@ -1912,6 +1952,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" target="_blank">30194ad</a>
 </td>
 <td>
@@ -1995,6 +2046,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/pca-plot-droplet-Foxi1-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/pca-plot-droplet-Foxi1-1.png" target="_blank">30194ad</a>
@@ -2088,6 +2150,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">30194ad</a>
 </td>
 <td>
@@ -2154,6 +2227,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-goblet-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-goblet-1.png" target="_blank">30194ad</a>
 </td>
 <td>
@@ -2168,15 +2252,15 @@ Peter Carbonetto
 </div>
 </div>
 <p>Indeed, there is a very close correspondence between the topic and cluster, with several characteristic genes (e.g. <em>Gp2</em>) showing somewhat stronger enrichment in the topic.</p>
-<pre class="r"><code>p7 &lt;- zscores_scatterplot(diff_count_clusters_droplet$Z[,&quot;G&quot;],
-                          diff_count_droplet$Z[,1],
-                          diff_count_droplet$colmeans,
-                          colnames(counts_droplet),
-                          label_above_score = 150,
-                          zmax = 800) +
+<pre class="r"><code>p7 &lt;- zscores_scatterplot(diff_count_clusters_droplet,
+                          diff_count_droplet,&quot;G&quot;,&quot;k1&quot;,goblet_genes,
+                          label_above_score = 200,zmax = 800) +
   labs(x = &quot;cluster G&quot;,y = &quot;topic 1&quot;,title = &quot;z-scores&quot;)
-print(p7)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" width="480" style="display: block; margin: auto;" /></p>
+p8 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                       &quot;G&quot;,&quot;k1&quot;,goblet_genes,label_above_score = Inf) +
+  labs(x = &quot;cluster G&quot;,y = &quot;topic 1&quot;,title = &quot;log-fold change (beta)&quot;)
+plot_grid(p7,p8)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-droplet-G-vs-k1-1">
 Past versions of z-scores-droplet-G-vs-k1-1.png
@@ -2199,6 +2283,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" target="_blank">30194ad</a>
@@ -2224,19 +2319,139 @@ p8 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;T
                                           label_above_quantile = 0.998)
 print(p8)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plot-droplet-T+N-1">
+Past versions of volcano-plot-droplet-T+N-1.png
+</button>
+</p>
+<div id="fig-volcano-plot-droplet-T+N-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Here is the volcano plot from the pulse-seq data:</p>
 <pre class="r"><code>p9 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;T+N&quot;,
                                           tuft_neuroendocrine_genes,
                                           label_above_quantile = 0.998)
 print(p9)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plot-pulseseq-T+N-1">
+Past versions of volcano-plot-pulseseq-T+N-1.png
+</button>
+</p>
+<div id="fig-volcano-plot-pulseseq-T+N-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" target="_blank">6a9691b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="proliferating-cells" class="section level2">
-<h2>Proliferating cells</h2>
 </div>
-<div id="basal-club-and-hillock-cells" class="section level2">
-<h2>Basal, club and hillock cells</h2>
-<p>We end our exploration with the large subset of cells that do not form distinct clusters.</p>
+</div>
+<div id="club-basal-and-hillock-cells" class="section level2">
+<h2>Club, basal and hillock cells</h2>
+<p>We end our exploration with the large subset of cells that does not decompose to form distinct clusters.</p>
+<p>Abundant basal cells:</p>
+<pre class="r"><code>basal_genes &lt;- c(&quot;Aqp3&quot;,&quot;Krt5&quot;,&quot;Dapl1&quot;,&quot;Hspa1a&quot;,&quot;Trp63&quot;)
+p10 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;B&quot;,
+                                           basal_genes,
+                                           label_above_quantile = 0.995)
+print(p10)
+p11 &lt;- volcano_plot_with_highlighted_genes(diff_count_droplet,&quot;k2&quot;,
+                                           basal_genes,
+                                           label_above_quantile = 0.995)
+print(p11)
+p12 &lt;- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,&quot;B&quot;],
+                                  diff_count_droplet$beta[rows,2], 
+                                  diff_count_droplet$colmeans[rows])
+print(p12)</code></pre>
+<p>Hillock cells:</p>
+<pre class="r"><code>hillock_genes &lt;- c(&quot;Krt4&quot;,&quot;Krt13&quot;,&quot;Ecm1&quot;,&quot;S100a11&quot;,&quot;Cldn3&quot;,&quot;Lgals3&quot;,&quot;Anxa1&quot;)
+p10 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;H&quot;,
+                                           hillock_genes,
+                                           label_above_quantile = 0.998)
+print(p10)
+p11 &lt;- volcano_plot_with_highlighted_genes(diff_count_droplet,&quot;k4&quot;,
+                                           hillock_genes,
+                                           label_above_quantile = 0.998)
+print(p11)
+p12 &lt;- zscores_scatterplot(diff_count_clusters_droplet$Z[,&quot;H&quot;],
+                           diff_count_droplet$Z[,4],
+                           diff_count_droplet$colmeans,
+                           colnames(counts_droplet),
+                           label_above_score = 100,
+                           zmax = 400) +
+  labs(x = &quot;cluster H&quot;,y = &quot;topic 4&quot;,title = &quot;z-scores&quot;)
+print(p12)
+rows &lt;- which(abs(diff_count_clusters_droplet$Z[,&quot;H&quot;] &gt; 2) |
+              abs(diff_count_droplet$Z[,4]) &gt; 2)
+rows &lt;- is.element(rownames(diff_count_droplet$Z),hillock_genes)
+p12b &lt;- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,&quot;H&quot;],
+                                  diff_count_droplet$beta[rows,4], 
+                                  diff_count_droplet$colmeans[rows])
+print(p12b)
+p13 &lt;- volcano_plot_with_highlighted_genes(diff_count_pulseseq,&quot;k1&quot;,
+                                           hillock_genes,
+                                           label_above_quantile = 0.995)
+print(p13)</code></pre>
+<p>TO DO:</p>
+<ul>
+<li><p>Add volcano plots for B (basal) and C (club) clusters.</p></li>
+<li><p>Add volcano plot for P cluster (proliferating cells).</p></li>
+<li><p>Add plots for hillock cells.</p></li>
+</ul>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2260,7 +2475,7 @@ print(p9)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggrepel_0.9.0      ggplot2_3.3.0      fastTopics_0.3-175
+# [1] cowplot_1.0.0      ggrepel_0.9.0      ggplot2_3.3.0      fastTopics_0.3-177
 # [5] dplyr_0.8.3        Matrix_1.2-18     
 # 
 # loaded via a namespace (and not attached):
