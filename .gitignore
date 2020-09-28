@@ -24,6 +24,7 @@ output/pbmc-purified/rds/prefit-pbmc-purified-k=*.rds
 output/pbmc-purified/rds/fit-pbmc-purified-*.rds
 output/pulseseq/rds/prefit-pulseseq-k=*.rds
 output/pulseseq/rds/fit-pulseseq-*.rds
+output/pulseseq/rds/refit-pulseseq-*.rds
 output/droplet/fits-droplet.RData
 output/pbmc-68k/fits-pbmc-68k.RData
 output/pbmc-purified/fits-pbmc-purified.RData
