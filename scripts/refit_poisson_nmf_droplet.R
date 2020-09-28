@@ -40,4 +40,4 @@ timing <- system.time({
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
-saveRDS(fit,file = "refit-droplet-scd-ex-k=7.rds")
+saveRDS(fit,file = "refit-droplet-scd-ex-k=8.rds")
