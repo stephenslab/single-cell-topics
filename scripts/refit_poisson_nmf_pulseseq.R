@@ -1,9 +1,11 @@
-# TO DO: Revise this description.
-#
 # Script for "re-fitting" a Poisson non-negative factorization to the
-# pulse-seq data after introducing a new topic for the T+N (tuft and
-# neuroendocrine) cells based on the clustering of the topic
-# proportions.
+# pulse-seq data after introducing new topics for the I cluster
+# ("ionocytes") and P cluster ("proliferating cells").
+#
+# These are the Slurm settings I used:
+#
+#   sinteractive --mem=16G --cpus-per-task=8
+#
 library(Matrix)
 library(fastTopics)
 
@@ -32,14 +34,14 @@ fit$Ln <- fit$L
 rm(n,rows1,rows2,F,L)
 
 # Begin by re-fitting the loadings only.
-fit <- fit_poisson_nmf(counts,fit0 = fit,numiter = 2,
+fit <- fit_poisson_nmf(counts,fit0 = fit,numiter = 20,
                         method = "scd",update.factors = NULL,
-                        control = list(numiter = 4,nc = 4))
+                        control = list(numiter = 4,nc = 8))
 
 # Now we are ready to perform the main model re-fitting step.
 timing <- system.time({
-  fit <- fit_poisson_nmf(counts,fit0 = fit,numiter = 10,method = "scd",
-                         control = list(extrapolate = TRUE,numiter = 4,nc = 4))
+  fit <- fit_poisson_nmf(counts,fit0 = fit,numiter = 180,method = "scd",
+                         control = list(extrapolate = TRUE,numiter = 4,nc = 8))
 })
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
