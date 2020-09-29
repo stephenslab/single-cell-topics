@@ -195,8 +195,8 @@ p9 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
 print(p9)
 ```
 
-Club, basal and hillock cells
------------------------------
+Basal cells
+-----------
 
 We end our exploration with the large subset of cells that does not
 decompose to form distinct clusters.
@@ -241,36 +241,8 @@ p13 <- beta_scatterplot(diff_count_clusters_pulseseq,
 print(p13)
 ```
 
-Hillock cells in droplet data:
-
-```{r, fig.width=4.5, fig.height=4}
-hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
-p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
-                                           hillock_genes,
-	 								 	   label_above_quantile = 0.998)
-print(p14)
-```
-
-Compare Hillock topic ($k = 4$) against cluster in droplet data:
-
-```{r, fig.width=4, fig.height=3}
-p15 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                        "H","k4",hillock_genes,label_above_score = Inf) +
-  labs(x = "cluster H",y = "topic 4",title = "log-fold change (\u03b2)")
-print(p15)
-p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
-                           diff_count_droplet$Z[,4],
- 						   diff_count_droplet$colmeans,
- 						   colnames(counts_droplet),
- 						   label_above_score = 100,
-						   zmax = 400) +
-  labs(x = "cluster H",y = "topic 4",title = "z-scores")
-```
-
-TO DO: Hillock topic ($k = 1$) in pulse-seq data:
-
-```{r}
-```
+Club cells
+----------
 
 Club cells in droplet data:
 
@@ -307,3 +279,71 @@ p19 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
                         label_above_score = Inf)
 print(p19)
 ```
+
+Proliferating cells
+-------------------
+
+Proliferating cells in pulse-seq data:
+
+```{r, fig.width=4.5, fig.height=4}
+cell_cycle_genes <- c("Cdk1","Ube2c","Top2a")
+p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
+                                           cell_cycle_genes,
+	 								 	   label_above_quantile = 0.998)
+print(p14)
+```
+
+```{r, fig.width=4, fig.height=3}
+qt_random_tie <- function (x) {
+  y = rank(x,ties.method = "random")
+  return(qqnorm(y,plot.it = FALSE)$x)
+}
+rows <- with(samples_pulseseq,which(cluster == "B" | cluster == "P"))
+fit2 <- select(poisson2multinom(fit_pulseseq),loadings = rows)
+X <- counts_pulseseq[rows,cell_cycle_genes]
+Y <- apply(X,2,qt_random_tie)
+rownames(Y) <- rownames(X)
+score <- rowSums(Y)
+pdat <- as.data.frame(prcomp(fit2$L)$x)
+pdat <- cbind(pdat,data.frame(score = score))
+p15 <- ggplot(pdat,aes(x = PC5,y = PC6,fill = score)) +
+  geom_point(shape = 21,color = "white",size = 1.25) +
+  scale_fill_gradientn(colors = c("darkblue","royalblue",
+                       "lightskyblue","darkorange","firebrick")) +
+  theme_cowplot(font_size = 10)
+```
+
+Hillock cells
+-------------
+
+Hillock cells in droplet data:
+
+```{r, fig.width=4.5, fig.height=4}
+hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
+p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
+                                           hillock_genes,
+	 								 	   label_above_quantile = 0.998)
+print(p14)
+```
+
+Compare Hillock topic ($k = 4$) against cluster in droplet data:
+
+```{r, fig.width=4, fig.height=3}
+p15 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        "H","k4",hillock_genes,label_above_score = Inf) +
+  labs(x = "cluster H",y = "topic 4",title = "log-fold change (\u03b2)")
+print(p15)
+p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
+                           diff_count_droplet$Z[,4],
+ 						   diff_count_droplet$colmeans,
+ 						   colnames(counts_droplet),
+ 						   label_above_score = 100,
+						   zmax = 400) +
+  labs(x = "cluster H",y = "topic 4",title = "z-scores")
+```
+
+TO DO: Hillock topic ($k = 1$) in pulse-seq data:
+
+```{r}
+```
+
