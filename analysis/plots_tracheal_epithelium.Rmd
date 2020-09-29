@@ -303,7 +303,13 @@ print(p17)
 Hillock cells
 -------------
 
-Hillock cells in droplet data. Small cluster (197 cells).
+The Montoro *et al* (2018) paper identifies a rare transitional cell
+though a diffusion maps analysis of the droplet data. They call these
+rare transition cells uniquely expressing *Krt13* as "Hillock
+cells". Indeed, we do not identify a distinct cluster for Hillock
+celels in the droplet data, but we nonetheless formed a small ($n =
+197$) cluster in the clustering analysis that shows strong enrichment
+of the top hillock genes (e.g., *Krt4*, *Krt13*):
 
 ```{r volcano-plot-droplet-hillock, fig.width=4.5, fig.height=4}
 hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
@@ -313,7 +319,11 @@ p18 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
 print(p18)
 ```
 
-Compare Hillock topic ($k = 4$) against cluster in droplet data:
+Given the transitional nature of these cells, one would expect that
+mixtures of gene programs would better characterize hillock cells, and
+indeed topic 4, which is the greatest contributor to this cluster of
+hillock cells, picks up a more distinct enrichment signal for hillock
+genes:
 
 ```{r scatterplots-droplet-H-vs-k4, fig.width=8, fig.height=3}
 p19 <- zscores_scatterplot(diff_count_clusters_droplet,
@@ -326,10 +336,23 @@ p20 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
 plot_grid(p19,p20)
 ```
 
-TO DO: Hillock topic ($k = 1$) in pulse-seq data:
+For example, we estimate roughly a 68-fold enrichment of *Krt13*
+expression in the hillock cluster, and over *1,000*-fold enrichment in
+the hillock topic (essentially because there is no expression of
+*Krt13* outside this topic).
 
-```{r, eval=FALSE}
+The presence of hillock cells in the pulse-seq data is more subtle,
+but it is nonetheless well-captured by a single topic, $k = 1$:
+
+```{r volcano-plot-pulseseq-hillock, fig.width=4.5, fig.height=4}
+p21 <- volcano_plot_with_highlighted_genes(diff_count_pulseseq,"k1",
+                                           c(cell_cycle_genes,hillock_genes),
+	 								 	   label_above_quantile = 0.995)
+print(p21)
 ```
+
+Since this topic also shows up in proliferating cells, we also obtain
+strong enrichment of cell-cycle genes.
 
 Club cells
 ----------
