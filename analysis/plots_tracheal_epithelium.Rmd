@@ -110,16 +110,17 @@ p2 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"Cil",
 print(p2)
 ```
 
-Reassuringly, the topic capturing the ciliated cell-type ($k = 7$)
-corresponds very closely to the "cil" cluster in the pulse-seq data.
-Gene enrichments are considerably stronger in the topic for ciliated
-genes, and particularly so for some genes with lower expression
-levels.
+The topic for the ciliated cell-type ($k = 7$) corresponds very
+closely to the "Cil" cluster in the pulse-seq data. In addition, gene
+enrichments are considerably stronger in the topic for ciliated genes,
+particularly so for some genes with lower expression levels.
+
+TO DO: Show z-scores in scatterplot on sqrt scale.
 
 ```{r scatterplots-pulseseq-Cil-vs-k7, fig.width=8, fig.height=3}
 p3 <- zscores_scatterplot(diff_count_clusters_pulseseq,
                           diff_count_pulseseq,"Cil","k7",ciliated_genes,
-						  label_above_score = Inf,zmax = 1000) +
+						  label_above_score = Inf,zmax = 750) +
   labs(x = "cluster Cil",y = "topic 7",title = "z-scores")
 p4 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_pulseseq,
                        "Cil","k7",ciliated_genes,label_above_score = Inf) +
@@ -131,42 +132,40 @@ Ionocytes
 ---------
 
 In the pulse-seq data, we identify a distinctive cluster for the newly
-discovered---and very rare---ionocyte cell type. Gene expression in
-these cells is not fully captured by any single topic, yet the mixture
-of topics forms a distinctive cluster in the embedding formed by the
-pulse-seq topic proportions.
+discovered, rare "ionocyte" cell type. Gene expression in these cells
+is not fully captured by any single topic, yet the mixture of topics
+forms a distinctive cluster.
 
 ```{r volcano-plot-pulseseq-I, fig.width=4.4, fig.height=4}
 ionocyte_genes <- c("Ascl3","Asgr1","Atp6v0d2","Atp6v1c2","Cftr","Foxi1",
                     "Moxd1","P2ry14","Stap1")
-p3 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"I",
+p5 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"I",
                                           ionocyte_genes,
 										  label_above_quantile = 0.998)
-print(p3)
+print(p5)
 ```
 
-We do not identify a cluster for ionocytes in the droplet data. This
-is not surprising in light of the fact that only a very small number
-of cells in the droplet data set appear to be ionocytes, at least
-judging by expression of the *Foxi1* ionocyte marker gene:
+We do not identify a cluster for ionocytes in the droplet
+data. Judging by expression of the *Foxi1* ionocyte marker gene, only
+a handful of cells in the droplet data are ionocytes:
 
 ```{r pca-plot-droplet-Foxi1, fig.width=3.75, fig.height=3}
-p4 <- pca_plot_with_counts(fit_droplet,counts_droplet[,"Foxi1"],1:2)
-print(p4)
+p6 <- pca_plot_with_counts(fit_droplet,counts_droplet[,"Foxi1"],1:2)
+print(p6)
 ```
 
 Goblet cells
 ------------
 
 Consistent with Montoro *et al* (2018), we identify a cluster of
-Goblet cells in the droplet data, but not in the pulse-seq data.
+Goblet cells in the droplet data.
 
 ```{r volcano-plot-droplet-G, fig.width=4.5, fig.height=4}
 goblet_genes <- "Gp2"
-p5 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"G",
+p7 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"G",
                                           goblet_genes,
 										  label_above_quantile = 0.998)
-print(p5)
+print(p7)
 ```
 
 Topic $k = 1$ is unique to this cluster suggesting that the this topic
@@ -175,17 +174,15 @@ correspondence between the topic and cluster, with several
 characteristic genes (e.g. *Gp2*) showing somewhat stronger enrichment
 in the topic.
 
-TO DO: Show z-scores in scatterplot on square-root scale.
-
 ```{r scatterplots-droplet-G-vs-k1, fig.width=8, fig.height=3}
-p7 <- zscores_scatterplot(diff_count_clusters_droplet,
+p8 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
 						  label_above_score = 200,zmax = 800) +
   labs(x = "cluster G",y = "topic 1",title = "z-scores")
-p8 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+p9 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
                        "G","k1",goblet_genes,label_above_score = Inf) +
   labs(x = "cluster G",y = "topic 1",title = "log-fold change (\u03b2)")
-plot_grid(p7,p8)
+plot_grid(p8,p9)
 ```
 
 Tuft and pulmonary neuroendocrine cells
