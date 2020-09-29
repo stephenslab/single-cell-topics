@@ -320,10 +320,10 @@ print(p18)
 ```
 
 Given the transitional nature of these cells, one would expect that
-mixtures of gene programs would better characterize hillock cells, and
-indeed topic 4, which is the greatest contributor to this cluster of
-hillock cells, picks up a more distinct enrichment signal for hillock
-genes:
+mixtures of gene programs would better characterize the continuous
+variation in the hillock-specific gene program, and indeed topic 4,
+which is the greatest contributor to this cluster of hillock cells,
+picks up a more distinct enrichment signal for hillock genes:
 
 ```{r scatterplots-droplet-H-vs-k4, fig.width=8, fig.height=3}
 p19 <- zscores_scatterplot(diff_count_clusters_droplet,
@@ -357,39 +357,49 @@ strong enrichment of cell-cycle genes.
 Club cells
 ----------
 
-Club cells in droplet data:
+Club cells cluster in droplet data:
 
-```{r, fig.width=4.5, fig.height=4, eval=FALSE}
-club_genes <- c("Nfia","Cbr2","Krt15","Cyp2f2","Lypd2","Scgb1a1")
-p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
+```{r volcano-plot-droplet-club, fig.width=4.5, fig.height=4}
+club_genes <- c("Bpifa1","Cbr2","Cyp2a5","Cyp2f2","Krt15",
+                "Lypd2","Muc5b","Nfia","Scgb1a1","Scgb3a2")
+p22 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
                                            club_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p16)
+print(p22)
 ```
 
-Club cells in pulse-seq data:
+Club cells cluster in pulse-seq data:
 
-```{r, fig.width=4.5, fig.height=4, eval=FALSE}
-p17 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
+```{r volcano-plot-pulseseq-club, fig.width=4.5, fig.height=4}
+p23 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
                                            club_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p17)
+print(p23)
 ```
 
-Club topic in droplet data:
+Compare club cells topic and cluster in droplet data:
 
-```{r, eval=FALSE}
-p18 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
-                        "C","k5+k7",club_genes,label_above_score = Inf)
-print(p18)
+```{r scatterplots-club-droplet-C-vs-k5+k7, fig.width=8, fig.height=3}
+p24 <- zscores_scatterplot(diff_count_clusters_droplet,
+                           diff_count_merge_droplet,"C","k5+k7",club_genes,
+                           zmax = 500,xlab = "cluster C",ylab = "topics 5 + 7")
+p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
+                        "C","k5+k7",club_genes,
+                        xlab = "cluster C",ylab = "topics 5 + 7")
+plot_grid(p24,p25)
 ```
 
-Club topic in pulse-seq data:
+Compare club cells topic aand cluster in pulse-seq data:
 
-```{r, eval=FALSE}
-p19 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
+```{r scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10, fig.width=8, fig.height=3}
+p26 <- zscores_scatterplot(diff_count_clusters_pulseseq,
+                           diff_count_merge_pulseseq,"C","k4+k5+k6+k8+k10",
+                           club_genes,zmax = 1000,
+                           xlab = "cluster C",
+						   ylab = "topics 4-6, 8, 10")
+p27 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
                         "C","k4+k5+k6+k8+k10",club_genes,
-                        label_above_score = Inf)
-print(p19)
+                        xlab = "cluster C",ylab = "topics 4-6, 8, 10")
+plot_grid(p26,p27)
 ```
 
