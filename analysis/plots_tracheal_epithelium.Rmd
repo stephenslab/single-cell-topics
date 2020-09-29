@@ -142,7 +142,7 @@ p5 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"I",
 print(p5)
 ```
 
-We do not identify a cluster for ionocytes in the droplet
+We do not identify a topic or cluster for ionocytes in the droplet
 data. Judging by expression of the *Foxi1* ionocyte marker gene, only
 a handful of cells in the droplet data are ionocytes:
 
@@ -165,7 +165,7 @@ p7 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"G",
 print(p7)
 ```
 
-Topic $k = 1$ is unique to this cluster suggesting that the this topic
+Topic $k = 1$ is unique to this cluster, suggesting that the this topic
 characterizes the goblet cell type. Indeed, there is a very close
 correspondence between the topic and cluster, with several
 characteristic genes (e.g. *Gp2*) showing somewhat stronger enrichment
