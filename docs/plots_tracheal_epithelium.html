@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-26
+<strong>Last updated:</strong> 2020-09-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef9fe3eb4d532228fe192425e0191e5f44952073atargetblankf9fe3eba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f9fe3eb4d532228fe192425e0191e5f44952073a" target="_blank">f9fe3eb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2db338f90b7dfb0bfafc363b9cfa73dbd40e6df5targetblank2db338fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/2db338f90b7dfb0bfafc363b9cfa73dbd40e6df5" target="_blank">2db338f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef9fe3eb4d532228fe192425e0191e5f44952073atargetblankf9fe3eba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2db338f90b7dfb0bfafc363b9cfa73dbd40e6df5targetblank2db338fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f9fe3eb4d532228fe192425e0191e5f44952073a" target="_blank">f9fe3eb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/2db338f90b7dfb0bfafc363b9cfa73dbd40e6df5" target="_blank">2db338f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -442,14 +442,9 @@ Ignored files:
     Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
+    Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
-
-Untracked files:
-    Untracked:  output/pulseseq/diff-count-pulseseq.RData
-
-Unstaged changes:
-    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -488,6 +483,176 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/2db338f90b7dfb0bfafc363b9cfa73dbd40e6df5/analysis/plots_tracheal_epithelium.Rmd" target="_blank">2db338f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-29
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4dbb46bce0584520f0582b7e6035eecbb30ae8f1/analysis/plots_tracheal_epithelium.Rmd" target="_blank">4dbb46b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-28
+</td>
+<td>
+A couple small edits to the test in the plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/28f8ec5088481200eeb4048d4f76c9a9813426ab/analysis/plots_tracheal_epithelium.Rmd" target="_blank">28f8ec5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-28
+</td>
+<td>
+z-scores in zscore_scatterplot are now shown on sqrt-scale.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bd72ce4eaf639a0f5b0fce5e0dcc53d679f8ddcb/analysis/plots_tracheal_epithelium.Rmd" target="_blank">bd72ce4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-28
+</td>
+<td>
+Improved plots for ionocytes and ciliated topics/clusters in plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ff9d6ef4c14b8e031f1f3fb29a26d442012e6720/analysis/plots_tracheal_epithelium.Rmd" target="_blank">ff9d6ef</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-28
+</td>
+<td>
+Added scatterplots for ciliated cells to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1fab15a9e98f3221a3242f76ad71bd88b6c1ae55/analysis/plots_tracheal_epithelium.Rmd" target="_blank">1fab15a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-28
+</td>
+<td>
+Added plots for proliferating cells cluster to plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/920c62f47ccdafccb4559f919e52d816373197c0/analysis/plots_tracheal_epithelium.Rmd" target="_blank">920c62f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-27
+</td>
+<td>
+Made a couple small edits to plots_tracheal_epithelium.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/50691bf63953cac2d4a96d41b66e6befb733e989/analysis/plots_tracheal_epithelium.Rmd" target="_blank">50691bf</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Working on volcano plots and scatterplots for club cells in plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0e10adfe511026784a56133da08883eaaf486e24/analysis/plots_tracheal_epithelium.Rmd" target="_blank">0e10adf</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Working on volcano plots and scatterplots for basal and hillock cells in plots_tracheal_epithelium analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6272c693d94ade551405c8ec21330bda16e1a838/docs/plots_tracheal_epithelium.html" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1668,7 +1833,7 @@ Working on new analysis, plots_tracheal_epithelium.Rmd.
 </div>
 </div>
 </div>
-<p><em>Add introductory text here.</em></p>
+<p>Here we closely examine the topic modeling results for the two epithelial airway data sets (droplet and pulse-seq), and investigate the benefits of modeling single cells as <em>mixtures</em> of gene expression programs in these data sets. In particular, we will compare and contrast differential expression in clusters vs. topics.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
 library(dplyr)
@@ -1690,9 +1855,9 @@ diff_count_clusters_droplet &lt;- diff_count_clusters
 diff_count_merge_droplet &lt;- diff_count_merge_club
 rm(samples,counts)
 rm(diff_count_topics,diff_count_clusters,diff_count_merge_club)</code></pre>
-<p>For reference, we show here the Structure plot from the <a href="clusters_droplet.html">clustering analysis of the droplet data</a>. This Structure plot summarizes the topic proportions in each of the 8 subsets.</p>
+<p>For reference, we show here the Structure plot from the <a href="clusters_droplet.html">clustering analysis of the droplet data</a>. This Structure plot summarizes the topic proportions in each of the 8 subsets (including the background cluster).</p>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" /></p>
-<p>Next, load the larger “pulse-seq” data set, the <span class="math inline">\(k = 11\)</span> Poisson NMF model fit for these data, and the 7 clusters identified in the <a href="clusters_pulseseq.html">clustering analysis</a>.</p>
+<p>Next, we load the larger “pulse-seq” data set, the <span class="math inline">\(k = 11\)</span> Poisson NMF model fit for these data, and the 7 clusters identified in the <a href="clusters_pulseseq.html">clustering analysis</a>.</p>
 <pre class="r"><code>load(&quot;../data/pulseseq.RData&quot;)
 load(&quot;../output/pulseseq/diff-count-pulseseq.RData&quot;)
 counts_pulseseq  &lt;- counts
@@ -1703,15 +1868,15 @@ diff_count_clusters_pulseseq &lt;- diff_count_clusters
 diff_count_merge_pulseseq &lt;- diff_count_merge_bc
 rm(samples,counts)
 rm(diff_count_topics,diff_count_clusters,diff_count_merge_bc)</code></pre>
-<p>For reference, we show here the Structure plot from the <a href="clusters_pulseseq.html">clustering analysis of the pulse-seq data</a>. This Structure plot summarizes the topic proportions in each of the 7 subsets:</p>
+<p>For reference, we show here the Structure plot from the <a href="clusters_pulseseq.html">clustering analysis of the pulse-seq data</a>. This Structure plot summarizes the topic proportions in each of the 7 subsets (including the background cluster):</p>
 <p><img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" /></p>
 </div>
 <div id="ciliated-cells" class="section level2">
 <h2>Ciliated cells</h2>
-<p>We begin with the cluster that captures ciliated cells in the droplet data. This cluster is one of the most distinctive in both the droplet and pulse-seq data sets. Ciliated cells are abundant, although not nearly as much as basal and club cells. While gene expression in ciliated cells is largely captured by a single topic, this topic is not attributed only to ciliated cells, so we interpret the cluster only.</p>
-<pre class="r"><code>cilitated_genes &lt;- c(&quot;Ccdc113&quot;,&quot;Ccdc153&quot;,&quot;Cdhr3&quot;,&quot;Foxj1&quot;,&quot;Lztfl1&quot;,&quot;Mlf1&quot;)
+<p>We begin with the cluster that captures ciliated cells. This cluster is one of the most distinctive in both the droplet and pulse-seq data sets. Ciliated cells are abundant, though not as much as basal and club cells.</p>
+<pre class="r"><code>ciliated_genes &lt;- c(&quot;Ccdc113&quot;,&quot;Ccdc153&quot;,&quot;Cdhr3&quot;,&quot;Foxj1&quot;,&quot;Lztfl1&quot;,&quot;Mlf1&quot;)
 p1 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;Cil&quot;,
-                                          cilitated_genes,
+                                          ciliated_genes,
                                           label_above_quantile = 0.998)
 print(p1)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" width="540" style="display: block; margin: auto;" /></p>
@@ -1737,6 +1902,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">6a9691b</a>
@@ -1818,10 +1994,10 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>In this volcano plot, marker genes and transcription factors identified in Montoro <em>et al</em> (2018) are highlighted in black, and other top differentially expressed genes are shown with gray labels.</p>
+<p>Marker genes and transcription factors identified in Montoro <em>et al</em> (2018) are highlighted in black, and other top differentially expressed genes are shown with gray labels.</p>
 <p>We obtain similar top differentially expressed genes in the pulse-seq data:</p>
 <pre class="r"><code>p2 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;Cil&quot;,
-                                          cilitated_genes,
+                                          ciliated_genes,
                                           label_above_quantile = 0.998)
 print(p2)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" width="540" style="display: block; margin: auto;" /></p>
@@ -1847,6 +2023,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-cil-1.png" target="_blank">6a9691b</a>
@@ -1917,16 +2104,25 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>The topic for the ciliated cell-type (<span class="math inline">\(k = 7\)</span>) corresponds very closely to the “Cil” cluster in the pulse-seq data. In addition, gene enrichments are considerably stronger in the topic for ciliated genes, particularly so for some genes with lower expression levels.</p>
+<pre class="r"><code>p3 &lt;- zscores_scatterplot(diff_count_clusters_pulseseq,
+                          diff_count_pulseseq,&quot;Cil&quot;,&quot;k7&quot;,ciliated_genes,
+                          xlab = &quot;cluster Cil&quot;,ylab = &quot;topic 7&quot;)
+p4 &lt;- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_pulseseq,
+                       &quot;Cil&quot;,&quot;k7&quot;,ciliated_genes,
+                       xlab = &quot;cluster Cil&quot;,ylab = &quot;topic 7&quot;)
+plot_grid(p3,p4)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/scatterplots-pulseseq-Cil-vs-k7-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ionocytes" class="section level2">
 <h2>Ionocytes</h2>
-<p>In the pulse-seq data, we identify a distinctive cluster for the newly discovered—and very rare—ionocyte cell type. Gene expression in these cells is not fully captured by any single topic, yet the mixture of topics forms a distinctive cluster in the embedding formed by the pulse-seq topic proportions.</p>
+<p>In the pulse-seq data, we identify a distinctive cluster for the newly discovered, rare “ionocyte” cell type. Gene expression in these cells is not fully captured by any single topic, yet the mixture of topics forms a distinctive cluster.</p>
 <pre class="r"><code>ionocyte_genes &lt;- c(&quot;Ascl3&quot;,&quot;Asgr1&quot;,&quot;Atp6v0d2&quot;,&quot;Atp6v1c2&quot;,&quot;Cftr&quot;,&quot;Foxi1&quot;,
                     &quot;Moxd1&quot;,&quot;P2ry14&quot;,&quot;Stap1&quot;)
-p3 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;I&quot;,
+p5 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;I&quot;,
                                           ionocyte_genes,
                                           label_above_quantile = 0.998)
-print(p3)</code></pre>
+print(p5)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" width="528" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plot-pulseseq-I-1">
@@ -1950,6 +2146,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-I-1.png" target="_blank">6a9691b</a>
@@ -2020,9 +2227,9 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>We do not identify a cluster for ionocytes in the droplet data. This is not surprising in light of the fact that only a very small number of cells in the droplet data set appear to be ionocytes, at least judging by expression of the <em>Foxi1</em> ionocyte marker gene:</p>
-<pre class="r"><code>p4 &lt;- pca_plot_with_counts(fit_droplet,counts_droplet[,&quot;Foxi1&quot;],1:2)
-print(p4)</code></pre>
+<p>We do not identify a cluster for ionocytes in the droplet data. Judging by expression of the <em>Foxi1</em> ionocyte marker gene, only a handful of cells in the droplet data are ionocytes:</p>
+<pre class="r"><code>p6 &lt;- pca_plot_with_counts(fit_droplet,counts_droplet[,&quot;Foxi1&quot;],1:2)
+print(p6)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/pca-plot-droplet-Foxi1-1.png" width="450" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-droplet-Foxi1-1">
@@ -2119,12 +2326,12 @@ Peter Carbonetto
 </div>
 <div id="goblet-cells" class="section level2">
 <h2>Goblet cells</h2>
-<p>Consistent with Montoro <em>et al</em> (2018), we identify a cluster of Goblet cells in the droplet data, but not in the pulse-seq data.</p>
+<p>Consistent with Montoro <em>et al</em> (2018), we identify a cluster of Goblet cells in the droplet data.</p>
 <pre class="r"><code>goblet_genes &lt;- &quot;Gp2&quot;
-p5 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;G&quot;,
+p7 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;G&quot;,
                                           goblet_genes,
                                           label_above_quantile = 0.998)
-print(p5)</code></pre>
+print(p7)</code></pre>
 <p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plot-droplet-G-1">
@@ -2148,6 +2355,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">6a9691b</a>
@@ -2196,123 +2414,20 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Topic <span class="math inline">\(k = 1\)</span> is unique to this cluster suggesting that the this topic characterizes the goblet cell type.</p>
-<pre class="r"><code>goblet_genes &lt;- &quot;Gp2&quot;
-p6 &lt;- volcano_plot_with_highlighted_genes(diff_count_droplet,&quot;k1&quot;,
-                                          goblet_genes,
-                                          label_above_quantile = 0.998)
-print(p6)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/volcano-plot-goblet-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plot-goblet-1">
-Past versions of volcano-plot-goblet-1.png
-</button>
-</p>
-<div id="fig-volcano-plot-goblet-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-goblet-1.png" target="_blank">6a9691b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-goblet-1.png" target="_blank">30194ad</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Indeed, there is a very close correspondence between the topic and cluster, with several characteristic genes (e.g. <em>Gp2</em>) showing somewhat stronger enrichment in the topic.</p>
-<pre class="r"><code>p7 &lt;- zscores_scatterplot(diff_count_clusters_droplet,
+<p>Topic <span class="math inline">\(k = 1\)</span> is unique to this cluster suggesting that the this topic characterizes the goblet cell type. Indeed, there is a very close correspondence between the topic and cluster, with several characteristic genes (e.g. <em>Gp2</em>) showing somewhat stronger enrichment in the topic.</p>
+<pre class="r"><code>p8 &lt;- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,&quot;G&quot;,&quot;k1&quot;,goblet_genes,
-                          label_above_score = 200,zmax = 800) +
-  labs(x = &quot;cluster G&quot;,y = &quot;topic 1&quot;,title = &quot;z-scores&quot;)
-p8 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                       &quot;G&quot;,&quot;k1&quot;,goblet_genes,label_above_score = Inf) +
-  labs(x = &quot;cluster G&quot;,y = &quot;topic 1&quot;,title = &quot;log-fold change (beta)&quot;)
-plot_grid(p7,p8)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-scores-droplet-G-vs-k1-1">
-Past versions of z-scores-droplet-G-vs-k1-1.png
-</button>
-</p>
-<div id="fig-z-scores-droplet-G-vs-k1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" target="_blank">6a9691b</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-24
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/30194ad9cc98861d418fed48d8d4565a3742c31b/docs/figure/plots_tracheal_epithelium.Rmd/z-scores-droplet-G-vs-k1-1.png" target="_blank">30194ad</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-24
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+                          label_above_score = 200,
+                          xlab = &quot;cluster G&quot;,ylab = &quot;topic 1&quot;)
+p9 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                       &quot;G&quot;,&quot;k1&quot;,goblet_genes,xlab = &quot;cluster G&quot;,
+                       ylab = &quot;topic 1&quot;)
+plot_grid(p8,p9)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-G-vs-k1-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="tuft-and-pulmonary-neuroendocrine-cells" class="section level2">
 <h2>Tuft and pulmonary neuroendocrine cells</h2>
-<p>In both data sets, we identify clusters for tuft and pulmonary neuroendocrine cells. The topic models do not clearly distinguish between these two rare cell types; we identify them in a single cluster.</p>
+<p>In both data sets, we identify clusters for tuft and pulmonary neuroendocrine cells. The fitted topic models do not distinguish between these two rare cell types; we identify these cell types as a single cluster.</p>
 <pre class="r"><code>tuft_neuroendocrine_genes &lt;- c(&quot;Ascl1&quot;,&quot;Ascl2&quot;,&quot;Ascl3&quot;,&quot;Chga&quot;,&quot;Dclk1&quot;,&quot;Rgs13&quot;)
 p8 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;T+N&quot;,
                                           tuft_neuroendocrine_genes,
@@ -2341,6 +2456,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" target="_blank">6a9691b</a>
@@ -2386,6 +2512,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6272c693d94ade551405c8ec21330bda16e1a838/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" target="_blank">6272c69</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6a9691b6dc7c3b314755caf9ad39e71dedf27291/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" target="_blank">6a9691b</a>
 </td>
 <td>
@@ -2400,58 +2537,103 @@ Peter Carbonetto
 </div>
 </div>
 </div>
-<div id="club-basal-and-hillock-cells" class="section level2">
-<h2>Club, basal and hillock cells</h2>
-<p>We end our exploration with the large subset of cells that does not decompose to form distinct clusters.</p>
-<p>Abundant basal cells:</p>
+<div id="basal-cells" class="section level2">
+<h2>Basal cells</h2>
+<p>We now move on to the large majority of cells in each of the epithelial airway data sets that do not break down into distinct clusters.</p>
+<p>Abundant basal cells in droplet data:</p>
 <pre class="r"><code>basal_genes &lt;- c(&quot;Aqp3&quot;,&quot;Krt5&quot;,&quot;Dapl1&quot;,&quot;Hspa1a&quot;,&quot;Trp63&quot;)
 p10 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;B&quot;,
                                            basal_genes,
                                            label_above_quantile = 0.995)
-print(p10)
-p11 &lt;- volcano_plot_with_highlighted_genes(diff_count_droplet,&quot;k2&quot;,
+print(p10)</code></pre>
+<p>Compare basal topic (<span class="math inline">\(k = 2\)</span>) against basal cluster in droplet data:</p>
+<pre class="r"><code>p11 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        &quot;B&quot;,&quot;k2&quot;,basal_genes,labs = &quot;cluster B&quot;) +
+  labs(x = &quot;cluster B&quot;,y = &quot;topic 2&quot;,title = &quot;log-fold change (\u03b2)&quot;)
+print(p11)</code></pre>
+<p>Basal cells in pulse-seq data:</p>
+<pre class="r"><code>p12 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;B&quot;,
                                            basal_genes,
                                            label_above_quantile = 0.995)
-print(p11)
-p12 &lt;- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,&quot;B&quot;],
-                                  diff_count_droplet$beta[rows,2], 
-                                  diff_count_droplet$colmeans[rows])
 print(p12)</code></pre>
-<p>Hillock cells:</p>
-<pre class="r"><code>hillock_genes &lt;- c(&quot;Krt4&quot;,&quot;Krt13&quot;,&quot;Ecm1&quot;,&quot;S100a11&quot;,&quot;Cldn3&quot;,&quot;Lgals3&quot;,&quot;Anxa1&quot;)
-p10 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;H&quot;,
+<p>Compare combined basal topics (<span class="math inline">\(k = 1, 3, 9\)</span>) against cluster in pulse-seq data:</p>
+<pre class="r"><code>p13 &lt;- beta_scatterplot(diff_count_clusters_pulseseq,
+                        diff_count_merge_pulseseq,
+                        &quot;B&quot;,&quot;k1+k3+k9&quot;,basal_genes,label_above_score = Inf) +
+  labs(x = &quot;cluster B&quot;,y = &quot;topics 1, 3 and 9&quot;,
+       title = &quot;log-fold change (\u03b2)&quot;)
+print(p13)</code></pre>
+</div>
+<div id="club-cells" class="section level2">
+<h2>Club cells</h2>
+<p>Club cells in droplet data:</p>
+<pre class="r"><code>club_genes &lt;- c(&quot;Nfia&quot;,&quot;Cbr2&quot;,&quot;Krt15&quot;,&quot;Cyp2f2&quot;,&quot;Lypd2&quot;,&quot;Scgb1a1&quot;)
+p16 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;C&quot;,
+                                           club_genes,
+                                           label_above_quantile = 0.995)
+print(p16)</code></pre>
+<p>Club cells in pulse-seq data:</p>
+<pre class="r"><code>p17 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;C&quot;,
+                                           club_genes,
+                                           label_above_quantile = 0.995)
+print(p17)</code></pre>
+<p>Club topic in droplet data:</p>
+<pre class="r"><code>p18 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
+                        &quot;C&quot;,&quot;k5+k7&quot;,club_genes,label_above_score = Inf)
+print(p18)</code></pre>
+<p>Club topic in pulse-seq data:</p>
+<pre class="r"><code>p19 &lt;- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
+                        &quot;C&quot;,&quot;k4+k5+k6+k8+k10&quot;,club_genes,
+                        label_above_score = Inf)
+print(p19)</code></pre>
+</div>
+<div id="proliferating-cells" class="section level2">
+<h2>Proliferating cells</h2>
+<p>Proliferating cells in pulse-seq data:</p>
+<pre class="r"><code>cell_cycle_genes &lt;- c(&quot;Cdk1&quot;,&quot;Ube2c&quot;,&quot;Top2a&quot;)
+p14 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,&quot;P&quot;,
+                                           cell_cycle_genes,
+                                           label_above_quantile = 0.998)
+print(p14)</code></pre>
+<pre class="r"><code>qt_random_tie &lt;- function (x) {
+  y = rank(x,ties.method = &quot;random&quot;)
+  return(qqnorm(y,plot.it = FALSE)$x)
+}
+rows &lt;- with(samples_pulseseq,which(cluster == &quot;B&quot; | cluster == &quot;P&quot;))
+fit2 &lt;- select(poisson2multinom(fit_pulseseq),loadings = rows)
+X &lt;- counts_pulseseq[rows,cell_cycle_genes]
+Y &lt;- apply(X,2,qt_random_tie)
+rownames(Y) &lt;- rownames(X)
+score &lt;- rowSums(Y)
+pdat &lt;- as.data.frame(prcomp(fit2$L)$x)
+pdat &lt;- cbind(pdat,data.frame(score = score))
+p15 &lt;- ggplot(pdat,aes(x = PC5,y = PC6,fill = score)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 1.25) +
+  scale_fill_gradientn(colors = c(&quot;darkblue&quot;,&quot;royalblue&quot;,
+                       &quot;lightskyblue&quot;,&quot;darkorange&quot;,&quot;firebrick&quot;)) +
+  theme_cowplot(font_size = 10)</code></pre>
+</div>
+<div id="hillock-cells" class="section level2">
+<h2>Hillock cells</h2>
+<p>Hillock cells in droplet data:</p>
+<pre class="r"><code>hillock_genes &lt;- c(&quot;Anxa1&quot;,&quot;Cldn3&quot;,&quot;Ecm1&quot;,&quot;Krt13&quot;,&quot;Krt4&quot;,&quot;Lgals3&quot;,&quot;S100a11&quot;)
+p14 &lt;- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,&quot;H&quot;,
                                            hillock_genes,
                                            label_above_quantile = 0.998)
-print(p10)
-p11 &lt;- volcano_plot_with_highlighted_genes(diff_count_droplet,&quot;k4&quot;,
-                                           hillock_genes,
-                                           label_above_quantile = 0.998)
-print(p11)
-p12 &lt;- zscores_scatterplot(diff_count_clusters_droplet$Z[,&quot;H&quot;],
+print(p14)</code></pre>
+<p>Compare Hillock topic (<span class="math inline">\(k = 4\)</span>) against cluster in droplet data:</p>
+<pre class="r"><code>p15 &lt;- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        &quot;H&quot;,&quot;k4&quot;,hillock_genes,label_above_score = Inf) +
+  labs(x = &quot;cluster H&quot;,y = &quot;topic 4&quot;,title = &quot;log-fold change (\u03b2)&quot;)
+print(p15)
+p15 &lt;- zscores_scatterplot(diff_count_clusters_droplet$Z[,&quot;H&quot;],
                            diff_count_droplet$Z[,4],
                            diff_count_droplet$colmeans,
                            colnames(counts_droplet),
                            label_above_score = 100,
                            zmax = 400) +
-  labs(x = &quot;cluster H&quot;,y = &quot;topic 4&quot;,title = &quot;z-scores&quot;)
-print(p12)
-rows &lt;- which(abs(diff_count_clusters_droplet$Z[,&quot;H&quot;] &gt; 2) |
-              abs(diff_count_droplet$Z[,4]) &gt; 2)
-rows &lt;- is.element(rownames(diff_count_droplet$Z),hillock_genes)
-p12b &lt;- logfoldchange_scatterplot(diff_count_clusters_droplet$beta[rows,&quot;H&quot;],
-                                  diff_count_droplet$beta[rows,4], 
-                                  diff_count_droplet$colmeans[rows])
-print(p12b)
-p13 &lt;- volcano_plot_with_highlighted_genes(diff_count_pulseseq,&quot;k1&quot;,
-                                           hillock_genes,
-                                           label_above_quantile = 0.995)
-print(p13)</code></pre>
-<p>TO DO:</p>
-<ul>
-<li><p>Add volcano plots for B (basal) and C (club) clusters.</p></li>
-<li><p>Add volcano plot for P cluster (proliferating cells).</p></li>
-<li><p>Add plots for hillock cells.</p></li>
-</ul>
+  labs(x = &quot;cluster H&quot;,y = &quot;topic 4&quot;,title = &quot;z-scores&quot;)</code></pre>
+<p>TO DO: Hillock topic (<span class="math inline">\(k = 1\)</span>) in pulse-seq data:</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
