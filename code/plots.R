@@ -1,3 +1,10 @@
+# This function transforms the data to a standard normal distribution
+# via "quantile normalization". It randomly assigns rank to ties.
+qt_random_tie <- function (x) {
+  y = rank(x,ties.method = "random")
+  return(qqnorm(y,plot.it = FALSE)$x)
+}
+
 # Create a basic scatterplot showing the topic proportions projected
 # onto two principal components (PCs).
 basic_pca_plot <- function (fit, pcs = 1:2) {
@@ -166,7 +173,7 @@ zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                      linetype = "dotted") +
          xlim(range(c(pdat$z1,pdat$z2))) +
          ylim(range(c(pdat$z1,pdat$z2))) +
-         labs(xlab = xlab,ylab = xlab,title = "sqrt(z-score)") +
+         labs(x = xlab,y = ylab,title = "sqrt(z-score)") +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
@@ -190,5 +197,26 @@ pca_plot_with_counts <- function (fit, counts, pcs = 1:2, log = FALSE,
                                          "magenta"),
                               na.value = "lightskyblue") +
          labs(fill = ifelse(log,"log-count","count")) +
+         theme_cowplot(font_size = font_size))
+}
+
+# Create a basic scatterplot showing the topic proportions projected
+# onto two principal components (PCs), and the colour of the points is
+# varied according to to a simple "score" for cell-cycle genes.
+cellcycle_pca_plot <- function (fit, counts, pcs = 1:2,
+                                cell_cycle_genes = c("Cdk1","Ube2c","Top2a"),
+                                font_size = 10) {
+  X <- counts[,cell_cycle_genes]
+  Y <- apply(X,2,qt_random_tie)
+  rownames(Y) <- rownames(X)
+  score <- rowSums(Y)
+  dat <- as.data.frame(prcomp(fit$L)$x)
+  if (is.numeric(pcs))
+    pcs <- names(dat)[pcs]
+  dat <- cbind(dat,data.frame(score = score))
+  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "score")) +
+         geom_point(shape = 21,color = "white",size = 1.25) +
+         scale_fill_gradientn(colors = c("darkblue","royalblue","lightskyblue",
+                                         "darkorange","firebrick")) +
          theme_cowplot(font_size = font_size))
 }
