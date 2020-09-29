@@ -96,7 +96,7 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
 # highlighted with the "genes" argument.
 beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                               label_above_score = Inf, zmin = 10,
-                              betamax = 10) {
+                              betamax = 10,xlab = "beta1",ylab = "beta2") {
   z1   <- res1$Z[,k1]
   z2   <- res2$Z[,k2]
   pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
@@ -125,6 +125,7 @@ beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                      linetype = "dotted") +
          xlim(range(c(pdat$b1,pdat$b2))) + 
          ylim(range(c(pdat$b1,pdat$b2))) +
+         labs(x = xlab,y = ylab,title = "log-fold change (\u03b2)") +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
@@ -137,7 +138,8 @@ beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
 # z-scores are much larger than the others. An additional set of genes
 # can be highlighted with the "genes" argument.
 zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
-                                 label_above_score = Inf, zmax = Inf) {
+                                 label_above_score = Inf, zmax = Inf,
+                                 xlab = "z1", ylab = "z2") {
   z1   <- pmin(res1$Z[,k1],zmax)
   z2   <- pmin(res2$Z[,k2],zmax)
   pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
@@ -164,6 +166,7 @@ zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                      linetype = "dotted") +
          xlim(range(c(pdat$z1,pdat$z2))) +
          ylim(range(c(pdat$z1,pdat$z2))) +
+         labs(xlab = xlab,ylab = xlab,title = "sqrt(z-score)") +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
