@@ -117,11 +117,11 @@ particularly so for some genes with lower expression levels.
 
 ```{r scatterplots-pulseseq-Cil-vs-k7, fig.width=8, fig.height=3}
 p3 <- zscores_scatterplot(diff_count_clusters_pulseseq,
-                          diff_count_pulseseq,"Cil","k7",ciliated_genes) +
-  labs(x = "cluster Cil",y = "topic 7",title = "sqrt(z-score)")
+                          diff_count_pulseseq,"Cil","k7",ciliated_genes,
+                          xlab = "cluster Cil",ylab = "topic 7")
 p4 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_pulseseq,
-                       "Cil","k7",ciliated_genes) +
-  labs(x = "cluster Cil",y = "topic 7",title = "log-fold change (\u03b2)")
+                       "Cil","k7",ciliated_genes,
+                       xlab = "cluster Cil",ylab = "topic 7")
 plot_grid(p3,p4)
 ```
 
@@ -174,11 +174,11 @@ in the topic.
 ```{r scatterplots-droplet-G-vs-k1, fig.width=8, fig.height=3}
 p8 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
-						  label_above_score = 200) +
-  labs(x = "cluster G",y = "topic 1",title = "sqrt(z-score)")
+						  label_above_score = 200,
+						  xlab = "cluster G",ylab = "topic 1")
 p9 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                       "G","k1",goblet_genes) +
-  labs(x = "cluster G",y = "topic 1",title = "log-fold change (\u03b2)")
+                       "G","k1",goblet_genes,xlab = "cluster G",
+                       ylab = "topic 1")
 plot_grid(p8,p9)
 ```
 
@@ -216,7 +216,7 @@ clusters.
 
 Abundant basal cells in droplet data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
 p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
                                            basal_genes,
@@ -226,16 +226,16 @@ print(p10)
 
 Compare basal topic ($k = 2$) against basal cluster in droplet data:
 
-```{r, fig.width=4, fig.height=3}
+```{r, fig.width=4, fig.height=3, eval=FALSE}
 p11 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                        "B","k2",basal_genes,label_above_score = Inf) +
+                        "B","k2",basal_genes,labs = "cluster B") +
   labs(x = "cluster B",y = "topic 2",title = "log-fold change (\u03b2)")
 print(p11)
 ```
 
 Basal cells in pulse-seq data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 p12 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
@@ -245,7 +245,7 @@ print(p12)
 Compare combined basal topics ($k = 1, 3, 9$) against cluster in
 pulse-seq data:
 
-```{r, fig.width=4, fig.height=3}
+```{r, fig.width=4, fig.height=3, eval=FALSE}
 p13 <- beta_scatterplot(diff_count_clusters_pulseseq,
                         diff_count_merge_pulseseq,
                         "B","k1+k3+k9",basal_genes,label_above_score = Inf) +
@@ -259,7 +259,7 @@ Club cells
 
 Club cells in droplet data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 club_genes <- c("Nfia","Cbr2","Krt15","Cyp2f2","Lypd2","Scgb1a1")
 p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
                                            club_genes,
@@ -269,7 +269,7 @@ print(p16)
 
 Club cells in pulse-seq data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 p17 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
                                            club_genes,
 	 								 	   label_above_quantile = 0.995)
@@ -278,7 +278,7 @@ print(p17)
 
 Club topic in droplet data:
 
-```{r}
+```{r, eval=FALSE}
 p18 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
                         "C","k5+k7",club_genes,label_above_score = Inf)
 print(p18)
@@ -286,7 +286,7 @@ print(p18)
 
 Club topic in pulse-seq data:
 
-```{r}
+```{r, eval=FALSE}
 p19 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_merge_pulseseq,
                         "C","k4+k5+k6+k8+k10",club_genes,
                         label_above_score = Inf)
@@ -298,7 +298,7 @@ Proliferating cells
 
 Proliferating cells in pulse-seq data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 cell_cycle_genes <- c("Cdk1","Ube2c","Top2a")
 p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
                                            cell_cycle_genes,
@@ -306,7 +306,7 @@ p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
 print(p14)
 ```
 
-```{r, fig.width=4, fig.height=3}
+```{r, fig.width=4, fig.height=3, eval=FALSE}
 qt_random_tie <- function (x) {
   y = rank(x,ties.method = "random")
   return(qqnorm(y,plot.it = FALSE)$x)
@@ -331,7 +331,7 @@ Hillock cells
 
 Hillock cells in droplet data:
 
-```{r, fig.width=4.5, fig.height=4}
+```{r, fig.width=4.5, fig.height=4, eval=FALSE}
 hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
 p14 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
                                            hillock_genes,
@@ -341,7 +341,7 @@ print(p14)
 
 Compare Hillock topic ($k = 4$) against cluster in droplet data:
 
-```{r, fig.width=4, fig.height=3}
+```{r, fig.width=4, fig.height=3, eval=FALSE}
 p15 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
                         "H","k4",hillock_genes,label_above_score = Inf) +
   labs(x = "cluster H",y = "topic 4",title = "log-fold change (\u03b2)")
@@ -357,6 +357,5 @@ p15 <- zscores_scatterplot(diff_count_clusters_droplet$Z[,"H"],
 
 TO DO: Hillock topic ($k = 1$) in pulse-seq data:
 
-```{r}
+```{r, eval=FALSE}
 ```
-
