@@ -186,9 +186,9 @@ Tuft and pulmonary neuroendocrine cells
 ---------------------------------------
 
 In both data sets, we identify clusters for tuft and pulmonary
-neuroendocrine cells. The topic models do not clearly distinguish
-between these two rare cell types; we identify them in a single
-cluster.
+neuroendocrine cells. The fitted topic models do not distinguish
+between these two rare cell types; we identify these cell types as a
+single cluster.
 
 ```{r volcano-plot-droplet-T+N, fig.width=4.5, fig.height=4}
 tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1","Rgs13")
@@ -210,8 +210,9 @@ print(p9)
 Basal cells
 -----------
 
-We end our exploration with the large subset of cells that does not
-decompose to form distinct clusters.
+We now move on to the large majority of cells in each of the
+epithelial airway data sets that do not break down into distinct
+clusters.
 
 Abundant basal cells in droplet data:
 
