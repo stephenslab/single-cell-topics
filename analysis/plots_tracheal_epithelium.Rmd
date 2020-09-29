@@ -4,7 +4,11 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add introductory text here.*
+Here we closely examine the topic modeling results for the two
+epithelial airway data sets (droplet and pulse-seq), and investigate
+the benefits of modeling single cells as *mixtures* of gene expression
+programs in these data sets. In particular, we will compare and
+contrast differential expression in clusters vs. topics.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -48,12 +52,12 @@ rm(diff_count_topics,diff_count_clusters,diff_count_merge_club)
 For reference, we show here the Structure plot from the
 [clustering analysis of the droplet data](clusters_droplet.html). This
 Structure plot summarizes the topic proportions in each of the 8
-subsets.
+subsets (including the background cluster).
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
 
-Next, load the larger "pulse-seq" data set, the $k = 11$ Poisson NMF
-model fit for these data, and the 7 clusters identified in the
+Next, we load the larger "pulse-seq" data set, the $k = 11$ Poisson
+NMF model fit for these data, and the 7 clusters identified in the
 [clustering analysis](clusters_pulseseq.html).
 
 ```{r load-pulseseq-data}
@@ -72,41 +76,55 @@ rm(diff_count_topics,diff_count_clusters,diff_count_merge_bc)
 For reference, we show here the Structure plot from the
 [clustering analysis of the pulse-seq data](clusters_pulseseq.html).
 This Structure plot summarizes the topic proportions in each of the 7
-subsets:
+subsets (including the background cluster):
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
 
 Ciliated cells
 --------------
 
-We begin with the cluster that captures ciliated cells in the droplet
-data. This cluster is one of the most distinctive in both the droplet
-and pulse-seq data sets. Ciliated cells are abundant, although not
-nearly as much as basal and club cells. While gene expression in
-ciliated cells is largely captured by a single topic, this topic is
-not attributed only to ciliated cells, so we interpret the cluster
-only.
+We begin with the cluster that captures ciliated cells. This cluster
+is one of the most distinctive in both the droplet and pulse-seq data
+sets. Ciliated cells are abundant, though not as much as basal and
+club cells.
 
 ```{r volcano-plot-droplet-cil, fig.width=4.5, fig.height=4}
-cilitated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
+ciliated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
 p1 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"Cil",
-                                          cilitated_genes,
+                                          ciliated_genes,
 										  label_above_quantile = 0.998)
 print(p1)
 ```
 
-In this volcano plot, marker genes and transcription factors
-identified in Montoro *et al* (2018) are highlighted in black, and
-other top differentially expressed genes are shown with gray labels.
+Marker genes and transcription factors identified in Montoro *et al*
+(2018) are highlighted in black, and other top differentially
+expressed genes are shown with gray labels.
 
 We obtain similar top differentially expressed genes in the pulse-seq
 data:
 
 ```{r volcano-plot-pulseseq-cil, fig.width=4.5, fig.height=4}
 p2 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"Cil",
-                                          cilitated_genes,
+                                          ciliated_genes,
 										  label_above_quantile = 0.998)
 print(p2)
+```
+
+Reassuringly, the topic capturing the ciliated cell-type ($k = 7$)
+corresponds very closely to the "cil" cluster in the pulse-seq data.
+Gene enrichments are considerably stronger in the topic for ciliated
+genes, and particularly so for some genes with lower expression
+levels.
+
+```{r scatterplots-pulseseq-Cil-vs-k7, fig.width=8, fig.height=3}
+p3 <- zscores_scatterplot(diff_count_clusters_pulseseq,
+                          diff_count_pulseseq,"Cil","k7",ciliated_genes,
+						  label_above_score = Inf,zmax = 1000) +
+  labs(x = "cluster Cil",y = "topic 7",title = "z-scores")
+p4 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_pulseseq,
+                       "Cil","k7",ciliated_genes,label_above_score = Inf) +
+  labs(x = "cluster Cil",y = "topic 7",title = "log-fold change (\u03b2)")
+plot_grid(p3,p4)
 ```
 
 Ionocytes
