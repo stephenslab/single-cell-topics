@@ -95,7 +95,7 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
 # "label_above_score" argument). An additional set of genes can be
 # highlighted with the "genes" argument.
 beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
-                              label_above_score = 100, zmin = 10,
+                              label_above_score = Inf, zmin = 10,
                               betamax = 10) {
   z1   <- res1$Z[,k1]
   z2   <- res2$Z[,k2]
@@ -137,7 +137,7 @@ beta_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
 # z-scores are much larger than the others. An additional set of genes
 # can be highlighted with the "genes" argument.
 zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
-                                 label_above_score = 100, zmax = 1000) {
+                                 label_above_score = Inf, zmax = Inf) {
   z1   <- pmin(res1$Z[,k1],zmax)
   z2   <- pmin(res2$Z[,k2],zmax)
   pdat <- data.frame(mean = cut(res1$colmeans,c(0,0.01,0.1,1,10,Inf)),
@@ -149,6 +149,9 @@ zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                   abs(z1) > label_above_score |
                   abs(z2) > label_above_score))
   pdat[rows,"gene"] <- ""
+  pdat <- transform(pdat,
+                    z1 = sign(z1)*sqrt(abs(z1)),
+                    z2 = sign(z2)*sqrt(abs(z2)))     
   return(ggplot(pdat,aes_string(x = "z1",y = "z2",fill = "mean",
                                 label = "gene")) +
          geom_point(shape = 21,size = 1.5,color = "white") +
@@ -159,8 +162,8 @@ zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
                                       "tomato","firebrick")) +
          geom_abline(slope = 1,intercept = 0,color = "black",
                      linetype = "dotted") +
-         xlim(range(c(z1,z2))) +
-         ylim(range(c(z1,z2))) +
+         xlim(range(c(pdat$z1,pdat$z2))) +
+         ylim(range(c(pdat$z1,pdat$z2))) +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }

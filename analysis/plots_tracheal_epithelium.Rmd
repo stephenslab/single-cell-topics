@@ -115,15 +115,12 @@ closely to the "Cil" cluster in the pulse-seq data. In addition, gene
 enrichments are considerably stronger in the topic for ciliated genes,
 particularly so for some genes with lower expression levels.
 
-TO DO: Show z-scores in scatterplot on sqrt scale.
-
 ```{r scatterplots-pulseseq-Cil-vs-k7, fig.width=8, fig.height=3}
 p3 <- zscores_scatterplot(diff_count_clusters_pulseseq,
-                          diff_count_pulseseq,"Cil","k7",ciliated_genes,
-						  label_above_score = Inf,zmax = 750) +
-  labs(x = "cluster Cil",y = "topic 7",title = "z-scores")
+                          diff_count_pulseseq,"Cil","k7",ciliated_genes) +
+  labs(x = "cluster Cil",y = "topic 7",title = "sqrt(z-score)")
 p4 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_pulseseq,
-                       "Cil","k7",ciliated_genes,label_above_score = Inf) +
+                       "Cil","k7",ciliated_genes) +
   labs(x = "cluster Cil",y = "topic 7",title = "log-fold change (\u03b2)")
 plot_grid(p3,p4)
 ```
@@ -177,10 +174,10 @@ in the topic.
 ```{r scatterplots-droplet-G-vs-k1, fig.width=8, fig.height=3}
 p8 <- zscores_scatterplot(diff_count_clusters_droplet,
                           diff_count_droplet,"G","k1",goblet_genes,
-						  label_above_score = 200,zmax = 800) +
-  labs(x = "cluster G",y = "topic 1",title = "z-scores")
+						  label_above_score = 200) +
+  labs(x = "cluster G",y = "topic 1",title = "sqrt(z-score)")
 p9 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                       "G","k1",goblet_genes,label_above_score = Inf) +
+                       "G","k1",goblet_genes) +
   labs(x = "cluster G",y = "topic 1",title = "log-fold change (\u03b2)")
 plot_grid(p8,p9)
 ```
