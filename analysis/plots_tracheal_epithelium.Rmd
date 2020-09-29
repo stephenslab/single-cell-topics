@@ -211,12 +211,13 @@ Basal cells
 -----------
 
 We now move on to the large majority of cells in each of the
-epithelial airway data sets that do not break down into distinct
-clusters.
+epithelial airway data sets (over 90% in droplet and over 92% in
+pulseseq) that do not break down into distinct clusters.
 
-Abundant basal cells in droplet data:
+Although we do not obtain a distinct basal cells cluster, attempting
+to form a cluster does indeed reasonably distinguish basal cells:
 
-```{r, fig.width=4.5, fig.height=4, eval=FALSE}
+```{r volcano-plot-droplet-basal, fig.width=4.5, fig.height=4}
 basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
 p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
                                            basal_genes,
@@ -224,34 +225,44 @@ p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
 print(p10)
 ```
 
-Compare basal topic ($k = 2$) against basal cluster in droplet data:
+Comparing the basal cells topic ($k = 2$) against the basal cells
+cluster in the droplet data, there is a close correspondence between
+the two, with the topic showing much stronger enrichment of
+characteristic basal genes:
 
-```{r, fig.width=4, fig.height=3, eval=FALSE}
-p11 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                        "B","k2",basal_genes,labs = "cluster B") +
-  labs(x = "cluster B",y = "topic 2",title = "log-fold change (\u03b2)")
-print(p11)
+```{r scatterplots-droplet-B-vs-k2, fig.width=8, fig.height=3}
+p11 <- zscores_scatterplot(diff_count_clusters_droplet,
+                           diff_count_droplet,"B","k2",basal_genes,
+                           zmax = 400,xlab = "cluster B",ylab = "topic 2")
+p12 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+                        "B","k2",basal_genes,xlab = "cluster B",y = "topic 2")
+plot_grid(p11,p12)
 ```
 
-Basal cells in pulse-seq data:
+We obtain similar results with a cluster identified in the pulse-seq
+data,
 
-```{r, fig.width=4.5, fig.height=4, eval=FALSE}
-p12 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
+```{r volcano-plot-pulseseq-basal, fig.width=4.5, fig.height=4}
+p13 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p12)
+print(p13)
 ```
 
-Compare combined basal topics ($k = 1, 3, 9$) against cluster in
+and we achieve stronger enrichment of basal genes in the combined
+basal topics ($k = 1, 3, 9$) when compared to the basal cluster in the
 pulse-seq data:
 
-```{r, fig.width=4, fig.height=3, eval=FALSE}
-p13 <- beta_scatterplot(diff_count_clusters_pulseseq,
+```{r scatterplots-pulseseq-B-vs-k1+3+9, fig.width=8, fig.height=3}
+p14 <- zscores_scatterplot(diff_count_clusters_pulseseq,
+                           diff_count_merge_pulseseq,"B","k1+k3+k9",
+                           basal_genes,zmax = 2000,
+						   xlab = "cluster B",ylab = "topic 2")
+p15 <- beta_scatterplot(diff_count_clusters_pulseseq,
                         diff_count_merge_pulseseq,
-                        "B","k1+k3+k9",basal_genes,label_above_score = Inf) +
-  labs(x = "cluster B",y = "topics 1, 3 and 9",
- 	   title = "log-fold change (\u03b2)")
-print(p13)
+                        "B","k1+k3+k9",basal_genes,
+						xlab = "cluster B",ylab = "topics 1, 3, 9")
+plot_grid(p14,p15)
 ```
 
 Club cells
