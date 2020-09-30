@@ -44,9 +44,10 @@ samples_droplet <- readRDS("../output/droplet/clustering-droplet.rds")
 fit_droplet <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 diff_count_droplet <- diff_count_topics
 diff_count_clusters_droplet <- diff_count_clusters
-diff_count_merge_droplet <- diff_count_merge_club
+diff_count_club_droplet <- diff_count_club
+diff_count_basal_droplet <- diff_count_basal
 rm(samples,counts)
-rm(diff_count_topics,diff_count_clusters,diff_count_merge_club)
+rm(diff_count_topics,diff_count_clusters,diff_count_club,diff_count_basal)
 ```
 
 For reference, we show here the Structure plot from the
@@ -233,20 +234,14 @@ characteristic basal genes:
 
 ```{r scatterplots-droplet-B-vs-k2, fig.width=8, fig.height=3}
 p11 <- zscores_scatterplot(diff_count_clusters_droplet,
-                           diff_count_droplet,"B","k2",
-                           c(basal_genes,tuft_neuroendocrine_genes),
-                           zmax = 400,xlab = "cluster B",ylab = "topic 2")
-p12 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
-                        "B","k2",c(basal_genes,tuft_neuroendocrine_genes),
-						zmin = 2,xlab = "cluster B",y = "topic 2")
+                           diff_count_basal_droplet,"B","k2",
+                           basal_genes,zmax = 400,
+						   xlab = "cluster B",ylab = "topic 2")
+p12 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_basal_droplet,
+                        "B","k2",basal_genes,zmin = 2,
+                        xlab = "cluster B",y = "topic 2")
 plot_grid(p11,p12)
 ```
-
-Some of the smaller (negative) gene enrichments in topic 2 are driven
-by the small number of tuft and neuroendocrine cells ("T+N" cluster)
-which are partially modeled by this topic. But because these cells are
-dominated by basal cells, these enrichments do not show up as strongly
-in the volcano and scatterplots above.
 
 We obtain similar results with a cluster identified in the pulse-seq
 data,
@@ -381,9 +376,9 @@ Compare club cells topic and cluster in droplet data:
 
 ```{r scatterplots-club-droplet-C-vs-k5+k7, fig.width=8, fig.height=3}
 p24 <- zscores_scatterplot(diff_count_clusters_droplet,
-                           diff_count_merge_droplet,"C","k5+k7",club_genes,
+                           diff_count_club_droplet,"C","k5+k7",club_genes,
                            zmax = 500,xlab = "cluster C",ylab = "topics 5 + 7")
-p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_merge_droplet,
+p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_club_droplet,
                         "C","k5+k7",club_genes,
                         xlab = "cluster C",ylab = "topics 5 + 7")
 plot_grid(p24,p25)
