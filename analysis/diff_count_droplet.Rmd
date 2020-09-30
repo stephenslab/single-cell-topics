@@ -56,13 +56,25 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Finally, perform one more differential expression analysis after
-merging the two club cell topics.
+Perform a differential expression analysis after merging the two club
+cell topics.
 
-```{r diff-count-analysis-topics-merge-club}
-fit_merge_club <- merge_topics(poisson2multinom(fit),c(5,7))
+```{r diff-count-analysis-topics-club}
+fit_club <- merge_topics(poisson2multinom(fit),c(5,7))
 timing <- system.time(
-  diff_count_merge_club <- diff_count_analysis(fit_merge_club,counts))
+  diff_count_club <- diff_count_analysis(fit_club,counts))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Finally, to refine differential expression analysis of the basal cells
+topic ($k = 2$), perform a differential expression analysis after
+removing the "T+N" cluster.
+
+```{r diff-count-analysis-topics-basal}
+rows <- which(samples$cluster != "T+N")
+fit_basal <- select(poisson2multinom(fit),loadings = rows)
+timing <- system.time(
+  diff_count_basal <- diff_count_analysis(fit_basal,counts[rows,]))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
@@ -73,9 +85,8 @@ Save the results of the differential expression analyses to an RData
 file.
 
 ```{r save-results}
-save(list = c("diff_count_topics",
-              "diff_count_clusters",
-			  "diff_count_merge_club"),
+save(list = c("diff_count_topics","diff_count_clusters","diff_count_club",
+              "diff_count_basal"),
      file = "diff-count-droplet.RData")
 resaveRdaFiles("diff-count-droplet.RData")
 ```
