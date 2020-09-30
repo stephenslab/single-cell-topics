@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-26
+<strong>Last updated:</strong> 2020-09-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree73ef43975b21edb847356104b0f20f3bb0b55fb5targetblank73ef439a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/73ef43975b21edb847356104b0f20f3bb0b55fb5" target="_blank">73ef439</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree78c6698b1271d653a3edb6b415668d45dd9fb3edtargetblank78c6698a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/78c6698b1271d653a3edb6b415668d45dd9fb3ed" target="_blank">78c6698</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree73ef43975b21edb847356104b0f20f3bb0b55fb5targetblank73ef439a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree78c6698b1271d653a3edb6b415668d45dd9fb3edtargetblank78c6698a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/73ef43975b21edb847356104b0f20f3bb0b55fb5" target="_blank">73ef439</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/78c6698b1271d653a3edb6b415668d45dd9fb3ed" target="_blank">78c6698</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -441,11 +441,13 @@ Ignored files:
     Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
+    Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Untracked files:
-    Untracked:  analysis/diff-count-pulseseq.RData
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/plots_tracheal_epithelium.Rmd
 
 </code></pre>
 <p>
@@ -484,6 +486,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/78c6698b1271d653a3edb6b415668d45dd9fb3ed/analysis/diff_count_pulseseq.Rmd" target="_blank">78c6698</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-30
+</td>
+<td>
+workflowr::wflow_publish(“diff_count_pulseseq.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/d4d15c8ae16140c146553778c879fb5250e52d13/docs/diff_count_pulseseq.html" target="_blank">d4d15c8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-26
+</td>
+<td>
+Built diff_count_pulseseq page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -529,7 +565,7 @@ samples &lt;- readRDS(&quot;../output/pulseseq/clustering-pulseseq.rds&quot;)</c
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 11 = 237831 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 841.75 seconds.</code></pre>
+# Computation took 975.09 seconds.</code></pre>
 <p>Next, calculate differential expression statistics using the clusters that were identified from the topic proportion PCs.</p>
 <pre class="r"><code>fit_clusters &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 timing &lt;- system.time(
@@ -538,24 +574,33 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 7 = 151347 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 495.92 seconds.</code></pre>
-<p>Finally, perform one more differential expression analysis after merging the 5 club cell topics and the 3 basal cell topics.</p>
-<pre class="r"><code>fit_merge_bc &lt;- merge_topics(poisson2multinom(fit),
-                             c(&quot;k4&quot;,&quot;k5&quot;,&quot;k6&quot;,&quot;k8&quot;,&quot;k10&quot;))
-fit_merge_bc &lt;- merge_topics(fit_merge_bc,c(&quot;k1&quot;,&quot;k3&quot;,&quot;k9&quot;))
+# Computation took 562.74 seconds.</code></pre>
+<p>Finally, erform a differential expression anaalysis after removing the “P” cluster.</p>
+<pre class="r"><code>rows &lt;- which(samples$cluster != &quot;P&quot;)
+fit_hillock &lt;- select(poisson2multinom(fit),loadings = rows)
 timing &lt;- system.time(
-  diff_count_merge_bc &lt;- diff_count_analysis(fit_merge_bc,counts))
+  diff_count_hillock &lt;- diff_count_analysis(fit_hillock,counts[rows,]))
+cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
+# Fitting 21621 x 11 = 237831 univariate Poisson models.
+# Computing log-fold change statistics.
+# Computation took 775.15 seconds.</code></pre>
+<p>Finally, perform another differential expression analysis after merging the 5 club cell topics and the 3 basal cell topics, and after removing the “P” cluster.</p>
+<pre class="r"><code>fit_bc &lt;- merge_topics(fit_hillock,c(&quot;k4&quot;,&quot;k5&quot;,&quot;k6&quot;,&quot;k8&quot;,&quot;k10&quot;))
+fit_bc &lt;- merge_topics(fit_bc,c(&quot;k1&quot;,&quot;k3&quot;,&quot;k9&quot;))
+timing &lt;- system.time(
+  diff_count_bc &lt;- diff_count_analysis(fit_bc,counts[rows,]))
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 5 = 108105 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 351.25 seconds.</code></pre>
+# Computation took 305.69 seconds.</code></pre>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
 <p>Save the results of the differential expression analyses to an RData file.</p>
 <pre class="r"><code>save(list = c(&quot;diff_count_topics&quot;,
               &quot;diff_count_clusters&quot;,
-              &quot;diff_count_merge_bc&quot;),
+              &quot;diff_count_hillock&quot;,
+              &quot;diff_count_bc&quot;),
      file = &quot;diff-count-pulseseq.RData&quot;)
 resaveRdaFiles(&quot;diff-count-pulseseq.RData&quot;)</code></pre>
 <br>
