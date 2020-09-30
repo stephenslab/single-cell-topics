@@ -56,15 +56,26 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Finally, perform one more differential expression analysis after
-merging the 5 club cell topics and the 3 basal cell topics.
+Finally, erform a differential expression anaalysis after removing the
+"P" cluster.
 
-```{r diff-count-analysis-topics-merge-club}
-fit_merge_bc <- merge_topics(poisson2multinom(fit),
-                             c("k4","k5","k6","k8","k10"))
-fit_merge_bc <- merge_topics(fit_merge_bc,c("k1","k3","k9"))
+```{r diff-count-analysis-topics-hillock}
+rows <- which(samples$cluster != "P")
+fit_hillock <- select(poisson2multinom(fit),loadings = rows)
 timing <- system.time(
-  diff_count_merge_bc <- diff_count_analysis(fit_merge_bc,counts))
+  diff_count_hillock <- diff_count_analysis(fit_hillock,counts[rows,]))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Finally, perform another differential expression analysis after
+merging the 5 club cell topics and the 3 basal cell topics, and after
+removing the "P" cluster.
+
+```{r diff-count-analysis-topics-basal-club}
+fit_bc <- merge_topics(fit_hillock,c("k4","k5","k6","k8","k10"))
+fit_bc <- merge_topics(fit_bc,c("k1","k3","k9"))
+timing <- system.time(
+  diff_count_bc <- diff_count_analysis(fit_bc,counts[rows,]))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
@@ -77,7 +88,8 @@ file.
 ```{r save-results}
 save(list = c("diff_count_topics",
               "diff_count_clusters",
-			  "diff_count_merge_bc"),
+              "diff_count_hillock",
+			  "diff_count_bc"),
      file = "diff-count-pulseseq.RData")
 resaveRdaFiles("diff-count-pulseseq.RData")
 ```
