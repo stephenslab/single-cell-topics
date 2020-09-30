@@ -85,8 +85,8 @@ Save the results of the differential expression analyses to an RData
 file.
 
 ```{r save-results}
-save(list = c("diff_count_topics","diff_count_clusters","diff_count_club",
-              "diff_count_basal"),
+save(list = c("diff_count_topics","diff_count_clusters",
+              "diff_count_club","diff_count_basal"),
      file = "diff-count-droplet.RData")
 resaveRdaFiles("diff-count-droplet.RData")
 ```
