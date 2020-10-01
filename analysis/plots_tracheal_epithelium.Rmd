@@ -352,7 +352,7 @@ print(p21)
 Club cells
 ----------
 
-Club cells cluster in droplet data:
+The remaining cluster in the droplet captures club cells:
 
 ```{r volcano-plot-droplet-club, fig.width=4.5, fig.height=4}
 club_genes <- c("Bpifa1","Cbr2","Cyp2a5","Cyp2f2","Krt15",
@@ -363,7 +363,7 @@ p22 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
 print(p22)
 ```
 
-Club cells cluster in pulse-seq data:
+And likewise in the pulse-seq data:
 
 ```{r volcano-plot-pulseseq-club, fig.width=4.5, fig.height=4}
 p23 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
@@ -372,7 +372,13 @@ p23 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
 print(p23)
 ```
 
-Compare club cells topic and cluster in droplet data:
+Both the droplet and pulse-seq clusters exhibit a high level of
+heterogeneity in the topic proportions; in particular, 2 topics are
+unique to club cluster in the droplet data, and 5 topics in the
+pulse-seq club cluster. This heterogeneity will require further
+exploration; for now we focus on the combined topic proportions
+capturing the club cell-type-specific gene program. In the droplet
+data, compare cluster C to the combined topics $k = 5,7$,
 
 ```{r scatterplots-club-droplet-C-vs-k5+k7, fig.width=8, fig.height=3}
 p24 <- zscores_scatterplot(diff_count_clusters_droplet,
@@ -384,7 +390,8 @@ p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_club_droplet,
 plot_grid(p24,p25)
 ```
 
-Compare club cells topic and cluster in pulse-seq data:
+and in the pulse-seq data compare cluster C to the combined topics $k
+= 4--6, 8, 10$,
 
 ```{r scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10, fig.width=8, fig.height=3}
 p26 <- zscores_scatterplot(diff_count_clusters_pulseseq,
@@ -397,3 +404,6 @@ p27 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_bc_pulseseq,
                         xlab = "cluster C",ylab = "topics 4-6, 8, 10")
 plot_grid(p26,p27)
 ```
+
+In both data sets, we observe a much stronger enrichment of
+characteristic club genes in the combined topics.
