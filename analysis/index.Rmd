@@ -62,5 +62,3 @@ Visualize and interpret topics
 
 + [Droplet and pulse-seq](plots_tracheal_epithelium.html)
 
-+ [Closer look at B-cells and NK cells in PBMC data](bcells_and_nkcells.html)
-

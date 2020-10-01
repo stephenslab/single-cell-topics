@@ -378,7 +378,7 @@ unique to club cluster in the droplet data, and 5 topics in the
 pulse-seq club cluster. This heterogeneity will require further
 exploration; for now we focus on the combined topic proportions
 capturing the club cell-type-specific gene program. In the droplet
-data, compare cluster C to the combined topics $k = 5,7$,
+data, compare cluster C to the combined topic $k = 5 + 7$,
 
 ```{r scatterplots-club-droplet-C-vs-k5+k7, fig.width=8, fig.height=3}
 p24 <- zscores_scatterplot(diff_count_clusters_droplet,
@@ -390,8 +390,8 @@ p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_club_droplet,
 plot_grid(p24,p25)
 ```
 
-and in the pulse-seq data compare cluster C to the combined topics $k
-= 4--6, 8, 10$,
+and in the pulse-seq data compare cluster C to the combined topic $k
+= 4 + 5 + 6 + 8 + 10$,
 
 ```{r scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10, fig.width=8, fig.height=3}
 p26 <- zscores_scatterplot(diff_count_clusters_pulseseq,
