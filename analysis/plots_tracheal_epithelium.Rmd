@@ -193,7 +193,8 @@ between these two rare cell types; we identify these cell types as a
 single cluster.
 
 ```{r volcano-plot-droplet-T+N, fig.width=4.5, fig.height=4}
-tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1","Rgs13")
+tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1",
+                               "Gnat3","Rgs13")
 p8 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"T+N",
                                           tuft_neuroendocrine_genes,
 										  label_above_quantile = 0.998)
