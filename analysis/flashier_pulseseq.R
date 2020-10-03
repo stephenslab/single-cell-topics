@@ -43,3 +43,19 @@ p1 <- labeled_pca_plot(Y,pcs = c("d1","d2"),samples$cluster)
 p2 <- labeled_pca_plot(Y,pcs = c("d3","d4"),samples$cluster)
 p3 <- labeled_pca_plot(Y,pcs = c("d2","d5"),samples$cluster)
 print(plot_grid(p1,p2,p3,nrow = 1))
+
+pca_hexbin_plot <-
+  function (pca, pcs = 1:2, n = 40, bins = c(0,1,10,100,1000,Inf),
+            colors = c("gainsboro","lightskyblue","gold","orange","magenta")) {
+  dat <- as.data.frame(pca)
+  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2])) +
+         stat_bin_hex(mapping = aes_q(fill = quote(cut(..count..,bins))),
+                      bins = n) +
+         scale_fill_manual(values = colors) +
+         theme_cowplot(font_size = 10))
+}
+
+p4 <- pca_hexbin_plot(Y,pcs = c("d1","d2"))
+p5 <- pca_hexbin_plot(Y,pcs = c("d3","d4"))
+p6 <- pca_hexbin_plot(Y,pcs = c("d2","d5"))
+print(plot_grid(p4,p5,p6,nrow = 1))
