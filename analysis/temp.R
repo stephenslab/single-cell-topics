@@ -35,3 +35,10 @@ res2 <- diff_count_analysis(fit2,counts_droplet[rows,])
 volcano_plot(res1,k = "Tuft")
 volcano_plot(res2,k = 2)
 beta_scatterplot(res2,res2,"k2","k6",tuft_neuroendocrine_genes,zmin = 1)
+
+# --------
+
+fl <- flash(X,greedy.Kmax = 6,nullcheck = FALSE,
+            prior.family = list(prior.nonnegative(),prior.point.normal()))
+range(fl$loadings.pm[[1]])
+range(fl$loadings.pm[[2]])
