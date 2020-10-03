@@ -10,7 +10,7 @@ set.seed(1)
 # Script parameters.
 flash_prior <- c(prior.point.normal(),prior.point.normal())
 
-# Load the multinomial topic model fit.
+# Load the multinomial topic model fit and clustering.
 samples <- readRDS("../output/droplet/clustering-droplet.rds")
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 
