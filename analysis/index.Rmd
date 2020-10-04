@@ -47,7 +47,8 @@ use this to identify clusters.
 Perform differential expression analysis
 ----------------------------------------
 
-*TO DO: Add brief description here.*
+In these pages, we perform a differential expression analysis using
+a topic model and clusters identified from this topic model.
 
 + [Droplet](diff_count_droplet.html)
 

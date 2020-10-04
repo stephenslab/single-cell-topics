@@ -38,6 +38,14 @@ beta_scatterplot(res2,res2,"k2","k6",tuft_neuroendocrine_genes,zmin = 1)
 
 # --------
 
+rows <- which(with(samples_droplet,
+                   tissue == "Tuft" | tissue == "Neuroendocrine"))
+dat <- data.frame(x = (samples_droplet[rows,"tissue"] == "Neuroendocrine"),
+                  y = counts_droplet[rows,"Chga"])
+out <- glm(y ~ x,family = "poisson",data = dat)
+
+# --------
+
 fl <- flash(X,greedy.Kmax = 6,nullcheck = FALSE,
             prior.family = list(prior.nonnegative(),prior.point.normal()))
 range(fl$loadings.pm[[1]])

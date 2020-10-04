@@ -122,6 +122,13 @@ y[pc2 > 0.55] <- "H"
 x[rows] <- y
 ```
 
+TO DO: Add text here.
+
+```{r}
+pca_plot_with_counts(fit,counts[,"Chga"],1:2,log = TRUE)
+pca_plot_with_counts(fit,counts[,"Gnat3"],1:2,log = TRUE)
+```
+
 In summary, we have subdivided the droplet data into 8 subsets.
 
 ```{r clustering-8, fig.width=8, fig.height=2}

@@ -157,6 +157,13 @@ y[pc5 > 0.1 & pc6 < 0] <- "P"
 x[rows] <- y
 ```
 
+TO DO: Add text here.
+
+```{r}
+pca_plot_with_counts(fit,counts[,"Chga"],5:6,log = TRUE)
+pca_plot_with_counts(fit,counts[,"Gnat3"],5:6,log = TRUE)
+```
+
 In summary, we have subdivided the pulse-seq data into 7 subsets,
 which includes a background cluster (U).
 
