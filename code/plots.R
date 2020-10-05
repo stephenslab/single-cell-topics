@@ -197,7 +197,8 @@ pca_plot_with_counts <- function (fit, counts, pcs = 1:2, log = FALSE,
                                          "magenta"),
                               na.value = "lightskyblue") +
          labs(fill = ifelse(log,"log-count","count")) +
-         theme_cowplot(font_size = font_size))
+         theme_cowplot(font_size = font_size) +
+         theme(plot.title = element_text(size = font_size,face = "plain")))
 }
 
 # Create a basic scatterplot showing the topic proportions projected
