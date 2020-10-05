@@ -122,13 +122,6 @@ y[pc2 > 0.55] <- "H"
 x[rows] <- y
 ```
 
-TO DO: Add text here.
-
-```{r}
-pca_plot_with_counts(fit,counts[,"Chga"],1:2,log = TRUE)
-pca_plot_with_counts(fit,counts[,"Gnat3"],1:2,log = TRUE)
-```
-
 In summary, we have subdivided the droplet data into 8 subsets.
 
 ```{r clustering-8, fig.width=8, fig.height=2}
@@ -197,11 +190,25 @@ captured by identifying "hard" clusters. In particular, there is
 additional continuous variation in gene expression primarily captured
 by topics 5 and 7:
 
-```{r pca-plot, fig.width=6, fig.height=4.75}
+```{r pca-plot-club, fig.width=6, fig.height=4.75}
 rows <- which(is.element(x,c("B","C","H","B+C")))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
 print(p15)
+```
+
+Although subtle, there is variation in topic 2 and 6 within the T+N
+cluster that tracks closely with the tuft (here signaled by gene
+*Gnat3*) and pulmonary neuroendocrine (*Chga*) cell-types:
+
+```{r pca-plot-tuft-neuroendocrine, fig.width=6, fig.height=4.5}
+p16 <- pca_plot(poisson2multinom(fit),k = 2)
+p17 <- pca_plot(poisson2multinom(fit),k = 6)
+p18 <- pca_plot_with_counts(fit,counts[,"Chga"],1:2,log = TRUE) +
+       labs(title = "Chga")
+p19 <- pca_plot_with_counts(fit,counts[,"Gnat3"],1:2,log = TRUE) +
+       labs(title = "Gnat3")
+plot_grid(p16,p17,p18,p19)
 ```
 
 Save results
