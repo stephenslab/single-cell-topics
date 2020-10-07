@@ -21,7 +21,6 @@ library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-source("../code/plots.R")
 ```
 
 Load data and results
@@ -200,7 +199,7 @@ captured by identifying "hard" clusters. In particular, there is
 additional continuous variation in gene expression primarily captured
 by topics 5 and 7:
 
-```{r pca-plot-club, fig.width=6, fig.height=4.75}
+```{r pca-plot-club, fig.width=6, fig.height=4.25}
 rows <- which(is.element(x,c("B","C","H","B+C")))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
