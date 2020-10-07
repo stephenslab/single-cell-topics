@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef4e04485104469aaeb58e722340f256cf65b084dtargetblankf4e0448a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f4e04485104469aaeb58e722340f256cf65b084d" target="_blank">f4e0448</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed5ea8c29bf6088df4a4038a19916eff751b3cbe7targetblankd5ea8c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d5ea8c29bf6088df4a4038a19916eff751b3cbe7" target="_blank">d5ea8c2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef4e04485104469aaeb58e722340f256cf65b084dtargetblankf4e0448a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed5ea8c29bf6088df4a4038a19916eff751b3cbe7targetblankd5ea8c2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f4e04485104469aaeb58e722340f256cf65b084d" target="_blank">f4e0448</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d5ea8c29bf6088df4a4038a19916eff751b3cbe7" target="_blank">d5ea8c2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,6 +444,9 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
 
 Unstaged changes:
     Modified:   analysis/plots_tracheal_epithelium.Rmd
@@ -485,6 +488,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d5ea8c29bf6088df4a4038a19916eff751b3cbe7/analysis/clusters_droplet.Rmd" target="_blank">d5ea8c2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/clusters_droplet.html" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+<td>
+Re-built clusters_droplet analysis using new fastTopics plots.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -974,8 +1011,7 @@ Implemented basic_pca_plot; improved labeled_pca_plot function.
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
-library(cowplot)
-source(&quot;../code/plots.R&quot;)</code></pre>
+library(cowplot)</code></pre>
 <div id="load-data-and-results" class="section level2">
 <h2>Load data and results</h2>
 <p>Load the droplet data.</p>
@@ -1013,6 +1049,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-1-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/b1cb82e4b0ce2e1db51ebb5f3a34a91178fe9dc3/docs/figure/clusters_droplet.Rmd/clustering-1-1.png" target="_blank">b1cb82e</a>
@@ -1060,6 +1107,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-2-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/b1cb82e4b0ce2e1db51ebb5f3a34a91178fe9dc3/docs/figure/clusters_droplet.Rmd/clustering-2-1.png" target="_blank">b1cb82e</a>
@@ -1114,6 +1172,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/5361fdfce874122596ccf2e97e7c00b8379f3e0b/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">5361fdf</a>
@@ -1179,6 +1248,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">db6135c</a>
 </td>
 <td>
@@ -1241,6 +1321,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/ab1ed99109322c2f5ad7df5d0041ce367a9fcfb7/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">ab1ed99</a>
@@ -1374,6 +1465,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/4fe31a61b346b7fc77438bc5b1c5828eb11d7266/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">4fe31a6</a>
@@ -1524,6 +1626,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">3bada76</a>
 </td>
 <td>
@@ -1568,6 +1681,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" target="_blank">d707238</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" target="_blank">3bada76</a>
