@@ -5,59 +5,6 @@ qt_random_tie <- function (x) {
   return(qqnorm(y,plot.it = FALSE)$x)
 }
 
-# Create a basic scatterplot showing the topic proportions projected
-# onto two principal components (PCs).
-basic_pca_plot <- function (fit, pcs = 1:2) {
-  if (inherits(fit,"poisson_nmf_fit"))
-    fit <- poisson2multinom(fit)
-  dat <- as.data.frame(prcomp(fit$L)$x)
-  if (is.numeric(pcs))
-    pcs <- names(dat)[pcs]
-  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2])) +
-         geom_point(shape = 21,color = "white",fill = "black",size = 1.25) +
-         theme_cowplot(font_size = 10))
-}
-
-# Create a basic scatterplot showing the topic proportions projected
-# onto two principal components (PCs), and the colour of the points is
-# varied according to a factor ("labels").
-labeled_pca_plot <-
-  function (fit, pcs = 1:2, labels,
-            colors = c("firebrick","dodgerblue","forestgreen","darkmagenta",
-                       "darkorange","gold","darkblue","peru","greenyellow"),
-            legend_label = "label", font_size = 10) {
-  if (inherits(fit,"poisson_nmf_fit"))
-    fit <- poisson2multinom(fit)
-  dat <- as.data.frame(prcomp(fit$L)$x)
-  if (is.numeric(pcs))
-    pcs <- names(dat)[pcs]
-  dat <- cbind(data.frame(label = factor(labels)),dat)
-  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "label")) +
-         geom_point(shape = 21,color = "white",size = 1.2,na.rm = TRUE) +
-         scale_fill_manual(values = colors) +
-         labs(fill = legend_label) +
-         theme_cowplot(font_size = font_size))
-}
-
-# Create a "hexbin plot" showing the density of the data points
-# (specifically, the topic proportions) as they are projected onto two
-# principal components (PCs).
-pca_hexbin_plot <-
-  function (fit, pcs = 1:2, n = 40, bins = c(0,1,10,100,1000,Inf),
-            colors = c("gainsboro","lightskyblue","gold","orange","magenta")) {
-  if (inherits(fit,"poisson_nmf_fit"))
-    fit <- poisson2multinom(fit)
-  dat <- as.data.frame(prcomp(fit$L)$x)
-  if (is.numeric(pcs))
-    pcs <- names(dat)[pcs]
-  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2])) +
-         stat_bin_hex(mapping = aes_q(fill = quote(cut(..count..,bins))),
-                      bins = n) +
-         scale_fill_manual(values = colors) +
-         labs(fill = "count") +
-         theme_cowplot(font_size = 10))
-}
-
 # This is a refinement of the volcano plot implemented in the
 # fastTopics package. Here, an additional set of genes is highlighted
 # by labeling the points with darker text.
@@ -176,29 +123,6 @@ zscores_scatterplot <- function (res1, res2, k1, k2, genes = NULL,
          labs(x = xlab,y = ylab,title = "sqrt(z-score)") +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
-}
-
-# Layer count data onto a basic PCA plot; the colour of the points are
-# varied by the counts (when log = FALSE), or the log-counts (when log
-# = TRUE).
-pca_plot_with_counts <- function (fit, counts, pcs = 1:2, log = FALSE,
-                                  font_size = 10) {
-  if (inherits(fit,"poisson_nmf_fit"))
-    fit <- poisson2multinom(fit)
-  dat <- as.data.frame(prcomp(fit$L)$x)
-  if (is.numeric(pcs))
-    pcs <- names(dat)[pcs]
-  dat <- cbind(dat,data.frame(count = counts))
-  if (log)
-    dat$count <- log(dat$count)
-  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "count")) +
-         geom_point(shape = 21,color = "white",size = 1.25) +
-         scale_fill_gradientn(colors = c("skyblue","gold","darkorange",
-                                         "magenta"),
-                              na.value = "lightskyblue") +
-         labs(fill = ifelse(log,"log-count","count")) +
-         theme_cowplot(font_size = font_size) +
-         theme(plot.title = element_text(size = font_size,face = "plain")))
 }
 
 # Create a basic scatterplot showing the topic proportions projected
