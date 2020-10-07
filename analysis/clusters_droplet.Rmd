@@ -46,9 +46,9 @@ To identify clusters, we begin by plotting PCs computed from the topic
 proportions. (Note that only 6 PCs are needed for 7 topics.)
 
 ```{r clustering-1, fig.width=8, fig.height=2.5}
-p1 <- basic_pca_plot(fit,1:2)
-p2 <- basic_pca_plot(fit,3:4)
-p3 <- basic_pca_plot(fit,5:6)
+p1 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = "none")
+p2 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = "none")
+p3 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = "none")
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 ```
 
@@ -56,10 +56,13 @@ Some of the structure is more evident from "hexbin" plots showing the
 density of the points.
 
 ```{r clustering-2, fig.width=8, fig.height=2.5}
-bins <- c(0,1,5,10,100,Inf)
-p4 <- pca_hexbin_plot(fit,1:2,bins = bins) + guides(fill = "none")
-p5 <- pca_hexbin_plot(fit,3:4,bins = bins) + guides(fill = "none")
-p6 <- pca_hexbin_plot(fit,5:6,bins = bins) + guides(fill = "none")
+breaks <- c(0,1,5,10,100,Inf)
+p4 <- pca_hexbin_plot(poisson2multinom(fit),pcs = 1:2,breaks = breaks)
+p5 <- pca_hexbin_plot(poisson2multinom(fit),pcs = 3:4,breaks = breaks)
+p6 <- pca_hexbin_plot(poisson2multinom(fit),pcs = 5:6,breaks = breaks)
+p4 <- p4 + guides(fill = "none")
+p5 <- p5 + guides(fill = "none")
+p6 <- p6 + guides(fill = "none")
 plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
 ```
 
@@ -86,15 +89,15 @@ in the projection onto the top 2 PCs computed from cluster A only.
 ```{r clustering-4, fig.width=6, fig.height=3}
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p7   <- basic_pca_plot(fit2,1:2)
-p8   <- pca_hexbin_plot(fit2,1:2,bins = bins) + guides(fill = "none")
+p7   <- pca_plot(fit2,fill = "none")
+p8   <- pca_hexbin_plot(fit2,1:2,breaks = breaks) + guides(fill = "none")
 plot_grid(p7,p8)
 ```
 
 The variation in PCs 1 and 2 is mostly produced by topics 2, 4 and 5.
 
 ```{r clustering-5, fig.width=5.5, fig.height=4.5}
-p9 <- pca_plot(fit2,pcs = 1:2,k = c(2,4,5))
+p9 <- pca_plot(fit2,k = c(2,4,5))
 print(p9)
 ```
 
@@ -103,7 +106,8 @@ which was identified as being uniquely expressed by transitional
 "hillock" cells.
 
 ```{r clustering-6, fig.width=3.25, fig.height=2.5}
-p10 <- pca_plot_with_counts(fit2,counts[rows,"Krt13"],pcs = 1:2,log = TRUE)
+p10 <- pca_plot(fit2,fill = log10(counts[rows,"Krt13"])) +
+       labs(fill = "log10(count)",title = "Krt13")
 print(p10)
 ```
 
@@ -124,7 +128,7 @@ x[rows] <- y
 
 In summary, we have subdivided the droplet data into 8 subsets.
 
-```{r clustering-8, fig.width=8, fig.height=2}
+```{r clustering-8, fig.width=8, fig.height=2, message=FALSE}
 samples$cluster <- factor(x,c("B","C","B+C","H","Cil","T+N","G","U"))
 cluster_colors <- c("royalblue",   # B
                     "forestgreen", # C
@@ -134,9 +138,15 @@ cluster_colors <- c("royalblue",   # B
 					"darkorange",  # T+N
 					"gold",        # G
 					"gainsboro")   # U
-p11 <- labeled_pca_plot(fit,1:2,samples$cluster,cluster_colors,font_size = 8)
-p12 <- labeled_pca_plot(fit,3:4,samples$cluster,cluster_colors,font_size = 8)
-p13 <- labeled_pca_plot(fit,5:6,samples$cluster,cluster_colors,font_size = 8)
+p11 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+	   labs(fill = "cluster")
+p12 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+	   labs(fill = "cluster")
+p13 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+	   labs(fill = "cluster")
 plot_grid(p11,p12,p13,nrow = 1,ncol = 3)
 ```
 
@@ -204,10 +214,10 @@ cluster that tracks closely with the tuft (here signaled by gene
 ```{r pca-plot-tuft-neuroendocrine, fig.width=6, fig.height=4.5}
 p16 <- pca_plot(poisson2multinom(fit),k = 2)
 p17 <- pca_plot(poisson2multinom(fit),k = 6)
-p18 <- pca_plot_with_counts(fit,counts[,"Chga"],1:2,log = TRUE) +
-       labs(title = "Chga")
-p19 <- pca_plot_with_counts(fit,counts[,"Gnat3"],1:2,log = TRUE) +
-       labs(title = "Gnat3")
+p18 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Chga"])) +
+       labs(fill = "log10(count)",title = "Chga")
+p19 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Gnat3"])) +
+       labs(fill = "log10(count)",title = "Gnat3")
 plot_grid(p16,p17,p18,p19)
 ```
 
