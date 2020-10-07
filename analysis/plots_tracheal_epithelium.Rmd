@@ -153,7 +153,8 @@ data. Judging by expression of the *Foxi1* ionocyte marker gene, only
 a handful of cells in the droplet data are ionocytes:
 
 ```{r pca-plot-droplet-Foxi1, fig.width=3.75, fig.height=3}
-p6 <- pca_plot_with_counts(fit_droplet,counts_droplet[,"Foxi1"],1:2)
+p6 <- pca_plot(poisson2multinom(fit_droplet),fill = counts_droplet[,"Foxi1"]) +
+      labs(fill = "count")
 print(p6)
 ```
 
@@ -283,7 +284,7 @@ pulse-seq set set, that isn't captured well by any single topic, but it
 stands out in PCA plots of the topic proportions. Forming a cluster
 from this subset, we obtain strong enrichment of cell-cycle genes:
 
-```{r volcano-plot-pulseseq-proliferating, fig.width=4.5, fig.height=4}
+```{r volcano-plot-pulseseq-proliferating, fig.width=4.25, fig.height=4}
 cell_cycle_genes <- c("Cdk1","Ube2c","Top2a")
 p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
                                            cell_cycle_genes,
@@ -346,8 +347,6 @@ The presence of hillock cells in the pulse-seq data is more subtle,
 but it is nonetheless well-captured by a single topic, $k = 1$:
 
 ```{r volcano-plot-pulseseq-hillock, fig.width=4.5, fig.height=4}
-diff_count_hillock_pulseseq <-
-  within(diff_count_hillock_pulseseq,colmeans <- colmeans + 1e-5)
 p21 <- volcano_plot_with_highlighted_genes(diff_count_hillock_pulseseq,"k1",
                                            hillock_genes,
 	 								 	   label_above_quantile = 0.995)
