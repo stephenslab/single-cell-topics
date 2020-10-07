@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-10-04
+<strong>Last updated:</strong> 2020-10-06
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree198eaf83b0811e0f0d1292e43cc0dc9648068217targetblank198eaf8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/198eaf83b0811e0f0d1292e43cc0dc9648068217" target="_blank">198eaf8</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef4e04485104469aaeb58e722340f256cf65b084dtargetblankf4e0448a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f4e04485104469aaeb58e722340f256cf65b084d" target="_blank">f4e0448</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree198eaf83b0811e0f0d1292e43cc0dc9648068217targetblank198eaf8a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef4e04485104469aaeb58e722340f256cf65b084dtargetblankf4e0448a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/198eaf83b0811e0f0d1292e43cc0dc9648068217" target="_blank">198eaf8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f4e04485104469aaeb58e722340f256cf65b084d" target="_blank">f4e0448</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -445,11 +445,8 @@ Ignored files:
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Untracked files:
-    Untracked:  analysis/clustering-droplet.rds
-
 Unstaged changes:
-    Modified:   code/plots.R
+    Modified:   analysis/plots_tracheal_epithelium.Rmd
 
 </code></pre>
 <p>
@@ -488,6 +485,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f4e04485104469aaeb58e722340f256cf65b084d/analysis/clusters_droplet.Rmd" target="_blank">f4e0448</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/clusters_droplet.html" target="_blank">3bada76</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-04
+</td>
+<td>
+Added PCA plots to clusters_droplet analysis showing substructure in
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -955,9 +986,9 @@ source(&quot;../code/plots.R&quot;)</code></pre>
 <div id="identify-clusters-from-principal-components" class="section level2">
 <h2>Identify clusters from principal components</h2>
 <p>To identify clusters, we begin by plotting PCs computed from the topic proportions. (Note that only 6 PCs are needed for 7 topics.)</p>
-<pre class="r"><code>p1 &lt;- basic_pca_plot(fit,1:2)
-p2 &lt;- basic_pca_plot(fit,3:4)
-p3 &lt;- basic_pca_plot(fit,5:6)
+<pre class="r"><code>p1 &lt;- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = &quot;none&quot;)
+p2 &lt;- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = &quot;none&quot;)
+p3 &lt;- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = &quot;none&quot;)
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -998,10 +1029,13 @@ Peter Carbonetto
 </div>
 </div>
 <p>Some of the structure is more evident from “hexbin” plots showing the density of the points.</p>
-<pre class="r"><code>bins &lt;- c(0,1,5,10,100,Inf)
-p4 &lt;- pca_hexbin_plot(fit,1:2,bins = bins) + guides(fill = &quot;none&quot;)
-p5 &lt;- pca_hexbin_plot(fit,3:4,bins = bins) + guides(fill = &quot;none&quot;)
-p6 &lt;- pca_hexbin_plot(fit,5:6,bins = bins) + guides(fill = &quot;none&quot;)
+<pre class="r"><code>breaks &lt;- c(0,1,5,10,100,Inf)
+p4 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 1:2,breaks = breaks)
+p5 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 3:4,breaks = breaks)
+p6 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 5:6,breaks = breaks)
+p4 &lt;- p4 + guides(fill = &quot;none&quot;)
+p5 &lt;- p5 + guides(fill = &quot;none&quot;)
+p6 &lt;- p6 + guides(fill = &quot;none&quot;)
 plot_grid(p4,p5,p6,nrow = 1,ncol = 3)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1054,8 +1088,8 @@ x[pc6 &lt; -0.05] &lt;- &quot;G&quot;</code></pre>
 <p>There is additional substructure in cluster A, which is more apparent in the projection onto the top 2 PCs computed from cluster A only.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;A&quot;)
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
-p7   &lt;- basic_pca_plot(fit2,1:2)
-p8   &lt;- pca_hexbin_plot(fit2,1:2,bins = bins) + guides(fill = &quot;none&quot;)
+p7   &lt;- pca_plot(fit2,fill = &quot;none&quot;)
+p8   &lt;- pca_hexbin_plot(fit2,1:2,breaks = breaks) + guides(fill = &quot;none&quot;)
 plot_grid(p7,p8)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-4-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
@@ -1118,7 +1152,7 @@ Peter Carbonetto
 </div>
 </div>
 <p>The variation in PCs 1 and 2 is mostly produced by topics 2, 4 and 5.</p>
-<pre class="r"><code>p9 &lt;- pca_plot(fit2,pcs = 1:2,k = c(2,4,5))
+<pre class="r"><code>p9 &lt;- pca_plot(fit2,k = c(2,4,5))
 print(p9)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-5-1.png" width="660" style="display: block; margin: auto;" /></p>
 <p>
@@ -1181,7 +1215,8 @@ Peter Carbonetto
 </div>
 </div>
 <p>Topic 4 in particular corresponds closely to expression of <em>Krt13</em> which was identified as being uniquely expressed by transitional “hillock” cells.</p>
-<pre class="r"><code>p10 &lt;- pca_plot_with_counts(fit2,counts[rows,&quot;Krt13&quot;],pcs = 1:2,log = TRUE)
+<pre class="r"><code>p10 &lt;- pca_plot(fit2,fill = log10(counts[rows,&quot;Krt13&quot;])) +
+       labs(fill = &quot;log10(count)&quot;,title = &quot;Krt13&quot;)
 print(p10)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="390" style="display: block; margin: auto;" /></p>
 <p>
@@ -1306,9 +1341,15 @@ cluster_colors &lt;- c(&quot;royalblue&quot;,   # B
                     &quot;darkorange&quot;,  # T+N
                     &quot;gold&quot;,        # G
                     &quot;gainsboro&quot;)   # U
-p11 &lt;- labeled_pca_plot(fit,1:2,samples$cluster,cluster_colors,font_size = 8)
-p12 &lt;- labeled_pca_plot(fit,3:4,samples$cluster,cluster_colors,font_size = 8)
-p13 &lt;- labeled_pca_plot(fit,5:6,samples$cluster,cluster_colors,font_size = 8)
+p11 &lt;- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+       labs(fill = &quot;cluster&quot;)
+p12 &lt;- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+       labs(fill = &quot;cluster&quot;)
+p13 &lt;- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
+       scale_fill_manual(values = cluster_colors) +
+       labs(fill = &quot;cluster&quot;)
 plot_grid(p11,p12,p13,nrow = 1,ncol = 3)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1459,15 +1500,89 @@ fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
 p15  &lt;- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
 print(p15)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/pca-plot-club-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-club-1">
+Past versions of pca-plot-club-1.png
+</button>
+</p>
+<div id="fig-pca-plot-club-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">3bada76</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Although subtle, there is variation in topic 2 and 6 within the T+N cluster that tracks closely with the tuft (here signaled by gene <em>Gnat3</em>) and pulmonary neuroendocrine (<em>Chga</em>) cell-types:</p>
 <pre class="r"><code>p16 &lt;- pca_plot(poisson2multinom(fit),k = 2)
 p17 &lt;- pca_plot(poisson2multinom(fit),k = 6)
-p18 &lt;- pca_plot_with_counts(fit,counts[,&quot;Chga&quot;],1:2,log = TRUE) +
-       labs(title = &quot;Chga&quot;)
-p19 &lt;- pca_plot_with_counts(fit,counts[,&quot;Gnat3&quot;],1:2,log = TRUE) +
-       labs(title = &quot;Gnat3&quot;)
+p18 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Chga&quot;])) +
+       labs(fill = &quot;log10(count)&quot;,title = &quot;Chga&quot;)
+p19 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Gnat3&quot;])) +
+       labs(fill = &quot;log10(count)&quot;,title = &quot;Gnat3&quot;)
 plot_grid(p16,p17,p18,p19)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-tuft-neuroendocrine-1">
+Past versions of pca-plot-tuft-neuroendocrine-1.png
+</button>
+</p>
+<div id="fig-pca-plot-tuft-neuroendocrine-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" target="_blank">3bada76</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
@@ -1496,7 +1611,7 @@ plot_grid(p16,p17,p18,p19)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-177 dplyr_0.8.3       
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-179 dplyr_0.8.3       
 # [5] Matrix_1.2-18     
 # 
 # loaded via a namespace (and not attached):
