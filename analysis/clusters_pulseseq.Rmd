@@ -95,7 +95,7 @@ from cluster A only:
 ```{r clustering-4, fig.width=3, fig.height=2.75}
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p11  <- pca_plot(fit2,pcs = 1:2,fill = "none")
+p11  <- pca_plot(fit2,fill = "none")
 print(p11)
 ```
 
@@ -115,8 +115,8 @@ Similarly, we mine the much larger cluster D for substructure:
 ```{r clustering-6, fig.width=6, fig.height=2.75}
 rows <- which(x == "D")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p12  <- pca_plot(fit2,pcs = 1:2,fill = "none")
-p13  <- pca_hexbin_plot(fit2,pcs = 1:2) + guides(fill = "none")
+p12  <- pca_plot(fit2,fill = "none")
+p13  <- pca_hexbin_plot(fit2) + guides(fill = "none")
 plot_grid(p12,p13)
 ```
 
@@ -156,17 +156,26 @@ y[pc5 > 0.1 & pc6 < 0] <- "P"
 x[rows] <- y
 ```
 
-TO DO: Add text here.
+Although subtle, there is variation in topic 2 and 11 within the T+N
+cluster that tracks closely with the tuft (here signaled by gene
+*Gnat3*) and pulmonary neuroendocrine (*Chga*) cell-types:
 
-```{r, eval=FALSE}
-p16 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = log10(counts[,"Chga"]))
-p17 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = log10(counts[,"Gnat3"]))
+```{r pca-plot-tuft-neuroendocrine, fig.width=6, fig.height=4.5}
+p16 <- pca_plot(poisson2multinom(fit),pcs = 5:6,k = 2)
+p17 <- pca_plot(poisson2multinom(fit),pcs = 5:6,k = 11)
+p18 <- pca_plot(poisson2multinom(fit),pcs = 5:6,
+                fill = log10(counts[,"Chga"])) +
+       labs(fill = "log10(count)",title = "Chga")
+p19 <- pca_plot(poisson2multinom(fit),pcs = 5:6,
+                fill = log10(counts[,"Gnat3"])) +
+       labs(fill = "log10(count)",title = "Gnat3")
+plot_grid(p16,p17,p18,p19)
 ```
 
 In summary, we have subdivided the pulse-seq data into 7 subsets,
 which includes a background cluster (U).
 
-```{r clustering-10, fig.width=8, fig.height=1.75, message=FALSE}
+```{r clustering-10, fig.width=8, fig.height=2, message=FALSE}
 samples$cluster <- factor(x,c("B","C","P","Cil","T+N","I","U"))
 cluster_colors  <- c("royalblue",   # B
                      "forestgreen", # C
@@ -175,16 +184,16 @@ cluster_colors  <- c("royalblue",   # B
  					 "darkorange",  # T+N
 					 "darkmagenta", # I
                      "gainsboro")   # U
-p18 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
+p20 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
        scale_fill_manual(values = cluster_colors) +
        labs(fill = "cluster")
-p19 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
+p21 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
        scale_fill_manual(values = cluster_colors) +
        labs(fill = "cluster")
-p20 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
+p22 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
        scale_fill_manual(values = cluster_colors) +
        labs(fill = "cluster")
-plot_grid(p18,p19,p20,nrow = 1)
+plot_grid(p20,p21,p22,nrow = 1)
 ```
 
 Comparing this to the Montoro *et al* (2018) clustering, we observe
@@ -214,13 +223,13 @@ rows <- sort(c(sample(which(samples$cluster == "B"),1000),
                sample(which(samples$cluster == "T+N"),500),
                which(samples$cluster == "I"),
                which(samples$cluster == "U")))
-p21 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p23 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,"cluster"],
                       topics = topics,
    		 			  colors = topic_colors[topics],
 		 			  perplexity = c(70,70,30,50,50,30,70),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p21)
+print(p23)
 ```
 
 Based on this structure plot, and from the other results above, we
@@ -244,15 +253,15 @@ among the cells in this cluster:
 ```{r pca-plot-club-1, fig.width=6, fig.height=4.5}
 rows <- which(x == "C")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p22  <- pca_plot(fit2,pcs = 1:2,k = c(5,8,10))
-print(p22)
+p24  <- pca_plot(fit2,k = c(5,8,10))
+print(p24)
 ```
 
 And in PCs 3 and 4:
 
 ```{r pca-plot-club-2, fig.width=6, fig.height=4.5}
-p23 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
-print(p23)
+p25 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
+print(p25)
 ```
 
 The B cell also shows a lot of heterogeneity. Topic 1 is of particular
@@ -262,10 +271,10 @@ gene *Krt13*:
 ```{r pca-plot-basal, fig.width=6, fig.height=2.5}
 rows <- which(x == "B")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p23  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
-p24  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
+p26  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
+p27  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
         labs(fill = "log10(count)")
-plot_grid(p23,p24,rel_widths = c(4,5))
+plot_grid(p26,p27,rel_widths = c(4,5))
 ```
 
 Save results
