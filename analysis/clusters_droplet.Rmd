@@ -89,7 +89,7 @@ in the projection onto the top 2 PCs computed from cluster A only.
 rows <- which(x == "A")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p7   <- pca_plot(fit2,fill = "none")
-p8   <- pca_hexbin_plot(fit2,1:2,breaks = breaks) + guides(fill = "none")
+p8   <- pca_hexbin_plot(fit2,breaks = breaks) + guides(fill = "none")
 plot_grid(p7,p8)
 ```
 
@@ -206,7 +206,7 @@ p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
 print(p15)
 ```
 
-Although subtle, there is variation in topic 2 and 6 within the T+N
+Although subtle, there is variation in topics 2 and 6 within the T+N
 cluster that tracks closely with the tuft (here signaled by gene
 *Gnat3*) and pulmonary neuroendocrine (*Chga*) cell-types:
 

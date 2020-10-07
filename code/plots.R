@@ -135,13 +135,8 @@ cellcycle_pca_plot <- function (fit, counts, pcs = 1:2,
   Y <- apply(X,2,qt_random_tie)
   rownames(Y) <- rownames(X)
   score <- rowSums(Y)
-  dat <- as.data.frame(prcomp(fit$L)$x)
-  if (is.numeric(pcs))
-    pcs <- names(dat)[pcs]
-  dat <- cbind(dat,data.frame(score = score))
-  return(ggplot(dat,aes_string(x = pcs[1],y = pcs[2],fill = "score")) +
-         geom_point(shape = 21,color = "white",size = 1.25) +
-         scale_fill_gradientn(colors = c("darkblue","royalblue","lightskyblue",
-                                         "darkorange","firebrick")) +
-         theme_cowplot(font_size = font_size))
+  return(suppressMessages(pca_plot(fit,pcs = pcs,fill = score) +
+           scale_fill_gradientn(colors = c("darkblue","royalblue",
+                                           "lightskyblue","darkorange",
+                                           "firebrick"))))
 }
