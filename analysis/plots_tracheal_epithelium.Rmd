@@ -32,8 +32,8 @@ TO DO: In addition to the Structure plots, add PCA plots summarizing
 (1) the clustering, and (2) how the clustering corresponds to top
 marker genes (e.g., *Krt13* for hillock cells).
 
-Load data and results
----------------------
+Droplet data
+------------
 
 Load the smaller "droplet" data set, the $k = 7$ Poisson NMF model fit
 for these data, the 8 clusters identified in the
@@ -60,6 +60,37 @@ Structure plot summarizes the topic proportions in each of the 8
 subsets (including the background cluster).
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
+
+*Add text here.*
+
+![](figure/clusters_droplet.Rmd/clustering-8-1.png)
+
+*Add text here.*
+
+```{r pca-plots-with-expression, fig.width=8, fig.height=3}
+pp1 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
+                fill = log10(counts_droplet[,"Cdhr3"])) +
+       labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
+pp2 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
+                fill = log10(counts_droplet[,"Krt5"])) +
+       labs(title = "Krt5 (basal)",fill = "log10(count)")
+pp3 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
+                fill = log10(counts_droplet[,"Scgb1a1"])) +
+       labs(title = "Scgb1a1 (club)",fill = "log10(count)")
+pp4 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
+                fill = log10(counts_droplet[,"Chga"])) +
+       labs(title = "Chga (neuroendocrine)",fill = "log10(count)")
+pp5 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
+                fill = log10(counts_droplet[,"Gnat3"])) +
+       labs(title = "Gnat3 (tuft)",fill = "log10(count)")
+pp6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 3:4,
+                fill = log10(counts_droplet[,"Krt13"])) +
+       labs(title = "Krt13 (hillock)",fill = "log10(count)")
+plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,nrow = 2,ncol = 3)
+```
+
+Pulse-seq data
+--------------
 
 Next, we load the larger "pulse-seq" data set, the $k = 11$ Poisson
 NMF model fit for these data, and the 7 clusters identified in the
@@ -215,6 +246,9 @@ p9 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
 print(p9)
 ```
 
+TO DO: Add volcano plots showing that droplet and pulse-seq topics
+within "T+N" cluster distinguish tuft and neuroendocrine cells.
+
 Basal cells
 -----------
 
@@ -284,7 +318,7 @@ pulse-seq set set, that isn't captured well by any single topic, but it
 stands out in PCA plots of the topic proportions. Forming a cluster
 from this subset, we obtain strong enrichment of cell-cycle genes:
 
-```{r volcano-plot-pulseseq-proliferating, fig.width=4.25, fig.height=4}
+```{r volcano-plot-pulseseq-proliferating, fig.width=4.5, fig.height=4}
 cell_cycle_genes <- c("Cdk1","Ube2c","Top2a")
 p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
                                            cell_cycle_genes,
@@ -295,7 +329,7 @@ print(p16)
 Indeed, if we formulate a simple a "cell-cycle score", we see that
 the signal is quite visible in PCs 5 and 6 of the topic proportions:
 
-```{r pca-cell-cycle-pulseseq-proliferating, fig.width=4, fig.height=3}
+```{r pca-cell-cycle-pulseseq-proliferating, fig.width=3.75, fig.height=3}
 rows <- with(samples_pulseseq,which(cluster == "B" | cluster == "P"))
 fit2 <- select(poisson2multinom(fit_pulseseq),loadings = rows)
 p17  <- cellcycle_pca_plot(fit2,counts_pulseseq[rows,],pcs = 5:6)
