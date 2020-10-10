@@ -3,8 +3,8 @@ output_dir: ../docs
 navbar:
   title: single-cell topics
   left:
-  - text: Overview
-    href: index.html
+    - text: Overview
+      href: index.html
   right:
     - text: source
       href: https://github.com/stephenslab/single-cell-topics
@@ -15,4 +15,3 @@ output:
     highlight: textmate
     lib_dir: site_libs
     self_contained: no
-

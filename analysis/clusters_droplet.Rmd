@@ -65,6 +65,12 @@ p6 <- p6 + guides(fill = "none")
 plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
 ```
 
+```{r}
+p7 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$tissue) +
+      labs(fill = "tissue")
+plot_grid(p1,p4,p7,nrow = 1,rel_widths = c(1,1,1.5))
+```
+
 From these PCA plots, we define 4 clusters, labeled A, Cil, G and
 T+N. (The reasoning behind these labels will become clear later.)
 Points that do not fit in any of these clusters are assigned to a

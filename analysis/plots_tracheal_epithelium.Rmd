@@ -28,10 +28,6 @@ library(cowplot)
 source("../code/plots.R")
 ```
 
-TO DO: In addition to the Structure plots, add PCA plots summarizing
-(1) the clustering, and (2) how the clustering corresponds to top
-marker genes (e.g., *Krt13* for hillock cells).
-
 Droplet data
 ------------
 
