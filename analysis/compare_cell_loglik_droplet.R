@@ -11,21 +11,21 @@ colors = c("#E69F00","#56B4E9","#009E73","#F0E442","#0072B2",
 load("../data/droplet.RData")
 samples <- readRDS("../output/droplet/clustering-droplet.rds")
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-fit_merge   <- merge_topics(poisson2multinom(fit),c("k5","k7"))
-fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
-fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
-fit_cluster <- poisson2multinom(fit_cluster)
-fit_montoro <- poisson2multinom(fit_montoro)
 
-# Compute the likelihood of each cell under the two hard clusterings.
-samples$loglik1 <- loglik_multinom_topic_model(counts,fit_montoro)
-samples$loglik2 <- loglik_multinom_topic_model(counts,fit_cluster)
+# Compute the likelihood of each cell under the topic model and the
+# two hard clusterings.
+fit            <- merge_topics(poisson2multinom(fit),c("k5","k7"))
+fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_montoro    <- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster    <- poisson2multinom(fit_cluster)
+fit_montoro    <- poisson2multinom(fit_montoro)
+loglik_topics  <- loglik_multinom_topic_model(counts,fit)
+loglik_cluster <- loglik_multinom_topic_model(counts,fit_cluster)
+loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
 
 # TO DO: Explain here what this function does, and how to use it.
-create_loglik_scatterplot <- function (clusters, k, color = "black",
+create_loglik_scatterplot <- function (dat, k, color = "black",
                                        minloglik = -Inf) {
-  dat <- samples
-  dat$cluster <- clusters
   dat    <- subset(dat,loglik1 > minloglik & loglik2 > minloglik)
   limits <- range(c(dat$loglik1,dat$loglik2))
   dat    <- subset(dat,cluster == k)
@@ -35,46 +35,45 @@ create_loglik_scatterplot <- function (clusters, k, color = "black",
                      color = "black") +
          xlim(limits) +
          ylim(limits) +
-         labs(x = "clusters",y = "topics",
-              title = sprintf("%s (n = %d)",k,nrow(dat))) +
+         labs(title = sprintf("%s (n = %d)",k,nrow(dat))) +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
 
+# Compare the two hard clusterings.
 minloglik <- -20000
-p1 <- create_loglik_scatterplot(samples$tissue,"Basal","royalblue",-20000)
-p2 <- create_loglik_scatterplot(samples$tissue,"Club","forestgreen",-20000)
-p3 <- create_loglik_scatterplot(samples$tissue,"Ciliated","firebrick",-20000)
-p4 <- create_loglik_scatterplot(samples$tissue,"Neuroendocrine","darkorange",
-                                -20000)
-p5 <- create_loglik_scatterplot(samples$tissue,"Tuft","dodgerblue",-20000)
-p6 <- create_loglik_scatterplot(samples$tissue,"Goblet","gold",-20000)
+dat <- data.frame(cluster = samples$tissue,
+                  loglik1 = loglik_montoro,
+                  loglik2 = loglik_cluster)
+p1 <- create_loglik_scatterplot(dat,"Basal","royalblue",minloglik)
+p2 <- create_loglik_scatterplot(dat,"Club","forestgreen",minloglik)
+p3 <- create_loglik_scatterplot(dat,"Ciliated","firebrick",minloglik)
+p4 <- create_loglik_scatterplot(dat,"Neuroendocrine","darkorange",minloglik)
+p5 <- create_loglik_scatterplot(dat,"Tuft","dodgerblue",minloglik)
+p6 <- create_loglik_scatterplot(dat,"Goblet","gold",minloglik)
 plot_grid(p1,p2,p3,
           p4,p5,p6,
           nrow = 2,ncol = 3)
 
-# Compute the likelihood of each cell under the topic model and the
-# hard clustering.
-samples$loglik1 <- loglik_multinom_topic_model(counts,fit_cluster)
-samples$loglik2 <- loglik_multinom_topic_model(counts,poisson2multinom(fit))
-
-p7  <- create_loglik_scatterplot(samples$cluster,"B","royalblue",minloglik)
-p8  <- create_loglik_scatterplot(samples$cluster,"C","forestgreen",minloglik)
-p9  <- create_loglik_scatterplot(samples$cluster,"Cil","firebrick",minloglik)
-p10 <- create_loglik_scatterplot(samples$cluster,"H","turquoise",minloglik)
-p11 <- create_loglik_scatterplot(samples$cluster,"T+N","darkorange",minloglik)
-p12 <- create_loglik_scatterplot(samples$cluster,"G","gold",minloglik)
+# Compare the hard clustering against the topics.
+dat <- data.frame(cluster = samples$cluster,
+                  loglik1 = loglik_cluster,
+                  loglik2 = loglik_topics)
+p7  <- create_loglik_scatterplot(dat,"B","royalblue",minloglik)
+p8  <- create_loglik_scatterplot(dat,"C","forestgreen",minloglik)
+p9  <- create_loglik_scatterplot(dat,"Cil","firebrick",minloglik)
+p10 <- create_loglik_scatterplot(dat,"H","turquoise",minloglik)
+p11 <- create_loglik_scatterplot(dat,"T+N","darkorange",minloglik)
+p12 <- create_loglik_scatterplot(dat,"G","gold",minloglik)
 plot_grid(p7,p8,p9,
           p10,p11,p12,
           nrow = 2,ncol = 3)
 
-# Compute the likelihood of each cell under the Montoro et al (2018)
-# hard clustering.
-samples$loglik1 <- loglik_multinom_topic_model(counts,fit_montoro)
-p13 <- create_loglik_scatterplot(samples$tissue,"Neuroendocrine","darkorange",
-                                 minloglik)
-p14 <- create_loglik_scatterplot(samples$tissue,"Tuft","dodgerblue",minloglik)
-p15 <- create_loglik_scatterplot(samples$tissue,"Ionocyte","darkmagenta",
-                                 minloglik)
-plot_grid(p13,p14,p15,
-          nrow = 1,ncol = 3)
+# Compare the Montoro et al (2018) hard clustering against the topics.
+dat <- data.frame(cluster = samples$tissue,
+                  loglik1 = loglik_montoro,
+                  loglik2 = loglik_topics)
+p13 <- create_loglik_scatterplot(dat,"Neuroendocrine","darkorange",minloglik)
+p14 <- create_loglik_scatterplot(dat,"Tuft","dodgerblue",minloglik)
+p15 <- create_loglik_scatterplot(dat,"Ionocyte","darkmagenta",minloglik)
+plot_grid(p13,p14,p15,nrow = 1,ncol = 3)
