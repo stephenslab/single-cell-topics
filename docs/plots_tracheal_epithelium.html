@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb9aee6edce4594a56d4ec93ec60a95fb47459399targetblankb9aee6ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b9aee6edce4594a56d4ec93ec60a95fb47459399" target="_blank">b9aee6e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree56fc8f24ffa86970b8dbf5996acd2e656bd6ad7dtargetblank56fc8f2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/56fc8f24ffa86970b8dbf5996acd2e656bd6ad7d" target="_blank">56fc8f2</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb9aee6edce4594a56d4ec93ec60a95fb47459399targetblankb9aee6ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree56fc8f24ffa86970b8dbf5996acd2e656bd6ad7dtargetblank56fc8f2a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b9aee6edce4594a56d4ec93ec60a95fb47459399" target="_blank">b9aee6e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/56fc8f24ffa86970b8dbf5996acd2e656bd6ad7d" target="_blank">56fc8f2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -482,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/56fc8f24ffa86970b8dbf5996acd2e656bd6ad7d/analysis/plots_tracheal_epithelium.Rmd" target="_blank">56fc8f2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+workflowr::wflow_publish(“plots_tracheal_epithelium.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/plots_tracheal_epithelium.html" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+Re-built plots_tracheal_epithelium page with Gp2 expression plot.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2316,7 +2350,7 @@ rm(samples,counts)
 rm(diff_count_topics,diff_count_clusters,diff_count_club,diff_count_basal)</code></pre>
 <p>For reference, we show here the Structure plot from the <a href="clusters_droplet.html">clustering analysis of the droplet data</a>. This Structure plot summarizes the topic proportions in each of the 8 subsets (including the background cluster).</p>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" /></p>
-<p>Also for reference, we show the cluster assignments projected onto the principal components of the topic proportions.</p>
+<p>Also for reference, we show the cluster assignments projected onto the principal components of the topic proportions:</p>
 <p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" /></p>
 <p>To draw the connection between the clusters and cell types, here we show the principal components with expression of top cell-type-specific genes (e.g., <em>Cdhr3</em> for ciliated cells).</p>
 <pre class="r"><code>pp1 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
@@ -2341,44 +2375,7 @@ pp7 &lt;- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,
                 fill = log10(counts_droplet[,&quot;Gp2&quot;])) +
        labs(title = &quot;Gp2 (goblet)&quot;,fill = &quot;log10(count)&quot;)
 plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,pp7,nrow = 3,ncol = 3)</code></pre>
-<p><img src="figure/plots_tracheal_epithelium.Rmd/pca-plots-with-expression-1.png" width="900" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plots-with-expression-1">
-Past versions of pca-plots-with-expression-1.png
-</button>
-</p>
-<div id="fig-pca-plots-with-expression-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/pca-plots-with-expression-1.png" target="_blank">09dc8fc</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-07
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pca-plots-with-expression-droplet-1.png" width="900" style="display: block; margin: auto;" /></p>
 </div>
 <div id="pulse-seq-data" class="section level2">
 <h2>Pulse-seq data</h2>
@@ -2396,6 +2393,32 @@ rm(samples,counts)
 rm(diff_count_topics,diff_count_clusters,diff_count_hillock,diff_count_bc)</code></pre>
 <p>For reference, we show here the Structure plot from the <a href="clusters_pulseseq.html">clustering analysis of the pulse-seq data</a>. This Structure plot summarizes the topic proportions in each of the 7 subsets (including the background cluster):</p>
 <p><img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" /></p>
+<p>Also for reference, we show the cluster assignments projected onto the principal components of the topic proportions:</p>
+<p><img src="figure/clusters_pulseseq.Rmd/clustering-10-1.png" /></p>
+<p>To draw the connection between the clusters and cell types, here we show the principal components with expression of top cell-type-specific genes (e.g., <em>Cdhr3</em> for ciliated cells).</p>
+<pre class="r"><code>pp8  &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,
+                 fill = log10(counts_pulseseq[,&quot;Cdhr3&quot;])) +
+        labs(title = &quot;Cdhr3 (ciliated)&quot;,fill = &quot;log10(count)&quot;)
+pp9  &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 1:2,
+                 fill = log10(counts_pulseseq[,&quot;Krt5&quot;])) +
+        labs(title = &quot;Krt5 (basal)&quot;,fill = &quot;log10(count)&quot;)
+pp10 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 1:2,
+                 fill = log10(counts_pulseseq[,&quot;Scgb1a1&quot;])) +
+        labs(title = &quot;Scgb1a1 (club)&quot;,fill = &quot;log10(count)&quot;)
+pp11 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
+                 fill = log10(counts_pulseseq[,&quot;Chga&quot;])) +
+        labs(title = &quot;Chga (neuroendocrine)&quot;,fill = &quot;log10(count)&quot;)
+pp12 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
+                 fill = log10(counts_pulseseq[,&quot;Gnat3&quot;])) +
+        labs(title = &quot;Gnat3 (tuft)&quot;,fill = &quot;log10(count)&quot;)
+pp13 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
+                 fill = log10(counts_pulseseq[,&quot;Cftr&quot;])) +
+        labs(title = &quot;Cftr (ionocyte)&quot;,fill = &quot;log10(count)&quot;)
+pp14 &lt;- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
+                 fill = log10(counts_pulseseq[,&quot;Cdk1&quot;])) +
+        labs(title = &quot;Cdk1 (proliferating)&quot;,fill = &quot;log10(count)&quot;)
+plot_grid(pp8,pp9,pp10,pp11,pp12,pp13,pp14,nrow = 3,ncol = 3)</code></pre>
+<p><img src="figure/plots_tracheal_epithelium.Rmd/pca-plots-with-expression-pulseseq-1.png" width="900" style="display: block; margin: auto;" /></p>
 </div>
 <div id="likelihood-analysis" class="section level2">
 <h2>Likelihood analysis</h2>
@@ -2432,6 +2455,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-cil-1.png" target="_blank">09dc8fc</a>
@@ -2907,6 +2941,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-pulseseq-Cil-vs-k7-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-pulseseq-Cil-vs-k7-1.png" target="_blank">09dc8fc</a>
@@ -3431,6 +3476,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-G-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -3654,6 +3710,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-G-vs-k1-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-G-vs-k1-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -3821,6 +3888,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-T+N-1.png" target="_blank">09dc8fc</a>
@@ -4009,6 +4087,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-T+N-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -4180,6 +4269,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-basal-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-basal-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -4313,6 +4413,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-B-vs-k2-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-B-vs-k2-1.png" target="_blank">09dc8fc</a>
@@ -4457,6 +4568,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-basal-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-basal-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -4591,6 +4713,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-pulseseq-B-vs-k1+3+9-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-pulseseq-B-vs-k1+3+9-1.png" target="_blank">09dc8fc</a>
@@ -4737,6 +4870,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-proliferating-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-proliferating-1.png" target="_blank">09dc8fc</a>
@@ -4950,6 +5094,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-hillock-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-hillock-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -5072,6 +5227,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-H-vs-k4-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-droplet-H-vs-k4-1.png" target="_blank">09dc8fc</a>
@@ -5206,6 +5372,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-hillock-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-hillock-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -5331,6 +5508,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-club-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-droplet-club-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -5438,6 +5626,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-club-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/volcano-plot-pulseseq-club-1.png" target="_blank">09dc8fc</a>
@@ -5552,6 +5751,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-club-droplet-C-vs-k5+k7-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-club-droplet-C-vs-k5+k7-1.png" target="_blank">09dc8fc</a>
 </td>
 <td>
@@ -5664,6 +5874,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ea9a86e4e856734a09d5e713ed1b8d8dcaab50b/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10-1.png" target="_blank">5ea9a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/09dc8fc0b9dc7573931cc5e6882d765ee5e4e202/docs/figure/plots_tracheal_epithelium.Rmd/scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10-1.png" target="_blank">09dc8fc</a>
