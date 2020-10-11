@@ -57,13 +57,16 @@ subsets (including the background cluster).
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
 
-*Add text here.*
+Also for reference, we show the cluster assignments projected onto the
+principal components of the topic proportions.
 
 ![](figure/clusters_droplet.Rmd/clustering-8-1.png)
 
-*Add text here.*
+To draw the connection between the clusters and cell types, here we
+show the principal components with expression of top cell-type-specific
+genes (e.g., *Cdhr3* for ciliated cells).
 
-```{r pca-plots-with-expression, fig.width=8, fig.height=3}
+```{r pca-plots-with-expression, fig.width=7.5, fig.height=5}
 pp1 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
                 fill = log10(counts_droplet[,"Cdhr3"])) +
        labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
@@ -82,7 +85,10 @@ pp5 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
 pp6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 3:4,
                 fill = log10(counts_droplet[,"Krt13"])) +
        labs(title = "Krt13 (hillock)",fill = "log10(count)")
-plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,nrow = 2,ncol = 3)
+pp7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,
+                fill = log10(counts_droplet[,"Gp2"])) +
+       labs(title = "Gp2 (goblet)",fill = "log10(count)")
+plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,pp7,nrow = 3,ncol = 3)
 ```
 
 Pulse-seq data
@@ -112,6 +118,11 @@ This Structure plot summarizes the topic proportions in each of the 7
 subsets (including the background cluster):
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
+
+Likelihood analysis
+-------------------
+
+TO DO.
 
 Ciliated cells
 --------------
