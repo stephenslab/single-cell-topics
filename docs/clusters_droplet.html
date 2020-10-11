@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-10-06
+<strong>Last updated:</strong> 2020-10-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed5ea8c29bf6088df4a4038a19916eff751b3cbe7targetblankd5ea8c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d5ea8c29bf6088df4a4038a19916eff751b3cbe7" target="_blank">d5ea8c2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec69aa03bb5f52ad25e127209eb3dc0643951a179targetblankc69aa03a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c69aa03bb5f52ad25e127209eb3dc0643951a179" target="_blank">c69aa03</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed5ea8c29bf6088df4a4038a19916eff751b3cbe7targetblankd5ea8c2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec69aa03bb5f52ad25e127209eb3dc0643951a179targetblankc69aa03a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d5ea8c29bf6088df4a4038a19916eff751b3cbe7" target="_blank">d5ea8c2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c69aa03bb5f52ad25e127209eb3dc0643951a179" target="_blank">c69aa03</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -450,6 +450,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/plots_tracheal_epithelium.Rmd
+    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -488,6 +489,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c69aa03bb5f52ad25e127209eb3dc0643951a179/analysis/clusters_droplet.Rmd" target="_blank">c69aa03</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/62834cb35e294f6cc3990b9c945c9fe0e75f49b7/analysis/clusters_droplet.Rmd" target="_blank">62834cb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-09
+</td>
+<td>
+Working on various exploratory analyses of the droplet and pulse-seq data.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d2377ec25b883947724f2c5b6b9597b9ecb957f2/analysis/clusters_droplet.Rmd" target="_blank">d2377ec</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+<td>
+Simplified implementation of cellcycle_pca_plot by making use of a new pca_plot interface from the fastTopics package.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/5510fd590388c8e04154c6981bcc7c420ce29cc6/docs/clusters_droplet.html" target="_blank">5510fd5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+<td>
+clusters_droplet no longer uses plots.R.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1011,7 +1080,8 @@ Implemented basic_pca_plot; improved labeled_pca_plot function.
 library(dplyr)
 library(fastTopics)
 library(ggplot2)
-library(cowplot)</code></pre>
+library(cowplot)
+source(&quot;../code/plots.R&quot;)</code></pre>
 <div id="load-data-and-results" class="section level2">
 <h2>Load data and results</h2>
 <p>Load the droplet data.</p>
@@ -1147,7 +1217,7 @@ x[pc6 &lt; -0.05] &lt;- &quot;G&quot;</code></pre>
 <pre class="r"><code>rows &lt;- which(x == &quot;A&quot;)
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
 p7   &lt;- pca_plot(fit2,fill = &quot;none&quot;)
-p8   &lt;- pca_hexbin_plot(fit2,1:2,breaks = breaks) + guides(fill = &quot;none&quot;)
+p8   &lt;- pca_hexbin_plot(fit2,breaks = breaks) + guides(fill = &quot;none&quot;)
 plot_grid(p7,p8)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-4-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
@@ -1513,6 +1583,72 @@ Peter Carbonetto
 #   Ionocyte          9    0    1    0    0    1    1   14
 #   Neuroendocrine   27    4    6    0    0   51    0    8
 #   Tuft             27    5    5    0    1  111    2    7</code></pre>
+<p>By computing inter-cluster and inter-topic expression differences by the <em>total variation distance</em> in relative expression levels, we see that the clusters identified above show greater differentiation in gene expression, and the topics show more differentiation than the topics.</p>
+<pre class="r"><code>fit_montoro &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_merge   &lt;- merge_topics(poisson2multinom(fit),c(&quot;k5&quot;,&quot;k7&quot;))
+d_montoro   &lt;- totalvardist(poisson2multinom(fit_montoro)$F)
+d_cluster   &lt;- totalvardist(poisson2multinom(fit_cluster)$F[,-c(3,8)])
+d_topics    &lt;- totalvardist(fit_merge$F[,-3])
+cat(&quot;Montoro et al (2018) clustering:\n&quot;)
+print(d_montoro,digits = 3)
+cat(&quot;Our clustering:\n&quot;)
+print(d_cluster,digits = 3)
+cat(&quot;Topics:\n&quot;)
+print(d_topics,digits = 3)
+# Montoro et al (2018) clustering:
+#                Basal Ciliated  Club Goblet Ionocyte Neuroendocrine  Tuft
+# Basal          0.000    0.362 0.446  0.579    0.262          0.236 0.272
+# Ciliated       0.362    0.000 0.487  0.587    0.362          0.340 0.351
+# Club           0.446    0.487 0.000  0.445    0.497          0.425 0.472
+# Goblet         0.579    0.587 0.445  0.000    0.589          0.515 0.553
+# Ionocyte       0.262    0.362 0.497  0.589    0.000          0.275 0.294
+# Neuroendocrine 0.236    0.340 0.425  0.515    0.275          0.000 0.214
+# Tuft           0.272    0.351 0.472  0.553    0.294          0.214 0.000
+# Our clustering:
+#         B     C     H   Cil   T+N     G
+# B   0.000 0.511 0.347 0.390 0.351 0.626
+# C   0.511 0.000 0.523 0.579 0.632 0.574
+# H   0.347 0.523 0.000 0.422 0.436 0.659
+# Cil 0.390 0.579 0.422 0.000 0.391 0.658
+# T+N 0.351 0.632 0.436 0.391 0.000 0.681
+# G   0.626 0.574 0.659 0.658 0.681 0.000
+# Topics:
+#          k1    k2    k4    k6 k5+k7
+# k1    0.000 0.821 0.826 0.810 0.797
+# k2    0.821 0.000 0.381 0.409 0.695
+# k4    0.826 0.381 0.000 0.427 0.681
+# k6    0.810 0.409 0.427 0.000 0.705
+# k5+k7 0.797 0.695 0.681 0.705 0.000</code></pre>
+<p>Here is a plot summarizing these differences:</p>
+<pre class="r"><code>pdat &lt;-
+  rbind(data.frame(method=&quot;montoro.et.al&quot;,d=d_montoro[upper.tri(d_montoro)]),
+        data.frame(method=&quot;clusters&quot;,     d=d_cluster[upper.tri(d_cluster)]),
+        data.frame(method=&quot;topics&quot;,       d=d_topics[upper.tri(d_topics)]))
+p14a &lt;- ggplot(pdat,aes(x = method,y = d,color = I(&quot;white&quot;))) +
+  geom_dotplot(binaxis = &quot;y&quot;,stackdir = &quot;center&quot;,binwidth = 0.05,
+               dotsize = 1.2,fill = &quot;dodgerblue&quot;) +
+  ylim(0,1) +
+  labs(x = &quot;&quot;,y = &quot;total variation dist&quot;) +
+  theme_cowplot(font_size = 9)
+print(p14a)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-11-1.png" width="300" style="display: block; margin: auto;" /></p>
+<p>This next plot provides a more direct comparison of the total variation distances among the 4 clusters that are comparable to the Montoro <em>et al</em> clusters:</p>
+<pre class="r"><code>d_montoro &lt;-
+  totalvardist(poisson2multinom(fit_montoro)$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,
+                                                  &quot;Goblet&quot;)])
+d_cluster&lt;-totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;)])
+pdat &lt;- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
+                   clusters = d_cluster[upper.tri(d_cluster)])
+p14b &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
+  geom_point(shape = 21,size = 2,color = &quot;white&quot;,fill = &quot;dodgerblue&quot;) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  xlim(0.3,0.7) + 
+  ylim(0.3,0.7) + 
+  labs(x = &quot;Montoro et al clusters&quot;,y = &quot;our clusters&quot;) +
+  theme_cowplot(font_size = 9)
+print(p14b)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-12-1.png" width="300" style="display: block; margin: auto;" /></p>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
@@ -1529,12 +1665,12 @@ rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),800),
                which(samples$cluster == &quot;T+N&quot;),
                which(samples$cluster == &quot;G&quot;),
                which(samples$cluster == &quot;U&quot;)))
-p14 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p15 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,&quot;cluster&quot;],
                       topics = topics,colors = topic_colors[topics],
                       perplexity = c(70,70,30,30,50,30,12,18),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p14)</code></pre>
+print(p15)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
@@ -1599,8 +1735,8 @@ Peter Carbonetto
 <p>Note the distribution of the topics in cluster C suggests that there is further substantial heterogeneity in these cells beyond what can be captured by identifying “hard” clusters. In particular, there is additional continuous variation in gene expression primarily captured by topics 5 and 7:</p>
 <pre class="r"><code>rows &lt;- which(is.element(x,c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C&quot;)))
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
-p15  &lt;- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
-print(p15)</code></pre>
+p16  &lt;- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
+print(p16)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/pca-plot-club-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-club-1">
@@ -1624,6 +1760,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5510fd590388c8e04154c6981bcc7c420ce29cc6/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">5510fd5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">d707238</a>
@@ -1650,14 +1797,14 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Although subtle, there is variation in topic 2 and 6 within the T+N cluster that tracks closely with the tuft (here signaled by gene <em>Gnat3</em>) and pulmonary neuroendocrine (<em>Chga</em>) cell-types:</p>
-<pre class="r"><code>p16 &lt;- pca_plot(poisson2multinom(fit),k = 2)
-p17 &lt;- pca_plot(poisson2multinom(fit),k = 6)
-p18 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Chga&quot;])) +
+<p>Although subtle, there is variation in topics 2 and 6 within the T+N cluster that tracks closely with the tuft (here signaled by gene <em>Gnat3</em>) and pulmonary neuroendocrine (<em>Chga</em>) cell-types:</p>
+<pre class="r"><code>p17 &lt;- pca_plot(poisson2multinom(fit),k = 2)
+p18 &lt;- pca_plot(poisson2multinom(fit),k = 6)
+p19 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Chga&quot;])) +
        labs(fill = &quot;log10(count)&quot;,title = &quot;Chga&quot;)
-p19 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Gnat3&quot;])) +
+p20 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Gnat3&quot;])) +
        labs(fill = &quot;log10(count)&quot;,title = &quot;Gnat3&quot;)
-plot_grid(p16,p17,p18,p19)</code></pre>
+plot_grid(p17,p18,p19,p20)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-tuft-neuroendocrine-1">
