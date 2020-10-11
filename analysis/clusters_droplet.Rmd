@@ -21,6 +21,7 @@ library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/plots.R")
 ```
 
 Load data and results
@@ -63,12 +64,6 @@ p4 <- p4 + guides(fill = "none")
 p5 <- p5 + guides(fill = "none")
 p6 <- p6 + guides(fill = "none")
 plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
-```
-
-```{r}
-p7 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$tissue) +
-      labs(fill = "tissue")
-plot_grid(p1,p4,p7,nrow = 1,rel_widths = c(1,1,1.5))
 ```
 
 From these PCA plots, we define 4 clusters, labeled A, Cil, G and
@@ -164,6 +159,64 @@ in the same cluster).
 with(samples,table(tissue,cluster))
 ```
 
+By computing inter-cluster and inter-topic expression differences by
+the *total variation distance* in relative expression levels, we
+see that the clusters identified above show greater differentiation in
+gene expression, and the topics show more differentiation than the
+topics.
+
+```{r clustering-10}
+fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_merge   <- merge_topics(poisson2multinom(fit),c("k5","k7"))
+d_montoro   <- totalvardist(poisson2multinom(fit_montoro)$F)
+d_cluster   <- totalvardist(poisson2multinom(fit_cluster)$F[,-c(3,8)])
+d_topics    <- totalvardist(fit_merge$F[,-3])
+cat("Montoro et al (2018) clustering:\n")
+print(d_montoro,digits = 3)
+cat("Our clustering:\n")
+print(d_cluster,digits = 3)
+cat("Topics:\n")
+print(d_topics,digits = 3)
+```
+
+Here is a plot summarizing these differences:
+
+```{r clustering-11, fig.height=2, fig.width=2.5}
+pdat <-
+  rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
+        data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
+        data.frame(method="topics",       d=d_topics[upper.tri(d_topics)]))
+p14a <- ggplot(pdat,aes(x = method,y = d,color = I("white"))) +
+  geom_dotplot(binaxis = "y",stackdir = "center",binwidth = 0.05,
+               dotsize = 1.2,fill = "dodgerblue") +
+  ylim(0,1) +
+  labs(x = "",y = "total variation dist") +
+  theme_cowplot(font_size = 9)
+print(p14a)
+```
+
+This next plot provides a more direct comparison of the total
+variation distances among the 4 clusters that are comparable to the
+Montoro *et al* clusters:
+
+```{r clustering-12, fig.height=2.25, fig.width=2.5}
+d_montoro <-
+  totalvardist(poisson2multinom(fit_montoro)$F[,c("Basal","Ciliated","Club",
+                                                  "Goblet")])
+d_cluster<-totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","G")])
+pdat <- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
+                   clusters = d_cluster[upper.tri(d_cluster)])
+p14b <- ggplot(pdat,aes(x = montoro,y = clusters)) +
+  geom_point(shape = 21,size = 2,color = "white",fill = "dodgerblue") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  xlim(0.3,0.7) + 
+  ylim(0.3,0.7) + 
+  labs(x = "Montoro et al clusters",y = "our clusters") +
+  theme_cowplot(font_size = 9)
+print(p14b)
+```
+
 Structure plot
 --------------
 
@@ -183,12 +236,12 @@ rows <- sort(c(sample(which(samples$cluster == "B"),800),
                which(samples$cluster == "T+N"),
                which(samples$cluster == "G"),
 			   which(samples$cluster == "U")))
-p14 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p15 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,"cluster"],
                       topics = topics,colors = topic_colors[topics],
 		  			  perplexity = c(70,70,30,30,50,30,12,18),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p14)
+print(p15)
 ```
 
 Based on this structure plot, and the above results, we roughly
@@ -208,8 +261,8 @@ by topics 5 and 7:
 ```{r pca-plot-club, fig.width=6, fig.height=4.25}
 rows <- which(is.element(x,c("B","C","H","B+C")))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p15  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
-print(p15)
+p16  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
+print(p16)
 ```
 
 Although subtle, there is variation in topics 2 and 6 within the T+N
@@ -217,13 +270,13 @@ cluster that tracks closely with the tuft (here signaled by gene
 *Gnat3*) and pulmonary neuroendocrine (*Chga*) cell-types:
 
 ```{r pca-plot-tuft-neuroendocrine, fig.width=6, fig.height=4.5}
-p16 <- pca_plot(poisson2multinom(fit),k = 2)
-p17 <- pca_plot(poisson2multinom(fit),k = 6)
-p18 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Chga"])) +
+p17 <- pca_plot(poisson2multinom(fit),k = 2)
+p18 <- pca_plot(poisson2multinom(fit),k = 6)
+p19 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Chga"])) +
        labs(fill = "log10(count)",title = "Chga")
-p19 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Gnat3"])) +
+p20 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Gnat3"])) +
        labs(fill = "log10(count)",title = "Gnat3")
-plot_grid(p16,p17,p18,p19)
+plot_grid(p17,p18,p19,p20)
 ```
 
 Save results
