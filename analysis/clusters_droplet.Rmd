@@ -169,7 +169,7 @@ topics.
 fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_merge   <- merge_topics(poisson2multinom(fit),c("k5","k7"))
-d_montoro   <- totalvardist(poisson2multinom(fit_montoro)$F)
+d_montoro   <- totalvardist(fit_montoro$F)
 d_cluster   <- totalvardist(poisson2multinom(fit_cluster)$F[,-c(3,8)])
 d_topics    <- totalvardist(fit_merge$F[,-3])
 cat("Montoro et al (2018) clustering:\n")
@@ -201,17 +201,19 @@ variation distances among the 4 clusters that are comparable to the
 Montoro *et al* clusters:
 
 ```{r clustering-12, fig.height=2.25, fig.width=2.5}
-d_montoro <-
-  totalvardist(poisson2multinom(fit_montoro)$F[,c("Basal","Ciliated","Club",
-                                                  "Goblet")])
-d_cluster<-totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","G")])
+fit_montoro <- merge_topics(poisson2multinom(fit_montoro),
+                            c("Tuft","Neuroendocrine"))
+d_montoro <- totalvardist(fit_montoro$F[,c("Basal","Ciliated","Club","Goblet",
+                                           "Tuft+Neuroendocrine")])
+d_cluster <-
+  totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","G","T+N")])
 pdat <- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
                    clusters = d_cluster[upper.tri(d_cluster)])
 p14b <- ggplot(pdat,aes(x = montoro,y = clusters)) +
   geom_point(shape = 21,size = 2,color = "white",fill = "dodgerblue") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
-  xlim(0.3,0.7) + 
-  ylim(0.3,0.7) + 
+  xlim(0.2,0.7) + 
+  ylim(0.2,0.7) + 
   labs(x = "Montoro et al clusters",y = "our clusters") +
   theme_cowplot(font_size = 9)
 print(p14b)
