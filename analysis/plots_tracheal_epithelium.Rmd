@@ -7,8 +7,8 @@ output: workflowr::wflow_html
 Here we closely examine the topic modeling results for the two
 epithelial airway data sets (droplet and pulse-seq), and investigate
 the benefits of modeling single cells as *mixtures* of gene expression
-programs in these data sets. In particular, we will compare and
-contrast differential expression in clusters vs. topics.
+programs in these data sets. In particular, we compare differential
+expression in clusters vs. topics.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -57,14 +57,14 @@ subsets (including the background cluster).
 
 ![](figure/clusters_droplet.Rmd/structure-plot-1.png)
 
-Also for reference, we show the cluster assignments projected onto the
-principal components of the topic proportions:
+It can also be helpful to view the cluster assignments projected onto
+the principal components of the topic proportions:
 
 ![](figure/clusters_droplet.Rmd/clustering-8-1.png)
 
-To draw the connection between the clusters and cell types, here we
-show the principal components with expression of top cell-type-specific
-genes (e.g., *Cdhr3* for ciliated cells).
+These clusters closely correspond to cell types. To illustrate this
+point, here we layer the PCA plots with expression of
+cell-type-specific genes such as *Cdhr3* for ciliated cells.
 
 ```{r pca-plots-with-expression-droplet, fig.width=7.5, fig.height=5}
 pp1 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
@@ -119,14 +119,14 @@ subsets (including the background cluster):
 
 ![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
 
-Also for reference, we show the cluster assignments projected onto the
-principal components of the topic proportions:
+It can also be helpful to view the cluster assignments projected onto
+the principal components of the topic proportions:
 
 ![](figure/clusters_pulseseq.Rmd/clustering-10-1.png)
 
-To draw the connection between the clusters and cell types, here we
-show the principal components with expression of top cell-type-specific
-genes (e.g., *Cdhr3* for ciliated cells).
+These clusters closely correspond to cell types. To illustrate this
+point, here we layer the PCA plots with expression of
+cell-type-specific genes such as *Cdhr3* for ciliated cells.
 
 ```{r pca-plots-with-expression-pulseseq, fig.width=7.5, fig.height=5}
 pp8  <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,
@@ -153,10 +153,10 @@ pp14 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
 plot_grid(pp8,pp9,pp10,pp11,pp12,pp13,pp14,nrow = 3,ncol = 3)
 ```
 
-Likelihood analysis
--------------------
+Analysis of single-cell likelihoods
+-----------------------------------
 
-TO DO.
+*Add text and code here.*
 
 Ciliated cells
 --------------
