@@ -21,6 +21,7 @@ library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/plots.R")
 ```
 
 Load data and results
@@ -204,6 +205,66 @@ some close correspondence (e.g., B and "basal cells", P and
 with(samples,table(tissue,cluster))
 ```
 
+By computing inter-cluster and inter-topic expression differences by
+the *total variation distance* in relative expression levels, we see
+that the clusters identified above show, on average, above the same
+level of differentiation in gene expression, and the topics show more
+differentiation than the clusters.
+
+```{r clustering-12}
+fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_merge   <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
+fit_merge   <- merge_topics(fit_merge,c("k1","k3","k9"))
+d_montoro   <- totalvardist(poisson2multinom(fit_montoro)$F)
+d_cluster   <- totalvardist(poisson2multinom(fit_cluster)$F[,-7])
+d_topics    <- totalvardist(fit_merge$F[,-3])
+cat("Montoro et al (2018) clustering:\n")
+print(d_montoro,digits = 3)
+cat("Our clustering:\n")
+print(d_cluster,digits = 3)
+cat("Topics:\n")
+print(d_topics,digits = 3)
+```
+
+Here is a plot summarizing these differences:
+
+```{r clustering-13, fig.height=2, fig.width=2.5}
+pdat <-
+  rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
+        data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
+        data.frame(method="topics",       d=d_topics[upper.tri(d_topics)]))
+p23 <- ggplot(pdat,aes(x = method,y = d)) +
+  geom_boxplot(width = 0.25) +
+  ylim(0,1) +
+  labs(x = "",y = "total variation dist") +
+  theme_cowplot(font_size = 9)
+print(p23)
+```
+
+When we directly compare differentiation among the 6 clusters that are
+comparable to the Montoro *et al* clusters, we observe that the
+clusters identified here for the most part show stronger
+differentiation in gene expression:
+
+```{r clustering-14, fig.height=2.25, fig.width=2.5}
+fit_montoro <- merge_topics(poisson2multinom(fit_montoro),
+                            c("tuft","neuroendocrine"))
+d_montoro <- totalvardist(fit_montoro$F[,-4])
+d_cluster <-
+  totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","I","P","T+N")])
+pdat <- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
+                   clusters = d_cluster[upper.tri(d_cluster)])
+p24 <- ggplot(pdat,aes(x = montoro,y = clusters)) +
+  geom_point(shape = 21,size = 2,color = "white",fill = "dodgerblue") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  xlim(0.1,0.5) + 
+  ylim(0.1,0.5) + 
+  labs(x = "Montoro et al clusters",y = "our clusters") +
+  theme_cowplot(font_size = 9)
+print(p24)
+```
+
 Structure plot
 --------------
 
@@ -223,13 +284,13 @@ rows <- sort(c(sample(which(samples$cluster == "B"),1000),
                sample(which(samples$cluster == "T+N"),500),
                which(samples$cluster == "I"),
                which(samples$cluster == "U")))
-p23 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p25 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                       grouping = samples[rows,"cluster"],
                       topics = topics,
    		 			  colors = topic_colors[topics],
 		 			  perplexity = c(70,70,30,50,50,30,70),
                       n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p23)
+print(p25)
 ```
 
 Based on this structure plot, and from the other results above, we
@@ -253,15 +314,15 @@ among the cells in this cluster:
 ```{r pca-plot-club-1, fig.width=6, fig.height=4.5}
 rows <- which(x == "C")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p24  <- pca_plot(fit2,k = c(5,8,10))
-print(p24)
+p26  <- pca_plot(fit2,k = c(5,8,10))
+print(p26)
 ```
 
 And in PCs 3 and 4:
 
 ```{r pca-plot-club-2, fig.width=6, fig.height=4.5}
-p25 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
-print(p25)
+p27 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
+print(p27)
 ```
 
 The B cluster also shows a lot of heterogeneity. Topic 1 is of particular
@@ -271,10 +332,10 @@ gene *Krt13*:
 ```{r pca-plot-basal, fig.width=6, fig.height=2.5}
 rows <- which(x == "B")
 fit2 <- select(poisson2multinom(fit),loadings = rows)
-p26  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
-p27  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
+p28  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
+p29  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
         labs(fill = "log10(count)")
-plot_grid(p26,p27,rel_widths = c(4,5))
+plot_grid(p28,p29,rel_widths = c(4,5))
 ```
 
 Save results
