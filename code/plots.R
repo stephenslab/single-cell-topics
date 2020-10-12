@@ -5,6 +5,21 @@ qt_random_tie <- function (x) {
   return(qqnorm(y,plot.it = FALSE)$x)
 }
 
+# Given a matrix F of probability vectors (each column should sum to
+# 1), compute the total variation distance between each pair of
+# columns. The output is an n x n matrix, where n is the number of
+# columns in F.
+totalvardist <- function (F) {
+  n <- ncol(F)
+  d <- matrix(0,n,n)
+  rownames(d) <- colnames(F)
+  colnames(d) <- colnames(F)
+  for (i in 1:n)
+    for (j in 1:n)
+      d[i,j] <- sum(abs(F[,i] - F[,j]))/2
+  return(d)
+}
+
 # This is a refinement of the volcano plot implemented in the
 # fastTopics package. Here, an additional set of genes is highlighted
 # by labeling the points with darker text.
