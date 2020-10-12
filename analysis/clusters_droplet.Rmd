@@ -163,7 +163,7 @@ By computing inter-cluster and inter-topic expression differences by
 the *total variation distance* in relative expression levels, we
 see that the clusters identified above show greater differentiation in
 gene expression, and the topics show more differentiation than the
-topics.
+clusters.
 
 ```{r clustering-10}
 fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
@@ -187,17 +187,15 @@ pdat <-
   rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
         data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
         data.frame(method="topics",       d=d_topics[upper.tri(d_topics)]))
-p14a <- ggplot(pdat,aes(x = method,y = d,color = I("white"))) +
-  geom_dotplot(binaxis = "y",stackdir = "center",binwidth = 0.05,
-               dotsize = 1.2,fill = "dodgerblue") +
-  ylim(0,1) +
+p14a <- ggplot(pdat,aes(x = method,y = d)) +
+  geom_boxplot(width = 0.25) +
   labs(x = "",y = "total variation dist") +
   theme_cowplot(font_size = 9)
 print(p14a)
 ```
 
 This next plot provides a more direct comparison of the total
-variation distances among the 4 clusters that are comparable to the
+variation distances among the 5 clusters that are comparable to the
 Montoro *et al* clusters:
 
 ```{r clustering-12, fig.height=2.25, fig.width=2.5}
