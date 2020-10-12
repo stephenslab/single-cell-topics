@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec69aa03bb5f52ad25e127209eb3dc0643951a179targetblankc69aa03a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c69aa03bb5f52ad25e127209eb3dc0643951a179" target="_blank">c69aa03</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree87d00d08330c16f4a8de4faa5932c2b318d4bdcetargetblank87d00d0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/87d00d08330c16f4a8de4faa5932c2b318d4bdce" target="_blank">87d00d0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec69aa03bb5f52ad25e127209eb3dc0643951a179targetblankc69aa03a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree87d00d08330c16f4a8de4faa5932c2b318d4bdcetargetblank87d00d0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c69aa03bb5f52ad25e127209eb3dc0643951a179" target="_blank">c69aa03</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/87d00d08330c16f4a8de4faa5932c2b318d4bdce" target="_blank">87d00d0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -445,12 +445,9 @@ Ignored files:
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Untracked files:
-    Untracked:  analysis/clustering-droplet.rds
-
 Unstaged changes:
+    Modified:   analysis/clusters_pulseseq.Rmd
     Modified:   analysis/plots_tracheal_epithelium.Rmd
-    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -489,6 +486,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/87d00d08330c16f4a8de4faa5932c2b318d4bdce/analysis/clusters_droplet.Rmd" target="_blank">87d00d0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b6374a110a3a839698ea093c6ea08c6330d9cda1/docs/clusters_droplet.html" target="_blank">b6374a1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+Added plots comparing total variation distances in clusters_droplet
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1587,7 +1618,7 @@ Peter Carbonetto
 <pre class="r"><code>fit_montoro &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_merge   &lt;- merge_topics(poisson2multinom(fit),c(&quot;k5&quot;,&quot;k7&quot;))
-d_montoro   &lt;- totalvardist(poisson2multinom(fit_montoro)$F)
+d_montoro   &lt;- totalvardist(fit_montoro$F)
 d_cluster   &lt;- totalvardist(poisson2multinom(fit_cluster)$F[,-c(3,8)])
 d_topics    &lt;- totalvardist(fit_merge$F[,-3])
 cat(&quot;Montoro et al (2018) clustering:\n&quot;)
@@ -1633,22 +1664,98 @@ p14a &lt;- ggplot(pdat,aes(x = method,y = d,color = I(&quot;white&quot;))) +
   theme_cowplot(font_size = 9)
 print(p14a)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-11-1.png" width="300" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-11-1">
+Past versions of clustering-11-1.png
+</button>
+</p>
+<div id="fig-clustering-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b6374a110a3a839698ea093c6ea08c6330d9cda1/docs/figure/clusters_droplet.Rmd/clustering-11-1.png" target="_blank">b6374a1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This next plot provides a more direct comparison of the total variation distances among the 4 clusters that are comparable to the Montoro <em>et al</em> clusters:</p>
-<pre class="r"><code>d_montoro &lt;-
-  totalvardist(poisson2multinom(fit_montoro)$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,
-                                                  &quot;Goblet&quot;)])
-d_cluster&lt;-totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;)])
+<pre class="r"><code>fit_montoro &lt;- merge_topics(poisson2multinom(fit_montoro),
+                            c(&quot;Tuft&quot;,&quot;Neuroendocrine&quot;))
+d_montoro &lt;- totalvardist(fit_montoro$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,&quot;Goblet&quot;,
+                                           &quot;Tuft+Neuroendocrine&quot;)])
+d_cluster &lt;-
+  totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T+N&quot;)])
 pdat &lt;- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
                    clusters = d_cluster[upper.tri(d_cluster)])
 p14b &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
   geom_point(shape = 21,size = 2,color = &quot;white&quot;,fill = &quot;dodgerblue&quot;) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
-  xlim(0.3,0.7) + 
-  ylim(0.3,0.7) + 
+  xlim(0.2,0.7) + 
+  ylim(0.2,0.7) + 
   labs(x = &quot;Montoro et al clusters&quot;,y = &quot;our clusters&quot;) +
   theme_cowplot(font_size = 9)
 print(p14b)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-12-1.png" width="300" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-12-1">
+Past versions of clustering-12-1.png
+</button>
+</p>
+<div id="fig-clustering-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b6374a110a3a839698ea093c6ea08c6330d9cda1/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">b6374a1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
