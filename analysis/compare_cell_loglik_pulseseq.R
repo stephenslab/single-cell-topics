@@ -5,13 +5,14 @@ library(ggplot2)
 library(cowplot)
 
 # Load data and results.
-load("../data/droplet.RData")
-samples <- readRDS("../output/droplet/clustering-droplet.rds")
-fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+load("../data/pulseseq.RData")
+samples <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
+fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 
 # Compute the likelihood of each cell under the topic model and the
 # two hard clusterings.
-fit            <- merge_topics(poisson2multinom(fit),c("k5","k7"))
+fit <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
+fit <- merge_topics(fit,c("k1","k3","k9"))
 fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_montoro    <- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster    <- poisson2multinom(fit_cluster)
@@ -37,58 +38,60 @@ create_loglik_scatterplot <- function (dat, k, color = "black",
 }
 
 # Compare the two hard clusterings.
-minloglik <- -20000
+minloglik <- -30000
 dat <- data.frame(cluster = samples$tissue,
                   loglik1 = loglik_montoro,
                   loglik2 = loglik_cluster)
-p1 <- create_loglik_scatterplot(dat,"Basal","royalblue",minloglik)
-p2 <- create_loglik_scatterplot(dat,"Club","forestgreen",minloglik)
-p3 <- create_loglik_scatterplot(dat,"Ciliated","firebrick",minloglik)
-p4 <- create_loglik_scatterplot(dat,"Neuroendocrine","darkorange",minloglik)
-p5 <- create_loglik_scatterplot(dat,"Tuft","dodgerblue",minloglik)
-p6 <- create_loglik_scatterplot(dat,"Goblet","gold",minloglik)
+p1 <- create_loglik_scatterplot(dat,"basal","royalblue",minloglik)
+p2 <- create_loglik_scatterplot(dat,"club","forestgreen",minloglik)
+p3 <- create_loglik_scatterplot(dat,"ciliated","firebrick",minloglik)
+p4 <- create_loglik_scatterplot(dat,"neuroendocrine","darkorange",minloglik)
+p5 <- create_loglik_scatterplot(dat,"tuft","dodgerblue",minloglik)
+p6 <- create_loglik_scatterplot(dat,"ionocyte","darkmagenta",minloglik)
+p7 <- create_loglik_scatterplot(dat,"proliferating","peru",minloglik)
+p8 <- create_loglik_scatterplot(dat,"goblet","gold",-Inf)
 plot_grid(p1 + labs(x = "Montoro et al cluster",y = "our clusters"),
           p2 + labs(x = "Montoro et al cluster",y = "our clusters"),
           p3 + labs(x = "Montoro et al cluster",y = "our clusters"),
           p4 + labs(x = "Montoro et al cluster",y = "our clusters"),
           p5 + labs(x = "Montoro et al cluster",y = "our clusters"),
           p6 + labs(x = "Montoro et al cluster",y = "our clusters"),
-          nrow = 2,ncol = 3)
+          p7 + labs(x = "Montoro et al cluster",y = "our clusters"),
+          p8 + labs(x = "Montoro et al cluster",y = "our clusters"),
+          nrow = 3,ncol = 3)
 
 # Compare the hard clustering against the topics.
+minloglik <- -25000
 dat <- data.frame(cluster = samples$cluster,
                   loglik1 = loglik_cluster,
                   loglik2 = loglik_topics)
-p7  <- create_loglik_scatterplot(dat,"B","royalblue",minloglik)
-p8  <- create_loglik_scatterplot(dat,"C","forestgreen",minloglik)
-p9  <- create_loglik_scatterplot(dat,"Cil","firebrick",minloglik)
-p10 <- create_loglik_scatterplot(dat,"H","turquoise",minloglik)
-p11 <- create_loglik_scatterplot(dat,"T+N","darkorange",minloglik)
-p12 <- create_loglik_scatterplot(dat,"G","gold",minloglik)
-plot_grid(p7 + labs(x = "our cluster",y = "topics"),
-          p8 + labs(x = "our cluster",y = "topics"),
-          p9 + labs(x = "our cluster",y = "topics"),
-          p10 + labs(x = "our cluster",y = "topics"),
-          p11 + labs(x = "our cluster",y = "topics"),
-          p12 + labs(x = "our cluster",y = "topics"),
-          nrow = 2,ncol = 3)
+p9  <- create_loglik_scatterplot(dat,"B","royalblue",minloglik)
+p10 <- create_loglik_scatterplot(dat,"C","forestgreen",minloglik)
+p11 <- create_loglik_scatterplot(dat,"Cil","firebrick",minloglik)
+p12 <- create_loglik_scatterplot(dat,"T+N","darkorange",minloglik)
+p13 <- create_loglik_scatterplot(dat,"I","darkmagenta",minloglik)
+p14 <- create_loglik_scatterplot(dat,"P","peru",minloglik)
+plot_grid(p9,p10,p11,p12,p13,p14,nrow = 2,ncol = 3)
 
 # Compare the Montoro et al (2018) hard clustering against the topics.
+minloglik <- -30000
 dat <- data.frame(cluster = samples$tissue,
                   loglik1 = loglik_montoro,
                   loglik2 = loglik_topics)
-p13 <- create_loglik_scatterplot(dat,"Basal","royalblue",minloglik)
-p14 <- create_loglik_scatterplot(dat,"Club","forestgreen",minloglik)
-p15 <- create_loglik_scatterplot(dat,"Ciliated","firebrick",minloglik)
-p16 <- create_loglik_scatterplot(dat,"Neuroendocrine","darkorange",minloglik)
-p17 <- create_loglik_scatterplot(dat,"Tuft","dodgerblue",minloglik)
-p18 <- create_loglik_scatterplot(dat,"Ionocyte","darkmagenta",minloglik)
-p19 <- create_loglik_scatterplot(dat,"Goblet","gold",minloglik)
-plot_grid(p13 + labs(x = "Montoro et al cluster",y = "topics"),
-          p14 + labs(x = "Montoro et al cluster",y = "topics"),
-          p15 + labs(x = "Montoro et al cluster",y = "topics"),
+p15 <- create_loglik_scatterplot(dat,"basal","royalblue",minloglik)
+p16 <- create_loglik_scatterplot(dat,"club","forestgreen",minloglik)
+p17 <- create_loglik_scatterplot(dat,"ciliated","firebrick",minloglik)
+p18 <- create_loglik_scatterplot(dat,"neuroendocrine","darkorange",minloglik)
+p19 <- create_loglik_scatterplot(dat,"tuft","dodgerblue",minloglik)
+p20 <- create_loglik_scatterplot(dat,"ionocyte","darkmagenta",minloglik)
+p21 <- create_loglik_scatterplot(dat,"proliferating","peru",minloglik)
+p22 <- create_loglik_scatterplot(dat,"goblet","gold",-Inf)
+plot_grid(p15 + labs(x = "Montoro et al cluster",y = "topics"),
           p16 + labs(x = "Montoro et al cluster",y = "topics"),
           p17 + labs(x = "Montoro et al cluster",y = "topics"),
           p18 + labs(x = "Montoro et al cluster",y = "topics"),
           p19 + labs(x = "Montoro et al cluster",y = "topics"),
+          p20 + labs(x = "Montoro et al cluster",y = "topics"),
+          p21 + labs(x = "Montoro et al cluster",y = "topics"),
+          p22 + labs(x = "Montoro et al cluster",y = "topics"),
           nrow = 3,ncol = 3)
