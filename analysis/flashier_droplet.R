@@ -7,31 +7,19 @@ library(ggplot2)
 library(cowplot)
 set.seed(1)
 
-# These two functions are used to create the plots below.
-labeled_pca_plot <- function (pca, pcs = 1:2, labels)
-  ggplot(cbind(data.frame(label = factor(labels)),as.data.frame(pca)),
-         aes_string(x = pcs[1],y = pcs[2],fill = "label")) +
-         geom_point(shape = 21,color = "white",size = 1.2,na.rm = TRUE) +
-         scale_fill_manual(values = cluster_colors) +
-         theme_cowplot(font_size = 9)
-
-pca_hexbin_plot <-
-  function (pca, pcs = 1:2, n = 40, bins = c(0,1,10,100,1000,Inf),
-            colors = c("gainsboro","lightskyblue","gold","orange","magenta"))
-  ggplot(as.data.frame(pca),aes_string(x = pcs[1],y = pcs[2])) +
-         stat_bin_hex(mapping = aes_q(fill = quote(cut(..count..,bins))),
-                      bins = n) +
-         scale_fill_manual(values = colors) +
-         theme_cowplot(font_size = 8)
-
 # Load the multinomial topic model fit and clustering.
 samples <- readRDS("../output/droplet/clustering-droplet.rds")
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 
 # Fit flash model to topic proportions matrix.
-fl <- flash(poisson2multinom(fit)$L,greedy.Kmax = 6,nullcheck = FALSE,
-            prior.family = c(prior.point.normal(),prior.point.normal()))
-colnames(fl$loadings.pm[[1]]) <- paste0("d",1:6)
+k  <- 6
+n  <- nrow(fit$L)
+m  <- ncol(fit$L)
+fl <- flash.init(poisson2multinom(fit)$L)
+fl <- flash.init.factors(fl,list(matrix(n*k,n,k),matrix(m*k,m,k)),
+                         prior.family = c(prior.unimodal(),prior.normal()))
+fl <- flash.backfit(fl,verbose.lvl = 3)
+colnames(fl$loadings.pm[[1]]) <- paste0("d",1:k)
 
 # Plot the flash loadings, and layer the clusters on top of these
 # plots.
@@ -44,12 +32,8 @@ cluster_colors <- c("royalblue",   # B
                     "gold",        # G
                     "gainsboro")   # U
 Y  <- fl$loadings.pm[[1]]
-p1 <- labeled_pca_plot(Y,pcs = c("d1","d2"),samples$cluster)
-p2 <- labeled_pca_plot(Y,pcs = c("d1","d4"),samples$cluster)
-p3 <- labeled_pca_plot(Y,pcs = c("d1","d3"),samples$cluster)
-p4 <- labeled_pca_plot(Y,pcs = c("d2","d5"),samples$cluster)
-p5 <- pca_hexbin_plot(Y,pcs = c("d1","d2"))
-p6 <- pca_hexbin_plot(Y,pcs = c("d1","d4"))
-p7 <- pca_hexbin_plot(Y,pcs = c("d1","d3"))
-p8 <- pca_hexbin_plot(Y,pcs = c("d2","d5"))
-print(plot_grid(p1,p2,p3,p4,p5,p6,p7,p8,nrow = 2,ncol = 4))
+p1 <- pca_plot(fit,pcs = c("d1","d5"),out.pca = list(x = Y),
+               fill = samples$cluster) +
+  scale_fill_manual(values = cluster_colors)
+p2 <- pca_hexbin_plot(fit,pcs = c(1,5),out.pca = list(x = Y))
+print(plot_grid(p1,p2,rel_widths = c(1.1,1)))
