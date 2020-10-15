@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3bff1643a245995de1c9a880422ceecbe7dd92f0targetblank3bff164a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3bff1643a245995de1c9a880422ceecbe7dd92f0" target="_blank">3bff164</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb64e34f4affab0ef622c57d651ad69e8fa5fce87targetblankb64e34fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b64e34f4affab0ef622c57d651ad69e8fa5fce87" target="_blank">b64e34f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3bff1643a245995de1c9a880422ceecbe7dd92f0targetblank3bff164a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb64e34f4affab0ef622c57d651ad69e8fa5fce87targetblankb64e34fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3bff1643a245995de1c9a880422ceecbe7dd92f0" target="_blank">3bff164</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b64e34f4affab0ef622c57d651ad69e8fa5fce87" target="_blank">b64e34f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -445,6 +444,9 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
 
 Unstaged changes:
     Modified:   analysis/diff_count_droplet.Rmd
@@ -489,6 +491,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b64e34f4affab0ef622c57d651ad69e8fa5fce87/analysis/clusters_droplet.Rmd" target="_blank">b64e34f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c679d143a300e1d909ceade9348b05241f51e91f/docs/clusters_droplet.html" target="_blank">c679d14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+<td>
+Revised PCA plots showing the clustering in the clusters_droplet analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1676,6 +1712,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">c679d14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">d707238</a>
 </td>
 <td>
@@ -1737,7 +1784,44 @@ p12b &lt;- pca_plot(fit2,fill = samples[rows2,&quot;tissue&quot;]) +
         scale_fill_manual(values = tissue_colors,drop = FALSE) +
         labs(fill = &quot;cluster&quot;)
 plot_grid(p12a,p12b,nrow = 1,ncol = 2)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-10-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_droplet.Rmd/clustering-10-1.png" width="900" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-10-1">
+Past versions of clustering-10-1.png
+</button>
+</p>
+<div id="fig-clustering-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-10-1.png" target="_blank">c679d14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>By computing inter-cluster and inter-topic expression differences by the <em>total variation distance</em> in relative expression levels, we see that the clusters identified above show greater differentiation in gene expression, and the topics show more differentiation than the clusters.</p>
 <pre class="r"><code>fit_montoro &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
@@ -1810,6 +1894,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">c679d14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d9bf10daf49c48601d1918b63efb774ecc9944a7/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">d9bf10d</a>
 </td>
 <td>
@@ -1852,6 +1947,43 @@ p14 &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
   theme_cowplot(font_size = 9)
 print(p14)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-13-1.png" width="300" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-13-1">
+Past versions of clustering-13-1.png
+</button>
+</p>
+<div id="fig-clustering-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-13-1.png" target="_blank">c679d14</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
