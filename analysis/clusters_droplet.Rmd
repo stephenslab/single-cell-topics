@@ -166,7 +166,7 @@ with(samples,table(tissue,cluster))
 
 This close correspondence is also clear from the PCA plots:
 
-```{r clustering-10, fig.width=6, fig.height=2.5, message=FALSE}
+```{r clustering-10, fig.width=7.5, fig.height=2.5, message=FALSE}
 tissue_colors <- c("royalblue",   # basal
 				   "firebrick",   # ciliated
                    "forestgreen", # club
