@@ -126,10 +126,14 @@ y[pc2 > 0.55] <- "H"
 x[rows] <- y
 ```
 
-In summary, we have subdivided the droplet data into 8 subsets.
+In summary, we have subdivided the droplet data into 8 subsets. The
+substructure is more clear in PCA plots when we split the
+cells---roughly speaking---by the abundant and rare cell-types.
 
-```{r clustering-8, fig.width=8, fig.height=2, message=FALSE}
+```{r clustering-8, fig.width=6, fig.height=2.5, message=FALSE}
 samples$cluster <- factor(x,c("B","C","B+C","H","Cil","T+N","G","U"))
+abundant        <- c("B","C","B+C","H")
+rare            <- c("Cil","T+N","G","U")
 cluster_colors <- c("royalblue",   # B
                     "forestgreen", # C
                     "slategray",   # B+C
@@ -138,16 +142,17 @@ cluster_colors <- c("royalblue",   # B
 					"darkorange",  # T+N
 					"gold",        # G
 					"gainsboro")   # U
-p11 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-	   labs(fill = "cluster")
-p12 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-	   labs(fill = "cluster")
-p13 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-	   labs(fill = "cluster")
-plot_grid(p11,p12,p13,nrow = 1,ncol = 3)
+rows1 <- which(is.element(samples$cluster,abundant))
+rows2 <- which(is.element(samples$cluster,rare))
+fit1  <- select(poisson2multinom(fit),loadings = rows1)
+fit2  <- select(poisson2multinom(fit),loadings = rows2)
+p11a <- pca_plot(fit1,fill = samples[rows1,"cluster"]) +
+        scale_fill_manual(values = cluster_colors,drop = FALSE) +
+	    labs(fill = "cluster")
+p11b <- pca_plot(fit2,fill = samples[rows2,"cluster"]) +
+        scale_fill_manual(values = cluster_colors,drop = FALSE) +
+	    labs(fill = "cluster")
+plot_grid(p11a,p11b,nrow = 1,ncol = 2)
 ```
 
 The clusters identified here correspond well to the Montoro *et al*
@@ -159,13 +164,32 @@ in the same cluster).
 with(samples,table(tissue,cluster))
 ```
 
+This close correspondence is also clear from the PCA plots:
+
+```{r clustering-10, fig.width=6, fig.height=2.5, message=FALSE}
+tissue_colors <- c("royalblue",   # basal
+				   "firebrick",   # ciliated
+                   "forestgreen", # club
+     			   "gold",        # goblet
+				   "darkmagenta", # ionocyte
+				   "darkorange",  # neuroendocrine
+                   "skyblue")     # tuft
+p12a <- pca_plot(fit1,fill = samples[rows1,"tissue"]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+	    labs(fill = "cluster")
+p12b <- pca_plot(fit2,fill = samples[rows2,"tissue"]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+	    labs(fill = "cluster")
+plot_grid(p12a,p12b,nrow = 1,ncol = 2)
+```
+
 By computing inter-cluster and inter-topic expression differences by
 the *total variation distance* in relative expression levels, we
 see that the clusters identified above show greater differentiation in
 gene expression, and the topics show more differentiation than the
 clusters.
 
-```{r clustering-10}
+```{r clustering-11}
 fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_merge   <- merge_topics(poisson2multinom(fit),c("k5","k7"))
@@ -182,23 +206,23 @@ print(d_topics,digits = 3)
 
 Here is a plot summarizing these differences:
 
-```{r clustering-11, fig.height=2, fig.width=2.5}
+```{r clustering-12, fig.height=2, fig.width=2.5}
 pdat <-
   rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
         data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
         data.frame(method="topics",       d=d_topics[upper.tri(d_topics)]))
-p14a <- ggplot(pdat,aes(x = method,y = d)) +
+p13 <- ggplot(pdat,aes(x = method,y = d)) +
   geom_boxplot(width = 0.25) +
   labs(x = "",y = "total variation dist") +
   theme_cowplot(font_size = 9)
-print(p14a)
+print(p13)
 ```
 
 This next plot provides a more direct comparison of the total
 variation distances among the 5 clusters that are comparable to the
 Montoro *et al* clusters:
 
-```{r clustering-12, fig.height=2.25, fig.width=2.5}
+```{r clustering-13, fig.height=2.25, fig.width=2.5}
 fit_montoro <- merge_topics(poisson2multinom(fit_montoro),
                             c("Tuft","Neuroendocrine"))
 d_montoro <- totalvardist(fit_montoro$F[,c("Basal","Ciliated","Club","Goblet",
@@ -207,14 +231,14 @@ d_cluster <-
   totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","G","T+N")])
 pdat <- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
                    clusters = d_cluster[upper.tri(d_cluster)])
-p14b <- ggplot(pdat,aes(x = montoro,y = clusters)) +
+p14 <- ggplot(pdat,aes(x = montoro,y = clusters)) +
   geom_point(shape = 21,size = 2,color = "white",fill = "dodgerblue") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   xlim(0.2,0.7) + 
   ylim(0.2,0.7) + 
   labs(x = "Montoro et al clusters",y = "our clusters") +
   theme_cowplot(font_size = 9)
-print(p14b)
+print(p14)
 ```
 
 Structure plot
