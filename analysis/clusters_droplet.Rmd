@@ -283,9 +283,7 @@ additional continuous variation in gene expression primarily captured
 by topics 5 and 7:
 
 ```{r pca-plot-club, fig.width=6, fig.height=4.25}
-rows <- which(is.element(x,c("B","C","H","B+C")))
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p16  <- pca_plot(fit2,pcs = 2:3,k = c(4,5,7))
+p16 <- pca_plot(fit1,pcs = 2:3,k = c(4,5,7))
 print(p16)
 ```
 
