@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-10-11
+<strong>Last updated:</strong> 2020-10-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,22 +414,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree60b069fc0b514c4326cf1228d8b0844fa21bef18targetblank60b069fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/60b069fc0b514c4326cf1228d8b0844fa21bef18" target="_blank">60b069f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3bff1643a245995de1c9a880422ceecbe7dd92f0targetblank3bff164a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3bff1643a245995de1c9a880422ceecbe7dd92f0" target="_blank">3bff164</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree60b069fc0b514c4326cf1228d8b0844fa21bef18targetblank60b069fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3bff1643a245995de1c9a880422ceecbe7dd92f0targetblank3bff164a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/60b069fc0b514c4326cf1228d8b0844fa21bef18" target="_blank">60b069f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3bff1643a245995de1c9a880422ceecbe7dd92f0" target="_blank">3bff164</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -445,11 +446,10 @@ Ignored files:
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Untracked files:
-    Untracked:  analysis/clustering-droplet.rds
-
 Unstaged changes:
-    Modified:   analysis/clusters_pulseseq.Rmd
+    Modified:   analysis/diff_count_droplet.Rmd
+    Modified:   analysis/flashier_droplet.R
+    Modified:   analysis/flashier_pulseseq.R
     Modified:   analysis/plots_tracheal_epithelium.Rmd
 
 </code></pre>
@@ -489,6 +489,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3bff1643a245995de1c9a880422ceecbe7dd92f0/analysis/clusters_droplet.Rmd" target="_blank">3bff164</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-15
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c12c1cf48fe13e8f248a46d98666a123aa138961/docs/clusters_droplet.html" target="_blank">c12c1cf</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-11
+</td>
+<td>
+Replaced dotplot with boxplot in clusters_pulseseq analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1594,8 +1628,10 @@ y[pc1 &lt; 0.1] &lt;- &quot;B&quot;
 y[pc1 &gt; 0.4 &amp; pc2 &lt; 0.45] &lt;- &quot;C&quot;
 y[pc2 &gt; 0.55] &lt;- &quot;H&quot;
 x[rows] &lt;- y</code></pre>
-<p>In summary, we have subdivided the droplet data into 8 subsets.</p>
+<p>In summary, we have subdivided the droplet data into 8 subsets. The substructure is more clear in PCA plots when we split the cells—roughly speaking—by the abundant and rare cell-types.</p>
 <pre class="r"><code>samples$cluster &lt;- factor(x,c(&quot;B&quot;,&quot;C&quot;,&quot;B+C&quot;,&quot;H&quot;,&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;))
+abundant        &lt;- c(&quot;B&quot;,&quot;C&quot;,&quot;B+C&quot;,&quot;H&quot;)
+rare            &lt;- c(&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;)
 cluster_colors &lt;- c(&quot;royalblue&quot;,   # B
                     &quot;forestgreen&quot;, # C
                     &quot;slategray&quot;,   # B+C
@@ -1604,17 +1640,18 @@ cluster_colors &lt;- c(&quot;royalblue&quot;,   # B
                     &quot;darkorange&quot;,  # T+N
                     &quot;gold&quot;,        # G
                     &quot;gainsboro&quot;)   # U
-p11 &lt;- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-       labs(fill = &quot;cluster&quot;)
-p12 &lt;- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-       labs(fill = &quot;cluster&quot;)
-p13 &lt;- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
-       labs(fill = &quot;cluster&quot;)
-plot_grid(p11,p12,p13,nrow = 1,ncol = 3)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width="960" style="display: block; margin: auto;" /></p>
+rows1 &lt;- which(is.element(samples$cluster,abundant))
+rows2 &lt;- which(is.element(samples$cluster,rare))
+fit1  &lt;- select(poisson2multinom(fit),loadings = rows1)
+fit2  &lt;- select(poisson2multinom(fit),loadings = rows2)
+p11a &lt;- pca_plot(fit1,fill = samples[rows1,&quot;cluster&quot;]) +
+        scale_fill_manual(values = cluster_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+p11b &lt;- pca_plot(fit2,fill = samples[rows2,&quot;cluster&quot;]) +
+        scale_fill_manual(values = cluster_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+plot_grid(p11a,p11b,nrow = 1,ncol = 2)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-8-1">
 Past versions of clustering-8-1.png
@@ -1685,6 +1722,22 @@ Peter Carbonetto
 #   Ionocyte          9    0    1    0    0    1    1   14
 #   Neuroendocrine   27    4    6    0    0   51    0    8
 #   Tuft             27    5    5    0    1  111    2    7</code></pre>
+<p>This close correspondence is also clear from the PCA plots:</p>
+<pre class="r"><code>tissue_colors &lt;- c(&quot;royalblue&quot;,   # basal
+                   &quot;firebrick&quot;,   # ciliated
+                   &quot;forestgreen&quot;, # club
+                   &quot;gold&quot;,        # goblet
+                   &quot;darkmagenta&quot;, # ionocyte
+                   &quot;darkorange&quot;,  # neuroendocrine
+                   &quot;skyblue&quot;)     # tuft
+p12a &lt;- pca_plot(fit1,fill = samples[rows1,&quot;tissue&quot;]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+p12b &lt;- pca_plot(fit2,fill = samples[rows2,&quot;tissue&quot;]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+plot_grid(p12a,p12b,nrow = 1,ncol = 2)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-10-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>By computing inter-cluster and inter-topic expression differences by the <em>total variation distance</em> in relative expression levels, we see that the clusters identified above show greater differentiation in gene expression, and the topics show more differentiation than the clusters.</p>
 <pre class="r"><code>fit_montoro &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
@@ -1727,66 +1780,11 @@ print(d_topics,digits = 3)
   rbind(data.frame(method=&quot;montoro.et.al&quot;,d=d_montoro[upper.tri(d_montoro)]),
         data.frame(method=&quot;clusters&quot;,     d=d_cluster[upper.tri(d_cluster)]),
         data.frame(method=&quot;topics&quot;,       d=d_topics[upper.tri(d_topics)]))
-p14a &lt;- ggplot(pdat,aes(x = method,y = d)) +
+p13 &lt;- ggplot(pdat,aes(x = method,y = d)) +
   geom_boxplot(width = 0.25) +
   labs(x = &quot;&quot;,y = &quot;total variation dist&quot;) +
   theme_cowplot(font_size = 9)
-print(p14a)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-11-1.png" width="300" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-11-1">
-Past versions of clustering-11-1.png
-</button>
-</p>
-<div id="fig-clustering-11-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b6374a110a3a839698ea093c6ea08c6330d9cda1/docs/figure/clusters_droplet.Rmd/clustering-11-1.png" target="_blank">b6374a1</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This next plot provides a more direct comparison of the total variation distances among the 5 clusters that are comparable to the Montoro <em>et al</em> clusters:</p>
-<pre class="r"><code>fit_montoro &lt;- merge_topics(poisson2multinom(fit_montoro),
-                            c(&quot;Tuft&quot;,&quot;Neuroendocrine&quot;))
-d_montoro &lt;- totalvardist(fit_montoro$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,&quot;Goblet&quot;,
-                                           &quot;Tuft+Neuroendocrine&quot;)])
-d_cluster &lt;-
-  totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T+N&quot;)])
-pdat &lt;- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
-                   clusters = d_cluster[upper.tri(d_cluster)])
-p14b &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
-  geom_point(shape = 21,size = 2,color = &quot;white&quot;,fill = &quot;dodgerblue&quot;) +
-  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
-  xlim(0.2,0.7) + 
-  ylim(0.2,0.7) + 
-  labs(x = &quot;Montoro et al clusters&quot;,y = &quot;our clusters&quot;) +
-  theme_cowplot(font_size = 9)
-print(p14b)</code></pre>
+print(p13)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-12-1.png" width="300" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-12-1">
@@ -1836,6 +1834,24 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>This next plot provides a more direct comparison of the total variation distances among the 5 clusters that are comparable to the Montoro <em>et al</em> clusters:</p>
+<pre class="r"><code>fit_montoro &lt;- merge_topics(poisson2multinom(fit_montoro),
+                            c(&quot;Tuft&quot;,&quot;Neuroendocrine&quot;))
+d_montoro &lt;- totalvardist(fit_montoro$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,&quot;Goblet&quot;,
+                                           &quot;Tuft+Neuroendocrine&quot;)])
+d_cluster &lt;-
+  totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T+N&quot;)])
+pdat &lt;- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
+                   clusters = d_cluster[upper.tri(d_cluster)])
+p14 &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
+  geom_point(shape = 21,size = 2,color = &quot;white&quot;,fill = &quot;dodgerblue&quot;) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  xlim(0.2,0.7) + 
+  ylim(0.2,0.7) + 
+  labs(x = &quot;Montoro et al clusters&quot;,y = &quot;our clusters&quot;) +
+  theme_cowplot(font_size = 9)
+print(p14)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-13-1.png" width="300" style="display: block; margin: auto;" /></p>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
@@ -2069,7 +2085,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-179 dplyr_0.8.3       
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-183 dplyr_0.8.3       
 # [5] Matrix_1.2-18     
 # 
 # loaded via a namespace (and not attached):
