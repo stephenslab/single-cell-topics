@@ -1,25 +1,28 @@
 # Try running flashier on the topic proportions matrix estimated from
 # the pulse-seq data.
 library(Matrix)
+library(dplyr)
 library(fastTopics)
 library(flashier)
 library(ggplot2)
 library(cowplot)
-set.seed(1)
+set.seed(6)
 
 # Load the multinomial topic model fit and clustering.
 samples <- readRDS("../output/pulseseq/clustering-pulseseq.rds")
 fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+rows <-
+  sort(c(sample(which(is.element(samples$cluster,c("B","C","P"))),2000),
+         sample(which(samples$cluster == "Cil"),200),
+         sample(which(samples$cluster == "T+N"),200),
+         which(samples$cluster == "I")))
+fit <- select(poisson2multinom(fit),loadings = rows)
 
 # Fit flash model to topic proportions matrix.
-k  <- 4
-n  <- nrow(fit$L)
-m  <- ncol(fit$L)
-fl <- flash.init(poisson2multinom(fit)$L)
-fl <- flash.init.factors(fl,list(matrix(rnorm(n*k),n,k),
-                                 matrix(rnorm(m*k),m,k)),
-                         prior.family = c(prior.unimodal(),prior.normal()))
-fl <- flash.backfit(fl,verbose.lvl = 3,maxiter = 50)
+k  <- 2
+fl <- flash(fit$L,greedy.Kmax = k,backfit = TRUE,nullcheck = FALSE,
+            prior.family = c(prior.unimodal(),prior.normal()),
+            verbose.lvl = 3)
 colnames(fl$loadings.pm[[1]]) <- paste0("d",1:k)
 
 # Plot the flash loadings, and layer the clusters on top of these
@@ -33,5 +36,5 @@ cluster_colors  <- c("royalblue",   # B
                      "gainsboro")   # U
 Y  <- fl$loadings.pm[[1]]
 p1 <- pca_plot(fit,pcs = c("d1","d2"),out.pca = list(x = Y),
-               fill = samples$cluster) +
+               fill = samples[rows,"cluster"]) +
   scale_fill_manual(values = cluster_colors)
