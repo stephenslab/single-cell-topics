@@ -174,10 +174,14 @@ plot_grid(p16,p17,p18,p19)
 ```
 
 In summary, we have subdivided the pulse-seq data into 7 subsets,
-which includes a background cluster (U).
+which includes a background cluster (U). The substructure is more
+clear when we plot PCs separately for the abundant and rare
+cell-types.
 
 ```{r clustering-10, fig.width=8, fig.height=2, message=FALSE}
 samples$cluster <- factor(x,c("B","C","P","Cil","T+N","I","U"))
+abundant        <- c("B","C","Cil","U")
+rare            <- c("T+N","I","P")
 cluster_colors  <- c("royalblue",   # B
                      "forestgreen", # C
                      "peru",        # P
@@ -185,14 +189,18 @@ cluster_colors  <- c("royalblue",   # B
  					 "darkorange",  # T+N
 					 "darkmagenta", # I
                      "gainsboro")   # U
-p20 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
+rows1 <- which(is.element(samples$cluster,abundant))
+rows2 <- which(is.element(samples$cluster,rare))
+fit1  <- select(poisson2multinom(fit),loadings = rows1)
+fit2  <- select(poisson2multinom(fit),loadings = rows2)
+p20 <- pca_plot(fit1,pcs = 1:2,fill = samples[rows1,"cluster"]) +
+       scale_fill_manual(values = cluster_colors,drop = FALSE) +
        labs(fill = "cluster")
-p21 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
+p21 <- pca_plot(fit1,pcs = 3:4,fill = samples[rows1,"cluster"]) +
+       scale_fill_manual(values = cluster_colors,drop = FALSE) +
        labs(fill = "cluster")
-p22 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = samples$cluster) +
-       scale_fill_manual(values = cluster_colors) +
+p22 <- pca_plot(fit2,pcs = 1:2,fill = samples[rows2,"cluster"]) +
+       scale_fill_manual(values = cluster_colors,drop = FALSE) +
        labs(fill = "cluster")
 plot_grid(p20,p21,p22,nrow = 1)
 ```
