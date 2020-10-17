@@ -127,8 +127,8 @@ x[rows] <- y
 ```
 
 In summary, we have subdivided the droplet data into 8 subsets. The
-substructure is more clear in PCA plots when we split the
-cells---roughly speaking---by the abundant and rare cell-types.
+substructure is more clear when we plot PCs separately for the
+abundant and rare cell-types.
 
 ```{r clustering-8, fig.width=6, fig.height=2.5, message=FALSE}
 samples$cluster <- factor(x,c("B","C","B+C","H","Cil","T+N","G","U"))
@@ -183,11 +183,10 @@ p12b <- pca_plot(fit2,fill = samples[rows2,"tissue"]) +
 plot_grid(p12a,p12b,nrow = 1,ncol = 2)
 ```
 
-By computing inter-cluster and inter-topic expression differences by
-the *total variation distance* in relative expression levels, we
-see that the clusters identified above show greater differentiation in
-gene expression, and the topics show more differentiation than the
-clusters.
+By computing inter-cluster and inter-topic *total variation distances*
+in relative expression levels, we see that the clusters identified
+above show greater differentiation in gene expression, and the topics
+show more differentiation than the clusters.
 
 ```{r clustering-11}
 fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)

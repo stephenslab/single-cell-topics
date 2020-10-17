@@ -54,7 +54,8 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
                     segment.color = "gray",segment.size = 0.25,
                     max.overlaps = 10,na.rm = TRUE) +
     labs(x = "log-fold change (\u03b2)",y = y.label,fill = "log10 mean") +
-    theme_cowplot(font_size = 9)
+    theme_cowplot(font_size = 9) +
+    theme(plot.title = element_text(size = 9,face = "plain"))
 
 # Create a scatterplot comparing two sets of log-fold change
 # statistics generated from two different differential expression
