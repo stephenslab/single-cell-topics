@@ -213,13 +213,36 @@ some close correspondence (e.g., B and "basal cells", P and
 with(samples,table(tissue,cluster))
 ```
 
+This close correspondence is also clear from the PCA plots:
+
+```{r clustering-12, fig.width=8, fig.height=1.5, message=FALSE}
+tissue_colors <- c("royalblue",   # basal
+				   "firebrick",   # ciliated
+                   "forestgreen", # club
+     			   "gold",        # goblet
+				   "darkmagenta", # ionocyte
+				   "darkorange",  # neuroendocrine
+				   "peru",        # proliferating
+                   "skyblue")     # tuft
+p20 <- pca_plot(fit1,pcs = 1:2,fill = samples[rows1,"tissue"]) +
+       scale_fill_manual(values = tissue_colors,drop = FALSE) +
+       labs(fill = "cluster")
+p21 <- pca_plot(fit1,pcs = 3:4,fill = samples[rows1,"tissue"]) +
+       scale_fill_manual(values = tissue_colors,drop = FALSE) +
+       labs(fill = "cluster")
+p22 <- pca_plot(fit2,pcs = 1:2,fill = samples[rows2,"tissue"]) +
+       scale_fill_manual(values = tissue_colors,drop = FALSE) +
+       labs(fill = "cluster")
+plot_grid(p20,p21,p22,nrow = 1)
+```
+
 By computing inter-cluster and inter-topic expression differences by
 the *total variation distance* in relative expression levels, we see
 that the clusters identified above show, on average, above the same
 level of differentiation in gene expression, and the topics show more
 differentiation than the clusters.
 
-```{r clustering-12}
+```{r clustering-13}
 fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_merge   <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
@@ -237,7 +260,7 @@ print(d_topics,digits = 3)
 
 Here is a plot summarizing these differences:
 
-```{r clustering-13, fig.height=2, fig.width=2.5}
+```{r clustering-14, fig.height=2, fig.width=2.5}
 pdat <-
   rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
         data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
@@ -255,7 +278,7 @@ comparable to the Montoro *et al* clusters, we observe that the
 clusters identified here for the most part show stronger
 differentiation in gene expression:
 
-```{r clustering-14, fig.height=2.25, fig.width=2.5}
+```{r clustering-15, fig.height=2.25, fig.width=2.5}
 fit_montoro <- merge_topics(poisson2multinom(fit_montoro),
                             c("tuft","neuroendocrine"))
 d_montoro <- totalvardist(fit_montoro$F[,-4])
