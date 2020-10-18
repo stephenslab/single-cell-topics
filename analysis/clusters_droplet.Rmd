@@ -303,7 +303,8 @@ plot_grid(p17,p18,p19,p20)
 Analysis of single-cell likelihoods
 -----------------------------------
 
-*Add text.*
+Here we calculate single-cell likelihoods to assess how well the
+multinomial topic model captures expression in different cell-types.
 
 ```{r likelihood-1}
 fit_merge      <- merge_topics(poisson2multinom(fit),c("k5","k7"))
@@ -316,9 +317,13 @@ loglik_cluster <- loglik_multinom_topic_model(counts,fit_cluster)
 loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
 ```
 
-*Add text here.*
+Here we compare the likelihood under gene expression levels estimated
+by a hard clustering; specifically, we compare the Montoro *et al*
+(2018) clustering against our clustering. Overall, our clustering
+appears to better fit the data, particularly in the abundant cell
+types (basal, club, ciliated).
 
-```{r likelihood-2, fig.width=7.5, fig.height=4}
+```{r likelihood-2, fig.width=6, fig.height=4}
 minloglik <- -20000
 p1 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Basal",
                          "royalblue",minloglik,"Montoro et al (2018) cluster",
@@ -341,9 +346,16 @@ p6 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Goblet",
 plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
 ```
 
-*Add text here.*
+Next, we compare the topic-model likelihoods to the clustering-based
+likelihoods. In most cases, the topic model provides a fit that is
+better or at least as good as the clustering-based fit. The one
+excecption is the tuft and neuroendocrine cells; the clustering
+provides a better fit of the observed expression levels given that no
+single topic represents tuft and neuroendocrine cells. Despite this,
+the topic model provides a reasonably good fit for the tuft and
+neuroendocrine cells.
 
-```{r likelihood-3, fig.width=7.5, fig.height=4}
+```{r likelihood-3, fig.width=6, fig.height=4}
 p7  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"B",
 				          "royalblue",minloglik,"cluster","topics")
 p8  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"C",
@@ -359,9 +371,13 @@ p12 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"G",
 plot_grid(p7,p8,p9,p10,p11,p12,nrow = 2,ncol = 3)
 ```
 
-*Add text here.*
+Comparing against the Montoro *et al* (2018) shows a similar
+pattern. The ionocyte cluster is also better captured by the cluster
+with 26 cells, although the improvement is small, indicating that the
+gene expression patterns in ionocyte cells are well-captured by the
+topics mixture.
 
-```{r likelihood-4, fig.width=7.5, fig.height=4}
+```{r likelihood-4, fig.width=6, fig.height=6}
 p13 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"Basal",
                           "royalblue",minloglik,"Montoro et al (2018) cluster",
                           "topics")
