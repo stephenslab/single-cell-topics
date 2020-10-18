@@ -318,7 +318,7 @@ loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
 
 *Add text here.*
 
-```{r likelihood-2, fig.width=7.5, fig.height=4, message=FALSE}
+```{r likelihood-2, fig.width=7.5, fig.height=4}
 minloglik <- -20000
 p1 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Basal",
                          "royalblue",minloglik,"Montoro et al (2018) cluster",
@@ -343,12 +343,47 @@ plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
 
 *Add text here.*
 
-```{r likelihood-3}
+```{r likelihood-3, fig.width=7.5, fig.height=4}
+p7  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"B",
+				          "royalblue",minloglik,"cluster","topics")
+p8  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"C",
+			    	      "forestgreen",minloglik,"cluster","topics")
+p9  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"Cil",
+						  "firebrick",minloglik,"cluster","topics")
+p10 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"H",
+						  "turquoise",minloglik,"cluster","topics")
+p11 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"T+N",
+						  "darkorange",minloglik,"cluster","topics")
+p12 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"G",
+						  "gold",minloglik,"cluster","topics")
+plot_grid(p7,p8,p9,p10,p11,p12,nrow = 2,ncol = 3)
 ```
 
 *Add text here.*
 
-```{r likelihood-4}
+```{r likelihood-4, fig.width=7.5, fig.height=4}
+p13 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"Basal",
+                          "royalblue",minloglik,"Montoro et al (2018) cluster",
+                          "topics")
+p14 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"Club",
+                          "forestgreen",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p15 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "Ciliated","firebrick",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p16 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "Neuroendocrine","darkorange",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p17 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"Tuft",
+						  "dodgerblue",minloglik,"Montoro et al (2018) cluster",
+                          "topics")
+p18 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "Ionocyte","darkmagenta",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p19 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "Goblet","gold",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+plot_grid(p13,p14,p15,p16,p17,p18,p19,nrow = 3,ncol = 3)
 ```
 
 Save results
