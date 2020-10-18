@@ -79,6 +79,25 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
+Topics capture shared gene expression patterns
+----------------------------------------------
+
+*Add text here.*
+
+```{r volcano-plots, fig.width=7.5, fig.height=5, message=FALSE}
+basal_genes    <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
+ciliated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
+club_genes     <- c("Bpifa1","Cbr2","Cyp2a5","Cyp2f2","Krt15",
+                    "Lypd2","Muc5b","Nfia","Scgb1a1","Scgb3a2")
+goblet_genes   <- "Gp2"
+hillock_genes  <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
+ionocyte_genes <- c("Ascl3","Asgr1","Atp6v0d2","Atp6v1c2","Cftr","Foxi1",
+                    "Moxd1","P2ry14","Stap1")
+tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1",
+                               "Gnat3","Rgs13")
+stop()
+```
+
 Save results
 ------------
 

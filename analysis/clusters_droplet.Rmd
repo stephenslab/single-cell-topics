@@ -300,6 +300,57 @@ p20 <- pca_plot(poisson2multinom(fit),fill = log10(counts[,"Gnat3"])) +
 plot_grid(p17,p18,p19,p20)
 ```
 
+Analysis of single-cell likelihoods
+-----------------------------------
+
+*Add text.*
+
+```{r likelihood-1}
+fit_merge      <- merge_topics(poisson2multinom(fit),c("k5","k7"))
+fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_montoro    <- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster    <- poisson2multinom(fit_cluster)
+fit_montoro    <- poisson2multinom(fit_montoro)
+loglik_topics  <- loglik_multinom_topic_model(counts,fit_merge)
+loglik_cluster <- loglik_multinom_topic_model(counts,fit_cluster)
+loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
+```
+
+*Add text here.*
+
+```{r likelihood-2, fig.width=7.5, fig.height=4, message=FALSE}
+minloglik <- -20000
+p1 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Basal",
+                         "royalblue",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p2 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Club",
+                         "forestgreen",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p3 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+                         "Ciliated","firebrick",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p4 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+						 "Neuroendocrine","darkorange",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p5 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Tuft",
+                         "dodgerblue",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p6 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"Goblet",
+						 "gold",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
+```
+
+*Add text here.*
+
+```{r likelihood-3}
+```
+
+*Add text here.*
+
+```{r likelihood-4}
+```
+
 Save results
 ------------
 

@@ -11,12 +11,12 @@ fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 
 # Compute the likelihood of each cell under the topic model and the
 # two hard clusterings.
-fit            <- merge_topics(poisson2multinom(fit),c("k5","k7"))
+fit_merge      <- merge_topics(poisson2multinom(fit),c("k5","k7"))
 fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_montoro    <- init_poisson_nmf_from_clustering(counts,samples$tissue)
 fit_cluster    <- poisson2multinom(fit_cluster)
 fit_montoro    <- poisson2multinom(fit_montoro)
-loglik_topics  <- loglik_multinom_topic_model(counts,fit)
+loglik_topics  <- loglik_multinom_topic_model(counts,fit_merge)
 loglik_cluster <- loglik_multinom_topic_model(counts,fit_cluster)
 loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
 

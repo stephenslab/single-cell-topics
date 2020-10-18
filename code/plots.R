@@ -57,6 +57,25 @@ ggplot_call_for_volcano_plot <- function (dat, y.label, topic.label)
     theme_cowplot(font_size = 9) +
     theme(plot.title = element_text(size = 9,face = "plain"))
 
+# TO DO: Explain here what this function does, and how to use it.
+loglik_scatterplot <- function (x, y, cluster, k, color = "black",
+                                minloglik = -Inf, xlab = "loglik1",
+                                ylab = "loglik2") {
+  dat <- data.frame(x = x,y = y,cluster = cluster)
+  dat <- subset(dat,x > minloglik & y > minloglik)
+  xy  <- with(dat,range(c(x,y)))
+  dat <- subset(dat,cluster == k)
+  return(ggplot(dat,aes_string(x = "x",y = "y")) +
+         geom_point(shape = 21,color = "white",fill = color) +
+         geom_abline(intercept = 0,slope = 1,linetype = "dotted",
+                     color = "black") +
+         xlim(xy) +
+         ylim(xy) +
+         labs(x = xlab,y = ylab,title = sprintf("%s (n = %d)",k,nrow(dat))) +
+         theme_cowplot(font_size = 9) +
+         theme(plot.title = element_text(size = 9,face = "plain")))
+}
+
 # Create a scatterplot comparing two sets of log-fold change
 # statistics generated from two different differential expression
 # analyses of the same data. Only log-fold change statistics with

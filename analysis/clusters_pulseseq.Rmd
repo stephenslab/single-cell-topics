@@ -369,6 +369,11 @@ p29  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
 plot_grid(p28,p29,rel_widths = c(4,5))
 ```
 
+Analysis of single-cell likelihoods
+-----------------------------------
+
+*Add text and code here.*
+
 Save results
 ------------
 

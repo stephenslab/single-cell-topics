@@ -153,11 +153,6 @@ pp14 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
 plot_grid(pp8,pp9,pp10,pp11,pp12,pp13,pp14,nrow = 3,ncol = 3)
 ```
 
-Analysis of single-cell likelihoods
------------------------------------
-
-*Add text and code here.*
-
 Ciliated cells
 --------------
 
@@ -170,7 +165,7 @@ club cells.
 ciliated_genes <- c("Ccdc113","Ccdc153","Cdhr3","Foxj1","Lztfl1","Mlf1")
 p1 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"Cil",
                                           ciliated_genes,
-										  label_above_quantile = 0.998)
+  					                      label_above_quantile = 0.998)
 print(p1)
 ```
 
