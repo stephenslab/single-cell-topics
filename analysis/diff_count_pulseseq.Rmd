@@ -86,7 +86,9 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 Topics capture shared gene expression patterns
 ----------------------------------------------
 
-*Add text here.*
+In some cases, the topics capture individual cell-types, and in other
+cases they capture gene expression patterns common to multiple
+cell-types.
 
 ```{r volcano-plots, fig.width=7.5, fig.height=5, message=FALSE}
 basal_genes    <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
