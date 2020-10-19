@@ -371,11 +371,11 @@ p12 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"G",
 plot_grid(p7,p8,p9,p10,p11,p12,nrow = 2,ncol = 3)
 ```
 
-Comparing against the Montoro *et al* (2018) shows a similar
-pattern. The ionocyte cluster is also better captured by the cluster
-with 26 cells, although the improvement is small, indicating that the
-gene expression patterns in ionocyte cells are well-captured by the
-topics mixture.
+Comparing against the Montoro *et al* (2018) shows a similar pattern.
+The ionocyte cluster is also better captured by the cluster with 26
+cells, although the improvement is small, indicating that the gene
+expression patterns in ionocyte cells are well-captured by the topics
+mixture.
 
 ```{r likelihood-4, fig.width=6, fig.height=6}
 p13 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"Basal",

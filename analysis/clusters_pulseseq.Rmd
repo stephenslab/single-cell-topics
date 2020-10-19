@@ -372,7 +372,110 @@ plot_grid(p28,p29,rel_widths = c(4,5))
 Analysis of single-cell likelihoods
 -----------------------------------
 
-*Add text and code here.*
+Here we calculate single-cell likelihoods to assess how well the
+multinomial topic model captures expression in different cell-types.
+
+```{r likelihood-1}
+fit <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
+fit <- merge_topics(fit,c("k1","k3","k9"))
+fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_montoro    <- init_poisson_nmf_from_clustering(counts,samples$tissue)
+fit_cluster    <- poisson2multinom(fit_cluster)
+fit_montoro    <- poisson2multinom(fit_montoro)
+loglik_topics  <- loglik_multinom_topic_model(counts,fit)
+loglik_cluster <- loglik_multinom_topic_model(counts,fit_cluster)
+loglik_montoro <- loglik_multinom_topic_model(counts,fit_montoro)
+```
+
+Here we compare the likelihood under gene expression levels estimated
+by a hard clustering; specifically, we compare the Montoro *et al*
+(2018) clustering against our clustering. Overall, our clustering
+appears to better fit the observed expression, particularly in the
+most abundant cell types (basal, club).
+
+```{r likelihood-2, fig.width=6, fig.height=6}
+minloglik <- -30000
+p1 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"basal",
+                         "royalblue",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p2 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"club",
+						 "forestgreen",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p3 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+                         "ciliated","firebrick",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p4 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+                         "neuroendocrine","darkorange",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p5 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"tuft",
+                         "dodgerblue",minloglik,"Montoro et al (2018) cluster",
+                         "our clusters")
+p6 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+                         "ionocyte","darkmagenta",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p7 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
+                         "proliferating","peru",minloglik,
+                         "Montoro et al (2018) cluster","our clusters")
+p8 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"goblet",
+						 "gold",-Inf,"Montoro et al (2018) cluster",
+                         "our clusters")
+plot_grid(p1,p2,p3,p4,p5,p6,p7,p8,nrow = 3,ncol = 3)
+```
+
+Next, we compare the topic-model likelihoods to the clustering-based
+likelihoods. It is interesting that although there is no topic
+specifically representing ionocytes, the mixture of topics capturing
+these cells fits the observed expression levels nearly as well as
+estimates from an ionocytes cluster.
+
+```{r likelihood-3,, fig.width=6, fig.height=4}
+minloglik <- -25000
+p9  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"B",
+				  "royalblue",minloglik,"cluster","topics")
+p10 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"C",
+				  "forestgreen",minloglik,"cluster","topics")
+p11 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"Cil",
+				  "firebrick",minloglik,"cluster","topics")
+p12 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"T+N",
+				  "darkorange",minloglik,"cluster","topics")
+p13 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"I",
+				  "darkmagenta",minloglik,"cluster","topics")
+p14 <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"P",
+				  "peru",minloglik,"cluster","topics")
+plot_grid(p9,p10,p11,p12,p13,p14,nrow = 2,ncol = 3)
+```
+
+We observe similar trends when comparing the topic model likelihoods
+against likelihoods obtained by the Montoro *et al* (2018) clustering.
+One difference here is that tuft and neuroendocrine cells are split
+into two clusters. But, judging by the likelihoods, this split provides
+little improvement in fit.
+
+```{r likelihood-4, fig.width=6, fig.height=6}
+minloglik <- -30000
+p15 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"basal",
+                          "royalblue",minloglik,"Montoro et al (2018) cluster",
+                          "topics")
+p16 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "club","forestgreen",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p17 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "ciliated","firebrick",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p18 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "neuroendocrine","darkorange",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p19 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"tuft",
+                          "dodgerblue",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p20 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "ionocyte","darkmagenta",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+p21 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                          "proliferating","peru",minloglik,
+                          "Montoro et al (2018) cluster","topics")
+plot_grid(p15,p16,p17,p18,p19,p20,p21,nrow = 3,ncol = 3)
+```
 
 Save results
 ------------
