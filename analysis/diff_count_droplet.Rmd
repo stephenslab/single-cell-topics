@@ -102,7 +102,6 @@ tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1",
                                "Gnat3","Rgs13")
 p1 <- volcano_plot_with_highlighted_genes(diff_count_club,"k1",
         goblet_genes,label_above_quantile = Inf) +
-        ylim(c(0,225)) +
 		guides(fill = "none") +
 		ggtitle("topic 1 (goblet)")
 p2 <- volcano_plot_with_highlighted_genes(diff_count_club,"k2",
@@ -111,9 +110,8 @@ p2 <- volcano_plot_with_highlighted_genes(diff_count_club,"k2",
 		ggtitle("topic 2 (basal + tuft + PNEC)")
 p3 <- volcano_plot_with_highlighted_genes(diff_count_club,"k5+k7",
         club_genes,label_above_quantile = Inf) +
-        ylim(c(0,800)) +
 		guides(fill = "none") +
-		ggtitle("topic 5 + 7 (club)")
+		ggtitle("topics 5 + 7 (club)")
 p4 <- volcano_plot_with_highlighted_genes(diff_count_club,"k4",
         hillock_genes,label_above_quantile = Inf) +
 		guides(fill = "none") +
