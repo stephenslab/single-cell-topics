@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-30
+<strong>Last updated:</strong> 2020-10-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree78c6698b1271d653a3edb6b415668d45dd9fb3edtargetblank78c6698a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/78c6698b1271d653a3edb6b415668d45dd9fb3ed" target="_blank">78c6698</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree64b0d45186df4db7fd9618099237cefe270c61b4targetblank64b0d45a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/64b0d45186df4db7fd9618099237cefe270c61b4" target="_blank">64b0d45</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree78c6698b1271d653a3edb6b415668d45dd9fb3edtargetblank78c6698a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree64b0d45186df4db7fd9618099237cefe270c61b4targetblank64b0d45a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/78c6698b1271d653a3edb6b415668d45dd9fb3ed" target="_blank">78c6698</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/64b0d45186df4db7fd9618099237cefe270c61b4" target="_blank">64b0d45</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -445,9 +445,8 @@ Ignored files:
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Unstaged changes:
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/plots_tracheal_epithelium.Rmd
+Untracked files:
+    Untracked:  analysis/temp.RData
 
 </code></pre>
 <p>
@@ -486,6 +485,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/64b0d45186df4db7fd9618099237cefe270c61b4/analysis/diff_count_pulseseq.Rmd" target="_blank">64b0d45</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-18
+</td>
+<td>
+workflowr::wflow_publish(“diff_count_pulseseq.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/199ca8894cb4fe7bd07243ca1843a73ddf3691bd/analysis/diff_count_pulseseq.Rmd" target="_blank">199ca88</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-17
+</td>
+<td>
+Working on analysis of single-cell likelihoods in clusters_droplet.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/efb65a3db0c18651a58066e9825f8fbee9d52298/docs/diff_count_pulseseq.html" target="_blank">efb65a3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-30
+</td>
+<td>
+Revised the differential expression analysis for the pulse-seq topics
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -549,7 +599,11 @@ Made some improvements to zscore_scatterplot in plots.R.
 <pre class="r"><code>library(Matrix)
 library(dplyr)
 library(fastTopics)
-library(tools)</code></pre>
+library(tools)
+library(ggplot2)
+library(ggrepel)
+library(cowplot)
+source(&quot;../code/plots.R&quot;)</code></pre>
 <div id="load-data-and-results" class="section level2">
 <h2>Load data and results</h2>
 <p>Load the pulse-seq data, the <span class="math inline">\(k = 11\)</span> Poisson NMF model fit, and the clusters identified in the <a href="clusters_pulseseq.html">clustering analysis</a>.</p>
@@ -565,7 +619,7 @@ samples &lt;- readRDS(&quot;../output/pulseseq/clustering-pulseseq.rds&quot;)</c
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 11 = 237831 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 975.09 seconds.</code></pre>
+# Computation took 991.22 seconds.</code></pre>
 <p>Next, calculate differential expression statistics using the clusters that were identified from the topic proportion PCs.</p>
 <pre class="r"><code>fit_clusters &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 timing &lt;- system.time(
@@ -574,8 +628,8 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 7 = 151347 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 562.74 seconds.</code></pre>
-<p>Finally, erform a differential expression anaalysis after removing the “P” cluster.</p>
+# Computation took 540.89 seconds.</code></pre>
+<p>Finally, perform a differential expression analysis after removing the “P” cluster.</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster != &quot;P&quot;)
 fit_hillock &lt;- select(poisson2multinom(fit),loadings = rows)
 timing &lt;- system.time(
@@ -583,7 +637,7 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 11 = 237831 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 775.15 seconds.</code></pre>
+# Computation took 847.35 seconds.</code></pre>
 <p>Finally, perform another differential expression analysis after merging the 5 club cell topics and the 3 basal cell topics, and after removing the “P” cluster.</p>
 <pre class="r"><code>fit_bc &lt;- merge_topics(fit_hillock,c(&quot;k4&quot;,&quot;k5&quot;,&quot;k6&quot;,&quot;k8&quot;,&quot;k10&quot;))
 fit_bc &lt;- merge_topics(fit_bc,c(&quot;k1&quot;,&quot;k3&quot;,&quot;k9&quot;))
@@ -592,7 +646,44 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21621 x 5 = 108105 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 305.69 seconds.</code></pre>
+# Computation took 314.92 seconds.</code></pre>
+</div>
+<div id="topics-capture-shared-gene-expression-patterns" class="section level2">
+<h2>Topics capture shared gene expression patterns</h2>
+<p><em>Add text here.</em></p>
+<pre class="r"><code>basal_genes    &lt;- c(&quot;Aqp3&quot;,&quot;Krt5&quot;,&quot;Dapl1&quot;,&quot;Hspa1a&quot;,&quot;Trp63&quot;)
+ciliated_genes &lt;- c(&quot;Ccdc113&quot;,&quot;Ccdc153&quot;,&quot;Cdhr3&quot;,&quot;Foxj1&quot;,&quot;Lztfl1&quot;,&quot;Mlf1&quot;)
+club_genes     &lt;- c(&quot;Bpifa1&quot;,&quot;Cbr2&quot;,&quot;Cyp2a5&quot;,&quot;Cyp2f2&quot;,&quot;Krt15&quot;,
+                    &quot;Lypd2&quot;,&quot;Muc5b&quot;,&quot;Nfia&quot;,&quot;Scgb1a1&quot;,&quot;Scgb3a2&quot;)
+goblet_genes   &lt;- &quot;Gp2&quot;
+hillock_genes  &lt;- c(&quot;Anxa1&quot;,&quot;Cldn3&quot;,&quot;Ecm1&quot;,&quot;Krt13&quot;,&quot;Krt4&quot;,&quot;Lgals3&quot;,&quot;S100a11&quot;)
+ionocyte_genes &lt;- c(&quot;Ascl3&quot;,&quot;Asgr1&quot;,&quot;Atp6v0d2&quot;,&quot;Atp6v1c2&quot;,&quot;Cftr&quot;,&quot;Foxi1&quot;,
+                    &quot;Moxd1&quot;,&quot;P2ry14&quot;,&quot;Stap1&quot;)
+tuft_neuroendocrine_genes &lt;- c(&quot;Ascl1&quot;,&quot;Ascl2&quot;,&quot;Ascl3&quot;,&quot;Chga&quot;,&quot;Dclk1&quot;,
+                               &quot;Gnat3&quot;,&quot;Rgs13&quot;)
+p1 &lt;- volcano_plot_with_highlighted_genes(diff_count_bc,&quot;k7&quot;,
+        ciliated_genes,label_above_quantile = Inf) +
+        guides(fill = &quot;none&quot;) +
+        ggtitle(&quot;topic 7 (cilitated)&quot;)
+p2 &lt;- volcano_plot_with_highlighted_genes(diff_count_bc,&quot;k1+k3+k9&quot;,
+        basal_genes,label_above_quantile = Inf) +
+        guides(fill = &quot;none&quot;) +
+        ggtitle(&quot;topics 1, 3, 9 (basal)&quot;)
+p3 &lt;- volcano_plot_with_highlighted_genes(diff_count_bc,&quot;k4+k5+k6+k8+k10&quot;,
+        club_genes,label_above_quantile = Inf) +
+        guides(fill = &quot;none&quot;) +
+        ggtitle(&quot;topics 4-6, 8, 10 (club)&quot;)
+p4 &lt;- volcano_plot_with_highlighted_genes(diff_count_bc,&quot;k2&quot;,
+        c(ionocyte_genes,tuft_neuroendocrine_genes),
+        label_above_quantile = Inf) +
+        guides(fill = &quot;none&quot;) +
+        ggtitle(&quot;topic 2 (tuft + PNEC + ionocyte)&quot;)
+p5 &lt;- volcano_plot_with_highlighted_genes(diff_count_hillock,&quot;k1&quot;,
+        hillock_genes,label_above_quantile = Inf) +
+        guides(fill = &quot;none&quot;) +
+        ggtitle(&quot;topic 1 (hillock)&quot;)
+plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)</code></pre>
+<p><img src="figure/diff_count_pulseseq.Rmd/volcano-plots-1.png" width="900" style="display: block; margin: auto;" /></p>
 </div>
 <div id="save-results" class="section level2">
 <h2>Save results</h2>
@@ -627,31 +718,32 @@ resaveRdaFiles(&quot;diff-count-pulseseq.RData&quot;)</code></pre>
 # [8] base     
 # 
 # other attached packages:
-# [1] fastTopics_0.3-177 dplyr_0.8.3        Matrix_1.2-18     
+# [1] cowplot_1.0.0      ggrepel_0.9.0      ggplot2_3.3.0      fastTopics_0.3-184
+# [5] dplyr_0.8.3        Matrix_1.2-18     
 # 
 # loaded via a namespace (and not attached):
-#  [1] progress_1.2.2       tidyselect_0.2.5     xfun_0.11           
-#  [4] purrr_0.3.3          lattice_0.20-38      vctrs_0.2.1         
-#  [7] colorspace_1.4-1     viridisLite_0.3.0    htmltools_0.4.0     
-# [10] yaml_2.2.0           MCMCpack_1.4-5       plotly_4.9.2        
-# [13] rlang_0.4.5          later_1.0.0          pillar_1.4.3        
-# [16] glue_1.3.1           lifecycle_0.1.0      stringr_1.4.0       
-# [19] MatrixModels_0.4-1   munsell_0.5.0        gtable_0.3.0        
-# [22] workflowr_1.6.2.9000 htmlwidgets_1.5.1    coda_0.19-3         
-# [25] evaluate_0.14        knitr_1.26           SparseM_1.78        
-# [28] httpuv_1.5.2         quantreg_5.54        irlba_2.3.3         
-# [31] Rcpp_1.0.5           promises_1.1.0       backports_1.1.5     
-# [34] scales_1.1.0         jsonlite_1.6         RcppParallel_4.4.2  
-# [37] fs_1.3.1             mcmc_0.9-6           hms_0.5.2           
-# [40] ggplot2_3.3.0        digest_0.6.23        stringi_1.4.3       
-# [43] Rtsne_0.15           ggrepel_0.9.0        grid_3.6.2          
-# [46] rprojroot_1.3-2      cowplot_1.0.0        quadprog_1.5-8      
-# [49] magrittr_1.5         lazyeval_0.2.2       tibble_2.1.3        
-# [52] zeallot_0.1.0        tidyr_1.0.0          crayon_1.3.4        
-# [55] whisker_0.4          pkgconfig_2.0.3      MASS_7.3-51.4       
-# [58] prettyunits_1.1.1    data.table_1.12.8    assertthat_0.2.1    
-# [61] rmarkdown_2.3        httr_1.4.1           R6_2.4.1            
-# [64] git2r_0.26.1         compiler_3.6.2</code></pre>
+#  [1] Rcpp_1.0.5           lattice_0.20-38      tidyr_1.0.0         
+#  [4] prettyunits_1.1.1    assertthat_0.2.1     zeallot_0.1.0       
+#  [7] rprojroot_1.3-2      digest_0.6.23        R6_2.4.1            
+# [10] backports_1.1.5      MatrixModels_0.4-1   evaluate_0.14       
+# [13] coda_0.19-3          httr_1.4.2           pillar_1.4.3        
+# [16] rlang_0.4.5          progress_1.2.2       lazyeval_0.2.2      
+# [19] data.table_1.12.8    irlba_2.3.3          SparseM_1.78        
+# [22] whisker_0.4          rmarkdown_2.3        labeling_0.3        
+# [25] Rtsne_0.15           stringr_1.4.0        htmlwidgets_1.5.1   
+# [28] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
+# [31] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
+# [34] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
+# [37] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
+# [40] crayon_1.3.4         withr_2.1.2          later_1.0.0         
+# [43] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
+# [46] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
+# [49] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
+# [52] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
+# [55] promises_1.1.0       vctrs_0.2.1          glue_1.3.1          
+# [58] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
+# [61] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
+# [64] quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 </div>
 
