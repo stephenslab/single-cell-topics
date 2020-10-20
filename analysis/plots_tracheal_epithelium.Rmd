@@ -258,34 +258,73 @@ p9 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
 plot_grid(p8,p9)
 ```
 
-Tuft and pulmonary neuroendocrine cells
----------------------------------------
+Tuft and pulmonary neuroendocrine (PNEC) cells
+----------------------------------------------
 
 In both data sets, we identify clusters for tuft and pulmonary
-neuroendocrine cells. The fitted topic models do not distinguish
-between these two rare cell types; we identify these cell types as a
-single cluster.
+neuroendocrine cells. The fitted topic models do not separate these
+two rare cell types; we identify these cell types as a single cluster.
 
-```{r volcano-plot-droplet-T+N, fig.width=4.5, fig.height=4}
-tuft_neuroendocrine_genes <- c("Ascl1","Ascl2","Ascl3","Chga","Dclk1",
-                               "Gnat3","Rgs13")
-p8 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"T+N",
-                                          tuft_neuroendocrine_genes,
-										  label_above_quantile = 0.998)
-print(p8)
+```{r volcano-plot-droplet-T+N-1, fig.width=4.5, fig.height=4}
+tuft_genes <- c("Ascl2","Dclk1","Gnat3","Rgs13")
+neuroendocrine_genes <- c("Ascl1","Chga")
+p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"T+N",
+                                           c(tuft_genes,neuroendocrine_genes),
+	 									   label_above_quantile = 0.998)
+print(p10)
 ```
 
 Here is the volcano plot from the pulse-seq data:
 
 ```{r volcano-plot-pulseseq-T+N, fig.width=4.5, fig.height=4}
-p9 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
-                                          tuft_neuroendocrine_genes,
-										  label_above_quantile = 0.998)
-print(p9)
+p11 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"T+N",
+                                           c(tuft_genes,neuroendocrine_genes),
+	 									   label_above_quantile = 0.998)
+print(p11)
 ```
 
-TO DO: Add volcano plots showing that droplet and pulse-seq topics
-within "T+N" cluster distinguish tuft and neuroendocrine cells.
+Although we do not identify clusters for tuft and neuroendocrine
+cells, in the droplet data topics 2 and 6 capture variation in gene
+expression that corresponds to these cell-types. In particular, topic
+$k = 2$ in the "T+N" cluster is enriched for neuroendocrine-specific
+genes (e.g., *Chga*) and topic $k = 6$ is enriched for tuft-specific
+genes (e.g., *Gnat3*).
+
+```{r volcano-plot-droplet-T+N-2, fig.width=8, fig.height=3, warning=FALSE}
+rows <- which(samples_droplet$cluster == "T+N")
+diff_count_TN_droplet <-
+  diff_count_analysis(select(poisson2multinom(fit_droplet),loadings = rows),
+                      counts_droplet[rows,])
+p12 <- volcano_plot_with_highlighted_genes(diff_count_TN_droplet,"k2",
+                                           c(tuft_genes,neuroendocrine_genes),
+	 									   label_above_quantile = 0.998) +
+	   ggtitle("topic 2")
+p13 <- volcano_plot_with_highlighted_genes(diff_count_TN_droplet,"k6",
+										   c(tuft_genes,neuroendocrine_genes),
+	 									   label_above_quantile = 0.998) +
+	   ggtitle("topic 6")
+plot_grid(p12,p13)
+```
+
+Similarly, in the pulse-seq data, in topic $k = 2$ we observe
+increased expression of neuroendocrine-specific genes and
+underexpression of tuft-specific genes.
+
+```{r volcano-plot-pulseseq-T+N-2, fig.width=4.5, fig.height=4, warning=FALSE}
+rows <- which(samples_pulseseq$cluster == "T+N")
+diff_count_TN_pulseseq <-
+  diff_count_analysis(select(poisson2multinom(fit_pulseseq),loadings = rows),
+                      counts_pulseseq[rows,])
+p14 <- volcano_plot_with_highlighted_genes(diff_count_TN_pulseseq,"k2",
+                                           c(tuft_genes,neuroendocrine_genes),
+	 									   label_above_quantile = 0.998) +
+	   ggtitle("topic 2")
+print(p14)
+```
+
+The fact that the topic proportions in tuft and neuroendocrine cells
+does not vary greatly suggests relatively small differences in gene
+expression between these cell-types.
 
 Basal cells
 -----------
@@ -299,11 +338,11 @@ to form a cluster does indeed reasonably distinguish basal cells:
 
 ```{r volcano-plot-droplet-basal, fig.width=4.5, fig.height=4}
 basal_genes <- c("Aqp3","Krt5","Dapl1","Hspa1a","Trp63")
-p10 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
-                                           c(basal_genes,
-                                             tuft_neuroendocrine_genes),
+p15 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"B",
+                                           c(basal_genes,tuft_genes,
+                                             neuroendocrine_genes),
 	 								 	   label_above_quantile = 0.995)
-print(p10)
+print(p15)
 ```
 
 Comparing the basal cells topic ($k = 2$) against the basal cells
@@ -312,24 +351,24 @@ the two, with the topic showing much stronger enrichment of
 characteristic basal genes:
 
 ```{r scatterplots-droplet-B-vs-k2, fig.width=8, fig.height=3}
-p11 <- zscores_scatterplot(diff_count_clusters_droplet,
+p16 <- zscores_scatterplot(diff_count_clusters_droplet,
                            diff_count_basal_droplet,"B","k2",
                            basal_genes,zmax = 400,
 						   xlab = "cluster B",ylab = "topic 2")
-p12 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_basal_droplet,
+p17 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_basal_droplet,
                         "B","k2",basal_genes,zmin = 2,
                         xlab = "cluster B",y = "topic 2")
-plot_grid(p11,p12)
+plot_grid(p16,p17)
 ```
 
 We obtain similar results with a cluster identified in the pulse-seq
 data,
 
 ```{r volcano-plot-pulseseq-basal, fig.width=4.5, fig.height=4}
-p13 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
+p18 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"B",
                                            basal_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p13)
+print(p18)
 ```
 
 and we achieve much stronger enrichment of basal genes in the combined
@@ -337,15 +376,15 @@ basal topics ($k = 1, 3, 9$) when compared to the basal cluster in the
 pulse-seq data:
 
 ```{r scatterplots-pulseseq-B-vs-k1+3+9, fig.width=8, fig.height=3}
-p14 <- zscores_scatterplot(diff_count_clusters_pulseseq,
+p19 <- zscores_scatterplot(diff_count_clusters_pulseseq,
                            diff_count_bc_pulseseq,"B","k1+k3+k9",
                            basal_genes,zmax = 2000,
 						   xlab = "cluster B",ylab = "topic 2")
-p15 <- beta_scatterplot(diff_count_clusters_pulseseq,
+p20 <- beta_scatterplot(diff_count_clusters_pulseseq,
                         diff_count_bc_pulseseq,
                         "B","k1+k3+k9",basal_genes,
 						xlab = "cluster B",ylab = "topics 1, 3, 9")
-plot_grid(p14,p15)
+plot_grid(p19,p20)
 ```
 
 Proliferating cells
@@ -358,10 +397,10 @@ from this subset, we obtain strong enrichment of cell-cycle genes:
 
 ```{r volcano-plot-pulseseq-proliferating, fig.width=4.5, fig.height=4}
 cell_cycle_genes <- c("Cdk1","Ube2c","Top2a")
-p16 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
+p21 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"P",
                                            cell_cycle_genes,
 	 								 	   label_above_quantile = 0.998)
-print(p16)
+print(p21)
 ```
 
 Indeed, if we formulate a simple a "cell-cycle score", we see that
@@ -370,8 +409,8 @@ the signal is quite visible in PCs 5 and 6 of the topic proportions:
 ```{r pca-cell-cycle-pulseseq-proliferating, fig.width=3.75, fig.height=3}
 rows <- with(samples_pulseseq,which(cluster == "B" | cluster == "P"))
 fit2 <- select(poisson2multinom(fit_pulseseq),loadings = rows)
-p17  <- cellcycle_pca_plot(fit2,counts_pulseseq[rows,],pcs = 5:6)
-print(p17)
+p22  <- cellcycle_pca_plot(fit2,counts_pulseseq[rows,],pcs = 5:6)
+print(p22)
 ```
 
 Hillock cells
@@ -387,10 +426,10 @@ of the top hillock genes (e.g., *Krt4*, *Krt13*):
 
 ```{r volcano-plot-droplet-hillock, fig.width=4.5, fig.height=4}
 hillock_genes <- c("Anxa1","Cldn3","Ecm1","Krt13","Krt4","Lgals3","S100a11")
-p18 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
+p23 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"H",
                                            hillock_genes,
 	 								 	   label_above_quantile = 0.998)
-print(p18)
+print(p23)
 ```
 
 Given the transitional nature of these cells, one would expect that
@@ -400,14 +439,14 @@ which is the greatest contributor to this cluster of hillock cells,
 picks up a more distinct enrichment signal for hillock genes:
 
 ```{r scatterplots-droplet-H-vs-k4, fig.width=8, fig.height=3}
-p19 <- zscores_scatterplot(diff_count_clusters_droplet,
+p24 <- zscores_scatterplot(diff_count_clusters_droplet,
                            diff_count_droplet,"H","k4",
                            hillock_genes,zmax = 400,
 						   xlab = "cluster H",ylab = "topic 4")
-p20 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
+p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_droplet,
                         "H","k4",hillock_genes,
                         xlab = "cluster H",ylab = "topic 4")
-plot_grid(p19,p20)
+plot_grid(p24,p25)
 ```
 
 For example, we estimate roughly a 68-fold enrichment of *Krt13*
@@ -419,10 +458,10 @@ The presence of hillock cells in the pulse-seq data is more subtle,
 but it is nonetheless well-captured by a single topic, $k = 1$:
 
 ```{r volcano-plot-pulseseq-hillock, fig.width=4.5, fig.height=4}
-p21 <- volcano_plot_with_highlighted_genes(diff_count_hillock_pulseseq,"k1",
+p26 <- volcano_plot_with_highlighted_genes(diff_count_hillock_pulseseq,"k1",
                                            hillock_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p21)
+print(p26)
 ```
 
 Club cells
@@ -433,19 +472,19 @@ The remaining cluster in the droplet captures club cells:
 ```{r volcano-plot-droplet-club, fig.width=4.5, fig.height=4}
 club_genes <- c("Bpifa1","Cbr2","Cyp2a5","Cyp2f2","Krt15",
                 "Lypd2","Muc5b","Nfia","Scgb1a1","Scgb3a2")
-p22 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
+p27 <- volcano_plot_with_highlighted_genes(diff_count_clusters_droplet,"C",
                                            club_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p22)
+print(p27)
 ```
 
 And likewise in the pulse-seq data:
 
 ```{r volcano-plot-pulseseq-club, fig.width=4.5, fig.height=4}
-p23 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
+p28 <- volcano_plot_with_highlighted_genes(diff_count_clusters_pulseseq,"C",
                                            club_genes,
 	 								 	   label_above_quantile = 0.995)
-print(p23)
+print(p28)
 ```
 
 Both the droplet and pulse-seq clusters exhibit a high level of
@@ -457,28 +496,28 @@ capturing the club cell-type-specific gene program. In the droplet
 data, compare cluster C to the combined topic $k = 5 + 7$,
 
 ```{r scatterplots-club-droplet-C-vs-k5+k7, fig.width=8, fig.height=3}
-p24 <- zscores_scatterplot(diff_count_clusters_droplet,
+p29 <- zscores_scatterplot(diff_count_clusters_droplet,
                            diff_count_club_droplet,"C","k5+k7",club_genes,
                            zmax = 500,xlab = "cluster C",ylab = "topics 5 + 7")
-p25 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_club_droplet,
+p30 <- beta_scatterplot(diff_count_clusters_droplet,diff_count_club_droplet,
                         "C","k5+k7",club_genes,
                         xlab = "cluster C",ylab = "topics 5 + 7")
-plot_grid(p24,p25)
+plot_grid(p29,p30)
 ```
 
 and in the pulse-seq data compare cluster C to the combined topic $k
 = 4 + 5 + 6 + 8 + 10$,
 
 ```{r scatterplots-club-pulseseq-C-vs-k4+5+6+8+9+10, fig.width=8, fig.height=3}
-p26 <- zscores_scatterplot(diff_count_clusters_pulseseq,
+p31 <- zscores_scatterplot(diff_count_clusters_pulseseq,
                            diff_count_bc_pulseseq,"C","k4+k5+k6+k8+k10",
                            club_genes,zmax = 1000,
                            xlab = "cluster C",
 						   ylab = "topics 4-6, 8, 10")
-p27 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_bc_pulseseq,
+p32 <- beta_scatterplot(diff_count_clusters_pulseseq,diff_count_bc_pulseseq,
                         "C","k4+k5+k6+k8+k10",club_genes,
                         xlab = "cluster C",ylab = "topics 4-6, 8, 10")
-plot_grid(p26,p27)
+plot_grid(p31,p32)
 ```
 
 In both data sets, we observe a much stronger enrichment of
