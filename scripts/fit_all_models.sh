@@ -21,6 +21,10 @@ sbatch ${SCRIPT_PREFIT} droplet.RData 10 1000 prefit-droplet-k=10
 sbatch ${SCRIPT_PREFIT} droplet.RData 11 1000 prefit-droplet-k=11
 sbatch ${SCRIPT_PREFIT} droplet.RData 12 1000 prefit-droplet-k=12
 sbatch ${SCRIPT_PREFIT} droplet.RData 13 1000 prefit-droplet-k=13
+sbatch ${SCRIPT_PREFIT} droplet.RData 15  500 prefit-droplet-k=15
+sbatch ${SCRIPT_PREFIT} droplet.RData 20  500 prefit-droplet-k=20
+sbatch ${SCRIPT_PREFIT} droplet.RData 25  500 prefit-droplet-k=25
+sbatch ${SCRIPT_PREFIT} droplet.RData 30  500 prefit-droplet-k=30
 
 # "Pre-fit" factorizations to the 68k PBMC data.
 #                       data            k    n outfile
@@ -163,6 +167,10 @@ sbatch ${SCRIPT_FIT} droplet 13 scd    1000  no fit-droplet-scd-k=13
 sbatch ${SCRIPT_FIT} droplet 13 em     1000 yes fit-droplet-em-ex-k=13
 sbatch ${SCRIPT_FIT} droplet 13 ccd    1000 yes fit-droplet-ccd-ex-k=13
 sbatch ${SCRIPT_FIT} droplet 13 scd    1000 yes fit-droplet-scd-ex-k=13
+sbatch ${SCRIPT_FIT} droplet 15 scd     500 yes fit-droplet-scd-ex-k=15
+sbatch ${SCRIPT_FIT} droplet 20 scd     500 yes fit-droplet-scd-ex-k=20
+sbatch ${SCRIPT_FIT} droplet 25 scd     500 yes fit-droplet-scd-ex-k=25
+sbatch ${SCRIPT_FIT} droplet 30 scd     500 yes fit-droplet-scd-ex-k=30
 
 # Fit factorizations to 68k PBMC data, with and without extrapolation.
 #                    data      k method    n  ex outfile
