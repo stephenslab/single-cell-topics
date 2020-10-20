@@ -55,38 +55,39 @@ For reference, we show here the Structure plot from the
 Structure plot summarizes the topic proportions in each of the 8
 subsets (including the background cluster).
 
-![](figure/clusters_droplet.Rmd/structure-plot-1.png)
+<img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width=1920
+style="display: block; margin: auto;">
 
 It can also be helpful to view the cluster assignments projected onto
 the principal components of the topic proportions:
 
-![](figure/clusters_droplet.Rmd/clustering-8-1.png)
+<img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width=720
+style="display: block; margin: auto">
 
 These clusters closely correspond to cell types. To illustrate this
 point, here we layer the PCA plots with expression of
 cell-type-specific genes such as *Cdhr3* for ciliated cells.
 
 ```{r pca-plots-with-expression-droplet, fig.width=7.5, fig.height=5}
-pp1 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
-                fill = log10(counts_droplet[,"Cdhr3"])) +
-       labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
-pp2 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
-                fill = log10(counts_droplet[,"Krt5"])) +
+abundant <- c("B","C","B+C","H")
+rare     <- c("Cil","T+N","G","U")
+rows1 <- which(is.element(samples_droplet$cluster,abundant))
+rows2 <- which(is.element(samples_droplet$cluster,rare))
+fit1  <- select(poisson2multinom(fit_droplet),loadings = rows1)
+fit2  <- select(poisson2multinom(fit_droplet),loadings = rows2)
+pp1 <- pca_plot(fit1,pcs = 1:2,fill = log10(counts_droplet[rows1,"Krt5"])) +
        labs(title = "Krt5 (basal)",fill = "log10(count)")
-pp3 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
-                fill = log10(counts_droplet[,"Scgb1a1"])) +
+pp2 <- pca_plot(fit1,pcs = 1:2,fill = log10(counts_droplet[rows1,"Scgb1a1"])) +
        labs(title = "Scgb1a1 (club)",fill = "log10(count)")
-pp4 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
-                fill = log10(counts_droplet[,"Chga"])) +
-       labs(title = "Chga (neuroendocrine)",fill = "log10(count)")
-pp5 <- pca_plot(poisson2multinom(fit_droplet),pcs = 1:2,
-                fill = log10(counts_droplet[,"Gnat3"])) +
-       labs(title = "Gnat3 (tuft)",fill = "log10(count)")
-pp6 <- pca_plot(poisson2multinom(fit_droplet),pcs = 3:4,
-                fill = log10(counts_droplet[,"Krt13"])) +
+pp3 <- pca_plot(fit1,pcs = 1:2,fill = log10(counts_droplet[rows1,"Krt13"])) +
        labs(title = "Krt13 (hillock)",fill = "log10(count)")
-pp7 <- pca_plot(poisson2multinom(fit_droplet),pcs = 5:6,
-                fill = log10(counts_droplet[,"Gp2"])) +
+pp4 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_droplet[rows2,"Cdhr3"])) +
+       labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
+pp5 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_droplet[rows2,"Chga"])) +
+       labs(title = "Chga (neuroendocrine)",fill = "log10(count)")
+pp6 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_droplet[rows2,"Gnat3"])) +
+       labs(title = "Gnat3 (tuft)",fill = "log10(count)")
+pp7 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_droplet[rows2,"Gp2"])) +
        labs(title = "Gp2 (goblet)",fill = "log10(count)")
 plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,pp7,nrow = 3,ncol = 3)
 ```
@@ -117,38 +118,39 @@ For reference, we show here the Structure plot from the
 This Structure plot summarizes the topic proportions in each of the 7
 subsets (including the background cluster):
 
-![](figure/clusters_pulseseq.Rmd/structure-plot-1.png)
+<img src="figure/clusters_pulseseq.Rmd/structure-plot-1.png" width=1920
+style="display: block; margin: auto;">
 
 It can also be helpful to view the cluster assignments projected onto
 the principal components of the topic proportions:
 
-![](figure/clusters_pulseseq.Rmd/clustering-10-1.png)
+<img src="figure/clusters_pulseseq.Rmd/clustering-10-1.png" width=1920
+style="display: block; margin: auto;">
 
 These clusters closely correspond to cell types. To illustrate this
 point, here we layer the PCA plots with expression of
 cell-type-specific genes such as *Cdhr3* for ciliated cells.
 
 ```{r pca-plots-with-expression-pulseseq, fig.width=7.5, fig.height=5}
-pp8  <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 3:4,
-                 fill = log10(counts_pulseseq[,"Cdhr3"])) +
-        labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
-pp9  <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 1:2,
-                 fill = log10(counts_pulseseq[,"Krt5"])) +
+abundant <- c("B","C","Cil","U")
+rare     <- c("T+N","I","P")
+rows1 <- which(is.element(samples_pulseseq$cluster,abundant))
+rows2 <- which(is.element(samples_pulseseq$cluster,rare))
+fit1  <- select(poisson2multinom(fit_pulseseq),loadings = rows1)
+fit2  <- select(poisson2multinom(fit_pulseseq),loadings = rows2)
+pp8  <- pca_plot(fit1,pcs = 1:2,fill = log10(counts_pulseseq[rows1,"Krt5"])) +
         labs(title = "Krt5 (basal)",fill = "log10(count)")
-pp10 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 1:2,
-                 fill = log10(counts_pulseseq[,"Scgb1a1"])) +
+pp9  <- pca_plot(fit1,pcs = 1:2,fill=log10(counts_pulseseq[rows1,"Scgb1a1"])) +
         labs(title = "Scgb1a1 (club)",fill = "log10(count)")
-pp11 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
-                 fill = log10(counts_pulseseq[,"Chga"])) +
+pp10  <- pca_plot(fit1,pcs = 3:4,fill = log10(counts_pulseseq[rows1,"Cdhr3"])) +
+        labs(title = "Cdhr3 (ciliated)",fill = "log10(count)")
+pp11 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_pulseseq[rows2,"Chga"])) +
         labs(title = "Chga (neuroendocrine)",fill = "log10(count)")
-pp12 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
-                 fill = log10(counts_pulseseq[,"Gnat3"])) +
+pp12 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_pulseseq[rows2,"Gnat3"])) +
         labs(title = "Gnat3 (tuft)",fill = "log10(count)")
-pp13 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
-                 fill = log10(counts_pulseseq[,"Cftr"])) +
+pp13 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_pulseseq[rows2,"Cftr"])) +
         labs(title = "Cftr (ionocyte)",fill = "log10(count)")
-pp14 <- pca_plot(poisson2multinom(fit_pulseseq),pcs = 5:6,
-                 fill = log10(counts_pulseseq[,"Cdk1"])) +
+pp14 <- pca_plot(fit2,pcs = 1:2,fill = log10(counts_pulseseq[rows2,"Cdk1"])) +
         labs(title = "Cdk1 (proliferating)",fill = "log10(count)")
 plot_grid(pp8,pp9,pp10,pp11,pp12,pp13,pp14,nrow = 3,ncol = 3)
 ```
