@@ -70,6 +70,10 @@ sbatch ${SCRIPT_PREFIT} pulseseq.RData 10 1000 prefit-pulseseq-k=10
 sbatch ${SCRIPT_PREFIT} pulseseq.RData 11 1000 prefit-pulseseq-k=11
 sbatch ${SCRIPT_PREFIT} pulseseq.RData 12 1000 prefit-pulseseq-k=12
 sbatch ${SCRIPT_PREFIT} pulseseq.RData 13 1000 prefit-pulseseq-k=13
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 15  500 prefit-pulseseq-k=15
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 20  500 prefit-pulseseq-k=20
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 25  500 prefit-pulseseq-k=25
+sbatch ${SCRIPT_PREFIT} pulseseq.RData 30  500 prefit-pulseseq-k=30
 
 # Fit factorizations to droplet data, with and without extrapolation.
 #                    data     k method    n  ex outfile
