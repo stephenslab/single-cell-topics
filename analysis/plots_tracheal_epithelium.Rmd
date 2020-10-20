@@ -284,7 +284,7 @@ print(p11)
 ```
 
 Although we do not identify clusters for tuft and neuroendocrine
-cells, in the droplet data topics 2 and 5 captures variation in gene
+cells, in the droplet data topics 2 and 6 capture variation in gene
 expression that corresponds to these cell-types. In particular, topic
 $k = 2$ in the "T+N" cluster is enriched for neuroendocrine-specific
 genes (e.g., *Chga*) and topic $k = 6$ is enriched for tuft-specific
@@ -306,7 +306,7 @@ p13 <- volcano_plot_with_highlighted_genes(diff_count_TN_droplet,"k6",
 plot_grid(p12,p13)
 ```
 
-Similarly, in the pulse-seq data, in topic $k = 2$ we observed
+Similarly, in the pulse-seq data, in topic $k = 2$ we observe
 increased expression of neuroendocrine-specific genes and
 underexpression of tuft-specific genes.
 
@@ -323,7 +323,7 @@ print(p14)
 ```
 
 The fact that the topic proportions in tuft and neuroendocrine cells
-does not vary a lot suggests relatively small differences in gene
+does not vary greatly suggests relatively small differences in gene
 expression between these cell-types.
 
 Basal cells
