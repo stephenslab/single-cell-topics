@@ -8,7 +8,8 @@
 
 # This script allocates computing resources (CPUs, memory), loads R,
 # and runs fit_poisson_nmf.R. See fit_all_models.sh for examples
-# illustrating how to use this script.
+# illustrating how to use this script. Note that I increased the
+# memory to 20G for the pulse-seq data with k >= 15.
 
 # Get the command-line arguments.
 DAT=${1}
