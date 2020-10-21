@@ -171,6 +171,8 @@ sbatch ${SCRIPT_FIT} droplet 13 scd    1000  no fit-droplet-scd-k=13
 sbatch ${SCRIPT_FIT} droplet 13 em     1000 yes fit-droplet-em-ex-k=13
 sbatch ${SCRIPT_FIT} droplet 13 ccd    1000 yes fit-droplet-ccd-ex-k=13
 sbatch ${SCRIPT_FIT} droplet 13 scd    1000 yes fit-droplet-scd-ex-k=13
+
+#                    data     k method    n  ex outfile
 sbatch ${SCRIPT_FIT} droplet 15 scd     500 yes fit-droplet-scd-ex-k=15
 sbatch ${SCRIPT_FIT} droplet 20 scd     500 yes fit-droplet-scd-ex-k=20
 sbatch ${SCRIPT_FIT} droplet 25 scd     500 yes fit-droplet-scd-ex-k=25
@@ -466,3 +468,9 @@ sbatch ${SCRIPT_FIT} pulseseq 13 scd    1000  no fit-pulseseq-scd-k=13
 sbatch ${SCRIPT_FIT} pulseseq 13 em     1000 yes fit-pulseseq-em-ex-k=13
 sbatch ${SCRIPT_FIT} pulseseq 13 ccd    1000 yes fit-pulseseq-ccd-ex-k=13
 sbatch ${SCRIPT_FIT} pulseseq 13 scd    1000 yes fit-pulseseq-scd-ex-k=13
+
+#                    data      k method    n  ex outfile
+sbatch ${SCRIPT_FIT} pulseseq 15 scd     500 yes fit-pulseseq-scd-ex-k=15
+sbatch ${SCRIPT_FIT} pulseseq 20 scd     500 yes fit-pulseseq-scd-ex-k=20
+sbatch ${SCRIPT_FIT} pulseseq 25 scd     500 yes fit-pulseseq-scd-ex-k=25
+sbatch ${SCRIPT_FIT} pulseseq 30 scd     500 yes fit-pulseseq-scd-ex-k=30
