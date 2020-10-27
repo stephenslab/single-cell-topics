@@ -44,7 +44,7 @@ As expected, the likelihood consistently improves as the rank, $k$, is
 increased.
 
 The next set of plots shows the improvement in the fit over time,
-for all choices of $k$, and for each of the three optimization methods
+for $k = 2--13$, and for each of the three optimization methods
 (EM, CCD, SCD), with and without the extrapolation scheme. The quality
 of the fit is measured by the log-likelihood relative to the best
 log-likelihood that was identified among all methods compared.
