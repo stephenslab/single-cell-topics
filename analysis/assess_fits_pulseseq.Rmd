@@ -35,7 +35,7 @@ This plot shows the improvement in the log-likelihood as the rank,
 $k$, is increased. The log-likelihoods are shown relative to the
 log-likelihood at $k = 2$. 
 
-```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
+```{r plot-loglik-vs-k, fig.height=3, fig.width=5}
 plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
