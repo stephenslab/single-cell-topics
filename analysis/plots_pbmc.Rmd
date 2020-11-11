@@ -22,6 +22,8 @@ TO DO:
 + Run the differential expression analysis using the clusters (cache
   these results, too).
 
++ Create plots comparing t-SNE, UMAP and PCA on the topic proportions.
+
 + Give better names to the clusters in the 68k data.
 
 ```{r knitr-opts, include=FALSE}

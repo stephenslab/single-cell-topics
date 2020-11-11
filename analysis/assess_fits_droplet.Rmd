@@ -45,10 +45,11 @@ from $k=8$ to $k=9$. Otherwise, the likelihood improved with larger
 rank, $k$.
 
 The next set of plots shows the improvement in the fit over time, for
-$k = 2--13$, and for each of the three optimization methods (EM, CCD,
-SCD) compared, with and without the extrapolation scheme. The quality
-of the fit is measured by the log-likelihood relative to the best
-log-likelihood that was identified among all methods compared.
+$k = 2$ through $k = 13$, and for each of the three optimization
+methods (EM, CCD, SCD) compared, with and without the extrapolation
+scheme. The quality of the fit is measured by the log-likelihood
+relative to the best log-likelihood that was identified among all
+methods compared.
 
 ```{r plot-loglik, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"loglik")
