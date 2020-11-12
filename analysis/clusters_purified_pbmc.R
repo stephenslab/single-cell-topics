@@ -17,7 +17,7 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 # Define B-cell, CD14+ and CD34+ clusters.
 pca <- prcomp(poisson2multinom(fit)$L)$x
 n   <- nrow(pca)
-x   <- rep("A",n)
+x   <- rep("U",n)
 pc1 <- pca[,1]
 pc2 <- pca[,2]
 pc3 <- pca[,3]
@@ -27,22 +27,44 @@ x[pc2 > 0.25] <- "B"
 x[pc3 < -0.2 & pc4 < 0.2] <- "CD34+"
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
 
-# TO DO: Explain here what these next lines of code do.
-rows <- 1:94655
+# Define NK cells cluster.
+rows <- which(x == "U")
+n    <- length(rows)
 fit2 <- select(poisson2multinom(fit),loadings = rows)
+pca  <- prcomp(fit2$L)$x
+y    <- rep("U",n)
+pc1  <- pca[,1]
+pc2  <- pca[,2]
+y[pc1 < -0.3 & 1.1*pc1 < -pc2 - 0.57] <- "NK"
+x[rows] <- y
 
-# Project cells onto PCs 1 and 2.
+# Define (less distinct) CD8+ cluster.
+# TO DO.
+
+# Plot the top two PCs of the remaining cells.
 colors <- c("dodgerblue","forestgreen","greenyellow","magenta",
             "firebrick","darkorange","gold","darkblue","darkmagenta","gray")
-p1 <- pca_plot(fit2,pcs = 1:2,fill = "none")
-p2 <- pca_hexbin_plot(fit2,pcs = 1:2,bins = 50) +
-  scale_x_continuous(breaks = seq(-1,1,0.1)) +
-  scale_y_continuous(breaks = seq(-1,1,0.1))
-p3 <- pca_plot(fit2,fill = samples[rows,"celltype"],pcs = 1:2) +
+rows <- which(x == "U")
+fit2 <- select(poisson2multinom(fit),loadings = rows)
+p1 <- pca_plot(fit2,fill = samples[rows,"celltype"],pcs = 1:2) +
   scale_fill_manual(values = colors)
-p4 <- pca_plot(fit2,pcs = 1:2,fill = factor(x[rows]))
+p2 <- pca_plot(fit2,k = 1)
+p3 <- pca_plot(fit2,k = 4)
+p4 <- pca_plot(fit2,k = 6)
 plot_grid(p1,p2,p3,p4)
 
 # Compare our clusters with FACS cell-types.
 samples$cluster <- factor(x)
 with(samples,table(celltype,cluster))
+
+# TO DO:
+#
+#  + Create PCA plots summarizing clustering.
+#
+#  + Create PCA plots showing FACS cell-types.
+#
+#  + Create Structure Plot summarizing clustering.
+#
+#  + Create scatterplots comparing likelihoods using a "hard"
+#    clustering and using topic model.
+#
