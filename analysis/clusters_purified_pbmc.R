@@ -55,17 +55,27 @@ samples$cluster <- factor(x)
 with(samples,table(celltype,cluster))
 
 # Create PCA plots showing Zheng et al (2017) FACS cell-types.
-colors <- c("dodgerblue","forestgreen","greenyellow","magenta",
-            "firebrick","darkorange","gold","darkblue","darkmagenta","gray")
+facs_colors <- c("dodgerblue",  # B-cells
+                 "forestgreen", # CD14+
+                 "darkmagenta", # CD34+
+                 "firebrick",   # T helper cells
+                 "gray",        # NK cells
+                 "tomato",      # cytotoxic T-cells
+                 "yellow",      # memory T-cells
+                 "magenta",     # naive cytotoxic 
+                 "darkorange",  # naive T-cells
+                 "gold")        # regulatory T-cells
 x     <- with(samples,cluster == "T" | cluster == "CD8+")
 rows1 <- which(!x)
 rows2 <- which(x)
 p1 <- pca_plot(select(poisson2multinom(fit),loadings = rows1),
                fill = samples[rows1,"celltype"]) +
-  scale_fill_manual(values = colors)
+  scale_fill_manual(values = facs_colors) +
+  labs(fill = "FACS subtype")
 p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
                fill = samples[rows2,"celltype"]) +
-  scale_fill_manual(values = colors)
+  scale_fill_manual(values = facs_colors) +
+  labs(fill = "FACS subtype")
 plot_grid(p1,p2)
 
 set.seed(5)
