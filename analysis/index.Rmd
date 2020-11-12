@@ -40,6 +40,10 @@ Identify clusters
 In these pages, we perform PCA on the estimated topic proportions, and
 use this to identify clusters.
 
++ [Mixture of FACS-purified PBMCs](clusters_purified_pbmc.html)
+
++ [PBMC 68k](clusters_68k_pbmc.html)
+
 + [Droplet](clusters_droplet.html)
 
 + [Pulse-seq](clusters_pulseseq.html)
