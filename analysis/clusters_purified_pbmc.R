@@ -65,6 +65,8 @@ with(samples,table(celltype,cluster))
 #
 #  + Create Structure Plot summarizing clustering.
 #
+#  + Compare inter-cluster and inter-topic total variation distances.
+# 
 #  + Create scatterplots comparing likelihoods using a "hard"
 #    clustering and using topic model.
 #
