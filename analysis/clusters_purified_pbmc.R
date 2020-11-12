@@ -54,7 +54,7 @@ x[rows] <- y
 samples$cluster <- factor(x)
 with(samples,table(celltype,cluster))
 
-# Create PCA plots showing FACS cell-types.
+# Create PCA plots showing Zheng et al (2017) FACS cell-types.
 colors <- c("dodgerblue","forestgreen","greenyellow","magenta",
             "firebrick","darkorange","gold","darkblue","darkmagenta","gray")
 x     <- with(samples,cluster == "T" | cluster == "CD8+")
@@ -103,4 +103,6 @@ plot_grid(p3,p4,p5,nrow = 1)
 # 
 #  + Create scatterplots comparing likelihoods using a "hard"
 #    clustering and using topic model.
+#
+#  + Analyze single-cell likelihoods.
 #
