@@ -24,7 +24,7 @@ Assess model fits
 
 In these pages, we compare the quality of the Poisson NMF fits with
 different updates (EM, CCD, SCD, with and without extrapolation), and
-with different $k$.
+with different settings for $K$.
 
 + [Mixture of FACS-purified PBMCs](assess_fits_purified_pbmc.html)
 
