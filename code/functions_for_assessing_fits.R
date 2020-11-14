@@ -33,7 +33,7 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
     rows <- which(dat$k == i)
     plots[[i]] <-
       plot_progress_poisson_nmf(fits[rows],x = "timing",y = y,
-                                add.point.every = 100,shapes = 21,
+                                add.point.every = 150,shapes = 21,
                                 colors = rep(c(clrs),2),
                                 fills = c(clrs,rep("white",3))) +
       labs(x = "runtime (h)",title = paste("K =",i)) +

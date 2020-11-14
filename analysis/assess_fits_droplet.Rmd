@@ -68,7 +68,7 @@ create_progress_plots(dat,fits,"res")
 p1 <- plot_loglik_vs_rank(fits) +
   labs(x = "number of topics (K)") +
   scale_x_continuous(breaks = c(2,seq(5,30,5))) +
-  scale_y_continuous(breaks = c(1e6,5e6,1e7)) +
+  scale_y_continuous(breaks = c(0,5e6,1e7)) +
   theme_cowplot(font_size = 12)
 p2 <- create_progress_plots(dat,fits,"loglik")
 p3 <- create_progress_plots(dat,fits,"res")
