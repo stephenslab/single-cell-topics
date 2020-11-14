@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-09-24
+<strong>Last updated:</strong> 2020-11-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -354,16 +354,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeab228245aad3d56143219be9797028fcfe9bb6b8targetblankab22824a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ab228245aad3d56143219be9797028fcfe9bb6b8" target="_blank">ab22824</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree672e1e31e76683806b282ef4a1394063899c76a7targetblank672e1e3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/672e1e31e76683806b282ef4a1394063899c76a7" target="_blank">672e1e3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeab228245aad3d56143219be9797028fcfe9bb6b8targetblankab22824a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree672e1e31e76683806b282ef4a1394063899c76a7targetblank672e1e3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ab228245aad3d56143219be9797028fcfe9bb6b8" target="_blank">ab22824</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/672e1e31e76683806b282ef4a1394063899c76a7" target="_blank">672e1e3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -374,17 +374,19 @@ Ignored files:
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
     Ignored:    data/pulseseq.RData
+    Ignored:    output/droplet/diff-count-droplet.RData
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
     Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
+    Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
-Untracked files:
-    Untracked:  analysis/plots_tracheal_epithelium_cache/
+Unstaged changes:
+    Modified:   analysis/assess_fits_droplet.Rmd
 
 </code></pre>
 <p>
@@ -423,6 +425,108 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/672e1e31e76683806b282ef4a1394063899c76a7/analysis/index.Rmd" target="_blank">672e1e3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-13
+</td>
+<td>
+workflowr::wflow_publish(“index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dc984494918d3f593c952855cb094ba1bc0ad0f6/analysis/index.Rmd" target="_blank">dc98449</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-11
+</td>
+<td>
+Added B-cells cluster to clusters_purified_pbmc.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5e57ced077fc483c6e9040dc834eaa62e1e783d8/analysis/index.Rmd" target="_blank">5e57ced</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-03
+</td>
+<td>
+Working on plots highlighting substructure in T+N cluster.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/29e727ce49a82c1632e178214e71f21939da7491/analysis/index.Rmd" target="_blank">29e727c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-01
+</td>
+<td>
+Minor edits.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a9ae3b4f3c20392a21b4bd77d5d3d9be91f62dd6/analysis/index.Rmd" target="_blank">a9ae3b4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+<td>
+Working on new analysis, diff_count_droplet.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/71300aef4f7d33949724f01c1c7165afd2530397/docs/index.html" target="_blank">71300ae</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-09-24
+</td>
+<td>
+Added links to overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -952,7 +1056,7 @@ Added workflowr files.
 </div>
 <div id="assess-model-fits" class="section level2">
 <h2>Assess model fits</h2>
-<p>In these pages, we compare the quality of the Poisson NMF fits with different updates (EM, CCD, SCD, with and without extrapolation), and with different <span class="math inline">\(k\)</span>.</p>
+<p>In these pages, we compare the quality of the Poisson NMF fits with different updates (EM, CCD, SCD, with and without extrapolation), and with different settings for <span class="math inline">\(K\)</span>.</p>
 <ul>
 <li><p><a href="assess_fits_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
 <li><p><a href="assess_fits_68k_pbmc.html">PBMC 68k</a></p></li>
@@ -964,13 +1068,15 @@ Added workflowr files.
 <h2>Identify clusters</h2>
 <p>In these pages, we perform PCA on the estimated topic proportions, and use this to identify clusters.</p>
 <ul>
+<li><p><a href="clusters_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
+<li><p><a href="clusters_68k_pbmc.html">PBMC 68k</a></p></li>
 <li><p><a href="clusters_droplet.html">Droplet</a></p></li>
 <li><p><a href="clusters_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
-<div id="analysis-of-differential-gene-expression" class="section level2">
-<h2>Analysis of differential gene expression</h2>
-<p><em>TO DO: Add brief description here.</em></p>
+<div id="perform-differential-expression-analysis" class="section level2">
+<h2>Perform differential expression analysis</h2>
+<p>In these pages, we perform a differential expression analysis using a topic model and clusters identified from this topic model.</p>
 <ul>
 <li><p><a href="diff_count_droplet.html">Droplet</a></p></li>
 <li><p><a href="diff_count_pulseseq.html">Pulse-seq</a></p></li>
@@ -982,7 +1088,6 @@ Added workflowr files.
 <ul>
 <li><p><a href="plots_pbmc.html">PBMC</a></p></li>
 <li><p><a href="plots_tracheal_epithelium.html">Droplet and pulse-seq</a></p></li>
-<li><p><a href="bcells_and_nkcells.html">Closer look at B-cells and NK cells in PBMC data</a></p></li>
 </ul>
 </div>
 
