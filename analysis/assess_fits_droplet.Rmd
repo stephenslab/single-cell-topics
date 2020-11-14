@@ -6,7 +6,7 @@ output: workflowr::wflow_html
 
 Here we compare the quality of the fits obtained from the different
 updates (EM, CCD, SCD, with and without extrapolation), and with
-different $k$.
+different $K$.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -32,7 +32,7 @@ load("../output/droplet/fits-droplet.RData")
 ```
 
 This plot shows the improvement in the log-likelihood as the rank,
-$k$, is increased. The log-likelihoods are shown relative to the
+$K$, is increased. The log-likelihoods are shown relative to the
 log-likelihood at $K = 2$. 
 
 ```{r plot-loglik-vs-k, fig.height=3, fig.width=5}
