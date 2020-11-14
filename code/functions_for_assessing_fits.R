@@ -6,8 +6,8 @@
 # compile_poisson_nmf_fits.R. It is assumed that Poisson NMF models
 # were fit for k = 2-13, using three different algorithms (EM, CCD,
 # SCD), and with and without extrapolation. The first 1,000 iterations
-# are not shown because it is assumed that 1,000 
-# "prefitting" updates were performed.
+# are not shown because it is assumed that 1,000 "prefitting" updates
+# were performed.
 create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
 
   # Process the input arguments.
@@ -25,10 +25,12 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
   n           <- length(fits)
   names(fits) <- with(dat,paste0(method,ifelse(extrapolate,"+ex","")))
   for (i in 1:n) {
-    fit                 <- fits[[i]]
-    fit$progress        <- fit$progress[-(1:1000),]
-    fit$progress$timing <- fit$progress$timing/3600
-    fits[[i]]           <- fit
+    fit                      <- fits[[i]]
+    x                        <- sum(fit$progress[1:1000,"timing"])
+    fit$progress             <- fit$progress[-(1:1000),]
+    fit$progress[1,"timing"] <- fit$progress[1,"timing"] + x
+    fit$progress$timing      <- fit$progress$timing/3600
+    fits[[i]]                <- fit
   }
    
   # Repeat for each choice of k, the number of topics. The legend is
@@ -41,7 +43,7 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
                                 add.point.every = 100,shapes = 21,
                                 colors = rep(c(clrs),2),
                                 fills = c(clrs,rep("white",3))) +
-      labs(x = "runtime (h)",title = paste("k =",i)) +
+      labs(x = "runtime (h)",title = paste("K =",i)) +
       theme_cowplot(font_size = 10) +
       theme(plot.title = element_text(size = 10,face = "plain"))
     if (i == 2)
