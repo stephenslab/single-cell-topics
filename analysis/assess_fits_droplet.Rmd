@@ -64,7 +64,7 @@ monotonically over time.
 create_progress_plots(dat,fits,"res")
 ```
 
-```{r plots-for-paper, echo=FALSE}
+```{r plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
 p1 <- plot_loglik_vs_rank(fits) +
   labs(x = "number of topics (K)") +
   scale_x_continuous(breaks = c(2,seq(5,30,5))) +
