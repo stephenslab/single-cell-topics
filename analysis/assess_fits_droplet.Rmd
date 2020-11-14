@@ -44,7 +44,7 @@ Oddly, the likelihood did not improve from 4 to 5, and same from 8
 to 9. Otherwise, the likelihood improved with larger rank, $K$.
 
 The next set of plots shows the improvement in the fit over time, for
-each setting of $K$, and for each of the three updates (EM, CCD, SCD)
+$K$ from 2 to 13, and for each of the three updates (EM, CCD, SCD)
 with and without extrapolation. The quality of the fit is measured by
 the log-likelihood relative to the best log-likelihood that was
 identified among all methods compared.
