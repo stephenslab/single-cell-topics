@@ -24,8 +24,8 @@ source("../code/functions_for_assessing_fits.R")
 ```
 
 Load the results of running `fit_poisson_nmf` on the droplet data,
-with different algorithms, and for various choices of $k$ (the number
-of "topics").
+with different algorithms, and for various settings of $K$ (the number
+of topics, or equivalently the dimension of the matrix factorization).
 
 ```{r load-results}
 load("../output/droplet/fits-droplet.RData")
@@ -33,23 +33,21 @@ load("../output/droplet/fits-droplet.RData")
 
 This plot shows the improvement in the log-likelihood as the rank,
 $k$, is increased. The log-likelihoods are shown relative to the
-log-likelihood at $k = 2$. 
+log-likelihood at $K = 2$. 
 
 ```{r plot-loglik-vs-k, fig.height=3, fig.width=5}
 plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
 
-Oddly, the likelihood did not improve from $k=4$ to $k=5$, and same
-from $k=8$ to $k=9$. Otherwise, the likelihood improved with larger
-rank, $k$.
+Oddly, the likelihood did not improve from 4 to 5, and same from 8
+to 9. Otherwise, the likelihood improved with larger rank, $K$.
 
 The next set of plots shows the improvement in the fit over time, for
-$k = 2$ through $k = 13$, and for each of the three optimization
-methods (EM, CCD, SCD) compared, with and without the extrapolation
-scheme. The quality of the fit is measured by the log-likelihood
-relative to the best log-likelihood that was identified among all
-methods compared.
+each setting of $K$, and for each of the three updates (EM, CCD, SCD)
+with and without extrapolation. The quality of the fit is measured by
+the log-likelihood relative to the best log-likelihood that was
+identified among all methods compared.
 
 ```{r plot-loglik, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"loglik")
@@ -66,3 +64,15 @@ monotonically over time.
 create_progress_plots(dat,fits,"res")
 ```
 
+```{r plots-for-paper, echo=FALSE}
+p1 <- plot_loglik_vs_rank(fits) +
+  labs(x = "number of topics (K)") +
+  scale_x_continuous(breaks = c(2,seq(5,30,5))) +
+  scale_y_continuous(breaks = c(1e6,5e6,1e7)) +
+  theme_cowplot(font_size = 12)
+p2 <- create_progress_plots(dat,fits,"loglik")
+p3 <- create_progress_plots(dat,fits,"res")
+ggsave("loglik_vs_k_droplet.eps",p1,height = 3,width = 3.25)
+ggsave("progress_loglik_droplet.eps",p2,height = 6,width = 9)
+ggsave("progress_res_droplet.eps",p3,height = 6,width = 9)
+```
