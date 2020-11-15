@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-08-31
+<strong>Last updated:</strong> 2020-11-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5653062ef35a3946031b36d3ed6e19310460db80targetblank5653062a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5653062ef35a3946031b36d3ed6e19310460db80" target="_blank">5653062</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d631ba0208f08d5fcbde7dc392f173ef38494adtargetblank5d631baa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5d631ba0208f08d5fcbde7dc392f173ef38494ad" target="_blank">5d631ba</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5653062ef35a3946031b36d3ed6e19310460db80targetblank5653062a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d631ba0208f08d5fcbde7dc392f173ef38494adtargetblank5d631baa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5653062ef35a3946031b36d3ed6e19310460db80" target="_blank">5653062</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5d631ba0208f08d5fcbde7dc392f173ef38494ad" target="_blank">5d631ba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -434,12 +434,14 @@ Ignored files:
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
     Ignored:    data/pulseseq.RData
+    Ignored:    output/droplet/diff-count-droplet.RData
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
     Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
+    Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
@@ -480,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5d631ba0208f08d5fcbde7dc392f173ef38494ad/analysis/assess_fits_purified_pbmc.Rmd" target="_blank">5d631ba</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-15
+</td>
+<td>
+workflowr::wflow_publish(“assess_fits_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/9069b34eec34e3e13159556fbd74b19e8699051d/docs/assess_fits_purified_pbmc.html" target="_blank">9069b34</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-31
+</td>
+<td>
+Re-ran assess_fits_purified_pbmc analysis with fix to timings reported
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -555,15 +591,15 @@ Added assess_fits_purified_pbmc.Rmd.
 </div>
 </div>
 </div>
-<p>Here we compare the quality of the fits obtained from the different updates (EM, CCD, SCD, with and without extrapolation), and with different <span class="math inline">\(k\)</span>.</p>
+<p>Here we compare the quality of the fits obtained from the different updates (EM, CCD, SCD, with and without extrapolation), and with different <span class="math inline">\(K\)</span>.</p>
 <p>Load the packages used in the analysis below, as well as some additional functions for creating the plots.</p>
 <pre class="r"><code>library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source(&quot;../code/functions_for_assessing_fits.R&quot;)</code></pre>
-<p>Load the results of running <code>fit_poisson_nmf</code> on the mixture of FACS-purified PBMC data, with different algorithms, and for various choices of <span class="math inline">\(k\)</span> (the number of “topics”).</p>
+<p>Load the results of running <code>fit_poisson_nmf</code> on the mixture of FACS-purified PBMC data, with the different updates, and for various choices of <span class="math inline">\(K\)</span> (the number of “topics”).</p>
 <pre class="r"><code>load(&quot;../output/pbmc-purified/fits-pbmc-purified.RData&quot;)</code></pre>
-<p>This plot shows the improvement in the log-likelihood as the rank, <span class="math inline">\(k\)</span>, is increased. The log-likelihoods are shown relative to the log-likelihood at <span class="math inline">\(k = 2\)</span>.</p>
+<p>This plot shows the improvement in the log-likelihood as the rank, <span class="math inline">\(K\)</span>, is increased. The log-likelihoods are shown relative to the log-likelihood at <span class="math inline">\(K = 2\)</span>.</p>
 <pre class="r"><code>plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)</code></pre>
 <p><img src="figure/assess_fits_purified_pbmc.Rmd/plot-loglik-vs-k-1.png" width="336" style="display: block; margin: auto;" /></p>
@@ -604,8 +640,8 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The likelihood improves as the rank, <span class="math inline">\(k\)</span>, increases.</p>
-<p>The next set of plots shows the improvement in the fit over time, for all choices of <span class="math inline">\(k\)</span>, and for each of the three optimization methods (EM, CCD, SCD), with and without the extrapolation scheme. The quality of the fit is measured by the log-likelihood relative to the best log-likelihood that was identified among all methods compared.</p>
+<p>The likelihood improves as the rank, <span class="math inline">\(K\)</span>, increases.</p>
+<p>The next set of plots shows the improvement in the fit over time, for all choices of <span class="math inline">\(K\)</span>, and for each of the three updates (EM, CCD, SCD), with and without the extrapolation scheme. The quality of the fit is measured by the log-likelihood relative to the best log-likelihood that was identified among all methods compared.</p>
 <pre class="r"><code>create_progress_plots(dat,fits,&quot;loglik&quot;)</code></pre>
 <p><img src="figure/assess_fits_purified_pbmc.Rmd/plot-loglik-1.png" width="864" style="display: block; margin: auto;" /></p>
 <p>
@@ -630,6 +666,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9069b34eec34e3e13159556fbd74b19e8699051d/docs/figure/assess_fits_purified_pbmc.Rmd/plot-loglik-1.png" target="_blank">9069b34</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/cccb45ccaaf9e0cf0d0c27e1ee903178b4d67c59/docs/figure/assess_fits_purified_pbmc.Rmd/plot-loglik-1.png" target="_blank">cccb45c</a>
@@ -672,6 +719,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9069b34eec34e3e13159556fbd74b19e8699051d/docs/figure/assess_fits_purified_pbmc.Rmd/plot-res-1.png" target="_blank">9069b34</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-08-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/cccb45ccaaf9e0cf0d0c27e1ee903178b4d67c59/docs/figure/assess_fits_purified_pbmc.Rmd/plot-res-1.png" target="_blank">cccb45c</a>
 </td>
 <td>
@@ -695,7 +753,7 @@ Peter Carbonetto
 <pre class="r"><code>sessionInfo()
 # R version 3.6.2 (2019-12-12)
 # Platform: x86_64-apple-darwin15.6.0 (64-bit)
-# Running under: macOS Catalina 10.15.6
+# Running under: macOS Catalina 10.15.7
 # 
 # Matrix products: default
 # BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
@@ -708,14 +766,14 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-165
+# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-184
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
 #  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
 #  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
 # [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
-# [13] evaluate_0.14        coda_0.19-3          httr_1.4.1          
+# [13] evaluate_0.14        coda_0.19-3          httr_1.4.2          
 # [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
 # [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
 # [22] SparseM_1.78         whisker_0.4          Matrix_1.2-18       
@@ -728,7 +786,7 @@ Peter Carbonetto
 # [43] dplyr_0.8.3          withr_2.1.2          later_1.0.0         
 # [46] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
 # [49] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
-# [52] magrittr_1.5         scales_1.1.0         RcppParallel_5.0.2  
+# [52] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
 # [55] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
 # [58] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
 # [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
