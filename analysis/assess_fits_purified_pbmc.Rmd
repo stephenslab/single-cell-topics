@@ -6,7 +6,7 @@ output: workflowr::wflow_html
 
 Here we compare the quality of the fits obtained from the different
 updates (EM, CCD, SCD, with and without extrapolation), and with
-different $k$.
+different $K$.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -24,29 +24,29 @@ source("../code/functions_for_assessing_fits.R")
 ```
 
 Load the results of running `fit_poisson_nmf` on the mixture of
-FACS-purified PBMC data, with different algorithms, and for various
-choices of $k$ (the number of "topics").
+FACS-purified PBMC data, with the different updates, and for various
+choices of $K$ (the number of "topics").
 
 ```{r load-results}
 load("../output/pbmc-purified/fits-pbmc-purified.RData")
 ```
 
 This plot shows the improvement in the log-likelihood as the rank,
-$k$, is increased. The log-likelihoods are shown relative to the
-log-likelihood at $k = 2$. 
+$K$, is increased. The log-likelihoods are shown relative to the
+log-likelihood at $K = 2$. 
 
 ```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
 plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
 
-The likelihood improves as the rank, $k$, increases.
+The likelihood improves as the rank, $K$, increases.
 
-The next set of plots shows the improvement in the fit over time,
-for all choices of $k$, and for each of the three optimization methods
-(EM, CCD, SCD), with and without the extrapolation scheme. The quality
-of the fit is measured by the log-likelihood relative to the best
-log-likelihood that was identified among all methods compared.
+The next set of plots shows the improvement in the fit over time, for
+all choices of $K$, and for each of the three updates (EM, CCD, SCD),
+with and without the extrapolation scheme. The quality of the fit is
+measured by the log-likelihood relative to the best log-likelihood
+that was identified among all methods compared.
 
 ```{r plot-loglik, fig.height=6, fig.width=9}
 create_progress_plots(dat,fits,"loglik")
@@ -63,3 +63,14 @@ monotonically over time.
 create_progress_plots(dat,fits,"res")
 ```
 
+```{r plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
+p1 <- plot_loglik_vs_rank(fits) +
+  scale_y_continuous(breaks = seq(0,12e6,2e6)) +
+  labs(x = "number of topics (K)") +
+  theme_cowplot(font_size = 12)
+p2 <- create_progress_plots(dat,fits,"loglik")
+p3 <- create_progress_plots(dat,fits,"res")
+ggsave("loglik_vs_k_purified_pbmc.eps",p1,height = 3,width = 3.25)
+ggsave("progress_loglik_purified_pbmc.eps",p2,height = 6,width = 9)
+ggsave("progress_res_purified_pbmc.eps",p3,height = 6,width = 9)
+```
