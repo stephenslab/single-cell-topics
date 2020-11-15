@@ -25,7 +25,8 @@ source("../code/functions_for_assessing_fits.R")
 
 Load the results of running `fit_poisson_nmf` on the mixture of
 FACS-purified PBMC data, with the different updates, and for various
-choices of $K$ (the number of "topics").
+choices of $K$ (the number of topics, or equivalently the dimension of
+the matrix factorization).
 
 ```{r load-results}
 load("../output/pbmc-purified/fits-pbmc-purified.RData")
@@ -70,7 +71,7 @@ p1 <- plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 p2 <- create_progress_plots(dat,fits,"loglik")
 p3 <- create_progress_plots(dat,fits,"res")
-ggsave("loglik_vs_k_purified_pbmc.eps",p1,height = 3,width = 3.25)
-ggsave("progress_loglik_purified_pbmc.eps",p2,height = 6,width = 9)
-ggsave("progress_res_purified_pbmc.eps",p3,height = 6,width = 9)
+ggsave("loglik_vs_k_pbmc_purified.eps",p1,height = 3,width = 3.25)
+ggsave("progress_loglik_pbmc_purified.eps",p2,height = 6,width = 9)
+ggsave("progress_res_pbmc_purified.eps",p3,height = 6,width = 9)
 ```
