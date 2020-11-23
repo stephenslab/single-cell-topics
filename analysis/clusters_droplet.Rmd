@@ -33,7 +33,7 @@ Load the droplet data.
 load("../data/droplet.RData")
 ```
 
-Load the $k = 7$ Poisson NMF model fit.
+Load the $K = 7$ Poisson NMF model fit.
 
 ```{r load-fit}
 fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit

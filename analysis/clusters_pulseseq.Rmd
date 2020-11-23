@@ -38,7 +38,7 @@ x[x == "tuft.1" | x == "tuft.2" | x == "tuft.progenitor"] <- "tuft"
 samples$tissue <- factor(x)
 ```
 
-Load the $k = 11$ Poisson NMF model fit.
+Load the $K = 11$ Poisson NMF model fit.
 
 ```{r load-fit}
 fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit

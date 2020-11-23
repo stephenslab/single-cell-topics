@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Identify clusters in droplet data using topic model</title>
+<title>Identify clusters in mixture of FACS-purified PBMC data using topic model</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Identify clusters in droplet data using topic model</h1>
+<h1 class="title toc-ignore">Identify clusters in mixture of FACS-purified PBMC data using topic model</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4e328841adf9fd279746ba0a4a86c15aebe62d2etargetblank4e32884a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4e328841adf9fd279746ba0a4a86c15aebe62d2e" target="_blank">4e32884</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb51286454b86d4b950737df1432a3f7dee82c001targetblankb512864a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b51286454b86d4b950737df1432a3f7dee82c001" target="_blank">b512864</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4e328841adf9fd279746ba0a4a86c15aebe62d2etargetblank4e32884a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb51286454b86d4b950737df1432a3f7dee82c001targetblankb512864a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4e328841adf9fd279746ba0a4a86c15aebe62d2e" target="_blank">4e32884</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b51286454b86d4b950737df1432a3f7dee82c001" target="_blank">b512864</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,6 +444,10 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Unstaged changes:
+    Modified:   analysis/clusters_droplet.Rmd
+    Modified:   analysis/clusters_pulseseq.Rmd
 
 </code></pre>
 <p>
@@ -487,6 +491,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b51286454b86d4b950737df1432a3f7dee82c001/analysis/clusters_purified_pbmc.Rmd" target="_blank">b512864</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7cbd5e9c58d49c243717f345aefb60e639c52465/docs/clusters_purified_pbmc.html" target="_blank">7cbd5e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+First build of clusters_purified_pbmc page.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/4e328841adf9fd279746ba0a4a86c15aebe62d2e/analysis/clusters_purified_pbmc.Rmd" target="_blank">4e32884</a>
 </td>
 <td>
@@ -518,10 +556,12 @@ library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
 <p>Load the count data.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)</code></pre>
-<p>Load the k = 6 Poisson NMF model fit.</p>
+<p>Load the <span class="math inline">\(K = 6\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit</code></pre>
-<p>Define B-cell, CD14+ and CD34+ clusters.</p>
+<div id="identify-clusters-from-principal-components" class="section level2">
+<h2>Identify clusters from principal components</h2>
+<p>From the PCs, we define clusters for B-cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”).</p>
 <pre class="r"><code>pca &lt;- prcomp(poisson2multinom(fit)$L)$x
 n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;U&quot;,n)
@@ -533,7 +573,7 @@ pc5 &lt;- pca[,5]
 x[pc2 &gt; 0.25] &lt;- &quot;B&quot;
 x[pc3 &lt; -0.2 &amp; pc4 &lt; 0.2] &lt;- &quot;CD34+&quot;
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 &lt; 0.07] &lt;- &quot;CD14+&quot;</code></pre>
-<p>Define NK cells cluster.</p>
+<p>Next, we define an NK cells from the top 2 PCs of the unknown cells.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
 n    &lt;- length(rows)
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
@@ -543,7 +583,7 @@ pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 y[pc1 &lt; -0.3 &amp; 1.1*pc1 &lt; -pc2 - 0.57] &lt;- &quot;NK&quot;
 x[rows] &lt;- y</code></pre>
-<p>Define the (much less distinct) CD8+ cluster, and label the remaining cells as T-cells.</p>
+<p>Among the remaining cells, there is a much less distinct cluster of CD8+ cells, and the rest are labeled as T-cells.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
 n    &lt;- length(rows)
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
@@ -553,7 +593,7 @@ pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 y[pc1 &lt; 0.25 &amp; pc2 &lt; -0.15] &lt;- &quot;CD8+&quot;
 x[rows] &lt;- y</code></pre>
-<p>Compare our clusters with FACS cell-types.</p>
+<p>This clustering corresponds closely to the Zheng <em>et al</em> (2017) FACS cell populations:</p>
 <pre class="r"><code>samples$cluster &lt;- factor(x)
 with(samples,table(celltype,cluster))
 #                               cluster
@@ -568,8 +608,9 @@ with(samples,table(celltype,cluster))
 #   CD8+/CD45RA+ Naive Cytotoxic     3     0     0    53     2 11895
 #   CD4+/CD45RA+/CD25- Naive T       1     0     8    30     1 10439
 #   CD4+/CD25 T Reg                  2     0     2    25     0 10234</code></pre>
-<p>Create PCA plots showing Zheng et al (2017) FACS cell-types.</p>
-<pre class="r"><code>facs_colors &lt;- c(&quot;dodgerblue&quot;,  # B-cells
+<p>This close correspondence is also apparent from PCA plots:</p>
+<pre class="r"><code>set.seed(1)
+facs_colors &lt;- c(&quot;dodgerblue&quot;,  # B-cells
                  &quot;forestgreen&quot;, # CD14+
                  &quot;darkmagenta&quot;, # CD34+
                  &quot;firebrick&quot;,   # T helper cells
@@ -580,22 +621,18 @@ with(samples,table(celltype,cluster))
                  &quot;darkorange&quot;,  # naive T-cells
                  &quot;gold&quot;)        # regulatory T-cells
 x     &lt;- with(samples,cluster == &quot;T&quot; | cluster == &quot;CD8+&quot;)
-rows1 &lt;- which(!x)
-rows2 &lt;- which(x)
+rows1 &lt;- sample(which(!x))
+rows2 &lt;- sample(which(x))
 p1 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows1),
                fill = samples[rows1,&quot;celltype&quot;]) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subtype&quot;)
-# Scale for &#39;fill&#39; is already present. Adding another scale for &#39;fill&#39;, which
-# will replace the existing scale.
 p2 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows2),
                fill = samples[rows2,&quot;celltype&quot;]) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subtype&quot;)
-# Scale for &#39;fill&#39; is already present. Adding another scale for &#39;fill&#39;, which
-# will replace the existing scale.
 plot_grid(p1,p2)</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/unnamed-chunk-7-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>set.seed(5)
 rows &lt;- which(with(samples,
                    cluster == &quot;B&quot; |
@@ -615,47 +652,47 @@ p4 &lt;- pca_plot(fit2,out.pca = tsne,fill = samples[rows,&quot;cluster&quot;])
 # Using no_dims = 2, perplexity = 100.000000, and theta = 0.100000
 # Computing input similarities...
 # Building tree...
-# Done in 0.77 seconds (sparsity = 0.184441)!
+# Done in 0.61 seconds (sparsity = 0.184441)!
 # Learning embedding...
-# Iteration 50: error is 56.399649 (50 iterations in 1.59 seconds)
-# Iteration 100: error is 50.071582 (50 iterations in 0.75 seconds)
-# Iteration 150: error is 49.293280 (50 iterations in 0.64 seconds)
-# Iteration 200: error is 49.002482 (50 iterations in 0.63 seconds)
-# Iteration 250: error is 48.846158 (50 iterations in 0.64 seconds)
-# Iteration 300: error is 0.517416 (50 iterations in 0.78 seconds)
-# Iteration 350: error is 0.376907 (50 iterations in 0.78 seconds)
-# Iteration 400: error is 0.330721 (50 iterations in 0.77 seconds)
-# Iteration 450: error is 0.309748 (50 iterations in 0.84 seconds)
-# Iteration 500: error is 0.297955 (50 iterations in 0.73 seconds)
-# Iteration 550: error is 0.290376 (50 iterations in 0.75 seconds)
+# Iteration 50: error is 56.399649 (50 iterations in 1.14 seconds)
+# Iteration 100: error is 50.071582 (50 iterations in 0.69 seconds)
+# Iteration 150: error is 49.293280 (50 iterations in 0.65 seconds)
+# Iteration 200: error is 49.002482 (50 iterations in 0.65 seconds)
+# Iteration 250: error is 48.846158 (50 iterations in 0.66 seconds)
+# Iteration 300: error is 0.517416 (50 iterations in 0.81 seconds)
+# Iteration 350: error is 0.376907 (50 iterations in 0.82 seconds)
+# Iteration 400: error is 0.330721 (50 iterations in 0.79 seconds)
+# Iteration 450: error is 0.309748 (50 iterations in 0.78 seconds)
+# Iteration 500: error is 0.297955 (50 iterations in 0.78 seconds)
+# Iteration 550: error is 0.290376 (50 iterations in 0.74 seconds)
 # Iteration 600: error is 0.285103 (50 iterations in 0.74 seconds)
-# Iteration 650: error is 0.281319 (50 iterations in 0.70 seconds)
-# Iteration 700: error is 0.278406 (50 iterations in 0.72 seconds)
+# Iteration 650: error is 0.281319 (50 iterations in 0.71 seconds)
+# Iteration 700: error is 0.278406 (50 iterations in 0.71 seconds)
 # Iteration 750: error is 0.276144 (50 iterations in 0.73 seconds)
-# Iteration 800: error is 0.274312 (50 iterations in 0.72 seconds)
-# Iteration 850: error is 0.272863 (50 iterations in 0.73 seconds)
-# Iteration 900: error is 0.271622 (50 iterations in 0.79 seconds)
-# Iteration 950: error is 0.270668 (50 iterations in 0.76 seconds)
-# Iteration 1000: error is 0.269853 (50 iterations in 0.71 seconds)
-# Fitting performed in 15.50 seconds.</code></pre>
+# Iteration 800: error is 0.274312 (50 iterations in 0.71 seconds)
+# Iteration 850: error is 0.272863 (50 iterations in 0.71 seconds)
+# Iteration 900: error is 0.271622 (50 iterations in 0.71 seconds)
+# Iteration 950: error is 0.270668 (50 iterations in 0.70 seconds)
+# Iteration 1000: error is 0.269853 (50 iterations in 0.70 seconds)
+# Fitting performed in 14.95 seconds.</code></pre>
 <p>Run UMAP, then plot the 2-d embedding.</p>
 <pre class="r"><code>out.umap &lt;- umap(fit2$L,n_neighbors = 30,metric = &quot;euclidean&quot;,n_epochs = 1000,
                  min_dist = 0.1,scale = &quot;none&quot;,learning_rate = 1,
                  verbose = TRUE)
-# 21:51:14 UMAP embedding parameters a = 1.577 b = 0.8951
-# 21:51:14 Read 2000 rows and found 6 numeric columns
-# 21:51:14 Using FNN for neighbor search, n_neighbors = 30
-# 21:51:15 Commencing smooth kNN distance calibration using 2 threads
-# 21:51:15 Found 2 connected components, falling back to &#39;spca&#39; initialization with init_sdev = 1
-# 21:51:15 Initializing from PCA
-# 21:51:15 PCA: 2 components explained 96.47% variance
-# 21:51:15 Commencing optimization for 1000 epochs, with 75234 positive edges
-# 21:51:20 Optimization finished
+# 22:12:44 UMAP embedding parameters a = 1.577 b = 0.8951
+# 22:12:44 Read 2000 rows and found 6 numeric columns
+# 22:12:44 Using FNN for neighbor search, n_neighbors = 30
+# 22:12:44 Commencing smooth kNN distance calibration using 2 threads
+# 22:12:45 Found 2 connected components, falling back to &#39;spca&#39; initialization with init_sdev = 1
+# 22:12:45 Initializing from PCA
+# 22:12:45 PCA: 2 components explained 96.47% variance
+# 22:12:45 Commencing optimization for 1000 epochs, with 75234 positive edges
+# 22:12:49 Optimization finished
 out.umap &lt;- list(x = out.umap)
 colnames(out.umap$x) &lt;- c(&quot;umap1&quot;,&quot;umap2&quot;)
 p5 &lt;- pca_plot(fit2,out.pca = out.umap,fill = samples[rows,&quot;cluster&quot;])
 plot_grid(p3,p4,p5,nrow = 1)</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/unnamed-chunk-10-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_purified_pbmc.Rmd/unnamed-chunk-3-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>TO DO:</p>
 <ul>
 <li><p>Create Structure Plot summarizing clustering.</p></li>
@@ -713,6 +750,7 @@ plot_grid(p3,p4,p5,nrow = 1)</code></pre>
 # [61] hms_0.5.2            yaml_2.2.0           colorspace_1.4-1    
 # [64] plotly_4.9.2         knitr_1.26           quantreg_5.54       
 # [67] MCMCpack_1.4-5</code></pre>
+</div>
 </div>
 
 
