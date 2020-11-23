@@ -89,17 +89,40 @@ y[pc1 < 0.25 & pc2 < -0.15] <- "CD8+"
 x[rows] <- y
 ```
 
+In summary, we have subdivided the cells into 6 subsets. The
+substructure is clear when we plot T cells separately from the other
+cells.
+
+```{r clustering-5, fig.width=7.5, fig.height=4, message=FALSE}
+cluster_colors <- c("dodgerblue","forestgreen","darkmagenta",
+                    "red","gray","darkorange")
+samples$cluster <- factor(x)
+x     <- with(samples,cluster == "T" | cluster == "CD8+")
+rows1 <- sample(which(!x))
+rows2 <- sample(which(x))
+p1 <- pca_plot(select(poisson2multinom(fit),loadings = rows1),
+               fill = samples$cluster[rows1]) +
+  scale_fill_manual(values = cluster_colors,drop = FALSE) +
+  labs(fill = "cluster")
+p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
+               fill = samples$cluster[rows2,drop = FALSE]) +
+  scale_fill_manual(values = cluster_colors,drop = FALSE) +
+  labs(fill = "cluster")
+p3 <- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows1),bins = 28)
+p4 <- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows2),bins = 28)
+plot_grid(p1,p3,p2,p4)
+```
+
 This clustering corresponds closely to the Zheng *et al* (2017) FACS
 cell populations:
 
-```{r clustering-4}
-samples$cluster <- factor(x)
+```{r clustering-6}
 with(samples,table(celltype,cluster))
 ```
 
 This close correspondence is also apparent from PCA plots:
 
-```{r clustering-5, fig.width=8, fig.height=1.75, message=FALSE}
+```{r clustering-7, fig.width=8, fig.height=1.75, message=FALSE}
 set.seed(1)
 facs_colors <- c("dodgerblue",  # B-cells
                  "forestgreen", # CD14+
@@ -111,9 +134,6 @@ facs_colors <- c("dodgerblue",  # B-cells
                  "magenta",     # naive cytotoxic 
                  "darkorange",  # naive T-cells
                  "gold")        # regulatory T-cells
-x     <- with(samples,cluster == "T" | cluster == "CD8+")
-rows1 <- sample(which(!x))
-rows2 <- sample(which(x))
 p1 <- pca_plot(select(poisson2multinom(fit),loadings = rows1),
                fill = samples[rows1,"celltype"]) +
   scale_fill_manual(values = facs_colors) +
