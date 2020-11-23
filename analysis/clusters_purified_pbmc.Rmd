@@ -150,6 +150,11 @@ p3 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
 print(p3)
 ```
 
+Analysis of single-cell likelihoods
+-----------------------------------
+
+*Add text and code here.*
+
 ```{r}
 set.seed(5)
 rows <- which(with(samples,
@@ -192,3 +197,5 @@ TO DO:
   clustering (either my own clustering, or the FACS-sorted cell
   populations) and using topic model.
 
++ Add example illustrating how t-SNE and UMAP accentuate clustering
+  (see code above).
