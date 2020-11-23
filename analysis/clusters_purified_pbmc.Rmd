@@ -1,20 +1,47 @@
-# Here we perform PCA on the topic proportions to identify clusters in
-# the mixture of FACS-purified PBMC data sets.
+---
+title: "Identify clusters in droplet data using topic model"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we perform PCA on the topic proportions to identify clusters in
+the mixture of FACS-purified PBMC data sets.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(dplyr)
 library(fastTopics)
+library(Rtsne)
+library(uwot)
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
+```
 
-# Load the count data.
+Load the count data.
+
+```{r}
 load("../data/pbmc_purified.RData")
+```
 
-# Load the k = 6 Poisson NMF model fit.
+Load the k = 6 Poisson NMF model fit.
+
+```{r}
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+```
 
-# Define B-cell, CD14+ and CD34+ clusters.
+Define B-cell, CD14+ and CD34+ clusters.
+
+```{r}
 pca <- prcomp(poisson2multinom(fit)$L)$x
 n   <- nrow(pca)
 x   <- rep("U",n)
@@ -26,8 +53,11 @@ pc5 <- pca[,5]
 x[pc2 > 0.25] <- "B"
 x[pc3 < -0.2 & pc4 < 0.2] <- "CD34+"
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
+```
 
-# Define NK cells cluster.
+Define NK cells cluster.
+
+```{r}
 rows <- which(x == "U")
 n    <- length(rows)
 fit2 <- select(poisson2multinom(fit),loadings = rows)
@@ -37,9 +67,12 @@ pc1  <- pca[,1]
 pc2  <- pca[,2]
 y[pc1 < -0.3 & 1.1*pc1 < -pc2 - 0.57] <- "NK"
 x[rows] <- y
+```
 
-# Define (less distinct) CD8+ cluster, and label the remaining cells
-# as T-cells.
+Define the (much less distinct) CD8+ cluster, and label the remaining
+cells as T-cells.
+
+```{r}
 rows <- which(x == "U")
 n    <- length(rows)
 fit2 <- select(poisson2multinom(fit),loadings = rows)
@@ -49,12 +82,18 @@ pc1  <- pca[,1]
 pc2  <- pca[,2]
 y[pc1 < 0.25 & pc2 < -0.15] <- "CD8+"
 x[rows] <- y
+```
 
-# Compare our clusters with FACS cell-types.
+Compare our clusters with FACS cell-types.
+
+```{r}
 samples$cluster <- factor(x)
 with(samples,table(celltype,cluster))
+```
 
-# Create PCA plots showing Zheng et al (2017) FACS cell-types.
+Create PCA plots showing Zheng et al (2017) FACS cell-types.
+
+```{r}
 facs_colors <- c("dodgerblue",  # B-cells
                  "forestgreen", # CD14+
                  "darkmagenta", # CD34+
@@ -77,7 +116,9 @@ p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subtype")
 plot_grid(p1,p2)
+```
 
+```{r}
 set.seed(5)
 rows <- which(with(samples,
                    cluster == "B" |
@@ -86,17 +127,21 @@ rows <- which(with(samples,
 rows <- sample(rows,2000)
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 p3   <- pca_plot(fit2,fill = samples[rows,"cluster"])
+```
 
-# Run t-SNE, then plot the 2-d embedding.
-library(Rtsne)
+Run t-SNE, then plot the 2-d embedding.
+
+```{r}
 tsne <- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = TRUE)
 tsne$x <- tsne$Y
 colnames(tsne$x) <- c("tsne1","tsne2")
 p4 <- pca_plot(fit2,out.pca = tsne,fill = samples[rows,"cluster"])
+```
 
-# Run UMAP, then plot the 2-d embedding.
-library(uwot)
+Run UMAP, then plot the 2-d embedding.
+
+```{r}
 out.umap <- umap(fit2$L,n_neighbors = 30,metric = "euclidean",n_epochs = 1000,
                  min_dist = 0.1,scale = "none",learning_rate = 1,
                  verbose = TRUE)
@@ -104,15 +149,16 @@ out.umap <- list(x = out.umap)
 colnames(out.umap$x) <- c("umap1","umap2")
 p5 <- pca_plot(fit2,out.pca = out.umap,fill = samples[rows,"cluster"])
 plot_grid(p3,p4,p5,nrow = 1)
+```
 
-# TO DO:
-#
-#  + Create Structure Plot summarizing clustering.
-#
-#  + Compare inter-cluster and inter-topic total variation distances.
-# 
-#  + Create scatterplots comparing likelihoods using a "hard"
-#    clustering and using topic model.
-#
-#  + Analyze single-cell likelihoods.
-#
+TO DO:
+
++ Create Structure Plot summarizing clustering.
+
++ Compare inter-cluster and inter-topic total variation distances.
+ 
++ Create scatterplots comparing likelihoods using a "hard"
+  clustering and using topic model.
+
++ Analyze single-cell likelihoods.
+
