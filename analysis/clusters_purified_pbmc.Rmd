@@ -99,7 +99,7 @@ with(samples,table(celltype,cluster))
 
 This close correspondence is also apparent from PCA plots:
 
-```{r clustering-5, fig.width=8, fig.height=2, message=FALSE}
+```{r clustering-5, fig.width=8, fig.height=1.75, message=FALSE}
 set.seed(1)
 facs_colors <- c("dodgerblue",  # B-cells
                  "forestgreen", # CD14+
@@ -123,6 +123,31 @@ p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subtype")
 plot_grid(p1,p2)
+```
+
+Structure plot
+--------------
+
+The structure plot summarizes the topic proportions in each of these 6
+subsets:
+
+```{r structure-plot, fig.width=8, fig.height=1.5}
+set.seed(1)
+topic_colors <- c("gold","forestgreen","dodgerblue","gray","darkmagenta",
+                  "violet")
+topics <- c(5,3,2,4,1,6)
+rows <- sort(c(sample(which(samples$cluster == "B"),1000),
+               sample(which(samples$cluster == "CD14+"),300),
+               sample(which(samples$cluster == "CD34+"),500),
+               sample(which(samples$cluster == "CD8+"),400),
+               sample(which(samples$cluster == "NK"),500),
+               sample(which(samples$cluster == "T"),1000)))
+p3 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+                     grouping = samples[rows,"cluster"],
+                     topics = topics,colors = topic_colors[topics],
+   	  			     perplexity = c(70,30,30,30,30,70),
+                     n = Inf,gap = 50,num_threads = 4,verbose = FALSE)
+print(p3)
 ```
 
 ```{r}
@@ -160,12 +185,10 @@ plot_grid(p3,p4,p5,nrow = 1)
 
 TO DO:
 
-+ Create Structure Plot summarizing clustering.
-
-+ Compare inter-cluster and inter-topic total variation distances.
++ Compare inter-cluster and inter-topic total variation distances, as
+  well as total variation distances between FACS cell populations.
  
-+ Create scatterplots comparing likelihoods using a "hard"
-  clustering and using topic model.
-
-+ Analyze single-cell likelihoods.
++ Create scatterplots comparing single-cell likelihoods using a "hard"
+  clustering (either my own clustering, or the FACS-sorted cell
+  populations) and using topic model.
 
