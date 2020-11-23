@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb51286454b86d4b950737df1432a3f7dee82c001targetblankb512864a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b51286454b86d4b950737df1432a3f7dee82c001" target="_blank">b512864</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree90d201b2fb304b1fc36f8a1e1dc59a75a4c1564ftargetblank90d201ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/90d201b2fb304b1fc36f8a1e1dc59a75a4c1564f" target="_blank">90d201b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb51286454b86d4b950737df1432a3f7dee82c001targetblankb512864a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree90d201b2fb304b1fc36f8a1e1dc59a75a4c1564ftargetblank90d201ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b51286454b86d4b950737df1432a3f7dee82c001" target="_blank">b512864</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/90d201b2fb304b1fc36f8a1e1dc59a75a4c1564f" target="_blank">90d201b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,10 +444,6 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
-
-Unstaged changes:
-    Modified:   analysis/clusters_droplet.Rmd
-    Modified:   analysis/clusters_pulseseq.Rmd
 
 </code></pre>
 <p>
@@ -486,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/90d201b2fb304b1fc36f8a1e1dc59a75a4c1564f/analysis/clusters_purified_pbmc.Rmd" target="_blank">90d201b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/015e254e35de4ad463e1da7116a6eb3b06becd98/docs/clusters_purified_pbmc.html" target="_blank">015e254</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+Fixed up some of the text and plots in clusters_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -633,6 +663,64 @@ p2 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows2),
   labs(fill = &quot;FACS subtype&quot;)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-5-1">
+Past versions of clustering-5-1.png
+</button>
+</p>
+<div id="fig-clustering-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/015e254e35de4ad463e1da7116a6eb3b06becd98/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">015e254</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="structure-plot" class="section level2">
+<h2>Structure plot</h2>
+<p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
+<pre class="r"><code>set.seed(1)
+topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,&quot;darkmagenta&quot;,
+                  &quot;violet&quot;)
+topics &lt;- c(5,3,2,4,1,6)
+rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),1000),
+               sample(which(samples$cluster == &quot;CD14+&quot;),300),
+               sample(which(samples$cluster == &quot;CD34+&quot;),500),
+               sample(which(samples$cluster == &quot;CD8+&quot;),400),
+               sample(which(samples$cluster == &quot;NK&quot;),500),
+               sample(which(samples$cluster == &quot;T&quot;),1000)))
+p3 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+                     grouping = samples[rows,&quot;cluster&quot;],
+                     topics = topics,colors = topic_colors[topics],
+                     perplexity = c(70,30,30,30,30,70),
+                     n = Inf,gap = 50,num_threads = 4,verbose = FALSE)
+print(p3)</code></pre>
+<p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>set.seed(5)
 rows &lt;- which(with(samples,
                    cluster == &quot;B&quot; |
@@ -652,53 +740,88 @@ p4 &lt;- pca_plot(fit2,out.pca = tsne,fill = samples[rows,&quot;cluster&quot;])
 # Using no_dims = 2, perplexity = 100.000000, and theta = 0.100000
 # Computing input similarities...
 # Building tree...
-# Done in 0.61 seconds (sparsity = 0.184441)!
+# Done in 0.56 seconds (sparsity = 0.184441)!
 # Learning embedding...
-# Iteration 50: error is 56.399649 (50 iterations in 1.14 seconds)
-# Iteration 100: error is 50.071582 (50 iterations in 0.69 seconds)
-# Iteration 150: error is 49.293280 (50 iterations in 0.65 seconds)
-# Iteration 200: error is 49.002482 (50 iterations in 0.65 seconds)
-# Iteration 250: error is 48.846158 (50 iterations in 0.66 seconds)
-# Iteration 300: error is 0.517416 (50 iterations in 0.81 seconds)
-# Iteration 350: error is 0.376907 (50 iterations in 0.82 seconds)
-# Iteration 400: error is 0.330721 (50 iterations in 0.79 seconds)
-# Iteration 450: error is 0.309748 (50 iterations in 0.78 seconds)
-# Iteration 500: error is 0.297955 (50 iterations in 0.78 seconds)
-# Iteration 550: error is 0.290376 (50 iterations in 0.74 seconds)
-# Iteration 600: error is 0.285103 (50 iterations in 0.74 seconds)
-# Iteration 650: error is 0.281319 (50 iterations in 0.71 seconds)
-# Iteration 700: error is 0.278406 (50 iterations in 0.71 seconds)
-# Iteration 750: error is 0.276144 (50 iterations in 0.73 seconds)
+# Iteration 50: error is 56.399649 (50 iterations in 1.07 seconds)
+# Iteration 100: error is 50.071582 (50 iterations in 0.65 seconds)
+# Iteration 150: error is 49.293280 (50 iterations in 0.61 seconds)
+# Iteration 200: error is 49.002482 (50 iterations in 0.61 seconds)
+# Iteration 250: error is 48.846158 (50 iterations in 0.62 seconds)
+# Iteration 300: error is 0.517416 (50 iterations in 0.77 seconds)
+# Iteration 350: error is 0.376907 (50 iterations in 0.76 seconds)
+# Iteration 400: error is 0.330721 (50 iterations in 0.75 seconds)
+# Iteration 450: error is 0.309748 (50 iterations in 0.81 seconds)
+# Iteration 500: error is 0.297955 (50 iterations in 0.71 seconds)
+# Iteration 550: error is 0.290376 (50 iterations in 0.71 seconds)
+# Iteration 600: error is 0.285103 (50 iterations in 0.75 seconds)
+# Iteration 650: error is 0.281319 (50 iterations in 0.69 seconds)
+# Iteration 700: error is 0.278406 (50 iterations in 0.69 seconds)
+# Iteration 750: error is 0.276144 (50 iterations in 0.72 seconds)
 # Iteration 800: error is 0.274312 (50 iterations in 0.71 seconds)
-# Iteration 850: error is 0.272863 (50 iterations in 0.71 seconds)
-# Iteration 900: error is 0.271622 (50 iterations in 0.71 seconds)
+# Iteration 850: error is 0.272863 (50 iterations in 0.73 seconds)
+# Iteration 900: error is 0.271622 (50 iterations in 0.72 seconds)
 # Iteration 950: error is 0.270668 (50 iterations in 0.70 seconds)
 # Iteration 1000: error is 0.269853 (50 iterations in 0.70 seconds)
-# Fitting performed in 14.95 seconds.</code></pre>
+# Fitting performed in 14.49 seconds.</code></pre>
 <p>Run UMAP, then plot the 2-d embedding.</p>
 <pre class="r"><code>out.umap &lt;- umap(fit2$L,n_neighbors = 30,metric = &quot;euclidean&quot;,n_epochs = 1000,
                  min_dist = 0.1,scale = &quot;none&quot;,learning_rate = 1,
                  verbose = TRUE)
-# 22:12:44 UMAP embedding parameters a = 1.577 b = 0.8951
-# 22:12:44 Read 2000 rows and found 6 numeric columns
-# 22:12:44 Using FNN for neighbor search, n_neighbors = 30
-# 22:12:44 Commencing smooth kNN distance calibration using 2 threads
-# 22:12:45 Found 2 connected components, falling back to &#39;spca&#39; initialization with init_sdev = 1
-# 22:12:45 Initializing from PCA
-# 22:12:45 PCA: 2 components explained 96.47% variance
-# 22:12:45 Commencing optimization for 1000 epochs, with 75234 positive edges
-# 22:12:49 Optimization finished
+# 23:09:18 UMAP embedding parameters a = 1.577 b = 0.8951
+# 23:09:18 Read 2000 rows and found 6 numeric columns
+# 23:09:18 Using FNN for neighbor search, n_neighbors = 30
+# 23:09:18 Commencing smooth kNN distance calibration using 2 threads
+# 23:09:18 Found 2 connected components, falling back to &#39;spca&#39; initialization with init_sdev = 1
+# 23:09:18 Initializing from PCA
+# 23:09:18 PCA: 2 components explained 96.47% variance
+# 23:09:18 Commencing optimization for 1000 epochs, with 75234 positive edges
+# 23:09:23 Optimization finished
 out.umap &lt;- list(x = out.umap)
 colnames(out.umap$x) &lt;- c(&quot;umap1&quot;,&quot;umap2&quot;)
 p5 &lt;- pca_plot(fit2,out.pca = out.umap,fill = samples[rows,&quot;cluster&quot;])
 plot_grid(p3,p4,p5,nrow = 1)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/unnamed-chunk-3-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/015e254e35de4ad463e1da7116a6eb3b06becd98/docs/figure/clusters_purified_pbmc.Rmd/unnamed-chunk-3-1.png" target="_blank">015e254</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>TO DO:</p>
 <ul>
-<li><p>Create Structure Plot summarizing clustering.</p></li>
-<li><p>Compare inter-cluster and inter-topic total variation distances.</p></li>
-<li><p>Create scatterplots comparing likelihoods using a “hard” clustering and using topic model.</p></li>
-<li><p>Analyze single-cell likelihoods.</p></li>
+<li><p>Compare inter-cluster and inter-topic total variation distances, as well as total variation distances between FACS cell populations.</p></li>
+<li><p>Create scatterplots comparing single-cell likelihoods using a “hard” clustering (either my own clustering, or the FACS-sorted cell populations) and using topic model.</p></li>
 </ul>
 <br>
 <p>
