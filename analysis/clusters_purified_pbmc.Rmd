@@ -42,9 +42,9 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 Identify clusters from principal components
 -------------------------------------------
 
-From the PCs, we define clusters for B-cells, CD14+ cells and CD34+
-cells. The remaining cells are assigned to the U cluster ("U" for
-"unknown").
+From the PCs of the topic proportions, we define clusters for B-cells,
+CD14+ cells and CD34+ cells. The remaining cells are assigned to the U
+cluster ("U" for "unknown").
 
 ```{r clustering-1}
 pca <- prcomp(poisson2multinom(fit)$L)$x
@@ -60,7 +60,8 @@ x[pc3 < -0.2 & pc4 < 0.2] <- "CD34+"
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
 ```
 
-Next, we define an NK cells from the top 2 PCs of the unknown cells.
+Next, we define an NK cells cluster from the top 2 PCs of the topic
+proportions in the U ("unknown") cells.
 
 ```{r clustering-2}
 rows <- which(x == "U")
@@ -74,8 +75,8 @@ y[pc1 < -0.3 & 1.1*pc1 < -pc2 - 0.57] <- "NK"
 x[rows] <- y
 ```
 
-Among the remaining cells, there is a much less distinct cluster of
-CD8+ cells, and the rest are labeled as T-cells.
+Among the remaining cells, we define a much less distinct cluster of
+CD8+ cells. The rest are labeled as T-cells.
 
 ```{r clustering-3}
 rows <- which(x == "U")
@@ -114,7 +115,9 @@ plot_grid(p1,p3,p2,p4)
 ```
 
 This clustering corresponds closely to the Zheng *et al* (2017) FACS
-cell populations:
+cell populations, although there are some differences---for example,
+the CD14+ cluster contains a large number of cells identified as CD34+
+by FACS.
 
 ```{r clustering-6}
 with(samples,table(celltype,cluster))

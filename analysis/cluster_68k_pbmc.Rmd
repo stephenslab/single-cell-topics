@@ -1,0 +1,38 @@
+---
+title: "Identify clusters in 68k PBMC data using topic model"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we perform PCA on the topic proportions to identify clusters in
+the 68k PBMC data.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(dplyr)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/plots.R")
+```
+
+Load the count data.
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+```
+
+Load the $K = 6$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+```
