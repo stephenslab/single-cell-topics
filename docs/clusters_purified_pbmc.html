@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9167310217479a8b5d225038b1fcaabf15b5a8eetargetblank9167310a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9167310217479a8b5d225038b1fcaabf15b5a8ee" target="_blank">9167310</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9389b774ce058e238f6c96110c4969564e14db34targetblank9389b77a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9389b774ce058e238f6c96110c4969564e14db34" target="_blank">9389b77</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9167310217479a8b5d225038b1fcaabf15b5a8eetargetblank9167310a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9389b774ce058e238f6c96110c4969564e14db34targetblank9389b77a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9167310217479a8b5d225038b1fcaabf15b5a8ee" target="_blank">9167310</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9389b774ce058e238f6c96110c4969564e14db34" target="_blank">9389b77</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -482,6 +482,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9389b774ce058e238f6c96110c4969564e14db34/analysis/clusters_purified_pbmc.Rmd" target="_blank">9389b77</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/clusters_purified_pbmc.html" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+Added plots comparing PCA with t-SNE and UMAP in
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -744,6 +778,43 @@ p3 &lt;- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows1),bins = 2
 p4 &lt;- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows2),bins = 28)
 plot_grid(p1,p3,p2,p4,nrow = 2,ncol = 2,rel_widths = c(10,11))</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-4-1">
+Past versions of clustering-4-1.png
+</button>
+</p>
+<div id="fig-clustering-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>This clustering corresponds closely to the Zheng <em>et al</em> (2017) FACS cell populations, although there are some differences—for example, the CD14+ cluster contains a large number of cells identified as CD34+ by FACS.</p>
 <pre class="r"><code>with(samples,table(celltype,cluster))
 #                               cluster
@@ -779,6 +850,43 @@ p2 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows2),
   labs(fill = &quot;FACS subtype&quot;)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
+Past versions of clustering-6-1.png
+</button>
+</p>
+<div id="fig-clustering-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>By computing inter-cluster and inter-topic <em>total variation distances</em> in relative expression levels, we see that the clusters identified above show greater differentiation in gene expression, and the topics show more differentiation than the clusters.</p>
 <pre class="r"><code>fit_zheng &lt;- init_poisson_nmf_from_clustering(counts,samples$celltype)
 d_zheng   &lt;- totalvardist(poisson2multinom(fit_zheng)$F)
@@ -793,6 +901,43 @@ p3 &lt;- ggplot(pdat,aes(x = method,y = d)) +
   theme_cowplot(font_size = 9)
 print(p3)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-8-1.png" width="240" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-8-1">
+Past versions of clustering-8-1.png
+</button>
+</p>
+<div id="fig-clustering-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-8-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
@@ -857,8 +1002,8 @@ Peter Carbonetto
 <h2>Analysis of single-cell likelihoods</h2>
 <p><em>Create scatterplots comparing single-cell likelihoods using a “hard” clustering (based on the FACS subpopulations).</em></p>
 </div>
-<div id="pca-vs.-t-sne-and-umap" class="section level2">
-<h2>PCA vs. <em>t</em>-SNE and UMAP</h2>
+<div id="pca-vs.-t-sne-and-umap-an-illustration" class="section level2">
+<h2>PCA vs. <em>t</em>-SNE and UMAP: an illustration</h2>
 <p>Here we illustrate one of the benefits of using a simple linear dimensionality reduction technique, PCA, over more widely used nonlinear dimensionality reduction methods <em>t</em>-SNE and UMAP. In particular, we compare a 2-d linear embedding produced by PCA against nonlinear embeddings generated by <em>t</em>-SNE and UMAP.</p>
 <p>To begin, draw a random subset of 2,000 cells from the B, CD14+ and CD34+ clusters identified above. (The main reason for taking a random subset is that we don’t want to wait a long time for <em>t</em>-SNE and UMAP to complete.) Then run PCA on the topic proportions for this random subset of 2,000 samples.</p>
 <pre class="r"><code>set.seed(5)
@@ -883,6 +1028,43 @@ colnames(out.umap$x) &lt;- c(&quot;umap1&quot;,&quot;umap2&quot;)
 p6 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
 <pre class="r"><code>plot_grid(p4,p5,p6,nrow = 1)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/pca-vs-tsne-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-vs-tsne-1">
+Past versions of pca-vs-tsne-1.png
+</button>
+</p>
+<div id="fig-pca-vs-tsne-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/pca-vs-tsne-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>By the projection of the samples onto the first two PCs, we see that the B-cells cluster is distinct from the others, whereas the CD14+ and CD34+ cells do not separate quite so neatly.</p>
 <p>However, this this finer scale detail is not captured in the <em>t</em>-SNE and UMAP embeddings; this illustrates the tendency of <em>t</em>-SNE and UMAP to accentuate clusters in the data at the risk of distorting or obscure finer scale substructure.</p>
 <p>Note that the first 2 PCs should be sufficient for capturing the full structure in the topic proportions as they explain &gt;96% of the variance:</p>
@@ -892,6 +1074,11 @@ p6 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&
 # Standard deviation     0.4831 0.3269 0.10351 0.03397 0.02396 3.49e-16
 # Proportion of Variance 0.6618 0.3030 0.03038 0.00327 0.00163 0.00e+00
 # Cumulative Proportion  0.6618 0.9647 0.99510 0.99837 1.00000 1.00e+00</code></pre>
+</div>
+<div id="save-results" class="section level2">
+<h2>Save results</h2>
+<p>Save the clustering of the PBMC data to an RDS file.</p>
+<pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-purified.rds&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
