@@ -206,8 +206,8 @@ Analysis of single-cell likelihoods
 *Create scatterplots comparing single-cell likelihoods using a "hard"
 clustering (based on the FACS subpopulations).*
 
-PCA vs. *t*-SNE and UMAP
-------------------------
+PCA vs. *t*-SNE and UMAP: an illustration
+-----------------------------------------
 
 Here we illustrate one of the benefits of using a simple linear
 dimensionality reduction technique, PCA, over more widely used
@@ -271,6 +271,15 @@ variance:
 
 ```{r prcomp-summary}
 summary(prcomp(fit2$L))
+```
+
+Save results
+------------
+
+Save the clustering of the PBMC data to an RDS file.
+
+```{r save-results}
+saveRDS(samples,"clustering-pbmc-purified.rds")
 ```
 
 ```{r structure-plot-for-paper, echo=FALSE, eval=FALSE}
