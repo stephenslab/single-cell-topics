@@ -29,7 +29,7 @@ source("../code/plots.R")
 Load data and results
 ---------------------
 
-Load the droplet data, the $k = 7$ Poisson NMF model fit, and the
+Load the droplet data, the $K = 7$ Poisson NMF model fit, and the
 clusters identified in the [clustering analysis](clusters_droplet.html).
 
 ```{r load-data}

@@ -1,0 +1,88 @@
+---
+title: Perform differential expression analysis on topics and clusters identified in mixture of FACS-purified PBMC data
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we perform a differential expression analysis using the topic
+model fit to the mixture of FACS-purified data, as well as the
+clusters identified from this topic model.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(dplyr)
+library(fastTopics)
+library(tools)
+library(ggplot2)
+library(ggrepel)
+library(cowplot)
+source("../code/plots.R")
+```
+
+Load data and results
+---------------------
+
+Load the UMI count data, the $K = 6$ Poisson NMF model fit, and the
+clusters identified in the [clustering analysis](clusters_purified_pbmc.html).
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
+```
+
+**FOR TESTING ONLY.**
+
+```{r}
+rows <- sample(nrow(samples),4700)
+counts  <- counts[rows,]
+samples <- samples[rows,]
+fit     <- select(poisson2multinom(fit),loadings = rows)
+```
+
+Perform differential expression analysis
+----------------------------------------
+
+Perform differential expression analysis using the multinomial topic
+model.
+
+```{r diff-count-analysis-topics}
+timing <- system.time(
+  diff_count_topics <- diff_count_analysis(fit,counts))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Next, calculate differential expression statistics using the clusters
+that were identified from the topic proportion PCs.
+
+```{r diff-count-analysis-clusters}
+fit_clusters <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+timing <- system.time(
+  diff_count_clusters <- diff_count_analysis(fit_clusters,counts))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Topics capture shared gene expression patterns
+----------------------------------------------
+
+*Add text and code here.*
+
+Save results
+------------
+
+Save the results of the differential expression analyses to an RData
+file.
+
+```{r save-results}
+save(list = c("diff_count_topics","diff_count_clusters"),
+     file = "diff-count-pbmc-purified.RData")
+resaveRdaFiles("diff-count-pbmc-purified.RData")
+```
