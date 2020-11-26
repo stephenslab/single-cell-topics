@@ -45,7 +45,7 @@ samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 rows <- sample(nrow(samples),4700)
 counts  <- counts[rows,]
 samples <- samples[rows,]
-fit     <- select(poisson2multinom(fit),loadings = rows)
+fit$L <- fit$L[rows,]
 ```
 
 Perform differential expression analysis
@@ -70,6 +70,28 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
+Perform differential expression analysis on the T-cells only.
+
+```{r diff-count-analysis-topics-t}
+rows <- which(samples$cluster == "T")
+fit_t <- select(poisson2multinom(fit),loadings = rows)
+timing <- system.time(
+  diff_count_t <- diff_count_analysis(fit_t,counts[rows,]))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
+Finally, to refine differential expression analysis of the NK cells
+topic ($k = 4$), perform a differential expression analysis after
+removing the "CD8+" cluster.
+
+```{r diff-count-analysis-topics-nk}
+rows <- which(samples$cluster != "CD8+")
+fit_nk <- select(poisson2multinom(fit),loadings = rows)
+timing <- system.time(
+  diff_count_nk <- diff_count_analysis(fit_nk,counts[rows,]))
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+```
+
 Topics capture shared gene expression patterns
 ----------------------------------------------
 
@@ -82,7 +104,8 @@ Save the results of the differential expression analyses to an RData
 file.
 
 ```{r save-results}
-save(list = c("diff_count_topics","diff_count_clusters"),
+save(list = c("diff_count_topics","diff_count_clusters",
+              "diff_count_t","diff_count_nk"),
      file = "diff-count-pbmc-purified.RData")
 resaveRdaFiles("diff-count-pbmc-purified.RData")
 ```
