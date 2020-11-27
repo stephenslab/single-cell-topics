@@ -30,4 +30,7 @@ p3 <- volcano_plot(diff_count_t,k = 6,
                        na.value = "gainsboro",midpoint = -2)
 plot_grid(p2,p3)
 
-loadings_plot(poisson2multinom(fit),x = samples$celltype,k = 1)
+x <- samples$celltype
+i <- names(sort(tapply(poisson2multinom(fit)$L[,1],x,mean)))
+x <- factor(as.character(x),i)
+loadings_plot(poisson2multinom(fit),x = x,k = 1)
