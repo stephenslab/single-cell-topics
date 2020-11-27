@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7f19428af117b34a1afd11ea461fdf70a75bb02etargetblank7f19428a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/7f19428af117b34a1afd11ea461fdf70a75bb02e" target="_blank">7f19428</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebf5501369be6c1c670d92b09bbf018305fddc301targetblankbf55013a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/bf5501369be6c1c670d92b09bbf018305fddc301" target="_blank">bf55013</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7f19428af117b34a1afd11ea461fdf70a75bb02etargetblank7f19428a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebf5501369be6c1c670d92b09bbf018305fddc301targetblankbf55013a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/7f19428af117b34a1afd11ea461fdf70a75bb02e" target="_blank">7f19428</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/bf5501369be6c1c670d92b09bbf018305fddc301" target="_blank">bf55013</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -446,6 +446,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
+    Untracked:  analysis/clustering-pbmc-purified.rds
     Untracked:  analysis/diff-count-pbmc-purified.RData
 
 </code></pre>
@@ -485,6 +486,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bf5501369be6c1c670d92b09bbf018305fddc301/analysis/diff_count_purified_pbmc.Rmd" target="_blank">bf55013</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-26
+</td>
+<td>
+workflowr::wflow_publish(“diff_count_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/f481b398a1b65598b4b9f8b46a0c49e700a87757/docs/diff_count_purified_pbmc.html" target="_blank">f481b39</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-26
+</td>
+<td>
+Added more differential expression analysis runs to diff_count_purified_pbmc.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -560,11 +595,6 @@ source(&quot;../code/plots.R&quot;)</code></pre>
 fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 samples &lt;- readRDS(&quot;../output/pbmc-purified/clustering-pbmc-purified.rds&quot;)</code></pre>
-<p><strong>FOR TESTING ONLY.</strong></p>
-<pre class="r"><code>rows &lt;- sample(nrow(samples),4700)
-counts  &lt;- counts[rows,]
-samples &lt;- samples[rows,]
-fit$L &lt;- fit$L[rows,]</code></pre>
 </div>
 <div id="perform-differential-expression-analysis" class="section level2">
 <h2>Perform differential expression analysis</h2>
@@ -574,7 +604,7 @@ fit$L &lt;- fit$L[rows,]</code></pre>
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 3.96 seconds.</code></pre>
+# Computation took 150.67 seconds.</code></pre>
 <p>Next, calculate differential expression statistics using the clusters that were identified from the topic proportion PCs.</p>
 <pre class="r"><code>fit_clusters &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 timing &lt;- system.time(
@@ -583,16 +613,16 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 5.09 seconds.</code></pre>
+# Computation took 176.72 seconds.</code></pre>
 <p>Perform differential expression analysis on the T-cells only.</p>
-<pre class="r"><code>rows &lt;- which(samples$cluster == &quot;T&quot;)
+<pre class="r"><code>rows &lt;- which(with(samples,cluster == &quot;T&quot; | cluster == &quot;CD8+&quot;))
 fit_t &lt;- select(poisson2multinom(fit),loadings = rows)
 timing &lt;- system.time(
   diff_count_t &lt;- diff_count_analysis(fit_t,counts[rows,]))
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 3.91 seconds.</code></pre>
+# Computation took 105.81 seconds.</code></pre>
 <p>Finally, to refine differential expression analysis of the NK cells topic (<span class="math inline">\(k = 4\)</span>), perform a differential expression analysis after removing the “CD8+” cluster.</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster != &quot;CD8+&quot;)
 fit_nk &lt;- select(poisson2multinom(fit),loadings = rows)
@@ -601,7 +631,7 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 4.67 seconds.</code></pre>
+# Computation took 128.09 seconds.</code></pre>
 </div>
 <div id="topics-capture-shared-gene-expression-patterns" class="section level2">
 <h2>Topics capture shared gene expression patterns</h2>
