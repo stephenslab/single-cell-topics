@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-23
+<strong>Last updated:</strong> 2020-11-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9389b774ce058e238f6c96110c4969564e14db34targetblank9389b77a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9389b774ce058e238f6c96110c4969564e14db34" target="_blank">9389b77</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree989e7ac79196a3cd999d035e9c34d3c9bb48e2c7targetblank989e7aca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/989e7ac79196a3cd999d035e9c34d3c9bb48e2c7" target="_blank">989e7ac</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9389b774ce058e238f6c96110c4969564e14db34targetblank9389b77a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree989e7ac79196a3cd999d035e9c34d3c9bb48e2c7targetblank989e7aca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9389b774ce058e238f6c96110c4969564e14db34" target="_blank">9389b77</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/989e7ac79196a3cd999d035e9c34d3c9bb48e2c7" target="_blank">989e7ac</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -444,6 +444,13 @@ Ignored files:
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+
+Untracked files:
+    Untracked:  analysis/clustering-pbmc-purified.rds
+    Untracked:  analysis/diff-count-pbmc-purified.RData
+
+Unstaged changes:
+    Modified:   analysis/plots_for_paper_pbmc_purified.R
 
 </code></pre>
 <p>
@@ -482,6 +489,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/989e7ac79196a3cd999d035e9c34d3c9bb48e2c7/analysis/clusters_purified_pbmc.Rmd" target="_blank">989e7ac</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-26
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c85de93a4e651b0cdf7ce12b1417690a49120e0b/docs/clusters_purified_pbmc.html" target="_blank">c85de93</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -739,7 +780,7 @@ pc5 &lt;- pca[,5]
 x[pc2 &gt; 0.25] &lt;- &quot;B&quot;
 x[pc3 &lt; -0.2 &amp; pc4 &lt; 0.2] &lt;- &quot;CD34+&quot;
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 &lt; 0.07] &lt;- &quot;CD14+&quot;</code></pre>
-<p>Next, we define an NK cells cluster from the top 2 PCs of the topic proportions in the U (“unknown”) cells.</p>
+<p>Next, we define an NK cells cluster from the top 2 PCs of the topic proportions in the U cluster.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
 n    &lt;- length(rows)
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
@@ -747,7 +788,10 @@ pca  &lt;- prcomp(fit2$L)$x
 y    &lt;- rep(&quot;U&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
+pc3  &lt;- pca[,3]
+pc4  &lt;- pca[,4]
 y[pc1 &lt; -0.3 &amp; 1.1*pc1 &lt; -pc2 - 0.57] &lt;- &quot;NK&quot;
+y[pc3 &gt; 0.4 &amp; pc4 &lt; 0.2] &lt;- &quot;A&quot;
 x[rows] &lt;- y</code></pre>
 <p>Among the remaining cells, we define a much less distinct cluster of CD8+ cells. The rest are labeled as T-cells.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
@@ -759,25 +803,21 @@ pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
 y[pc1 &lt; 0.25 &amp; pc2 &lt; -0.15] &lt;- &quot;CD8+&quot;
 x[rows] &lt;- y</code></pre>
-<p>In summary, we have subdivided the cells into 6 subsets. The substructure becomes more clear when we plot T cells separately from the other cells.</p>
-<pre class="r"><code>cluster_colors &lt;- c(&quot;dodgerblue&quot;,&quot;forestgreen&quot;,&quot;darkmagenta&quot;,
-                    &quot;red&quot;,&quot;gray&quot;,&quot;darkorange&quot;)
+<p>In summary, we have subdivided the cells into 7 subsets. The substructure becomes more clear when we plot T cells separately from the other cells.</p>
+<pre class="r"><code>cluster_colors &lt;- c(&quot;skyblue&quot;,     # A
+                    &quot;dodgerblue&quot;,  # B-cells
+                    &quot;forestgreen&quot;, # CD14+
+                    &quot;darkmagenta&quot;, # CD34+ 
+                    &quot;red&quot;,         # CD8+
+                    &quot;gray&quot;,        # NK
+                    &quot;darkorange&quot;)  # T-cells
 samples$cluster &lt;- factor(x)
-x     &lt;- with(samples,cluster == &quot;T&quot; | cluster == &quot;CD8+&quot;)
-rows1 &lt;- which(!x)
-rows2 &lt;- which(x)
-p1 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows1),
-               fill = samples$cluster[rows1]) +
-  scale_fill_manual(values = cluster_colors,drop = FALSE) +
+p1 &lt;- pca_plot(poisson2multinom(fit),fill = samples$cluster) +
+  scale_fill_manual(values = cluster_colors) +
   labs(fill = &quot;cluster&quot;)
-p2 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows2),
-               fill = samples$cluster[rows2,drop = FALSE]) +
-  scale_fill_manual(values = cluster_colors,drop = FALSE) +
-  labs(fill = &quot;cluster&quot;)
-p3 &lt;- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows1),bins = 28)
-p4 &lt;- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows2),bins = 28)
-plot_grid(p1,p3,p2,p4,nrow = 2,ncol = 2,rel_widths = c(10,11))</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" width="720" style="display: block; margin: auto;" /></p>
+p2 &lt;- pca_hexbin_plot(poisson2multinom(fit))
+plot_grid(p1,p2,rel_widths = c(10,11))</code></pre>
+<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-4-1">
 Past versions of clustering-4-1.png
@@ -818,17 +858,17 @@ Peter Carbonetto
 <p>This clustering corresponds closely to the Zheng <em>et al</em> (2017) FACS cell populations, although there are some differences—for example, the CD14+ cluster contains a large number of cells identified as CD34+ by FACS.</p>
 <pre class="r"><code>with(samples,table(celltype,cluster))
 #                               cluster
-# celltype                           B CD14+ CD34+  CD8+    NK     T
-#   CD19+ B                      10073     0     0     8     0     4
-#   CD14+ Monocyte                   8  2420     0   138     0    46
-#   CD34+                          352   536  8182   141     4    17
-#   CD4+ T Helper2                   0     0     8    49     1 11155
-#   CD56+ NK                         0     0    17    86  8279     3
-#   CD8+ Cytotoxic T                 0     0     0  3093    93  7023
-#   CD4+/CD45RO+ Memory              0     0    20   343     0  9861
-#   CD8+/CD45RA+ Naive Cytotoxic     3     0     0    53     2 11895
-#   CD4+/CD45RA+/CD25- Naive T       1     0     8    30     1 10439
-#   CD4+/CD25 T Reg                  2     0     2    25     0 10234</code></pre>
+# celltype                           A     B CD14+ CD34+  CD8+    NK     T
+#   CD19+ B                          7 10073     0     0     3     0     2
+#   CD14+ Monocyte                 156     8  2420     0     3     0    25
+#   CD34+                          121   352   536  8182    20     4    17
+#   CD4+ T Helper2                   9     0     0     8    45     1 11150
+#   CD56+ NK                         4     0     0    17    82  8279     3
+#   CD8+ Cytotoxic T                 0     0     0     0  3146    93  6970
+#   CD4+/CD45RO+ Memory              1     0     0    20   355     0  9848
+#   CD8+/CD45RA+ Naive Cytotoxic     2     3     0     0    52     2 11894
+#   CD4+/CD45RA+/CD25- Naive T       5     1     0     8    27     1 10437
+#   CD4+/CD25 T Reg                  3     2     0     2    24     0 10232</code></pre>
 <p>This close correspondence is also apparent when we layer the FACS cell population labels on the PCA plots:</p>
 <pre class="r"><code>facs_colors &lt;- c(&quot;dodgerblue&quot;,  # B-cells
                  &quot;forestgreen&quot;, # CD14+
@@ -840,16 +880,11 @@ Peter Carbonetto
                  &quot;magenta&quot;,     # naive cytotoxic 
                  &quot;darkorange&quot;,  # naive T-cells
                  &quot;gold&quot;)        # regulatory T-cells
-p1 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows1),
-               fill = samples[rows1,&quot;celltype&quot;]) +
+p3 &lt;- pca_plot(poisson2multinom(fit),fill = samples$celltype) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subtype&quot;)
-p2 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows2),
-               fill = samples[rows2,&quot;celltype&quot;]) +
-  scale_fill_manual(values = facs_colors) +
-  labs(fill = &quot;FACS subtype&quot;)
-plot_grid(p1,p2)</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+print(p3)</code></pre>
+<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
 Past versions of clustering-6-1.png
@@ -895,11 +930,11 @@ d_topics  &lt;- totalvardist(poisson2multinom(fit)$F)</code></pre>
 <pre class="r"><code>pdat &lt;-
   rbind(data.frame(method = &quot;zheng.et.al&quot;,d = d_zheng[upper.tri(d_zheng)]),
         data.frame(method = &quot;topics&quot;,     d = d_topics[upper.tri(d_topics)]))
-p3 &lt;- ggplot(pdat,aes(x = method,y = d)) +
+p4 &lt;- ggplot(pdat,aes(x = method,y = d)) +
   geom_boxplot(width = 0.25) +
   labs(x = &quot;&quot;,y = &quot;total variation dist&quot;) +
   theme_cowplot(font_size = 9)
-print(p3)</code></pre>
+print(p4)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-8-1.png" width="240" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-8-1">
@@ -943,21 +978,22 @@ Peter Carbonetto
 <h2>Structure plot</h2>
 <p>The structure plot summarizes the topic proportions in each of these 6 subsets:</p>
 <pre class="r"><code>set.seed(1)
-topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,&quot;darkmagenta&quot;,
-                  &quot;violet&quot;)
+topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,
+                  &quot;darkmagenta&quot;,&quot;violet&quot;)
 topics &lt;- c(5,3,2,4,1,6)
 rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),1000),
                sample(which(samples$cluster == &quot;CD14+&quot;),300),
                sample(which(samples$cluster == &quot;CD34+&quot;),500),
+               which(samples$cluster == &quot;A&quot;),
                sample(which(samples$cluster == &quot;CD8+&quot;),400),
                sample(which(samples$cluster == &quot;NK&quot;),500),
                sample(which(samples$cluster == &quot;T&quot;),1000)))
-p3 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p5 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
                      grouping = samples[rows,&quot;cluster&quot;],
                      topics = topics,colors = topic_colors[topics],
-                     perplexity = c(70,30,30,30,30,70),
+                     perplexity = c(70,30,30,30,30,30,70),
                      n = Inf,gap = 50,num_threads = 4,verbose = FALSE)
-print(p3)</code></pre>
+print(p5)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
@@ -1012,21 +1048,21 @@ rows &lt;- which(with(samples,
 rows &lt;- sort(sample(rows,2000))
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
 x    &lt;- samples$cluster[rows,drop = TRUE]
-p4   &lt;- pca_plot(fit2,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+p6   &lt;- pca_plot(fit2,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
 <p>Next, run <em>t</em>-SNE on the topic proportions.</p>
 <pre class="r"><code>tsne &lt;- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = FALSE)
 tsne$x &lt;- tsne$Y
 colnames(tsne$x) &lt;- c(&quot;tsne1&quot;,&quot;tsne2&quot;)
-p5 &lt;- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+p7 &lt;- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
 <p>Then run UMAP on the topic proportions.</p>
 <pre class="r"><code>out.umap &lt;- umap(fit2$L,n_neighbors = 30,metric = &quot;euclidean&quot;,n_epochs = 1000,
                  min_dist = 0.1,scale = &quot;none&quot;,learning_rate = 1,
                  verbose = FALSE)
 out.umap &lt;- list(x = out.umap)
 colnames(out.umap$x) &lt;- c(&quot;umap1&quot;,&quot;umap2&quot;)
-p6 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
-<pre class="r"><code>plot_grid(p4,p5,p6,nrow = 1)</code></pre>
+p8 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+<pre class="r"><code>plot_grid(p6,p7,p8,nrow = 1)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/pca-vs-tsne-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-vs-tsne-1">
