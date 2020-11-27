@@ -39,15 +39,6 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 ```
 
-**FOR TESTING ONLY.**
-
-```{r}
-rows <- sample(nrow(samples),4700)
-counts  <- counts[rows,]
-samples <- samples[rows,]
-fit$L <- fit$L[rows,]
-```
-
 Perform differential expression analysis
 ----------------------------------------
 
@@ -73,7 +64,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 Perform differential expression analysis on the T-cells only.
 
 ```{r diff-count-analysis-topics-t}
-rows <- which(samples$cluster == "T")
+rows <- which(with(samples,cluster == "T" | cluster == "CD8+"))
 fit_t <- select(poisson2multinom(fit),loadings = rows)
 timing <- system.time(
   diff_count_t <- diff_count_analysis(fit_t,counts[rows,]))
