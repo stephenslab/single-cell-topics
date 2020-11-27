@@ -63,7 +63,9 @@ Visualize and interpret topics
 
 *TO DO: Add brief description here.*
 
-+ [PBMC](plots_pbmc.html)
++ [Mixture of FACS-purified PBMCs](plots_purified_pbmc.html)
+
++ [PBMC 68k](plots_68k_pbmc.html)
 
 + [Droplet and pulse-seq](plots_tracheal_epithelium.html)
 

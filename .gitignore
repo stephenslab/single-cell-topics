@@ -31,3 +31,4 @@ output/pbmc-purified/fits-pbmc-purified.RData
 output/pulseseq/fits-pulseseq.RData
 output/droplet/diff-count-droplet.RData
 output/pulseseq/diff-count-pulseseq.RData
+output/pbmc-purified/diff-count-pbmc-purified.RData
