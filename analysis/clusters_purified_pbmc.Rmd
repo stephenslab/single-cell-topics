@@ -61,7 +61,7 @@ x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
 ```
 
 Next, we define an NK cells cluster from the top 2 PCs of the topic
-proportions in the U ("unknown") cells.
+proportions in the U cluster.
 
 ```{r clustering-2}
 rows <- which(x == "U")
@@ -71,7 +71,10 @@ pca  <- prcomp(fit2$L)$x
 y    <- rep("U",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
+pc3  <- pca[,3]
+pc4  <- pca[,4]
 y[pc1 < -0.3 & 1.1*pc1 < -pc2 - 0.57] <- "NK"
+y[pc3 > 0.4 & pc4 < 0.2] <- "A"
 x[rows] <- y
 ```
 
@@ -90,28 +93,24 @@ y[pc1 < 0.25 & pc2 < -0.15] <- "CD8+"
 x[rows] <- y
 ```
 
-In summary, we have subdivided the cells into 6 subsets. The
+In summary, we have subdivided the cells into 7 subsets. The
 substructure becomes more clear when we plot T cells separately from
 the other cells.
 
-```{r clustering-4, fig.width=6, fig.height=4, message=FALSE}
-cluster_colors <- c("dodgerblue","forestgreen","darkmagenta",
-                    "red","gray","darkorange")
+```{r clustering-4, fig.width=7.5, fig.height=3, message=FALSE}
+cluster_colors <- c("skyblue",     # A
+                    "dodgerblue",  # B-cells
+                    "forestgreen", # CD14+
+					"darkmagenta", # CD34+ 
+                    "red",         # CD8+
+					"gray",        # NK
+					"darkorange")  # T-cells
 samples$cluster <- factor(x)
-x     <- with(samples,cluster == "T" | cluster == "CD8+")
-rows1 <- which(!x)
-rows2 <- which(x)
-p1 <- pca_plot(select(poisson2multinom(fit),loadings = rows1),
-               fill = samples$cluster[rows1]) +
-  scale_fill_manual(values = cluster_colors,drop = FALSE) +
+p1 <- pca_plot(poisson2multinom(fit),fill = samples$cluster) +
+  scale_fill_manual(values = cluster_colors) +
   labs(fill = "cluster")
-p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
-               fill = samples$cluster[rows2,drop = FALSE]) +
-  scale_fill_manual(values = cluster_colors,drop = FALSE) +
-  labs(fill = "cluster")
-p3 <- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows1),bins = 28)
-p4 <- pca_hexbin_plot(select(poisson2multinom(fit),loadings = rows2),bins = 28)
-plot_grid(p1,p3,p2,p4,nrow = 2,ncol = 2,rel_widths = c(10,11))
+p2 <- pca_hexbin_plot(poisson2multinom(fit))
+plot_grid(p1,p2,rel_widths = c(10,11))
 ```
 
 This clustering corresponds closely to the Zheng *et al* (2017) FACS
@@ -126,7 +125,7 @@ with(samples,table(celltype,cluster))
 This close correspondence is also apparent when we layer the FACS cell
 population labels on the PCA plots:
 
-```{r clustering-6, fig.width=8, fig.height=2, message=FALSE}
+```{r clustering-6, fig.width=5, fig.height=3, message=FALSE}
 facs_colors <- c("dodgerblue",  # B-cells
                  "forestgreen", # CD14+
                  "darkmagenta", # CD34+
@@ -137,15 +136,10 @@ facs_colors <- c("dodgerblue",  # B-cells
                  "magenta",     # naive cytotoxic 
                  "darkorange",  # naive T-cells
                  "gold")        # regulatory T-cells
-p1 <- pca_plot(select(poisson2multinom(fit),loadings = rows1),
-               fill = samples[rows1,"celltype"]) +
+p3 <- pca_plot(poisson2multinom(fit),fill = samples$celltype) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subtype")
-p2 <- pca_plot(select(poisson2multinom(fit),loadings = rows2),
-               fill = samples[rows2,"celltype"]) +
-  scale_fill_manual(values = facs_colors) +
-  labs(fill = "FACS subtype")
-plot_grid(p1,p2)
+print(p3)
 ```
 
 By computing inter-cluster and inter-topic *total variation distances*
@@ -165,11 +159,11 @@ Here is a plot summarizing these differences:
 pdat <-
   rbind(data.frame(method = "zheng.et.al",d = d_zheng[upper.tri(d_zheng)]),
         data.frame(method = "topics",     d = d_topics[upper.tri(d_topics)]))
-p3 <- ggplot(pdat,aes(x = method,y = d)) +
+p4 <- ggplot(pdat,aes(x = method,y = d)) +
   geom_boxplot(width = 0.25) +
   labs(x = "",y = "total variation dist") +
   theme_cowplot(font_size = 9)
-print(p3)
+print(p4)
 ```
 
 Structure plot
@@ -180,21 +174,22 @@ subsets:
 
 ```{r structure-plot, fig.width=8, fig.height=1.5}
 set.seed(1)
-topic_colors <- c("gold","forestgreen","dodgerblue","gray","darkmagenta",
-                  "violet")
+topic_colors <- c("gold","forestgreen","dodgerblue","gray",
+                  "darkmagenta","violet")
 topics <- c(5,3,2,4,1,6)
 rows <- sort(c(sample(which(samples$cluster == "B"),1000),
                sample(which(samples$cluster == "CD14+"),300),
                sample(which(samples$cluster == "CD34+"),500),
+			   which(samples$cluster == "A"),
                sample(which(samples$cluster == "CD8+"),400),
                sample(which(samples$cluster == "NK"),500),
                sample(which(samples$cluster == "T"),1000)))
-p3 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p5 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                      grouping = samples[rows,"cluster"],
                      topics = topics,colors = topic_colors[topics],
-   	  			     perplexity = c(70,30,30,30,30,70),
+   	  			     perplexity = c(70,30,30,30,30,30,70),
                      n = Inf,gap = 50,num_threads = 4,verbose = FALSE)
-print(p3)
+print(p5)
 ```
 
 Note that CD8+ cells are identified as a distinctive mixture of topics
@@ -228,7 +223,7 @@ rows <- which(with(samples,
 rows <- sort(sample(rows,2000))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 x    <- samples$cluster[rows,drop = TRUE]
-p4   <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
+p6   <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
 ```
 
 Next, run *t*-SNE on the topic proportions.
@@ -238,7 +233,7 @@ tsne <- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = FALSE)
 tsne$x <- tsne$Y
 colnames(tsne$x) <- c("tsne1","tsne2")
-p5 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
+p7 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
 ```
 
 Then run UMAP on the topic proportions.
@@ -249,11 +244,11 @@ out.umap <- umap(fit2$L,n_neighbors = 30,metric = "euclidean",n_epochs = 1000,
                  verbose = FALSE)
 out.umap <- list(x = out.umap)
 colnames(out.umap$x) <- c("umap1","umap2")
-p6 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
+p8 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
 ```
 
 ```{r pca-vs-tsne, fig.width=8, fig.height=2}
-plot_grid(p4,p5,p6,nrow = 1)
+plot_grid(p6,p7,p8,nrow = 1)
 ```
 
 By the projection of the samples onto the first two PCs, we see that
