@@ -98,7 +98,7 @@ substructure becomes more clear when we plot T cells separately from
 the other cells.
 
 ```{r clustering-4, fig.width=7.5, fig.height=3, message=FALSE}
-cluster_colors <- c("skyblue",     # A
+cluster_colors <- c("skyblue",     # dendritic
                     "dodgerblue",  # B-cells
                     "forestgreen", # CD14+
 					"darkmagenta", # CD34+ 
