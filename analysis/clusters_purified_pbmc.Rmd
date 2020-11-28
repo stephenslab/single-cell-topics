@@ -118,57 +118,36 @@ ggsave("pca_clusters_pbmc_purified.png",p1,height = 5,width = 5.75,dpi = 300)
 ggsave("pca_hexbin_pbmc_purified.eps",p2,height = 3,width = 4)
 ```
 
-This clustering corresponds closely to the Zheng *et al* (2017) FACS
-cell populations, although there are some differences---for example,
-the CD14+ cluster contains a large number of cells identified as CD34+
-by FACS.
+This clustering corresponds well to the Zheng *et al* (2017) FACS cell
+populations, although there are some differences.
 
 ```{r clustering-5}
 with(samples,table(celltype,cluster))
 ```
 
-This close correspondence is also apparent when we layer the FACS cell
+This good correspondence is also apparent when we layer the FACS cell
 population labels on the PCA plots:
 
 ```{r clustering-6, fig.width=5, fig.height=3, message=FALSE}
 facs_colors <- c("dodgerblue",  # B-cells
                  "forestgreen", # CD14+
                  "darkmagenta", # CD34+
-                 "firebrick",   # T helper cells
                  "gray",        # NK cells
                  "tomato",      # cytotoxic T-cells
-                 "yellow",      # memory T-cells
-                 "magenta",     # naive cytotoxic 
-                 "darkorange",  # naive T-cells
-                 "gold")        # regulatory T-cells
-p3 <- pca_plot(poisson2multinom(fit),fill = samples$celltype) +
+                 "gold")        # T-cells
+x <- as.character(samples$celltype)
+x[x == "CD4+ T Helper2" | x == "CD4+/CD45RO+ Memory" |
+  x == "CD8+/CD45RA+ Naive Cytotoxic" | x == "CD4+/CD45RA+/CD25- Naive T" | 
+  x == "CD4+/CD45RA+/CD25- Naive T" | x == "CD4+/CD25 T Reg"] <- "T cell"
+x <- factor(x)
+p3 <- pca_plot(poisson2multinom(fit),fill = x) +
   scale_fill_manual(values = facs_colors) +
-  labs(fill = "FACS subtype")
+  labs(fill = "FACS subpopulation")
 print(p3)
 ```
 
-By computing inter-cluster and inter-topic *total variation distances*
-in relative expression levels, we see that the clusters identified
-above show greater differentiation in gene expression, and the topics
-show more differentiation than the clusters.
-
-```{r clustering-7}
-fit_zheng <- init_poisson_nmf_from_clustering(counts,samples$celltype)
-d_zheng   <- totalvardist(poisson2multinom(fit_zheng)$F)
-d_topics  <- totalvardist(poisson2multinom(fit)$F)
-```
-
-Here is a plot summarizing these differences:
-
-```{r clustering-8, fig.height=2, fig.width=2}
-pdat <-
-  rbind(data.frame(method = "zheng.et.al",d = d_zheng[upper.tri(d_zheng)]),
-        data.frame(method = "topics",     d = d_topics[upper.tri(d_topics)]))
-p4 <- ggplot(pdat,aes(x = method,y = d)) +
-  geom_boxplot(width = 0.25) +
-  labs(x = "",y = "total variation dist") +
-  theme_cowplot(font_size = 9)
-print(p4)
+```{r pca-plots-for-paper-2, message=FALSE, warning=FALSE, echo=FALSE}
+ggsave("pca_facs_pbmc_purified.png",p3,height = 3,width = 4.25,dpi = 300)
 ```
 
 Structure plot
