@@ -60,8 +60,8 @@ x[pc3 < -0.2 & pc4 < 0.2] <- "CD34+"
 x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
 ```
 
-Next, we define an NK cells cluster from the top 2 PCs of the topic
-proportions in the U cluster.
+Next, we define clusters for NK cells and dendritic cells from the top
+2 PCs of the topic proportions in the U cluster.
 
 ```{r clustering-2}
 rows <- which(x == "U")
@@ -74,12 +74,13 @@ pc2  <- pca[,2]
 pc3  <- pca[,3]
 pc4  <- pca[,4]
 y[pc1 < -0.3 & 1.1*pc1 < -pc2 - 0.57] <- "NK"
-y[pc3 > 0.4 & pc4 < 0.2] <- "A"
+y[pc3 > 0.4 & pc4 < 0.2] <- "dendritic"
 x[rows] <- y
 ```
 
-Among the remaining cells, we define a much less distinct cluster of
-CD8+ cells. The rest are labeled as T-cells.
+Among the remaining cells, we define a cluster for CD8+ cells, noting
+that this is much less distinct than the other cells. The rest are
+labeled as T-cells.
 
 ```{r clustering-3}
 rows <- which(x == "U")
@@ -93,16 +94,15 @@ y[pc1 < 0.25 & pc2 < -0.15] <- "CD8+"
 x[rows] <- y
 ```
 
-In summary, we have subdivided the cells into 7 subsets. The
-substructure becomes more clear when we plot T cells separately from
-the other cells.
+In summary, we have subdivided the cells into 7 subsets. This plot
+shows the clustering of the cells projected onto the top two PCs:
 
 ```{r clustering-4, fig.width=7.5, fig.height=3, message=FALSE}
-cluster_colors <- c("skyblue",     # dendritic
-                    "dodgerblue",  # B-cells
+cluster_colors <- c("dodgerblue",  # B-cells
                     "forestgreen", # CD14+
 					"darkmagenta", # CD34+ 
                     "red",         # CD8+
+					"skyblue",     # dendritic
 					"gray",        # NK
 					"darkorange")  # T-cells
 samples$cluster <- factor(x)
@@ -111,6 +111,11 @@ p1 <- pca_plot(poisson2multinom(fit),fill = samples$cluster) +
   labs(fill = "cluster")
 p2 <- pca_hexbin_plot(poisson2multinom(fit))
 plot_grid(p1,p2,rel_widths = c(10,11))
+```
+
+```{r pca-plots-for-paper-1, message=FALSE, warning=FALSE, echo=FALSE}
+ggsave("pca_clusters_pbmc_purified.png",p1,height = 5,width = 5.75,dpi = 300)
+ggsave("pca_hexbin_pbmc_purified.eps",p2,height = 3,width = 4)
 ```
 
 This clustering corresponds closely to the Zheng *et al* (2017) FACS
@@ -180,7 +185,7 @@ topics <- c(5,3,2,4,1,6)
 rows <- sort(c(sample(which(samples$cluster == "B"),1000),
                sample(which(samples$cluster == "CD14+"),300),
                sample(which(samples$cluster == "CD34+"),500),
-			   which(samples$cluster == "A"),
+			   which(samples$cluster == "dendritic"),
                sample(which(samples$cluster == "CD8+"),400),
                sample(which(samples$cluster == "NK"),500),
                sample(which(samples$cluster == "T"),1000)))
