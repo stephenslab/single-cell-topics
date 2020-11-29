@@ -234,6 +234,7 @@ p6 <- loadings_plot(select(poisson2multinom(fit),loadings = rows),
                     x = x[rows],k = 1) +
       scale_y_continuous(limits = c(0,1)) +
       labs(y = "topic 1 proportion",title = "")
+print(p6)
 ```
 
 ```{r loadings-plot-for-paper, echo=FALSE}
