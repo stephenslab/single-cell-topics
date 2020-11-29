@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree80787eb722a900d32ad06a70676255a0b6bfd7abtargetblank80787eba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/80787eb722a900d32ad06a70676255a0b6bfd7ab" target="_blank">80787eb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree31103b8e928d2e69878410c924420e5faee6380etargetblank31103b8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/31103b8e928d2e69878410c924420e5faee6380e" target="_blank">31103b8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree80787eb722a900d32ad06a70676255a0b6bfd7abtargetblank80787eba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree31103b8e928d2e69878410c924420e5faee6380etargetblank31103b8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/80787eb722a900d32ad06a70676255a0b6bfd7ab" target="_blank">80787eb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/31103b8e928d2e69878410c924420e5faee6380e" target="_blank">31103b8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -448,6 +447,8 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
+    Untracked:  analysis/clustering-pbmc-purified.rds
+    Untracked:  analysis/pca_cd34_pbmc_purified.png
     Untracked:  analysis/pca_clusters_pbmc_purified.png
     Untracked:  analysis/pca_facs_pbmc_purified.png
     Untracked:  analysis/pca_hexbin_pbmc_purified.eps
@@ -489,6 +490,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/31103b8e928d2e69878410c924420e5faee6380e/analysis/clusters_purified_pbmc.Rmd" target="_blank">31103b8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-28
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/4781407bc8d21a3b7c2e21eb21ab47649847d8d5/docs/clusters_purified_pbmc.html" target="_blank">4781407</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-28
+</td>
+<td>
+Made some improvements to the PCA plots in clusters_purified_pbmc.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -910,6 +945,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4781407bc8d21a3b7c2e21eb21ab47649847d8d5/docs/figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" target="_blank">4781407</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/48438b3434a734d5d36c57a68a6bd94d6529e338/docs/figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" target="_blank">48438b3</a>
 </td>
 <td>
@@ -964,7 +1010,7 @@ p3 &lt;- pca_plot(poisson2multinom(fit),fill = x) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subpopulation&quot;)
 print(p3)</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" width="510" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
 Past versions of clustering-6-1.png
@@ -989,6 +1035,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4781407bc8d21a3b7c2e21eb21ab47649847d8d5/docs/figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" target="_blank">4781407</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/48438b3434a734d5d36c57a68a6bd94d6529e338/docs/figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" target="_blank">48438b3</a>
 </td>
 <td>
@@ -1001,6 +1058,66 @@ Peter Carbonetto
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-6-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This PCA plot highlights the FACS mis-labeling of the CD34+ cells:</p>
+<pre class="r"><code>rows &lt;- which(with(samples,
+                   cluster == &quot;B&quot; |
+                   cluster == &quot;CD14+&quot; |
+                   cluster == &quot;CD34+&quot; |
+                   cluster == &quot;dendritic&quot;))
+p4 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows),
+               fill = x[rows,drop = FALSE]) +
+  scale_fill_manual(values = facs_colors,drop = FALSE) +
+  labs(fill = &quot;FACS subpopulation&quot;)
+print(p4)</code></pre>
+<p><img src="figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" width="510" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-7-1">
+Past versions of clustering-7-1.png
+</button>
+</p>
+<div id="fig-clustering-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">e7411a0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-23
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8abec449463222306ebcf291f7f85e7300943612/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">8abec44</a>
 </td>
 <td>
 Peter Carbonetto
@@ -1057,6 +1174,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4781407bc8d21a3b7c2e21eb21ab47649847d8d5/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">4781407</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/48438b3434a734d5d36c57a68a6bd94d6529e338/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">48438b3</a>
