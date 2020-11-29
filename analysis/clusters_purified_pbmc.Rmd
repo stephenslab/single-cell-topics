@@ -194,7 +194,7 @@ p5 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
 print(p5)
 ```
 
-```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
+```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
 set.seed(1)
 fit1 <- select(poisson2multinom(fit),loadings = rows[x == "B"])
 fit2 <- select(poisson2multinom(fit),loadings = rows[x == "CD14+"])
@@ -245,17 +245,24 @@ technique, PCA, with nonlinear dimensionality reduction methods
 To begin, draw a random subset of 2,000 cells from the B, CD14+ and
 CD34+ clusters identified above. (The main reason for taking a random
 subset is that we don't want to wait a long time for *t*-SNE and UMAP
-to complete.) Next, we run PCA on the topic proportions for this
-random subset of 2,000 samples.
+to complete.)
 
-```{r pca}
+```{r subset-fit}
 set.seed(5)
 rows <- which(with(samples,
-                   cluster == "B" | cluster == "CD14+" | cluster == "CD34+"))
+                   cluster == "B" |
+                   cluster == "CD14+" |
+                   cluster == "CD34+"))
 rows <- sort(sample(rows,2000))
 fit2 <- select(poisson2multinom(fit),loadings = rows)
 x    <- samples$cluster[rows,drop = TRUE]
-p6   <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
+```
+
+Next, run PCA on the topic proportions for this random subset of 2,000
+samples.
+
+```{r pca}
+p6 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
 ```
 
 Run *t*-SNE on the topic proportions.
@@ -279,18 +286,24 @@ colnames(out.umap$x) <- c("umap1","umap2")
 p8 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
 ```
 
+Here are the 2-d embeddings, side-by-side:
+
 ```{r pca-vs-tsne, fig.width=8, fig.height=2}
 plot_grid(p6,p7,p8,nrow = 1)
 ```
 
-By the projection of the samples onto the first two PCs, we see that
+By the projection of the samples onto the first two PCs, 
 the B-cells cluster is distinct from the others, whereas the CD14+ and
-CD34+ cells do not separate quite so neatly.
+CD34+ cells do not separate as well.
 
-However, this this finer scale detail is not captured in the *t*-SNE
-and UMAP embeddings; this illustrates the tendency of *t*-SNE and UMAP
-to accentuate clusters in the data at the risk of distorting or
-obscure finer scale substructure.
+By contrast, this detail is not captured in the *t*-SNE and UMAP
+embeddings. This illustrates the tendency of *t*-SNE and UMAP to
+accentuate clusters in the data at the risk of distorting or obscuring
+finer scale substructure.
+
+```{r pca-vs-tsne-for-paper, echo=FALSE}
+ggsave("pca_vs_tsne.eps",plot_grid(p6,p7,p8,nrow = 1),height = 2,width = 8)
+```
 
 Note that the first 2 PCs should be sufficient for capturing the full
 structure in the topic proportions as they explain >96% of the
