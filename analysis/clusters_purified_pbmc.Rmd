@@ -169,42 +169,42 @@ ggsave("pca_cd34_pbmc_purified.png",p4,height = 3,width = 4.25,dpi = 300)
 To further drive home this connection, here we layer the PCA plots
 with expression of cell-type-specific genes, such as *Xxx* for B-cells:
 
-```{r pca-plots-with-expression, width=7.5, height=3}
+```{r pca-plots-with-expression, width=8, height=6}
 pca_ggplot_call <- function (dat, pcs, fill.type, fill.label)
   ggplot(dat,aes_string(x = pcs[1],y = pcs[2],color = "y")) +
     geom_point(shape = 20,size = 0.5) +
     labs(x = pcs[1],y = pcs[2],fill = fill.label) +
-    scale_color_gradientn(na.value = "lightskyblue",
-                          colors=c("skyblue","gold","darkorange","magenta")) +
+    scale_color_gradientn(na.value = "skyblue",
+	                      colors=c("skyblue","gold","darkorange","magenta")) +
     theme_cowplot(font_size = 8) +
     theme(plot.title = element_text(size = 8,face = "plain"))
-p5a <- pca_plot(poisson2multinom(fit),
-                fill = log10(counts[,"ENSG00000105369"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000105369"]
+p5a <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD79A (B-cells)",color = "log10(count)")
-p5b <- pca_plot(poisson2multinom(fit),
- 	            fill = log10(counts[,"ENSG00000163220"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000163220"]
+p5b <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+ 	            fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "S100A9 (CD14+)",color = "log10(count)")
-p5c <- pca_plot(poisson2multinom(fit),
-	            fill = log10(counts[,"ENSG00000174059"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000174059"]
+p5c <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD34 (CD34+)",color = "log10(count)")
-p5d <- pca_plot(poisson2multinom(fit),
-                fill = log10(counts[,"ENSG00000197992"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000197992"]
+p5d <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CLEC9A (dendritic)",color = "log10(count)")
-p5e <- pca_plot(poisson2multinom(fit),
-	            fill=log10(counts[,"ENSG00000105374"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000105374"]
+p5e <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "NKG7 (NK)",color = "log10(count)")
-p5f <- pca_plot(poisson2multinom(fit),
-	            fill = log10(counts[,"ENSG00000167286"]),
-                ggplot_call = pca_ggplot_call) +
+x    <- counts[,"ENSG00000167286"]
+p5f <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD3D (T-cells)",color = "log10(count)")
-p5g <- pca_plot(poisson2multinom(fit),
-	            fill = log10(counts[,"ENSG00000153563"]),
-                ggplot_call = pca_ggplot_call) +
+x   <- counts[,"ENSG00000153563"]
+p5g <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD8A (CD8+ cells)",color = "log10(count)")
 plot_grid(p5a,p5b,p5c,
           p5d,p5e,p5f,
@@ -238,12 +238,12 @@ rows <- sort(c(sample(which(samples$cluster == "B"),1000),
 			   which(samples$cluster == "dendritic")))
 x  <- samples[rows,"cluster"]
 x  <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
-p5 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p6 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
                      grouping = x,topics = topics,
                      colors = topic_colors[topics],
    	  			     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
 					 num_threads = 4,verbose = FALSE)
-print(p5)
+print(p6)
 ```
 
 ```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
@@ -314,7 +314,7 @@ Next, run PCA on the topic proportions for this random subset of 2,000
 samples.
 
 ```{r pca}
-p6 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
+p7 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
 ```
 
 Run *t*-SNE on the topic proportions.
@@ -324,7 +324,7 @@ tsne <- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = FALSE)
 tsne$x <- tsne$Y
 colnames(tsne$x) <- c("tsne1","tsne2")
-p7 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
+p8 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
 ```
 
 Then run UMAP on the topic proportions.
@@ -335,13 +335,13 @@ out.umap <- umap(fit2$L,n_neighbors = 30,metric = "euclidean",n_epochs = 1000,
                  verbose = FALSE)
 out.umap <- list(x = out.umap)
 colnames(out.umap$x) <- c("umap1","umap2")
-p8 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
+p9 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
 ```
 
 Here are the 2-d embeddings, side-by-side:
 
 ```{r pca-vs-tsne, fig.width=8, fig.height=2}
-plot_grid(p6,p7,p8,nrow = 1)
+plot_grid(p7,p8,p9,nrow = 1)
 ```
 
 By the projection of the samples onto the first two PCs, 
