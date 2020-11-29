@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree95f7750ccdfda35252cf11d6c4c7d685f6fdf7b9targetblank95f7750a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/95f7750ccdfda35252cf11d6c4c7d685f6fdf7b9" target="_blank">95f7750</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeed4dd7bcc046a646abf92cc55fcefa75e4551106targetblanked4dd7ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ed4dd7bcc046a646abf92cc55fcefa75e4551106" target="_blank">ed4dd7b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree95f7750ccdfda35252cf11d6c4c7d685f6fdf7b9targetblank95f7750a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeed4dd7bcc046a646abf92cc55fcefa75e4551106targetblanked4dd7ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/95f7750ccdfda35252cf11d6c4c7d685f6fdf7b9" target="_blank">95f7750</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ed4dd7bcc046a646abf92cc55fcefa75e4551106" target="_blank">ed4dd7b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -448,6 +448,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/clustering-pbmc-purified.rds
+    Untracked:  analysis/loadings_plot_pbmc_purified.eps
     Untracked:  analysis/pca_cd34_pbmc_purified.png
     Untracked:  analysis/pca_clusters_pbmc_purified.png
     Untracked:  analysis/pca_expression_pbmc_purified.png
@@ -493,6 +494,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ed4dd7bcc046a646abf92cc55fcefa75e4551106/analysis/clusters_purified_pbmc.Rmd" target="_blank">ed4dd7b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-29
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c8fb5be75502794352e192aecfa589365cfa7cae/docs/clusters_purified_pbmc.html" target="_blank">c8fb5be</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-29
+</td>
+<td>
+Improved PCA expression plots in clusters_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1302,7 +1337,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>To further drive home this connection, here we layer the PCA plots with expression of cell-type-specific genes, such as <em>Xxx</em> for B-cells:</p>
+<p>To further drive home this connection, here we layer the PCA plots with expression of cell-type-specific genes, such as <em>CD79A</em> for B-cells:</p>
 <pre class="r"><code>pca_ggplot_call &lt;- function (dat, pcs, fill.type, fill.label)
   ggplot(dat,aes_string(x = pcs[1],y = pcs[2],color = &quot;y&quot;)) +
     geom_point(shape = 20,size = 0.5) +
@@ -1368,6 +1403,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c8fb5be75502794352e192aecfa589365cfa7cae/docs/figure/clusters_purified_pbmc.Rmd/pca-plots-with-expression-1.png" target="_blank">c8fb5be</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/a42db5027d2c4005f5cc0657af334cae0f86f093/docs/figure/clusters_purified_pbmc.Rmd/pca-plots-with-expression-1.png" target="_blank">a42db50</a>
 </td>
 <td>
@@ -1381,6 +1427,18 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+<p>The continuous variation in T-cells captured by topics 1 and 6 suggests CD4+/CD8+ lineage differentiation in T-cells:</p>
+<pre class="r"><code>x  &lt;- samples$celltype
+i  &lt;- names(sort(tapply(poisson2multinom(fit)$L[,1],x,mean)))
+x  &lt;- factor(as.character(x),i)
+rows &lt;- which(with(samples,!(celltype == &quot;CD19+ B&quot; |
+                             celltype == &quot;CD14+ Monocyte&quot; |
+                             celltype == &quot;CD34+&quot; |
+                             celltype == &quot;CD56+ NK&quot;)))
+p6 &lt;- loadings_plot(select(poisson2multinom(fit),loadings = rows),
+                    x = x[rows],k = 1) +
+      scale_y_continuous(limits = c(0,1)) +
+      labs(y = &quot;topic 1 proportion&quot;,title = &quot;&quot;)</code></pre>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
@@ -1398,12 +1456,12 @@ rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),1000),
                which(samples$cluster == &quot;dendritic&quot;)))
 x  &lt;- samples[rows,&quot;cluster&quot;]
 x  &lt;- factor(x,c(&quot;B&quot;,&quot;CD14+&quot;,&quot;CD34+&quot;,&quot;dendritic&quot;,&quot;NK&quot;,&quot;CD8+&quot;,&quot;T&quot;))
-p6 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p7 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
                      grouping = x,topics = topics,
                      colors = topic_colors[topics],
                      perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
                      num_threads = 4,verbose = FALSE)
-print(p6)</code></pre>
+print(p7)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
@@ -1493,22 +1551,22 @@ rows &lt;- sort(sample(rows,2000))
 fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
 x    &lt;- samples$cluster[rows,drop = TRUE]</code></pre>
 <p>Next, run PCA on the topic proportions for this random subset of 2,000 samples.</p>
-<pre class="r"><code>p7 &lt;- pca_plot(fit2,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+<pre class="r"><code>p8 &lt;- pca_plot(fit2,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
 <p>Run <em>t</em>-SNE on the topic proportions.</p>
 <pre class="r"><code>tsne &lt;- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = FALSE)
 tsne$x &lt;- tsne$Y
 colnames(tsne$x) &lt;- c(&quot;tsne1&quot;,&quot;tsne2&quot;)
-p8 &lt;- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+p9 &lt;- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
 <p>Then run UMAP on the topic proportions.</p>
 <pre class="r"><code>out.umap &lt;- umap(fit2$L,n_neighbors = 30,metric = &quot;euclidean&quot;,n_epochs = 1000,
                  min_dist = 0.1,scale = &quot;none&quot;,learning_rate = 1,
                  verbose = FALSE)
 out.umap &lt;- list(x = out.umap)
 colnames(out.umap$x) &lt;- c(&quot;umap1&quot;,&quot;umap2&quot;)
-p9 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
-<p>Here are the 2-d embeddings, side-by-side:</p>
-<pre class="r"><code>plot_grid(p7,p8,p9,nrow = 1)</code></pre>
+p10 &lt;- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
+<p>Here are the PCA, t-SNE and UMAP 2-d embeddings, side-by-side:</p>
+<pre class="r"><code>plot_grid(p8,p9,p10,nrow = 1)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/pca-vs-tsne-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-vs-tsne-1">
