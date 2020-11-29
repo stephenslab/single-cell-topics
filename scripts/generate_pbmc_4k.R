@@ -26,7 +26,7 @@ genes  <- genes[j,]
 counts <- counts[,j]
 
 # Save the data.
-samples <- samples[c("barcode","dataset","celltype")]
+# samples <- samples[c("barcode","dataset","celltype")]
 save(list = c("samples","genes","counts"),
      file = "pbmc_4k.RData")
 resaveRdaFiles("pbmc_4k.RData")
