@@ -13,17 +13,11 @@ samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 
 # Select a random subset of the cells.
 x       <- samples$cluster
-i       <- c(sample(which(x ==  "T"),1212),
-             sample(which(x != "T" & x != "dendritic"),2562),
-             which(samples$cluster == "dendritic"))
+i       <- c(sample(which(x == "T"),1212),
+             sample(which(x != "T" & x != "dendritic"),2562))
 i       <- sample(i)
 samples <- samples[i,]
 counts  <- counts[i,]
-
-# Remove genes that are not expressed in any of the cells.
-j      <- which(colSums(counts > 0) >= 1)
-genes  <- genes[j,]
-counts <- counts[,j]
 
 # Save the data.
 # samples <- samples[c("barcode","dataset","celltype")]
