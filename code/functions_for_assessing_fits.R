@@ -35,7 +35,7 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
       suppressMessages(
         plot_progress_poisson_nmf(fits[rows],x = "timing",y = y,
                                   add.point.every = 150,shapes = 21,
-                                  colors = rep(c(clrs),2),
+                                  colors = rep(clrs,2),
                                   fills = c(clrs,rep("white",3))) +
         scale_y_continuous(trans = "log10",breaks = 10^seq(-8,8)) +
         labs(x = "runtime (h)",title = paste("K =",i)) +
