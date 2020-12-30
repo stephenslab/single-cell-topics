@@ -39,9 +39,6 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 ```
 
-Assess single-cell likelihoods
-------------------------------
-
 Identify clusters from principal components
 -------------------------------------------
 
@@ -302,7 +299,7 @@ pp6  <- structure_plot(fit6,topics = k6,colors = topic_colors[k6],
 	   				   perplexity = 30,num_threads = 4) + ggtitle("CD8+")
 pp7  <- structure_plot(fit7,topics = k7,colors = topic_colors[k7],
 	   				   perplexity = 70,num_threads = 4) + ggtitle("T")
-ggsave("structure_plot_pbmc_purified.eps",
+ggsave("plots/structure_plot_pbmc_purified.eps",
        plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,pp7,nrow = 2,ncol = 4),
        height = 3,width = 12)
 ```
