@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-29
+<strong>Last updated:</strong> 2020-12-29
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,22 +414,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree674817c145215a22e87cdc475580db2bea75b116targetblank674817ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/674817c145215a22e87cdc475580db2bea75b116" target="_blank">674817c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree809d0a19b9ac9e3a847055cc4bfb91057ae0ab92targetblank809d0a1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/809d0a19b9ac9e3a847055cc4bfb91057ae0ab92" target="_blank">809d0a1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree674817c145215a22e87cdc475580db2bea75b116targetblank674817ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree809d0a19b9ac9e3a847055cc4bfb91057ae0ab92targetblank809d0a1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/674817c145215a22e87cdc475580db2bea75b116" target="_blank">674817c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/809d0a19b9ac9e3a847055cc4bfb91057ae0ab92" target="_blank">809d0a1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -447,7 +448,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/clustering-pbmc-purified.rds
+    Untracked:  analysis/#purified_pbmc_loglik.R#
     Untracked:  analysis/loadings_plot_pbmc_purified.eps
     Untracked:  analysis/pca_cd34_pbmc_purified.png
     Untracked:  analysis/pca_clusters_pbmc_purified.png
@@ -494,6 +495,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/809d0a19b9ac9e3a847055cc4bfb91057ae0ab92/analysis/clusters_purified_pbmc.Rmd" target="_blank">809d0a1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-12-29
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/761d2c00e63458ca1ba015d05a09e1797c648b5a/docs/clusters_purified_pbmc.html" target="_blank">761d2c0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-29
+</td>
+<td>
+Fixed loadings plot in clusters_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1065,7 +1100,6 @@ workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
 <p>Here we perform PCA on the topic proportions to identify clusters in the mixture of FACS-purified PBMC data sets.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(Rtsne)
 library(uwot)
@@ -1076,11 +1110,15 @@ source(&quot;../code/plots.R&quot;)</code></pre>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)</code></pre>
 <p>Load the <span class="math inline">\(K = 6\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
-                         &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit</code></pre>
+                         &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
+fit &lt;- poisson2multinom(fit)</code></pre>
+<div id="assess-single-cell-likelihoods" class="section level2">
+<h2>Assess single-cell likelihoods</h2>
+</div>
 <div id="identify-clusters-from-principal-components" class="section level2">
 <h2>Identify clusters from principal components</h2>
 <p>From the PCs of the topic proportions, we define clusters for B-cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”).</p>
-<pre class="r"><code>pca &lt;- prcomp(poisson2multinom(fit)$L)$x
+<pre class="r"><code>pca &lt;- prcomp(fit$L)$x
 n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;U&quot;,n)
 pc1 &lt;- pca[,1]
@@ -1094,7 +1132,7 @@ x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 &lt; 0.07] &lt;- &quot;CD14+&quot;</code></pre>
 <p>Next, we define clusters for NK cells and dendritic cells from the top 2 PCs of the topic proportions in the U cluster.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
 n    &lt;- length(rows)
-fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+fit2 &lt;- select_loadings(fit,loadings = rows)
 pca  &lt;- prcomp(fit2$L)$x
 y    &lt;- rep(&quot;U&quot;,n)
 pc1  &lt;- pca[,1]
@@ -1107,7 +1145,7 @@ x[rows] &lt;- y</code></pre>
 <p>Among the remaining cells, we define a cluster for CD8+ cells, noting that this is much less distinct than the other cells. The rest are labeled as T-cells.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;U&quot;)
 n    &lt;- length(rows)
-fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+fit2 &lt;- select_loadings(fit,loadings = rows)
 pca  &lt;- prcomp(fit2$L)$x
 y    &lt;- rep(&quot;T&quot;,n)
 pc1  &lt;- pca[,1]
@@ -1123,10 +1161,10 @@ x[rows] &lt;- y</code></pre>
                     &quot;gray&quot;,        # NK
                     &quot;darkorange&quot;)  # T-cells
 samples$cluster &lt;- factor(x)
-p1 &lt;- pca_plot(poisson2multinom(fit),fill = samples$cluster) +
+p1 &lt;- pca_plot(fit,fill = samples$cluster) +
   scale_fill_manual(values = cluster_colors) +
   labs(fill = &quot;cluster&quot;)
-p2 &lt;- pca_hexbin_plot(poisson2multinom(fit))
+p2 &lt;- pca_hexbin_plot(fit)
 plot_grid(p1,p2,rel_widths = c(10,11))</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/clustering-4-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
@@ -1214,7 +1252,7 @@ x[x == &quot;CD4+ T Helper2&quot; | x == &quot;CD4+/CD45RO+ Memory&quot; |
   x == &quot;CD8+/CD45RA+ Naive Cytotoxic&quot; | x == &quot;CD4+/CD45RA+/CD25- Naive T&quot; | 
   x == &quot;CD4+/CD45RA+/CD25- Naive T&quot; | x == &quot;CD4+/CD25 T Reg&quot;] &lt;- &quot;T cell&quot;
 x &lt;- factor(x)
-p3 &lt;- pca_plot(poisson2multinom(fit),fill = x) +
+p3 &lt;- pca_plot(fit,fill = x) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subpopulation&quot;)
 print(p3)</code></pre>
@@ -1295,7 +1333,7 @@ Peter Carbonetto
                    cluster == &quot;CD14+&quot; |
                    cluster == &quot;CD34+&quot; |
                    cluster == &quot;dendritic&quot;))
-p4 &lt;- pca_plot(select(poisson2multinom(fit),loadings = rows),
+p4 &lt;- pca_plot(select_loadings(fit,loadings = rows),
                fill = x[rows,drop = FALSE]) +
   scale_fill_manual(values = facs_colors,drop = FALSE) +
   labs(fill = &quot;FACS subpopulation&quot;)
@@ -1381,31 +1419,31 @@ Peter Carbonetto
     theme_cowplot(font_size = 8) +
     theme(plot.title = element_text(size = 8,face = &quot;plain&quot;))
 x   &lt;- counts[,&quot;ENSG00000105369&quot;]
-p5a &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5a &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;CD79A (B-cells)&quot;,color = &quot;log10(count)&quot;)
 x   &lt;- counts[,&quot;ENSG00000163220&quot;]
-p5b &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5b &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;S100A9 (CD14+)&quot;,color = &quot;log10(count)&quot;)
 x   &lt;- counts[,&quot;ENSG00000174059&quot;]
-p5c &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5c &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;CD34 (CD34+)&quot;,color = &quot;log10(count)&quot;)
 x   &lt;- counts[,&quot;ENSG00000197992&quot;]
-p5d &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5d &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;CLEC9A (dendritic)&quot;,color = &quot;log10(count)&quot;)
 x   &lt;- counts[,&quot;ENSG00000105374&quot;]
-p5e &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5e &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;NKG7 (NK)&quot;,color = &quot;log10(count)&quot;)
 x    &lt;- counts[,&quot;ENSG00000167286&quot;]
-p5f &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5f &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;CD3D (T-cells)&quot;,color = &quot;log10(count)&quot;)
 x   &lt;- counts[,&quot;ENSG00000153563&quot;]
-p5g &lt;- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5g &lt;- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = &quot;CD8A (CD8+ cells)&quot;,color = &quot;log10(count)&quot;)
 plot_grid(p5a,p5b,p5c,
@@ -1463,18 +1501,55 @@ Peter Carbonetto
 </div>
 <p>The continuous variation in T-cells captured by topics 1 and 6 suggests CD4+/CD8+ lineage differentiation in T-cells:</p>
 <pre class="r"><code>x  &lt;- samples$celltype
-i  &lt;- names(sort(tapply(poisson2multinom(fit)$L[,1],x,mean)))
+i  &lt;- names(sort(tapply(fit$L[,1],x,mean)))
 x  &lt;- factor(as.character(x),i)
 rows &lt;- which(with(samples,!(celltype == &quot;CD19+ B&quot; |
                              celltype == &quot;CD14+ Monocyte&quot; |
                              celltype == &quot;CD34+&quot; |
                              celltype == &quot;CD56+ NK&quot;)))
-p6 &lt;- loadings_plot(select(poisson2multinom(fit),loadings = rows),
+p6 &lt;- loadings_plot(select_loadings(fit,loadings = rows),
                     x = x[rows],k = 1) +
       scale_y_continuous(limits = c(0,1)) +
       labs(y = &quot;topic 1 proportion&quot;,title = &quot;&quot;)
 print(p6)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/loadings-plot-t-cells-1.png" width="300" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loadings-plot-t-cells-1">
+Past versions of loadings-plot-t-cells-1.png
+</button>
+</p>
+<div id="fig-loadings-plot-t-cells-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/761d2c00e63458ca1ba015d05a09e1797c648b5a/docs/figure/clusters_purified_pbmc.Rmd/loadings-plot-t-cells-1.png" target="_blank">761d2c0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-29
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="structure-plot" class="section level2">
 <h2>Structure plot</h2>
@@ -1492,7 +1567,7 @@ rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),1000),
                which(samples$cluster == &quot;dendritic&quot;)))
 x  &lt;- samples[rows,&quot;cluster&quot;]
 x  &lt;- factor(x,c(&quot;B&quot;,&quot;CD14+&quot;,&quot;CD34+&quot;,&quot;dendritic&quot;,&quot;NK&quot;,&quot;CD8+&quot;,&quot;T&quot;))
-p7 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p7 &lt;- structure_plot(select_loadings(fit,loadings = rows),
                      grouping = x,topics = topics,
                      colors = topic_colors[topics],
                      perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
@@ -1584,7 +1659,7 @@ rows &lt;- which(with(samples,
                    cluster == &quot;CD14+&quot; |
                    cluster == &quot;CD34+&quot;))
 rows &lt;- sort(sample(rows,2000))
-fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
+fit2 &lt;- select_loadings(fit,loadings = rows)
 x    &lt;- samples$cluster[rows,drop = TRUE]</code></pre>
 <p>Next, run PCA on the topic proportions for this random subset of 2,000 samples.</p>
 <pre class="r"><code>p8 &lt;- pca_plot(fit2,fill = x) + labs(fill = &quot;cluster&quot;)</code></pre>
@@ -1678,8 +1753,8 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      uwot_0.1.8         Rtsne_0.15        
-# [5] fastTopics_0.3-185 dplyr_0.8.3        Matrix_1.2-18     
+# [1] cowplot_1.0.0     ggplot2_3.3.0     uwot_0.1.8        Rtsne_0.15       
+# [5] fastTopics_0.4-11 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
@@ -1696,15 +1771,15 @@ Peter Carbonetto
 # [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
 # [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
 # [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
-# [43] withr_2.1.2          later_1.0.0          MASS_7.3-51.4       
-# [46] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
-# [49] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
-# [52] scales_1.1.0         RcppParallel_4.4.2   stringi_1.4.3       
-# [55] farver_2.0.1         fs_1.3.1             promises_1.1.0      
-# [58] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
-# [61] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
-# [64] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
-# [67] quantreg_5.54        MCMCpack_1.4-5</code></pre>
+# [43] dplyr_0.8.3          withr_2.1.2          later_1.0.0         
+# [46] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
+# [49] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
+# [52] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
+# [55] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
+# [58] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
+# [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
+# [64] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
+# [67] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 </div>
 
