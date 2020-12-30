@@ -19,8 +19,8 @@ data sets for topic modeling analysis.
 
 + [Pulse-seq](prepare_pulseseq.html)
 
-Assess model fits
------------------
+Assess Poisson NM modelF fits
+-----------------------------
 
 In these pages, we compare the quality of the Poisson NMF fits with
 different updates (EM, CCD, SCD, with and without extrapolation), and
@@ -68,4 +68,11 @@ Visualize and interpret topics
 + [PBMC 68k](plots_68k_pbmc.html)
 
 + [Droplet and pulse-seq](plots_tracheal_epithelium.html)
+
+Examine single-cell likelihoods
+-------------------------------
+
+*Add text here.*
+
++ [Mixture of FACS-purified PBMCs](loglik_purified_pbmc.html)
 
