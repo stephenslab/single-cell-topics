@@ -17,7 +17,6 @@ functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(Rtsne)
 library(uwot)
@@ -37,7 +36,11 @@ Load the $K = 6$ Poisson NMF model fit.
 ```{r load-fit}
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+fit <- poisson2multinom(fit)
 ```
+
+Assess single-cell likelihoods
+------------------------------
 
 Identify clusters from principal components
 -------------------------------------------
@@ -47,7 +50,7 @@ CD14+ cells and CD34+ cells. The remaining cells are assigned to the U
 cluster ("U" for "unknown").
 
 ```{r clustering-1}
-pca <- prcomp(poisson2multinom(fit)$L)$x
+pca <- prcomp(fit$L)$x
 n   <- nrow(pca)
 x   <- rep("U",n)
 pc1 <- pca[,1]
@@ -66,7 +69,7 @@ Next, we define clusters for NK cells and dendritic cells from the top
 ```{r clustering-2}
 rows <- which(x == "U")
 n    <- length(rows)
-fit2 <- select(poisson2multinom(fit),loadings = rows)
+fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 y    <- rep("U",n)
 pc1  <- pca[,1]
@@ -85,7 +88,7 @@ labeled as T-cells.
 ```{r clustering-3}
 rows <- which(x == "U")
 n    <- length(rows)
-fit2 <- select(poisson2multinom(fit),loadings = rows)
+fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 y    <- rep("T",n)
 pc1  <- pca[,1]
@@ -106,10 +109,10 @@ cluster_colors <- c("dodgerblue",  # B-cells
 					"gray",        # NK
 					"darkorange")  # T-cells
 samples$cluster <- factor(x)
-p1 <- pca_plot(poisson2multinom(fit),fill = samples$cluster) +
+p1 <- pca_plot(fit,fill = samples$cluster) +
   scale_fill_manual(values = cluster_colors) +
   labs(fill = "cluster")
-p2 <- pca_hexbin_plot(poisson2multinom(fit))
+p2 <- pca_hexbin_plot(fit)
 plot_grid(p1,p2,rel_widths = c(10,11))
 ```
 
@@ -140,7 +143,7 @@ x[x == "CD4+ T Helper2" | x == "CD4+/CD45RO+ Memory" |
   x == "CD8+/CD45RA+ Naive Cytotoxic" | x == "CD4+/CD45RA+/CD25- Naive T" | 
   x == "CD4+/CD45RA+/CD25- Naive T" | x == "CD4+/CD25 T Reg"] <- "T cell"
 x <- factor(x)
-p3 <- pca_plot(poisson2multinom(fit),fill = x) +
+p3 <- pca_plot(fit,fill = x) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subpopulation")
 print(p3)
@@ -154,7 +157,7 @@ rows <- which(with(samples,
                    cluster == "CD14+" |
                    cluster == "CD34+" |
 				   cluster == "dendritic"))
-p4 <- pca_plot(select(poisson2multinom(fit),loadings = rows),
+p4 <- pca_plot(select_loadings(fit,loadings = rows),
                fill = x[rows,drop = FALSE]) +
   scale_fill_manual(values = facs_colors,drop = FALSE) +
   labs(fill = "FACS subpopulation")
@@ -180,31 +183,31 @@ pca_ggplot_call <- function (dat, pcs, fill.type, fill.label)
     theme_cowplot(font_size = 8) +
     theme(plot.title = element_text(size = 8,face = "plain"))
 x   <- counts[,"ENSG00000105369"]
-p5a <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5a <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD79A (B-cells)",color = "log10(count)")
 x   <- counts[,"ENSG00000163220"]
-p5b <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5b <- pca_plot(select_loadings(fit,loadings = order(x)),
  	            fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "S100A9 (CD14+)",color = "log10(count)")
 x   <- counts[,"ENSG00000174059"]
-p5c <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5c <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD34 (CD34+)",color = "log10(count)")
 x   <- counts[,"ENSG00000197992"]
-p5d <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5d <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CLEC9A (dendritic)",color = "log10(count)")
 x   <- counts[,"ENSG00000105374"]
-p5e <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5e <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "NKG7 (NK)",color = "log10(count)")
 x    <- counts[,"ENSG00000167286"]
-p5f <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5f <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD3D (T-cells)",color = "log10(count)")
 x   <- counts[,"ENSG00000153563"]
-p5g <- pca_plot(select(poisson2multinom(fit),loadings = order(x)),
+p5g <- pca_plot(select_loadings(fit,loadings = order(x)),
                 fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
        labs(title = "CD8A (CD8+ cells)",color = "log10(count)")
 plot_grid(p5a,p5b,p5c,
@@ -224,13 +227,13 @@ suggests CD4+/CD8+ lineage differentiation in T-cells:
 
 ```{r loadings-plot-t-cells, fig.width=2.5, fig.height=3.5}
 x  <- samples$celltype
-i  <- names(sort(tapply(poisson2multinom(fit)$L[,1],x,mean)))
+i  <- names(sort(tapply(fit$L[,1],x,mean)))
 x  <- factor(as.character(x),i)
 rows <- which(with(samples,!(celltype == "CD19+ B" |
                              celltype == "CD14+ Monocyte" |
                              celltype == "CD34+" |
 							 celltype == "CD56+ NK")))
-p6 <- loadings_plot(select(poisson2multinom(fit),loadings = rows),
+p6 <- loadings_plot(select_loadings(fit,loadings = rows),
                     x = x[rows],k = 1) +
       scale_y_continuous(limits = c(0,1)) +
       labs(y = "topic 1 proportion",title = "")
@@ -261,7 +264,7 @@ rows <- sort(c(sample(which(samples$cluster == "B"),1000),
 			   which(samples$cluster == "dendritic")))
 x  <- samples[rows,"cluster"]
 x  <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
-p7 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p7 <- structure_plot(select_loadings(fit,loadings = rows),
                      grouping = x,topics = topics,
                      colors = topic_colors[topics],
    	  			     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
@@ -271,13 +274,13 @@ print(p7)
 
 ```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
 set.seed(1)
-fit1 <- select(poisson2multinom(fit),loadings = rows[x == "B"])
-fit2 <- select(poisson2multinom(fit),loadings = rows[x == "CD14+"])
-fit3 <- select(poisson2multinom(fit),loadings = rows[x == "CD34+"])
-fit4 <- select(poisson2multinom(fit),loadings = rows[x == "dendritic"])
-fit5 <- select(poisson2multinom(fit),loadings = rows[x == "NK"])
-fit6 <- select(poisson2multinom(fit),loadings = rows[x == "CD8+"])
-fit7 <- select(poisson2multinom(fit),loadings = rows[x == "T"])
+fit1 <- select_loadings(fit,loadings = rows[x == "B"])
+fit2 <- select_loadings(fit,loadings = rows[x == "CD14+"])
+fit3 <- select_loadings(fit,loadings = rows[x == "CD34+"])
+fit4 <- select_loadings(fit,loadings = rows[x == "dendritic"])
+fit5 <- select_loadings(fit,loadings = rows[x == "NK"])
+fit6 <- select_loadings(fit,loadings = rows[x == "CD8+"])
+fit7 <- select_loadings(fit,loadings = rows[x == "T"])
 k1   <- order(colMeans(fit1$L))
 k2   <- order(colMeans(fit2$L))
 k3   <- order(colMeans(fit3$L))
@@ -329,7 +332,7 @@ rows <- which(with(samples,
                    cluster == "CD14+" |
                    cluster == "CD34+"))
 rows <- sort(sample(rows,2000))
-fit2 <- select(poisson2multinom(fit),loadings = rows)
+fit2 <- select_loadings(fit,loadings = rows)
 x    <- samples$cluster[rows,drop = TRUE]
 ```
 
