@@ -15,6 +15,26 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 
 Load the packages used in the analysis below.
 
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(Rtsne)
+library(uwot)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the count data, the $K = 6$ topic model fit, and the 8 clusters
+identified in the [clustering analysis](clusters_purified_pbmc.html)
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+fit <- poisson2multinom(fit)
+samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
+```
+
 To begin, draw a random subset of 2,000 cells from the B, CD14+ and
 CD34+ clusters identified above. (The main reason for taking a random
 subset is that we don't want to wait a long time for *t*-SNE and UMAP
@@ -35,7 +55,7 @@ Next, run PCA on the topic proportions for this random subset of 2,000
 samples.
 
 ```{r pca}
-p8 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
+p1 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
 ```
 
 Run *t*-SNE on the topic proportions.
@@ -45,7 +65,7 @@ tsne <- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
               theta = 0.1,max_iter = 1000,eta = 200,verbose = FALSE)
 tsne$x <- tsne$Y
 colnames(tsne$x) <- c("tsne1","tsne2")
-p9 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
+p2 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
 ```
 
 Then run UMAP on the topic proportions.
@@ -56,13 +76,13 @@ out.umap <- umap(fit2$L,n_neighbors = 30,metric = "euclidean",n_epochs = 1000,
                  verbose = FALSE)
 out.umap <- list(x = out.umap)
 colnames(out.umap$x) <- c("umap1","umap2")
-p10 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
+p3 <- pca_plot(fit2,out.pca = out.umap,fill = x) + labs(fill = "cluster")
 ```
 
 Here are the PCA, t-SNE and UMAP 2-d embeddings, side-by-side:
 
 ```{r pca-vs-tsne, fig.width=8, fig.height=2}
-plot_grid(p8,p9,p10,nrow = 1)
+plot_grid(p1,p2,p3,nrow = 1)
 ```
 
 By the projection of the samples onto the first two PCs, 
@@ -75,7 +95,8 @@ accentuate clusters in the data at the risk of distorting or obscuring
 finer scale substructure.
 
 ```{r pca-vs-tsne-for-paper, echo=FALSE}
-ggsave("pca_vs_tsne.eps",plot_grid(p6,p7,p8,nrow = 1),height = 2,width = 8)
+ggsave("../plots/pca_vs_tsne.eps",plot_grid(p1,p2,p3,nrow = 1),
+       height = 2,width = 8)
 ```
 
 Note that the first 2 PCs should be sufficient for capturing the full
@@ -85,4 +106,3 @@ variance:
 ```{r prcomp-summary}
 summary(prcomp(fit2$L))
 ```
-
