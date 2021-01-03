@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-13
+<strong>Last updated:</strong> 2021-01-03
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -354,16 +354,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree672e1e31e76683806b282ef4a1394063899c76a7targetblank672e1e3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/672e1e31e76683806b282ef4a1394063899c76a7" target="_blank">672e1e3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree83151f0521db924cff0c2b46194273d7aa607c27targetblank83151f0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/83151f0521db924cff0c2b46194273d7aa607c27" target="_blank">83151f0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree672e1e31e76683806b282ef4a1394063899c76a7targetblank672e1e3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree83151f0521db924cff0c2b46194273d7aa607c27targetblank83151f0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/672e1e31e76683806b282ef4a1394063899c76a7" target="_blank">672e1e3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/83151f0521db924cff0c2b46194273d7aa607c27" target="_blank">83151f0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -379,14 +379,25 @@ Ignored files:
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
     Ignored:    output/pbmc-68k/rds/
+    Ignored:    output/pbmc-purified/diff-count-pbmc-purified.RData
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
 
+Untracked files:
+    Untracked:  analysis/files.txt
+    Untracked:  plots/
+
 Unstaged changes:
-    Modified:   analysis/assess_fits_droplet.Rmd
+    Modified:   TODO.txt
+    Modified:   analysis/clusters_purified_pbmc.Rmd
+    Modified:   analysis/diff_count_droplet.Rmd
+    Modified:   analysis/diff_count_pulseseq.Rmd
+    Modified:   analysis/pca_vs_tsne.Rmd
+    Modified:   analysis/plots_pbmc.Rmd
+    Modified:   analysis/plots_tracheal_epithelium.Rmd
 
 </code></pre>
 <p>
@@ -425,6 +436,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/83151f0521db924cff0c2b46194273d7aa607c27/analysis/index.Rmd" target="_blank">83151f0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+<td>
+workflowr::wflow_publish(“index.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/56b968471026cb454ef025de13c362141db586e5/analysis/index.Rmd" target="_blank">56b9684</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-12-29
+</td>
+<td>
+Added new section to overview page on single-cell likelihoods.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0ef8a20a28d5c1f0968ff572f67e6cbc3ad4453c/analysis/index.Rmd" target="_blank">0ef8a20</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-26
+</td>
+<td>
+Working on solving purified PBMC ‘mysteries’.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a9eece06c120d7dfc9ef400202b633ec28e9013d/docs/index.html" target="_blank">a9eece0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-13
+</td>
+<td>
+Updated the overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1054,8 +1133,8 @@ Added workflowr files.
 <li><p><a href="prepare_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
-<div id="assess-model-fits" class="section level2">
-<h2>Assess model fits</h2>
+<div id="assess-poisson-nm-model-fits" class="section level2">
+<h2>Assess Poisson NM model fits</h2>
 <p>In these pages, we compare the quality of the Poisson NMF fits with different updates (EM, CCD, SCD, with and without extrapolation), and with different settings for <span class="math inline">\(K\)</span>.</p>
 <ul>
 <li><p><a href="assess_fits_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
@@ -1074,20 +1153,28 @@ Added workflowr files.
 <li><p><a href="clusters_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
-<div id="perform-differential-expression-analysis" class="section level2">
-<h2>Perform differential expression analysis</h2>
-<p>In these pages, we perform a differential expression analysis using a topic model and clusters identified from this topic model.</p>
-<ul>
-<li><p><a href="diff_count_droplet.html">Droplet</a></p></li>
-<li><p><a href="diff_count_pulseseq.html">Pulse-seq</a></p></li>
-</ul>
-</div>
-<div id="visualize-and-interpret-topics" class="section level2">
-<h2>Visualize and interpret topics</h2>
+<div id="visualize-and-annotate-topics" class="section level2">
+<h2>Visualize and annotate topics</h2>
 <p><em>TO DO: Add brief description here.</em></p>
 <ul>
-<li><p><a href="plots_pbmc.html">PBMC</a></p></li>
+<li><p><a href="plots_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
+<li><p><a href="plots_68k_pbmc.html">PBMC 68k</a></p></li>
 <li><p><a href="plots_tracheal_epithelium.html">Droplet and pulse-seq</a></p></li>
+</ul>
+</div>
+<div id="examine-single-cell-likelihoods" class="section level2">
+<h2>Examine single-cell likelihoods</h2>
+<ul>
+<li><p><a href="loglik_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
+<li><p><a href="loglik_68k_pbmc.html">PBMC 68k</a></p></li>
+<li><p><a href="loglik_droplet.html">Droplet</a></p></li>
+<li><p><a href="loglik_pulseseq.html">Pulse-seq</a></p></li>
+</ul>
+</div>
+<div id="other-analyses" class="section level2">
+<h2>Other analyses</h2>
+<ul>
+<li><a href="pca_vs_tsne.html">PCA vs. t-SNE and UMAP: an illustration</a></li>
 </ul>
 </div>
 
