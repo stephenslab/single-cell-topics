@@ -20,7 +20,6 @@ functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(ggrepel)
@@ -73,7 +72,7 @@ abundant <- c("B","C","B+C","H")
 rare     <- c("Cil","T+N","G","U")
 rows1 <- which(is.element(samples_droplet$cluster,abundant))
 rows2 <- which(is.element(samples_droplet$cluster,rare))
-fit1  <- select(poisson2multinom(fit_droplet),loadings = rows1)
+fit1  <- select_loadings(poisson2multinom(fit_droplet),loadings = rows1)
 fit2  <- select(poisson2multinom(fit_droplet),loadings = rows2)
 pp1 <- pca_plot(fit1,pcs = 1:2,fill = log10(counts_droplet[rows1,"Krt5"])) +
        labs(title = "Krt5 (basal)",fill = "log10(count)")

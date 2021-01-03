@@ -36,7 +36,6 @@ functions that will be used to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(tools)
-library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)

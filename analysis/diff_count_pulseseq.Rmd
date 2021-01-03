@@ -17,7 +17,6 @@ Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(tools)
 library(ggplot2)
