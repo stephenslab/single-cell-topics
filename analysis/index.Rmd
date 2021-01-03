@@ -19,8 +19,8 @@ data sets for topic modeling analysis.
 
 + [Pulse-seq](prepare_pulseseq.html)
 
-Assess Poisson NM modelF fits
------------------------------
+Assess Poisson NM model fits
+----------------------------
 
 In these pages, we compare the quality of the Poisson NMF fits with
 different updates (EM, CCD, SCD, with and without extrapolation), and
@@ -48,18 +48,8 @@ use this to identify clusters.
 
 + [Pulse-seq](clusters_pulseseq.html)
 
-Perform differential expression analysis
-----------------------------------------
-
-In these pages, we perform a differential expression analysis using
-a topic model and clusters identified from this topic model.
-
-+ [Droplet](diff_count_droplet.html)
-
-+ [Pulse-seq](diff_count_pulseseq.html)
-
-Visualize and interpret topics
-------------------------------
+Visualize and annotate topics
+-----------------------------
 
 *TO DO: Add brief description here.*
 
@@ -72,7 +62,15 @@ Visualize and interpret topics
 Examine single-cell likelihoods
 -------------------------------
 
-*Add text here.*
-
 + [Mixture of FACS-purified PBMCs](loglik_purified_pbmc.html)
 
++ [PBMC 68k](loglik_68k_pbmc.html)
+
++ [Droplet](loglik_droplet.html)
+
++ [Pulse-seq](loglik_pulseseq.html)
+
+Other analyses
+--------------
+
++ [PCA vs. t-SNE and UMAP: an illustration](pca_vs_tsne.html)

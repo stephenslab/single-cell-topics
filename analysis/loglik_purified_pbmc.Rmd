@@ -1,0 +1,13 @@
+---
+title: "Examine topic-model-based single-cell likelihoods in FACS-purified PBMC data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we calculate single-cell likelihoods to assess how well the
+multinomial topic model captures expression in different cell-types.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
