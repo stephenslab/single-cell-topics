@@ -20,11 +20,10 @@ library(Matrix)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-source("../code/plots.R")
 ```
 
 Load the count data, the $K = 6$ topic model fit, and the 7 clusters
-identified in the [clustering analysis](clusters_purified_pbmc.html)
+identified in the [clustering analysis](clusters_purified_pbmc.html).
 
 ```{r load-data}
 load("../data/pbmc_purified.RData")
@@ -76,9 +75,8 @@ print(p2)
 Here, we compare the single-cell likelihoods under the multinomial
 topic model against the likelihoods under a simple "hard clustering"
 model in which the cells in each FACS subpopulation share the same
-underlying pattern of expression. This serves as a simple "sanity
-check", as we expect the fit to improve with the more flexible topic
-model.
+underlying pattern of expression. This serves as a sanity check, as we
+expect the fit to improve with the more flexible topic model.
 
 ```{r loglik-4}
 fit_subpop <- init_poisson_nmf_from_clustering(counts,x)
@@ -107,8 +105,8 @@ p3 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
 print(p3)
 ```
 
-The improvement in fit is greatest for the CD34+ and T cell FACS
-subpopulations:
+The improvement in fit is greatest for cells in the CD34+ and T cell
+FACS subpopulations:
 
 ```{r loglik-6, fig.width=6.5, fig.height=3.5}
 p4 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
