@@ -239,4 +239,3 @@ Save the clustering of the PBMC data to an RDS file.
 ```{r save-results}
 saveRDS(samples,"clustering-pbmc-purified.rds")
 ```
-
