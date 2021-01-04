@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6e77a95e42571ebb3b3ecbdf2d5c18b8d9264b27targetblank6e77a95a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6e77a95e42571ebb3b3ecbdf2d5c18b8d9264b27" target="_blank">6e77a95</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree113614e4a3822aa4627efe0d1b895db601611af4targetblank113614ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/113614e4a3822aa4627efe0d1b895db601611af4" target="_blank">113614e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6e77a95e42571ebb3b3ecbdf2d5c18b8d9264b27targetblank6e77a95a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree113614e4a3822aa4627efe0d1b895db601611af4targetblank113614ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6e77a95e42571ebb3b3ecbdf2d5c18b8d9264b27" target="_blank">6e77a95</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/113614e4a3822aa4627efe0d1b895db601611af4" target="_blank">113614e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -492,6 +492,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/113614e4a3822aa4627efe0d1b895db601611af4/analysis/clusters_purified_pbmc.Rmd" target="_blank">113614e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/clusters_purified_pbmc.html" target="_blank">edaec3f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1282,6 +1316,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">edaec3f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e7411a07b556af4f5dd2eff03bd7ca13d04e0d80/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">e7411a0</a>
 </td>
 <td>
@@ -1383,6 +1428,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">edaec3f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3501298baa69160ac8d1220329f83f8b2cb6ab30/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">3501298</a>
 </td>
 <td>
@@ -1443,13 +1499,43 @@ p4 &lt;- loadings_plot(select_loadings(fit,loadings = rows),
       labs(y = &quot;topic 1 mixture proportion&quot;,title = &quot;&quot;)
 print(p4)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/loadings-plot-t-1.png" width="300" style="display: block; margin: auto;" /></p>
-<div id="save-results" class="section level2">
-<h2>Save results</h2>
-<p>Save the clustering of the PBMC data to an RDS file.</p>
-<pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-purified.rds&quot;)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loadings-plot-t-1">
+Past versions of loadings-plot-t-1.png
+</button>
+</p>
+<div id="fig-loadings-plot-t-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/loadings-plot-t-1.png" target="_blank">edaec3f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="structure-plot" class="section level2">
-<h2>Structure plot</h2>
+</div>
 <p>The Structure plot summarizes the mixture proportions in each of the 7 clusters:</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,
@@ -1564,6 +1650,45 @@ p6 &lt;- structure_plot(select_loadings(fit,loadings = rows),grouping = x,
                      num_threads = 4,verbose = FALSE)
 print(p6)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-2-1">
+Past versions of structure-plot-2-1.png
+</button>
+</p>
+<div id="fig-structure-plot-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">edaec3f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Save the clustering of the PBMC data to an RDS file.</p>
+<pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-purified.rds&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1613,7 +1738,6 @@ print(p6)</code></pre>
 # [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
 # [64] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
 # [67] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
-</div>
 </div>
 
 
