@@ -42,10 +42,11 @@ loglik <- loglik_multinom_topic_model(counts,fit)
 
 This can be used to assess how well the topic model "fits" each cell.
 
-```{r loglik-2, fig.height=2, fig.width=4.5}
+```{r loglik-2, fig.height=2, fig.width=5.5}
 pdat <- data.frame(loglik)
 p1 <- ggplot(pdat,aes(loglik)) +
   geom_histogram(bins = 64,color = "white",fill = "black") +
+  scale_x_continuous(breaks = seq(-20000,0,2500)) +
   labs(y = "number of cells") +
   theme_cowplot(font_size = 10)
 print(p1)
@@ -53,26 +54,82 @@ print(p1)
 
 Most of the poorly fit cells are in the CD34+ subpopulation:
 
-```{r loglik-3, fig.height=4, fig.width=4}
+```{r loglik-3, fig.height=4, fig.width=6}
 x <- as.character(samples$celltype)
+x[x == "CD14+ Monocyte"] <- "CD14+"
 x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
-x[x == "CD8+ Cytotoxic T"] <- "T cell"
 x[x == "CD4+/CD45RO+ Memory"] <- "T cell"
 x[x == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
 x[x == "CD4+ T Helper2"] <- "T cell"
 x[x == "CD4+/CD25 T Reg"] <- "T cell"
+x <- factor(x)
 pdat <- data.frame(loglik = loglik,celltype = x)
 p2 <- ggplot(pdat,aes(x = loglik)) +
   geom_histogram(bins = 64,color = "white",fill = "black") +
-  facet_grid(rows = vars(celltype),scales = "free") +
+  facet_wrap(vars(celltype),scales = "free_y",ncol = 2) +
+  scale_x_continuous(breaks = seq(-20000,0,2500)) +
   labs(y = "number of cells") +
   theme_cowplot(font_size = 9)
 print(p2)
+```
+
+Here, we compare the single-cell likelihoods under the multinomial
+topic model against the likelihoods under a simple "hard clustering"
+model in which the cells in each FACS subpopulation share the same
+underlying pattern of expression. This serves as a simple "sanity
+check", as we expect the fit to improve with the more flexible topic
+model.
+
+```{r loglik-4}
+fit_subpop <- init_poisson_nmf_from_clustering(counts,x)
+fit_subpop <- poisson2multinom(fit_subpop)
+loglik_subpop <- loglik_multinom_topic_model(counts,fit_subpop)
+```
+
+Indeed, the topic model provides a better fit for almost all cells:
+
+```{r loglik-5, fig.width=4, fig.height=2.5}
+facs_colors <- c("dodgerblue",  # B cells
+                 "forestgreen", # CD14+
+                 "darkmagenta", # CD34+
+                 "gray",        # NK cells
+                 "tomato",      # cytotoxic T cells
+                 "gold")        # T cells
+pdat <- data.frame(x = loglik_subpop,y = loglik,celltype = x)
+p3 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  scale_x_continuous(limits = c(-15000,0),breaks = seq(-20000,0,2500)) +
+  scale_y_continuous(limits = c(-15000,0),breaks = seq(-20000,0,2500)) +
+  scale_fill_manual(values = facs_colors) +
+  labs(x = "cluster model",y = "topic model",fill = "FACS subpopulation") +
+  theme_cowplot(font_size = 9)
+print(p3)
+```
+
+The improvement in fit is greatest for the CD34+ and T cell FACS
+subpopulations:
+
+```{r loglik-6, fig.width=6.5, fig.height=3.5}
+p4 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  facet_wrap(vars(celltype)) +
+  scale_x_continuous(limits = c(-15000,0),breaks = seq(-20000,0,5000)) +
+  scale_y_continuous(limits = c(-15000,0),breaks = seq(-20000,0,5000)) +
+  scale_fill_manual(values = facs_colors) +
+  labs(x = "cluster model",y = "topic model",fill = "FACS subpopulation") +
+  theme_cowplot(font_size = 9)
+print(p4)
 ```
 
 ```{r save-plots, echo=FALSE, results="hide"}
 ggsave("../plots/loglik_histogram_pbmc_purified.eps",
        p1,height = 2,width = 4.5)
 ggsave("../plots/loglik_histogram_by_subpop_pbmc_purified.eps",
-       p2,height = 2,width = 5.5)
+       p2,height = 4,width = 4.5)
+ggsave("../plots/loglik_scatterplot_all_pbmc_purified.png",
+       p3,height = 3.5,width = 5)
+ggsave("../plots/loglik_scatterplot_by_subpop_pbmc_purified.png",
+       p4,height=4,width = 7.5)
 ```
