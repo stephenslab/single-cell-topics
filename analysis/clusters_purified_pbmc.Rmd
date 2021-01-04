@@ -125,8 +125,8 @@ Compare the FACS subpopulations projected onto the top two PCs with
 the clustering in the PCA plot above:
 
 ```{r clustering-7, fig.width=4.5, fig.height=3, message=FALSE}
-facs_colors <- c("dodgerblue",  # B cells
-                 "forestgreen", # CD14+
+facs_colors <- c("forestgreen", # CD14+
+                 "dodgerblue",  # B cells
                  "darkmagenta", # CD34+
                  "gray",        # NK cells
                  "tomato",      # cytotoxic T cells
