@@ -37,8 +37,8 @@ with different settings for $K$.
 Identify clusters
 -----------------
 
-In these pages, we perform PCA on the estimated topic proportions, and
-use this to identify clusters.
+In these pages, we identify clusters of cells from the mixture
+proportions.
 
 + [Mixture of FACS-purified PBMCs](clusters_purified_pbmc.html)
 
@@ -51,7 +51,9 @@ use this to identify clusters.
 Visualize and annotate topics
 -----------------------------
 
-*TO DO: Add brief description here.*
+In these pages, we annotate topics and substructures to determine
+their biological relevance. This includes performing a differential
+expression analysis using the topic model.
 
 + [Mixture of FACS-purified PBMCs](plots_purified_pbmc.html)
 
@@ -61,6 +63,8 @@ Visualize and annotate topics
 
 Examine single-cell likelihoods
 -------------------------------
+
+*Add description here.*
 
 + [Mixture of FACS-purified PBMCs](loglik_purified_pbmc.html)
 

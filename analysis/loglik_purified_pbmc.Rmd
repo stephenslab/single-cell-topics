@@ -5,9 +5,31 @@ output: workflowr::wflow_html
 ---
 
 Here we calculate single-cell likelihoods to assess how well the
-multinomial topic model captures expression in different cell-types.
+multinomial topic model captures expression in different cells and
+cell types.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/plots.R")
+```
+
+Load the count data, the $K = 6$ topic model fit, and the 7 clusters
+identified in the [clustering analysis](clusters_purified_pbmc.html)
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+fit <- poisson2multinom(fit)
+samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 ```

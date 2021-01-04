@@ -24,7 +24,7 @@ library(ggplot2)
 library(cowplot)
 ```
 
-Load the count data, the $K = 6$ topic model fit, and the 8 clusters
+Load the count data, the $K = 6$ topic model fit, and the 7 clusters
 identified in the [clustering analysis](clusters_purified_pbmc.html)
 
 ```{r load-data}
@@ -51,14 +51,14 @@ fit2 <- select_loadings(fit,loadings = rows)
 x    <- samples$cluster[rows,drop = TRUE]
 ```
 
-Next, run PCA on the topic proportions for this random subset of 2,000
+Next, run PCA on the mixture proportions for this random subset of 2,000
 samples.
 
 ```{r pca}
 p1 <- pca_plot(fit2,fill = x) + labs(fill = "cluster")
 ```
 
-Run *t*-SNE on the topic proportions.
+Run *t*-SNE on the mixture proportions.
 
 ```{r tsne}
 tsne <- Rtsne(fit2$L,dims = 2,pca = FALSE,normalize = FALSE,perplexity = 100,
@@ -68,7 +68,7 @@ colnames(tsne$x) <- c("tsne1","tsne2")
 p2 <- pca_plot(fit2,out.pca = tsne,fill = x) + labs(fill = "cluster")
 ```
 
-Then run UMAP on the topic proportions.
+Then run UMAP on the mixture proportions.
 
 ```{r umap}
 out.umap <- umap(fit2$L,n_neighbors = 30,metric = "euclidean",n_epochs = 1000,
@@ -85,9 +85,9 @@ Here are the PCA, t-SNE and UMAP 2-d embeddings, side-by-side:
 plot_grid(p1,p2,p3,nrow = 1)
 ```
 
-By the projection of the samples onto the first two PCs, 
-the B-cells cluster is distinct from the others, whereas the CD14+ and
-CD34+ cells do not separate as well.
+By the projection of the samples onto the first two PCs, the B-cells
+cluster is distinct from the others, whereas the CD14+ and CD34+ cells
+do not separate as well.
 
 By contrast, this detail is not captured in the *t*-SNE and UMAP
 embeddings. This illustrates the tendency of *t*-SNE and UMAP to
@@ -100,7 +100,7 @@ ggsave("../plots/pca_vs_tsne.eps",plot_grid(p1,p2,p3,nrow = 1),
 ```
 
 Note that the first 2 PCs should be sufficient for capturing the full
-structure in the topic proportions as they explain >96% of the
+structure in the mixture proportions as they explain >96% of the
 variance:
 
 ```{r prcomp-summary}
