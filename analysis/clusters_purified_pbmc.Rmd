@@ -204,7 +204,7 @@ This Structure plot summarizes the correspondence between the topics
 and the FACS cell populations. It shows the FACS mislabeling of the
 CD34+ cells.
 
-```{r structure-plot-2, fig.width=8, fig.height=2}
+```{r structure-plot-2, fig.width=8, fig.height=1.8}
 set.seed(1)
 x <- as.character(samples$celltype)
 x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
@@ -231,7 +231,7 @@ print(p6)
 ggsave("../plots/structure_plot_clusters_pbmc_purified.eps",
        p5,height = 1.5,width = 8)
 ggsave("../plots/structure_plot_facs_pbmc_purified.eps",
-	   p6,height = 2,width = 8)
+	   p6,height = 1.85,width = 8)
 ```
 
 Save the clustering of the PBMC data to an RDS file.
