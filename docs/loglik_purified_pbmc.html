@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08811819bd1abba43da9df88746b8385cda47a9ctargetblank0881181a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/08811819bd1abba43da9df88746b8385cda47a9c" target="_blank">0881181</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d0c5da48ebd2806c532fe2aca757e315964a935targetblank5d0c5daa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5d0c5da48ebd2806c532fe2aca757e315964a935" target="_blank">5d0c5da</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08811819bd1abba43da9df88746b8385cda47a9ctargetblank0881181a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d0c5da48ebd2806c532fe2aca757e315964a935targetblank5d0c5daa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/08811819bd1abba43da9df88746b8385cda47a9c" target="_blank">0881181</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5d0c5da48ebd2806c532fe2aca757e315964a935" target="_blank">5d0c5da</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,8 +447,6 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  .DS_Store
-    Untracked:  analysis/clustering-pbmc-purified.rds
     Untracked:  plots/
 
 Unstaged changes:
@@ -491,6 +489,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5d0c5da48ebd2806c532fe2aca757e315964a935/analysis/loglik_purified_pbmc.Rmd" target="_blank">5d0c5da</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+<td>
+workflowr::wflow_publish(“loglik_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6619bbd966337c47d517310253f0d19dd95c453d/docs/loglik_purified_pbmc.html" target="_blank">6619bbd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+<td>
+Added scatterplots to loglik_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -605,9 +637,8 @@ workflowr::wflow_publish(“index.Rmd”)
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
 library(ggplot2)
-library(cowplot)
-source(&quot;../code/plots.R&quot;)</code></pre>
-<p>Load the count data, the <span class="math inline">\(K = 6\)</span> topic model fit, and the 7 clusters identified in the <a href="clusters_purified_pbmc.html">clustering analysis</a></p>
+library(cowplot)</code></pre>
+<p>Load the count data, the <span class="math inline">\(K = 6\)</span> topic model fit, and the 7 clusters identified in the <a href="clusters_purified_pbmc.html">clustering analysis</a>.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
 fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
@@ -646,6 +677,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6619bbd966337c47d517310253f0d19dd95c453d/docs/figure/loglik_purified_pbmc.Rmd/loglik-2-1.png" target="_blank">6619bbd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/9f648fdc27478b5c1c848d49ad45b6230293d0a5/docs/figure/loglik_purified_pbmc.Rmd/loglik-2-1.png" target="_blank">9f648fd</a>
@@ -703,6 +745,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6619bbd966337c47d517310253f0d19dd95c453d/docs/figure/loglik_purified_pbmc.Rmd/loglik-3-1.png" target="_blank">6619bbd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/9f648fdc27478b5c1c848d49ad45b6230293d0a5/docs/figure/loglik_purified_pbmc.Rmd/loglik-3-1.png" target="_blank">9f648fd</a>
 </td>
 <td>
@@ -716,7 +769,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Here, we compare the single-cell likelihoods under the multinomial topic model against the likelihoods under a simple “hard clustering” model in which the cells in each FACS subpopulation share the same underlying pattern of expression. This serves as a simple “sanity check”, as we expect the fit to improve with the more flexible topic model.</p>
+<p>Here, we compare the single-cell likelihoods under the multinomial topic model against the likelihoods under a simple “hard clustering” model in which the cells in each FACS subpopulation share the same underlying pattern of expression. This serves as a sanity check, as we expect the fit to improve with the more flexible topic model.</p>
 <pre class="r"><code>fit_subpop &lt;- init_poisson_nmf_from_clustering(counts,x)
 fit_subpop &lt;- poisson2multinom(fit_subpop)
 loglik_subpop &lt;- loglik_multinom_topic_model(counts,fit_subpop)</code></pre>
@@ -738,7 +791,44 @@ p3 &lt;- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   theme_cowplot(font_size = 9)
 print(p3)</code></pre>
 <p><img src="figure/loglik_purified_pbmc.Rmd/loglik-5-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>The improvement in fit is greatest for the CD34+ and T cell FACS subpopulations:</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loglik-5-1">
+Past versions of loglik-5-1.png
+</button>
+</p>
+<div id="fig-loglik-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6619bbd966337c47d517310253f0d19dd95c453d/docs/figure/loglik_purified_pbmc.Rmd/loglik-5-1.png" target="_blank">6619bbd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The improvement in fit is greatest for cells in the CD34+ and T cell FACS subpopulations:</p>
 <pre class="r"><code>p4 &lt;- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   geom_point(shape = 21,color = &quot;white&quot;) +
   geom_abline(intercept = 0,slope = 1,linetype = &quot;dotted&quot;) +
@@ -750,6 +840,43 @@ print(p3)</code></pre>
   theme_cowplot(font_size = 9)
 print(p4)</code></pre>
 <p><img src="figure/loglik_purified_pbmc.Rmd/loglik-6-1.png" width="780" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loglik-6-1">
+Past versions of loglik-6-1.png
+</button>
+</p>
+<div id="fig-loglik-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6619bbd966337c47d517310253f0d19dd95c453d/docs/figure/loglik_purified_pbmc.Rmd/loglik-6-1.png" target="_blank">6619bbd</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-04
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
