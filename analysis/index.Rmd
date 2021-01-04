@@ -19,8 +19,8 @@ data sets for topic modeling analysis.
 
 + [Pulse-seq](prepare_pulseseq.html)
 
-Assess Poisson NM model fits
-----------------------------
+Assess Poisson NMF model fits
+-----------------------------
 
 In these pages, we compare the quality of the Poisson NMF fits with
 different updates (EM, CCD, SCD, with and without extrapolation), and
@@ -64,7 +64,9 @@ expression analysis using the topic model.
 Examine single-cell likelihoods
 -------------------------------
 
-*Add description here.*
+In these pages, we calculate single-cell likelihoods to assess how
+well the multinomial topic model captures expression in different
+cells and cell types.
 
 + [Mixture of FACS-purified PBMCs](loglik_purified_pbmc.html)
 
