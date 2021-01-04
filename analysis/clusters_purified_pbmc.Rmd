@@ -4,8 +4,8 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-Here we perform PCA on the topic proportions to identify clusters in
-the mixture of FACS-purified PBMC data sets.
+Here we identify clusters of cells from the mixture proportions
+estimated in the mixture of FACS-purified PBMC data.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -18,17 +18,15 @@ functions that we will use to generate some of the plots.
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(fastTopics)
-library(Rtsne)
-library(uwot)
 library(ggplot2)
 library(cowplot)
-source("../code/plots.R")
 ```
 
 Load the count data.
 
 ```{r load-data}
 load("../data/pbmc_purified.RData")
+table(samples$celltype)
 ```
 
 Load the $K = 6$ Poisson NMF model fit.
@@ -39,10 +37,7 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 ```
 
-Identify clusters from principal components
--------------------------------------------
-
-From the PCs of the topic proportions, we define clusters for B-cells,
+From the PCs of the mixture proportions, we define clusters for B cells,
 CD14+ cells and CD34+ cells. The remaining cells are assigned to the U
 cluster ("U" for "unknown").
 
@@ -61,7 +56,7 @@ x[(pc4 + 0.1)^2 + (pc5 - 0.8)^2 < 0.07] <- "CD14+"
 ```
 
 Next, we define clusters for NK cells and dendritic cells from the top
-2 PCs of the topic proportions in the U cluster.
+2 PCs of the mixture proportions in the U cluster.
 
 ```{r clustering-2}
 rows <- which(x == "U")
@@ -80,7 +75,7 @@ x[rows] <- y
 
 Among the remaining cells, we define a cluster for CD8+ cells, noting
 that this is much less distinct than the other cells. The rest are
-labeled as T-cells.
+labeled as T cells.
 
 ```{r clustering-3}
 rows <- which(x == "U")
@@ -94,18 +89,24 @@ y[pc1 < 0.25 & pc2 < -0.15] <- "CD8+"
 x[rows] <- y
 ```
 
-In summary, we have subdivided the cells into 7 subsets. This plot
+In summary, we have subdivided the cells into 7 subsets:
+
+```{r clustering-4}
+samples$cluster <- factor(x)
+table(samples$cluster)
+```
+
+This plot
 shows the clustering of the cells projected onto the top two PCs:
 
-```{r clustering-4, fig.width=7.5, fig.height=3, message=FALSE}
-cluster_colors <- c("dodgerblue",  # B-cells
+```{r clustering-5, fig.width=7.5, fig.height=2.75, message=FALSE}
+cluster_colors <- c("dodgerblue",  # B cells
                     "forestgreen", # CD14+
 					"darkmagenta", # CD34+ 
                     "red",         # CD8+
 					"skyblue",     # dendritic
 					"gray",        # NK
-					"darkorange")  # T-cells
-samples$cluster <- factor(x)
+					"darkorange")  # T cells
 p1 <- pca_plot(fit,fill = samples$cluster) +
   scale_fill_manual(values = cluster_colors) +
   labs(fill = "cluster")
@@ -113,28 +114,23 @@ p2 <- pca_hexbin_plot(fit)
 plot_grid(p1,p2,rel_widths = c(10,11))
 ```
 
-```{r pca-plots-for-paper-1, echo=FALSE}
-ggsave("pca_clusters_pbmc_purified.png",p1,height = 4,width = 5,dpi = 450)
-ggsave("pca_hexbin_pbmc_purified.eps",p2,height = 3,width = 4)
-```
-
 This clustering corresponds well to the Zheng *et al* (2017) FACS cell
 populations, although there are some differences.
 
-```{r clustering-5}
+```{r clustering-6}
 with(samples,table(celltype,cluster))
 ```
 
-This good correspondence is also apparent when we layer the FACS cell
-population labels on the PCA plots:
+Compare the FACS subpopulations projected onto the top two PCs with
+the clustering in the PCA plot above:
 
-```{r clustering-6, fig.width=4.25, fig.height=3, message=FALSE}
-facs_colors <- c("dodgerblue",  # B-cells
+```{r clustering-7, fig.width=4.5, fig.height=3, message=FALSE}
+facs_colors <- c("dodgerblue",  # B cells
                  "forestgreen", # CD14+
                  "darkmagenta", # CD34+
                  "gray",        # NK cells
-                 "tomato",      # cytotoxic T-cells
-                 "gold")        # T-cells
+                 "tomato",      # cytotoxic T cells
+                 "gold")        # T cells
 x <- as.character(samples$celltype)
 x[x == "CD4+ T Helper2" | x == "CD4+/CD45RO+ Memory" |
   x == "CD8+/CD45RA+ Naive Cytotoxic" | x == "CD4+/CD45RA+/CD25- Naive T" | 
@@ -146,83 +142,19 @@ p3 <- pca_plot(fit,fill = x) +
 print(p3)
 ```
 
-This PCA plot highlights the FACS mis-labeling of the CD34+ cells:
-
-```{r clustering-7, fig.width=4.5, fig.height=3, message=FALSE}
-rows <- which(with(samples,
-                   cluster == "B" |
-                   cluster == "CD14+" |
-                   cluster == "CD34+" |
-				   cluster == "dendritic"))
-p4 <- pca_plot(select_loadings(fit,loadings = rows),
-               fill = x[rows,drop = FALSE]) +
-  scale_fill_manual(values = facs_colors,drop = FALSE) +
-  labs(fill = "FACS subpopulation")
-print(p4)
+```{r pca-plots-for-paper, echo=FALSE}
+ggsave("../plots/pca_clusters_pbmc_purified.png",
+       p1,height = 4,width = 5,dpi = 450)
+ggsave("../plots/pca_hexbin_pbmc_purified.eps",
+	   p2,height = 3,width = 4)
+ggsave("../plots/pca_facs_pbmc_purified.png",
+       p3,height = 4,width = 5.5,dpi = 450)
 ```
 
-```{r pca-plots-for-paper-2, echo=FALSE}
-ggsave("pca_facs_pbmc_purified.png",p3,height = 3,width = 4.25,dpi = 300)
-ggsave("pca_cd34_pbmc_purified.png",p4,height = 3,width = 4.25,dpi = 300)
-```
+The continuous variation in T cells captured by topics 1 and 6 
+suggests CD4+/CD8+ lineage differentiation in T cells:
 
-To further drive home this connection, here we layer the PCA plots
-with expression of cell-type-specific genes, such as *CD79A* for
-B-cells:
-
-```{r pca-plots-with-expression, width=8, height=6}
-pca_ggplot_call <- function (dat, pcs, fill.type, fill.label)
-  ggplot(dat,aes_string(x = pcs[1],y = pcs[2],color = "y")) +
-    geom_point(shape = 20,size = 0.5) +
-    labs(x = pcs[1],y = pcs[2],fill = fill.label) +
-    scale_color_gradientn(na.value = "skyblue",
-	                      colors=c("skyblue","gold","darkorange","magenta")) +
-    theme_cowplot(font_size = 8) +
-    theme(plot.title = element_text(size = 8,face = "plain"))
-x   <- counts[,"ENSG00000105369"]
-p5a <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "CD79A (B-cells)",color = "log10(count)")
-x   <- counts[,"ENSG00000163220"]
-p5b <- pca_plot(select_loadings(fit,loadings = order(x)),
- 	            fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "S100A9 (CD14+)",color = "log10(count)")
-x   <- counts[,"ENSG00000174059"]
-p5c <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "CD34 (CD34+)",color = "log10(count)")
-x   <- counts[,"ENSG00000197992"]
-p5d <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "CLEC9A (dendritic)",color = "log10(count)")
-x   <- counts[,"ENSG00000105374"]
-p5e <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "NKG7 (NK)",color = "log10(count)")
-x    <- counts[,"ENSG00000167286"]
-p5f <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "CD3D (T-cells)",color = "log10(count)")
-x   <- counts[,"ENSG00000153563"]
-p5g <- pca_plot(select_loadings(fit,loadings = order(x)),
-                fill = log10(sort(x)),ggplot_call = pca_ggplot_call) +
-       labs(title = "CD8A (CD8+ cells)",color = "log10(count)")
-plot_grid(p5a,p5b,p5c,
-          p5d,p5e,p5f,
-          p5g,
-		  nrow = 3,ncol = 3)
-```
-
-```{r pca-expression-plots-for-paper, echo=FALSE}
-ggsave("pca_expression_pbmc_purified.png",
-       plot_grid(p5a,p5b,p5c,p5d,p5e,p5f,p5g,nrow = 3,ncol = 3),
-       height = 6,width = 8,dpi = 300)
-```
-
-The continuous variation in T-cells captured by topics 1 and 6 
-suggests CD4+/CD8+ lineage differentiation in T-cells:
-
-```{r loadings-plot-t-cells, fig.width=2.5, fig.height=3.5}
+```{r loadings-plot-t, fig.width=2.5, fig.height=3.5}
 x  <- samples$celltype
 i  <- names(sort(tapply(fit$L[,1],x,mean)))
 x  <- factor(as.character(x),i)
@@ -230,78 +162,16 @@ rows <- which(with(samples,!(celltype == "CD19+ B" |
                              celltype == "CD14+ Monocyte" |
                              celltype == "CD34+" |
 							 celltype == "CD56+ NK")))
-p6 <- loadings_plot(select_loadings(fit,loadings = rows),
+p4 <- loadings_plot(select_loadings(fit,loadings = rows),
                     x = x[rows],k = 1) +
       scale_y_continuous(limits = c(0,1)) +
-      labs(y = "topic 1 proportion",title = "")
-print(p6)
+      labs(y = "topic 1 mixture proportion",title = "")
+print(p4)
 ```
 
 ```{r loadings-plot-for-paper, echo=FALSE}
-ggsave("loadings_plot_pbmc_purified.eps",p6,width = 2.5,height = 3.5)
-```
-
-Structure plot
---------------
-
-The structure plot summarizes the topic proportions in each of the 7
-subsets:
-
-```{r structure-plot, fig.width=8, fig.height=1.5}
-set.seed(1)
-topic_colors <- c("gold","forestgreen","dodgerblue","gray",
-                  "darkmagenta","violet")
-topics <- c(5,3,2,4,1,6)
-rows <- sort(c(sample(which(samples$cluster == "B"),1000),
-               sample(which(samples$cluster == "CD14+"),300),
-               sample(which(samples$cluster == "CD34+"),500),
-               sample(which(samples$cluster == "CD8+"),400),
-               sample(which(samples$cluster == "NK"),500),
-               sample(which(samples$cluster == "T"),1000),
-			   which(samples$cluster == "dendritic")))
-x  <- samples[rows,"cluster"]
-x  <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
-p7 <- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = x,topics = topics,
-                     colors = topic_colors[topics],
-   	  			     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
-					 num_threads = 4,verbose = FALSE)
-print(p7)
-```
-
-```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
-set.seed(1)
-fit1 <- select_loadings(fit,loadings = rows[x == "B"])
-fit2 <- select_loadings(fit,loadings = rows[x == "CD14+"])
-fit3 <- select_loadings(fit,loadings = rows[x == "CD34+"])
-fit4 <- select_loadings(fit,loadings = rows[x == "dendritic"])
-fit5 <- select_loadings(fit,loadings = rows[x == "NK"])
-fit6 <- select_loadings(fit,loadings = rows[x == "CD8+"])
-fit7 <- select_loadings(fit,loadings = rows[x == "T"])
-k1   <- order(colMeans(fit1$L))
-k2   <- order(colMeans(fit2$L))
-k3   <- order(colMeans(fit3$L))
-k4   <- order(colMeans(fit4$L))
-k5   <- order(colMeans(fit5$L))
-k6   <- order(colMeans(fit6$L))
-k7   <- order(colMeans(fit7$L))
-pp1  <- structure_plot(fit1,topics = k1,colors = topic_colors[k1],
-                       perplexity = 70,num_threads = 4) + ggtitle("B-cells")
-pp2  <- structure_plot(fit2,topics = k2,colors = topic_colors[k2],
-	   				   perplexity = 30,num_threads = 4) + ggtitle("CD14+")
-pp3  <- structure_plot(fit3,topics = k3,colors = topic_colors[k3],
-	   				   perplexity = 30,num_threads = 4) + ggtitle("CD34+")
-pp4  <- structure_plot(fit4,topics = k4,colors = topic_colors[k4],
-	   				   perplexity = 30,num_threads = 4) + ggtitle("dendritic")
-pp5  <- structure_plot(fit5,topics = k5,colors = topic_colors[k5],
-	   				   perplexity = 30,num_threads = 4) + ggtitle("NK")
-pp6  <- structure_plot(fit6,topics = k6,colors = topic_colors[k6],
-	   				   perplexity = 30,num_threads = 4) + ggtitle("CD8+")
-pp7  <- structure_plot(fit7,topics = k7,colors = topic_colors[k7],
-	   				   perplexity = 70,num_threads = 4) + ggtitle("T")
-ggsave("plots/structure_plot_pbmc_purified.eps",
-       plot_grid(pp1,pp2,pp3,pp4,pp5,pp6,pp7,nrow = 2,ncol = 4),
-       height = 3,width = 12)
+ggsave("../plots/loadings_plot_pbmc_purified.eps",
+       p4,width = 2.5,height = 3.5)
 ```
 
 Save results
@@ -312,3 +182,67 @@ Save the clustering of the PBMC data to an RDS file.
 ```{r save-results}
 saveRDS(samples,"clustering-pbmc-purified.rds")
 ```
+
+Structure plot
+--------------
+
+The Structure plot summarizes the mixture proportions in each of the 7
+clusters:
+
+```{r structure-plot, fig.width=8, fig.height=1.5}
+set.seed(1)
+topic_colors <- c("gold","forestgreen","dodgerblue","gray",
+                  "darkmagenta","violet")
+topics <- c(5,3,2,4,1,6)
+x    <- samples$cluster
+rows <- sort(c(sample(which(x == "B"),1000),
+               sample(which(x == "CD14+"),300),
+               sample(which(x == "CD34+"),500),
+               sample(which(x == "CD8+"),400),
+               sample(which(x == "NK"),500),
+               sample(which(x == "T"),1000),
+			   which(samples$cluster == "dendritic")))
+x  <- x[rows]
+x  <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
+p5 <- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = x,topics = topics,
+                     colors = topic_colors[topics],
+   	  			     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
+					 num_threads = 4,verbose = FALSE)
+print(p5)
+```
+
+This Structure plot summarizes the correspondence between the topics
+and the FACS cell populations. It shows the FACS mislabeling of the
+CD34+ cells.
+
+```{r structure-plot-2, fig.width=8, fig.height=1.5}
+set.seed(1)
+x <- as.character(samples$celltype)
+x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
+x[x == "CD8+ Cytotoxic T"] <- "T cell"
+x[x == "CD4+/CD45RO+ Memory"] <- "T cell"
+x[x == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
+x[x == "CD4+ T Helper2"] <- "T cell"
+x[x == "CD4+/CD25 T Reg"] <- "T cell"
+x <- factor(x,c("CD19+ B","CD14+ Monocyte","CD34+","CD56+ NK","T cell"))
+rows <- sort(c(sample(which(x == "CD19+ B"),500),
+               sample(which(x == "CD14+ Monocyte"),250),
+               sample(which(x == "CD34+"),500),
+               sample(which(x == "CD56+ NK"),400),
+               sample(which(x == "T cell"),1000)))
+x <- x[rows]
+p6 <- structure_plot(select_loadings(fit,loadings = rows),grouping = x,
+                     topics = topics,colors = topic_colors[topics],
+   	  			     perplexity = c(70,30,30,70,70),n = Inf,gap = 30,
+					 num_threads = 4,verbose = FALSE)
+print(p6)
+```
+
+```{r structure-plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
+ggsave("../plots/structure_plot_clusters_pbmc_purified.eps",
+       p5,height = 1.5,width = 8)
+ggsave("../plots/structure_plot_facs_pbmc_purified.eps",
+	   p6,height = 1.5,width = 8)
+```
+
