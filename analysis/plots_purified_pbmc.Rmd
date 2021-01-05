@@ -48,7 +48,7 @@ x[x == "CD4+ T Helper2"] <- "T cell"
 x[x == "CD4+/CD25 T Reg"] <- "T cell"
 x <- factor(x)
 timing <- system.time(
-  diff_count_subpop <- diff_count_clusters(x,counts))
+  diff_count_facs <- diff_count_clusters(x,counts))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
@@ -102,49 +102,41 @@ i <- which(pdat2$beta >= 10)
 n <- length(i)
 pdat2$beta[i] <- pdat2$beta[i] + runif(n)
 p1 <- volcano_plot(pdat,"k3",genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("topic 3 (B cells)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p2 <- volcano_plot(pdat,"k4",genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("topic 4 (NK)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p3 <- volcano_plot(pdat,"k2",genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("topic 2 (CD14+)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p4 <- volcano_plot(pdat,"k5",genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("topic 5 (CD34+)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p5 <- volcano_plot(pdat,"k1+k6",genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("topics 1 + 6 (T cells)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p6 <- volcano_plot(pdat2,1,genes$symbol,betamax = 11,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.995) +
   guides(fill = "none") +
   ggtitle("topic 1 (CD4+/CD8+)") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p7 <- volcano_plot(diff_count_clusters,"CD8+",genes$symbol,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.998) +
   guides(fill = "none") +
   ggtitle("CD8+ cluster") +
   theme(plot.title = element_text(size = 9,face = "plain"))
 p8 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,
-                   subsample_below_quantile = 0.75,
                    label_above_quantile = 0.997) +
   guides(fill = "none") +
   ggtitle("dendritic cluster") +
@@ -152,5 +144,24 @@ p8 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,
 plot_grid(p1,p2,p3,p4,p5,p6,p7,p8,nrow = 3,ncol = 3)
 ```
 
-TO DO: Show log-fold change (beta) in topics vs. FACS subpopulations
+*Add text here.*
+
+```{r topics-vs-facs}
+rows <- which(abs(diff_count_facs$Z[,"CD19+ B"]) > 6 |
+              abs(diff_count_topics$Z[,"k3"]) > 6)
+pdat <- data.frame(x = diff_count_facs$beta[rows,"CD19+ B"],
+                   y = diff_count_topics$beta[rows,"k3"])
+pdat$x <- pmax(pdat$x,-10)
+pdat$y <- pmax(pdat$y,-10)
+p9 <- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point(shape = 21,color = "white",fill = "dodgerblue") +
+  geom_abline(slope = 1,intercept = 0,color = "black",linetype = "dotted") +
+  theme_cowplot(font_size = 9)
+```
+
+TO DO:
+
++ Show log-fold change (beta) in topics vs. FACS subpopulations
 for B cells, T cells, NK cells, CD14+ and CD34+.
+
++ Save images to files.
