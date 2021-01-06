@@ -77,13 +77,13 @@ p2 <- ggplot(pdat,aes(x = loglik)) +
 print(p2)
 ```
 
-*TO DO: Revise this text.*
-
 Here, we compare the single-cell likelihoods under the multinomial
-topic model against the likelihoods under a simple "hard clustering"
-model in which the cells in each FACS subpopulation share the same
-underlying pattern of expression. This serves as a sanity check, as we
-expect the fit to improve with the more flexible topic model.
+topic model against the likelihoods under a simple "clustering" model
+in which the underlying pattern of expression is estimated from all
+the cells in the FACS subpopulation. Thus, the predictions are based
+on 10 different expression patterms, one for each of the 10 FACS
+subpopulations. This serves partly as a "sanity check", as we expect
+the more flexible topic model to offer a better fit.
 
 ```{r loglik-4}
 fit_subpop <- init_poisson_nmf_from_clustering(counts,samples$celltype)
@@ -127,6 +127,12 @@ p4 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   theme_cowplot(font_size = 9)
 print(p4)
 ```
+
+It is interesting that the topic model almost always provides a better
+fit for the T cells considering that the simple "clustering" model
+estimates a different expression pattern for each T cell subtype
+(e.g., naive T cells), whereas the topic model does not reach this
+level of granularity in the T cells.
 
 ```{r save-plots, echo=FALSE, results="hide"}
 ggsave("../plots/loglik_histogram_pbmc_purified.eps",
