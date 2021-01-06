@@ -52,8 +52,8 @@ Visualize and annotate topics
 -----------------------------
 
 In these pages, we annotate topics and substructures to determine
-their biological relevance. This includes performing a differential
-expression analysis using the topic model.
+their biological relevance. This includes differential expression
+analysis using the topic model.
 
 + [Mixture of FACS-purified PBMCs](plots_purified_pbmc.html)
 
