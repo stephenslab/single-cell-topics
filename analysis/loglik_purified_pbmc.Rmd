@@ -56,11 +56,11 @@ Combine the T-cell subpopulations into one category:
 ```{r combine-facs-subpop}
 celltype <- as.character(samples$celltype)
 celltype[celltype == "CD14+ Monocyte"] <- "CD14+"
-celltype[celltype == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
-celltype[celltype == "CD4+/CD45RO+ Memory"] <- "T cell"
-celltype[celltype == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
-celltype[celltype == "CD4+ T Helper2"] <- "T cell"
-celltype[celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype[celltype == "CD4+/CD45RA+/CD25- Naive T" |
+         celltype == "CD4+/CD45RO+ Memory" |
+         celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
+         celltype == "CD4+ T Helper2" |
+         celltype == "CD4+/CD25 T Reg"] <- "T cell"
 celltype <- factor(celltype)
 ```
 
@@ -77,6 +77,8 @@ p2 <- ggplot(pdat,aes(x = loglik)) +
 print(p2)
 ```
 
+*TO DO: Revise this text.*
+
 Here, we compare the single-cell likelihoods under the multinomial
 topic model against the likelihoods under a simple "hard clustering"
 model in which the cells in each FACS subpopulation share the same
@@ -84,7 +86,7 @@ underlying pattern of expression. This serves as a sanity check, as we
 expect the fit to improve with the more flexible topic model.
 
 ```{r loglik-4}
-fit_subpop <- init_poisson_nmf_from_clustering(counts,celltype)
+fit_subpop <- init_poisson_nmf_from_clustering(counts,samples$celltype)
 fit_subpop <- poisson2multinom(fit_subpop)
 loglik_subpop <- loglik_multinom_topic_model(counts,fit_subpop)
 ```
