@@ -96,8 +96,8 @@ samples$cluster <- factor(x)
 table(samples$cluster)
 ```
 
-This plot
-shows the clustering of the cells projected onto the top two PCs:
+This plot shows the clustering of the cells projected onto the top two
+PCs:
 
 ```{r clustering-5, fig.width=7.5, fig.height=2.75, message=FALSE}
 cluster_colors <- c("dodgerblue",  # B cells
@@ -131,12 +131,14 @@ facs_colors <- c("forestgreen", # CD14+
                  "gray",        # NK cells
                  "tomato",      # cytotoxic T cells
                  "gold")        # T cells
-x <- as.character(samples$celltype)
-x[x == "CD4+ T Helper2" | x == "CD4+/CD45RO+ Memory" |
-  x == "CD8+/CD45RA+ Naive Cytotoxic" | x == "CD4+/CD45RA+/CD25- Naive T" | 
-  x == "CD4+/CD45RA+/CD25- Naive T" | x == "CD4+/CD25 T Reg"] <- "T cell"
-x <- factor(x)
-p3 <- pca_plot(fit,fill = x) +
+celltype <- as.character(samples$celltype)
+celltype[celltype == "CD4+ T Helper2" |
+  celltype == "CD4+/CD45RO+ Memory" |
+  celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
+  celltype == "CD4+/CD45RA+/CD25- Naive T" | 
+  celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype <- factor(celltype)
+p3 <- pca_plot(fit,fill = celltype) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subpopulation")
 print(p3)
@@ -155,17 +157,16 @@ The continuous variation in T cells captured by topics 1 and 6
 suggests CD4+/CD8+ lineage differentiation in T cells:
 
 ```{r loadings-plot-t, fig.width=2.5, fig.height=3.5}
-x  <- samples$celltype
-i  <- names(sort(tapply(fit$L[,1],x,mean)))
-x  <- factor(as.character(x),i)
-rows <- which(with(samples,!(celltype == "CD19+ B" |
-                             celltype == "CD14+ Monocyte" |
-                             celltype == "CD34+" |
-							 celltype == "CD56+ NK")))
-p4 <- loadings_plot(select_loadings(fit,loadings = rows),
-                    x = x[rows],k = 1) +
-      scale_y_continuous(limits = c(0,1)) +
-      labs(y = "topic 1 mixture proportion",title = "")
+x    <- samples$celltype
+i    <- names(sort(tapply(fit$L[,1],x,mean)))
+x    <- factor(as.character(x),i)
+rows <- which(!(samples$celltype == "CD19+ B" |
+                samples$celltype == "CD14+ Monocyte" |
+                samples$celltype == "CD34+" |
+			    samples$celltype == "CD56+ NK"))
+p4 <- loadings_plot(select_loadings(fit,loadings = rows),x = x[rows],k = 1) +
+  scale_y_continuous(limits = c(0,1)) +
+  labs(y = "topic 1 mixture proportion",title = "")
 print(p4)
 ```
 
@@ -183,6 +184,7 @@ topic_colors <- c("gold","forestgreen","dodgerblue","gray",
                   "darkmagenta","violet")
 topics <- c(5,3,2,4,1,6)
 x    <- samples$cluster
+x    <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
 rows <- sort(c(sample(which(x == "B"),1000),
                sample(which(x == "CD14+"),300),
                sample(which(x == "CD34+"),500),
@@ -190,10 +192,8 @@ rows <- sort(c(sample(which(x == "B"),1000),
                sample(which(x == "NK"),500),
                sample(which(x == "T"),1000),
 			   which(samples$cluster == "dendritic")))
-x  <- x[rows]
-x  <- factor(x,c("B","CD14+","CD34+","dendritic","NK","CD8+","T"))
 p5 <- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = x,topics = topics,
+                     grouping = x[rows],topics = topics,
                      colors = topic_colors[topics],
    	  			     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
 					 num_threads = 4,verbose = FALSE)
@@ -206,23 +206,18 @@ CD34+ cells.
 
 ```{r structure-plot-2, fig.width=8, fig.height=1.8}
 set.seed(1)
-x <- as.character(samples$celltype)
-x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
-x[x == "CD8+ Cytotoxic T"] <- "T cell"
-x[x == "CD4+/CD45RO+ Memory"] <- "T cell"
-x[x == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
-x[x == "CD4+ T Helper2"] <- "T cell"
-x[x == "CD4+/CD25 T Reg"] <- "T cell"
-x <- factor(x,c("CD19+ B","CD14+ Monocyte","CD34+","CD56+ NK","T cell"))
-rows <- sort(c(sample(which(x == "CD19+ B"),500),
-               sample(which(x == "CD14+ Monocyte"),250),
-               sample(which(x == "CD34+"),500),
-               sample(which(x == "CD56+ NK"),400),
-               sample(which(x == "T cell"),1000)))
-x <- x[rows]
-p6 <- structure_plot(select_loadings(fit,loadings = rows),grouping = x,
+celltype <- factor(celltype,c("CD19+ B","CD14+ Monocyte","CD34+",
+                              "CD56+ NK","CD8+ Cytotoxic T","T cell"))
+rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
+               sample(which(celltype == "CD14+ Monocyte"),250),
+               sample(which(celltype == "CD34+"),500),
+               sample(which(celltype == "CD56+ NK"),400),
+			   sample(which(celltype == "CD8+ Cytotoxic T"),400),
+               sample(which(celltype == "T cell"),1000)))
+p6 <- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = celltype[rows],
                      topics = topics,colors = topic_colors[topics],
-   	  			     perplexity = c(70,30,30,70,70),n = Inf,gap = 30,
+   	  			     perplexity = c(70,30,30,30,30,70),n = Inf,gap = 30,
 					 num_threads = 4,verbose = FALSE)
 print(p6)
 ```
