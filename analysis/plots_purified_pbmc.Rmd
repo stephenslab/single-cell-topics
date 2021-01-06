@@ -1,5 +1,5 @@
 ---
-title: Visualize and interpret drops in in mixture of FACS-purified PBMC data
+title: Annotate topics and clusters in mixture of FACS-purified PBMC data
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -19,6 +19,7 @@ library(Matrix)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/functions_for_plots_purified_pbmc.R")
 ```
 
 Load the count data, the $K = 6$ topic model fit, and the 7 clusters
@@ -30,6 +31,11 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
 fit <- poisson2multinom(fit)
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
+```
+
+*Code used temporarily for testing:*
+
+```{r testing}
 rows <- sample(1:94655,9000)
 counts <- counts[rows,]
 samples <- samples[rows,]
@@ -39,16 +45,16 @@ fit <- select_loadings(fit,loadings = rows)
 Perform differential expression analysis using the FACS labeling.
 
 ```{r diff-count-analysis-subpop, cache=TRUE}
-x <- as.character(samples$celltype)
-x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
-x[x == "CD8+ Cytotoxic T"] <- "T cell"
-x[x == "CD4+/CD45RO+ Memory"] <- "T cell"
-x[x == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
-x[x == "CD4+ T Helper2"] <- "T cell"
-x[x == "CD4+/CD25 T Reg"] <- "T cell"
-x <- factor(x)
+celltype <- as.character(samples$celltype)
+celltype[celltype == "CD4+/CD45RA+/CD25- Naive T" |
+         celltype == "CD8+ Cytotoxic T" |
+         celltype == "CD4+/CD45RO+ Memory" |
+         celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
+         celltype == "CD4+ T Helper2" |
+         celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype <- factor(celltype)
 timing <- system.time(
-  diff_count_facs <- diff_count_clusters(x,counts))
+  diff_count_facs <- diff_count_clusters(celltype,counts))
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
@@ -61,9 +67,12 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
 Perform differential expression analysis using the multinomial topic
-model after merging the two T-cell topics.
+model, after removing the dendritic cells cluster, and after merging
+the two T-cell topics.
 
 ```{r diff-count-analysis-topics, cache=TRUE}
+rows <- which(samples$cluster != "dendritic")
+fit_merged <- select_loadings(fit,loadings = rows)
 fit_merged <- merge_topics(fit,c(1,6))
 timing <- system.time(
   diff_count_topics <- diff_count_analysis(fit_merged,counts))
@@ -82,71 +91,46 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 *Add text here.*
 
-```{r volcano-plots-1, fig.height=3, fig.width=4}
-pdat <- diff_count_topics
-i <- which(pdat$beta >= 10)
-n <- length(i)
-pdat$beta[i] <- pdat$beta[i] + runif(n)
-p1 <- volcano_plot(pdat,"k3",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  ggtitle("topic 3 (B cells)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
+```{r volcano-plots-1, fig.height=4, fig.width=5}
+p1 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
+                          "topic 3 (B cells)",show_legend = TRUE)
 print(p1)
 ```
 
 *Add text here.*
 
-```{r volcano-plots-2, fig.width=7, fig.height=7}
+```{r volcano-plots-2, fig.width=7, fig.height=8}
 pdat2 <- diff_count_t
 i <- which(pdat2$beta >= 10)
 n <- length(i)
 pdat2$beta[i] <- pdat2$beta[i] + runif(n)
-p1 <- volcano_plot(pdat,"k3",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("topic 3 (B cells)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p2 <- volcano_plot(pdat,"k4",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("topic 4 (NK)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p3 <- volcano_plot(pdat,"k2",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("topic 2 (CD14+)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p4 <- volcano_plot(pdat,"k5",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("topic 5 (CD34+)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p5 <- volcano_plot(pdat,"k1+k6",genes$symbol,betamax = 11,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("topics 1 + 6 (T cells)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p6 <- volcano_plot(pdat2,1,genes$symbol,betamax = 11,
-                   label_above_quantile = 0.995) +
-  guides(fill = "none") +
-  ggtitle("topic 1 (CD4+/CD8+)") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p7 <- volcano_plot(diff_count_clusters,"CD8+",genes$symbol,
-                   label_above_quantile = 0.998) +
-  guides(fill = "none") +
-  ggtitle("CD8+ cluster") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-p8 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,
-                   label_above_quantile = 0.997) +
-  guides(fill = "none") +
-  ggtitle("dendritic cluster") +
-  theme(plot.title = element_text(size = 9,face = "plain"))
-plot_grid(p1,p2,p3,p4,p5,p6,p7,p8,nrow = 3,ncol = 3)
+p2 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
+                          "topic 3 (B cells)")
+p3 <- volcano_plot_better(diff_count_topics,"k4",genes$symbol,0.998,
+                          "topic 4 (NK cells)")
+p4 <- volcano_plot_better(diff_count_topics,"k2",genes$symbol,0.998,
+                          "topic 2 (CD14+)")
+p5 <- volcano_plot_better(diff_count_topics,"k5",genes$symbol,0.998,
+                          "topic 5 (CD34+)")
+p6 <- volcano_plot_better(diff_count_topics,"k1+k6",genes$symbol,0.998,
+                          "topics 1 + 6 (T cells)")
+p7 <- volcano_plot_better(diff_count_t,"k1",genes$symbol,0.995,
+                          "topic 1 (CD4+/CD8+)")
+p8 <- volcano_plot_better(diff_count_clusters,"CD8+",genes$symbol,0.998,
+                          "CD8+ cluster") + xlim(-11,11)
+p9 <- volcano_plot_better(diff_count_clusters,"dendritic",genes$symbol,0.997,
+                          "dendritic cells cluster")
+plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
+```
+
+```{r volcano-plots-for-paper, echo=FALSE, results="hide", eval=FALSE}
+ggsave("../plots/volcano_plot_pbmc_purified_bcells.eps",
+       p2,height = 1.5,width = 8)
 ```
 
 *Add text here.*
 
-```{r topics-vs-facs}
+```{r topics-vs-facs-scatterplots, eval=FALSE}
 rows <- which(abs(diff_count_facs$Z[,"CD19+ B"]) > 6 |
               abs(diff_count_topics$Z[,"k3"]) > 6)
 pdat <- data.frame(x = diff_count_facs$beta[rows,"CD19+ B"],
@@ -165,3 +149,5 @@ TO DO:
 for B cells, T cells, NK cells, CD14+ and CD34+.
 
 + Save images to files.
+
++ Create interactive volcano plots.
