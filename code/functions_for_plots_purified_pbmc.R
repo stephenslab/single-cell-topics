@@ -16,11 +16,19 @@ volcano_plot_better <- function (diff_count_res, k, labels,
   return(out)
 }
 
-# TO DO: Explain here what this function does, and how to use it.
+# Create a scatterplot comparing two sets of log-fold change
+# statistics (beta). Estimates of beta are not used if both z-scores
+# are less than zmin in magnitude. Data points in which the z-scores
+# from the second set of results (res2) exceeding the specified
+# quantile (label_above_quantile) are labeled.
+#
+# Additional details: beta estimates less than -10 are set to -10;
+# beta estimates 10 or greater are randomly sampled to be between 10
+# and 11 to better visualize the many data points with large log-fold
+# change values.
 lfc_scatterplot <- function (res1, res2, k1, k2, labels, zmin = 6,
                              label_above_quantile = 0.995,
                              xlab = "", ylab = "") {
-  z1  <- abs(res1$Z[,k1])
   z2  <- abs(res2$Z[,k2])
   z0  <- quantile(z2,label_above_quantile)
   dat <- data.frame(label = labels,
@@ -35,7 +43,7 @@ lfc_scatterplot <- function (res1, res2, k1, k2, labels, zmin = 6,
   dat$x[i] <- dat$x[i] + runif(length(i))
   i        <- which(dat$y >= 9.9)
   dat$y[i] <- dat$y[i] + runif(length(i))
-  dat$label[abs(z1) < z0 & abs(z2) < z0] <- ""
+  dat$label[abs(z2) < z0] <- ""
   rows <- which(abs(res1$Z[,k1]) > zmin |
                 abs(res2$Z[,k2]) > zmin)
   dat <- dat[rows,]
