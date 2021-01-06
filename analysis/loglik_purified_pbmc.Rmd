@@ -51,18 +51,23 @@ p1 <- ggplot(pdat,aes(loglik)) +
 print(p1)
 ```
 
+Combine the T-cell subpopulations into one category:
+
+```{r combine-facs-subpop}
+celltype <- as.character(samples$celltype)
+celltype[celltype == "CD14+ Monocyte"] <- "CD14+"
+celltype[celltype == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
+celltype[celltype == "CD4+/CD45RO+ Memory"] <- "T cell"
+celltype[celltype == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
+celltype[celltype == "CD4+ T Helper2"] <- "T cell"
+celltype[celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype <- factor(celltype)
+```
+
 Most of the poorly fit cells are in the CD34+ subpopulation:
 
 ```{r loglik-3, fig.height=4, fig.width=6}
-x <- as.character(samples$celltype)
-x[x == "CD14+ Monocyte"] <- "CD14+"
-x[x == "CD4+/CD45RA+/CD25- Naive T"] <- "T cell"
-x[x == "CD4+/CD45RO+ Memory"] <- "T cell"
-x[x == "CD8+/CD45RA+ Naive Cytotoxic"] <- "T cell"
-x[x == "CD4+ T Helper2"] <- "T cell"
-x[x == "CD4+/CD25 T Reg"] <- "T cell"
-x <- factor(x)
-pdat <- data.frame(loglik = loglik,celltype = x)
+pdat <- data.frame(loglik = loglik,celltype = celltype)
 p2 <- ggplot(pdat,aes(x = loglik)) +
   geom_histogram(bins = 64,color = "white",fill = "black") +
   facet_wrap(vars(celltype),scales = "free_y",ncol = 2) +
@@ -79,7 +84,7 @@ underlying pattern of expression. This serves as a sanity check, as we
 expect the fit to improve with the more flexible topic model.
 
 ```{r loglik-4}
-fit_subpop <- init_poisson_nmf_from_clustering(counts,x)
+fit_subpop <- init_poisson_nmf_from_clustering(counts,celltype)
 fit_subpop <- poisson2multinom(fit_subpop)
 loglik_subpop <- loglik_multinom_topic_model(counts,fit_subpop)
 ```
@@ -93,7 +98,7 @@ facs_colors <- c("dodgerblue",  # B cells
                  "gray",        # NK cells
                  "tomato",      # cytotoxic T cells
                  "gold")        # T cells
-pdat <- data.frame(x = loglik_subpop,y = loglik,celltype = x)
+pdat <- data.frame(x = loglik_subpop,y = loglik,celltype = celltype)
 p3 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
