@@ -18,6 +18,7 @@ functions that we will use to generate some of the plots.
 library(Matrix)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
 source("../code/functions_for_plots_purified_pbmc.R")
 ```
@@ -100,10 +101,6 @@ print(p1)
 *Add text here.*
 
 ```{r volcano-plots-2, fig.width=7, fig.height=8}
-pdat2 <- diff_count_t
-i <- which(pdat2$beta >= 10)
-n <- length(i)
-pdat2$beta[i] <- pdat2$beta[i] + runif(n)
 p2 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
                           "topic 3 (B cells)")
 p3 <- volcano_plot_better(diff_count_topics,"k4",genes$symbol,0.998,
@@ -147,22 +144,28 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
 *Add text here.*
 
 ```{r topics-vs-facs-scatterplots, eval=FALSE}
-rows <- which(abs(diff_count_facs$Z[,"CD19+ B"]) > 6 |
-              abs(diff_count_topics$Z[,"k3"]) > 6)
-pdat <- data.frame(x = diff_count_facs$beta[rows,"CD19+ B"],
-                   y = diff_count_topics$beta[rows,"k3"])
-pdat$x <- pmax(pdat$x,-10)
-pdat$y <- pmax(pdat$y,-10)
-p9 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_point(shape = 21,color = "white",fill = "dodgerblue") +
-  geom_abline(slope = 1,intercept = 0,color = "black",linetype = "dotted") +
-  theme_cowplot(font_size = 9)
+p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
+                       genes$symbol,label_above_quantile = 0.998,
+                       xlab = "B cells FACS subpopulation",ylab = "topic 3")
+p11 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD56+ NK","k4",
+                       genes$symbol,label_above_quantile = 0.998,
+                       xlab = "NK cells FACS subpopulation",ylab = "topic 4")
+p12 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD14+ Monocyte","k2",
+                       genes$symbol,label_above_quantile = 0.998,
+                       xlab = "CD14+ FACS subpopulation",ylab = "topic 2")
+p13 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD34+","k5",
+                       genes$symbol,label_above_quantile = 0.998,
+                       xlab = "CD34+ FACS subpopulation",ylab = "topic 4")
+p14 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"T cell","k1+k6",
+                       genes$symbol,label_above_quantile = 0.998,
+                       xlab = "T cells FACS subpopulation",
+					   ylab = "topics 1 + 6")
 ```
 
 TO DO:
 
 + Show log-fold change (beta) in topics vs. FACS subpopulations
-for B cells, T cells, NK cells, CD14+ and CD34+.
+for T cells, CD14+ and CD34+.
 
 + Save images to files.
 
