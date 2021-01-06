@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Annotate topics and clusters in mixture of FACS-purified PBMC data</title>
+<title>Perform differential expression analysis on topics and clusters identified in mixture of FACS-purified PBMC data</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Annotate topics and clusters in mixture of FACS-purified PBMC data</h1>
+<h1 class="title toc-ignore">Perform differential expression analysis on topics and clusters identified in mixture of FACS-purified PBMC data</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -426,22 +426,23 @@ diff-count-analysis-topics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee16bf807a27c4d858072cea35cd6104b204063d7targetblanke16bf80a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e16bf807a27c4d858072cea35cd6104b204063d7" target="_blank">e16bf80</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeed8a595759596561c82916b2e9dbab5fea522b1dtargetblanked8a595a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ed8a595759596561c82916b2e9dbab5fea522b1d" target="_blank">ed8a595</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee16bf807a27c4d858072cea35cd6104b204063d7targetblanke16bf80a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeed8a595759596561c82916b2e9dbab5fea522b1dtargetblanked8a595a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e16bf807a27c4d858072cea35cd6104b204063d7" target="_blank">e16bf80</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ed8a595759596561c82916b2e9dbab5fea522b1d" target="_blank">ed8a595</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -460,11 +461,14 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/plots_purified_pbmc_cache/
+    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_nk_files/
     Untracked:  plots/
 
 Unstaged changes:
+    Modified:   analysis/index.Rmd
     Modified:   analysis/loglik_purified_pbmc.Rmd
-    Modified:   code/functions_for_plots_purified_pbmc.R
 
 </code></pre>
 <p>
@@ -503,6 +507,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ed8a595759596561c82916b2e9dbab5fea522b1d/analysis/plots_purified_pbmc.Rmd" target="_blank">ed8a595</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/04113408c52e484a058dfa1525a28dfb9f86d646/docs/plots_purified_pbmc.html" target="_blank">0411340</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+<td>
+Added scatterplots to plots_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -629,7 +667,7 @@ Working on volcano plots in plots_purified_pbmc analysis.
 </div>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>Here we perform a differential expression analysis using the topic model fit to the mixture of FACS-purified data, as well as the clusters identified from this topic model.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
@@ -643,12 +681,7 @@ fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)
 samples &lt;- readRDS(&quot;../output/pbmc-purified/clustering-pbmc-purified.rds&quot;)</code></pre>
-<p><em>Code used temporarily for testing:</em></p>
-<pre class="r"><code>rows &lt;- sample(1:94655,9000)
-counts &lt;- counts[rows,]
-samples &lt;- samples[rows,]
-fit &lt;- select_loadings(fit,loadings = rows)</code></pre>
-<p>Perform differential expression analysis using the FACS labeling.</p>
+<p>Perform differential expression analysis using the FACS labeling:</p>
 <pre class="r"><code>celltype &lt;- as.character(samples$celltype)
 celltype[celltype == &quot;CD4+/CD45RA+/CD25- Naive T&quot; |
          celltype == &quot;CD8+ Cytotoxic T&quot; |
@@ -669,7 +702,7 @@ cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&q
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Perform differential expression analysis using the clusters.</p>
+<p>Perform differential expression analysis using the clusters:</p>
 <pre class="r"><code>timing &lt;- system.time(
   diff_count_clusters &lt;- diff_count_clusters(samples$cluster,counts))
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
@@ -682,7 +715,7 @@ cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&q
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Perform differential expression analysis using the multinomial topic model, after removing the dendritic cells cluster, and after merging the two T-cell topics.</p>
+<p>Perform differential expression analysis using the multinomial topic model, after removing the dendritic cells cluster, and after merging the two T-cell topics:</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster != &quot;dendritic&quot;)
 fit_merged &lt;- select_loadings(fit,loadings = rows)
 fit_merged &lt;- merge_topics(fit,c(1,6))
@@ -698,7 +731,7 @@ cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&q
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Perform differential expression analysis on the T cells only.</p>
+<p>Perform differential expression analysis on the T cells only:</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster == &quot;T&quot;)
 fit_t &lt;- select_loadings(fit,loadings = rows)
 timing &lt;- system.time(
@@ -706,8 +739,8 @@ timing &lt;- system.time(
 cat(sprintf(&quot;Computation took %0.2f seconds.\n&quot;,timing[&quot;elapsed&quot;]))
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
-# Computation took 7.02 seconds.</code></pre>
-<p><em>Add text here.</em></p>
+# Computation took 100.58 seconds.</code></pre>
+<p>Having completed the differential expression calculations, as an example, we visualize the differential expression results for topic 3 (“B cells”) using a volcano plot:</p>
 <pre class="r"><code>p1 &lt;- volcano_plot_better(diff_count_topics,&quot;k3&quot;,genes$symbol,0.998,
                           &quot;topic 3 (B cells)&quot;,show_legend = TRUE)
 print(p1)</code></pre>
@@ -736,6 +769,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/04113408c52e484a058dfa1525a28dfb9f86d646/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">0411340</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/fad8e3d9888206e882551f96333364e6203b6599/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">fad8e3d</a>
 </td>
 <td>
@@ -749,7 +793,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>Here are more volcano plots:</p>
 <pre class="r"><code>p2 &lt;- volcano_plot_better(diff_count_topics,&quot;k3&quot;,genes$symbol,0.998,
                           &quot;topic 3 (B cells)&quot;)
 p3 &lt;- volcano_plot_better(diff_count_topics,&quot;k4&quot;,genes$symbol,0.998,
@@ -792,6 +836,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/04113408c52e484a058dfa1525a28dfb9f86d646/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">0411340</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/fad8e3d9888206e882551f96333364e6203b6599/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">fad8e3d</a>
 </td>
 <td>
@@ -805,7 +860,37 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>The results of the differential expression analyses can also be browsed in interactive volcano plots:</p>
+<pre class="r"><code>volcano_plotly(diff_count_topics,&quot;k3&quot;,&quot;volcano_plot_purified_pbmc_bcells.html&quot;,
+               genes$symbol,title = &quot;topic 3 (B cells)&quot;)
+volcano_plotly(diff_count_topics,&quot;k4&quot;,&quot;volcano_plot_purified_pbmc_nk.html&quot;,
+               genes$symbol,title = &quot;topic 4 (NK cells)&quot;)
+volcano_plotly(diff_count_topics,&quot;k2&quot;,&quot;volcano_plot_purified_pbmc_cd14.html&quot;,
+               genes$symbol,title = &quot;topic 2 (CD14+)&quot;)
+volcano_plotly(diff_count_topics,&quot;k5&quot;,&quot;volcano_plot_purified_pbmc_cd34.html&quot;,
+               genes$symbol,title = &quot;topic 5 (CD34+)&quot;)
+volcano_plotly(diff_count_topics,&quot;k1+k6&quot;,
+               &quot;volcano_plot_purified_pbmc_tcells.html&quot;,genes$symbol,
+               title = &quot;topics 1 + 6 (T cells)&quot;)
+volcano_plotly(diff_count_t,&quot;k1&quot;,&quot;volcano_plot_purified_pbmc_cd4cd8.html&quot;,
+               genes$symbol,title = &quot;topic 1 (CD4+/CD8+)&quot;)
+volcano_plotly(diff_count_clusters,&quot;CD8+&quot;,
+               &quot;volcano_plot_purified_pbmc_cd8.html&quot;,genes$symbol,
+               title = &quot;CD8+ cluster&quot;)
+volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
+               &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,genes$symbol,
+               title = &quot;dendritic cells cluster&quot;)</code></pre>
+<p>The interactive volcano plots can also be viewed by clicking on these links:</p>
+<ul>
+<li><p><a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_tcells.html">topics 1 and 6 (T cells)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_cd4cd8.html">topic 1 (CD4+/CD8+ lineage differentiation)</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a></p></li>
+<li><p><a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a></p></li>
+</ul>
 <pre class="r"><code>p10 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;CD19+ B&quot;,&quot;k3&quot;,
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = &quot;B cells FACS subpopulation&quot;,ylab = &quot;topic 3&quot;)
@@ -823,12 +908,44 @@ p14 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;T cell&quot;,&
                        xlab = &quot;T cells FACS subpopulation&quot;,
                        ylab = &quot;topics 1 + 6&quot;)
 plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)</code></pre>
-<p><img src="figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-1.png" width="780" style="display: block; margin: auto;" /></p>
-<p>TO DO:</p>
-<ul>
-<li><p>Save images to files.</p></li>
-<li><p>Create interactive volcano plots.</p></li>
-</ul>
+<p><img src="figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-topics-vs-facs-scatterplots-1">
+Past versions of topics-vs-facs-scatterplots-1.png
+</button>
+</p>
+<div id="fig-topics-vs-facs-scatterplots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/04113408c52e484a058dfa1525a28dfb9f86d646/docs/figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-1.png" target="_blank">0411340</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -858,27 +975,28 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)</code></pre>
 # loaded via a namespace (and not attached):
 #  [1] Rcpp_1.0.5           lattice_0.20-38      tidyr_1.0.0         
 #  [4] prettyunits_1.1.1    assertthat_0.2.1     zeallot_0.1.0       
-#  [7] rprojroot_1.3-2      digest_0.6.23        R6_2.4.1            
-# [10] backports_1.1.5      MatrixModels_0.4-1   evaluate_0.14       
-# [13] coda_0.19-3          httr_1.4.2           pillar_1.4.3        
-# [16] rlang_0.4.5          progress_1.2.2       lazyeval_0.2.2      
-# [19] data.table_1.12.8    irlba_2.3.3          SparseM_1.78        
-# [22] whisker_0.4          rmarkdown_2.3        labeling_0.3        
-# [25] Rtsne_0.15           stringr_1.4.0        htmlwidgets_1.5.1   
-# [28] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
-# [31] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
-# [34] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
-# [37] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
-# [40] crayon_1.3.4         dplyr_0.8.3          withr_2.1.2         
-# [43] later_1.0.0          MASS_7.3-51.4        grid_3.6.2          
-# [46] jsonlite_1.6         gtable_0.3.0         lifecycle_0.1.0     
-# [49] git2r_0.26.1         magrittr_1.5         scales_1.1.0        
-# [52] RcppParallel_4.4.2   stringi_1.4.3        farver_2.0.1        
-# [55] fs_1.3.1             promises_1.1.0       vctrs_0.2.1         
-# [58] tools_3.6.2          glue_1.3.1           purrr_0.3.3         
-# [61] hms_0.5.2            yaml_2.2.0           colorspace_1.4-1    
-# [64] plotly_4.9.2         knitr_1.26           quantreg_5.54       
-# [67] MCMCpack_1.4-5</code></pre>
+#  [7] rprojroot_1.3-2      digest_0.6.23        mime_0.8            
+# [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
+# [13] evaluate_0.14        coda_0.19-3          httr_1.4.2          
+# [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
+# [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
+# [22] SparseM_1.78         whisker_0.4          rmarkdown_2.3       
+# [25] labeling_0.3         Rtsne_0.15           stringr_1.4.0       
+# [28] htmlwidgets_1.5.1    munsell_0.5.0        shiny_1.4.0         
+# [31] compiler_3.6.2       httpuv_1.5.2         xfun_0.11           
+# [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
+# [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
+# [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
+# [43] dplyr_0.8.3          withr_2.1.2          later_1.0.0         
+# [46] MASS_7.3-51.4        grid_3.6.2           xtable_1.8-4        
+# [49] jsonlite_1.6         gtable_0.3.0         lifecycle_0.1.0     
+# [52] git2r_0.26.1         magrittr_1.5         scales_1.1.0        
+# [55] RcppParallel_4.4.2   stringi_1.4.3        farver_2.0.1        
+# [58] fs_1.3.1             promises_1.1.0       vctrs_0.2.1         
+# [61] tools_3.6.2          glue_1.3.1           purrr_0.3.3         
+# [64] crosstalk_1.0.0      hms_0.5.2            fastmap_1.0.1       
+# [67] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
+# [70] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 
 
