@@ -120,7 +120,7 @@ p9 <- volcano_plot_better(diff_count_clusters,"dendritic",genes$symbol,0.997,
 plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
 ```
 
-```{r volcano-plots-for-paper, echo=FALSE, results="hide", eval=FALSE}
+```{r volcano-plots-for-paper, echo=FALSE, results="hide", warning=FALSE}
 ggsave("../plots/volcano_plot_pbmc_purified_bcells_with_legend.eps",
        p1,height = 3.4,width = 3)
 ggsave("../plots/volcano_plot_pbmc_purified_bcells.eps",
@@ -143,7 +143,7 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
 
 *Add text here.*
 
-```{r topics-vs-facs-scatterplots, eval=FALSE}
+```{r topics-vs-facs-scatterplots, fig.width=6.5, fig.height=7}
 p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = "B cells FACS subpopulation",ylab = "topic 3")
@@ -160,12 +160,23 @@ p14 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"T cell","k1+k6",
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = "T cells FACS subpopulation",
 					   ylab = "topics 1 + 6")
+plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)
+```
+
+```{r scatterplots-for-paper, echo=FALSE, results="hide"}
+ggsave("../plots/scatterplot_pbmc_purified_bcells.eps",
+       p10,height = 3,width = 4)
+ggsave("../plots/scatterplot_pbmc_purified_nk.eps",
+       p11,height = 3,width = 4)
+ggsave("../plots/scatterplot_pbmc_purified_cd14.eps",
+       p12,height = 3,width = 4)
+ggsave("../plots/scatterplot_pbmc_purified_cd34.eps",
+       p13,height = 3,width = 4)
+ggsave("../plots/scatterplot_pbmc_purified_tcells.eps",
+       p14,height = 3,width = 4)
 ```
 
 TO DO:
-
-+ Show log-fold change (beta) in topics vs. FACS subpopulations
-for T cells, CD14+ and CD34+.
 
 + Save images to files.
 
