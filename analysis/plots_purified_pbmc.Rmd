@@ -1,10 +1,12 @@
 ---
-title: Annotate topics and clusters in mixture of FACS-purified PBMC data
+title: Perform differential expression analysis on topics and clusters identified in mixture of FACS-purified PBMC data
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add text here.*
+Here we perform a differential expression analysis using the topic
+model fit to the mixture of FACS-purified data, as well as the
+clusters identified from this topic model.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -34,16 +36,7 @@ fit <- poisson2multinom(fit)
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 ```
 
-*Code used temporarily for testing:*
-
-```{r testing}
-rows <- sample(1:94655,9000)
-counts <- counts[rows,]
-samples <- samples[rows,]
-fit <- select_loadings(fit,loadings = rows)
-```
-
-Perform differential expression analysis using the FACS labeling.
+Perform differential expression analysis using the FACS labeling:
 
 ```{r diff-count-analysis-subpop, cache=TRUE}
 celltype <- as.character(samples$celltype)
@@ -59,7 +52,7 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Perform differential expression analysis using the clusters.
+Perform differential expression analysis using the clusters:
 
 ```{r diff-count-analysis-clusters, cache=TRUE}
 timing <- system.time(
@@ -69,7 +62,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 Perform differential expression analysis using the multinomial topic
 model, after removing the dendritic cells cluster, and after merging
-the two T-cell topics.
+the two T-cell topics:
 
 ```{r diff-count-analysis-topics, cache=TRUE}
 rows <- which(samples$cluster != "dendritic")
@@ -80,7 +73,7 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-Perform differential expression analysis on the T cells only.
+Perform differential expression analysis on the T cells only:
 
 ```{r diff-count-analysis-t}
 rows <- which(samples$cluster == "T")
@@ -90,7 +83,9 @@ timing <- system.time(
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 ```
 
-*Add text here.*
+Having completed the differential expression calculations, as an
+example, we visualize the differential expression results for topic 3
+("B cells") using a volcano plot:
 
 ```{r volcano-plots-1, fig.height=4, fig.width=4}
 p1 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
@@ -98,7 +93,7 @@ p1 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
 print(p1)
 ```
 
-*Add text here.*
+Here are more volcano plots:
 
 ```{r volcano-plots-2, fig.width=7, fig.height=8}
 p2 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
@@ -141,9 +136,51 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
        p9,height = 3.4,width = 3)
 ```
 
-*Add text here.*
+The results of the differential expression analyses can also be
+browsed in interactive volcano plots:
 
-```{r topics-vs-facs-scatterplots, fig.width=6.5, fig.height=7}
+```{r volcano-plots-3, results="hide"}
+volcano_plotly(diff_count_topics,"k3","volcano_plot_purified_pbmc_bcells.html",
+               genes$symbol,title = "topic 3 (B cells)")
+volcano_plotly(diff_count_topics,"k4","volcano_plot_purified_pbmc_nk.html",
+ 		       genes$symbol,title = "topic 4 (NK cells)")
+volcano_plotly(diff_count_topics,"k2","volcano_plot_purified_pbmc_cd14.html",
+			   genes$symbol,title = "topic 2 (CD14+)")
+volcano_plotly(diff_count_topics,"k5","volcano_plot_purified_pbmc_cd34.html",
+			   genes$symbol,title = "topic 5 (CD34+)")
+volcano_plotly(diff_count_topics,"k1+k6",
+			   "volcano_plot_purified_pbmc_tcells.html",genes$symbol,
+               title = "topics 1 + 6 (T cells)")
+volcano_plotly(diff_count_t,"k1","volcano_plot_purified_pbmc_cd4cd8.html",
+			   genes$symbol,title = "topic 1 (CD4+/CD8+)")
+volcano_plotly(diff_count_clusters,"CD8+",
+			   "volcano_plot_purified_pbmc_cd8.html",genes$symbol,
+               title = "CD8+ cluster")
+volcano_plotly(diff_count_clusters,"dendritic",
+			   "volcano_plot_purified_pbmc_dendritic.html",genes$symbol,
+               title = "dendritic cells cluster")
+```
+
+The interactive volcano plots can also be viewed by clicking on these
+links:
+
++ [topic 3 (B cells)](volcano_plot_purified_pbmc_bcells.html)
+
++ [topic 4 (NK cells)](volcano_plot_purified_pbmc_nk.html)
+
++ [topic 2 (CD14+)](volcano_plot_purified_pbmc_cd14.html)
+
++ [topic 5 (CD34+)](volcano_plot_purified_pbmc_cd34.html)
+
++ [topics 1 and 6 (T cells)](volcano_plot_purified_pbmc_tcells.html)
+
++ [topic 1 (CD4+/CD8+ lineage differentiation)](volcano_plot_purified_pbmc_cd4cd8.html)
+
++ [CD8+ cluster](volcano_plot_purified_pbmc_cd8.html)
+
++ [dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html)
+
+```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5}
 p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = "B cells FACS subpopulation",ylab = "topic 3")
@@ -175,9 +212,3 @@ ggsave("../plots/scatterplot_pbmc_purified_cd34.eps",
 ggsave("../plots/scatterplot_pbmc_purified_tcells.eps",
        p14,height = 3,width = 4)
 ```
-
-TO DO:
-
-+ Save images to files.
-
-+ Create interactive volcano plots.
