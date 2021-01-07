@@ -134,6 +134,31 @@ estimates a different expression pattern for each T cell subtype
 (e.g., naive T cells), whereas the topic model does not reach this
 level of granularity in the T cells.
 
+*Add text here.*
+
+```{r loglik-7}
+fit_clusters <- init_poisson_nmf_from_clustering(counts,samples$cluster)
+fit_clusters <- poisson2multinom(fit_clusters)
+loglik_clusters <- loglik_multinom_topic_model(counts,fit_clusters)
+```
+
+*Add text here.*
+
+```{r loglik-8}
+p5 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  facet_wrap(vars(celltype)) +
+  scale_x_continuous(limits = c(-15000,0),breaks = seq(-20000,0,5000)) +
+  scale_y_continuous(limits = c(-15000,0),breaks = seq(-20000,0,5000)) +
+  scale_fill_manual(values = facs_colors) +
+  labs(x = "cluster model",y = "topic model",fill = "FACS subpopulation") +
+  theme_cowplot(font_size = 9)
+print(p4)
+```
+
+*Add text here.*
+
 ```{r save-plots, echo=FALSE, results="hide"}
 ggsave("../plots/loglik_histogram_pbmc_purified.eps",
        p1,height = 2,width = 4.5)
