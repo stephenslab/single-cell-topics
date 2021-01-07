@@ -75,7 +75,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 Perform differential expression analysis on the T cells only:
 
-```{r diff-count-analysis-t}
+```{r diff-count-analysis-t, cache=TRUE}
 rows <- which(samples$cluster == "T")
 fit_t <- select_loadings(fit,loadings = rows)
 timing <- system.time(
@@ -106,7 +106,7 @@ p5 <- volcano_plot_better(diff_count_topics,"k5",genes$symbol,0.998,
                           "topic 5 (CD34+)")
 p6 <- volcano_plot_better(diff_count_topics,"k1+k6",genes$symbol,0.998,
                           "topics 1 + 6 (T cells)")
-p7 <- volcano_plot_better(diff_count_t,"k1",genes$symbol,0.995,
+p7 <- volcano_plot_better(diff_count_t,"k1",genes$symbol,0.997,
                           "topic 1 (CD4+/CD8+)")
 p8 <- volcano_plot_better(diff_count_clusters,"CD8+",genes$symbol,0.998,
                           "CD8+ cluster") + xlim(-11,11)
@@ -117,7 +117,7 @@ plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
 
 ```{r volcano-plots-for-paper, echo=FALSE, results="hide", warning=FALSE}
 ggsave("../plots/volcano_plot_pbmc_purified_bcells_with_legend.eps",
-       p1,height = 3.4,width = 3)
+       p1,height = 3.4,width = 4)
 ggsave("../plots/volcano_plot_pbmc_purified_bcells.eps",
        p2,height = 3.4,width = 3)
 ggsave("../plots/volcano_plot_pbmc_purified_nk.eps",
