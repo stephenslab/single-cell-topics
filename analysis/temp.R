@@ -17,10 +17,10 @@ facs_colors <- c("forestgreen",
                  "gold",
                  "darkblue",
                  "greenyellow")
-pcs <- 5:6
+pcs <- 1:2
 p1 <- pca_plot(poisson2multinom(fit),pcs = pcs,fill = samples$celltype) +
   scale_fill_manual(values = facs_colors)
 p2 <- pca_hexbin_plot(poisson2multinom(fit),pcs = pcs)
 plot_grid(p1,p2,rel_widths = c(4,3))
-qplot(samples$tsne1,samples$tsne2,color = samples$celltype,size = I(0.75)) +
-  theme_cowplot(font_size = 10)
+# qplot(samples$tsne1,samples$tsne2,color = samples$celltype,size = I(0.75)) +
+#   theme_cowplot(font_size = 10)
