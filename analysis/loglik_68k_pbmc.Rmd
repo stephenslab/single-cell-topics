@@ -1,0 +1,56 @@
+---
+title: "Examine topic-model-based single-cell likelihoods in 68k PBMC data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we calculate single-cell likelihoods to assess how well the
+multinomial topic model captures expression in different cells and
+cell types.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the count data, the $K = 12$ topic model fit, and the X clusters
+identified in the [clustering analysis](clusters_68k_pbmc.html).
+
+```{r load-data}
+load("../data/pbmc_68k.RData")
+fit <- readRDS(file.path("../output/pbmc-68k/rds",
+                         "fit-pbmc-68k-scd-ex-k=12.rds"))$fit
+fit <- poisson2multinom(fit)
+```
+
+Calculate the multinomial topic model likelihood for each cell.
+
+```{r loglik-1}
+loglik <- loglik_multinom_topic_model(counts,fit)
+```
+
+These likelihoods can be used to assess how well the topic model
+"fits" each cell:
+
+```{r loglik-2, fig.height=2, fig.width=5.5}
+pdat <- data.frame(loglik)
+p1 <- ggplot(pdat,aes(loglik)) +
+  geom_histogram(bins = 80,color = "white",fill = "black") +
+  labs(y = "number of cells") +
+  theme_cowplot(font_size = 10)
+print(p1)
+```
+
+```{r save-plots, echo=FALSE, results="hide"}
+ggsave("../plots/loglik_histogram_pbmc_68k.eps",
+       p1,height = 2,width = 4.5)
+```
