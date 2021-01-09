@@ -81,11 +81,65 @@ x[rows] <- y
 
 *Add text here.*
 
+```{r clustering-4, eval=FALSE}
+rows <- which(x == "T")
+n    <- length(rows)
+fit2 <- select_loadings(fit,loadings = rows)
+pca  <- prcomp(fit2$L)$x
+y    <- rep("T",n)
+pc1  <- pca[,1]
+pc2  <- pca[,2]
+x[rows] <- y
+```
+
 In summary, we have subdivided the cells into 8 subsets:
 
-```{r clustering-4}
+```{r clustering-5}
 samples$cluster <- factor(x)
 table(samples$cluster)
+```
+
+The Structure plot summarizes the mixture proportions in each of the 8
+clusters:
+
+```{r structure-plot, fig.width=8, fig.height=1.5}
+set.seed(1)
+topic_colors <- c("darkmagenta", # CD34+
+                  "darkgray",    # NK 2
+                  "darkorange",  # T cells 2
+				  "skyblue",     # dendritic
+                  "red",         # T cells 3
+				  "coral",
+				  "gray",        # NK 1
+				  "peru",
+				  "forestgreen", # CD14+ A
+				  "gold",        # T cells 1
+				  "olivedrab",   # CD14+ B
+				  "dodgerblue")  # B cells
+x    <- samples$cluster
+rows <- sort(c(sample(which(x == "B"),500),
+               sample(which(x == "CD14+ A"),300),
+               sample(which(x == "CD14+ B"),300),
+               which(x == "CD34+"),
+               sample(which(x == "CD8+"),500),
+               sample(which(x == "dendritic"),250),
+               sample(which(x == "NK"),500),
+               sample(which(x == "T"),1000)))
+p1 <- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = x[rows],topics = 1:12,
+                     colors = topic_colors,
+   	  			     n = Inf,gap = 30,
+					 num_threads = 4,verbose = TRUE)
+print(p1)
+```
+
+```{r structure-plots-for-paper, echo=FALSE, results="hide"}
+```
+
+Save the clustering of the 68k PBMC data to an RDS file.
+
+```{r save-results}
+saveRDS(samples,"clustering-pbmc-68k.rds")
 ```
 
 ```{r, eval=FALSE}
@@ -110,3 +164,4 @@ p3 <- pca_hexbin_plot(fit2,pcs = 1:2) +
   theme_cowplot(font_size = 8)
 plot_grid(p1,p2,p3,rel_widths = c(4,3,3),ncol = 3)
 ```
+
