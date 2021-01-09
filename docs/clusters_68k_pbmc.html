@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-01-08
+<strong>Last updated:</strong> 2021-01-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6bb17bb803198bc6148d5834005c40bcdece720btargetblank6bb17bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6bb17bb803198bc6148d5834005c40bcdece720b" target="_blank">6bb17bb</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef6ee94f83d3b70d65fcb9a04f2158b0440d2aba9targetblankf6ee94fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f6ee94f83d3b70d65fcb9a04f2158b0440d2aba9" target="_blank">f6ee94f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6bb17bb803198bc6148d5834005c40bcdece720btargetblank6bb17bba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef6ee94f83d3b70d65fcb9a04f2158b0440d2aba9targetblankf6ee94fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6bb17bb803198bc6148d5834005c40bcdece720b" target="_blank">6bb17bb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f6ee94f83d3b70d65fcb9a04f2158b0440d2aba9" target="_blank">f6ee94f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f6ee94f83d3b70d65fcb9a04f2158b0440d2aba9/analysis/clusters_68k_pbmc.Rmd" target="_blank">f6ee94f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-09
+</td>
+<td>
+workflowr::wflow_publish(“clusters_68k_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/1fd699d82f9a413c2bb0ffbe888ef6e438cf07c1/docs/clusters_68k_pbmc.html" target="_blank">1fd699d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-08
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -644,31 +678,37 @@ x[rows] &lt;- y</code></pre>
 n    &lt;- length(rows)
 fit2 &lt;- select_loadings(fit,loadings = rows)
 pca  &lt;- prcomp(fit2$L)$x
-y    &lt;- rep(&quot;T&quot;,n)
+y    &lt;- rep(&quot;TA&quot;,n)
 pc1  &lt;- pca[,1]
 pc2  &lt;- pca[,2]
+y[pc2 &gt; -1.5*pc1 - 0.05] &lt;- &quot;TB&quot;
 x[rows] &lt;- y</code></pre>
-<p>In summary, we have subdivided the cells into 8 subsets:</p>
+<p>In summary, we have subdivided the cells into 9 subsets:</p>
 <pre class="r"><code>samples$cluster &lt;- factor(x)
 table(samples$cluster)
 # 
-#         B   CD14+ A   CD14+ B     CD34+      CD8+ dendritic        NK         T 
-#      3492      1714      2432       218     11354       774      9873     38722</code></pre>
-<p>The Structure plot summarizes the mixture proportions in each of the 8 clusters:</p>
+#         B   CD14+ A   CD14+ B     CD34+      CD8+ dendritic        NK        TA 
+#      3492      1714      2432       218     11354       774      9873     14256 
+#        TB 
+#     24466</code></pre>
+<p>The Structure plot summarizes the mixture proportions in each of the 9 clusters:</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;darkmagenta&quot;, # CD34+
                   &quot;darkgray&quot;,    # NK 2
                   &quot;darkorange&quot;,  # T cells 2
                   &quot;skyblue&quot;,     # dendritic
                   &quot;red&quot;,         # T cells 3
-                  &quot;coral&quot;,
-                  &quot;gray&quot;,        # NK 1
-                  &quot;peru&quot;,
+                  &quot;wheat&quot;,       # (unknown)
+                  &quot;dimgray&quot;,     # NK 1
+                  &quot;azure&quot;,       # (unknown)
                   &quot;forestgreen&quot;, # CD14+ A
                   &quot;gold&quot;,        # T cells 1
                   &quot;olivedrab&quot;,   # CD14+ B
                   &quot;dodgerblue&quot;)  # B cells
+topics &lt;- c(6,8,5,2,7,9,11,4,3,10,1,12)
 x    &lt;- samples$cluster
+x    &lt;- factor(x,c(&quot;B&quot;,&quot;CD14+ A&quot;,&quot;CD14+ B&quot;,&quot;CD34+&quot;,&quot;dendritic&quot;,
+                   &quot;NK&quot;,&quot;CD8+&quot;,&quot;TA&quot;,&quot;TB&quot;))
 rows &lt;- sort(c(sample(which(x == &quot;B&quot;),500),
                sample(which(x == &quot;CD14+ A&quot;),300),
                sample(which(x == &quot;CD14+ B&quot;),300),
@@ -676,264 +716,54 @@ rows &lt;- sort(c(sample(which(x == &quot;B&quot;),500),
                sample(which(x == &quot;CD8+&quot;),500),
                sample(which(x == &quot;dendritic&quot;),250),
                sample(which(x == &quot;NK&quot;),500),
-               sample(which(x == &quot;T&quot;),1000)))
+               sample(which(x == &quot;TB&quot;),600),
+               sample(which(x == &quot;TA&quot;),400)))
 p1 &lt;- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = x[rows],topics = 1:12,
-                     colors = topic_colors,
-                     n = Inf,gap = 30,
-                     num_threads = 4,verbose = TRUE)
-# Perplexity automatically changed to 98 because original setting of 100 was too large for the number of samples (300)
-# Perplexity automatically changed to 98 because original setting of 100 was too large for the number of samples (300)
-# Perplexity automatically changed to 71 because original setting of 100 was too large for the number of samples (218)
-# Perplexity automatically changed to 82 because original setting of 100 was too large for the number of samples (250)
+                     grouping = x[rows],topics = topics,
+                     colors = topic_colors[topics],
+                     perplexity = c(70,30,30,30,30,70,70,70,70),
+                     n = Inf,gap = 25,num_threads = 4,verbose = FALSE)
 print(p1)</code></pre>
 <p><img src="figure/clusters_68k_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code># Read the 500 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.43 seconds (sparsity = 0.742920)!
-# Learning embedding...
-# Iteration 50: error is 47.638464 (50 iterations in 0.15 seconds)
-# Iteration 100: error is 47.638462 (50 iterations in 0.14 seconds)
-# Iteration 150: error is 47.638413 (50 iterations in 0.14 seconds)
-# Iteration 200: error is 47.637309 (50 iterations in 0.14 seconds)
-# Iteration 250: error is 47.613655 (50 iterations in 0.14 seconds)
-# Iteration 300: error is 0.609044 (50 iterations in 0.13 seconds)
-# Iteration 350: error is 0.608733 (50 iterations in 0.14 seconds)
-# Iteration 400: error is 0.608737 (50 iterations in 0.14 seconds)
-# Iteration 450: error is 0.608735 (50 iterations in 0.14 seconds)
-# Iteration 500: error is 0.608735 (50 iterations in 0.14 seconds)
-# Iteration 550: error is 0.608735 (50 iterations in 0.14 seconds)
-# Iteration 600: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 650: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 700: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 750: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 800: error is 0.608735 (50 iterations in 0.14 seconds)
-# Iteration 850: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 900: error is 0.608735 (50 iterations in 0.13 seconds)
-# Iteration 950: error is 0.608735 (50 iterations in 0.14 seconds)
-# Iteration 1000: error is 0.608735 (50 iterations in 0.13 seconds)
-# Fitting performed in 2.73 seconds.
-# Read the 300 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 98.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.26 seconds (sparsity = 0.996111)!
-# Learning embedding...
-# Iteration 50: error is 41.898241 (50 iterations in 0.08 seconds)
-# Iteration 100: error is 41.895377 (50 iterations in 0.12 seconds)
-# Iteration 150: error is 41.893294 (50 iterations in 0.09 seconds)
-# Iteration 200: error is 41.888640 (50 iterations in 0.12 seconds)
-# Iteration 250: error is 41.890229 (50 iterations in 0.11 seconds)
-# Iteration 300: error is 0.575567 (50 iterations in 0.10 seconds)
-# Iteration 350: error is 0.572624 (50 iterations in 0.09 seconds)
-# Iteration 400: error is 0.572603 (50 iterations in 0.08 seconds)
-# Iteration 450: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 500: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 550: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 600: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 650: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 700: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 750: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 800: error is 0.572604 (50 iterations in 0.07 seconds)
-# Iteration 850: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 900: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 950: error is 0.572604 (50 iterations in 0.08 seconds)
-# Iteration 1000: error is 0.572604 (50 iterations in 0.08 seconds)
-# Fitting performed in 1.72 seconds.
-# Read the 300 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 98.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.26 seconds (sparsity = 0.996111)!
-# Learning embedding...
-# Iteration 50: error is 41.760346 (50 iterations in 0.09 seconds)
-# Iteration 100: error is 41.760525 (50 iterations in 0.09 seconds)
-# Iteration 150: error is 41.757688 (50 iterations in 0.09 seconds)
-# Iteration 200: error is 41.756017 (50 iterations in 0.09 seconds)
-# Iteration 250: error is 41.754217 (50 iterations in 0.09 seconds)
-# Iteration 300: error is 0.407453 (50 iterations in 0.08 seconds)
-# Iteration 350: error is 0.406339 (50 iterations in 0.08 seconds)
-# Iteration 400: error is 0.406324 (50 iterations in 0.08 seconds)
-# Iteration 450: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 500: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 550: error is 0.406325 (50 iterations in 0.09 seconds)
-# Iteration 600: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 650: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 700: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 750: error is 0.406325 (50 iterations in 0.09 seconds)
-# Iteration 800: error is 0.406325 (50 iterations in 0.09 seconds)
-# Iteration 850: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 900: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 950: error is 0.406325 (50 iterations in 0.08 seconds)
-# Iteration 1000: error is 0.406325 (50 iterations in 0.09 seconds)
-# Fitting performed in 1.70 seconds.
-# Read the 218 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 71.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.11 seconds (sparsity = 0.994740)!
-# Learning embedding...
-# Iteration 50: error is 43.099303 (50 iterations in 0.06 seconds)
-# Iteration 100: error is 42.599924 (50 iterations in 0.06 seconds)
-# Iteration 150: error is 42.020502 (50 iterations in 0.06 seconds)
-# Iteration 200: error is 41.467851 (50 iterations in 0.06 seconds)
-# Iteration 250: error is 41.513416 (50 iterations in 0.06 seconds)
-# Iteration 300: error is 0.431792 (50 iterations in 0.06 seconds)
-# Iteration 350: error is 0.429353 (50 iterations in 0.06 seconds)
-# Iteration 400: error is 0.429361 (50 iterations in 0.05 seconds)
-# Iteration 450: error is 0.429362 (50 iterations in 0.06 seconds)
-# Iteration 500: error is 0.429362 (50 iterations in 0.06 seconds)
-# Iteration 550: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 600: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 650: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 700: error is 0.429362 (50 iterations in 0.06 seconds)
-# Iteration 750: error is 0.429362 (50 iterations in 0.06 seconds)
-# Iteration 800: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 850: error is 0.429362 (50 iterations in 0.06 seconds)
-# Iteration 900: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 950: error is 0.429361 (50 iterations in 0.06 seconds)
-# Iteration 1000: error is 0.429361 (50 iterations in 0.06 seconds)
-# Fitting performed in 1.18 seconds.
-# Read the 500 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.45 seconds (sparsity = 0.757144)!
-# Learning embedding...
-# Iteration 50: error is 47.605878 (50 iterations in 0.15 seconds)
-# Iteration 100: error is 47.605878 (50 iterations in 0.17 seconds)
-# Iteration 150: error is 47.605878 (50 iterations in 0.19 seconds)
-# Iteration 200: error is 47.605878 (50 iterations in 0.20 seconds)
-# Iteration 250: error is 47.605878 (50 iterations in 0.21 seconds)
-# Iteration 300: error is 0.793471 (50 iterations in 0.19 seconds)
-# Iteration 350: error is 0.750964 (50 iterations in 0.15 seconds)
-# Iteration 400: error is 0.746936 (50 iterations in 0.14 seconds)
-# Iteration 450: error is 0.746925 (50 iterations in 0.14 seconds)
-# Iteration 500: error is 0.746926 (50 iterations in 0.15 seconds)
-# Iteration 550: error is 0.746926 (50 iterations in 0.14 seconds)
-# Iteration 600: error is 0.746926 (50 iterations in 0.16 seconds)
-# Iteration 650: error is 0.746926 (50 iterations in 0.14 seconds)
-# Iteration 700: error is 0.746926 (50 iterations in 0.17 seconds)
-# Iteration 750: error is 0.746926 (50 iterations in 0.17 seconds)
-# Iteration 800: error is 0.746926 (50 iterations in 0.15 seconds)
-# Iteration 850: error is 0.746926 (50 iterations in 0.14 seconds)
-# Iteration 900: error is 0.746926 (50 iterations in 0.15 seconds)
-# Iteration 950: error is 0.746926 (50 iterations in 0.14 seconds)
-# Iteration 1000: error is 0.746926 (50 iterations in 0.15 seconds)
-# Fitting performed in 3.18 seconds.
-# Read the 250 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 82.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.16 seconds (sparsity = 0.995744)!
-# Learning embedding...
-# Iteration 50: error is 42.049296 (50 iterations in 0.07 seconds)
-# Iteration 100: error is 42.000455 (50 iterations in 0.07 seconds)
-# Iteration 150: error is 42.012136 (50 iterations in 0.07 seconds)
-# Iteration 200: error is 42.001540 (50 iterations in 0.07 seconds)
-# Iteration 250: error is 42.006459 (50 iterations in 0.08 seconds)
-# Iteration 300: error is 0.314057 (50 iterations in 0.07 seconds)
-# Iteration 350: error is 0.310530 (50 iterations in 0.06 seconds)
-# Iteration 400: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 450: error is 0.310510 (50 iterations in 0.06 seconds)
-# Iteration 500: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 550: error is 0.310512 (50 iterations in 0.06 seconds)
-# Iteration 600: error is 0.310510 (50 iterations in 0.07 seconds)
-# Iteration 650: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 700: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 750: error is 0.310510 (50 iterations in 0.06 seconds)
-# Iteration 800: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 850: error is 0.310510 (50 iterations in 0.06 seconds)
-# Iteration 900: error is 0.310511 (50 iterations in 0.06 seconds)
-# Iteration 950: error is 0.310510 (50 iterations in 0.06 seconds)
-# Iteration 1000: error is 0.310512 (50 iterations in 0.07 seconds)
-# Fitting performed in 1.30 seconds.
-# Read the 500 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.39 seconds (sparsity = 0.697040)!
-# Learning embedding...
-# Iteration 50: error is 47.598205 (50 iterations in 0.15 seconds)
-# Iteration 100: error is 44.533920 (50 iterations in 0.14 seconds)
-# Iteration 150: error is 44.532870 (50 iterations in 0.14 seconds)
-# Iteration 200: error is 44.532870 (50 iterations in 0.14 seconds)
-# Iteration 250: error is 44.532869 (50 iterations in 0.14 seconds)
-# Iteration 300: error is 0.527663 (50 iterations in 0.14 seconds)
-# Iteration 350: error is 0.527308 (50 iterations in 0.14 seconds)
-# Iteration 400: error is 0.527307 (50 iterations in 0.14 seconds)
-# Iteration 450: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 500: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 550: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 600: error is 0.527307 (50 iterations in 0.14 seconds)
-# Iteration 650: error is 0.527307 (50 iterations in 0.13 seconds)
-# Iteration 700: error is 0.527308 (50 iterations in 0.14 seconds)
-# Iteration 750: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 800: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 850: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 900: error is 0.527308 (50 iterations in 0.13 seconds)
-# Iteration 950: error is 0.527308 (50 iterations in 0.14 seconds)
-# Iteration 1000: error is 0.527308 (50 iterations in 0.14 seconds)
-# Fitting performed in 2.74 seconds.
-# Read the 1000 x 12 data matrix successfully!
-# OpenMP is working. 4 threads.
-# Using no_dims = 1, perplexity = 100.000000, and theta = 0.100000
-# Computing input similarities...
-# Building tree...
-# Done in 0.89 seconds (sparsity = 0.379990)!
-# Learning embedding...
-# Iteration 50: error is 54.552828 (50 iterations in 0.36 seconds)
-# Iteration 100: error is 51.879913 (50 iterations in 0.34 seconds)
-# Iteration 150: error is 51.879523 (50 iterations in 0.28 seconds)
-# Iteration 200: error is 51.879521 (50 iterations in 0.28 seconds)
-# Iteration 250: error is 51.879528 (50 iterations in 0.29 seconds)
-# Iteration 300: error is 0.862462 (50 iterations in 0.30 seconds)
-# Iteration 350: error is 0.829645 (50 iterations in 0.29 seconds)
-# Iteration 400: error is 0.825700 (50 iterations in 0.31 seconds)
-# Iteration 450: error is 0.825325 (50 iterations in 0.30 seconds)
-# Iteration 500: error is 0.825298 (50 iterations in 0.29 seconds)
-# Iteration 550: error is 0.825303 (50 iterations in 0.30 seconds)
-# Iteration 600: error is 0.825302 (50 iterations in 0.29 seconds)
-# Iteration 650: error is 0.825301 (50 iterations in 0.29 seconds)
-# Iteration 700: error is 0.825301 (50 iterations in 0.29 seconds)
-# Iteration 750: error is 0.825302 (50 iterations in 0.29 seconds)
-# Iteration 800: error is 0.825302 (50 iterations in 0.29 seconds)
-# Iteration 850: error is 0.825301 (50 iterations in 0.29 seconds)
-# Iteration 900: error is 0.825301 (50 iterations in 0.29 seconds)
-# Iteration 950: error is 0.825302 (50 iterations in 0.30 seconds)
-# Iteration 1000: error is 0.825301 (50 iterations in 0.29 seconds)
-# Fitting performed in 5.96 seconds.</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
+Past versions of structure-plot-1.png
+</button>
+</p>
+<div id="fig-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1fd699d82f9a413c2bb0ffbe888ef6e438cf07c1/docs/figure/clusters_68k_pbmc.Rmd/structure-plot-1.png" target="_blank">1fd699d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Save the clustering of the 68k PBMC data to an RDS file.</p>
 <pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-68k.rds&quot;)</code></pre>
-<pre class="r"><code>facs_colors &lt;- c(&quot;forestgreen&quot;,
-                 &quot;dodgerblue&quot;,
-                 &quot;darkmagenta&quot;,
-                 &quot;firebrick&quot;,
-                 &quot;gray&quot;,
-                 &quot;tomato&quot;,
-                 &quot;yellow&quot;,
-                 &quot;magenta&quot;,
-                 &quot;darkorange&quot;,
-                 &quot;gold&quot;,
-                 &quot;darkblue&quot;,
-                 &quot;greenyellow&quot;)
-p1 &lt;- pca_plot(fit2,pcs = 1:2,fill = samples$celltype[rows]) +
-  scale_fill_manual(values = facs_colors)
-p2 &lt;- pca_plot(fit2,pcs = 1:2,fill = factor(x[rows]))
-p3 &lt;- pca_hexbin_plot(fit2,pcs = 1:2) +
-  scale_x_continuous(breaks = seq(-1,1,0.1)) +
-  scale_y_continuous(breaks = seq(-1,1,0.1)) +
-  theme_cowplot(font_size = 8)
-plot_grid(p1,p2,p3,rel_widths = c(4,3,3),ncol = 3)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
