@@ -103,7 +103,7 @@ table(samples$cluster)
 The Structure plot summarizes the mixture proportions in each of the 9
 clusters:
 
-```{r structure-plot, fig.width=8, fig.height=1.7, results="hide", message=FALSE}
+```{r structure-plot, fig.width=8, fig.height=1.6, results="hide", message=FALSE}
 set.seed(1)
 topic_colors <- c("darkmagenta", # CD34+
                   "darkgray",    # NK 2
