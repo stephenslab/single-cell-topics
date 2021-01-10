@@ -86,10 +86,10 @@ rows <- which(x == "T")
 n    <- length(rows)
 fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
-y    <- rep("TA",n)
+y    <- rep("T",n)
 pc1  <- pca[,1]
 pc2  <- pca[,2]
-y[pc2 > -1.5*pc1 - 0.05] <- "TB"
+y[pc2 < -1.5*pc1 - 0.05] <- "Treg"
 x[rows] <- y
 ```
 
@@ -120,7 +120,7 @@ topic_colors <- c("darkmagenta", # CD34+
 topics <- c(6,8,5,2,7,9,11,4,3,10,1,12)
 x    <- samples$cluster
 x    <- factor(x,c("B","CD14+ A","CD14+ B","CD34+","dendritic",
-                   "NK","CD8+","TA","TB"))
+                   "NK","CD8+","Treg","T"))
 rows <- sort(c(sample(which(x == "B"),500),
                sample(which(x == "CD14+ A"),300),
                sample(which(x == "CD14+ B"),300),
@@ -128,8 +128,8 @@ rows <- sort(c(sample(which(x == "B"),500),
                sample(which(x == "CD8+"),500),
                sample(which(x == "dendritic"),250),
                sample(which(x == "NK"),500),
-               sample(which(x == "TB"),600),
-               sample(which(x == "TA"),400)))
+               sample(which(x == "T"),600),
+               sample(which(x == "Treg"),400)))
 p1 <- structure_plot(select_loadings(fit,loadings = rows),
                      grouping = x[rows],topics = topics,
                      colors = topic_colors[topics],
