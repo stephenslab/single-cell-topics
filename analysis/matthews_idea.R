@@ -54,7 +54,7 @@ loglik_facs <- loglik_multinom_topic_model(counts,fit_facs)
 # FACS subpopulations.
 pdat <- data.frame(x = loglik_facs,y = loglik,celltype = samples$celltype)
 p2 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_point(shape = 21,color = "white",fill = "black") +
+  geom_point(shape = 21,color = "white",fill = "royalblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(celltype)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
@@ -64,32 +64,50 @@ p2 <- ggplot(pdat,aes(x = x,y = y)) +
 
 # Next, let's examine the improvement in fit after splitting the
 # a topic by FACS cell population.
+# celltypes_to_split <- levels(celltype)
+# k <- 1
 celltypes_to_split <- c("CD56+ NK","CD8+ Cytotoxic T")
-k       <- 4
-K       <- ncol(fit$L)
-n       <- nrow(counts)
-m       <- length(celltypes_to_split) - 1
-fit2    <- fit
-L       <- cbind(fit2$L,matrix(0,n,m))
+k <- 4
+K <- ncol(fit$L)
+n <- nrow(counts)
+m <- length(celltypes_to_split) - 1
+fit2 <- fit
+L <- fit2$L
+F <- fit2$F
+L <- cbind(L,matrix(0,nrow(L),m))
+F <- cbind(F,matrix(0,nrow(F),m))
 colnames(L) <- paste0("k",1:ncol(L))
+colnames(F) <- paste0("k",1:ncol(F))
 for (j in 1:m) {
   i <- which(celltype == celltypes_to_split[j])
+  F[,K+j]  <- F[,k]
   L[i,K+j] <- L[i,k]
-  L[i,k] <- 1e-15
+  L[i,k]  <- 1e-15
 }    
 fit2$L  <- L
 fit2$Ln <- L
 fit2$Ly <- L
-fit2 <- multinom2poisson(fit)
+fit2$F  <- F
+fit2$Fn <- F
+fit2$Fy <- F
+fit2 <- multinom2poisson(fit2)
 fit2 <- fit_poisson_nmf(counts,fit0 = fit2,numiter = 20,update.loadings = NULL)
+
+# Create a Structure plot in which the cells are grouped by FACS
+# cell population.
+fit2 <- poisson2multinom(fit2)
+p3 <- structure_plot(select_loadings(fit2,loadings = rows),
+                     grouping = celltype[rows],
+                     perplexity = c(70,30,30,30,30,70),n = Inf,gap = 30,
+                     num_threads = 4,verbose = FALSE)
 
 # Compute the likelihoods under this new topic model.
 loglik2 <- loglik_multinom_topic_model(counts,fit2)
 
 # TO DO: Explain here what these lines of code do.
 pdat <- data.frame(x = loglik,y = loglik2,celltype = samples$celltype)
-p3 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_point(shape = 21,color = "white",fill = "black") +
+p4 <- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point(shape = 21,color = "white",fill = "royalblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(celltype)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
