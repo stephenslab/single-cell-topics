@@ -86,9 +86,9 @@ subpopulations. This serves partly as a "sanity check", as we expect
 the more flexible topic model to offer a better fit.
 
 ```{r loglik-4}
-fit_subpop <- init_poisson_nmf_from_clustering(counts,samples$celltype)
-fit_subpop <- poisson2multinom(fit_subpop)
-loglik_subpop <- loglik_multinom_topic_model(counts,fit_subpop)
+fit_facs <- init_poisson_nmf_from_clustering(counts,samples$celltype)
+fit_facs <- poisson2multinom(fit_facs)
+loglik_facs <- loglik_multinom_topic_model(counts,fit_facs)
 ```
 
 Indeed, the topic model provides a better fit for almost all cells:
@@ -100,7 +100,7 @@ facs_colors <- c("dodgerblue",  # B cells
                  "gray",        # NK cells
                  "tomato",      # cytotoxic T cells
                  "gold")        # T cells
-pdat <- data.frame(x = loglik_subpop,y = loglik,celltype = celltype)
+pdat <- data.frame(x = loglik_facs,y = loglik,celltype = celltype)
 p3 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
@@ -165,11 +165,11 @@ print(p5)
 ```{r save-plots, echo=FALSE, results="hide", warning=FALSE}
 ggsave("../plots/loglik_histogram_pbmc_purified.eps",
        p1,height = 2,width = 4.5)
-ggsave("../plots/loglik_histogram_by_subpop_pbmc_purified.eps",
+ggsave("../plots/loglik_histogram_by_facs_pbmc_purified.eps",
        p2,height = 4,width = 4.5)
 ggsave("../plots/loglik_scatterplot_all_pbmc_purified.png",
        p3,height = 3.5,width = 5)
-ggsave("../plots/loglik_scatterplot_by_subpop_pbmc_purified.png",
+ggsave("../plots/loglik_scatterplot_by_facs_pbmc_purified.png",
        p4,height = 4,width = 7.5)
 ggsave("../plots/loglik_scatterplot_by_cluster_pbmc_purified.png",
        p5,height = 5,width = 5.5)
