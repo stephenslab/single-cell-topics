@@ -28,7 +28,9 @@ celltype[celltype == "CD4+ T Helper2" |
 celltype <- factor(celltype)
 
 # For each cell type, calculate the average observed expression (X)
-# and the average predicted expression (Y).
+# and the average predicted expression (Y). Store these calculations
+# in two m x k matrices, where m is the number of genes and k is the
+# number of cell types.
 m <- ncol(counts)
 k <- nlevels(celltype)
 X <- matrix(0,m,k)
@@ -39,7 +41,6 @@ for (j in 1:k) {
   X[,j] <- colMeans(counts[i,])
   Y[,j] <- with(fit,tcrossprod(colMeans(L[i,]),F))
 }
-j <- 5
 
 # TO DO: Explain what this function does, and how to use it.
 create_expression_scatterplot <- function (x, y, labels = NULL,
@@ -60,8 +61,8 @@ create_expression_scatterplot <- function (x, y, labels = NULL,
          geom_text_repel(color = "black",size = 2.2,fontface = "italic",
                          segment.color = "black",segment.size = 0.25,
                          max.overlaps = Inf,na.rm = TRUE) +
-         scale_x_continuous(trans = "log10") +
-         scale_y_continuous(trans = "log10") +
+         scale_x_continuous(trans = "log10",breaks = 10^seq(-4,4)) +
+         scale_y_continuous(trans = "log10",breaks = 10^seq(-4,4)) +
          labs(x = "observed",y = "predicted",title = title) +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
@@ -75,10 +76,9 @@ p2 <- create_expression_scatterplot(X[,2],Y[,2],genes$symbol,celltypes[2],
 p3 <- create_expression_scatterplot(X[,3],Y[,3],genes$symbol,celltypes[3],
                                     label_minbeta = 2,label_minx = 0.005)
 p4 <- create_expression_scatterplot(X[,4],Y[,4],genes$symbol,celltypes[4],
-                                    label_minbeta = 2,label_minx = 0.002)
+                                    label_minbeta = 2,label_minx = 0.005)
 p5 <- create_expression_scatterplot(X[,5],Y[,5],genes$symbol,celltypes[5],
-                                    label_minbeta = 1.75,label_minx = 0.002)
+                                    label_minbeta = 1.75,label_minx = 0.005)
 p6 <- create_expression_scatterplot(X[,6],Y[,6],genes$symbol,celltypes[6],
-                                    label_minbeta = 1.5,label_minx = 0.0015)
+                                    label_minbeta = 1.5,label_minx = 0.005)
 plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
-
