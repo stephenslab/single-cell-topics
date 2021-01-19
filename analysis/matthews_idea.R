@@ -35,9 +35,7 @@ rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
 			   sample(which(celltype == "CD8+ Cytotoxic T"),400),
                sample(which(celltype == "T cell"),1000)))
 p1 <- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = celltype[rows],
-                     topics = topics,colors = topic_colors[topics],
-                     perplexity = c(70,30,30,30,30,70),n = Inf,gap = 30,
+                     grouping = celltype[rows],topics = 1:6,gap = 30,
                      num_threads = 4,verbose = FALSE)
 
 # Compute the likelihoods under this topic model.
@@ -97,14 +95,13 @@ fit2 <- fit_poisson_nmf(counts,fit0 = fit2,numiter = 20,update.loadings = NULL)
 # cell population.
 fit2 <- poisson2multinom(fit2)
 p3 <- structure_plot(select_loadings(fit2,loadings = rows),
-                     grouping = celltype[rows],
-                     perplexity = c(70,30,30,30,30,70),n = Inf,gap = 30,
+                     grouping = celltype[rows],topics = 1:7,gap = 30,
                      num_threads = 4,verbose = FALSE)
 
 # Compute the likelihoods under this new topic model.
 loglik2 <- loglik_multinom_topic_model(counts,fit2)
 
-# TO DO: Explain here what these lines of code do.
+# Compare the single-cell likelihoods under the two topic models.
 pdat <- data.frame(x = loglik,y = loglik2,celltype = samples$celltype)
 p4 <- ggplot(pdat,aes(x = x,y = y)) +
   geom_point(shape = 21,color = "white",fill = "royalblue") +
