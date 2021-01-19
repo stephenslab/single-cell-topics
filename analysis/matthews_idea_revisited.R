@@ -9,7 +9,7 @@ library(cowplot)
 set.seed(1)
 
 # Load the data and results needed for this analysis.
-# load("../data/pbmc_purified.RData")
+load("../data/pbmc_purified.RData")
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
@@ -26,25 +26,25 @@ celltype[celltype == "CD4+ T Helper2" |
 celltype <- factor(celltype)
 
 # Create a scatterplot comparing, for each gene, the
-# maximum-likelihood estimate for a simple multinomial model of
+# maximum-likelihood estimate (MLE) for a simple multinomial model of
 # expression against the mean multinomial probability under a topic
-# model, in which the mean is taken over all samples in the selected cell
-# type (k). Genes are labeled if their multinomial MLE is greater than
-# mle.min and the distance from the diagonal in the scatterplot (on
-# the base-2 logarithmic scale) is greater than beta.min.
+# model, in which the mean is taken over all samples in the selected
+# cell type (k). Genes are labeled if their multinomial MLE is greater
+# than mle.min and the distance from the diagonal in the scatterplot
+# (on the base-2 logarithmic scale) is greater than beta.min.
 create_expression_scatterplot <- function (counts, fit, celltype, k,
                                            labels = NULL, e = 1e-6,
                                            beta.min = 2, mle.min = 1e-6) {
 
-  # Compute the maximum-likelihood estimate (MLE) for a basic
-  # multinomial model of gene expression for each cell.
-  i <- which(celltype == k)
-  x <- colSums(counts[i,])/sum(counts[i,]) + e
-
   # For each gene, and for each cell, compute the multinomial
   # probability under the given multinomial topic model, then take the
   # average over all cells.
-  y <- drop(with(fit,tcrossprod(colMeans(L[i,]),F))) + e
+  i <- which(celltype == k)
+  x <- drop(with(fit,tcrossprod(colMeans(L[i,]),F))) + e
+  
+  # Compute the maximum-likelihood estimate (MLE) for a basic
+  # multinomial model of gene expression for each cell.
+  y <- colSums(counts[i,])/sum(counts[i,]) + e
 
   # Create a data frame containing the data to be plotted.
   dat <- data.frame(x = x,y = y,label = labels,stringsAsFactors = FALSE)
@@ -53,7 +53,7 @@ create_expression_scatterplot <- function (counts, fit, celltype, k,
   # distance from the diagonal on the (base-2) log-scale is greater
   # than beta.min.
   r <- log2(pmax(x/y,y/x))
-  i <- which(r < beta.min | x < mle.min)
+  i <- which(r < beta.min | y < mle.min)
   dat[i,"label"] <- ""
   
   # Create the scatterplot.
@@ -66,7 +66,7 @@ create_expression_scatterplot <- function (counts, fit, celltype, k,
                          max.overlaps = Inf,na.rm = TRUE) +
          scale_x_continuous(trans = "log10",breaks = 10^seq(-8,0)) +
          scale_y_continuous(trans = "log10",breaks = 10^seq(-8,0)) +
-         labs(x = "observed",y = "predicted",title = k) +
+         labs(x = "predicted",y = "observed",title = k) +
          theme_cowplot(font_size = 10) +
          theme(plot.title = element_text(size = 10,face = "plain")))
 }
@@ -90,4 +90,4 @@ p5 <- create_expression_scatterplot(counts,fit,celltype,"CD8+ Cytotoxic T",
 p6 <- create_expression_scatterplot(counts,fit,celltype,"T cell",
                                     genes$symbol,beta.min = 1.3,
                                     mle.min = 4e-6)
-plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
+print(plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3))
