@@ -37,9 +37,11 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 ```
 
-From the PCs of the mixture proportions, we define clusters for B cells,
-CD14+ cells and CD34+ cells. The remaining cells are assigned to the U
-cluster ("U" for "unknown").
+From the PCs of the mixture proportions, we define clusters for B
+cells, CD14+ cells and CD34+ cells. The remaining cells are assigned
+to the U cluster ("U" for "unknown"). (We labels "B", "CD14+" and
+"CD34+" so that we can conveniently refer to them, noting that the
+labels are informed by downstream analyses.)
 
 ```{r clustering-1}
 pca <- prcomp(fit$L)$x
