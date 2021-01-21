@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-01-05
+<strong>Last updated:</strong> 2021-01-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0d58849390cd917241bf26d964731a6daf82a38atargetblank0d58849a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0d58849390cd917241bf26d964731a6daf82a38a" target="_blank">0d58849</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08e3b9876346be75a580a61e025f1fe9bc189331targetblank08e3b98a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/08e3b9876346be75a580a61e025f1fe9bc189331" target="_blank">08e3b98</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0d58849390cd917241bf26d964731a6daf82a38atargetblank0d58849a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08e3b9876346be75a580a61e025f1fe9bc189331targetblank08e3b98a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0d58849390cd917241bf26d964731a6daf82a38a" target="_blank">0d58849</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/08e3b9876346be75a580a61e025f1fe9bc189331" target="_blank">08e3b98</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,12 +447,13 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/clustering-pbmc-purified.rds
+    Untracked:  analysis/plots_purified_pbmc_cache/
     Untracked:  plots/
 
 Unstaged changes:
     Modified:   analysis/loglik_purified_pbmc.Rmd
     Modified:   analysis/plots_purified_pbmc.Rmd
+    Modified:   analysis/temp2.R
 
 </code></pre>
 <p>
@@ -491,6 +492,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/08e3b9876346be75a580a61e025f1fe9bc189331/analysis/clusters_purified_pbmc.Rmd" target="_blank">08e3b98</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/410fd1a7a2b9a9270ebadebdc34a908404728370/docs/clusters_purified_pbmc.html" target="_blank">410fd1a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-05
+</td>
+<td>
+Added CD8+ subpopulation to Structure plot in clusters_purified_pbmc
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1355,7 +1390,7 @@ table(samples$celltype)
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)</code></pre>
-<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”).</p>
+<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”). (We labels “B”, “CD14+” and “CD34+” so that we can conveniently refer to them, noting that the labels are informed by downstream analyses.)</p>
 <pre class="r"><code>pca &lt;- prcomp(fit$L)$x
 n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;U&quot;,n)
@@ -1798,6 +1833,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/410fd1a7a2b9a9270ebadebdc34a908404728370/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">410fd1a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-05
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/97c9bec36492bfcf150fe1b9bd1540fbe223373d/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">97c9bec</a>
 </td>
 <td>
@@ -1858,7 +1904,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.0     fastTopics_0.4-13 Matrix_1.2-18    
+# [1] cowplot_1.0.0     ggplot2_3.3.0     fastTopics_0.4-23 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
