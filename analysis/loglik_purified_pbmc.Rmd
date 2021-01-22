@@ -111,7 +111,7 @@ ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
 The improvement in fit is greatest for cells in the CD34+ and T cell
 FACS subpopulations:
 
-```{r loglik-6, fig.width=6.5, fig.height=3.5}
+```{r loglik-6, fig.width=5.5, fig.height=3.5}
 p1 <- ggplot(pdat,aes(x = x,y = y)) +
   geom_point(shape = 21,color = "white",fill = "dodgerblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
@@ -161,5 +161,5 @@ ggplot(pdat,aes(x = x,y = y)) +
 
 ```{r save-plots, echo=FALSE, results="hide", warning=FALSE}
 ggsave("../plots/loglik_scatterplot_by_facs_pbmc_purified.png",
-       p1,height = 4,width = 7.5,dpi = 450)
+       p1,height = 4,width = 6,dpi = 450)
 ```
