@@ -43,15 +43,14 @@ This can be used to assess how well the topic model "fits" each cell.
 
 ```{r loglik-2, fig.height=2, fig.width=5.5}
 pdat <- data.frame(loglik)
-p1 <- ggplot(pdat,aes(loglik)) +
+ggplot(pdat,aes(loglik)) +
   geom_histogram(bins = 64,color = "white",fill = "black") +
   scale_x_continuous(breaks = seq(-20000,0,2500)) +
   labs(y = "number of cells") +
   theme_cowplot(font_size = 10)
-print(p1)
 ```
 
-Combine the T-cell subpopulations into one category:
+For the plots, we combine the T-cell subpopulations into one category:
 
 ```{r combine-facs-subpop}
 celltype <- as.character(samples$celltype)
@@ -68,26 +67,23 @@ Most of the poorly fit cells are in the CD34+ subpopulation:
 
 ```{r loglik-3, fig.height=4, fig.width=6}
 pdat <- data.frame(loglik = loglik,celltype = celltype)
-p2 <- ggplot(pdat,aes(x = loglik)) +
+ggplot(pdat,aes(x = loglik)) +
   geom_histogram(bins = 64,color = "white",fill = "black") +
   facet_wrap(vars(celltype),scales = "free_y",ncol = 2) +
   scale_x_continuous(breaks = seq(-20000,0,2500)) +
   labs(y = "number of cells") +
   theme_cowplot(font_size = 9)
-print(p2)
 ```
 
 Here, we compare the single-cell likelihoods under the multinomial
-topic model against the likelihoods under a simple "clustering" model
-in which the underlying pattern of expression is estimated from all
-the cells in the FACS subpopulation. Thus, the predictions are based
-on 10 different expression patterms, one for each of the 10 FACS
-subpopulations. This serves partly as a "sanity check", as we expect
-the more flexible topic model to offer a better fit.
+topic model against the likelihoods under a simple multinomial model
+in which all the cells in the same FACS subpopulation share the same
+multinomial probabilities. This serves partly as a "sanity check", as
+we expect the more flexible topic model to offer a better fit than
+this simple multinomial model.
 
 ```{r loglik-4}
-fit_facs <- init_poisson_nmf_from_clustering(counts,samples$celltype)
-fit_facs <- poisson2multinom(fit_facs)
+fit_facs <- fit_multinom_model(samples$celltype,counts)
 loglik_facs <- loglik_multinom_topic_model(counts,fit_facs)
 ```
 
@@ -101,32 +97,37 @@ facs_colors <- c("dodgerblue",  # B cells
                  "tomato",      # cytotoxic T cells
                  "gold")        # T cells
 pdat <- data.frame(x = loglik_facs,y = loglik,celltype = celltype)
-p3 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
+ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_y_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_fill_manual(values = facs_colors) +
-  labs(x = "cluster model",y = "topic model",fill = "FACS subpopulation") +
+  labs(x = "simple multinomial model",y = "topic model",
+       fill = "FACS subpopulation") +
   theme_cowplot(font_size = 9)
-print(p3)
 ```
 
 The improvement in fit is greatest for cells in the CD34+ and T cell
 FACS subpopulations:
 
 ```{r loglik-6, fig.width=6.5, fig.height=3.5}
-p4 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
+p1 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(celltype)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_y_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_fill_manual(values = facs_colors) +
-  labs(x = "cluster model",y = "topic model",fill = "FACS subpopulation") +
+  labs(x = "simple multinomial model",y = "topic model",
+       fill = "FACS subpopulation") +
   theme_cowplot(font_size = 9)
-print(p4)
+print(p1)
 ```
+
+Note that, although we do not distinguish the different T cell
+subtypes in the plots, the multinomial probabilities are estimated
+separately for each of the T cell subtypes.
 
 It is interesting that the topic model almost always provides a better
 fit for the T cells considering that the simple "clustering" model
@@ -139,38 +140,28 @@ cluster-based model, this time using the clusters identified
 previously from the topic model mixture proportions.
 
 ```{r loglik-7}
-fit_clusters <- init_poisson_nmf_from_clustering(counts,samples$cluster)
-fit_clusters <- poisson2multinom(fit_clusters)
+fit_clusters <- fit_multinom_model(samples$cluster,counts)
 loglik_clusters <- loglik_multinom_topic_model(counts,fit_clusters)
 ```
 
 This is an interesting example where defining a separate cluster for
-the dendritic cells actually yields a *better* fit than the topic
-model. However, because only 308 cells are in this cluster (0.3%
-of the total), the overall impact on model fit is small.
+the dendritic cells can actually yield a *better* fit than the topic
+model. However, because only 308 cells are in this cluster (0.3% of
+the total), the overall impact on model fit is small.
 
 ```{r loglik-8, fig.width=5, fig.height=5}
 pdat <- data.frame(x = loglik_clusters,y = loglik,cluster = samples$cluster)
-p5 <- ggplot(pdat,aes(x = x,y = y)) +
+ggplot(pdat,aes(x = x,y = y)) +
   geom_point(shape = 21,color = "white",fill = "royalblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(cluster)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_y_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
-  labs(x = "cluster model",y = "topic model") +
+  labs(x = "simple multinomial model",y = "topic model") +
   theme_cowplot(font_size = 9)
-print(p5)
 ```
 
 ```{r save-plots, echo=FALSE, results="hide", warning=FALSE}
-ggsave("../plots/loglik_histogram_pbmc_purified.eps",
-       p1,height = 2,width = 4.5)
-ggsave("../plots/loglik_histogram_by_facs_pbmc_purified.eps",
-       p2,height = 4,width = 4.5)
-ggsave("../plots/loglik_scatterplot_all_pbmc_purified.png",
-       p3,height = 3.5,width = 5)
 ggsave("../plots/loglik_scatterplot_by_facs_pbmc_purified.png",
-       p4,height = 4,width = 7.5)
-ggsave("../plots/loglik_scatterplot_by_cluster_pbmc_purified.png",
-       p5,height = 5,width = 5.5)
+       p1,height = 4,width = 7.5)
 ```
