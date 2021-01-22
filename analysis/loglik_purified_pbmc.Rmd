@@ -112,15 +112,13 @@ The improvement in fit is greatest for cells in the CD34+ and T cell
 FACS subpopulations:
 
 ```{r loglik-6, fig.width=6.5, fig.height=3.5}
-p1 <- ggplot(pdat,aes(x = x,y = y,fill = celltype)) +
-  geom_point(shape = 21,color = "white") +
+p1 <- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point(shape = 21,color = "white",fill = "dodgerblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(celltype)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
   scale_y_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
-  scale_fill_manual(values = facs_colors) +
-  labs(x = "simple multinomial model",y = "topic model",
-       fill = "FACS subpopulation") +
+  labs(x = "simple multinomial model",y = "topic model") +
   theme_cowplot(font_size = 9)
 print(p1)
 ```
@@ -152,7 +150,7 @@ the total), the overall impact on model fit is small.
 ```{r loglik-8, fig.width=5, fig.height=5}
 pdat <- data.frame(x = loglik_clusters,y = loglik,cluster = samples$cluster)
 ggplot(pdat,aes(x = x,y = y)) +
-  geom_point(shape = 21,color = "white",fill = "royalblue") +
+  geom_point(shape = 21,color = "white",fill = "dodgerblue") +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   facet_wrap(vars(cluster)) +
   scale_x_continuous(limits = c(-10000,0),breaks = seq(-10000,0,2500)) +
@@ -163,5 +161,5 @@ ggplot(pdat,aes(x = x,y = y)) +
 
 ```{r save-plots, echo=FALSE, results="hide", warning=FALSE}
 ggsave("../plots/loglik_scatterplot_by_facs_pbmc_purified.png",
-       p1,height = 4,width = 7.5)
+       p1,height = 4,width = 7.5,dpi = 450)
 ```
