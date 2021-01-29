@@ -41,23 +41,73 @@ Perform differential expression analysis using the FACS labeling:
 ```{r diff-count-analysis-subpop, cache=TRUE}
 celltype <- as.character(samples$celltype)
 celltype[celltype == "CD4+/CD45RA+/CD25- Naive T" |
-         celltype == "CD8+ Cytotoxic T" |
          celltype == "CD4+/CD45RO+ Memory" |
          celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
          celltype == "CD4+ T Helper2" |
          celltype == "CD4+/CD25 T Reg"] <- "T cell"
 celltype <- factor(celltype)
-timing <- system.time(
-  diff_count_facs <- diff_count_clusters(celltype,counts))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+table(celltype)
+res <- diff_count_clusters(celltype,counts)
+```
+
+These volcano plots summarize the results of the differential
+expression analysis using the FACS labeling:
+
+```{r volcano-plots-1, fig.width=7, fig.height=5.5}
+p1 <- volcano_plot(res,"CD19+ B",genes$symbol,label_above_quantile = 0.9995) +
+  guides(fill = "none") +
+  ggtitle("B cells")
+p2 <- volcano_plot(res,"CD14+ Monocyte",genes$symbol,
+                   label_above_quantile = 0.9995) +
+  guides(fill = "none") +
+  ggtitle("CD14+ cells")
+p3 <- volcano_plot(res,"CD34+",genes$symbol,label_above_quantile = 0.999) +
+  guides(fill = "none") +
+  ggtitle("CD34+ cells")
+p4 <- volcano_plot(res,"CD56+ NK",genes$symbol,label_above_quantile = 0.9995) +
+  guides(fill = "none") +
+  ggtitle("NK cells")
+p5 <- volcano_plot(res,"CD8+ Cytotoxic T",genes$symbol,
+                   label_above_quantile = 0.9995) +
+  guides(fill = "none") +
+  ggtitle("CD8+ T cells")
+p6 <- volcano_plot(res,"T cell",genes$symbol,label_above_quantile = 0.999) +
+  guides(fill = "none") +
+  ggtitle("T cells")
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
+```
+
+```{r volcano-plots-for-paper-1, echo=FALSE, warning=FALSE, results="hide"}
+pp1 <- volcano_plot(res,"CD19+ B",genes$symbol,label_above_quantile = 0.998) +
+  guides(fill = "none") +
+  ggtitle("B cells")
+pp2 <- volcano_plot(res,"CD14+ Monocyte",genes$symbol,
+                   label_above_quantile = 0.998) +
+  guides(fill = "none") +
+  ggtitle("CD14+ cells")
+pp3 <- volcano_plot(res,"CD34+",genes$symbol,label_above_quantile = 0.998) +
+  guides(fill = "none") +
+  ggtitle("CD34+ cells")
+pp4 <- volcano_plot(res,"CD56+ NK",genes$symbol,
+                    label_above_quantile = 0.998) +
+  guides(fill = "none") +
+  ggtitle("NK cells")
+pp5 <- volcano_plot(res,"CD8+ Cytotoxic T",genes$symbol,
+                   label_above_quantile = 0.998) +
+  guides(fill = "none") +
+  ggtitle("CD8+ T cells")
+pp6 <- volcano_plot(res,"T cell",genes$symbol,label_above_quantile = 0.997) +
+  guides(fill = "none") +
+  ggtitle("T cells")
+ggsave("../plots/volcano_plots_pbmc_purified_facs.eps",
+       plot_grid(pp1,pp2,pp3,pp4,pp5,pp6),
+	   height = 7,width = 8)
 ```
 
 Perform differential expression analysis using the clusters:
 
 ```{r diff-count-analysis-clusters, cache=TRUE}
-timing <- system.time(
-  diff_count_clusters <- diff_count_clusters(samples$cluster,counts))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+diff_count_clusters <- diff_count_clusters(samples$cluster,counts)
 ```
 
 Perform differential expression analysis using the multinomial topic
@@ -68,9 +118,7 @@ the two T-cell topics:
 rows <- which(samples$cluster != "dendritic")
 fit_merged <- select_loadings(fit,loadings = rows)
 fit_merged <- merge_topics(fit,c(1,6))
-timing <- system.time(
-  diff_count_topics <- diff_count_analysis(fit_merged,counts))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+diff_count_topics <- diff_count_analysis(fit_merged,counts)
 ```
 
 Perform differential expression analysis on the T cells only:
@@ -78,24 +126,22 @@ Perform differential expression analysis on the T cells only:
 ```{r diff-count-analysis-t, cache=TRUE}
 rows <- which(samples$cluster == "T")
 fit_t <- select_loadings(fit,loadings = rows)
-timing <- system.time(
-  diff_count_t <- diff_count_analysis(fit_t,counts[rows,]))
-cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+diff_count_t <- diff_count_analysis(fit_t,counts[rows,])
 ```
 
 Having completed the differential expression calculations, as an
 example, we visualize the differential expression results for topic 3
 ("B cells") using a volcano plot:
 
-```{r volcano-plots-1, fig.height=4, fig.width=4}
-p1 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
-                          "topic 3 (B cells)",show_legend = TRUE)
-print(p1)
+```{r volcano-plots-11, fig.height=4, fig.width=4}
+volcano_plot(diff_count_topics,"k3",genes$symbol,
+             label_above_quantile = 0.998) +
+  ggtitle("topic 3 (B cells)")
 ```
 
 Here are more volcano plots:
 
-```{r volcano-plots-2, fig.width=7, fig.height=8}
+```{r volcano-plots-12, fig.width=7, fig.height=8}
 p2 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
                           "topic 3 (B cells)")
 p3 <- volcano_plot_better(diff_count_topics,"k4",genes$symbol,0.998,
@@ -116,10 +162,12 @@ plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
 ```
 
 ```{r volcano-plots-for-paper, echo=FALSE, results="hide", warning=FALSE}
-ggsave("../plots/volcano_plot_pbmc_purified_bcells_with_legend.eps",
-       p1,height = 3.4,width = 4)
+p1 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
+                   label_above_quantile = 0.998) +
+  scale_x_continuous(expand = expansion(mult = 1),breaks = seq(-10,10,5)) +
+  ggtitle("topic 3 (B cells)")
 ggsave("../plots/volcano_plot_pbmc_purified_bcells.eps",
-       p2,height = 3.4,width = 3)
+       p1,height = 4,width = 8)
 ggsave("../plots/volcano_plot_pbmc_purified_nk.eps",
        p3,height = 3.4,width = 3)
 ggsave("../plots/volcano_plot_pbmc_purified_cd14.eps",
