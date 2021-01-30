@@ -429,16 +429,16 @@ diff-count-analysis-topics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4edefd08c545d4440ecfc1fce9c3e70dda27784btargetblank4edefd0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4edefd08c545d4440ecfc1fce9c3e70dda27784b" target="_blank">4edefd0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0b7339714de3e3fc87c26012b646aa1af42b06e2targetblank0b73397a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0b7339714de3e3fc87c26012b646aa1af42b06e2" target="_blank">0b73397</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4edefd08c545d4440ecfc1fce9c3e70dda27784btargetblank4edefd0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0b7339714de3e3fc87c26012b646aa1af42b06e2targetblank0b73397a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4edefd08c545d4440ecfc1fce9c3e70dda27784b" target="_blank">4edefd0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0b7339714de3e3fc87c26012b646aa1af42b06e2" target="_blank">0b73397</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -463,16 +463,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  .DS_Store
     Untracked:  analysis/plots_purified_pbmc_cache/
-    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd4cd8.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd8.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_dendritic.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
     Untracked:  plots/
 
 </code></pre>
@@ -512,6 +503,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0b7339714de3e3fc87c26012b646aa1af42b06e2/analysis/plots_purified_pbmc.Rmd" target="_blank">0b73397</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+<td>
+Added more volcano plots to plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/42ebc62099a4d7af6134fbfea745d3d7b6cdfbf3/docs/plots_purified_pbmc.html" target="_blank">42ebc62</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+<td>
+Added volcano plots for FACS populations in plots_purified_pbmc
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -845,6 +870,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/42ebc62099a4d7af6134fbfea745d3d7b6cdfbf3/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">42ebc62</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/a4bc59be3a7313cdcf5df4daaab580568ddcfa20/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">a4bc59b</a>
 </td>
 <td>
@@ -906,10 +942,117 @@ diff_count_clusters &lt;- diff_count_clusters(samples$cluster,counts)
 </p>
 </div>
 <p>These volcano plots summarize the results of the differential expression analysis using the clusters:</p>
-<pre class="r"><code>p7 &lt;- volcano_plot(diff_count_clusters,&quot;B cells&quot;,genes$symbol,
-                   label_above_quantile = 0.998) +
+<pre class="r"><code>p7 &lt;- volcano_plot(diff_count_clusters,&quot;B&quot;,genes$symbol,
+                   label_above_quantile = 0.999) +
   guides(fill = &quot;none&quot;) +
-  ggtitle(&quot;B cells&quot;)</code></pre>
+  ggtitle(&quot;B cells&quot;)
+p8 &lt;- volcano_plot(diff_count_clusters,&quot;CD14+&quot;,genes$symbol,
+                   label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;CD14+ cells&quot;)
+p9 &lt;- volcano_plot(diff_count_clusters,&quot;CD34+&quot;,genes$symbol,
+                   label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;CD34+ cells&quot;)
+p10 &lt;- volcano_plot(diff_count_clusters,&quot;dendritic&quot;,genes$symbol,
+                    label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;dendritic cells&quot;)
+p11 &lt;- volcano_plot(diff_count_clusters,&quot;NK&quot;,genes$symbol,
+                    label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;NK cells&quot;)
+p12 &lt;- volcano_plot(diff_count_clusters,&quot;CD8+&quot;,genes$symbol,
+                    label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;CD8+ T cells&quot;)
+p13 &lt;- volcano_plot(diff_count_clusters,&quot;T&quot;,genes$symbol,
+                    label_above_quantile = 0.999) +
+  guides(fill = &quot;none&quot;) +
+  ggtitle(&quot;T cells&quot;)
+plot_grid(p7,p8,p9,p10,p11,p12,p13,nrow = 3,ncol = 3)</code></pre>
+<p><img src="figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-2-1">
+Past versions of volcano-plots-2-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/42ebc62099a4d7af6134fbfea745d3d7b6cdfbf3/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">42ebc62</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a4bc59be3a7313cdcf5df4daaab580568ddcfa20/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">a4bc59b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a0b6c2b221c0b5c52edef847b0c1d655e8891a16/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">a0b6c2b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/04113408c52e484a058dfa1525a28dfb9f86d646/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">0411340</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fad8e3d9888206e882551f96333364e6203b6599/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">fad8e3d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Perform differential expression analysis using the multinomial topic model, after removing the dendritic cells cluster, and after merging the two T-cell topics:</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster != &quot;dendritic&quot;)
 fit_merged &lt;- select_loadings(fit,loadings = rows)
@@ -1024,7 +1167,7 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggrepel_0.9.0     ggplot2_3.3.0     fastTopics_0.4-26
+# [1] cowplot_1.0.0     ggrepel_0.9.0     ggplot2_3.3.0     fastTopics_0.4-29
 # [5] Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
