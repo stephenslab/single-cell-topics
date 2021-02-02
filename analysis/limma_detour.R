@@ -24,18 +24,24 @@ celltype <- factor(samples$celltype == "CD19+ B")
 levels(celltype) <- c("A","B")
 res <- diff_count_clusters(celltype,counts)
 
-# Perform differential expression analysis using limma.
-dge    <- DGEList(t(counts))
-logCPM <- cpm(dge,log = TRUE,prior.count = 3)
-design <- model.matrix(~celltype)
-eb     <- lmFit(logCPM,design)
-eb     <- eBayes(eb,trend = TRUE)
-topTable(eb,number = 20)
+out <- ash(res$beta[,"B"],res$se[,"B"],mixcompdist = "normal")
+plot(quantile(res$Z[,"B"],seq(0,1,0.01)),
+     quantile(out$result$PosteriorMean/out$result$PosteriorSD,seq(0,1,0.01)),
+     pch = 20,xlim = c(-10,10),ylim = c(-10,10),
+     xlab = "raw",ylab = "ashr")
+abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
+
+n   <- 4000 - 2
+out <- squeezeVar(res$se[,"B"]^2,df = n,robust = FALSE)
+plot(res$se[,"B"],sqrt(out$var.post),pch = 20,log = "xy")
 
 # Perform differential expression analysis using limma/voom.
 design <- model.matrix(~0 + celltype)
-v <- voom(t(counts),design)
+contrast.matrix <- makeContrasts(AvsB = celltypeB - celltypeA,
+                                 levels = colnames(design))
+v <- voom(t(counts),design,plot = TRUE)
 v <- lmFit(v,design)
+v <- contrasts.fit(v,contrasts = contrast.matrix)
 v <- eBayes(v)
-plot(v$coefficients[,"celltypeCD19+ B"],res$beta[,"CD19+ B"],
-     pch = 20,ylim = c(-10,10))
+plot(v$t,res$Z[,"B"],pch = 20,xlim = c(-25,25),ylim = c(-25,25))
+abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
