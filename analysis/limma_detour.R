@@ -4,20 +4,14 @@ library(limma)
 library(edgeR)
 set.seed(1)
 
-# Load the count data and K = 6 topic model fit.
+# Load the count data.
 load("../data/pbmc_purified.RData")
-fit <- readRDS(file.path("../output/pbmc-purified/rds",
-                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
-fit <- poisson2multinom(fit)
 
 # Take a random subset of the cells.
 n       <- nrow(counts)
 rows    <- sample(n,4000)
 samples <- samples[rows,]
 counts  <- counts[rows,]
-cols    <- which(colSums(counts > 0) >= 1)
-counts  <- counts[,cols]
-fit     <- select_loadings(fit,loadings = rows)
 
 # Perform differential expression analysis using fastTopics.
 celltype <- factor(samples$celltype == "CD19+ B")
@@ -25,8 +19,9 @@ levels(celltype) <- c("A","B")
 res <- diff_count_clusters(celltype,counts)
 
 out <- ash(res$beta[,"B"],res$se[,"B"],mixcompdist = "normal")
-plot(quantile(res$Z[,"B"],seq(0,1,0.01)),
-     quantile(out$result$PosteriorMean/out$result$PosteriorSD,seq(0,1,0.01)),
+plot(quantile(abs(res$Z[,"B"]),seq(0,1,0.01)),
+     quantile(abs(out$result$PosteriorMean/out$result$PosteriorSD),
+              seq(0,1,0.01)),
      pch = 20,xlim = c(-10,10),ylim = c(-10,10),
      xlab = "raw",ylab = "ashr")
 abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
