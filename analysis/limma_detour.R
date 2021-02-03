@@ -1,7 +1,4 @@
 library(Matrix)
-library(fastTopics)
-library(limma)
-library(edgeR)
 set.seed(1)
 
 # Load the count data.
@@ -13,10 +10,22 @@ rows    <- sample(n,4000)
 samples <- samples[rows,]
 counts  <- counts[rows,]
 
-# Perform differential expression analysis using fastTopics.
-celltype <- factor(samples$celltype == "CD19+ B")
-levels(celltype) <- c("A","B")
-res <- diff_count_clusters(celltype,counts)
+# Perform differential expression analysis using fastTopics, with and
+# without shrinking the log-fold change estimates using ashr.
+celltype <- as.character(samples$celltype)
+celltype[celltype == "CD4+/CD45RA+/CD25- Naive T" |
+         celltype == "CD4+/CD45RO+ Memory" |
+         celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
+         celltype == "CD4+ T Helper2" |
+         celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype <- factor(celltype)
+res1 <- diff_count_clusters(celltype,counts,shrink.method = "none")
+res2 <- diff_count_clusters(celltype,counts,shrink.method = "ashr")
+
+# Compare the p-values, before and after shrinking.
+i <- "CD14+ Monocyte"
+plot(res1$pval[,i],res2$pval[,i],pch = 20)
+abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
 
 out <- ash(res$beta[,"B"],res$se[,"B"],mixcompdist = "normal")
 plot(quantile(abs(res$Z[,"B"]),seq(0,1,0.01)),
