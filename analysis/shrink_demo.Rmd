@@ -4,11 +4,10 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-Here we illustrate the use of the adaptive shrinkage method in the
-differential expression analysis using a topic model. Since the
-effect of the shrinkage is hard to see on the full data set, we
-perform the differential expression analysis on a random subset of 100
-cells.
+Here we illustrate the use of adaptive shrinkage in differential
+expression analysis using a topic model. Since the effect of the
+shrinkage is hard to see on the full data set, we perform differential
+expression analysis on a random subset of 100 cells.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -69,16 +68,15 @@ shrinkage to the log-fold change estimates and standard errors:
 res2 <- diff_count_analysis(fit,counts,shrink.method = "ash")
 ```
 
-The adaptive shrinkage is applied separately to each topic. In these
-next plots, we illustrate the effect of the adaptive shrinkage on
-topic 3, which corresponds to B cells.
+The adaptive shrinkage is applied separately to each topic. In the
+plots, we illustrate the effect of the adaptive shrinkage on topic 3,
+which corresponds to B cells.
 
 These two scatterplots show the "raw" *z*-scores and the posterior
-*z*-scores ("shrunk"), coloured by their average expression. Since a
-handful of genes have much larger *z*-scores than the others, it is
-hard to see the effect of the adaptive shrinkage, so the right-hand
-plot shows the same results, but zoomed in on *z*-scores closer to
-zero.
+("shrunk") *z*-scores, coloured by their average expression. A handful
+of genes have much larger *z*-scores than the others, so the
+right-hand plot shows the same results but zoomed in on smaller
+*z*-scores.
 
 ```{r scatterplot, fig.height=2.5, fig.width=7, warning=FALSE}
 pdat <- data.frame(mean   = res1$colmeans,
@@ -97,8 +95,8 @@ plot_grid(p1,p2)
 The log-fold changes that are most strongly shrunk to zero tend to be
 for the genes with lower levels of expression.
 
-This is what the volcano plots look like with and without adaptive
-shrinkage:
+This is what the volcano plots look like for topic 3, with and without
+adaptive shrinkage:
 
 ```{r volcano-plots, fig.width=6.5, fig.height=3}
 p3 <- volcano_plot(res1,k = "k3",labels = genes$symbol,
