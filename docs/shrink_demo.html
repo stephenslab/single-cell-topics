@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree816d01cfe781e8c8b156d16a994277cc268414datargetblank816d01ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/816d01cfe781e8c8b156d16a994277cc268414da" target="_blank">816d01c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree708700d12b9478fb2348c4f4a487c1cd3a297472targetblank708700da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/708700d12b9478fb2348c4f4a487c1cd3a297472" target="_blank">708700d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree816d01cfe781e8c8b156d16a994277cc268414datargetblank816d01ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree708700d12b9478fb2348c4f4a487c1cd3a297472targetblank708700da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/816d01cfe781e8c8b156d16a994277cc268414da" target="_blank">816d01c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/708700d12b9478fb2348c4f4a487c1cd3a297472" target="_blank">708700d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/708700d12b9478fb2348c4f4a487c1cd3a297472/analysis/shrink_demo.Rmd" target="_blank">708700d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-04
+</td>
+<td>
+workflowr::wflow_publish(“shrink_demo.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/80d2e53f370b456104e8555e6c1d2ed8796f4484/docs/shrink_demo.html" target="_blank">80d2e53</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-04
+</td>
+<td>
+Improved the text and code in the “shrink_demo”.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -579,7 +613,7 @@ workflowr::wflow_publish(“shrink_demo.Rmd”)
 </div>
 </div>
 </div>
-<p>Here we illustrate the use of the adaptive shrinkage method in the differential expression analysis using a topic model. Since the effect of the shrinkage is hard to see on the full data set, we perform the differential expression analysis on a random subset of 100 cells.</p>
+<p>Here we illustrate the use of adaptive shrinkage in differential expression analysis using a topic model. Since the effect of the shrinkage is hard to see on the full data set, we perform differential expression analysis on a random subset of 100 cells.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
@@ -608,8 +642,8 @@ fit     &lt;- select_loadings(fit,loadings = rows)</code></pre>
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
 # Computing log-fold change statistics.
 # Stabilizing log-fold change estimates using adaptive shrinkage.</code></pre>
-<p>The adaptive shrinkage is applied separately to each topic. In these next plots, we illustrate the effect of the adaptive shrinkage on topic 3, which corresponds to B cells.</p>
-<p>These two scatterplots show the “raw” <em>z</em>-scores and the posterior <em>z</em>-scores (“shrunk”), coloured by their average expression. Since a handful of genes have much larger <em>z</em>-scores than the others, it is hard to see the effect of the adaptive shrinkage, so the right-hand plot shows the same results, but zoomed in on <em>z</em>-scores closer to zero.</p>
+<p>The adaptive shrinkage is applied separately to each topic. In the plots, we illustrate the effect of the adaptive shrinkage on topic 3, which corresponds to B cells.</p>
+<p>These two scatterplots show the “raw” <em>z</em>-scores and the posterior (“shrunk”) <em>z</em>-scores, coloured by their average expression. A handful of genes have much larger <em>z</em>-scores than the others, so the right-hand plot shows the same results but zoomed in on smaller <em>z</em>-scores.</p>
 <pre class="r"><code>pdat &lt;- data.frame(mean   = res1$colmeans,
                    raw    = res1$Z[,3],
                    shrunk = res2$Z[,3])
@@ -646,6 +680,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/80d2e53f370b456104e8555e6c1d2ed8796f4484/docs/figure/shrink_demo.Rmd/scatterplot-1.png" target="_blank">80d2e53</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-04
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3dbddd016f4f0d6bd3c642b94db6043abb5c1094/docs/figure/shrink_demo.Rmd/scatterplot-1.png" target="_blank">3dbddd0</a>
 </td>
 <td>
@@ -660,7 +705,7 @@ Peter Carbonetto
 </div>
 </div>
 <p>The log-fold changes that are most strongly shrunk to zero tend to be for the genes with lower levels of expression.</p>
-<p>This is what the volcano plots look like with and without adaptive shrinkage:</p>
+<p>This is what the volcano plots look like for topic 3, with and without adaptive shrinkage:</p>
 <pre class="r"><code>p3 &lt;- volcano_plot(res1,k = &quot;k3&quot;,labels = genes$symbol,
                    filter_low_counts = 0.05,
                    label_above_quantile = 0.999) +
@@ -693,6 +738,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/80d2e53f370b456104e8555e6c1d2ed8796f4484/docs/figure/shrink_demo.Rmd/volcano-plots-1.png" target="_blank">80d2e53</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-04
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3dbddd016f4f0d6bd3c642b94db6043abb5c1094/docs/figure/shrink_demo.Rmd/volcano-plots-1.png" target="_blank">3dbddd0</a>
