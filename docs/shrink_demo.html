@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5cce02d8244938c41876e22d68776b6fe8f3ff8targetblankc5cce02a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c5cce02d8244938c41876e22d68776b6fe8f3ff8" target="_blank">c5cce02</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5ef4b98ea34b6119180a3bf05b62e487803c3040targetblank5ef4b98a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5ef4b98ea34b6119180a3bf05b62e487803c3040" target="_blank">5ef4b98</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5cce02d8244938c41876e22d68776b6fe8f3ff8targetblankc5cce02a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5ef4b98ea34b6119180a3bf05b62e487803c3040targetblank5ef4b98a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c5cce02d8244938c41876e22d68776b6fe8f3ff8" target="_blank">c5cce02</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5ef4b98ea34b6119180a3bf05b62e487803c3040" target="_blank">5ef4b98</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ef4b98ea34b6119180a3bf05b62e487803c3040/analysis/shrink_demo.Rmd" target="_blank">5ef4b98</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-03
+</td>
+<td>
+workflowr::wflow_publish(“shrink_demo.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/23e02100c4521c8c04938c6b263d559a26e56cbe/docs/shrink_demo.html" target="_blank">23e0210</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-03
+</td>
+<td>
+Built first draft of shrink_demo analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -561,36 +595,57 @@ p1 &lt;- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
                        na.value = &quot;gainsboro&quot;,midpoint = 0) +
   geom_abline(slope = 1,intercept = 0,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
-  xlim(c(-5,10)) +
-  ylim(c(-5,10)) +
   theme_cowplot(font_size = 10)
-print(p1)
-# Warning: Removed 35 rows containing missing values (geom_point).</code></pre>
-<p><img src="figure/shrink_demo.Rmd/scatterplot-1-1.png" width="840" style="display: block; margin: auto;" /></p>
+p2 &lt;- p1 + xlim(-4,8) + ylim(-4,8)
+plot_grid(p1,p2)
+# Warning: Removed 89 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/shrink_demo.Rmd/scatterplot-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p><em>Add text here.</em></p>
-<pre class="r"><code>pdat &lt;- data.frame(mean   = res1$colmeans,
-                   raw    = res1$Z[,2],
-                   shrunk = res2$Z[,2])
-p2 &lt;- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
-  geom_point(shape = 21,color = &quot;white&quot;) +
-  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       na.value = &quot;gainsboro&quot;,midpoint = 0) +
-  geom_abline(slope = 1,intercept = 0,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
-  xlim(c(-5,10)) +
-  ylim(c(-5,10)) +
-  theme_cowplot(font_size = 10)
-print(p2)
-# Warning: Removed 42 rows containing missing values (geom_point).</code></pre>
-<p><img src="figure/shrink_demo.Rmd/scatterplot-2-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
-<pre class="r"><code>p3 &lt;- volcano_plot(res1,k = &quot;k2&quot;,labels = genes$symbol,
+<pre class="r"><code>p3 &lt;- volcano_plot(res1,k = &quot;k3&quot;,labels = genes$symbol,
                    filter_low_counts = 0.05,
                    label_above_quantile = 0.999)
-p4 &lt;- volcano_plot(res2,k = &quot;k2&quot;,labels = genes$symbol,
+p4 &lt;- volcano_plot(res2,k = &quot;k3&quot;,labels = genes$symbol,
                    filter_low_counts = 0.05,
                    label_above_quantile = 0.999)
 plot_grid(p3,p4)</code></pre>
-<p><img src="figure/shrink_demo.Rmd/volcano-plots-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p><img src="figure/shrink_demo.Rmd/volcano-plots-1.png" width="780" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-1">
+Past versions of volcano-plots-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/23e02100c4521c8c04938c6b263d559a26e56cbe/docs/figure/shrink_demo.Rmd/volcano-plots-1.png" target="_blank">23e0210</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-03
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
