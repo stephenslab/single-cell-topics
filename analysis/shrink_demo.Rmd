@@ -68,7 +68,7 @@ res2 <- diff_count_analysis(fit,counts,shrink.method = "ash")
 
 *Add text here.*
 
-```{r scatterplot-1, height=3, width=4}
+```{r scatterplot, fig.height=3, fig.width=7}
 pdat <- data.frame(mean   = res1$colmeans,
                    raw    = res1$Z[,3],
                    shrunk = res2$Z[,3])
@@ -77,36 +77,18 @@ p1 <- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
                        na.value = "gainsboro",midpoint = 0) +
   geom_abline(slope = 1,intercept = 0,color = "skyblue",linetype = "dotted") +
-  xlim(c(-5,10)) +
-  ylim(c(-5,10)) +
   theme_cowplot(font_size = 10)
-print(p1)
+p2 <- p1 + xlim(-4,8) + ylim(-4,8)
+plot_grid(p1,p2)
 ```
 
 *Add text here.*
 
-```{r scatterplot-2, height=3, width=4}
-pdat <- data.frame(mean   = res1$colmeans,
-                   raw    = res1$Z[,2],
-                   shrunk = res2$Z[,2])
-p2 <- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
-  geom_point(shape = 21,color = "white") +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       na.value = "gainsboro",midpoint = 0) +
-  geom_abline(slope = 1,intercept = 0,color = "skyblue",linetype = "dotted") +
-  xlim(c(-5,10)) +
-  ylim(c(-5,10)) +
-  theme_cowplot(font_size = 10)
-print(p2)
-```
-
-*Add text here.*
-
-```{r volcano-plots, fig.width=7, fig.height=3}
-p3 <- volcano_plot(res1,k = "k2",labels = genes$symbol,
+```{r volcano-plots, fig.width=6.5, fig.height=3}
+p3 <- volcano_plot(res1,k = "k3",labels = genes$symbol,
                    filter_low_counts = 0.05,
                    label_above_quantile = 0.999)
-p4 <- volcano_plot(res2,k = "k2",labels = genes$symbol,
+p4 <- volcano_plot(res2,k = "k3",labels = genes$symbol,
                    filter_low_counts = 0.05,
                    label_above_quantile = 0.999)
 plot_grid(p3,p4)
