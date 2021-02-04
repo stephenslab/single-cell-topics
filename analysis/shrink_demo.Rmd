@@ -1,0 +1,113 @@
+---
+title: "Add Title Here"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the count data.
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+table(samples$celltype)
+```
+
+Load the $K = 6$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+fit <- poisson2multinom(fit)
+```
+
+Set the seed to ensure that the results are reproducible.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Take a random subset of 100 cells.
+
+```{r subset-cells}
+n       <- nrow(counts)
+rows    <- sample(n,100)
+samples <- samples[rows,]
+counts  <- counts[rows,]
+fit     <- select_loadings(fit,loadings = rows)
+```
+
+Perform differential expression analysis using the multinomial topic
+model:
+
+```{r diff-count-analysis-1}
+res1 <- diff_count_analysis(fit,counts,shrink.method = "none")
+```
+
+Redo the different expression analysis, this time applying adaptive
+shrinkage to the log-fold change estimates:
+
+```{r diff-count-analysis-2}
+res2 <- diff_count_analysis(fit,counts,shrink.method = "ash")
+```
+
+*Add text here.*
+
+```{r scatterplot-1, height=3, width=4}
+pdat <- data.frame(mean   = res1$colmeans,
+                   raw    = res1$Z[,3],
+                   shrunk = res2$Z[,3])
+p1 <- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
+  geom_point(shape = 21,color = "white") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = 0) +
+  geom_abline(slope = 1,intercept = 0,color = "skyblue",linetype = "dotted") +
+  xlim(c(-5,10)) +
+  ylim(c(-5,10)) +
+  theme_cowplot(font_size = 10)
+print(p1)
+```
+
+*Add text here.*
+
+```{r scatterplot-2, height=3, width=4}
+pdat <- data.frame(mean   = res1$colmeans,
+                   raw    = res1$Z[,2],
+                   shrunk = res2$Z[,2])
+p2 <- ggplot(pdat,aes(x = raw,y = shrunk,fill = log10(mean))) +
+  geom_point(shape = 21,color = "white") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = 0) +
+  geom_abline(slope = 1,intercept = 0,color = "skyblue",linetype = "dotted") +
+  xlim(c(-5,10)) +
+  ylim(c(-5,10)) +
+  theme_cowplot(font_size = 10)
+print(p2)
+```
+
+*Add text here.*
+
+```{r volcano-plots, fig.width=7, fig.height=3}
+p3 <- volcano_plot(res1,k = "k2",labels = genes$symbol,
+                   filter_low_counts = 0.05,
+                   label_above_quantile = 0.999)
+p4 <- volcano_plot(res2,k = "k2",labels = genes$symbol,
+                   filter_low_counts = 0.05,
+                   label_above_quantile = 0.999)
+plot_grid(p3,p4)
+```
