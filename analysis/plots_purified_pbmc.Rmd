@@ -254,17 +254,23 @@ ggsave("../plots/volcano_plots_pbmc_purified_clusters.eps",
 ```
 
 Perform differential expression analysis using the multinomial topic
-model, after removing the dendritic cells cluster, and after merging
-the two T cell topics:
+model, after removing the dendritic cells cluster:
 
 ```{r diff-count-analysis-topics, cache=TRUE}
 rows <- which(samples$cluster != "dendritic")
-fit_merged <- select_loadings(fit,loadings = rows)
-fit_merged <- merge_topics(fit,c(1,6))
-diff_count_topics <- diff_count_analysis(fit_merged,counts)
+fit_no_dendritic <- select_loadings(fit,loadings = rows)
+diff_count_topics <- diff_count_analysis(fit_no_dendritic,counts[rows,])
 ```
 
-Perform differential expression analysis on the T cells only:
+Perform a second differential expression analysis after merging the
+two T cell topics:
+
+```{r diff-count-analysis-topics, cache=TRUE}
+fit_merged <- merge_topics(fit_no_dendritic,c(1,6))
+diff_count_merged <- diff_count_analysis(fit_merged,counts[rows,])
+```
+
+Perform another differential expression analysis on the T cells only:
 
 ```{r diff-count-analysis-t, cache=TRUE}
 rows <- which(samples$cluster == "T")
@@ -275,28 +281,50 @@ diff_count_t <- diff_count_analysis(fit_t,counts[rows,])
 These volcano plots summarize the results of the differential
 expression analysis using the topic model:
 
-```{r volcano-plots-3, fig.width=7, fig.height=5.5, message=FALSE}
-volcano_plot(diff_count_topics,"k3",genes$symbol,
-             label_above_quantile = 0.998) +
+```{r volcano-plots-3, fig.width=7, fig.height=8, message=FALSE}
+p14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
   ggtitle("topic 3 (B cells)")
-```
-
-Here are more volcano plots:
-
-```{r, eval=FALSE}
-p2 <- volcano_plot_better(diff_count_topics,"k3",genes$symbol,0.998,
-                          "topic 3 (B cells)")
-p3 <- volcano_plot_better(diff_count_topics,"k4",genes$symbol,0.998,
-                          "topic 4 (NK cells)")
-p4 <- volcano_plot_better(diff_count_topics,"k2",genes$symbol,0.998,
-                          "topic 2 (CD14+)")
-p5 <- volcano_plot_better(diff_count_topics,"k5",genes$symbol,0.998,
-                          "topic 5 (CD34+)")
-p6 <- volcano_plot_better(diff_count_topics,"k1+k6",genes$symbol,0.998,
-                          "topics 1 + 6 (T cells)")
-p7 <- volcano_plot_better(diff_count_t,"k1",genes$symbol,0.997,
-                          "topic 1 (CD4+/CD8+)")
-plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
+p15 <- volcano_plot(diff_count_topics,"k2",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topic 2 (CD14+ cells)")
+p16 <- volcano_plot(diff_count_topics,"k5",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topic 5 (CD34+ cells)")
+p17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topic 4 (NK cells)")
+p18 <- volcano_plot(diff_count_merged,"k1+k6",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topics 1 + 6 (T cells)")
+p19 <- volcano_plot(diff_count_t,"k1",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topic 1 (CD4+/CD8+)")
+p20 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
+                    label_above_quantile = 0.999,
+ 				    subsample_below_quantile = 0.5,
+				    filter_low_counts = 5e-5) +
+  guides(fill = "none") +
+  ggtitle("topic 6")
+plot_grid(p14,p15,p16,p17,p18,p19,p20,nrow = 3,ncol = 3)
 ```
 
 ```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
@@ -322,7 +350,7 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
        p9,height = 3.4,width = 3)
 ```
 
-The results of the differential expression analyses can also be
+The results of the differential expression analysis can also be
 browsed in interactive volcano plots:
 
 ```{r volcano-plots-4, results="hide", eval=FALSE}
