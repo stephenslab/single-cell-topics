@@ -255,7 +255,7 @@ ggsave("../plots/volcano_plots_pbmc_purified_clusters.eps",
 
 Perform differential expression analysis using the multinomial topic
 model, after removing the dendritic cells cluster, and after merging
-the two T-cell topics:
+the two T cell topics:
 
 ```{r diff-count-analysis-topics, cache=TRUE}
 rows <- which(samples$cluster != "dendritic")
@@ -272,11 +272,10 @@ fit_t <- select_loadings(fit,loadings = rows)
 diff_count_t <- diff_count_analysis(fit_t,counts[rows,])
 ```
 
-Having completed the differential expression calculations, as an
-example, we visualize the differential expression results for topic 3
-("B cells") using a volcano plot:
+These volcano plots summarize the results of the differential
+expression analysis using the topic model:
 
-```{r volcano-plots-11, fig.height=4, fig.width=4, eval=FALSE}
+```{r volcano-plots-3, fig.width=7, fig.height=5.5, message=FALSE}
 volcano_plot(diff_count_topics,"k3",genes$symbol,
              label_above_quantile = 0.998) +
   ggtitle("topic 3 (B cells)")
@@ -300,7 +299,7 @@ p7 <- volcano_plot_better(diff_count_t,"k1",genes$symbol,0.997,
 plot_grid(p2,p3,p4,p5,p6,p7,p8,p9,nrow = 3,ncol = 3)
 ```
 
-```{r volcano-plots-for-paper, echo=FALSE, results="hide", warning=FALSE, eval=FALSE}
+```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
 p1 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
                    label_above_quantile = 0.998) +
   scale_x_continuous(expand = expansion(mult = 1),breaks = seq(-10,10,5)) +
@@ -326,7 +325,7 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
 The results of the differential expression analyses can also be
 browsed in interactive volcano plots:
 
-```{r volcano-plots-3, results="hide", eval=FALSE}
+```{r volcano-plots-4, results="hide", eval=FALSE}
 volcano_plotly(diff_count_topics,"k3","volcano_plot_purified_pbmc_bcells.html",
                genes$symbol,title = "topic 3 (B cells)")
 volcano_plotly(diff_count_topics,"k4","volcano_plot_purified_pbmc_nk.html",
