@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-01-29
+<strong>Last updated:</strong> 2021-02-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -429,16 +429,16 @@ diff-count-analysis-topics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0b7339714de3e3fc87c26012b646aa1af42b06e2targetblank0b73397a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0b7339714de3e3fc87c26012b646aa1af42b06e2" target="_blank">0b73397</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeaecd70036aae5c383667631ec6234a278bea92b3targetblankaecd700a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/aecd70036aae5c383667631ec6234a278bea92b3" target="_blank">aecd700</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0b7339714de3e3fc87c26012b646aa1af42b06e2targetblank0b73397a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeaecd70036aae5c383667631ec6234a278bea92b3targetblankaecd700a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0b7339714de3e3fc87c26012b646aa1af42b06e2" target="_blank">0b73397</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/aecd70036aae5c383667631ec6234a278bea92b3" target="_blank">aecd700</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -455,7 +455,6 @@ Ignored files:
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
     Ignored:    output/pbmc-68k/rds/
-    Ignored:    output/pbmc-purified/diff-count-pbmc-purified.RData
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
@@ -463,6 +462,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
+    Untracked:  .DS_Store
     Untracked:  analysis/plots_purified_pbmc_cache/
     Untracked:  plots/
 
@@ -503,6 +503,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/aecd70036aae5c383667631ec6234a278bea92b3/analysis/plots_purified_pbmc.Rmd" target="_blank">aecd700</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-09
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1f0eb8cf964185858bb1a1ad82035351424b0550/analysis/plots_purified_pbmc.Rmd" target="_blank">1f0eb8c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-08
+</td>
+<td>
+More improvements to volcano plots in plots_purified_pbmc.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/be277389ea8d2bb0c390c95e4be08713ab595dfb/analysis/plots_purified_pbmc.Rmd" target="_blank">be27738</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-08
+</td>
+<td>
+Improved volcano plots for FACS cell populations in plots_purified_pbmc.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/ab3eeb82557ac15852443a50d3aad409242690c7/docs/plots_purified_pbmc.html" target="_blank">ab3eeb8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -812,7 +880,8 @@ diff_count_facs &lt;- diff_count_clusters(celltype,counts)
 # CD8+ Cytotoxic T           T cell 
 #            10209            54132 
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
-# Computing log-fold change statistics.</code></pre>
+# Computing log-fold change statistics.
+# Stabilizing log-fold change estimates using adaptive shrinkage.</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
@@ -821,27 +890,39 @@ diff_count_facs &lt;- diff_count_clusters(celltype,counts)
 </div>
 <p>These volcano plots summarize the results of the differential expression analysis using the FACS labeling:</p>
 <pre class="r"><code>p1 &lt;- volcano_plot(diff_count_facs,&quot;CD19+ B&quot;,genes$symbol,
-                   label_above_quantile = 0.9995) +
+                   label_above_quantile = 0.9995,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;B cells&quot;)
 p2 &lt;- volcano_plot(diff_count_facs,&quot;CD14+ Monocyte&quot;,genes$symbol,
-                   label_above_quantile = 0.9995) +
+                   label_above_quantile = 0.9995,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD14+ cells&quot;)
 p3 &lt;- volcano_plot(diff_count_facs,&quot;CD34+&quot;,genes$symbol,
-                   label_above_quantile = 0.999) +
+                   label_above_quantile = 0.999,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD34+ cells&quot;)
 p4 &lt;- volcano_plot(diff_count_facs,&quot;CD56+ NK&quot;,genes$symbol,
-                   label_above_quantile = 0.9995) +
+                   label_above_quantile = 0.9995,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;NK cells&quot;)
 p5 &lt;- volcano_plot(diff_count_facs,&quot;CD8+ Cytotoxic T&quot;,genes$symbol,
-                   label_above_quantile = 0.9995) +
+                   label_above_quantile = 0.9995,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD8+ T cells&quot;)
 p6 &lt;- volcano_plot(diff_count_facs,&quot;T cell&quot;,genes$symbol,
-                   label_above_quantile = 0.999) +
+                   label_above_quantile = 0.999,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;T cells&quot;)
 plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)</code></pre>
@@ -868,6 +949,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ab3eeb82557ac15852443a50d3aad409242690c7/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">ab3eeb8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/42ebc62099a4d7af6134fbfea745d3d7b6cdfbf3/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">42ebc62</a>
@@ -934,7 +1026,8 @@ diff_count_clusters &lt;- diff_count_clusters(samples$cluster,counts)
 #         B     CD14+     CD34+      CD8+ dendritic        NK         T 
 #     10439      2956      8237      3757       308      8380     60578 
 # Fitting 21952 x 7 = 153664 univariate Poisson models.
-# Computing log-fold change statistics.</code></pre>
+# Computing log-fold change statistics.
+# Stabilizing log-fold change estimates using adaptive shrinkage.</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
@@ -943,33 +1036,54 @@ diff_count_clusters &lt;- diff_count_clusters(samples$cluster,counts)
 </div>
 <p>These volcano plots summarize the results of the differential expression analysis using the clusters:</p>
 <pre class="r"><code>p7 &lt;- volcano_plot(diff_count_clusters,&quot;B&quot;,genes$symbol,
-                   label_above_quantile = 0.999) +
+                   label_above_quantile = 0.999,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;B cells&quot;)
+# 10134 out of 18417 data points will be included in plot
 p8 &lt;- volcano_plot(diff_count_clusters,&quot;CD14+&quot;,genes$symbol,
-                   label_above_quantile = 0.999) +
+                   label_above_quantile = 0.999,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD14+ cells&quot;)
+# 10130 out of 18417 data points will be included in plot
 p9 &lt;- volcano_plot(diff_count_clusters,&quot;CD34+&quot;,genes$symbol,
-                   label_above_quantile = 0.999) +
+                   label_above_quantile = 0.999,
+                   subsample_below_quantile = 0.5,
+                   filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD34+ cells&quot;)
+# 10130 out of 18417 data points will be included in plot
 p10 &lt;- volcano_plot(diff_count_clusters,&quot;dendritic&quot;,genes$symbol,
-                    label_above_quantile = 0.999) +
+                    label_above_quantile = 0.999,
+                    subsample_below_quantile = 0.5,
+                    filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;dendritic cells&quot;)
+# 10130 out of 18417 data points will be included in plot
 p11 &lt;- volcano_plot(diff_count_clusters,&quot;NK&quot;,genes$symbol,
-                    label_above_quantile = 0.999) +
+                    label_above_quantile = 0.999,
+                    subsample_below_quantile = 0.5,
+                    filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;NK cells&quot;)
+# 10130 out of 18417 data points will be included in plot
 p12 &lt;- volcano_plot(diff_count_clusters,&quot;CD8+&quot;,genes$symbol,
-                    label_above_quantile = 0.999) +
+                    label_above_quantile = 0.999,
+                    subsample_below_quantile = 0.5,
+                    filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD8+ T cells&quot;)
+# 10130 out of 18417 data points will be included in plot
 p13 &lt;- volcano_plot(diff_count_clusters,&quot;T&quot;,genes$symbol,
-                    label_above_quantile = 0.999) +
+                    label_above_quantile = 0.999,
+                    subsample_below_quantile = 0.5,
+                    filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;T cells&quot;)
+# 10131 out of 18417 data points will be included in plot
 plot_grid(p7,p8,p9,p10,p11,p12,p13,nrow = 3,ncol = 3)</code></pre>
 <p><img src="figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
@@ -994,6 +1108,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ab3eeb82557ac15852443a50d3aad409242690c7/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">ab3eeb8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-29
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/42ebc62099a4d7af6134fbfea745d3d7b6cdfbf3/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">42ebc62</a>
@@ -1053,13 +1178,14 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Perform differential expression analysis using the multinomial topic model, after removing the dendritic cells cluster, and after merging the two T-cell topics:</p>
+<p>Perform differential expression analysis using the multinomial topic model, after removing the dendritic cells cluster, and after merging the two T cell topics:</p>
 <pre class="r"><code>rows &lt;- which(samples$cluster != &quot;dendritic&quot;)
 fit_merged &lt;- select_loadings(fit,loadings = rows)
 fit_merged &lt;- merge_topics(fit,c(1,6))
 diff_count_topics &lt;- diff_count_analysis(fit_merged,counts)
 # Fitting 21952 x 5 = 109760 univariate Poisson models.
-# Computing log-fold change statistics.</code></pre>
+# Computing log-fold change statistics.
+# Stabilizing log-fold change estimates using adaptive shrinkage.</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
@@ -1071,17 +1197,19 @@ diff_count_topics &lt;- diff_count_analysis(fit_merged,counts)
 fit_t &lt;- select_loadings(fit,loadings = rows)
 diff_count_t &lt;- diff_count_analysis(fit_t,counts[rows,])
 # Fitting 21952 x 6 = 131712 univariate Poisson models.
-# Computing log-fold change statistics.</code></pre>
+# Computing log-fold change statistics.
+# Stabilizing log-fold change estimates using adaptive shrinkage.</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Having completed the differential expression calculations, as an example, we visualize the differential expression results for topic 3 (“B cells”) using a volcano plot:</p>
+<p>These volcano plots summarize the results of the differential expression analysis using the topic model:</p>
 <pre class="r"><code>volcano_plot(diff_count_topics,&quot;k3&quot;,genes$symbol,
              label_above_quantile = 0.998) +
   ggtitle(&quot;topic 3 (B cells)&quot;)</code></pre>
+<p><img src="figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>Here are more volcano plots:</p>
 <pre class="r"><code>p2 &lt;- volcano_plot_better(diff_count_topics,&quot;k3&quot;,genes$symbol,0.998,
                           &quot;topic 3 (B cells)&quot;)
@@ -1167,33 +1295,35 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggrepel_0.9.0     ggplot2_3.3.0     fastTopics_0.4-29
+# [1] cowplot_1.0.0     ggrepel_0.9.0     ggplot2_3.3.0     fastTopics_0.4-33
 # [5] Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
-#  [1] Rcpp_1.0.5           lattice_0.20-38      tidyr_1.0.0         
-#  [4] prettyunits_1.1.1    assertthat_0.2.1     zeallot_0.1.0       
-#  [7] rprojroot_1.3-2      digest_0.6.23        R6_2.4.1            
-# [10] backports_1.1.5      MatrixModels_0.4-1   evaluate_0.14       
-# [13] coda_0.19-3          httr_1.4.2           pillar_1.4.3        
-# [16] rlang_0.4.5          progress_1.2.2       lazyeval_0.2.2      
-# [19] data.table_1.12.8    irlba_2.3.3          SparseM_1.78        
-# [22] whisker_0.4          rmarkdown_2.3        labeling_0.3        
-# [25] Rtsne_0.15           stringr_1.4.0        htmlwidgets_1.5.1   
-# [28] munsell_0.5.0        compiler_3.6.2       httpuv_1.5.2        
-# [31] xfun_0.11            pkgconfig_2.0.3      mcmc_0.9-6          
-# [34] htmltools_0.4.0      tidyselect_0.2.5     tibble_2.1.3        
-# [37] workflowr_1.6.2.9000 quadprog_1.5-8       viridisLite_0.3.0   
-# [40] crayon_1.3.4         dplyr_0.8.3          withr_2.1.2         
-# [43] later_1.0.0          MASS_7.3-51.4        grid_3.6.2          
-# [46] jsonlite_1.6         gtable_0.3.0         lifecycle_0.1.0     
-# [49] git2r_0.26.1         magrittr_1.5         scales_1.1.0        
-# [52] RcppParallel_4.4.2   stringi_1.4.3        farver_2.0.1        
-# [55] fs_1.3.1             promises_1.1.0       vctrs_0.2.1         
-# [58] tools_3.6.2          glue_1.3.1           purrr_0.3.3         
-# [61] hms_0.5.2            yaml_2.2.0           colorspace_1.4-1    
-# [64] plotly_4.9.2         knitr_1.26           quantreg_5.54       
-# [67] MCMCpack_1.4-5</code></pre>
+#  [1] httr_1.4.2           tidyr_1.0.0          jsonlite_1.6        
+#  [4] viridisLite_0.3.0    RcppParallel_4.4.2   assertthat_0.2.1    
+#  [7] mixsqp_0.3-44        yaml_2.2.0           progress_1.2.2      
+# [10] pillar_1.4.3         backports_1.1.5      lattice_0.20-38     
+# [13] quantreg_5.54        glue_1.3.1           quadprog_1.5-8      
+# [16] digest_0.6.23        promises_1.1.0       colorspace_1.4-1    
+# [19] htmltools_0.4.0      httpuv_1.5.2         pkgconfig_2.0.3     
+# [22] invgamma_1.1         SparseM_1.78         purrr_0.3.3         
+# [25] scales_1.1.0         whisker_0.4          later_1.0.0         
+# [28] Rtsne_0.15           MatrixModels_0.4-1   git2r_0.26.1        
+# [31] tibble_2.1.3         farver_2.0.1         withr_2.1.2         
+# [34] ashr_2.2-51          lazyeval_0.2.2       magrittr_1.5        
+# [37] crayon_1.3.4         mcmc_0.9-6           evaluate_0.14       
+# [40] fs_1.3.1             MASS_7.3-51.4        truncnorm_1.0-8     
+# [43] tools_3.6.2          data.table_1.12.8    prettyunits_1.1.1   
+# [46] hms_0.5.2            lifecycle_0.1.0      stringr_1.4.0       
+# [49] MCMCpack_1.4-5       plotly_4.9.2         munsell_0.5.0       
+# [52] irlba_2.3.3          compiler_3.6.2       rlang_0.4.5         
+# [55] grid_3.6.2           htmlwidgets_1.5.1    labeling_0.3        
+# [58] rmarkdown_2.3        gtable_0.3.0         codetools_0.2-16    
+# [61] R6_2.4.1             knitr_1.26           dplyr_0.8.3         
+# [64] zeallot_0.1.0        workflowr_1.6.2.9000 rprojroot_1.3-2     
+# [67] stringi_1.4.3        SQUAREM_2017.10-1    Rcpp_1.0.5          
+# [70] vctrs_0.2.1          tidyselect_0.2.5     xfun_0.11           
+# [73] coda_0.19-3</code></pre>
 </div>
 
 
