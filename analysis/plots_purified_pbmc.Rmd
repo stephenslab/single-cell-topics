@@ -357,47 +357,62 @@ The results of the differential expression analysis can also be
 browsed in interactive volcano plots:
 
 ```{r volcano-plots-5, results="hide", eval=FALSE}
-volcano_plotly(diff_count_topics,"k3","volcano_plot_purified_pbmc_bcells.html",
-               genes$symbol,title = "topic 3 (B cells)")
-volcano_plotly(diff_count_topics,"k4","volcano_plot_purified_pbmc_nk.html",
- 		       genes$symbol,title = "topic 4 (NK cells)")
-volcano_plotly(diff_count_topics,"k2","volcano_plot_purified_pbmc_cd14.html",
-			   genes$symbol,title = "topic 2 (CD14+)")
-volcano_plotly(diff_count_topics,"k5","volcano_plot_purified_pbmc_cd34.html",
-			   genes$symbol,title = "topic 5 (CD34+)")
-volcano_plotly(diff_count_topics,"k1+k6",
-			   "volcano_plot_purified_pbmc_tcells.html",genes$symbol,
-               title = "topics 1 + 6 (T cells)")
-volcano_plotly(diff_count_t,"k1","volcano_plot_purified_pbmc_cd4cd8.html",
-			   genes$symbol,title = "topic 1 (CD4+/CD8+)")
+volcano_plotly(diff_count_topics,"k3",
+               "volcano_plot_purified_pbmc_bcells.html",
+               genes$symbol,title = "topic 3 (B cells)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
+volcano_plotly(diff_count_topics,"k2",
+               "volcano_plot_purified_pbmc_cd14.html",
+			   genes$symbol,title = "topic 2 (CD14+)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
+volcano_plotly(diff_count_topics,"k5",
+               "volcano_plot_purified_pbmc_cd34.html",
+			   genes$symbol,title = "topic 5 (CD34+)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
+volcano_plotly(diff_count_topics,"k4",
+               "volcano_plot_purified_pbmc_nk.html",
+ 		       genes$symbol,title = "topic 4 (NK cells)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
+volcano_plotly(diff_count_topics,"k1",
+			   "volcano_plot_purified_pbmc_tcells.html",
+               genes$symbol,title = "topic 1 (T cells)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
+volcano_plotly(diff_count_topics,"k6",
+			   "volcano_plot_purified_pbmc_ribosomal_proteins.html",
+               genes$symbol,title = "topic 6 (ribosomal proteins)",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
 volcano_plotly(diff_count_clusters,"CD8+",
-			   "volcano_plot_purified_pbmc_cd8.html",genes$symbol,
-               title = "CD8+ cluster")
+			   "volcano_plot_purified_pbmc_cd8.html",
+			   genes$symbol,title = "CD8+ cluster",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
 volcano_plotly(diff_count_clusters,"dendritic",
 			   "volcano_plot_purified_pbmc_dendritic.html",genes$symbol,
                title = "dendritic cells cluster")
 ```
 
-The interactive volcano plots can also be viewed by clicking on these
-links:
-
-+ [topic 3 (B cells)](volcano_plot_purified_pbmc_bcells.html)
-
-+ [topic 4 (NK cells)](volcano_plot_purified_pbmc_nk.html)
-
-+ [topic 2 (CD14+)](volcano_plot_purified_pbmc_cd14.html)
-
-+ [topic 5 (CD34+)](volcano_plot_purified_pbmc_cd34.html)
-
-+ [topics 1 and 6 (T cells)](volcano_plot_purified_pbmc_tcells.html)
-
-+ [topic 1 (CD4+/CD8+ lineage differentiation)](volcano_plot_purified_pbmc_cd4cd8.html)
-
-+ [CD8+ cluster](volcano_plot_purified_pbmc_cd8.html)
-
-+ [dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html)
-
-*Add text here.*
+The interactive volcano plots mayalso be viewed by clicking these links:
+[topic 3 (B cells)](volcano_plot_purified_pbmc_bcells.html),
+[topic 4 (NK cells)](volcano_plot_purified_pbmc_nk.html),
+[topic 2 (CD14+)](volcano_plot_purified_pbmc_cd14.html),
+[topic 5 (CD34+)](volcano_plot_purified_pbmc_cd34.html),
+[topics 1 (T cells)](volcano_plot_purified_pbmc_tcells.html),
+[topics 6 (T cells)](volcano_plot_purified_pbmc_ribosomal_proteins.html),
+[CD8+ cluster](volcano_plot_purified_pbmc_cd8.html),
+[dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html)
 
 List of ribosomal protein genes is from doi:10.1101/gr.214202.
 
