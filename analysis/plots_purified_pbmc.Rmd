@@ -249,7 +249,7 @@ pp13 <- volcano_plot(diff_count_clusters,"T",x,
 				     filter_low_counts = 5e-5) +
   ggtitle("T cells")
 ggsave("../plots/volcano_plots_pbmc_purified_clusters.eps",
-       plot_grid(pp7,pp8,pp9,pp10,pp11,pp12,pp13),
+       plot_grid(pp7,pp8,pp9,pp10,pp11,pp12,pp13,nrow = 3,ncol = 3),
 	   height = 10.5,width = 11)
 ```
 
@@ -301,56 +301,56 @@ p19 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
  				    subsample_below_quantile = 0.5,
 				    filter_low_counts = 5e-5) +
   guides(fill = "none") +
-  ggtitle("topic 6")
+  ggtitle("topic 6 (ribosomal proteins)")
 plot_grid(p14,p15,p16,p17,p18,p19,nrow = 2,ncol = 3)
 ```
 
-*Add text here.*
-
-List of ribosomal protein genes is from doi:10.1101/gr.214202.
-
-```{r ribosomal-proteins-topic, fig.width=3, fig.height=3, message=FALSE, eval=FALSE}
-rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
-             "RPS10","RPS11","RPS12","RPS13","RPS14","RPS15","RPS15A",
-			 "RPS16","RPS17","RPS18","RPS19","RPS20","RPS21","RPS23",
-			 "RPS24","RPS25","RPS26","RPS27","RPS27A","RPS28","RPS29",
-			 "RPL3","RPL4","RPL5","RPL6","RPL7A","RPL8","RPL9","RPL10",
-			 "RPL10A","RPL12","RPL13A","RPL14","RPL15","RPL17","RPL18",
-			 "RPL18A","RPL19","RPL21","RPL22","RPL23","RPL23A","RPL24",
-			 "RPL26","RPL27A","RPL30","RPL31","RPL32","RPL34","RPL35",
-			 "RPL36","RPL36A","RPL37","RPL39","RPL41")
-i <- which(celltype == "CD19+ B")
-j <- which(is.element(genes$symbol,rpgenes))
-plot(fit$L[i,6],rowSums(counts[i,j])/rowSums(counts[i,]),pch = 20)
-i <- which(!(celltype == "CD19+ B" | celltype == "CD34+"))
-x <- fit$L[i,6]
-y <- rowSums(counts[i,j])/rowSums(counts[i,])
-plot(x,y,pch = 20,xlab = "topic 6 proportion",
-     ylab = "prop. of expression from ribosomal genes",
-	 main = sprintf("cor = %0.2f",cor(x,y)))
-```
-
 ```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
-p1 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
-                   label_above_quantile = 0.998) +
-  scale_x_continuous(expand = expansion(mult = 1),breaks = seq(-10,10,5)) +
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k3"] < 2)] <- ""
+pp14 <- volcano_plot(diff_count_topics,"k3",x,
+                     label_above_quantile = 0.998,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
   ggtitle("topic 3 (B cells)")
-ggsave("../plots/volcano_plot_pbmc_purified_bcells.eps",
-       p1,height = 4,width = 8)
-ggsave("../plots/volcano_plot_pbmc_purified_nk.eps",
-       p3,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_cd14.eps",
-       p4,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_cd34.eps",
-       p5,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_tcells.eps",
-       p6,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_cd4cd8.eps",
-       p7,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_cd8.eps",
-       p8,height = 3.4,width = 3)
-ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
-       p9,height = 3.4,width = 3)
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k2"] < 2)] <- ""
+pp15 <- volcano_plot(diff_count_topics,"k2",x,
+                     label_above_quantile = 0.998,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
+  ggtitle("topic 2 (CD14+ cells)")
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k5"] < 2)] <- ""
+pp16 <- volcano_plot(diff_count_topics,"k5",x,
+                     label_above_quantile = 0.998,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
+  ggtitle("topic 5 (CD34+ cells)")
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k4"] < 2)] <- ""
+pp17 <- volcano_plot(diff_count_topics,"k4",x,
+                     label_above_quantile = 0.998,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
+  ggtitle("topic 4 (NK cells)")
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k1"] < 5)] <- ""
+pp18 <- volcano_plot(diff_count_topics,"k1",x,
+                     label_above_quantile = 0.997,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
+  ggtitle("topic 1 (T cells)")
+x <- genes$symbol
+x[which(diff_count_topics$beta[,"k6"] < 0)] <- ""
+pp19 <- volcano_plot(diff_count_topics,"k6",x,
+                     label_above_quantile = 0.998,
+ 				     subsample_below_quantile = 0.5,
+				     filter_low_counts = 5e-5) +
+  ggtitle("topic 6 (ribosomal proteins)")
+ggsave("../plots/volcano_plots_pbmc_purified_topics.eps",
+       plot_grid(pp14,pp15,pp16,pp17,pp18,pp19,nrow = 2,ncol = 3),
+	   height = 7,width = 11)
 ```
 
 The results of the differential expression analysis can also be
@@ -397,6 +397,31 @@ links:
 
 + [dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html)
 
+*Add text here.*
+
+List of ribosomal protein genes is from doi:10.1101/gr.214202.
+
+```{r ribosomal-proteins-topic, fig.width=3, fig.height=3, message=FALSE, eval=FALSE}
+rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
+             "RPS10","RPS11","RPS12","RPS13","RPS14","RPS15","RPS15A",
+			 "RPS16","RPS17","RPS18","RPS19","RPS20","RPS21","RPS23",
+			 "RPS24","RPS25","RPS26","RPS27","RPS27A","RPS28","RPS29",
+			 "RPL3","RPL4","RPL5","RPL6","RPL7A","RPL8","RPL9","RPL10",
+			 "RPL10A","RPL12","RPL13A","RPL14","RPL15","RPL17","RPL18",
+			 "RPL18A","RPL19","RPL21","RPL22","RPL23","RPL23A","RPL24",
+			 "RPL26","RPL27A","RPL30","RPL31","RPL32","RPL34","RPL35",
+			 "RPL36","RPL36A","RPL37","RPL39","RPL41")
+i <- which(celltype == "CD19+ B")
+j <- which(is.element(genes$symbol,rpgenes))
+plot(fit$L[i,6],rowSums(counts[i,j])/rowSums(counts[i,]),pch = 20)
+i <- which(!(celltype == "CD19+ B" | celltype == "CD34+"))
+x <- fit$L[i,6]
+y <- rowSums(counts[i,j])/rowSums(counts[i,])
+plot(x,y,pch = 20,xlab = "topic 6 proportion",
+     ylab = "prop. of expression from ribosomal genes",
+	 main = sprintf("cor = %0.2f",cor(x,y)))
+```
+
 ```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5, eval=FALSE}
 p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
                        genes$symbol,label_above_quantile = 0.998,
@@ -418,14 +443,4 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)
 ```
 
 ```{r scatterplots-for-paper, echo=FALSE, results="hide", eval=FALSE}
-ggsave("../plots/scatterplot_pbmc_purified_bcells.eps",
-       p10,height = 3,width = 4)
-ggsave("../plots/scatterplot_pbmc_purified_nk.eps",
-       p11,height = 3,width = 4)
-ggsave("../plots/scatterplot_pbmc_purified_cd14.eps",
-       p12,height = 3,width = 4)
-ggsave("../plots/scatterplot_pbmc_purified_cd34.eps",
-       p13,height = 3,width = 4)
-ggsave("../plots/scatterplot_pbmc_purified_tcells.eps",
-       p14,height = 3,width = 4)
 ```

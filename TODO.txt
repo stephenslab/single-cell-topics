@@ -1,8 +1,6 @@
 to do
 =====
 
-+ Clean up "plots" directory.
-
 + Clean up files in "output" directory.
 
 + Clean up code in plots.R.

@@ -155,28 +155,6 @@ ggsave("../plots/pca_facs_pbmc_purified.png",
        p3,height = 4,width = 5.5,dpi = 450)
 ```
 
-The continuous variation in T cells captured by topics 1 and 6 
-suggests CD4+/CD8+ lineage differentiation in T cells:
-
-```{r loadings-plot-t, fig.width=2.5, fig.height=3.5}
-x    <- samples$celltype
-i    <- names(sort(tapply(fit$L[,1],x,mean)))
-x    <- factor(as.character(x),i)
-rows <- which(!(samples$celltype == "CD19+ B" |
-                samples$celltype == "CD14+ Monocyte" |
-                samples$celltype == "CD34+" |
-			    samples$celltype == "CD56+ NK"))
-p4 <- loadings_plot(select_loadings(fit,loadings = rows),x = x[rows],k = 1) +
-  scale_y_continuous(limits = c(0,1)) +
-  labs(y = "topic 1 mixture proportion",title = "")
-print(p4)
-```
-
-```{r loadings-plot-for-paper, echo=FALSE}
-ggsave("../plots/loadings_plot_pbmc_purified.eps",
-       p4,width = 2.5,height = 3.5)
-```
-
 The Structure plot summarizes the mixture proportions in each of the 7
 clusters:
 
