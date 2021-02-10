@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2021-02-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -390,12 +390,24 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
 </p>
 </div>
-<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div id="strongCachestrongdetected" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+The following chunks had caches available:
+<ul>
+<li>
+diff-count-analysis-clusters
+</li>
+<li>
+diff-count-analysis-subpop
+</li>
+<li>
+diff-count-analysis-topics
+</li>
+</ul>
+<p>To ensure reproducibility of the results, delete the cache directory <code>plots_purified_pbmc_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
 </div>
 </div>
@@ -414,16 +426,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree676e0531231c96419f6244f1856d4198d8cab07dtargetblank676e053a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/676e0531231c96419f6244f1856d4198d8cab07d" target="_blank">676e053</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3e298d4909f1de4315b57eb8e6b7b3561d6b9795targetblank3e298d4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3e298d4909f1de4315b57eb8e6b7b3561d6b9795" target="_blank">3e298d4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree676e0531231c96419f6244f1856d4198d8cab07dtargetblank676e053a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3e298d4909f1de4315b57eb8e6b7b3561d6b9795targetblank3e298d4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/676e0531231c96419f6244f1856d4198d8cab07d" target="_blank">676e053</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3e298d4909f1de4315b57eb8e6b7b3561d6b9795" target="_blank">3e298d4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -446,12 +458,7 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_ribosomal_proteins.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
+    Untracked:  analysis/plots_purified_pbmc_cache/
     Untracked:  plots/
 
 </code></pre>
@@ -491,6 +498,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3e298d4909f1de4315b57eb8e6b7b3561d6b9795/analysis/plots_purified_pbmc.Rmd" target="_blank">3e298d4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/d1d4185236959bd7ebe0525df6e35157b7e5c706/docs/plots_purified_pbmc.html" target="_blank">d1d4185</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+Re-built plots_purified_pbmc with interactive volcano plots.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1041,6 +1082,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d1d4185236959bd7ebe0525df6e35157b7e5c706/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">d1d4185</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">f596d8a</a>
 </td>
 <td>
@@ -1222,6 +1274,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d1d4185236959bd7ebe0525df6e35157b7e5c706/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">d1d4185</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">f596d8a</a>
 </td>
 <td>
@@ -1388,6 +1451,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d1d4185236959bd7ebe0525df6e35157b7e5c706/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">d1d4185</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">f596d8a</a>
 </td>
 <td>
@@ -1456,10 +1530,13 @@ volcano_plotly(diff_count_clusters,&quot;CD8+&quot;,
                filter_low_counts = 5e-5,
                width = 450,height = 500)
 volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
-               &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,genes$symbol,
-               title = &quot;dendritic cells cluster&quot;)</code></pre>
-<p>The interactive volcano plots mayalso be viewed by clicking these links: <a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a>, <a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a>, <a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a>, <a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a>, <a href="volcano_plot_purified_pbmc_tcells.html">topics 1 (T cells)</a>, <a href="volcano_plot_purified_pbmc_ribosomal_proteins.html">topics 6 (T cells)</a>, <a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a>, <a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a></p>
-<p>List of ribosomal protein genes is from <a href="doi:10.1101/gr.214202" class="uri">doi:10.1101/gr.214202</a>.</p>
+               &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,
+               genes$symbol,title = &quot;dendritic cells cluster&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)</code></pre>
+<p>The interactive volcano plots mayalso be viewed by clicking these links: <a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a>, <a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a>, <a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a>, <a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a>, <a href="volcano_plot_purified_pbmc_tcells.html">topics 1 (T cells)</a>, <a href="volcano_plot_purified_pbmc_ribosomal_proteins.html">topics 6 (T cells)</a>, <a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a> and <a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a>.</p>
+<p>The volcano plot for topic 6 suggests an enrichment of ribosomal protein genes. Indeed, there is a very strong correlation between the topic 6 mixture proportion and the fraction of total expression attributed to ribosomal genes:</p>
 <pre class="r"><code>rpgenes &lt;- c(&quot;RPS2&quot;,&quot;RPS3&quot;,&quot;RPS3A&quot;,&quot;RPS4X&quot;,&quot;RPS6&quot;,&quot;RPS7&quot;,&quot;RPS8&quot;,&quot;RPS9&quot;,
              &quot;RPS10&quot;,&quot;RPS11&quot;,&quot;RPS12&quot;,&quot;RPS13&quot;,&quot;RPS14&quot;,&quot;RPS15&quot;,&quot;RPS15A&quot;,
              &quot;RPS16&quot;,&quot;RPS17&quot;,&quot;RPS18&quot;,&quot;RPS19&quot;,&quot;RPS20&quot;,&quot;RPS21&quot;,&quot;RPS23&quot;,
@@ -1471,13 +1548,31 @@ volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
              &quot;RPL36&quot;,&quot;RPL36A&quot;,&quot;RPL37&quot;,&quot;RPL39&quot;,&quot;RPL41&quot;)
 i &lt;- which(celltype == &quot;CD19+ B&quot;)
 j &lt;- which(is.element(genes$symbol,rpgenes))
-plot(fit$L[i,6],rowSums(counts[i,j])/rowSums(counts[i,]),pch = 20)
+pdat &lt;- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
+p20 &lt;- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;,se = FALSE,color = &quot;dodgerblue&quot;,size = 0.5,
+              linetype = &quot;dashed&quot;) +
+  ylim(0,0.6) +
+  labs(x = &quot;topic 6 proportion&quot;,
+       y = &quot;ribosomal expression&quot;,
+       title = &quot;B cells&quot;) + 
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(size = 10,face = &quot;plain&quot;))
 i &lt;- which(!(celltype == &quot;CD19+ B&quot; | celltype == &quot;CD34+&quot;))
-x &lt;- fit$L[i,6]
-y &lt;- rowSums(counts[i,j])/rowSums(counts[i,])
-plot(x,y,pch = 20,xlab = &quot;topic 6 proportion&quot;,
-     ylab = &quot;prop. of expression from ribosomal genes&quot;,
-     main = sprintf(&quot;cor = %0.2f&quot;,cor(x,y)))</code></pre>
+pdat &lt;- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
+p21 &lt;- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point() +
+  geom_smooth(method = &quot;lm&quot;,se = FALSE,color = &quot;dodgerblue&quot;,size = 0.5,
+              linetype = &quot;dashed&quot;) +
+  ylim(0,0.6) +
+  labs(x = &quot;topic 6 proportion&quot;,
+       y = &quot;ribosomal expression&quot;,
+       title = &quot;all except B and CD34+ cells&quot;) + 
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(size = 10,face = &quot;plain&quot;))
+plot_grid(p20,p21)</code></pre>
+<p>The list of ribosomal protein genes is from <a href="https://doi.org/10.1101/gr.214202">Yoshihama <em>et al</em> (2002)</a>.</p>
 <pre class="r"><code>p10 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;CD19+ B&quot;,&quot;k3&quot;,
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = &quot;B cells FACS subpopulation&quot;,ylab = &quot;topic 3&quot;)
@@ -1522,31 +1617,30 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)</code></pre>
 # [5] Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
-#  [1] httr_1.4.2           tidyr_1.0.0          jsonlite_1.6        
-#  [4] viridisLite_0.3.0    RcppParallel_4.4.2   assertthat_0.2.1    
-#  [7] mixsqp_0.3-44        yaml_2.2.0           progress_1.2.2      
-# [10] pillar_1.4.3         backports_1.1.5      lattice_0.20-38     
-# [13] quantreg_5.54        glue_1.3.1           quadprog_1.5-8      
-# [16] digest_0.6.23        promises_1.1.0       colorspace_1.4-1    
-# [19] htmltools_0.4.0      httpuv_1.5.2         pkgconfig_2.0.3     
-# [22] invgamma_1.1         SparseM_1.78         purrr_0.3.3         
-# [25] scales_1.1.0         whisker_0.4          later_1.0.0         
-# [28] Rtsne_0.15           MatrixModels_0.4-1   git2r_0.26.1        
-# [31] tibble_2.1.3         farver_2.0.1         withr_2.1.2         
-# [34] ashr_2.2-51          lazyeval_0.2.2       magrittr_1.5        
-# [37] crayon_1.3.4         mcmc_0.9-6           evaluate_0.14       
-# [40] fs_1.3.1             MASS_7.3-51.4        truncnorm_1.0-8     
-# [43] tools_3.6.2          data.table_1.12.8    prettyunits_1.1.1   
-# [46] hms_0.5.2            lifecycle_0.1.0      stringr_1.4.0       
-# [49] MCMCpack_1.4-5       plotly_4.9.2         munsell_0.5.0       
-# [52] irlba_2.3.3          compiler_3.6.2       rlang_0.4.5         
-# [55] grid_3.6.2           htmlwidgets_1.5.1    labeling_0.3        
-# [58] rmarkdown_2.3        gtable_0.3.0         codetools_0.2-16    
-# [61] R6_2.4.1             knitr_1.26           dplyr_0.8.3         
-# [64] zeallot_0.1.0        workflowr_1.6.2.9000 rprojroot_1.3-2     
-# [67] stringi_1.4.3        SQUAREM_2017.10-1    Rcpp_1.0.5          
-# [70] vctrs_0.2.1          tidyselect_0.2.5     xfun_0.11           
-# [73] coda_0.19-3</code></pre>
+#  [1] Rcpp_1.0.5           invgamma_1.1         lattice_0.20-38     
+#  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
+#  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
+# [10] truncnorm_1.0-8      R6_2.4.1             backports_1.1.5     
+# [13] MatrixModels_0.4-1   evaluate_0.14        coda_0.19-3         
+# [16] httr_1.4.2           pillar_1.4.3         progress_1.2.2      
+# [19] rlang_0.4.5          lazyeval_0.2.2       data.table_1.12.8   
+# [22] irlba_2.3.3          SparseM_1.78         whisker_0.4         
+# [25] rmarkdown_2.3        labeling_0.3         Rtsne_0.15          
+# [28] stringr_1.4.0        htmlwidgets_1.5.1    munsell_0.5.0       
+# [31] mixsqp_0.3-44        compiler_3.6.2       httpuv_1.5.2        
+# [34] xfun_0.11            pkgconfig_2.0.3      SQUAREM_2017.10-1   
+# [37] mcmc_0.9-6           htmltools_0.4.0      tidyselect_0.2.5    
+# [40] tibble_2.1.3         workflowr_1.6.2.9000 quadprog_1.5-8      
+# [43] viridisLite_0.3.0    withr_2.1.2          crayon_1.3.4        
+# [46] dplyr_0.8.3          later_1.0.0          MASS_7.3-51.4       
+# [49] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
+# [52] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
+# [55] scales_1.1.0         RcppParallel_4.4.2   stringi_1.4.3       
+# [58] farver_2.0.1         fs_1.3.1             promises_1.1.0      
+# [61] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
+# [64] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
+# [67] colorspace_1.4-1     ashr_2.2-51          plotly_4.9.2        
+# [70] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
 </div>
 
 
