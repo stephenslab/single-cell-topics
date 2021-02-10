@@ -262,26 +262,10 @@ fit_no_dendritic <- select_loadings(fit,loadings = rows)
 diff_count_topics <- diff_count_analysis(fit_no_dendritic,counts[rows,])
 ```
 
-Perform a second differential expression analysis after merging the
-two T cell topics:
-
-```{r diff-count-analysis-topics, cache=TRUE}
-fit_merged <- merge_topics(fit_no_dendritic,c(1,6))
-diff_count_merged <- diff_count_analysis(fit_merged,counts[rows,])
-```
-
-Perform another differential expression analysis on the T cells only:
-
-```{r diff-count-analysis-t, cache=TRUE}
-rows <- which(samples$cluster == "T")
-fit_t <- select_loadings(fit,loadings = rows)
-diff_count_t <- diff_count_analysis(fit_t,counts[rows,])
-```
-
 These volcano plots summarize the results of the differential
 expression analysis using the topic model:
 
-```{r volcano-plots-3, fig.width=7, fig.height=8, message=FALSE}
+```{r volcano-plots-3, fig.width=7, fig.height=5.5, message=FALSE}
 p14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
                     label_above_quantile = 0.999,
  				    subsample_below_quantile = 0.5,
@@ -306,25 +290,44 @@ p17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
 				    filter_low_counts = 5e-5) +
   guides(fill = "none") +
   ggtitle("topic 4 (NK cells)")
-p18 <- volcano_plot(diff_count_merged,"k1+k6",genes$symbol,
+p18 <- volcano_plot(diff_count_topics,"k1",genes$symbol,
                     label_above_quantile = 0.999,
  				    subsample_below_quantile = 0.5,
 				    filter_low_counts = 5e-5) +
   guides(fill = "none") +
-  ggtitle("topics 1 + 6 (T cells)")
-p19 <- volcano_plot(diff_count_t,"k1",genes$symbol,
-                    label_above_quantile = 0.999,
- 				    subsample_below_quantile = 0.5,
-				    filter_low_counts = 5e-5) +
-  guides(fill = "none") +
-  ggtitle("topic 1 (CD4+/CD8+)")
-p20 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
+  ggtitle("topic 1 (T cells)")
+p19 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
                     label_above_quantile = 0.999,
  				    subsample_below_quantile = 0.5,
 				    filter_low_counts = 5e-5) +
   guides(fill = "none") +
   ggtitle("topic 6")
-plot_grid(p14,p15,p16,p17,p18,p19,p20,nrow = 3,ncol = 3)
+plot_grid(p14,p15,p16,p17,p18,p19,nrow = 2,ncol = 3)
+```
+
+*Add text here.*
+
+List of ribosomal protein genes is from doi:10.1101/gr.214202.
+
+```{r ribosomal-proteins-topic, fig.width=3, fig.height=3, message=FALSE, eval=FALSE}
+rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
+             "RPS10","RPS11","RPS12","RPS13","RPS14","RPS15","RPS15A",
+			 "RPS16","RPS17","RPS18","RPS19","RPS20","RPS21","RPS23",
+			 "RPS24","RPS25","RPS26","RPS27","RPS27A","RPS28","RPS29",
+			 "RPL3","RPL4","RPL5","RPL6","RPL7A","RPL8","RPL9","RPL10",
+			 "RPL10A","RPL12","RPL13A","RPL14","RPL15","RPL17","RPL18",
+			 "RPL18A","RPL19","RPL21","RPL22","RPL23","RPL23A","RPL24",
+			 "RPL26","RPL27A","RPL30","RPL31","RPL32","RPL34","RPL35",
+			 "RPL36","RPL36A","RPL37","RPL39","RPL41")
+i <- which(celltype == "CD19+ B")
+j <- which(is.element(genes$symbol,rpgenes))
+plot(fit$L[i,6],rowSums(counts[i,j])/rowSums(counts[i,]),pch = 20)
+i <- which(!(celltype == "CD19+ B" | celltype == "CD34+"))
+x <- fit$L[i,6]
+y <- rowSums(counts[i,j])/rowSums(counts[i,])
+plot(x,y,pch = 20,xlab = "topic 6 proportion",
+     ylab = "prop. of expression from ribosomal genes",
+	 main = sprintf("cor = %0.2f",cor(x,y)))
 ```
 
 ```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE, eval=FALSE}
@@ -353,7 +356,7 @@ ggsave("../plots/volcano_plot_pbmc_purified_dendritic.eps",
 The results of the differential expression analysis can also be
 browsed in interactive volcano plots:
 
-```{r volcano-plots-4, results="hide", eval=FALSE}
+```{r volcano-plots-5, results="hide", eval=FALSE}
 volcano_plotly(diff_count_topics,"k3","volcano_plot_purified_pbmc_bcells.html",
                genes$symbol,title = "topic 3 (B cells)")
 volcano_plotly(diff_count_topics,"k4","volcano_plot_purified_pbmc_nk.html",
