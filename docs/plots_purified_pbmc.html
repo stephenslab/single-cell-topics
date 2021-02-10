@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -323,10 +323,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-02-09
+<strong>Last updated:</strong> 2021-02-10
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -390,27 +390,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongdetected"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>Cache:</strong> detected </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
 </p>
 </div>
-<div id="strongCachestrongdetected" class="panel-collapse collapse">
+<div id="strongCachestrongnone" class="panel-collapse collapse">
 <div class="panel-body">
-The following chunks had caches available:
-<ul>
-<li>
-diff-count-analysis-clusters
-</li>
-<li>
-diff-count-analysis-subpop
-</li>
-<li>
-diff-count-analysis-t
-</li>
-<li>
-diff-count-analysis-topics
-</li>
-</ul>
-<p>To ensure reproducibility of the results, delete the cache directory <code>plots_purified_pbmc_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
 </div>
 </div>
 </div>
@@ -429,16 +414,16 @@ diff-count-analysis-topics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecf1e3d24ab24da234875e0fd66cc625605e19e2btargetblankcf1e3d2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/cf1e3d24ab24da234875e0fd66cc625605e19e2b" target="_blank">cf1e3d2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree676e0531231c96419f6244f1856d4198d8cab07dtargetblank676e053a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/676e0531231c96419f6244f1856d4198d8cab07d" target="_blank">676e053</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecf1e3d24ab24da234875e0fd66cc625605e19e2btargetblankcf1e3d2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree676e0531231c96419f6244f1856d4198d8cab07dtargetblank676e053a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/cf1e3d24ab24da234875e0fd66cc625605e19e2b" target="_blank">cf1e3d2</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/676e0531231c96419f6244f1856d4198d8cab07d" target="_blank">676e053</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,7 +446,12 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/plots_purified_pbmc_cache/
+    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_ribosomal_proteins.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
     Untracked:  plots/
 
 </code></pre>
@@ -501,6 +491,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/676e0531231c96419f6244f1856d4198d8cab07d/analysis/plots_purified_pbmc.Rmd" target="_blank">676e053</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/52d16f37ba1415098d61d613faa9e0e555afa585/analysis/plots_purified_pbmc.Rmd" target="_blank">52d16f3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+Created topic volcano plots for paper in plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/plots_purified_pbmc.html" target="_blank">f596d8a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-09
+</td>
+<td>
+Made further refinements to the volcano plots in the
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1000,6 +1041,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">f596d8a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d0775d2c616d0662f968d8efff4a3c8e7944892e/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">d0775d2</a>
 </td>
 <td>
@@ -1170,6 +1222,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">f596d8a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d0775d2c616d0662f968d8efff4a3c8e7944892e/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">d0775d2</a>
 </td>
 <td>
@@ -1298,7 +1361,7 @@ p19 &lt;- volcano_plot(diff_count_topics,&quot;k6&quot;,genes$symbol,
                     subsample_below_quantile = 0.5,
                     filter_low_counts = 5e-5) +
   guides(fill = &quot;none&quot;) +
-  ggtitle(&quot;topic 6&quot;)
+  ggtitle(&quot;topic 6 (ribosomal proteins)&quot;)
 plot_grid(p14,p15,p16,p17,p18,p19,nrow = 2,ncol = 3)</code></pre>
 <p><img src="figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
@@ -1325,6 +1388,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f596d8a1fd028eab316e916d6df81cb736a48d87/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">f596d8a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-09
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d0775d2c616d0662f968d8efff4a3c8e7944892e/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">d0775d2</a>
 </td>
 <td>
@@ -1338,7 +1412,53 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>The results of the differential expression analysis can also be browsed in interactive volcano plots:</p>
+<pre class="r"><code>volcano_plotly(diff_count_topics,&quot;k3&quot;,
+               &quot;volcano_plot_purified_pbmc_bcells.html&quot;,
+               genes$symbol,title = &quot;topic 3 (B cells)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_topics,&quot;k2&quot;,
+               &quot;volcano_plot_purified_pbmc_cd14.html&quot;,
+               genes$symbol,title = &quot;topic 2 (CD14+)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_topics,&quot;k5&quot;,
+               &quot;volcano_plot_purified_pbmc_cd34.html&quot;,
+               genes$symbol,title = &quot;topic 5 (CD34+)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_topics,&quot;k4&quot;,
+               &quot;volcano_plot_purified_pbmc_nk.html&quot;,
+               genes$symbol,title = &quot;topic 4 (NK cells)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_topics,&quot;k1&quot;,
+               &quot;volcano_plot_purified_pbmc_tcells.html&quot;,
+               genes$symbol,title = &quot;topic 1 (T cells)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_topics,&quot;k6&quot;,
+               &quot;volcano_plot_purified_pbmc_ribosomal_proteins.html&quot;,
+               genes$symbol,title = &quot;topic 6 (ribosomal proteins)&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_clusters,&quot;CD8+&quot;,
+               &quot;volcano_plot_purified_pbmc_cd8.html&quot;,
+               genes$symbol,title = &quot;CD8+ cluster&quot;,
+               subsample_below_quantile = 0.5,
+               filter_low_counts = 5e-5,
+               width = 450,height = 500)
+volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
+               &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,genes$symbol,
+               title = &quot;dendritic cells cluster&quot;)</code></pre>
+<p>The interactive volcano plots mayalso be viewed by clicking these links: <a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a>, <a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a>, <a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a>, <a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a>, <a href="volcano_plot_purified_pbmc_tcells.html">topics 1 (T cells)</a>, <a href="volcano_plot_purified_pbmc_ribosomal_proteins.html">topics 6 (T cells)</a>, <a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a>, <a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a></p>
 <p>List of ribosomal protein genes is from <a href="doi:10.1101/gr.214202" class="uri">doi:10.1101/gr.214202</a>.</p>
 <pre class="r"><code>rpgenes &lt;- c(&quot;RPS2&quot;,&quot;RPS3&quot;,&quot;RPS3A&quot;,&quot;RPS4X&quot;,&quot;RPS6&quot;,&quot;RPS7&quot;,&quot;RPS8&quot;,&quot;RPS9&quot;,
              &quot;RPS10&quot;,&quot;RPS11&quot;,&quot;RPS12&quot;,&quot;RPS13&quot;,&quot;RPS14&quot;,&quot;RPS15&quot;,&quot;RPS15A&quot;,
@@ -1358,37 +1478,6 @@ y &lt;- rowSums(counts[i,j])/rowSums(counts[i,])
 plot(x,y,pch = 20,xlab = &quot;topic 6 proportion&quot;,
      ylab = &quot;prop. of expression from ribosomal genes&quot;,
      main = sprintf(&quot;cor = %0.2f&quot;,cor(x,y)))</code></pre>
-<p>The results of the differential expression analysis can also be browsed in interactive volcano plots:</p>
-<pre class="r"><code>volcano_plotly(diff_count_topics,&quot;k3&quot;,&quot;volcano_plot_purified_pbmc_bcells.html&quot;,
-               genes$symbol,title = &quot;topic 3 (B cells)&quot;)
-volcano_plotly(diff_count_topics,&quot;k4&quot;,&quot;volcano_plot_purified_pbmc_nk.html&quot;,
-               genes$symbol,title = &quot;topic 4 (NK cells)&quot;)
-volcano_plotly(diff_count_topics,&quot;k2&quot;,&quot;volcano_plot_purified_pbmc_cd14.html&quot;,
-               genes$symbol,title = &quot;topic 2 (CD14+)&quot;)
-volcano_plotly(diff_count_topics,&quot;k5&quot;,&quot;volcano_plot_purified_pbmc_cd34.html&quot;,
-               genes$symbol,title = &quot;topic 5 (CD34+)&quot;)
-volcano_plotly(diff_count_topics,&quot;k1+k6&quot;,
-               &quot;volcano_plot_purified_pbmc_tcells.html&quot;,genes$symbol,
-               title = &quot;topics 1 + 6 (T cells)&quot;)
-volcano_plotly(diff_count_t,&quot;k1&quot;,&quot;volcano_plot_purified_pbmc_cd4cd8.html&quot;,
-               genes$symbol,title = &quot;topic 1 (CD4+/CD8+)&quot;)
-volcano_plotly(diff_count_clusters,&quot;CD8+&quot;,
-               &quot;volcano_plot_purified_pbmc_cd8.html&quot;,genes$symbol,
-               title = &quot;CD8+ cluster&quot;)
-volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
-               &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,genes$symbol,
-               title = &quot;dendritic cells cluster&quot;)</code></pre>
-<p>The interactive volcano plots can also be viewed by clicking on these links:</p>
-<ul>
-<li><p><a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_tcells.html">topics 1 and 6 (T cells)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_cd4cd8.html">topic 1 (CD4+/CD8+ lineage differentiation)</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a></p></li>
-<li><p><a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a></p></li>
-</ul>
 <pre class="r"><code>p10 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;CD19+ B&quot;,&quot;k3&quot;,
                        genes$symbol,label_above_quantile = 0.998,
                        xlab = &quot;B cells FACS subpopulation&quot;,ylab = &quot;topic 3&quot;)
