@@ -356,7 +356,7 @@ ggsave("../plots/volcano_plots_pbmc_purified_topics.eps",
 The results of the differential expression analysis can also be
 browsed in interactive volcano plots:
 
-```{r volcano-plots-5, results="hide", eval=FALSE}
+```{r volcano-plots-5, results="hide"}
 volcano_plotly(diff_count_topics,"k3",
                "volcano_plot_purified_pbmc_bcells.html",
                genes$symbol,title = "topic 3 (B cells)",
@@ -422,7 +422,7 @@ protein genes. Indeed, there is a very strong correlation between the
 topic 6 mixture proportion and the fraction of total expression
 attributed to ribosomal genes:
 
-```{r ribosomal-proteins-topic-6, fig.width=4, fig.height=2, message=FALSE, eval=FALSE}
+```{r ribosomal-proteins-topic-6, fig.width=7, fig.height=2, message=FALSE}
 rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
              "RPS10","RPS11","RPS12","RPS13","RPS14","RPS15","RPS15A",
 			 "RPS16","RPS17","RPS18","RPS19","RPS20","RPS21","RPS23",
@@ -432,36 +432,30 @@ rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
 			 "RPL18A","RPL19","RPL21","RPL22","RPL23","RPL23A","RPL24",
 			 "RPL26","RPL27A","RPL30","RPL31","RPL32","RPL34","RPL35",
 			 "RPL36","RPL36A","RPL37","RPL39","RPL41")
-i <- which(celltype == "CD19+ B")
-j <- which(is.element(genes$symbol,rpgenes))
-pdat <- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
-p20 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_point() +
-  geom_smooth(method = "lm",se = FALSE,color = "dodgerblue",size = 0.5,
-              linetype = "dashed") +
-  ylim(0,0.6) +
-  labs(x = "topic 6 proportion",
-       y = "ribosomal expression",
-	   title = "B cells") + 
-  theme_cowplot(font_size = 10) +
-  theme(plot.title = element_text(size = 10,face = "plain"))
-i <- which(!(celltype == "CD19+ B" | celltype == "CD34+"))
-pdat <- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
-p21 <- ggplot(pdat,aes(x = x,y = y)) +
-  geom_point() +
-  geom_smooth(method = "lm",se = FALSE,color = "dodgerblue",size = 0.5,
-              linetype = "dashed") +
-  ylim(0,0.6) +
-  labs(x = "topic 6 proportion",
-       y = "ribosomal expression",
-	   title = "all except B and CD34+ cells") + 
-  theme_cowplot(font_size = 10) +
-  theme(plot.title = element_text(size = 10,face = "plain"))
-plot_grid(p20,p21)
+rgscatterplot <- function (i, title = NULL) {
+  j    <- which(is.element(genes$symbol,rpgenes))
+  pdat <- data.frame(x = fit$L[i,6],
+                     y = rowSums(counts[i,j])/rowSums(counts[i,]))
+  return(ggplot(pdat,aes(x = x,y = y)) +
+         geom_point() +
+         geom_smooth(method = "lm",se = FALSE,color = "dodgerblue",
+                     size = 0.5,linetype = "dashed") +
+         ylim(0,0.6) +
+         labs(x     = "topic 6 proportion",
+              y     = "ribosomal expression",
+	          title = title) + 
+         theme_cowplot(font_size = 10) +
+         theme(plot.title = element_text(size = 10,face = "plain")))
+}
+p20 <- rgscatterplot(which(celltype == "CD19+ B"),"B cells")
+p21 <- rgscatterplot(which(celltype == "CD34+"),"CD34+ cells")
+p22 <- rgscatterplot(which(!(celltype == "CD19+ B" | celltype == "CD34+")),
+                     "all other cells")
+plot_grid(p20,p21,p22,nrow = 1,ncol = 3)
 ```
 
-The list of ribosomal protein genes is from
-[Yoshihama *et al* (2002)][yoshihama-2002].
+The list of ribosomal protein genes is from [Yoshihama *et al*
+(2002)][yoshihama-2002].
 
 ```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5, eval=FALSE}
 p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
