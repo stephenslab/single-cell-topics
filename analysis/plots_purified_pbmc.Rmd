@@ -454,7 +454,7 @@ p22 <- rgscatterplot(which(!(celltype == "CD19+ B" | celltype == "CD34+")),
 plot_grid(p20,p21,p22,nrow = 1,ncol = 3)
 ```
 
-The list of ribosomal protein genes is from [Yoshihama *et al*
+The list of ribosomal protein genes comes from [Yoshihama *et al*
 (2002)][yoshihama-2002].
 
 ```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5, eval=FALSE}
