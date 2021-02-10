@@ -400,8 +400,11 @@ volcano_plotly(diff_count_clusters,"CD8+",
 			   filter_low_counts = 5e-5,
 			   width = 450,height = 500)
 volcano_plotly(diff_count_clusters,"dendritic",
-			   "volcano_plot_purified_pbmc_dendritic.html",genes$symbol,
-               title = "dendritic cells cluster")
+			   "volcano_plot_purified_pbmc_dendritic.html",
+			   genes$symbol,title = "dendritic cells cluster",
+			   subsample_below_quantile = 0.5,
+			   filter_low_counts = 5e-5,
+			   width = 450,height = 500)
 ```
 
 The interactive volcano plots mayalso be viewed by clicking these links:
@@ -411,12 +414,15 @@ The interactive volcano plots mayalso be viewed by clicking these links:
 [topic 5 (CD34+)](volcano_plot_purified_pbmc_cd34.html),
 [topics 1 (T cells)](volcano_plot_purified_pbmc_tcells.html),
 [topics 6 (T cells)](volcano_plot_purified_pbmc_ribosomal_proteins.html),
-[CD8+ cluster](volcano_plot_purified_pbmc_cd8.html),
-[dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html)
+[CD8+ cluster](volcano_plot_purified_pbmc_cd8.html) and
+[dendritic cells cluster](volcano_plot_purified_pbmc_dendritic.html).
 
-List of ribosomal protein genes is from doi:10.1101/gr.214202.
+The volcano plot for topic 6 suggests an enrichment of ribosomal
+protein genes. Indeed, there is a very strong correlation between the
+topic 6 mixture proportion and the fraction of total expression
+attributed to ribosomal genes:
 
-```{r ribosomal-proteins-topic, fig.width=3, fig.height=3, message=FALSE, eval=FALSE}
+```{r ribosomal-proteins-topic-6, fig.width=4, fig.height=2, message=FALSE, eval=FALSE}
 rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
              "RPS10","RPS11","RPS12","RPS13","RPS14","RPS15","RPS15A",
 			 "RPS16","RPS17","RPS18","RPS19","RPS20","RPS21","RPS23",
@@ -428,14 +434,34 @@ rpgenes <- c("RPS2","RPS3","RPS3A","RPS4X","RPS6","RPS7","RPS8","RPS9",
 			 "RPL36","RPL36A","RPL37","RPL39","RPL41")
 i <- which(celltype == "CD19+ B")
 j <- which(is.element(genes$symbol,rpgenes))
-plot(fit$L[i,6],rowSums(counts[i,j])/rowSums(counts[i,]),pch = 20)
+pdat <- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
+p20 <- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm",se = FALSE,color = "dodgerblue",size = 0.5,
+              linetype = "dashed") +
+  ylim(0,0.6) +
+  labs(x = "topic 6 proportion",
+       y = "ribosomal expression",
+	   title = "B cells") + 
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(size = 10,face = "plain"))
 i <- which(!(celltype == "CD19+ B" | celltype == "CD34+"))
-x <- fit$L[i,6]
-y <- rowSums(counts[i,j])/rowSums(counts[i,])
-plot(x,y,pch = 20,xlab = "topic 6 proportion",
-     ylab = "prop. of expression from ribosomal genes",
-	 main = sprintf("cor = %0.2f",cor(x,y)))
+pdat <- data.frame(x = fit$L[i,6],y = rowSums(counts[i,j])/rowSums(counts[i,]))
+p21 <- ggplot(pdat,aes(x = x,y = y)) +
+  geom_point() +
+  geom_smooth(method = "lm",se = FALSE,color = "dodgerblue",size = 0.5,
+              linetype = "dashed") +
+  ylim(0,0.6) +
+  labs(x = "topic 6 proportion",
+       y = "ribosomal expression",
+	   title = "all except B and CD34+ cells") + 
+  theme_cowplot(font_size = 10) +
+  theme(plot.title = element_text(size = 10,face = "plain"))
+plot_grid(p20,p21)
 ```
+
+The list of ribosomal protein genes is from
+[Yoshihama *et al* (2002)][yoshihama-2002].
 
 ```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5, eval=FALSE}
 p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
@@ -459,3 +485,5 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)
 
 ```{r scatterplots-for-paper, echo=FALSE, results="hide", eval=FALSE}
 ```
+
+[yoshihama-2002]: https://doi.org/10.1101/gr.214202
