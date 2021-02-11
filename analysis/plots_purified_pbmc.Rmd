@@ -19,9 +19,13 @@ functions that we will use to generate some of the plots.
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(fastTopics)
+library(fgsea)
 library(ggplot2)
 library(ggrepel)
 library(cowplot)
+library(plotly)
+library(htmlwidgets)
+source("../code/gsea.R")
 source("../code/functions_for_plots_purified_pbmc.R")
 ```
 
@@ -34,6 +38,13 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
 fit <- poisson2multinom(fit)
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
+```
+
+Load the gene set data.
+
+```{r load-gene-sets}
+load("../data/gene_sets_human.RData")
+rownames(gene_sets) <- gene_info$Ensembl
 ```
 
 Perform differential expression analysis using the FACS labeling:
@@ -478,6 +489,43 @@ plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)
 ```
 
 ```{r scatterplots-for-paper, echo=FALSE, results="hide", eval=FALSE}
+```
+
+Prepare the gene set data and differential expression results for the
+gene set enrichment analysis. First, align the gene-set data with the
+gene-wise statistics.
+
+```{r gsea-1}
+de        <- diff_count_topics
+out       <- align_gene_data(gene_sets,de)
+gene_sets <- out$gene_sets
+de        <- out$diff_count_res
+ids       <- rownames(gene_sets)
+gene_info <- gene_info[match(ids,gene_info$Ensembl),]
+genes     <- genes[match(ids,genes$ensembl),]
+```
+
+Next, remove gene sets with fewer than 4 genes, and with more than
+400 genes.
+
+```{r gsea-2}
+i <- which(colSums(gene_sets) >= 4 & colSums(gene_sets) <= 400)
+gene_set_info <- gene_set_info[i,]
+gene_sets     <- gene_sets[,i]
+```
+
+For each topic, perform a gene-set enrichment analysis using fgsea.
+
+```{r gsea-3, cache=TRUE}
+gsea_res <- perform_gsea_all_topics(gene_sets,de,nproc = 4)
+```
+
+*Add text here.*
+
+```{r gsea-4}
+gsea_res$ES[is.na(gsea_res$ES)] <- 0
+p <- create_gsea_plotly(gene_set_info,gsea_res,1,title = "")
+saveWidget(p,"gsea_plot.html",selfcontained = TRUE)
 ```
 
 [yoshihama-2002]: https://doi.org/10.1101/gr.214202
