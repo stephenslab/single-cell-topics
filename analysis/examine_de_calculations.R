@@ -1,6 +1,6 @@
 # TO DO: Explain here what this script is for, and how to use it.
 library(Matrix)
-library(fastTopics)
+# library(fastTopics)
 library(ggplot2)
 library(cowplot)
 set.seed(1)
@@ -13,16 +13,12 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 samples <- readRDS("../output/pbmc-purified/clustering-pbmc-purified.rds")
 
-# Take a random subset of the cells.
-n       <- nrow(counts)
-rows    <- sample(n,9000)
-samples <- samples[rows,]
-counts  <- counts[rows,]
-fit     <- select_loadings(fit,loadings = rows)
-
 # Perform differential expression analysis using the multinomial topic
 # model, after removing the dendritic cells cluster.
-de <- diff_count_analysis(fit,counts,shrink.method = "none")
+rows <- which(samples$cluster != "dendritic")
+fit_no_dendritic <- select_loadings(fit,loadings = rows)
+de <- diff_count_analysis(fit_no_dendritic,counts[rows,],pseudocount = 1,
+                          shrink.method = "none")
 
 # Plot z-score vs. total UMI count.
 i <- 5
