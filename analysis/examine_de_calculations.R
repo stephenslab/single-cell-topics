@@ -27,6 +27,4 @@ de2 <- diff_count_analysis(fit2,counts[,j],s = fit2$s,pseudocount = 1,
 plot(de1$Z[j,],de2$Z,pch = 20)
 abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
 
-p1 <- volcano_plot(de1,"k3",genes$symbol,betamax = 15,
-                   label_above_quantile = 0.998,
-                   subsample_below_quantile = 0.5)
+p1 <- volcano_plot(de1,"k3",genes$symbol)
