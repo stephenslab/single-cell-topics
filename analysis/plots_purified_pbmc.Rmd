@@ -226,32 +226,32 @@ expression analysis using the topic model:
 
 ```{r volcano-plots-3, fig.width=7, fig.height=5.5, message=FALSE}
 p14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 3 (B cells)")
 p15 <- volcano_plot(diff_count_topics,"k2",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_quantile = 0.994,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 2 (CD14+ cells)")
 p16 <- volcano_plot(diff_count_topics,"k5",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_lfc = 2,label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 5 (CD34+ cells)")
 p17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 4 (NK cells)")
 p18 <- volcano_plot(diff_count_topics,"k1",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_quantile = 0.998,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 1 (T cells)")
 p19 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
-                    label_above_quantile = 0.999,
+                    label_above_quantile = 0.998,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 6 (ribosomal proteins)")
@@ -259,43 +259,28 @@ plot_grid(p14,p15,p16,p17,p18,p19,nrow = 2,ncol = 3)
 ```
 
 ```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE}
-x <- genes$symbol
-x[with(diff_count_topics,
-       beta[,"k3"] < 2 |
-	   Z[,"k3"] < 9 |
-	   40*beta[,"k3"] + 2*Z[,"k3"] < 400)] <- ""
-pp14 <- volcano_plot(diff_count_topics,"k3",x,betamax = 15,
-                     label_above_quantile = 0.5,
+pp14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
+                     label_above_lfc = 5,label_above_quantile = 0.98,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 3 (B cells)")
-x <- genes$symbol
-x[which(diff_count_topics$beta[,"k2"] < 2)] <- ""
-pp15 <- volcano_plot(diff_count_topics,"k2",x,
-                     label_above_quantile = 0.998,
+pp15 <- volcano_plot(diff_count_topics,"k2",genes$symbol,
+                     label_above_lfc = 8,label_above_quantile = 0.95,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 2 (CD14+ cells)")
-x <- genes$symbol
-x[which(diff_count_topics$beta[,"k5"] < 2)] <- ""
-pp16 <- volcano_plot(diff_count_topics,"k5",x,
-                     label_above_quantile = 0.998,
+pp16 <- volcano_plot(diff_count_topics,"k5",genes$symbol,
+                     label_above_lfc = 8,label_above_quantile = 0.97,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 5 (CD34+ cells)")
-x <- genes$symbol
-x[which(diff_count_topics$beta[,"k4"] < 2)] <- ""
-pp17 <- volcano_plot(diff_count_topics,"k4",x,
-                     label_above_quantile = 0.998,
+pp17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
+                     label_above_lfc = 6,label_above_quantile = 0.97,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 4 (NK cells)")
-x <- genes$symbol
-x[which(diff_count_topics$beta[,"k1"] < 5)] <- ""
-pp18 <- volcano_plot(diff_count_topics,"k1",x,
-                     label_above_quantile = 0.997,
+pp18 <- volcano_plot(diff_count_topics,"k1",genes$symbol,
+                     label_above_lfc = 6,label_above_quantile = 0.97,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 1 (T cells)")
-x <- genes$symbol
-x[which(diff_count_topics$beta[,"k6"] < 0)] <- ""
-pp19 <- volcano_plot(diff_count_topics,"k6",x,
-                     label_above_quantile = 0.998,
+pp19 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
+                     label_above_quantile = 0.997,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 6 (ribosomal proteins)")
 ggsave("../plots/volcano_plots_pbmc_purified_topics.eps",
