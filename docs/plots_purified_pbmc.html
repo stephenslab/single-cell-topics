@@ -406,6 +406,9 @@ diff-count-analysis-subpop
 <li>
 diff-count-analysis-topics
 </li>
+<li>
+gsea-3
+</li>
 </ul>
 <p>To ensure reproducibility of the results, delete the cache directory <code>plots_purified_pbmc_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
@@ -426,23 +429,22 @@ diff-count-analysis-topics
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3d7de4182e5261c9c7c515c3bfb50331e818745ftargetblank3d7de41a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3d7de4182e5261c9c7c515c3bfb50331e818745f" target="_blank">3d7de41</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef79d2e8095d0c8b3b553b0156d90eb553f937925targetblankf79d2e8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f79d2e8095d0c8b3b553b0156d90eb553f937925" target="_blank">f79d2e8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3d7de4182e5261c9c7c515c3bfb50331e818745ftargetblank3d7de41a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef79d2e8095d0c8b3b553b0156d90eb553f937925targetblankf79d2e8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3d7de4182e5261c9c7c515c3bfb50331e818745f" target="_blank">3d7de41</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f79d2e8095d0c8b3b553b0156d90eb553f937925" target="_blank">f79d2e8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -460,14 +462,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/plots_purified_pbmc_cache/
-    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd8.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_dendritic.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_ribosomal_proteins.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
     Untracked:  plots/
 
 </code></pre>
@@ -507,6 +501,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f79d2e8095d0c8b3b553b0156d90eb553f937925/analysis/plots_purified_pbmc.Rmd" target="_blank">f79d2e8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-24
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7be2e951d43dd446b79ff12d090b01d837e6f9b0/docs/plots_purified_pbmc.html" target="_blank">7be2e95</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-24
+</td>
+<td>
+Rebuilt the plots_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1251,7 +1279,8 @@ p2 &lt;- volcano_plot(diff_count_facs,&quot;CD14+ Monocyte&quot;,genes$symbol,
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD14+ cells&quot;)
 p3 &lt;- volcano_plot(diff_count_facs,&quot;CD34+&quot;,genes$symbol,
-                   betamax = 10,label_above_quantile = 0.995,
+                   betamax = 10,label_above_lfc = 2,
+                   label_above_quantile = 0.995,
                    subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD34+ cells&quot;)
@@ -1294,6 +1323,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7be2e951d43dd446b79ff12d090b01d837e6f9b0/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">7be2e95</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6e2b53a4ce7c3997daf85bbed933269242aadcf4/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">6e2b53a</a>
@@ -1451,43 +1491,36 @@ diff_count_clusters &lt;- diff_count_clusters(samples$cluster,counts)
                    subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;B cells&quot;)
-# 12074 out of 21952 data points will be included in plot
 p8 &lt;- volcano_plot(diff_count_clusters,&quot;CD14+&quot;,genes$symbol,betamax = 10,
                    label_above_quantile = 0.993,
                    subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD14+ cells&quot;)
-# 12074 out of 21952 data points will be included in plot
 p9 &lt;- volcano_plot(diff_count_clusters,&quot;CD34+&quot;,genes$symbol,betamax = 10,
-                   label_above_lfc = 4,label_above_quantile = 0.98,
+                   label_above_lfc = 4,label_above_quantile = 0.99,
                    subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD34+ cells&quot;)
-# 12074 out of 21952 data points will be included in plot
-p10 &lt;- volcano_plot(diff_count_clusters,&quot;dendritic&quot;,genes$symbol,
-                    label_above_lfc = 4,label_above_quantile = 0.95,
+p10 &lt;- volcano_plot(diff_count_clusters,&quot;dendritic&quot;,genes$symbol,betamax = 10,
+                    label_above_lfc = 4,label_above_quantile = 0.98,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;dendritic cells&quot;)
-# 12074 out of 21952 data points will be included in plot
-p11 &lt;- volcano_plot(diff_count_clusters,&quot;NK&quot;,genes$symbol,
-                    label_above_quantile = 0.995,
+p11 &lt;- volcano_plot(diff_count_clusters,&quot;NK&quot;,genes$symbol,betamax = 10,
+                    label_above_lfc = 2,label_above_quantile = 0.995,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;NK cells&quot;)
-# 12074 out of 21952 data points will be included in plot
-p12 &lt;- volcano_plot(diff_count_clusters,&quot;CD8+&quot;,genes$symbol,
+p12 &lt;- volcano_plot(diff_count_clusters,&quot;CD8+&quot;,genes$symbol,betamax = 10,
                     label_above_lfc = 2,label_above_quantile = 0.98,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;CD8+ T cells&quot;)
-# 12091 out of 21952 data points will be included in plot
-p13 &lt;- volcano_plot(diff_count_clusters,&quot;T&quot;,genes$symbol,
+p13 &lt;- volcano_plot(diff_count_clusters,&quot;T&quot;,genes$symbol,betamax = 10,
                     label_above_lfc = 2,label_above_quantile = 0.995,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;T cells&quot;)
-# 12074 out of 21952 data points will be included in plot
 plot_grid(p7,p8,p9,p10,p11,p12,p13,nrow = 3,ncol = 3)</code></pre>
 <p><img src="figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
@@ -1512,6 +1545,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7be2e951d43dd446b79ff12d090b01d837e6f9b0/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">7be2e95</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6e2b53a4ce7c3997daf85bbed933269242aadcf4/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">6e2b53a</a>
@@ -1663,7 +1707,7 @@ diff_count_topics &lt;- diff_count_analysis(fit_no_dendritic,counts[rows,])
 </div>
 <p>These volcano plots summarize the results of the differential expression analysis using the topic model:</p>
 <pre class="r"><code>p14 &lt;- volcano_plot(diff_count_topics,&quot;k3&quot;,genes$symbol,
-                    label_above_quantile = 0.995,
+                    label_above_lfc = 4,label_above_quantile = 0.995,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;topic 3 (B cells)&quot;)
@@ -1678,7 +1722,7 @@ p16 &lt;- volcano_plot(diff_count_topics,&quot;k5&quot;,genes$symbol,
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;topic 5 (CD34+ cells)&quot;)
 p17 &lt;- volcano_plot(diff_count_topics,&quot;k4&quot;,genes$symbol,
-                    label_above_quantile = 0.995,
+                    label_above_lfc = 4,label_above_quantile = 0.995,
                     subsample_below_quantile = 0.5) +
   guides(fill = &quot;none&quot;) +
   ggtitle(&quot;topic 4 (NK cells)&quot;)
@@ -1716,6 +1760,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7be2e951d43dd446b79ff12d090b01d837e6f9b0/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">7be2e95</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-24
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/6e2b53a4ce7c3997daf85bbed933269242aadcf4/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">6e2b53a</a>
@@ -1792,49 +1847,41 @@ Peter Carbonetto
                genes$symbol,title = &quot;topic 3 (B cells)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_topics,&quot;k2&quot;,
                &quot;volcano_plot_purified_pbmc_cd14.html&quot;,
                genes$symbol,title = &quot;topic 2 (CD14+)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_topics,&quot;k5&quot;,
                &quot;volcano_plot_purified_pbmc_cd34.html&quot;,
                genes$symbol,title = &quot;topic 5 (CD34+)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_topics,&quot;k4&quot;,
                &quot;volcano_plot_purified_pbmc_nk.html&quot;,
                genes$symbol,title = &quot;topic 4 (NK cells)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_topics,&quot;k1&quot;,
                &quot;volcano_plot_purified_pbmc_tcells.html&quot;,
                genes$symbol,title = &quot;topic 1 (T cells)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_topics,&quot;k6&quot;,
                &quot;volcano_plot_purified_pbmc_ribosomal_proteins.html&quot;,
                genes$symbol,title = &quot;topic 6 (ribosomal proteins)&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12049 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_clusters,&quot;CD8+&quot;,
                &quot;volcano_plot_purified_pbmc_cd8.html&quot;,
                genes$symbol,title = &quot;CD8+ cluster&quot;,
                subsample_below_quantile = 0.5,
                width = 450,height = 500)
-# 12091 out of 21952 data points will be included in plot
 volcano_plotly(diff_count_clusters,&quot;dendritic&quot;,
                &quot;volcano_plot_purified_pbmc_dendritic.html&quot;,
                genes$symbol,title = &quot;dendritic cells cluster&quot;,
                subsample_below_quantile = 0.5,
-               width = 450,height = 500)
-# 12074 out of 21952 data points will be included in plot</code></pre>
+               width = 450,height = 500)</code></pre>
 <p>The interactive volcano plots may also be viewed by clicking these links: <a href="volcano_plot_purified_pbmc_bcells.html">topic 3 (B cells)</a>, <a href="volcano_plot_purified_pbmc_nk.html">topic 4 (NK cells)</a>, <a href="volcano_plot_purified_pbmc_cd14.html">topic 2 (CD14+)</a>, <a href="volcano_plot_purified_pbmc_cd34.html">topic 5 (CD34+)</a>, <a href="volcano_plot_purified_pbmc_tcells.html">topics 1 (T cells)</a>, <a href="volcano_plot_purified_pbmc_ribosomal_proteins.html">topics 6 (T cells)</a>, <a href="volcano_plot_purified_pbmc_cd8.html">CD8+ cluster</a> and <a href="volcano_plot_purified_pbmc_dendritic.html">dendritic cells cluster</a>.</p>
 <p>The volcano plot for topic 6 suggests an enrichment of ribosomal protein genes. Indeed, there is a very strong correlation between the topic 6 mixture proportion and the fraction of total expression attributed to ribosomal genes:</p>
 <pre class="r"><code>rpgenes &lt;- c(&quot;RPS2&quot;,&quot;RPS3&quot;,&quot;RPS3A&quot;,&quot;RPS4X&quot;,&quot;RPS6&quot;,&quot;RPS7&quot;,&quot;RPS8&quot;,&quot;RPS9&quot;,
@@ -1981,7 +2028,7 @@ saveWidget(p,&quot;gsea_plot.html&quot;,selfcontained = TRUE)</code></pre>
 # 
 # other attached packages:
 # [1] htmlwidgets_1.5.1 plotly_4.9.2      cowplot_1.0.0     ggrepel_0.9.0    
-# [5] ggplot2_3.3.0     fgsea_1.15.1      fastTopics_0.5-18 Matrix_1.2-18    
+# [5] ggplot2_3.3.0     fgsea_1.15.1      fastTopics_0.5-20 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] httr_1.4.2           tidyr_1.0.0          splines_3.6.2       
