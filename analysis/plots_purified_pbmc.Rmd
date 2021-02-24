@@ -76,7 +76,8 @@ p2 <- volcano_plot(diff_count_facs,"CD14+ Monocyte",genes$symbol,
   guides(fill = "none") +
   ggtitle("CD14+ cells")
 p3 <- volcano_plot(diff_count_facs,"CD34+",genes$symbol,
-                   betamax = 10,label_above_quantile = 0.995,
+                   betamax = 10,label_above_lfc = 2,
+				   label_above_quantile = 0.995,
 				   subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("CD34+ cells")
@@ -108,7 +109,7 @@ pp2 <- volcano_plot(diff_count_facs,"CD14+ Monocyte",genes$symbol,betamax = 10,
 				    subsample_below_quantile = 0.5) +
   ggtitle("CD14+ cells")
 pp3 <- volcano_plot(diff_count_facs,"CD34+",genes$symbol,betamax = 10,
-                    label_above_lfc = 4,label_above_quantile = 0.98,
+                    label_above_lfc = 5,label_above_quantile = 0.98,
 				    subsample_below_quantile = 0.5) +
   ggtitle("CD34+ cells")
 pp4 <- volcano_plot(diff_count_facs,"CD56+ NK",genes$symbol,betamax = 10,
@@ -139,7 +140,7 @@ diff_count_clusters <- diff_count_clusters(samples$cluster,counts)
 These volcano plots summarize the results of the differential
 expression analysis using the clusters:
 
-```{r volcano-plots-2, fig.width=7, fig.height=8}
+```{r volcano-plots-2, fig.width=7, fig.height=8, message=FALSE}
 p7 <- volcano_plot(diff_count_clusters,"B",genes$symbol,betamax = 10,
                    label_above_quantile = 0.995,
 				   subsample_below_quantile = 0.5) +
@@ -151,26 +152,26 @@ p8 <- volcano_plot(diff_count_clusters,"CD14+",genes$symbol,betamax = 10,
   guides(fill = "none") +
   ggtitle("CD14+ cells")
 p9 <- volcano_plot(diff_count_clusters,"CD34+",genes$symbol,betamax = 10,
-                   label_above_lfc = 4,label_above_quantile = 0.98,
+                   label_above_lfc = 4,label_above_quantile = 0.99,
 				   subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("CD34+ cells")
-p10 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,
-                    label_above_lfc = 4,label_above_quantile = 0.95,
+p10 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,betamax = 10,
+                    label_above_lfc = 4,label_above_quantile = 0.98,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("dendritic cells")
-p11 <- volcano_plot(diff_count_clusters,"NK",genes$symbol,
-                    label_above_quantile = 0.995,
+p11 <- volcano_plot(diff_count_clusters,"NK",genes$symbol,betamax = 10,
+                    label_above_lfc = 2,label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("NK cells")
-p12 <- volcano_plot(diff_count_clusters,"CD8+",genes$symbol,
+p12 <- volcano_plot(diff_count_clusters,"CD8+",genes$symbol,betamax = 10,
                     label_above_lfc = 2,label_above_quantile = 0.98,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("CD8+ T cells")
-p13 <- volcano_plot(diff_count_clusters,"T",genes$symbol,
+p13 <- volcano_plot(diff_count_clusters,"T",genes$symbol,betamax = 10,
                     label_above_lfc = 2,label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
@@ -188,7 +189,7 @@ pp8 <- volcano_plot(diff_count_clusters,"CD14+",genes$symbol,betamax = 10,
 				    subsample_below_quantile = 0.5) +
   ggtitle("CD14+ cells")
 pp9 <- volcano_plot(diff_count_clusters,"CD34+",genes$symbol,betamax = 10,
-                    label_above_lfc = 4,label_above_quantile = 0.98,
+                    label_above_lfc = 5,label_above_quantile = 0.98,
 				    subsample_below_quantile = 0.5) +
   ggtitle("CD34+ cells")
 pp10 <- volcano_plot(diff_count_clusters,"dendritic",genes$symbol,betamax = 10,
@@ -226,7 +227,7 @@ expression analysis using the topic model:
 
 ```{r volcano-plots-3, fig.width=7, fig.height=5.5, message=FALSE}
 p14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
-                    label_above_quantile = 0.995,
+                    label_above_lfc = 4,label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 3 (B cells)")
@@ -241,7 +242,7 @@ p16 <- volcano_plot(diff_count_topics,"k5",genes$symbol,
   guides(fill = "none") +
   ggtitle("topic 5 (CD34+ cells)")
 p17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
-                    label_above_quantile = 0.995,
+                    label_above_lfc = 4,label_above_quantile = 0.995,
  				    subsample_below_quantile = 0.5) +
   guides(fill = "none") +
   ggtitle("topic 4 (NK cells)")
@@ -260,23 +261,23 @@ plot_grid(p14,p15,p16,p17,p18,p19,nrow = 2,ncol = 3)
 
 ```{r volcano-plots-for-paper-3, echo=FALSE, message=FALSE, warning=FALSE}
 pp14 <- volcano_plot(diff_count_topics,"k3",genes$symbol,
-                     label_above_lfc = 5,label_above_quantile = 0.98,
+                     label_above_lfc = 5,label_above_quantile = 0.985,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 3 (B cells)")
 pp15 <- volcano_plot(diff_count_topics,"k2",genes$symbol,
-                     label_above_lfc = 8,label_above_quantile = 0.95,
+                     label_above_lfc = 8,label_above_quantile = 0.97,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 2 (CD14+ cells)")
 pp16 <- volcano_plot(diff_count_topics,"k5",genes$symbol,
-                     label_above_lfc = 8,label_above_quantile = 0.97,
+                     label_above_lfc = 8,label_above_quantile = 0.98,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 5 (CD34+ cells)")
 pp17 <- volcano_plot(diff_count_topics,"k4",genes$symbol,
-                     label_above_lfc = 6,label_above_quantile = 0.97,
+                     label_above_lfc = 8,label_above_quantile = 0.97,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 4 (NK cells)")
 pp18 <- volcano_plot(diff_count_topics,"k1",genes$symbol,
-                     label_above_lfc = 6,label_above_quantile = 0.97,
+                     label_above_lfc = 6,label_above_quantile = 0.98,
  				     subsample_below_quantile = 0.5) +
   ggtitle("topic 1 (T cells)")
 pp19 <- volcano_plot(diff_count_topics,"k6",genes$symbol,
@@ -291,7 +292,7 @@ ggsave("../plots/volcano_plots_pbmc_purified_topics.eps",
 The results of the differential expression analysis can also be
 browsed in interactive volcano plots:
 
-```{r volcano-plots-5, results="hide"}
+```{r volcano-plots-5, results="hide", message=FALSE}
 volcano_plotly(diff_count_topics,"k3",
                "volcano_plot_purified_pbmc_bcells.html",
                genes$symbol,title = "topic 3 (B cells)",
