@@ -385,7 +385,11 @@ plot_grid(p20,p21,p22,nrow = 1,ncol = 3)
 The list of ribosomal protein genes comes from [Yoshihama *et al*
 (2002)][yoshihama-2002].
 
-*Add text here.*
+Four out of the 6topics closely correspond to the FACS cell
+populations: B cells, T cells, NK cells and CD14+ cells. We would
+expect then that the differential expression in these 4 topics is
+similar to differential expression in the corresponding FACS
+populations. Let's check this.
 
 ```{r topics-vs-facs-scatterplots-1, cache=TRUE}
 celltype <- as.character(celltype)
@@ -395,9 +399,11 @@ table(celltype)
 diff_count_facs <- diff_count_clusters(celltype,counts)
 ```
 
-*Add text here.*
+These scatterplots compare log-fold change estimated using the FACS
+labeling and using the topic model. Some of the top genes in each
+topic are highlighted.
 
-```{r topics-vs-facs-scatterplots-2, fig.width=7, fig.height=7.5}
+```{r topics-vs-facs-scatterplots-2, fig.width=7, fig.height=5}
 p23 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
                        genes$symbol,label_above_lfc = 6,
 					   label_above_quantile = 0.99,
@@ -417,6 +423,12 @@ p26 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"T cell","k1",
 					   ylab = "topic 1")
 plot_grid(p23,p24,p25,p26,nrow = 2,ncol = 2)
 ```
+
+Overall, the LFC estimates are strongly correlated. But the
+differential expression in the topic is much higher for many of the
+top genes. In particular, the topic model seems to be more adept at
+picking out cell-type-specific genes---that is, genes that are
+uniquely expressed in a cell type.
 
 ```{r scatterplots-for-paper, echo=FALSE, results="hide"}
 ggsave("../plots/scatterplots_topics_vs_facs_pbmc_purified.eps",
