@@ -409,6 +409,9 @@ diff-count-analysis-topics
 <li>
 gsea-3
 </li>
+<li>
+topics-vs-facs-scatterplots-1
+</li>
 </ul>
 <p>To ensure reproducibility of the results, delete the cache directory <code>plots_purified_pbmc_cache</code> and re-run the analysis. To have workflowr automatically delete the cache directory prior to building the file, set <code>delete_cache = TRUE</code> when running <code>wflow_build()</code> or <code>wflow_publish()</code>.</p>
 </div>
@@ -429,16 +432,16 @@ gsea-3
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4d9e8ba38f477ef9748b5b1f2fea0664976ca519targetblank4d9e8baa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4d9e8ba38f477ef9748b5b1f2fea0664976ca519" target="_blank">4d9e8ba</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a31face1443cd9a28d10644c083a0f4d91ae7d3targetblank3a31faca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3a31face1443cd9a28d10644c083a0f4d91ae7d3" target="_blank">3a31fac</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4d9e8ba38f477ef9748b5b1f2fea0664976ca519targetblank4d9e8baa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a31face1443cd9a28d10644c083a0f4d91ae7d3targetblank3a31faca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4d9e8ba38f477ef9748b5b1f2fea0664976ca519" target="_blank">4d9e8ba</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3a31face1443cd9a28d10644c083a0f4d91ae7d3" target="_blank">3a31fac</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -462,10 +465,15 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/plots_purified_pbmc_cache/
+    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_cd8.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_dendritic.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_ribosomal_proteins.html
+    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   code/functions_for_plots_purified_pbmc.R
 
 </code></pre>
 <p>
@@ -504,6 +512,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3a31face1443cd9a28d10644c083a0f4d91ae7d3/analysis/plots_purified_pbmc.Rmd" target="_blank">3a31fac</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/plots_purified_pbmc.html" target="_blank">ced5127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+<td>
+Added scatterplots back to plots_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1362,6 +1404,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">ced5127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d21aab5a3067c7781a7921579b8188f0d53da399/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">d21aab5</a>
 </td>
 <td>
@@ -1595,6 +1648,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">ced5127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d21aab5a3067c7781a7921579b8188f0d53da399/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">d21aab5</a>
 </td>
 <td>
@@ -1821,6 +1885,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">ced5127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d21aab5a3067c7781a7921579b8188f0d53da399/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">d21aab5</a>
 </td>
 <td>
@@ -2033,7 +2108,7 @@ Peter Carbonetto
 </div>
 </div>
 <p>The list of ribosomal protein genes comes from <a href="https://doi.org/10.1101/gr.214202">Yoshihama <em>et al</em> (2002)</a>.</p>
-<p><em>Add text here.</em></p>
+<p>Four out of the 6topics closely correspond to the FACS cell populations: B cells, T cells, NK cells and CD14+ cells. We would expect then that the differential expression in these 4 topics is similar to differential expression in the corresponding FACS populations. Let’s check this.</p>
 <pre class="r"><code>celltype &lt;- as.character(celltype)
 celltype[celltype == &quot;CD8+ Cytotoxic T&quot;] &lt;- &quot;T cell&quot;
 celltype &lt;- factor(celltype)
@@ -2051,7 +2126,7 @@ diff_count_facs &lt;- diff_count_clusters(celltype,counts)
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p><em>Add text here.</em></p>
+<p>These scatterplots compare log-fold change estimated using the FACS labeling and using the topic model. Some of the top genes in each topic are highlighted.</p>
 <pre class="r"><code>p23 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;CD19+ B&quot;,&quot;k3&quot;,
                        genes$symbol,label_above_lfc = 6,
                        label_above_quantile = 0.99,
@@ -2071,6 +2146,44 @@ p26 &lt;- lfc_scatterplot(diff_count_facs,diff_count_topics,&quot;T cell&quot;,&
                        ylab = &quot;topic 1&quot;)
 plot_grid(p23,p24,p25,p26,nrow = 2,ncol = 2)</code></pre>
 <p><img src="figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-2-1.png" width="840" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-topics-vs-facs-scatterplots-2-1">
+Past versions of topics-vs-facs-scatterplots-2-1.png
+</button>
+</p>
+<div id="fig-topics-vs-facs-scatterplots-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-2-1.png" target="_blank">ced5127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Overall, the LFC estimates are strongly correlated. But the differential expression in the topic is much higher for many of the top genes. In particular, the topic model seems to be more adept at picking out cell-type-specific genes—that is, genes that are uniquely expressed in a cell type.</p>
 <p>Prepare the gene set data and differential expression results for the gene set enrichment analysis. First, align the gene-set data with the gene-wise statistics.</p>
 <pre class="r"><code>de        &lt;- diff_count_topics
 out       &lt;- align_gene_data(gene_sets,de)
@@ -2143,13 +2256,13 @@ saveWidget(p,&quot;gsea_plot.html&quot;,selfcontained = TRUE)</code></pre>
 # [55] stringr_1.4.0        MCMCpack_1.4-5       munsell_0.5.0       
 # [58] irlba_2.3.3          compiler_3.6.2       rlang_0.4.5         
 # [61] grid_3.6.2           crosstalk_1.0.0      labeling_0.3        
-# [64] rmarkdown_2.3        codetools_0.2-16     gtable_0.3.0        
-# [67] R6_2.4.1             gridExtra_2.3        knitr_1.26          
-# [70] dplyr_0.8.3          fastmap_1.0.1        zeallot_0.1.0       
-# [73] fastmatch_1.1-0      workflowr_1.6.2.9000 rprojroot_1.3-2     
-# [76] stringi_1.4.3        parallel_3.6.2       SQUAREM_2017.10-1   
-# [79] Rcpp_1.0.5           vctrs_0.2.1          tidyselect_0.2.5    
-# [82] xfun_0.11            coda_0.19-3</code></pre>
+# [64] rmarkdown_2.3        gtable_0.3.0         R6_2.4.1            
+# [67] gridExtra_2.3        knitr_1.26           dplyr_0.8.3         
+# [70] fastmap_1.0.1        zeallot_0.1.0        fastmatch_1.1-0     
+# [73] workflowr_1.6.2.9000 rprojroot_1.3-2      stringi_1.4.3       
+# [76] parallel_3.6.2       SQUAREM_2017.10-1    Rcpp_1.0.5          
+# [79] vctrs_0.2.1          tidyselect_0.2.5     xfun_0.11           
+# [82] coda_0.19-3</code></pre>
 </div>
 
 
