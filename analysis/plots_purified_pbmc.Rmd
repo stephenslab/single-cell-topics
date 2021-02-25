@@ -385,27 +385,43 @@ plot_grid(p20,p21,p22,nrow = 1,ncol = 3)
 The list of ribosomal protein genes comes from [Yoshihama *et al*
 (2002)][yoshihama-2002].
 
-```{r topics-vs-facs-scatterplots, fig.width=7, fig.height=7.5, eval=FALSE}
-p10 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
-                       genes$symbol,label_above_quantile = 0.998,
-                       xlab = "B cells FACS subpopulation",ylab = "topic 3")
-p11 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD56+ NK","k4",
-                       genes$symbol,label_above_quantile = 0.998,
-                       xlab = "NK cells FACS subpopulation",ylab = "topic 4")
-p12 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD14+ Monocyte","k2",
-                       genes$symbol,label_above_quantile = 0.998,
-                       xlab = "CD14+ FACS subpopulation",ylab = "topic 2")
-p13 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD34+","k5",
-                       genes$symbol,label_above_quantile = 0.998,
-                       xlab = "CD34+ FACS subpopulation",ylab = "topic 4")
-p14 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"T cell","k1+k6",
-                       genes$symbol,label_above_quantile = 0.998,
-                       xlab = "T cells FACS subpopulation",
-					   ylab = "topics 1 + 6")
-plot_grid(p10,p11,p12,p13,p14,nrow = 3,ncol = 2)
+*Add text here.*
+
+```{r topics-vs-facs-scatterplots-1, cache=TRUE}
+celltype <- as.character(celltype)
+celltype[celltype == "CD8+ Cytotoxic T"] <- "T cell"
+celltype <- factor(celltype)
+table(celltype)
+diff_count_facs <- diff_count_clusters(celltype,counts)
 ```
 
-```{r scatterplots-for-paper, echo=FALSE, results="hide", eval=FALSE}
+*Add text here.*
+
+```{r topics-vs-facs-scatterplots-2, fig.width=7, fig.height=7.5}
+p23 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD19+ B","k3",
+                       genes$symbol,label_above_lfc = 6,
+					   label_above_quantile = 0.99,
+                       xlab = "B cells FACS subpopulation",ylab = "topic 3")
+p24 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD14+ Monocyte",
+                       "k2",genes$symbol,label_above_lfc = 6,
+					   label_above_quantile = 0.98,
+                       xlab = "CD14+ FACS subpopulation",ylab = "topic 2")
+p25 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"CD56+ NK","k4",
+                       genes$symbol,label_above_lfc = 5,
+					   label_above_quantile = 0.99,
+                       xlab = "NK cells FACS subpopulation",ylab = "topic 4")
+p26 <- lfc_scatterplot(diff_count_facs,diff_count_topics,"T cell","k1",
+                       genes$symbol,label_above_lfc = 5,
+					   label_above_quantile = 0.99,
+                       xlab = "T cells FACS subpopulation",
+					   ylab = "topic 1")
+plot_grid(p23,p24,p25,p26,nrow = 2,ncol = 2)
+```
+
+```{r scatterplots-for-paper, echo=FALSE, results="hide"}
+ggsave("../plots/scatterplots_topics_vs_facs_pbmc_purified.eps",
+       plot_grid(p23,p24,p25,p26,nrow = 2,ncol = 2),
+	   height = 7,width = 9)
 ```
 
 Prepare the gene set data and differential expression results for the
