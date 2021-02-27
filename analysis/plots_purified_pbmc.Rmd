@@ -22,6 +22,7 @@ library(fastTopics)
 library(pathways)
 library(ggplot2)
 library(cowplot)
+library(ggrepel)
 source("../code/functions_for_plots_purified_pbmc.R")
 ```
 
@@ -429,11 +430,11 @@ For each topic, perform a gene-set enrichment analysis using fgsea.
 We remove gene sets with fewer than 4 genes, and with more than 400
 genes.
 
-```{r gsea-1}
+```{r gsea-1, cache=TRUE}
 data(gene_sets_human)
 i <- which(with(gene_sets_human,
                 colSums(gene_sets) >= 4 &
-				colSums(gene_sets) <= 400)
+				colSums(gene_sets) <= 400))
 gene_set_info <- gene_sets_human$gene_set_info[i,]
 gene_sets     <- gene_sets_human$gene_sets[,i]
 gsea_res      <- perform_gsea(gene_sets,diff_count_topics$Z,nproc = 4)
@@ -441,9 +442,22 @@ gsea_res      <- perform_gsea(gene_sets,diff_count_topics$Z,nproc = 4)
 
 *Add text here.*
 
-```{r gsea-2}
-p <- gsea_plotly(gsea_res,gene_set_info,5)
-saveWidget(p,"gsea_plot.html",selfcontained = TRUE)
+```{r gsea-2, results="hide"}
+gene_set_info <-
+  transform(gene_set_info,
+            database = factor(paste(database,
+                                    ifelse(database == "MSigDB",
+                                           as.character(category_code),
+                                           as.character(data_source)),
+									sep = "-")))
+gsea_plotly(gsea_res,gene_set_info,"k1",file = "gsea_plot_tcells.html")
+gsea_plotly(gsea_res,gene_set_info,"k2",file = "gsea_plot_cd14.html")
+gsea_plotly(gsea_res,gene_set_info,"k3",file = "gsea_plot_bcells.html")
+gsea_plotly(gsea_res,gene_set_info,"k4",file = "gsea_plot_nk.html")
+gsea_plotly(gsea_res,gene_set_info,"k5",file = "gsea_plot_cd34.html")
+gsea_plotly(gsea_res,gene_set_info,"k6",file = "gsea_plot_rp.html")
 ```
+
+*Add text here.*
 
 [yoshihama-2002]: https://doi.org/10.1101/gr.214202
