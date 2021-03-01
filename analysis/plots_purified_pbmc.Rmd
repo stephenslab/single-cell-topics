@@ -426,8 +426,8 @@ ggsave("../plots/scatterplots_topics_vs_facs_pbmc_purified.eps",
 	   height = 7,width = 9)
 ```
 
-For each topic, perform a gene-set enrichment analysis using fgsea.
-We remove gene sets with fewer than 4 genes, and with more than 400
+For each topic, we also perform a gene-set enrichment analysis. Here
+we only consider gene sets with at least 4 genes and no more than 400
 genes.
 
 ```{r gsea-1, cache=TRUE}
@@ -440,9 +440,10 @@ gene_sets     <- gene_sets_human$gene_sets[,i]
 gsea_res      <- perform_gsea(gene_sets,diff_count_topics$Z,nproc = 4)
 ```
 
-*Add text here.*
+The results of the gene set enrichment analysis can be explored in
+these interactive plots.
 
-```{r gsea-2, results="hide"}
+```{r gsea-2, results="hide", warning=FALSE}
 gene_set_info <-
   transform(gene_set_info,
             database = factor(paste(database,
@@ -450,14 +451,20 @@ gene_set_info <-
                                            as.character(category_code),
                                            as.character(data_source)),
 									sep = "-")))
-gsea_plotly(gsea_res,gene_set_info,"k1",file = "gsea_plot_tcells.html")
-gsea_plotly(gsea_res,gene_set_info,"k2",file = "gsea_plot_cd14.html")
-gsea_plotly(gsea_res,gene_set_info,"k3",file = "gsea_plot_bcells.html")
-gsea_plotly(gsea_res,gene_set_info,"k4",file = "gsea_plot_nk.html")
-gsea_plotly(gsea_res,gene_set_info,"k5",file = "gsea_plot_cd34.html")
-gsea_plotly(gsea_res,gene_set_info,"k6",file = "gsea_plot_rp.html")
+gsea_plotly(gsea_res,gene_set_info,"k1",file = "gsea_plot_tcells.html",title = "T cells")
+gsea_plotly(gsea_res,gene_set_info,"k2",file = "gsea_plot_cd14.html",title = "CD14+ cells")
+gsea_plotly(gsea_res,gene_set_info,"k3",file = "gsea_plot_bcells.html",title = "B cells")
+gsea_plotly(gsea_res,gene_set_info,"k4",file = "gsea_plot_nk.html",title = "NK cells")
+gsea_plotly(gsea_res,gene_set_info,"k5",file = "gsea_plot_cd34.html",title = "CD34+ cells")
+gsea_plotly(gsea_res,gene_set_info,"k6",file = "gsea_plot_rp.html",title = "Ribosomal proteins")
 ```
 
-*Add text here.*
+The interactive volcano plots may also be viewed by clicking these
+links: [topic 1 (T cells)](gsea_plot_tcells.html),
+[topic 2 (CD14+ cells)](gsea_plot_cd14.html),
+[topic 3 (B cells)](gsea_plot_bcells.html),
+[topic 4 (NK cells)](gsea_plot_nk.html),
+[topic 5 (CD34+ cells)](gsea_plot_cd34.html) and
+[topic 6 (ribosomal proteins)](gsea_plot_rp.html).
 
 [yoshihama-2002]: https://doi.org/10.1101/gr.214202
