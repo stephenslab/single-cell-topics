@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-02-25
+<strong>Last updated:</strong> 2021-02-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -407,6 +407,9 @@ diff-count-analysis-subpop
 diff-count-analysis-topics
 </li>
 <li>
+gsea-1
+</li>
+<li>
 gsea-3
 </li>
 <li>
@@ -432,16 +435,16 @@ topics-vs-facs-scatterplots-1
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a31face1443cd9a28d10644c083a0f4d91ae7d3targetblank3a31faca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/3a31face1443cd9a28d10644c083a0f4d91ae7d3" target="_blank">3a31fac</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed50e70e3f12c0f5149eee66093194f63669a57dctargetblankd50e70ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d50e70e3f12c0f5149eee66093194f63669a57dc" target="_blank">d50e70e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree3a31face1443cd9a28d10644c083a0f4d91ae7d3targetblank3a31faca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed50e70e3f12c0f5149eee66093194f63669a57dctargetblankd50e70ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/3a31face1443cd9a28d10644c083a0f4d91ae7d3" target="_blank">3a31fac</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d50e70e3f12c0f5149eee66093194f63669a57dc" target="_blank">d50e70e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -465,14 +468,6 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/plots_purified_pbmc_cache/
-    Untracked:  analysis/volcano_plot_purified_pbmc_bcells.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd14.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd34.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_cd8.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_dendritic.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_nk.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_ribosomal_proteins.html
-    Untracked:  analysis/volcano_plot_purified_pbmc_tcells.html
     Untracked:  plots/
 
 </code></pre>
@@ -512,6 +507,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d50e70e3f12c0f5149eee66093194f63669a57dc/analysis/plots_purified_pbmc.Rmd" target="_blank">d50e70e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-28
+</td>
+<td>
+workflowr::wflow_publish(“plots_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/54894e2c68fda7d1b10f31bd9d2d79d291759823/analysis/plots_purified_pbmc.Rmd" target="_blank">54894e2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-26
+</td>
+<td>
+Working on gsea in plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36d8c92a0580241d7131aab7f0a0a3cb86f0fad4/analysis/plots_purified_pbmc.Rmd" target="_blank">36d8c92</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-26
+</td>
+<td>
+Working on new gsea step in plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/5773c6c3cfdd3e88bb3e3752478963ee581408e9/docs/plots_purified_pbmc.html" target="_blank">5773c6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+<td>
+Adjusted dimensions of the scatterplots in the plots_purified_pbmc
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1305,13 +1368,10 @@ Working on volcano plots in plots_purified_pbmc analysis.
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
-library(fgsea)
+library(pathways)
 library(ggplot2)
-library(ggrepel)
 library(cowplot)
-library(plotly)
-library(htmlwidgets)
-source(&quot;../code/gsea.R&quot;)
+library(ggrepel)
 source(&quot;../code/functions_for_plots_purified_pbmc.R&quot;)</code></pre>
 <p>Load the count data, the <span class="math inline">\(K = 6\)</span> topic model fit, and the 7 clusters identified in the <a href="clusters_purified_pbmc.html">clustering analysis</a>.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
@@ -1319,9 +1379,6 @@ fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)
 samples &lt;- readRDS(&quot;../output/pbmc-purified/clustering-pbmc-purified.rds&quot;)</code></pre>
-<p>Load the gene set data.</p>
-<pre class="r"><code>load(&quot;../data/gene_sets_human.RData&quot;)
-rownames(gene_sets) &lt;- gene_info$Ensembl</code></pre>
 <p>Perform differential expression analysis using the FACS labeling:</p>
 <pre class="r"><code>celltype &lt;- as.character(samples$celltype)
 celltype[celltype == &quot;CD4+/CD45RA+/CD25- Naive T&quot; |
@@ -1402,6 +1459,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5773c6c3cfdd3e88bb3e3752478963ee581408e9/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">5773c6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-1-1.png" target="_blank">ced5127</a>
@@ -1648,6 +1716,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5773c6c3cfdd3e88bb3e3752478963ee581408e9/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">5773c6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-2-1.png" target="_blank">ced5127</a>
 </td>
 <td>
@@ -1883,6 +1962,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5773c6c3cfdd3e88bb3e3752478963ee581408e9/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">5773c6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/volcano-plots-3-1.png" target="_blank">ced5127</a>
@@ -2170,6 +2260,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5773c6c3cfdd3e88bb3e3752478963ee581408e9/docs/figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-2-1.png" target="_blank">5773c6c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-25
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/ced5127647de8992ce600dab9ba2b832c16d49cf/docs/figure/plots_purified_pbmc.Rmd/topics-vs-facs-scatterplots-2-1.png" target="_blank">ced5127</a>
 </td>
 <td>
@@ -2184,30 +2285,40 @@ Peter Carbonetto
 </div>
 </div>
 <p>Overall, the LFC estimates are strongly correlated. But the differential expression in the topic is much higher for many of the top genes. In particular, the topic model seems to be more adept at picking out cell-type-specific genes—that is, genes that are uniquely expressed in a cell type.</p>
-<p>Prepare the gene set data and differential expression results for the gene set enrichment analysis. First, align the gene-set data with the gene-wise statistics.</p>
-<pre class="r"><code>de        &lt;- diff_count_topics
-out       &lt;- align_gene_data(gene_sets,de)
-gene_sets &lt;- out$gene_sets
-de        &lt;- out$diff_count_res
-ids       &lt;- rownames(gene_sets)
-gene_info &lt;- gene_info[match(ids,gene_info$Ensembl),]
-genes     &lt;- genes[match(ids,genes$ensembl),]</code></pre>
-<p>Next, remove gene sets with fewer than 4 genes, and with more than 400 genes.</p>
-<pre class="r"><code>i &lt;- which(colSums(gene_sets) &gt;= 4 &amp; colSums(gene_sets) &lt;= 400)
-gene_set_info &lt;- gene_set_info[i,]
-gene_sets     &lt;- gene_sets[,i]</code></pre>
-<p>For each topic, perform a gene-set enrichment analysis using fgsea.</p>
-<pre class="r"><code>gsea_res &lt;- perform_gsea_all_topics(gene_sets,de,nproc = 4)</code></pre>
+<p>For each topic, we also perform a gene-set enrichment analysis. Here we only consider gene sets with at least 4 genes and no more than 400 genes.</p>
+<pre class="r"><code>data(gene_sets_human)
+i &lt;- which(with(gene_sets_human,
+                colSums(gene_sets) &gt;= 4 &amp;
+                colSums(gene_sets) &lt;= 400))
+gene_set_info &lt;- gene_sets_human$gene_set_info[i,]
+gene_sets     &lt;- gene_sets_human$gene_sets[,i]
+gsea_res      &lt;- perform_gsea(gene_sets,diff_count_topics$Z,nproc = 4)
+# Using statistics from 17348 genes for gene set enrichment analysis.
+# Converting gene set data for fgsea.
+# Computing enrichment statistics for 35084 gene sets and
+# 6 collections of gene-level statistics:
+# k1, k2, k3, k4, k5, k6</code></pre>
 <div class="alert alert-warning">
 <p>
 <strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p><em>Add text here.</em></p>
-<pre class="r"><code>gsea_res$ES[is.na(gsea_res$ES)] &lt;- 0
-p &lt;- create_gsea_plotly(gene_set_info,gsea_res,1,title = &quot;&quot;)
-saveWidget(p,&quot;gsea_plot.html&quot;,selfcontained = TRUE)</code></pre>
+<p>The results of the gene set enrichment analysis can be explored in these interactive plots.</p>
+<pre class="r"><code>gene_set_info &lt;-
+  transform(gene_set_info,
+            database = factor(paste(database,
+                                    ifelse(database == &quot;MSigDB&quot;,
+                                           as.character(category_code),
+                                           as.character(data_source)),
+                                    sep = &quot;-&quot;)))
+gsea_plotly(gsea_res,gene_set_info,&quot;k1&quot;,file = &quot;gsea_plot_tcells.html&quot;,title = &quot;T cells&quot;)
+gsea_plotly(gsea_res,gene_set_info,&quot;k2&quot;,file = &quot;gsea_plot_cd14.html&quot;,title = &quot;CD14+ cells&quot;)
+gsea_plotly(gsea_res,gene_set_info,&quot;k3&quot;,file = &quot;gsea_plot_bcells.html&quot;,title = &quot;B cells&quot;)
+gsea_plotly(gsea_res,gene_set_info,&quot;k4&quot;,file = &quot;gsea_plot_nk.html&quot;,title = &quot;NK cells&quot;)
+gsea_plotly(gsea_res,gene_set_info,&quot;k5&quot;,file = &quot;gsea_plot_cd34.html&quot;,title = &quot;CD34+ cells&quot;)
+gsea_plotly(gsea_res,gene_set_info,&quot;k6&quot;,file = &quot;gsea_plot_rp.html&quot;,title = &quot;Ribosomal proteins&quot;)</code></pre>
+<p>The interactive volcano plots may also be viewed by clicking these links: <a href="gsea_plot_tcells.html">topic 1 (T cells)</a>, <a href="gsea_plot_cd14.html">topic 2 (CD14+ cells)</a>, <a href="gsea_plot_bcells.html">topic 3 (B cells)</a>, <a href="gsea_plot_nk.html">topic 4 (NK cells)</a>, <a href="gsea_plot_cd34.html">topic 5 (CD34+ cells)</a> and <a href="gsea_plot_rp.html">topic 6 (ribosomal proteins)</a>.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2231,8 +2342,8 @@ saveWidget(p,&quot;gsea_plot.html&quot;,selfcontained = TRUE)</code></pre>
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] htmlwidgets_1.5.1 plotly_4.9.2      cowplot_1.0.0     ggrepel_0.9.0    
-# [5] ggplot2_3.3.0     fgsea_1.15.1      fastTopics_0.5-20 Matrix_1.2-18    
+# [1] ggrepel_0.9.0     cowplot_1.0.0     ggplot2_3.3.0     pathways_0.1-19  
+# [5] fastTopics_0.5-20 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] httr_1.4.2           tidyr_1.0.0          splines_3.6.2       
@@ -2253,16 +2364,17 @@ saveWidget(p,&quot;gsea_plot.html&quot;,selfcontained = TRUE)</code></pre>
 # [46] fs_1.3.1             nlme_3.1-142         MASS_7.3-51.4       
 # [49] truncnorm_1.0-8      tools_3.6.2          data.table_1.12.8   
 # [52] prettyunits_1.1.1    hms_0.5.2            lifecycle_0.1.0     
-# [55] stringr_1.4.0        MCMCpack_1.4-5       munsell_0.5.0       
-# [58] irlba_2.3.3          compiler_3.6.2       rlang_0.4.5         
-# [61] grid_3.6.2           crosstalk_1.0.0      labeling_0.3        
-# [64] rmarkdown_2.3        gtable_0.3.0         R6_2.4.1            
-# [67] gridExtra_2.3        knitr_1.26           dplyr_0.8.3         
-# [70] fastmap_1.0.1        zeallot_0.1.0        fastmatch_1.1-0     
-# [73] workflowr_1.6.2.9000 rprojroot_1.3-2      stringi_1.4.3       
-# [76] parallel_3.6.2       SQUAREM_2017.10-1    Rcpp_1.0.5          
-# [79] vctrs_0.2.1          tidyselect_0.2.5     xfun_0.11           
-# [82] coda_0.19-3</code></pre>
+# [55] stringr_1.4.0        MCMCpack_1.4-5       plotly_4.9.2        
+# [58] munsell_0.5.0        irlba_2.3.3          compiler_3.6.2      
+# [61] rlang_0.4.5          grid_3.6.2           htmlwidgets_1.5.1   
+# [64] crosstalk_1.0.0      labeling_0.3         rmarkdown_2.3       
+# [67] gtable_0.3.0         R6_2.4.1             gridExtra_2.3       
+# [70] knitr_1.26           dplyr_0.8.3          fastmap_1.0.1       
+# [73] zeallot_0.1.0        fastmatch_1.1-0      workflowr_1.6.2.9000
+# [76] fgsea_1.15.1         rprojroot_1.3-2      stringi_1.4.3       
+# [79] parallel_3.6.2       SQUAREM_2017.10-1    Rcpp_1.0.5          
+# [82] vctrs_0.2.1          tidyselect_0.2.5     xfun_0.11           
+# [85] coda_0.19-3</code></pre>
 </div>
 
 
