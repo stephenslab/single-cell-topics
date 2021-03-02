@@ -443,12 +443,6 @@ gsea_res      <- perform_gsea(gene_sets,diff_count_topics$Z,nproc = 4)
 The results of the gene set enrichment analysis can be explored in
 these interactive plots.
 
-```{r echo=FALSE}
-load("~/git/pathways/data/gene_sets_human.RData")
-gene_set_info <- gene_sets_human$gene_set_info[i,]
-gene_sets     <- gene_sets_human$gene_sets[,i]
-```
-
 ```{r gsea-2, results="hide", warning=FALSE}
 gsea_plotly(gsea_res,gene_set_info,"k1",file = "gsea_plot_tcells.html",title = "T cells")
 gsea_plotly(gsea_res,gene_set_info,"k2",file = "gsea_plot_cd14.html",title = "CD14+ cells")
