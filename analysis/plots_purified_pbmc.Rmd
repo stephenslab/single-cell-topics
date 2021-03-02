@@ -445,6 +445,8 @@ these interactive plots.
 
 ```{r echo=FALSE}
 load("~/git/pathways/data/gene_sets_human.RData")
+gene_set_info <- gene_sets_human$gene_set_info[i,]
+gene_sets     <- gene_sets_human$gene_sets[,i]
 ```
 
 ```{r gsea-2, results="hide", warning=FALSE}
