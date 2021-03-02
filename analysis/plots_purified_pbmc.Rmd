@@ -444,13 +444,6 @@ The results of the gene set enrichment analysis can be explored in
 these interactive plots.
 
 ```{r gsea-2, results="hide", warning=FALSE}
-gene_set_info <-
-  transform(gene_set_info,
-            database = factor(paste(database,
-                                    ifelse(database == "MSigDB",
-                                           as.character(category_code),
-                                           as.character(data_source)),
-									sep = "-")))
 gsea_plotly(gsea_res,gene_set_info,"k1",file = "gsea_plot_tcells.html",title = "T cells")
 gsea_plotly(gsea_res,gene_set_info,"k2",file = "gsea_plot_cd14.html",title = "CD14+ cells")
 gsea_plotly(gsea_res,gene_set_info,"k3",file = "gsea_plot_bcells.html",title = "B cells")
