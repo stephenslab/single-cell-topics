@@ -1,4 +1,9 @@
-lfc_scatterplot(diff_count_clusters,diff_count_topics,"B","k3",
-                genes$symbol,label_above_lfc = 6,
-                label_above_quantile = 0.995,
-                xlab = "B cells cluster",ylab = "topic 3")
+library(Matrix)
+library(fastTopics)
+fit1 <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-em-k=12.rds")$fit
+fit2 <- readRDS("../output/pbmc-68k/rds/fit-pbmc-68k-scd-ex-k=12.rds")$fit
+fit1 <- poisson2multinom(fit1)
+fit2 <- poisson2multinom(fit2)
+k <- 7
+plot(fit1$L[,k],fit2$L[,k],pch = 20)
+abline(a = 0,b = 1,col = "skyblue",lty = "dotted")
