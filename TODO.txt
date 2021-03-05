@@ -1,8 +1,5 @@
 to do
 =====
 
-+ Clean up files in "output" directory.
-
-+ Clean up code in plots.R.
-
-+ Clean up R scripts and R Markdown in "analysis" directory.
++ Clean up files and code, including files that are not committed to
+  git repository.
