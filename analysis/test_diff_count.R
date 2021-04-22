@@ -1,4 +1,6 @@
 library(Matrix)
+library(ggplot2)
+library(cowplot)
 # devtools::load_all("~/git/fastTopics")
 set.seed(1)
 load("../data/pbmc_purified.RData")
@@ -35,3 +37,28 @@ rownames(se) <- genes$symbol
 colnames(se) <- c("k1","k2")
 print(log(F))
 print(se)
+
+# Plot the likelihood surface.
+j   <- 7
+dat <- expand.grid(t1 = seq(-5.85,-5.7,0.002),t2 = seq(-20,-14,0.02))
+dat$lik <- 0
+n <- nrow(dat)
+x <- counts[,j]
+loglik_poisson <- function (x, y, e = 1e-15)
+  return(sum(x*log(y + e) - y))
+for (i in 1:n) {
+  f <- exp(c(dat[i,"t1"],dat[i,"t2"]))
+  u <- drop(L %*% f)
+  dat[i,"lik"] <- loglik_poisson(x,u)
+}
+dat$lik <- exp(dat$lik - max(dat$lik))
+ggplot(dat,aes(x = t1,y = t2,z = lik)) +
+  geom_contour(color = "black",bins = 20) +
+  geom_point(data = as.data.frame(t(log(F[j,]))),
+             mapping = aes(x = k1,y = k2),
+             color = "royalblue",shape = 4,
+             inherit.aes = FALSE) +
+  theme_cowplot(font_size = 10)
+dat2 <- subset(dat,t1 == -5.786)
+plot(dat2$t2,dat2$lik,type = "l",col = "royalblue",lwd = 2)
+points(-17.68,1,col = "red",pch = 4,cex = 0.75)
