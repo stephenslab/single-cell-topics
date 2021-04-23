@@ -62,3 +62,8 @@ ggplot(dat,aes(x = t1,y = t2,z = lik)) +
 dat2 <- subset(dat,t1 == -5.786)
 plot(dat2$t2,dat2$lik,type = "l",col = "royalblue",lwd = 2)
 points(-17.68,1,col = "red",pch = 4,cex = 0.75)
+
+# Compute Monte Carlo estimates of the 90% HPD intervals.
+samples <- simulate_posterior_poisson(counts[,j],L,F[j,],ns = 1000,s = 0.3)
+print(hpd(log(samples[,1]),0.95))
+print(hpd(log(samples[,2]),0.95))
