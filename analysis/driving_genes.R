@@ -1,18 +1,21 @@
 # These are some preliminary experiments using simulated data to
 # verify implementation of the DE analysis methods in fastTopics.
 library(Matrix)
+library(MCMCpack)
 library(ggplot2)
 library(cowplot)
+source("../code/de_eval_functions.R")
 set.seed(1)
 
 # Simulate data.
-set.seed(1)
 n  <- 200
 m  <- 1000 # 10000
-k  <- 2
-p  <- 0.5
-s  <- rep(1,n)
-se <- 1
+dat <- simulate_twotopic_scrnaseq_data(m,s = rep(1,n),p = 0.5)
+    
+stop()
+
+# Simulate data.
+set.seed(1)
 L  <- generate_mixture_proportions(n,k)
 F  <- matrix(0,m,k)
 for (j in 1:m) {
