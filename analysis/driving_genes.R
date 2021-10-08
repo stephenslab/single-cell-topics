@@ -8,7 +8,7 @@ set.seed(1)
 # Simulate data.
 set.seed(1)
 n  <- 800
-m  <- 1000
+m  <- 10000
 k  <- 2
 p  <- 0.5
 s  <- rep(1,n)
@@ -28,15 +28,31 @@ fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
                        update.loadings = NULL)
 fit <- poisson2multinom(fit)
 
+# Compute the KL-divergence based "distinctiveness" measure used in
+# CountClust.
+D <- min_kl_poisson(fit$F)
+
 # Perform DE analysis with adaptive shrinkage.
 de <- de_analysis(fit,X,shrink.method = "ash")
 
-# TO DO: Explain what these lines of code do.
+lfc_true <- log2(F[,1]/F[,2])
+plot(lfc_true,pmax(-2,pmin(2,de$est[,1])),pch = 20)
+
 pdat <- data.frame(z  = de$z[,1],
                    de = factor(abs(F[,1] - F[,2]) > 1e-15))
 pdat <- transform(pdat,
                   z = sign(z) * pmin(4,abs(z)))
 ggplot(pdat,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  theme_cowplot()
+
+pdat <- data.frame(d  = D[,1],
+                   de = factor(abs(F[,1] - F[,2]) > 1e-15))
+pdat <- transform(pdat,
+                  d = pmin(0.0001,abs(d)))
+ggplot(pdat,aes(x = d,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
@@ -51,10 +67,6 @@ ggplot(pdat,aes(x = pval,color = de,fill = de)) +
   theme_cowplot()
 
 stop()
-
-# Compute the KL-divergence based "distinctiveness" measure used in
-# CountClust.
-D <- min_kl_poisson(fit$F)
 
 # Perform DE analysis using fitted multinomial topic model, first
 # without adaptive shrinkage.
