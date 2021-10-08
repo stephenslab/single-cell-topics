@@ -41,6 +41,9 @@ D <- min_kl_poisson(fit$F)
 # Perform DE analysis with adaptive shrinkage.
 de <- de_analysis(fit,X,shrink.method = "ash")
 
+# Perform DE analysis without adaptive shrinkage
+de.noshrink <- de_analysis(fit,X,shrink.method = "none")
+
 stop()
 
 lfc_true <- log2(F[,1]/F[,2])
@@ -76,6 +79,16 @@ ggplot(pdat,aes(x = z,color = de,fill = de)) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   theme_cowplot()
 
+pdat <- data.frame(z  = de.noshrink$z[,1],
+                   de = factor(abs(F[,1] - F[,2]) > 1e-15))
+pdat <- transform(pdat,
+                  z = sign(z) * pmin(4,abs(z)))
+ggplot(pdat,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  theme_cowplot()
+
 pdat <- data.frame(d  = D[,1],
                    de = factor(abs(F[,1] - F[,2]) > 1e-15))
 pdat <- transform(pdat,
@@ -89,6 +102,14 @@ ggplot(pdat,aes(x = d,color = de,fill = de)) +
 pdat <- data.frame(lfsr = de$lfsr[,1],
                    de   = factor(abs(F[,1] - F[,2]) > 1e-15))
 ggplot(pdat,aes(x = lfsr,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  theme_cowplot()
+
+pdat <- data.frame(pval = 10^(-de$lpval[,1]),
+                   de   = factor(abs(F[,1] - F[,2]) > 1e-15))
+ggplot(pdat,aes(x = pval,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
