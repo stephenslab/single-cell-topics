@@ -7,8 +7,8 @@ set.seed(1)
 
 # Simulate data.
 set.seed(1)
-n  <- 800
-m  <- 10000
+n  <- 200
+m  <- 1000 # 10000
 k  <- 2
 p  <- 0.5
 s  <- rep(1,n)
@@ -20,6 +20,12 @@ for (j in 1:m) {
   F[j,] <- 2^c(y,y + (runif(1) < p) * rnorm(1,0,se))
 }
 X <- generate_poisson_nmf_counts(F,s*L)
+rownames(X) <- paste0("c",1:n)
+colnames(X) <- paste0("g",1:m)
+rownames(L) <- paste0("c",1:n)
+rownames(F) <- paste0("g",1:m)
+colnames(L) <- paste0("k",1:k)
+colnames(F) <- paste0("k",1:k)
 
 # Fit a multinomial topic model using the ground-truth topic
 # proportions.
@@ -35,8 +41,30 @@ D <- min_kl_poisson(fit$F)
 # Perform DE analysis with adaptive shrinkage.
 de <- de_analysis(fit,X,shrink.method = "ash")
 
+stop()
+
 lfc_true <- log2(F[,1]/F[,2])
-plot(lfc_true,pmax(-2,pmin(2,de$est[,1])),pch = 20)
+i <- which(de$lfsr[,1] < 0.1)
+pdat <- data.frame(true = lfc_true,est = de$est[,1],lf0 = log10(de$f0))[i,]
+ggplot(pdat,aes(x = true,y = est,fill = lf0)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = -3) +
+  theme_cowplot()
+
+pdat <- data.frame(true = lfc_true,
+                   postmean = de$postmean[,1],
+                   lf0 = log10(de$f0))[i,]
+ggplot(pdat,aes(x = true,y = postmean,fill = lf0)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = -3) +
+  theme_cowplot()
+
+plot(lfc_true[i],de$postmean[i,1],pch = 20)
+abline(a = 0,b = 1,col = "cyan",lty = "dotted")
 
 pdat <- data.frame(z  = de$z[,1],
                    de = factor(abs(F[,1] - F[,2]) > 1e-15))
@@ -51,16 +79,16 @@ ggplot(pdat,aes(x = z,color = de,fill = de)) +
 pdat <- data.frame(d  = D[,1],
                    de = factor(abs(F[,1] - F[,2]) > 1e-15))
 pdat <- transform(pdat,
-                  d = pmin(0.0001,abs(d)))
+                  d = pmin(0.001,abs(d)))
 ggplot(pdat,aes(x = d,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   theme_cowplot()
 
-pdat <- data.frame(pval = 10^(-de$lpval[,1]),
+pdat <- data.frame(lfsr = de$lfsr[,1],
                    de   = factor(abs(F[,1] - F[,2]) > 1e-15))
-ggplot(pdat,aes(x = pval,color = de,fill = de)) +
+ggplot(pdat,aes(x = lfsr,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
@@ -81,8 +109,8 @@ pdat <- data.frame(x   = as.vector(de1$est),
 ggplot(pdat,aes(x = x,y = y,fill = lf0)) +
   geom_point(shape = 21,size = 2.5,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
-    scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                         na.value = "gainsboro",midpoint = -3) +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = -3) +
   labs(x = "LFC estimate before shrinkage",
        y = "LFC estimate after shrinkage",
        fill = "log10 mean") +
