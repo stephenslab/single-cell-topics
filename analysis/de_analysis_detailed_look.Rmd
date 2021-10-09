@@ -1,0 +1,36 @@
+---
+title: "DE analysis using a topic model: evaluation using simulated data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add summary of the analysis here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, and some additional
+functions for simulating the data.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/de_eval_functions.R")
+```
+
+Simulate UMI counts
+-------------------
+
+We begin by simulating counts intended to "mimic" UMI count data from
+a single-cell RNA sequencing experiment. In particular, we simulate
+counts $x_{ij}$ from a Poisson NMF model $x_{ij} \sim
+\mathrm{Poisson}(\lambda_{ij})$, such that $\lambda_{ij} =
+\sum_{k=1}^K l_{ik} f_{jk}$. For now we focus our attention on the
+case of $K = 2$ topics (e.g., two cell types or two cell states) to
+simplify the analysis; comparing gene expression between three or
+topics brings some additional complications which aren't necessary for
+understanding the properties of the new DE methods.
