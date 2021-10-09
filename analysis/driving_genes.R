@@ -8,14 +8,18 @@ source("../code/de_eval_functions.R")
 set.seed(1)
 
 # Simulate data.
-n  <- 200
-m  <- 1000 # 10000
-dat <- simulate_twotopic_scrnaseq_data(m,s = rep(1,n),p = 0.5)
-    
-stop()
+# n  <- 200
+# m  <- 1000 # 10000
+# dat <- simulate_twotopic_scrnaseq_data(m,s = rep(1,n),p = 0.5)
 
 # Simulate data.
 set.seed(1)
+n  <- 200
+m  <- 1000 # 10000
+k  <- 2
+p  <- 0.5
+s  <- rep(1,n)
+se <- 1
 L  <- generate_mixture_proportions(n,k)
 F  <- matrix(0,m,k)
 for (j in 1:m) {
@@ -45,7 +49,7 @@ D <- min_kl_poisson(fit$F)
 de <- de_analysis(fit,X,shrink.method = "ash")
 
 # Perform DE analysis without adaptive shrinkage
-de.noshrink <- de_analysis(fit,X,shrink.method = "none")
+# de.noshrink <- de_analysis(fit,X,shrink.method = "none")
 
 stop()
 
@@ -92,8 +96,9 @@ ggplot(pdat,aes(x = z,color = de,fill = de)) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   theme_cowplot()
 
-pdat <- data.frame(d  = D[,1],
-                   de = factor(abs(F[,1] - F[,2]) > 1e-15))
+i    <- which(de$est[,1] >= 0)
+pdat <- data.frame(d  = D[i,1],
+                   de = factor(abs(F[i,1] - F[i,2]) > 1e-15))
 pdat <- transform(pdat,
                   d = pmin(0.001,abs(d)))
 ggplot(pdat,aes(x = d,color = de,fill = de)) +
@@ -102,8 +107,9 @@ ggplot(pdat,aes(x = d,color = de,fill = de)) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   theme_cowplot()
 
-pdat <- data.frame(lfsr = de$lfsr[,1],
-                   de   = factor(abs(F[,1] - F[,2]) > 1e-15))
+i    <- which(de$est[,1] >= 0)
+pdat <- data.frame(lfsr = de$lfsr[i,1],
+                   de   = factor(abs(F[i,1] - F[i,2]) > 1e-15))
 ggplot(pdat,aes(x = lfsr,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
