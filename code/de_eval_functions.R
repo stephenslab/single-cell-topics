@@ -1,6 +1,10 @@
 # TO DO: Explain what this function does, and how to use it.
-simulate_twotopic_scrnaseq_data <- function (m, s, p = 0.5, a = c(1,1)) {
+simulate_twotopic_umi_data <- function (m, s, p = 0.5, a = c(1,1)) {
 
+  # Simulate the sample sizes, or "sequencing depths", if necessary.
+  if (missing(s))
+    s <- 10^runif(n,-1,1)
+    
   # For each sample (row), generate the topic proportions according to
   # the following procedure: (1) choose uniformly at random the
   # configuration of nonzero proportions---both topics, the first
