@@ -17,6 +17,7 @@ functions for simulating the data.
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(fastTopics)
+library(MCMCpack)
 library(ggplot2)
 library(cowplot)
 source("../code/de_eval_functions.R")
@@ -33,4 +34,46 @@ counts $x_{ij}$ from a Poisson NMF model $x_{ij} \sim
 case of $K = 2$ topics (e.g., two cell types or two cell states) to
 simplify the analysis; comparing gene expression between three or
 topics brings some additional complications which aren't necessary for
-understanding the properties of the new DE methods.
+vunderstanding the properties of the new DE methods.
+
+```{r simulate-counts}
+set.seed(1)
+dat <- simulate_twotopic_umi_data()
+X <- dat$X
+```
+
+The multinomial sample sizes (the total count in each cell) were
+simulated to be normally distributed on the (base-10) log  scale with
+mean 3.2 and s.d. 0.2:
+
+```{r sizes, fig.height=3, fig.width=4}
+s <- rowSums(X)
+ggplot(data.frame(s = log10(s)),aes(x = s)) +
+  geom_histogram(color = "white",fill = "black",bins = 32) +
+  labs(x = "log10 size",y = "cells") +
+  theme_cowplot()
+mean(log10(s))
+sd(log10(s))
+```
+
+We have simulated the expression rates so that they are normally
+distributed on the log scale:
+
+```{r gene-expression-rates, fig.height=3, fig.width=4}
+ggplot(data.frame(f = as.vector(dat$F)),aes(x = log10(f))) +
+  geom_histogram(color = "white",fill = "black",bins = 32) +
+  labs(x = "log10 expression rate",y = "genes") +
+  theme_cowplot()
+```
+
+The log-fold changes (LFCs) in expression are simulated to be roughly
+t-distibuted with 1.7 degrees of freedom, $\mathrm{lfc$}
+\simm 0.7t_{1.7}$:
+
+```{r lfc-density, fig.height=3, fig.width=4}
+lfc <- log2(dat$F[,1]/dat$F[,2])
+mean(lfc == 0)
+ggplot(data.frame(lfc = lfc[lfc != 0]),aes(x = lfc)) +
+geom_histogram(color = "white",fill = "black",bins = 32) +
+  theme_cowplot()
+```

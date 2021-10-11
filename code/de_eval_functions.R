@@ -1,16 +1,14 @@
 # TO DO: Explain what this function does, and how to use it.
-simulate_twotopic_umi_data <- function (m, s, p = 0.5, a = c(1,1)) {
+simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0,0.2),
+                                        p = 0.5, a = c(1,1)) {
 
-  # Simulate the sample sizes, or "sequencing depths", if necessary.
-  if (missing(s))
-    s <- 10^runif(n,-1,1)
-    
   # For each sample (row), generate the topic proportions according to
   # the following procedure: (1) choose uniformly at random the
   # configuration of nonzero proportions---both topics, the first
   # topic only, the second topic only; (2) if both topics have nonzero
   # proportions, generate the proportions from the Dirichlet
   # distribution with shape a.
+  n <- length(s)
   L  <- matrix(0,n,2)
   k1 <- sample(3,n,replace = TRUE)
   L[k1 == 1,1] <- 1
@@ -24,7 +22,7 @@ simulate_twotopic_umi_data <- function (m, s, p = 0.5, a = c(1,1)) {
   F <- matrix(0,m,2)
   for (i in 1:m) {
     y <- rnorm(1,-4,2)
-    e <- rnorm(1,0,1)
+    e <- pmax(-5,pmin(5,0.7 * rt(1,df = 3)))
     u <- runif(1)
     w <- runif(1)
     if (u > p)
