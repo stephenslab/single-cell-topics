@@ -8,7 +8,7 @@ output: workflowr::wflow_html
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
-                      fig.align = "center",dpi = 120)
+                      fig.show = "hold",fig.align = "center",dpi = 120)
 ```
 
 Load the packages used in the analysis below, and some additional
@@ -30,11 +30,13 @@ We begin by simulating counts intended to "mimic" UMI count data from
 a single-cell RNA sequencing experiment. In particular, we simulate
 counts $x_{ij}$ from a Poisson NMF model $x_{ij} \sim
 \mathrm{Poisson}(\lambda_{ij})$, such that $\lambda_{ij} =
-\sum_{k=1}^K l_{ik} f_{jk}$. For now we focus our attention on the
-case of $K = 2$ topics (e.g., two cell types or two cell states) to
-simplify the analysis; comparing gene expression between three or
-topics brings some additional complications which aren't necessary for
-vunderstanding the properties of the new DE methods.
+\sum_{k=1}^K l_{ik} f_{jk}$. We focus our attention on the $K = 2$
+case to simplify the analysis; comparing gene expression between three
+or topics brings some additional complications which aren't necessary
+for assessing basic properties of the new DE methods. The simulation
+of the topic proportions $l_{ik}$ and the gene expression rates
+$f_{jk}$ is described in the comments accompanying function
+`simulate_twotopic_umi_data`.
 
 ```{r simulate-counts}
 set.seed(1)
@@ -42,38 +44,42 @@ dat <- simulate_twotopic_umi_data()
 X <- dat$X
 ```
 
-The multinomial sample sizes (the total count in each cell) were
-simulated to be normally distributed on the (base-10) log  scale with
-mean 3.2 and s.d. 0.2:
+The sample sizes (total counts for each cell) in the simulated data
+are roughly normally distributed on the (base-10) log scale with
+mean 3.2 and standard deviation 0.2:
 
-```{r sizes, fig.height=3, fig.width=4}
+```{r sizes, fig.height=2.5, fig.width=3}
 s <- rowSums(X)
-ggplot(data.frame(s = log10(s)),aes(x = s)) +
+p1 <- ggplot(data.frame(s = log10(s)),aes(x = s)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 size",y = "cells") +
   theme_cowplot()
+print(p1)
 mean(log10(s))
 sd(log10(s))
 ```
 
-We have simulated the expression rates so that they are normally
-distributed on the log scale:
+We have generated the expression rates so that they are roughly
+uniformly distributed on the log scale:
 
-```{r gene-expression-rates, fig.height=3, fig.width=4}
-ggplot(data.frame(f = as.vector(dat$F)),aes(x = log10(f))) +
+```{r gene-expression-rates, fig.height=2.5, fig.width=3}
+p2 <- ggplot(data.frame(f = as.vector(dat$F)),aes(x = log10(f))) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 expression rate",y = "genes") +
   theme_cowplot()
+print(p2)
 ```
 
-The log-fold changes (LFCs) in expression are simulated to be roughly
-t-distibuted with 1.7 degrees of freedom, $\mathrm{lfc$}
-\simm 0.7t_{1.7}$:
+About half of the genes have differences in expression between the two
+topics, and among the nonzero gene expression differences, the LFCs
+are roughly *t*-distibuted with 3 degrees of freedom:
 
-```{r lfc-density, fig.height=3, fig.width=4}
+```{r lfc-density, fig.height=2.5, fig.width=3}
 lfc <- log2(dat$F[,1]/dat$F[,2])
-mean(lfc == 0)
-ggplot(data.frame(lfc = lfc[lfc != 0]),aes(x = lfc)) +
-geom_histogram(color = "white",fill = "black",bins = 32) +
+p3 <- ggplot(data.frame(lfc = lfc[lfc != 0]),aes(x = lfc)) +
+  geom_histogram(color = "white",fill = "black",bins = 32) +
+  labs(x = "LFC",y = "genes") +
   theme_cowplot()
+print(p3)
+mean(lfc == 0)
 ```
