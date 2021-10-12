@@ -1,19 +1,19 @@
 # TO DO: Explain what this function does, and how to use it.
-simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0,0.2),
+simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
                                         p = 0.5, a = c(1,1)) {
 
-  # For each sample (row), generate the topic proportions according to
-  # the following procedure: (1) choose uniformly at random the
-  # configuration of nonzero proportions---both topics, the first
-  # topic only, the second topic only; (2) if both topics have nonzero
-  # proportions, generate the proportions from the Dirichlet
-  # distribution with shape a.
+  # Get the number of cells to simulate.
   n <- length(s)
-  L  <- matrix(0,n,2)
-  k1 <- sample(3,n,replace = TRUE)
-  L[k1 == 1,1] <- 1
-  L[k1 == 2,2] <- 1
-  L[k1 == 3,]  <- rdirichlet(sum(k1 == 3),a)
+    
+  # For each sample (row), generate the two topic proportions
+  # according to the following procedure: (1) Choose uniformly at
+  # random the configuration of the nonzero proportions---both topics,
+  # the first topic only, or the second topic only; (2) If both topics
+  # have nonzero proportions, generate the proportions from the
+  # Dirichlet distribution with shape parameter a.
+  L           <- matrix(1,n,2)
+  k1          <- sample(3,n,replace = TRUE)
+  L[k1 == 3,] <- rdirichlet(sum(k1 == 3),a)
 
   # Generate the relative expression levels.
   #
@@ -21,7 +21,7 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0,0.2),
   # 
   F <- matrix(0,m,2)
   for (i in 1:m) {
-    y <- rnorm(1,-4,2)
+    y <- runif(1,-10,3)
     e <- pmax(-5,pmin(5,0.7 * rt(1,df = 3)))
     u <- runif(1)
     w <- runif(1)
