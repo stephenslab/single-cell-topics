@@ -1,4 +1,13 @@
-# TO DO: Explain what this function does, and how to use it.
+# Set all entries of x less than a to a, and set alll entries of x
+# greater than b to b.
+clamp <- function (x, a, b)
+  pmax(a,pmin(b,x))
+
+# Simulate counts from a Poisson NMF model intended to "mimic" UMI
+# count data from a single-cell RNA sequencing experiment. The
+# simulation parameters were chosen based on examining expression
+# levels (mean UMI counts) in B cells vs. other cells in the
+# "purified" PBMC data.
 simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
                                         p = 0.5, a = c(1,1)) {
 
@@ -15,14 +24,17 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
   k1          <- sample(3,n,replace = TRUE)
   L[k1 == 3,] <- rdirichlet(sum(k1 == 3),a)
 
-  # Generate the relative expression levels.
-  #
-  # TO DO: Add details describing how this simulation is done.
-  # 
+  # Generate the expression rates. The process for generating the
+  # expression rates F[i,j] is as follows: with probability 0.5, the
+  # rates F[i,1] and F[i,2] are the same, F[i,1] = F[i,2] = 2^y;
+  # otherwise, the rates are different, with (multiplicative, base-2)
+  # difference given by 0.7*e (with lower and upper limits of -10 and
+  # +10 on the differences). Here, y is uniform on [-10,+3] and e is
+  # t-distributed with 3 degrees of freedom.
   F <- matrix(0,m,2)
   for (i in 1:m) {
     y <- runif(1,-10,3)
-    e <- pmax(-5,pmin(5,0.7 * rt(1,df = 3)))
+    e <- clamp(rt(1,df = 3),-10,10)
     u <- runif(1)
     w <- runif(1)
     if (u > p)
@@ -33,11 +45,12 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
       F[i,] <- 2^c(y + c(e,0))
   }
 
-  # Generate the counts.
+  # Generate the counts from a Poisson NMF model with factors matrix F
+  # and loadings matrix s*L.
   X <- matrix(as.double(rpois(n*m,tcrossprod(s*L,F))),n,m)
 
   # Return the counts matrix (X), and the parameters of the Poisson
-  # NMF model used to simulate the data (F, L).
+  # NMF model used to simulate the data (F and L).
   rownames(X) <- paste0("c",1:n)
   colnames(X) <- paste0("g",1:m)
   rownames(L) <- paste0("c",1:n)
