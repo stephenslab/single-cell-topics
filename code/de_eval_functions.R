@@ -3,13 +3,17 @@
 clamp <- function (x, a, b)
   pmax(a,pmin(b,x))
 
-# Simulate counts from a Poisson NMF model intended to "mimic" UMI
-# count data from a single-cell RNA sequencing experiment. The
-# simulation parameters were chosen based on examining expression
-# levels (mean UMI counts) in B cells vs. other cells in the
-# "purified" PBMC data.
-simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0.2,0.2),
-                                        p = 0.5, a = c(1,1)) {
+# Simulate counts from a K=2 Poisson NMF model so that the count data
+# look roughly like UMI counts from a single-cell RNA sequencing
+# experiment. Input argument m is the number of genes to simulate;
+# input s is the vector of scaling factors (one scaling factor for
+# each cell); p is the probability of a expression rates being
+# different in the two topics; and input "a" specifies the shape
+# parameter (alpha) in the call to rdirichlet.
+simulate_twotopic_umi_data <- function (m = 10000,
+                                        s = 10^rnorm(200,0,0.2),
+                                        p = 0.5,
+                                        a = c(1,1)) {
 
   # Get the number of cells to simulate.
   n <- length(s)
@@ -28,30 +32,33 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0.2,0.2),
   # expression rates F[i,j] is as follows: with probability 0.5, the
   # rates F[i,1] and F[i,2] are the same, F[i,1] = F[i,2] = 2^y;
   # otherwise, the rates are different, with (multiplicative, base-2)
-  # difference given by 0.7*e (with lower and upper limits of -10 and
-  # +10 on the differences). Here, y is uniform on [-10,+3] and e is
-  # t-distributed with 3 degrees of freedom.
+  # difference e. Here, y is normal with mean -4 and s.d., and e is
+  # normal with mean zero and s.d. 1.
+  #
+  # There might very well be more efficient ways to implement this
+  # step, but this current implementation in nonetheless fast enough
+  # for my purposes.
   F <- matrix(0,m,2)
   for (i in 1:m) {
     y <- rnorm(1,-4,2)
-    e <- clamp(0.7*rt(1,df = 3),-10,10)
+    e <- rnorm(1,0,1)
     u <- runif(1)
     w <- runif(1)
     if (u > p)
-      F[i,] <- 2^y
+      F[j,] <- 2^y
     else if (w < 0.5)
-      F[i,] <- 2^(y + c(0,e))
+      F[j,] <- 2^(y + c(0,e))
     else
-      F[i,] <- 2^c(y + c(e,0))
+      F[j,] <- 2^c(y + c(e,0))
   }
 
   # Generate the counts from a Poisson NMF model with factors matrix F
   # and loadings matrix s*L.
   X <- matrix(as.double(rpois(n*m,tcrossprod(s*L,F))),n,m)
 
-  # Return the counts matrix (X), the multinomial sample sizes (s),
-  # and the parameters of the Poisson NMF model used to simulate the
-  # data (F and L).
+  # Return the counts matrix (X), the scaling factors (s), and the
+  # parameters of the Poisson NMF model used to simulate the data (F
+  # and L).
   names(s)    <- paste0("c",1:n)
   rownames(X) <- paste0("c",1:n)
   colnames(X) <- paste0("g",1:m)
