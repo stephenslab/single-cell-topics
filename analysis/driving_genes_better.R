@@ -9,12 +9,13 @@ source("../code/de_eval_functions.R")
 set.seed(1)
 
 # Simulate data.
-set.seed(1)
+set.seed(3)
 n  <- 200
 m  <- 10000
 k  <- 2
 p  <- 0.5
-s  <- rep(1,n)
+# s <- rep(1,n)
+s  <- 10^rnorm(n,0,0.2)
 se <- 1
 L  <- fastTopics:::generate_mixture_proportions(n,k)
 F  <- matrix(0,m,k)
