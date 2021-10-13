@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6d639935d7369c9e29089d07777877134d21ce22targetblank6d63993a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/6d639935d7369c9e29089d07777877134d21ce22" target="_blank">6d63993</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeeceb899ccb4524fe9b3afc10b3a2f9f86ae9e2d0targetblankeceb899a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/eceb899ccb4524fe9b3afc10b3a2f9f86ae9e2d0" target="_blank">eceb899</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree6d639935d7369c9e29089d07777877134d21ce22targetblank6d63993a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeeceb899ccb4524fe9b3afc10b3a2f9f86ae9e2d0targetblankeceb899a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/6d639935d7369c9e29089d07777877134d21ce22" target="_blank">6d63993</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/eceb899ccb4524fe9b3afc10b3a2f9f86ae9e2d0" target="_blank">eceb899</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,6 +447,9 @@ Ignored files:
 
 Untracked files:
     Untracked:  plots/
+
+Unstaged changes:
+    Modified:   code/de_eval_functions.R
 
 </code></pre>
 <p>
@@ -485,6 +488,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/eceb899ccb4524fe9b3afc10b3a2f9f86ae9e2d0/analysis/de_analysis_detailed_look.Rmd" target="_blank">eceb899</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/de_analysis_detailed_look.html" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+<td>
+Revised the data simulation and added some “shrink vs. noshrink” plots
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -654,14 +691,14 @@ library(cowplot)
 source(&quot;../code/de_eval_functions.R&quot;)</code></pre>
 <div id="simulate-umi-counts" class="section level2">
 <h2>Simulate UMI counts</h2>
-<p>We begin by simulating counts from a rank-2 Poisson NMF model with parameters chosen to roughly replicate the UMI counts obtained from a single-cell RNA sequencing experiment. In particular, we simulate counts <span class="math inline">\(x_{ij} \sim \mathrm{Poisson}(\lambda_{ij})\)</span>, such that <span class="math inline">\(\lambda_{ij} = \sum_{k=1}^K s_i l_{ik} f_{jk}\)</span>, with <span class="math inline">\(K = 2\)</span>, For now, we focus our attention on the <span class="math inline">\(K = 2\)</span> case to simplify the analysis; comparing gene expression between three or topics brings some additional complications which aren’t necessary for assessing basic properties of the new DE methods. For more details on how the data are simulated, see function <code>simulate_twotopic_umi_data</code>.</p>
+<p>We begin by simulating counts from a rank-2 Poisson NMF model with parameters chosen to roughly mimic the UMI counts from a single-cell RNA sequencing experiment. In particular, we simulate counts <span class="math inline">\(x_{ij} \sim \mathrm{Poisson}(\lambda_{ij})\)</span> such that <span class="math inline">\(\lambda_{ij} = \sum_{k=1}^K s_i l_{ik} f_{jk}\)</span>, with <span class="math inline">\(K = 2\)</span>. For now, we focus our attention on the <span class="math inline">\(K = 2\)</span> case to simplify the evaluation of the DE methods; comparing gene expression between three or topics brings some additional complications which aren’t necessary for assessing basic properties of the new DE methods. For more details on how the data are simulated, see function <code>simulate_twotopic_umi_data</code>.</p>
 <pre class="r"><code>set.seed(1)
 dat &lt;- simulate_twotopic_umi_data()
 X &lt;- dat$X
 F &lt;- dat$F
 L &lt;- dat$L</code></pre>
 <p>Before fitting a topic model and running a DE analysis, we first inspect some basic properties of the simulated data.</p>
-<p>The sample sizes (total counts for each cell) in the simulated data are roughly normally distributed on the (base-10) log scale:</p>
+<p>The sample sizes (total counts for each cell) are roughly normal on the (base-10) log scale:</p>
 <pre class="r"><code>s &lt;- rowSums(X)
 p1 &lt;- ggplot(data.frame(s = log10(s)),aes(x = s)) +
   geom_histogram(color = &quot;white&quot;,fill = &quot;black&quot;,bins = 32) +
@@ -691,6 +728,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/sizes-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/af856a2297d146d651175053b4f585eed647d894/docs/figure/de_analysis_detailed_look.Rmd/sizes-1.png" target="_blank">af856a2</a>
@@ -746,6 +794,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/gene-expression-rates-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/af856a2297d146d651175053b4f585eed647d894/docs/figure/de_analysis_detailed_look.Rmd/gene-expression-rates-1.png" target="_blank">af856a2</a>
@@ -807,6 +866,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/lfc-density-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/af856a2297d146d651175053b4f585eed647d894/docs/figure/de_analysis_detailed_look.Rmd/lfc-density-1.png" target="_blank">af856a2</a>
 </td>
 <td>
@@ -834,14 +904,12 @@ Peter Carbonetto
 </div>
 <div id="fit-multinomial-topic-model-to-umi-counts" class="section level2">
 <h2>Fit multinomial topic model to UMI counts</h2>
-<p>Here we fit a multinomial topic model to the simulated UMI count data. To simplify evaluation of the DE methods, we assume that the topic proportions are known, and set to the ground truth (that is, the values used to simulate the data), so that the only error that can arise is in the estimates of the expression rates.</p>
+<p>Here we fit a multinomial topic model to the simulated UMI count data. To simplify evaluation of the DE methods, we assume that the topic proportions are known, and set them to their ground truth values (that is, the values used to simulate the data), so that the only error that can arise is in the estimates of the expression rates <span class="math inline">\(f_{ij}\)</span> in the multinomial topic model.</p>
 <pre class="r"><code>fit0 &lt;- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
 fit &lt;- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = &quot;scd&quot;,
                        update.loadings = NULL,verbose = &quot;none&quot;)
-# Using 4 RcppParallel threads.
 fit &lt;- poisson2multinom(fit)
 summary(fit)
-# Set show.size.factors = TRUE, show.mixprops = TRUE and/or show.topic.reps = TRUE in print(...) for more information
 # Model overview:
 #   Number of data rows, n: 200
 #   Number of data cols, m: 10000
@@ -854,21 +922,15 @@ summary(fit)
 </div>
 <div id="de-analysis-with-and-without-shrinkage" class="section level2">
 <h2>DE analysis with and without shrinkage</h2>
-<p>First we perform a DE analysis without shrinking the LFC estimates:</p>
+<p>First we perform a DE analysis <em>without</em> shrinking the LFC estimates:</p>
 <pre class="r"><code>set.seed(1)
 de.noshrink &lt;- de_analysis(fit,X,shrink.method = &quot;none&quot;,
-                           control = list(nc = 4))
-# Using 4 RcppParallel threads.
-# Using 4 SOCK threads.
-# Progress bar cannot be shown when multithreading is used. For large data sets, the total runtime may be estimated by performing an initial test run with a small number of Monte Carlo samples, e.g., ns = 10; the total runtime should scale roughly linearly in ns, the number of Monte Carlo samples.
+                           control = list(ns = 1e4,nc = 4))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.</code></pre>
-<p>Next we perform a second DE analysis using adaptive shrinkage to shrink (and hopefully improve accuracy of) the LFC estimates:</p>
+<p>Now we perform a second DE analysis using adaptive shrinkage to shrink (and hopefully improve accuracy of) the LFC estimates:</p>
 <pre class="r"><code>set.seed(1)
-de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(nc = 4))
-# Using 4 RcppParallel threads.
-# Using 4 SOCK threads.
-# Progress bar cannot be shown when multithreading is used. For large data sets, the total runtime may be estimated by performing an initial test run with a small number of Monte Carlo samples, e.g., ns = 10; the total runtime should scale roughly linearly in ns, the number of Monte Carlo samples.
+de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1e4,nc = 4))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
@@ -877,17 +939,52 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(nc = 4
                    shrink    = de$postmean[,1],
                    log10mean = log10(de$f0))
 p4 &lt;- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
-  geom_point(shape = 21,color = &quot;white&quot;) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
-                       midpoint = -3.5) +
-  xlim(c(-7,7.3)) +
-  ylim(c(-7,7.3)) +
+                       midpoint = -4) +
   labs(x = &quot;original LFC estimates&quot;,
        y = &quot;shrunken LFC estimates&quot;) +
   theme_cowplot()
 print(p4)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-scatterplot-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-scatterplot-1">
+Past versions of shrink-vs-noshrink-scatterplot-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-scatterplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><em>Add text here.</em></p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
                    shrink   = clamp(de$z[,1],-4,+4),
@@ -896,19 +993,53 @@ p5 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  labs(x = &quot;LFC estimate&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
+  labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
 p6 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  labs(x = &quot;LFC estimate&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
+  labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p5,p6))
-# Warning: Removed 6 rows containing non-finite values (stat_bin).
-
-# Warning: Removed 6 rows containing non-finite values (stat_bin).</code></pre>
+print(plot_grid(p5,p6))</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-zscores-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-zscores-1">
+Past versions of shrink-vs-noshrink-zscores-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-zscores-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-zscores-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><em>Add text here.</em></p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
                    shrink   = 10^(-de$lpval[,1]),
@@ -925,11 +1056,93 @@ p8 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p7,p8))
-# Warning: Removed 6 rows containing non-finite values (stat_bin).
-
-# Warning: Removed 6 rows containing non-finite values (stat_bin).</code></pre>
+print(plot_grid(p7,p8))</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-pvalues-1">
+Past versions of shrink-vs-noshrink-pvalues-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-pvalues-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7236187363d75fb8477a6a6c7c2b726f371083e0/docs/figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-pvalues-1.png" target="_blank">7236187</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><em>Add text here.</em></p>
+<pre class="r"><code>i &lt;- which(fit$F[,1] - fit$F[,2] &gt; -1e-8)
+D &lt;- fastTopics:::min_kl_poisson(fit$F)
+pdat &lt;- data.frame(kl = pmin(D[,1],0.00025),
+                   de = factor(nonzero_lfc))
+pdat1 &lt;- pdat[i,]
+p9 &lt;- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;K-L divergence&quot;,y = &quot;genes&quot;) +
+  theme_cowplot()
+pdat2 &lt;- data.frame(z  = clamp(de$z[,1],-4,+4),
+                    de = factor(nonzero_lfc))
+pdat2 &lt;- pdat2[i,]
+p10 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;z-score&quot;,y = &quot;genes&quot;) +
+  theme_cowplot()
+print(plot_grid(p9,p10))</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/etc-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pdat &lt;- data.frame(est       = de$est[,1],
+                   shrink    = de$postmean[,1],
+                   log10mean = log10(de$f0))
+p11 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
+                       midpoint = -4) +
+  labs(x = &quot;point estimates&quot;,
+       y = &quot;shrunken posterior estimates&quot;) +
+  theme_cowplot()
+print(p11)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/etc-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
+pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval,nonzero_lfc)
+pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval,nonzero_lfc)
+pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
+               cbind(pdat2,method = &quot;noshrink&quot;),
+               cbind(pdat3,method = &quot;shrink&quot;))
+p12 &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_point(size = 0.75)  +
+  scale_color_manual(values = c(&quot;royalblue&quot;,&quot;limegreen&quot;,&quot;darkorange&quot;)) +
+  theme_cowplot()
+print(p12)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/etc-3,%20fig.height-1.png" width="540" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
