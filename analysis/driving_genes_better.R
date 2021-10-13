@@ -2,6 +2,7 @@
 # verify implementation of the DE analysis methods in fastTopics.
 library(Matrix)
 library(MCMCpack)
+library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source("../code/de_eval_functions.R")
@@ -15,13 +16,21 @@ k  <- 2
 p  <- 0.5
 s  <- rep(1,n)
 se <- 1
-L  <- generate_mixture_proportions(n,k)
+L  <- fastTopics:::generate_mixture_proportions(n,k)
 F  <- matrix(0,m,k)
 for (j in 1:m) {
-  y     <- rnorm(1,-4,2)
-  F[j,] <- 2^c(y,y + (runif(1) < p) * rnorm(1,0,se))
+  y <- rnorm(1,-4,2)
+  e <- rnorm(1,0,se)
+  u <- runif(1)
+  w <- runif(1)
+  if (u > p)
+    F[j,] <- 2^y
+  else if (w < 0.5)
+    F[j,] <- 2^(y + c(0,e))
+  else
+    F[j,] <- 2^c(y + c(e,0))
 }
-X <- generate_poisson_nmf_counts(F,s*L)
+X <- fastTopics:::generate_poisson_nmf_counts(F,s*L)
 rownames(X) <- paste0("c",1:n)
 colnames(X) <- paste0("g",1:m)
 rownames(L) <- paste0("c",1:n)
@@ -31,20 +40,37 @@ colnames(F) <- paste0("k",1:k)
 
 # Fit a multinomial topic model using the ground-truth topic
 # proportions.
-fit0 <- init_poisson_nmf(X,F = F,L = L)
+fit0 <- init_poisson_nmf(X,F = F,L = s*L)
 fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
                        update.loadings = NULL)
 fit <- poisson2multinom(fit)
 
 # Compute the KL-divergence based "distinctiveness" measure used in
 # CountClust.
-D <- min_kl_poisson(fit$F)
+# D <- min_kl_poisson(fit$F)
+
+# Perform DE analysis without adaptive shrinkage.
+de.noshrink <- de_analysis(fit,X,shrink.method = "none")
 
 # Perform DE analysis with adaptive shrinkage.
 de <- de_analysis(fit,X,shrink.method = "ash")
 
-# Perform DE analysis without adaptive shrinkage
-# de.noshrink <- de_analysis(fit,X,shrink.method = "none")
+# Compare distributions of z-scores.
+lfc  <- log2(F[,1]/F[,2])
+pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
+                   shrink   = clamp(de$z[,1],-4,+4),
+                   de       = factor(abs(F[,1] - F[,2]) > 1e-8))
+p1 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  theme_cowplot()
+p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  theme_cowplot()
+print(plot_grid(p1,p2,nrow = 2,ncol = 1))
 
 stop()
 
@@ -93,7 +119,7 @@ ggplot(pdat,aes(x = z,color = de,fill = de)) +
 
 i    <- which(de$est[,1] >= 0)
 pdat <- data.frame(d  = D[i,1],
-                   de = factor(abs(dat$F[i,1] - F[i,2]) > 1e-15))
+                   de = factor(abs(F[i,1] - F[i,2]) > 1e-15))
 pdat <- transform(pdat,
                   d = pmin(0.001,abs(d)))
 ggplot(pdat,aes(x = d,color = de,fill = de)) +

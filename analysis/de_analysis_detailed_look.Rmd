@@ -83,3 +83,79 @@ p3 <- ggplot(data.frame(lfc = lfc[lfc != 0]),aes(x = lfc)) +
 print(p3)
 mean(lfc == 0)
 ```
+
+Fit multinomial topic model to UMI counts
+-----------------------------------------
+
+Fit a multinomial topic model to. To simplify this evaluation, we
+assume that the topic proportions are known, and set to the ground
+truth (that is, the values used to simulate the data), so the only
+error that can arise is in the estimates of the factors, or the
+relative expression levels.
+
+```{r fit-poisson-nmf, warning=FALSE}
+fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
+fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
+                       update.loadings = NULL,verbose = "none")
+fit <- poisson2multinom(fit)
+summary(fit)
+```
+
+DE analysis with and without shrinkage
+--------------------------------------
+
+First we perform a DE analysis without applying adaptive shrinkage to
+the LFC estimates:
+
+```{r de-noshrink}
+set.seed(1)
+de.noshrink <- de_analysis(fit,X,shrink.method = "none",
+                           control = list(nc = 4))
+```
+
+Next we perform a second DE analysis using adaptive shrinkage:
+
+```{r de-with-ash}
+set.seed(1)
+de <- de_analysis(fit,X,shrink.method = "ash",control = list(nc = 4))
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-scatterplot, fig.height=4, fig.width=5}
+pdat <- data.frame(noshrink  = de.noshrink$postmean[,1],
+                   shrink    = de$postmean[,1],
+                   log10mean = log10(de$f0))
+p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       midpoint = -3.5) +
+  xlim(c(-13,11)) +
+  ylim(c(-13,11)) +
+  labs(x = "LFC without shrinkage",
+       y = "LFC with shrinkage") +
+  theme_cowplot()
+print(p4)
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-zscores, fig.height=3, fig.width=6}
+pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-8,+8),
+                   shrink   = clamp(de$z[,1],-8,+8),
+                   de       = factor(lfc == 0))
+p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  ylim(c(0,100))  +
+  theme_cowplot()
+p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  ylim(c(0,100))  +
+  theme_cowplot()
+print(plot_grid(p5,p6))
+```

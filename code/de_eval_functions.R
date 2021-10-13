@@ -8,7 +8,7 @@ clamp <- function (x, a, b)
 # simulation parameters were chosen based on examining expression
 # levels (mean UMI counts) in B cells vs. other cells in the
 # "purified" PBMC data.
-simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
+simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,0.2,0.2),
                                         p = 0.5, a = c(1,1)) {
 
   # Get the number of cells to simulate.
@@ -33,8 +33,8 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
   # t-distributed with 3 degrees of freedom.
   F <- matrix(0,m,2)
   for (i in 1:m) {
-    y <- runif(1,-10,3)
-    e <- clamp(rt(1,df = 3),-10,10)
+    y <- rnorm(1,-4,2)
+    e <- clamp(0.7*rt(1,df = 3),-10,10)
     u <- runif(1)
     w <- runif(1)
     if (u > p)
@@ -49,13 +49,15 @@ simulate_twotopic_umi_data <- function (m = 1e4, s = 10^rnorm(200,-1,0.2),
   # and loadings matrix s*L.
   X <- matrix(as.double(rpois(n*m,tcrossprod(s*L,F))),n,m)
 
-  # Return the counts matrix (X), and the parameters of the Poisson
-  # NMF model used to simulate the data (F and L).
+  # Return the counts matrix (X), the multinomial sample sizes (s),
+  # and the parameters of the Poisson NMF model used to simulate the
+  # data (F and L).
+  names(s)    <- paste0("c",1:n)
   rownames(X) <- paste0("c",1:n)
   colnames(X) <- paste0("g",1:m)
   rownames(L) <- paste0("c",1:n)
   colnames(L) <- paste0("k",1:2)
   rownames(F) <- paste0("g",1:m)
   colnames(F) <- paste0("k",1:2)
-  return(list(X = X,F = F,L = L))
+  return(list(X = X,s = s,F = F,L = L))
 }
