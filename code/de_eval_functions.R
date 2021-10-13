@@ -59,3 +59,21 @@ simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
   colnames(F) <- paste0("k",1:2)
   return(list(X = X,s = s,F = F,L = L))
 }
+
+# TO DO: Explain what this function does, and how to use it.
+# Explain how NAs are handled.
+create_fdr_vs_power_curve <- function (pval, true) {
+  pval[is.na(pval)] <- max(pval,na.rm = TRUE)
+  t   <- sort(unique(pval))
+  n   <- length(t)
+  out <- data.frame(t = t,power = 0,fdr = 0)
+  for (i in 1:n) {
+    pos <- pval <= t[i]
+    tp  <- sum(pos & true)
+    fp  <- sum(pos & !true)
+    fn  <- sum(!pos & true)
+    out[i,"power"] <- tp/(tp + fn)
+    out[i,"fdr"]   <- fp/(tp + fp)
+  }
+  return(out)
+}
