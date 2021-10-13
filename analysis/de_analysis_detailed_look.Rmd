@@ -26,15 +26,15 @@ Simulate UMI counts
 -------------------
 
 We begin by simulating counts from a rank-2 Poisson NMF model with
-parameters chosen to roughly replicate the UMI counts obtained from a
-single-cell RNA sequencing experiment. In particular, we simulate
-counts $x_{ij} \sim \mathrm{Poisson}(\lambda_{ij})$, such that
-$\lambda_{ij} = \sum_{k=1}^K s_i l_{ik} f_{jk}$, with $K = 2$, For
-now, we focus our attention on the $K = 2$ case to simplify the
-analysis; comparing gene expression between three or topics brings
-some additional complications which aren't necessary for assessing
-basic properties of the new DE methods. For more details on how the
-data are simulated, see function `simulate_twotopic_umi_data`.
+parameters chosen to roughly mimic the UMI counts from a single-cell
+RNA sequencing experiment. In particular, we simulate counts $x_{ij}
+\sim \mathrm{Poisson}(\lambda_{ij})$ such that $\lambda_{ij} =
+\sum_{k=1}^K s_i l_{ik} f_{jk}$, with $K = 2$. For now, we focus our
+attention on the $K = 2$ case to simplify the evaluation of the DE
+methods; comparing gene expression between three or topics brings some
+additional complications which aren't necessary for assessing basic
+properties of the new DE methods. For more details on how the data are
+simulated, see function `simulate_twotopic_umi_data`.
 
 ```{r simulate-counts}
 set.seed(1)
@@ -47,8 +47,8 @@ L <- dat$L
 Before fitting a topic model and running a DE analysis, we first
 inspect some basic properties of the simulated data.
 
-The sample sizes (total counts for each cell) in the simulated data
-are roughly normally distributed on the (base-10) log scale:
+The sample sizes (total counts for each cell) are roughly normal on
+the (base-10) log scale:
 
 ```{r sizes, fig.height=2.5, fig.width=3.5}
 s <- rowSums(X)
@@ -90,11 +90,12 @@ Fit multinomial topic model to UMI counts
 
 Here we fit a multinomial topic model to the simulated UMI count
 data. To simplify evaluation of the DE methods, we assume that the
-topic proportions are known, and set to the ground truth (that is, the
-values used to simulate the data), so that the only error that can
-arise is in the estimates of the expression rates.
+topic proportions are known, and set them to their ground truth values
+(that is, the values used to simulate the data), so that the only
+error that can arise is in the estimates of the expression rates
+$f_{ij}$ in the multinomial topic model.
 
-```{r fit-poisson-nmf, warning=FALSE}
+```{r fit-poisson-nmf, warning=FALSE, message=FALSE}
 fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
 fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
                        update.loadings = NULL,verbose = "none")
@@ -105,20 +106,20 @@ summary(fit)
 DE analysis with and without shrinkage
 --------------------------------------
 
-First we perform a DE analysis without shrinking the LFC estimates:
+First we perform a DE analysis *without* shrinking the LFC estimates:
 
-```{r de-noshrink}
+```{r de-noshrink, message=FALSE}
 set.seed(1)
 de.noshrink <- de_analysis(fit,X,shrink.method = "none",
-                           control = list(nc = 4))
+                           control = list(ns = 1e4,nc = 4))
 ```
 
-Next we perform a second DE analysis using adaptive shrinkage to
+Now we perform a second DE analysis using adaptive shrinkage to
 shrink (and hopefully improve accuracy of) the LFC estimates:
 
-```{r de-with-ash}
+```{r de-with-ash, message=FALSE}
 set.seed(1)
-de <- de_analysis(fit,X,shrink.method = "ash",control = list(nc = 4))
+de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 4))
 ```
 
 *Add text here.*
@@ -128,12 +129,10 @@ pdat <- data.frame(noshrink  = de.noshrink$postmean[,1],
                    shrink    = de$postmean[,1],
                    log10mean = log10(de$f0))
 p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
-  geom_point(shape = 21,color = "white") +
+  geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       midpoint = -3.5) +
-  xlim(c(-7,7.3)) +
-  ylim(c(-7,7.3)) +
+                       midpoint = -4) +
   labs(x = "original LFC estimates",
        y = "shrunken LFC estimates") +
   theme_cowplot()
@@ -142,7 +141,7 @@ print(p4)
 
 *Add text here.*
 
-```{r shrink-vs-noshrink-zscores, fig.height=3, fig.width=8}
+```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
                    shrink   = clamp(de$z[,1],-4,+4),
                    de       = factor(nonzero_lfc))
@@ -150,20 +149,20 @@ p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "LFC estimate",y = "genes",title = "without shrinkage") +
+  labs(x = "z-score",y = "genes",title = "without shrinkage") +
   theme_cowplot()
 p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "LFC estimate",y = "genes",title = "with shrinkage") +
+  labs(x = "z-score",y = "genes",title = "with shrinkage") +
   theme_cowplot()
 print(plot_grid(p5,p6))
 ```
 
 *Add text here.*
 
-```{r shrink-vs-noshrink-pvalues, fig.eight=3, fig.width=8}
+```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
                    shrink   = 10^(-de$lpval[,1]),
                    de       = factor(nonzero_lfc))
@@ -180,4 +179,59 @@ p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   labs(x = "p-value",y = "genes",title = "with shrinkage") +
   theme_cowplot()
 print(plot_grid(p7,p8))
+```
+
+*Add text here.*
+
+```{r etc-1, fig.width=8, fig.height=2.5}
+i <- which(fit$F[,1] - fit$F[,2] > -1e-8)
+D <- fastTopics:::min_kl_poisson(fit$F)
+pdat <- data.frame(kl = pmin(D[,1],0.00025),
+                   de = factor(nonzero_lfc))
+pdat1 <- pdat[i,]
+p9 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "K-L divergence",y = "genes") +
+  theme_cowplot()
+pdat2 <- data.frame(z  = clamp(de$z[,1],-4,+4),
+                    de = factor(nonzero_lfc))
+pdat2 <- pdat2[i,]
+p10 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "z-score",y = "genes") +
+  theme_cowplot()
+print(plot_grid(p9,p10))
+```
+
+```{r etc-2, fig.width=8, fig.height=2.5}
+pdat <- data.frame(est       = de$est[,1],
+                   shrink    = de$postmean[,1],
+				   log10mean = log10(de$f0))
+p11 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       midpoint = -4) +
+  labs(x = "point estimates",
+       y = "shrunken posterior estimates") +
+  theme_cowplot()
+print(p11)
+```
+
+```{r etc-3, fig.height, fig.width=4.5, fig.height=3}
+pdat1 <- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
+pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval,nonzero_lfc)
+pdat3 <- create_fdr_vs_power_curve(-de$lpval,nonzero_lfc)
+pdat  <- rbind(cbind(pdat1,method = "kl"),
+               cbind(pdat2,method = "noshrink"),
+               cbind(pdat3,method = "shrink"))
+p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_point(size = 0.75)  +
+  scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
+  theme_cowplot()
+print(p12)
 ```
