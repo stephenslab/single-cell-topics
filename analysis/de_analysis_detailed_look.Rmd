@@ -17,7 +17,6 @@ functions for simulating the data.
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(fastTopics)
-library(MCMCpack)
 library(ggplot2)
 library(cowplot)
 source("../code/de_eval_functions.R")
@@ -26,72 +25,74 @@ source("../code/de_eval_functions.R")
 Simulate UMI counts
 -------------------
 
-We begin by simulating counts intended to "mimic" UMI count data from
-a single-cell RNA sequencing experiment. In particular, we simulate
-counts $x_{ij}$ from a Poisson NMF model $x_{ij} \sim
-\mathrm{Poisson}(\lambda_{ij})$, such that $\lambda_{ij} =
-\sum_{k=1}^K l_{ik} f_{jk}$. We focus our attention on the $K = 2$
-case to simplify the analysis; comparing gene expression between three
-or topics brings some additional complications which aren't necessary
-for assessing basic properties of the new DE methods. The simulation
-of the topic proportions $l_{ik}$ and the gene expression rates
-$f_{jk}$ is described in the comments accompanying function
-`simulate_twotopic_umi_data`.
+We begin by simulating counts from a rank-2 Poisson NMF model with
+parameters chosen to roughly replicate the UMI counts obtained from a
+single-cell RNA sequencing experiment. In particular, we simulate
+counts $x_{ij} \sim \mathrm{Poisson}(\lambda_{ij})$, such that
+$\lambda_{ij} = \sum_{k=1}^K s_i l_{ik} f_{jk}$, with $K = 2$, For
+now, we focus our attention on the $K = 2$ case to simplify the
+analysis; comparing gene expression between three or topics brings
+some additional complications which aren't necessary for assessing
+basic properties of the new DE methods. For more details on how the
+data are simulated, see function `simulate_twotopic_umi_data`.
 
 ```{r simulate-counts}
 set.seed(1)
 dat <- simulate_twotopic_umi_data()
 X <- dat$X
+F <- dat$F
+L <- dat$L
 ```
 
-The sample sizes (total counts for each cell) in the simulated data
-are roughly normally distributed on the (base-10) log scale with
-mean 3.2 and standard deviation 0.2:
+Before fitting a topic model and running a DE analysis, we first
+inspect some basic properties of the simulated data.
 
-```{r sizes, fig.height=2.5, fig.width=3}
+The sample sizes (total counts for each cell) in the simulated data
+are roughly normally distributed on the (base-10) log scale:
+
+```{r sizes, fig.height=2.5, fig.width=3.5}
 s <- rowSums(X)
 p1 <- ggplot(data.frame(s = log10(s)),aes(x = s)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 size",y = "cells") +
   theme_cowplot()
 print(p1)
-mean(log10(s))
-sd(log10(s))
 ```
 
-We have generated the expression rates so that they are roughly
-uniformly distributed on the log scale:
+The expression rates were simulated so that they are normally
+distributed on the log scale:
 
-```{r gene-expression-rates, fig.height=2.5, fig.width=3}
-p2 <- ggplot(data.frame(f = as.vector(dat$F)),aes(x = log10(f))) +
+```{r gene-expression-rates, fig.height=2.5, fig.width=3.5}
+p2 <- ggplot(data.frame(f = as.vector(F)),aes(x = log10(f))) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 expression rate",y = "genes") +
   theme_cowplot()
 print(p2)
 ```
 
-About half of the genes have differences in expression between the two
-topics, and among the nonzero gene expression differences, the LFCs
-are roughly *t*-distibuted with 3 degrees of freedom:
+About half of the genes have nonzero differences in expression between
+the two topics. Among the nonzero gene expression differences, the
+log-fold changes (LFCs) were simulated from the normal distribution:
 
-```{r lfc-density, fig.height=2.5, fig.width=3}
-lfc <- log2(dat$F[,1]/dat$F[,2])
-p3 <- ggplot(data.frame(lfc = lfc[lfc != 0]),aes(x = lfc)) +
+```{r lfc-density, fig.height=2.5, fig.width=3.5}
+nonzero_lfc <- abs(F[,1] - F[,2]) > 1e-8
+lfc <- log2(F[,1]/F[,2])
+p3 <- ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "LFC",y = "genes") +
   theme_cowplot()
 print(p3)
-mean(lfc == 0)
+mean(nonzero_lfc)
 ```
 
 Fit multinomial topic model to UMI counts
 -----------------------------------------
 
-Fit a multinomial topic model to. To simplify this evaluation, we
-assume that the topic proportions are known, and set to the ground
-truth (that is, the values used to simulate the data), so the only
-error that can arise is in the estimates of the factors, or the
-relative expression levels.
+Here we fit a multinomial topic model to the simulated UMI count
+data. To simplify evaluation of the DE methods, we assume that the
+topic proportions are known, and set to the ground truth (that is, the
+values used to simulate the data), so that the only error that can
+arise is in the estimates of the expression rates.
 
 ```{r fit-poisson-nmf, warning=FALSE}
 fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
@@ -104,8 +105,7 @@ summary(fit)
 DE analysis with and without shrinkage
 --------------------------------------
 
-First we perform a DE analysis without applying adaptive shrinkage to
-the LFC estimates:
+First we perform a DE analysis without shrinking the LFC estimates:
 
 ```{r de-noshrink}
 set.seed(1)
@@ -113,7 +113,8 @@ de.noshrink <- de_analysis(fit,X,shrink.method = "none",
                            control = list(nc = 4))
 ```
 
-Next we perform a second DE analysis using adaptive shrinkage:
+Next we perform a second DE analysis using adaptive shrinkage to
+shrink (and hopefully improve accuracy of) the LFC estimates:
 
 ```{r de-with-ash}
 set.seed(1)
@@ -131,31 +132,52 @@ p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
                        midpoint = -3.5) +
-  xlim(c(-13,11)) +
-  ylim(c(-13,11)) +
-  labs(x = "LFC without shrinkage",
-       y = "LFC with shrinkage") +
+  xlim(c(-7,7.3)) +
+  ylim(c(-7,7.3)) +
+  labs(x = "original LFC estimates",
+       y = "shrunken LFC estimates") +
   theme_cowplot()
 print(p4)
 ```
 
 *Add text here.*
 
-```{r shrink-vs-noshrink-zscores, fig.height=3, fig.width=6}
-pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-8,+8),
-                   shrink   = clamp(de$z[,1],-8,+8),
-                   de       = factor(lfc == 0))
+```{r shrink-vs-noshrink-zscores, fig.height=3, fig.width=8}
+pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
+                   shrink   = clamp(de$z[,1],-4,+4),
+                   de       = factor(nonzero_lfc))
 p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  ylim(c(0,100))  +
+  labs(x = "LFC estimate",y = "genes",title = "without shrinkage") +
   theme_cowplot()
 p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  ylim(c(0,100))  +
+  labs(x = "LFC estimate",y = "genes",title = "with shrinkage") +
   theme_cowplot()
 print(plot_grid(p5,p6))
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-pvalues, fig.eight=3, fig.width=8}
+pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
+                   shrink   = 10^(-de$lpval[,1]),
+                   de       = factor(nonzero_lfc))
+p7 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "without shrinkage") +
+  theme_cowplot()
+p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "with shrinkage") +
+  theme_cowplot()
+print(plot_grid(p7,p8))
 ```

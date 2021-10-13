@@ -7,26 +7,16 @@ clamp <- function (x, a, b)
 # look roughly like UMI counts from a single-cell RNA sequencing
 # experiment. Input argument m is the number of genes to simulate;
 # input s is the vector of scaling factors (one scaling factor for
-# each cell); p is the probability of a expression rates being
-# different in the two topics; and input "a" specifies the shape
-# parameter (alpha) in the call to rdirichlet.
-simulate_twotopic_umi_data <- function (m = 10000,
-                                        s = 10^rnorm(200,0,0.2),
-                                        p = 0.5,
-                                        a = c(1,1)) {
+# each cell); and p is the probability of a expression rates being
+# different in the two topics.
+simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
+                                        p = 0.5) {
 
   # Get the number of cells to simulate.
   n <- length(s)
     
-  # For each sample (row), generate the two topic proportions
-  # according to the following procedure: (1) Choose uniformly at
-  # random the configuration of the nonzero proportions---both topics,
-  # the first topic only, or the second topic only; (2) If both topics
-  # have nonzero proportions, generate the proportions from the
-  # Dirichlet distribution with shape parameter a.
-  L           <- matrix(1,n,2)
-  k1          <- sample(3,n,replace = TRUE)
-  L[k1 == 3,] <- rdirichlet(sum(k1 == 3),a)
+  # For each sample (row), generate the two topic proportions.
+  L <- fastTopics:::generate_mixture_proportions(n,2)
 
   # Generate the expression rates. The process for generating the
   # expression rates F[i,j] is as follows: with probability 0.5, the
@@ -45,16 +35,17 @@ simulate_twotopic_umi_data <- function (m = 10000,
     u <- runif(1)
     w <- runif(1)
     if (u > p)
-      F[j,] <- 2^y
+      f <- 2^y
     else if (w < 0.5)
-      F[j,] <- 2^(y + c(0,e))
+      f <- 2^(y + c(0,e))
     else
-      F[j,] <- 2^c(y + c(e,0))
+      f <- 2^c(y + c(e,0))
+    F[i,] <- f
   }
 
   # Generate the counts from a Poisson NMF model with factors matrix F
   # and loadings matrix s*L.
-  X <- matrix(as.double(rpois(n*m,tcrossprod(s*L,F))),n,m)
+  X <- fastTopics:::generate_poisson_nmf_counts(F,s*L)
 
   # Return the counts matrix (X), the scaling factors (s), and the
   # parameters of the Poisson NMF model used to simulate the data (F
