@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d5c6a6c0cbd79d51a68c626f6dabab1fa6ea1aftargetblank5d5c6a6a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5d5c6a6c0cbd79d51a68c626f6dabab1fa6ea1af" target="_blank">5d5c6a6</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6targetblankcb60f4ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/cb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6" target="_blank">cb60f4c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5d5c6a6c0cbd79d51a68c626f6dabab1fa6ea1aftargetblank5d5c6a6a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6targetblankcb60f4ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5d5c6a6c0cbd79d51a68c626f6dabab1fa6ea1af" target="_blank">5d5c6a6</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/cb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6" target="_blank">cb60f4c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -460,6 +460,9 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  plots/
+
+Unstaged changes:
+    Modified:   analysis/de_analysis_detailed_look_more.Rmd
 
 </code></pre>
 <p>
@@ -498,6 +501,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/cb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6/analysis/de_analysis_detailed_look.Rmd" target="_blank">cb60f4c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/3d62d9e57a5e422d2f42f9100c220bc6f5aedf46/docs/de_analysis_detailed_look.html" target="_blank">3d62d9e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+<td>
+Revised plots and explanatory text in de_analysis_detailed_look.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1034,6 +1071,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3d62d9e57a5e422d2f42f9100c220bc6f5aedf46/docs/figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">3d62d9e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/468f4d9fa4d881e4076c0ba5e16f47fde71ff731/docs/figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">468f4d9</a>
 </td>
 <td>
@@ -1204,11 +1252,48 @@ p9 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
                        midpoint = -4) +
   labs(x = &quot;point estimates&quot;,
-       y = &quot;shrunken posterior estimates&quot;) +
+       y = &quot;shrunken estimates&quot;) +
   theme_cowplot()
 print(p9)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/point-vs-shrunken-scatterplot-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-point-vs-shrunken-scatterplot-1">
+Past versions of point-vs-shrunken-scatterplot-1.png
+</button>
+</p>
+<div id="fig-point-vs-shrunken-scatterplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3d62d9e57a5e422d2f42f9100c220bc6f5aedf46/docs/figure/de_analysis_detailed_look.Rmd/point-vs-shrunken-scatterplot-1.png" target="_blank">3d62d9e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, which doesn’t fully account for uncertainty in the LFCs. As a result, sometimes genes with very large LFCs get highly ranked, but after a full accounting for uncertainty, they are no longer ranked highly.</p>
 <pre class="r"><code>i     &lt;- which(fit$F[,1] - fit$F[,2] &gt; -1e-8)
 D     &lt;- fastTopics:::min_kl_poisson(fit$F)
 pdat1 &lt;- data.frame(kl = pmin(D[,1],0.00025),de = factor(nonzero_lfc))
@@ -1254,6 +1339,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3d62d9e57a5e422d2f42f9100c220bc6f5aedf46/docs/figure/de_analysis_detailed_look.Rmd/etc-1-1.png" target="_blank">3d62d9e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/468f4d9fa4d881e4076c0ba5e16f47fde71ff731/docs/figure/de_analysis_detailed_look.Rmd/etc-1-1.png" target="_blank">468f4d9</a>
 </td>
 <td>
@@ -1267,10 +1363,10 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>To drive home this point, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform better than the ranking based on the KL divergence measure.</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
-pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval,nonzero_lfc)
-pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval,nonzero_lfc)
+pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[,1],nonzero_lfc)
+pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval[,1],nonzero_lfc)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;noshrink&quot;),
                cbind(pdat3,method = &quot;shrink&quot;))
@@ -1317,6 +1413,10 @@ Peter Carbonetto
 </table>
 </div>
 </div>
+</div>
+<div id="comparison-with-deseq2" class="section level2">
+<h2>Comparison with DESeq2</h2>
+<p><em>Add text and code here.</em></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
