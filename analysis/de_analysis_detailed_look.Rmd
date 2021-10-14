@@ -27,10 +27,8 @@ Simulate UMI counts
 
 We begin by simulating counts from a rank-2 Poisson NMF model with
 parameters chosen to roughly mimic the UMI counts from a single-cell
-RNA sequencing experiment. In particular, we simulate counts $x_{ij}
-\sim \mathrm{Poisson}(\lambda_{ij})$ such that $\lambda_{ij} =
-\sum_{k=1}^K s_i l_{ik} f_{jk}$, with $K = 2$. For now, we focus our
-attention on the $K = 2$ case to simplify the evaluation of the DE
+RNA sequencing experiment. For now, we focus our attention on the
+rank-2 (*i.e.*, two topics) case to simplify the evaluation of the DE
 methods; comparing gene expression between three or topics brings some
 additional complications which aren't necessary for assessing basic
 properties of the new DE methods. For more details on how the data are
@@ -91,11 +89,11 @@ Fit multinomial topic model to UMI counts
 Here we fit a multinomial topic model to the simulated UMI count
 data. To simplify evaluation of the DE methods, we assume that the
 topic proportions are known, and set them to their ground truth values
-(that is, the values used to simulate the data), so that the only
+(that is, the values used to simulate the data). In this way, the only
 error that can arise is in the estimates of the expression rates
-$f_{ij}$ in the multinomial topic model.
+$f_{ij}$.
 
-```{r fit-poisson-nmf, warning=FALSE, message=FALSE}
+```{r fit-poisson-nmf, warning=FALSE, message=FALSE, cache=TRUE}
 fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
 fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
                        update.loadings = NULL,verbose = "none")
@@ -108,7 +106,7 @@ DE analysis with and without shrinkage
 
 First we perform a DE analysis *without* shrinking the LFC estimates:
 
-```{r de-noshrink, message=FALSE}
+```{r de-noshrink, message=FALSE, cache=TRUE}
 set.seed(1)
 de.noshrink <- de_analysis(fit,X,shrink.method = "none",
                            control = list(ns = 1e4,nc = 4))
@@ -117,14 +115,17 @@ de.noshrink <- de_analysis(fit,X,shrink.method = "none",
 Now we perform a second DE analysis using adaptive shrinkage to
 shrink (and hopefully improve accuracy of) the LFC estimates:
 
-```{r de-with-ash, message=FALSE}
+```{r de-with-ash, message=FALSE, cache=TRUE}
 set.seed(1)
 de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 4))
 ```
 
-*Add text here.*
+In this scatterplot, we compare the posterior mean LFC estimates with
+and without performing the shrinkage step. As expected, the smaller
+LFC estimates, or the LFC estimates corresponding to genes with lower
+expression, tend to be more strongly shrunk toward zero.
 
-```{r shrink-vs-noshrink-scatterplot, fig.height=4, fig.width=5}
+```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
 pdat <- data.frame(noshrink  = de.noshrink$postmean[,1],
                    shrink    = de$postmean[,1],
                    log10mean = log10(de$f0))
@@ -139,7 +140,10 @@ p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
 print(p4)
 ```
 
-*Add text here.*
+These next two bar charts show the overall impact of the shrinkage on
+the distribution of the $z$-scores; dark blue bars are for
+diifferentially expressed genes, and orange bars are for
+non-differentially expressed genes.
 
 ```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
@@ -160,7 +164,8 @@ p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
 print(plot_grid(p5,p6))
 ```
 
-*Add text here.*
+And the next two bar charts show the overall impact of the shrinkage
+on the $p$-values.
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
@@ -181,37 +186,28 @@ p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
 print(plot_grid(p7,p8))
 ```
 
-*Add text here.*
+Quantifying uncertainty in the LFC estimates
+--------------------------------------------
 
-```{r etc-1, fig.width=8, fig.height=2.5}
-i <- which(fit$F[,1] - fit$F[,2] > -1e-8)
-D <- fastTopics:::min_kl_poisson(fit$F)
-pdat <- data.frame(kl = pmin(D[,1],0.00025),
-                   de = factor(nonzero_lfc))
-pdat1 <- pdat[i,]
-p9 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c("darkorange","darkblue")) +
-  scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "K-L divergence",y = "genes") +
-  theme_cowplot()
-pdat2 <- data.frame(z  = clamp(de$z[,1],-4,+4),
-                    de = factor(nonzero_lfc))
-pdat2 <- pdat2[i,]
-p10 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c("darkorange","darkblue")) +
-  scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "z-score",y = "genes") +
-  theme_cowplot()
-print(plot_grid(p9,p10))
-```
+Above, we assessed the usefulness of applying the adaptive shrinkage
+method to improve the accuracy of the LFC estimates. This idea of
+shrinking the LFC estimates is not new, and is already implemented in
+DESeq2, also using adaptive shrinkage.
 
-```{r etc-2, fig.width=8, fig.height=2.5}
+A more important aspect of the DE analysis methods in fastTopics is
+that it quantifies uncertainty in the LFC estimates by computing
+posterior HPD intervals. To see why this is important, consider this
+plot compare the point estimates (specifically, MLEs) of the LFCs (X
+axis) against the shrunken posterior mean estimates (Y axis). What is
+striking is that even very large (in magnitude) point estimates can be
+shrunk to zero; this happens because although the MLEs can be far from
+zero, the HPD intervals are also very large.
+
+```{r point-vs-shrunken-scatterplot, fig.width=8, fig.height=2.5}
 pdat <- data.frame(est       = de$est[,1],
                    shrink    = de$postmean[,1],
 				   log10mean = log10(de$f0))
-p11 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+p9 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
@@ -219,8 +215,35 @@ p11 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   labs(x = "point estimates",
        y = "shrunken posterior estimates") +
   theme_cowplot()
-print(p11)
+print(p9)
 ```
+
+*Add text here.*
+
+```{r etc-1, fig.width=8, fig.height=2.5}
+i     <- which(fit$F[,1] - fit$F[,2] > -1e-8)
+D     <- fastTopics:::min_kl_poisson(fit$F)
+pdat1 <- data.frame(kl = pmin(D[,1],0.00025),de = factor(nonzero_lfc))
+pdat2 <- data.frame(z = clamp(de$z[,1],-4,+4),de = factor(nonzero_lfc))
+pdat1 <- pdat1[i,]
+pdat2 <- pdat2[i,]
+p10 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_x_continuous(breaks = c(0,0.0001,0.0002)) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "K-L divergence",y = "genes") +
+  theme_cowplot()
+p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "z-score",y = "genes") +
+  theme_cowplot()
+print(plot_grid(p10,p11))
+```
+
+*Add text here.*
 
 ```{r etc-3, fig.height, fig.width=4.5, fig.height=3}
 pdat1 <- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
