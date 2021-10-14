@@ -213,12 +213,16 @@ p9 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
                        midpoint = -4) +
   labs(x = "point estimates",
-       y = "shrunken posterior estimates") +
+       y = "shrunken estimates") +
   theme_cowplot()
 print(p9)
 ```
 
-*Add text here.*
+To illustrate the impact of this on the DE analysis, consider the K-L
+divergence measure used in Dey, Hsiao & Stephens (2017) to rank genes,
+which doesn't fully account for uncertainty in the LFCs. As a result,
+sometimes genes with very large LFCs get highly ranked, but after a
+full accounting for uncertainty, they are no longer ranked highly.
 
 ```{r etc-1, fig.width=8, fig.height=2.5}
 i     <- which(fit$F[,1] - fit$F[,2] > -1e-8)
@@ -243,12 +247,17 @@ p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
 print(plot_grid(p10,p11))
 ```
 
-*Add text here.*
+To drive home this point, suppose we used the KL-divergences and the
+*p*-values returned by `de_analysis(shrink.method = "ash")` to
+discover differentially expressed genes. The power vs. FDR curves show
+that the rankings accounting for uncertainty in the LFC estimates
+(with or without shrinkage) perform better than the ranking based on
+the KL divergence measure.
 
 ```{r etc-3, fig.height, fig.width=4.5, fig.height=3}
 pdat1 <- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
-pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval,nonzero_lfc)
-pdat3 <- create_fdr_vs_power_curve(-de$lpval,nonzero_lfc)
+pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,1],nonzero_lfc)
+pdat3 <- create_fdr_vs_power_curve(-de$lpval[,1],nonzero_lfc)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
@@ -258,3 +267,8 @@ p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   theme_cowplot()
 print(p12)
 ```
+
+Comparison with DESeq2
+----------------------
+
+*Add text and code here.*
