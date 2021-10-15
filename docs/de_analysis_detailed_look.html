@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-14
+<strong>Last updated:</strong> 2021-10-15
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6targetblankcb60f4ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/cb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6" target="_blank">cb60f4c</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeafaa55d75673dc33e791dc3dd1146009aed77613targetblankafaa55da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/afaa55d75673dc33e791dc3dd1146009aed77613" target="_blank">afaa55d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6targetblankcb60f4ca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeafaa55d75673dc33e791dc3dd1146009aed77613targetblankafaa55da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/cb60f4c9bd3d3929348dbe440fe2d8800f1ba2a6" target="_blank">cb60f4c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/afaa55d75673dc33e791dc3dd1146009aed77613" target="_blank">afaa55d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -460,9 +460,6 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   analysis/de_analysis_detailed_look_more.Rmd
 
 </code></pre>
 <p>
@@ -501,6 +498,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/afaa55d75673dc33e791dc3dd1146009aed77613/analysis/de_analysis_detailed_look.Rmd" target="_blank">afaa55d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/13d2f7daf527bae566bdf5d91ac8520f2123e988/analysis/de_analysis_detailed_look.Rmd" target="_blank">13d2f7d</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+<td>
+Added pvalue/lfsr histograms for deseq2 and fastTopics.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/09089ff5307dccd9302c4ad67f64eb234fa8933c/analysis/de_analysis_detailed_look.Rmd" target="_blank">09089ff</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+<td>
+Revising de_analysis_detailed_look after fixing z-score calculations in de_analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/f61da64befacd98d80cd829e9a8b387b810c5782/docs/de_analysis_detailed_look.html" target="_blank">f61da64</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+<td>
+Fixed a bug in the power vs fdr plot in de_analysis_detailed_look.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -766,6 +831,11 @@ I have an initial implementation of function simulate_twotopic_scrnaseq_data use
 <p><em>Add summary of the analysis here.</em></p>
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
+library(scran)
+# Warning: package &#39;S4Vectors&#39; was built under R version 3.6.3
+# Warning: package &#39;GenomeInfoDb&#39; was built under R version 3.6.3
+# Warning: package &#39;DelayedArray&#39; was built under R version 3.6.3
+library(DESeq2)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
@@ -914,7 +984,7 @@ Peter Carbonetto
 </div>
 <p>About half of the genes have nonzero differences in expression between the two topics. Among the nonzero gene expression differences, the log-fold changes (LFCs) were simulated from the normal distribution:</p>
 <pre class="r"><code>nonzero_lfc &lt;- abs(F[,1] - F[,2]) &gt; 1e-8
-lfc &lt;- log2(F[,1]/F[,2])
+lfc &lt;- log2(F[,2]/F[,1])
 p3 &lt;- ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
   geom_histogram(color = &quot;white&quot;,fill = &quot;black&quot;,bins = 32) +
   labs(x = &quot;LFC&quot;,y = &quot;genes&quot;) +
@@ -1012,7 +1082,7 @@ summary(fit)
 <p>First we perform a DE analysis <em>without</em> shrinking the LFC estimates:</p>
 <pre class="r"><code>set.seed(1)
 de.noshrink &lt;- de_analysis(fit,X,shrink.method = &quot;none&quot;,
-                           control = list(ns = 1e4,nc = 4))
+                           control = list(ns = 1e4,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.</code></pre>
 <div class="alert alert-warning">
@@ -1023,7 +1093,7 @@ de.noshrink &lt;- de_analysis(fit,X,shrink.method = &quot;none&quot;,
 </div>
 <p>Now we perform a second DE analysis using adaptive shrinkage to shrink (and hopefully improve accuracy of) the LFC estimates:</p>
 <pre class="r"><code>set.seed(1)
-de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1e4,nc = 4))
+de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1e4,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
@@ -1034,8 +1104,8 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1
 </p>
 </div>
 <p>In this scatterplot, we compare the posterior mean LFC estimates with and without performing the shrinkage step. As expected, the smaller LFC estimates, or the LFC estimates corresponding to genes with lower expression, tend to be more strongly shrunk toward zero.</p>
-<pre class="r"><code>pdat &lt;- data.frame(noshrink  = de.noshrink$postmean[,1],
-                   shrink    = de$postmean[,1],
+<pre class="r"><code>pdat &lt;- data.frame(noshrink  = de.noshrink$postmean[,2],
+                   shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
 p4 &lt;- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
@@ -1107,8 +1177,8 @@ Peter Carbonetto
 </div>
 </div>
 <p>These next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes.</p>
-<pre class="r"><code>pdat &lt;- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
-                   shrink   = clamp(de$z[,1],-4,+4),
+<pre class="r"><code>pdat &lt;- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
+                   shrink   = clamp(de$z[,2],-8,+8),
                    de       = factor(nonzero_lfc))
 p5 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -1173,8 +1243,8 @@ Peter Carbonetto
 </div>
 </div>
 <p>And the next two bar charts show the overall impact of the shrinkage on the <span class="math inline">\(p\)</span>-values.</p>
-<pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
-                   shrink   = 10^(-de$lpval[,1]),
+<pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
+                   shrink   = 10^(-de$lpval[,2]),
                    de       = factor(nonzero_lfc))
 p7 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -1243,8 +1313,8 @@ Peter Carbonetto
 <h2>Quantifying uncertainty in the LFC estimates</h2>
 <p>Above, we assessed the usefulness of applying the adaptive shrinkage method to improve the accuracy of the LFC estimates. This idea of shrinking the LFC estimates is not new, and is already implemented in DESeq2, also using adaptive shrinkage.</p>
 <p>A more important aspect of the DE analysis methods in fastTopics is that it quantifies uncertainty in the LFC estimates by computing posterior HPD intervals. To see why this is important, consider this plot compare the point estimates (specifically, MLEs) of the LFCs (X axis) against the shrunken posterior mean estimates (Y axis). What is striking is that even very large (in magnitude) point estimates can be shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
-<pre class="r"><code>pdat &lt;- data.frame(est       = de$est[,1],
-                   shrink    = de$postmean[,1],
+<pre class="r"><code>pdat &lt;- data.frame(est       = de$est[,2],
+                   shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
 p9 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
@@ -1280,6 +1350,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f61da64befacd98d80cd829e9a8b387b810c5782/docs/figure/de_analysis_detailed_look.Rmd/point-vs-shrunken-scatterplot-1.png" target="_blank">f61da64</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3d62d9e57a5e422d2f42f9100c220bc6f5aedf46/docs/figure/de_analysis_detailed_look.Rmd/point-vs-shrunken-scatterplot-1.png" target="_blank">3d62d9e</a>
 </td>
 <td>
@@ -1294,10 +1375,10 @@ Peter Carbonetto
 </div>
 </div>
 <p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, which doesn’t fully account for uncertainty in the LFCs. As a result, sometimes genes with very large LFCs get highly ranked, but after a full accounting for uncertainty, they are no longer ranked highly.</p>
-<pre class="r"><code>i     &lt;- which(fit$F[,1] - fit$F[,2] &gt; -1e-8)
+<pre class="r"><code>i     &lt;- which(fit$F[,2] - fit$F[,1] &gt; -1e-8)
 D     &lt;- fastTopics:::min_kl_poisson(fit$F)
-pdat1 &lt;- data.frame(kl = pmin(D[,1],0.00025),de = factor(nonzero_lfc))
-pdat2 &lt;- data.frame(z = clamp(de$z[,1],-4,+4),de = factor(nonzero_lfc))
+pdat1 &lt;- data.frame(kl = pmin(D[,2],0.00025),de = factor(nonzero_lfc))
+pdat2 &lt;- data.frame(z = clamp(de$z[,2],-4,+4),de = factor(nonzero_lfc))
 pdat1 &lt;- pdat1[i,]
 pdat2 &lt;- pdat2[i,]
 p10 &lt;- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
@@ -1364,9 +1445,9 @@ Peter Carbonetto
 </div>
 </div>
 <p>To drive home this point, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform better than the ranking based on the KL divergence measure.</p>
-<pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
-pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[,1],nonzero_lfc)
-pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval[,1],nonzero_lfc)
+<pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
+pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
+pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;noshrink&quot;),
                cbind(pdat3,method = &quot;shrink&quot;))
@@ -1400,6 +1481,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f61da64befacd98d80cd829e9a8b387b810c5782/docs/figure/de_analysis_detailed_look.Rmd/etc-3, fig.height-1.png" target="_blank">f61da64</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-14
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/468f4d9fa4d881e4076c0ba5e16f47fde71ff731/docs/figure/de_analysis_detailed_look.Rmd/etc-3, fig.height-1.png" target="_blank">468f4d9</a>
 </td>
 <td>
@@ -1417,6 +1509,58 @@ Peter Carbonetto
 <div id="comparison-with-deseq2" class="section level2">
 <h2>Comparison with DESeq2</h2>
 <p><em>Add text and code here.</em></p>
+<pre class="r"><code>i       &lt;- which(apply(L,1,max) &gt; 0.99)
+Y       &lt;- t(X[i,])
+cluster &lt;- factor(apply(L,1,which.max))
+deseq   &lt;- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
+# converting counts to integer mode
+sizeFactors(deseq) &lt;- calculateSumFactors(Y)
+deseq &lt;- DESeq(deseq,test = &quot;LRT&quot;,reduced=~1,useT = TRUE,minmu = 1e-6,
+               minReplicatesForReplace = Inf)
+# using pre-existing size factors
+# estimating dispersions
+# gene-wise dispersion estimates
+# mean-dispersion relationship
+# -- note: fitType=&#39;parametric&#39;, but the dispersion trend was not well captured by the
+#    function: y = a/x + b, and a local regression fit was automatically substituted.
+#    specify fitType=&#39;local&#39; or &#39;mean&#39; to avoid this message next time.
+# final dispersion estimates
+# fitting model and testing
+deseq &lt;- lfcShrink(deseq,coef = &quot;cluster_2_vs_1&quot;,type = &quot;ashr&quot;)
+# using &#39;ashr&#39; for LFC shrinkage. If used in published research, please cite:
+#     Stephens, M. (2016) False discovery rates: a new deal. Biostatistics, 18:2.
+#     https://doi.org/10.1093/biostatistics/kxw041
+z.deseq &lt;- with(deseq,log2FoldChange/lfcSE)</code></pre>
+<p><em>Add text here.</em></p>
+<pre class="r"><code>plot(deseq$log2FoldChange,de$postmean[,2],pch = 20,col = &quot;royalblue&quot;)
+abline(a = 0,b = 1,col = &quot;black&quot;,lty = &quot;dotted&quot;)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-zscores-1.png" width="360" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>plot(z.deseq,de$z[,2],pch = 20,col = &quot;royalblue&quot;)
+abline(a = 0,b = 1,col = &quot;black&quot;,lty = &quot;dotted&quot;)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-zscores-2-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p><em>Add text here.</em></p>
+<pre class="r"><code>pdat &lt;- data.frame(deseq2 = deseq$padj,
+                   shrink = de$lfsr[,2],
+                   de     = factor(nonzero_lfc))
+p1 &lt;- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;deseq with shrinkage&quot;) +
+  theme_cowplot() +
+  theme(plot.title = element_text(size = 12,face = &quot;plain&quot;))
+p2 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;lfsr&quot;,y = &quot;genes&quot;,
+       title = &quot;de_analysis(shrink.method = \&quot;ash\&quot;)&quot;) +
+  theme_cowplot() +
+  theme(plot.title = element_text(size = 12,face = &quot;plain&quot;))
+print(plot_grid(p1,p2))
+# Warning: Removed 3326 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-pvalues-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p><em>TO DO: Add power vs. FDR plots comparing DESeq2 and fastTopics.</em></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1437,32 +1581,59 @@ Peter Carbonetto
 # [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 # 
 # attached base packages:
-# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+# [8] methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-70 Matrix_1.2-18    
+#  [1] cowplot_1.0.0               ggplot2_3.3.5              
+#  [3] fastTopics_0.6-73           DESeq2_1.33.5              
+#  [5] scran_1.14.6                SingleCellExperiment_1.8.0 
+#  [7] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
+#  [9] BiocParallel_1.18.1         matrixStats_0.56.0         
+# [11] Biobase_2.46.0              GenomicRanges_1.38.0       
+# [13] GenomeInfoDb_1.22.1         IRanges_2.20.2             
+# [15] S4Vectors_0.24.4            BiocGenerics_0.32.0        
+# [17] Matrix_1.2-18              
 # 
 # loaded via a namespace (and not attached):
-#  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
-#  [5] RcppParallel_4.4.2 assertthat_0.2.1   mixsqp_0.3-46      yaml_2.2.0        
-#  [9] progress_1.2.2     ggrepel_0.9.1      pillar_1.6.2       backports_1.1.5   
-# [13] lattice_0.20-38    quantreg_5.54      glue_1.4.2         quadprog_1.5-8    
-# [17] digest_0.6.23      promises_1.1.0     colorspace_1.4-1   htmltools_0.4.0   
-# [21] httpuv_1.5.2       pkgconfig_2.0.3    invgamma_1.1       SparseM_1.78      
-# [25] purrr_0.3.4        scales_1.1.0       whisker_0.4        later_1.0.0       
-# [29] Rtsne_0.15         MatrixModels_0.4-1 git2r_0.26.1       tibble_3.1.3      
-# [33] farver_2.0.1       generics_0.0.2     ellipsis_0.3.2     withr_2.4.2       
-# [37] ashr_2.2-51        lazyeval_0.2.2     magrittr_2.0.1     crayon_1.4.1      
-# [41] mcmc_0.9-6         evaluate_0.14      fs_1.3.1           fansi_0.4.0       
-# [45] MASS_7.3-51.4      truncnorm_1.0-8    tools_3.6.2        data.table_1.12.8 
-# [49] prettyunits_1.1.1  hms_1.1.0          lifecycle_1.0.0    stringr_1.4.0     
-# [53] MCMCpack_1.4-5     plotly_4.9.2       munsell_0.5.0      irlba_2.3.3       
-# [57] compiler_3.6.2     rlang_0.4.11       grid_3.6.2         htmlwidgets_1.5.1 
-# [61] labeling_0.3       rmarkdown_2.3      gtable_0.3.0       DBI_1.1.0         
-# [65] R6_2.4.1           knitr_1.26         dplyr_1.0.7        utf8_1.1.4        
-# [69] workflowr_1.6.2    rprojroot_1.3-2    stringi_1.4.3      parallel_3.6.2    
-# [73] SQUAREM_2017.10-1  Rcpp_1.0.7         vctrs_0.3.8        tidyselect_1.1.1  
-# [77] xfun_0.11          coda_0.19-3</code></pre>
+#   [1] Rtsne_0.15               ggbeeswarm_0.6.0         colorspace_1.4-1        
+#   [4] ellipsis_0.3.2           rprojroot_1.3-2          XVector_0.26.0          
+#   [7] BiocNeighbors_1.2.0      fs_1.3.1                 farver_2.0.1            
+#  [10] MatrixModels_0.4-1       ggrepel_0.9.1            bit64_0.9-7             
+#  [13] AnnotationDbi_1.48.0     fansi_0.4.0              splines_3.6.2           
+#  [16] geneplotter_1.64.0       knitr_1.26               scater_1.14.6           
+#  [19] jsonlite_1.7.2           workflowr_1.6.2          mcmc_0.9-6              
+#  [22] annotate_1.64.0          ashr_2.2-51              httr_1.4.2              
+#  [25] compiler_3.6.2           dqrng_0.2.1              backports_1.1.5         
+#  [28] lazyeval_0.2.2           assertthat_0.2.1         limma_3.42.2            
+#  [31] later_1.0.0              BiocSingular_1.2.2       prettyunits_1.1.1       
+#  [34] htmltools_0.4.0          quantreg_5.54            tools_3.6.2             
+#  [37] rsvd_1.0.2               igraph_1.2.5             coda_0.19-3             
+#  [40] gtable_0.3.0             glue_1.4.2               GenomeInfoDbData_1.2.2  
+#  [43] dplyr_1.0.7              Rcpp_1.0.7               vctrs_0.3.8             
+#  [46] DelayedMatrixStats_1.6.1 xfun_0.11                stringr_1.4.0           
+#  [49] lifecycle_1.0.0          irlba_2.3.3              statmod_1.4.34          
+#  [52] XML_3.99-0.3             edgeR_3.28.1             zlibbioc_1.32.0         
+#  [55] MASS_7.3-51.4            scales_1.1.0             hms_1.1.0               
+#  [58] promises_1.1.0           SparseM_1.78             RColorBrewer_1.1-2      
+#  [61] yaml_2.2.0               memoise_1.1.0            gridExtra_2.3           
+#  [64] stringi_1.4.3            RSQLite_2.2.0            SQUAREM_2017.10-1       
+#  [67] genefilter_1.68.0        truncnorm_1.0-8          rlang_0.4.11            
+#  [70] pkgconfig_2.0.3          bitops_1.0-6             invgamma_1.1            
+#  [73] evaluate_0.14            lattice_0.20-38          purrr_0.3.4             
+#  [76] labeling_0.3             htmlwidgets_1.5.1        bit_1.1-15.2            
+#  [79] tidyselect_1.1.1         magrittr_2.0.1           R6_2.4.1                
+#  [82] generics_0.0.2           DBI_1.1.0                withr_2.4.2             
+#  [85] pillar_1.6.2             whisker_0.4              mixsqp_0.3-46           
+#  [88] survival_3.1-8           RCurl_1.98-1.2           tibble_3.1.3            
+#  [91] crayon_1.4.1             utf8_1.1.4               plotly_4.9.2            
+#  [94] rmarkdown_2.3            progress_1.2.2           viridis_0.5.1           
+#  [97] locfit_1.5-9.4           grid_3.6.2               data.table_1.12.8       
+# [100] blob_1.2.1               git2r_0.26.1             digest_0.6.23           
+# [103] xtable_1.8-4             tidyr_1.1.3              httpuv_1.5.2            
+# [106] MCMCpack_1.4-5           RcppParallel_4.4.2       munsell_0.5.0           
+# [109] beeswarm_0.2.3           viridisLite_0.3.0        vipor_0.4.5             
+# [112] quadprog_1.5-8</code></pre>
 </div>
 </div>
 
