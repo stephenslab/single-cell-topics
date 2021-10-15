@@ -285,11 +285,40 @@ deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
 deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
 z.deseq <- with(deseq,log2FoldChange/lfcSE)
+# z.deseq <- with(results(deseq),log2FoldChange/lfcSE)
 ```
 
-```{r fasttopics-vs-deseq2, eval=FALSE}
+*Add text here.*
+
+```{r fasttopics-vs-deseq2-zscores, eval=FALSE}
 plot(deseq$log2FoldChange,de$postmean[,2],pch = 20,col = "royalblue")
 abline(a = 0,b = 1,col = "black",lty = "dotted")
 plot(z.deseq,de$z[,2],pch = 20,col = "royalblue")
 abline(a = 0,b = 1,col = "black",lty = "dotted")
 ```
+
+*Add text here.*
+
+```{r fasttopics-vs-deseq2-pvalues, eval=FALSE}
+pdat <- data.frame(deseq2 = deseq$padj,
+                   shrink = de$lfsr[,2],
+                   de     = factor(nonzero_lfc))
+p1 <- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "deseq with shrinkage") +
+  theme_cowplot() +
+  theme(plot.title = element_text(size = 12,face = "plain"))
+p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "lfsr",y = "genes",
+       title = "de_analysis(shrink.method = \"ash\")") +
+  theme_cowplot() +
+  theme(plot.title = element_text(size = 12,face = "plain"))
+print(plot_grid(p1,p2))
+```
+
+TO DO: Add power vs. FDR plots comparing DESeq2 and fastTopics.
