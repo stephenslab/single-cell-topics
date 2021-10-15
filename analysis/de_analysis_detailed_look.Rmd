@@ -16,6 +16,8 @@ functions for simulating the data.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
+library(scran)
+library(DESeq2)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
@@ -74,7 +76,7 @@ log-fold changes (LFCs) were simulated from the normal distribution:
 
 ```{r lfc-density, fig.height=2.5, fig.width=3.5}
 nonzero_lfc <- abs(F[,1] - F[,2]) > 1e-8
-lfc <- log2(F[,1]/F[,2])
+lfc <- log2(F[,2]/F[,1])
 p3 <- ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "LFC",y = "genes") +
@@ -126,8 +128,8 @@ LFC estimates, or the LFC estimates corresponding to genes with lower
 expression, tend to be more strongly shrunk toward zero.
 
 ```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
-pdat <- data.frame(noshrink  = de.noshrink$postmean[,1],
-                   shrink    = de$postmean[,1],
+pdat <- data.frame(noshrink  = de.noshrink$postmean[,2],
+                   shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
 p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
@@ -146,8 +148,8 @@ diifferentially expressed genes, and orange bars are for
 non-differentially expressed genes.
 
 ```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
-pdat <- data.frame(noshrink = clamp(de.noshrink$z[,1],-4,+4),
-                   shrink   = clamp(de$z[,1],-4,+4),
+pdat <- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
+                   shrink   = clamp(de$z[,2],-8,+8),
                    de       = factor(nonzero_lfc))
 p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -168,8 +170,8 @@ And the next two bar charts show the overall impact of the shrinkage
 on the $p$-values.
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
-pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,1]),
-                   shrink   = 10^(-de$lpval[,1]),
+pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
+                   shrink   = 10^(-de$lpval[,2]),
                    de       = factor(nonzero_lfc))
 p7 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -204,8 +206,8 @@ shrunk to zero; this happens because although the MLEs can be far from
 zero, the HPD intervals are also very large.
 
 ```{r point-vs-shrunken-scatterplot, fig.width=8, fig.height=2.5}
-pdat <- data.frame(est       = de$est[,1],
-                   shrink    = de$postmean[,1],
+pdat <- data.frame(est       = de$est[,2],
+                   shrink    = de$postmean[,2],
 				   log10mean = log10(de$f0))
 p9 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
@@ -225,10 +227,10 @@ sometimes genes with very large LFCs get highly ranked, but after a
 full accounting for uncertainty, they are no longer ranked highly.
 
 ```{r etc-1, fig.width=8, fig.height=2.5}
-i     <- which(fit$F[,1] - fit$F[,2] > -1e-8)
+i     <- which(fit$F[,2] - fit$F[,1] > -1e-8)
 D     <- fastTopics:::min_kl_poisson(fit$F)
-pdat1 <- data.frame(kl = pmin(D[,1],0.00025),de = factor(nonzero_lfc))
-pdat2 <- data.frame(z = clamp(de$z[,1],-4,+4),de = factor(nonzero_lfc))
+pdat1 <- data.frame(kl = pmin(D[,2],0.00025),de = factor(nonzero_lfc))
+pdat2 <- data.frame(z = clamp(de$z[,2],-4,+4),de = factor(nonzero_lfc))
 pdat1 <- pdat1[i,]
 pdat2 <- pdat2[i,]
 p10 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
@@ -255,9 +257,9 @@ that the rankings accounting for uncertainty in the LFC estimates
 the KL divergence measure.
 
 ```{r etc-3, fig.height, fig.width=4.5, fig.height=3}
-pdat1 <- create_fdr_vs_power_curve(-D[,1],nonzero_lfc)
-pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,1],nonzero_lfc)
-pdat3 <- create_fdr_vs_power_curve(-de$lpval[,1],nonzero_lfc)
+pdat1 <- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
+pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
+pdat3 <- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
@@ -272,3 +274,22 @@ Comparison with DESeq2
 ----------------------
 
 *Add text and code here.*
+
+```{r deseq2, eval=FALSE}
+i       <- which(apply(L,1,max) > 0.99)
+Y       <- t(X[i,])
+cluster <- factor(apply(L,1,which.max))
+deseq   <- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
+sizeFactors(deseq) <- calculateSumFactors(Y)
+deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
+               minReplicatesForReplace = Inf)
+deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
+z.deseq <- with(deseq,log2FoldChange/lfcSE)
+```
+
+```{r fasttopics-vs-deseq2, eval=FALSE}
+plot(deseq$log2FoldChange,de$postmean[,2],pch = 20,col = "royalblue")
+abline(a = 0,b = 1,col = "black",lty = "dotted")
+plot(z.deseq,de$z[,2],pch = 20,col = "royalblue")
+abline(a = 0,b = 1,col = "black",lty = "dotted")
+```
