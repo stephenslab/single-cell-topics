@@ -111,7 +111,7 @@ First we perform a DE analysis *without* shrinking the LFC estimates:
 ```{r de-noshrink, message=FALSE, cache=TRUE}
 set.seed(1)
 de.noshrink <- de_analysis(fit,X,shrink.method = "none",
-                           control = list(ns = 1e4,nc = 4))
+                           control = list(ns = 1e4,nc = 2))
 ```
 
 Now we perform a second DE analysis using adaptive shrinkage to
@@ -119,7 +119,7 @@ shrink (and hopefully improve accuracy of) the LFC estimates:
 
 ```{r de-with-ash, message=FALSE, cache=TRUE}
 set.seed(1)
-de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 4))
+de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 2))
 ```
 
 In this scatterplot, we compare the posterior mean LFC estimates with
@@ -275,7 +275,7 @@ Comparison with DESeq2
 
 *Add text and code here.*
 
-```{r deseq2, eval=FALSE}
+```{r deseq2}
 i       <- which(apply(L,1,max) > 0.99)
 Y       <- t(X[i,])
 cluster <- factor(apply(L,1,which.max))
@@ -285,21 +285,23 @@ deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
 deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
 z.deseq <- with(deseq,log2FoldChange/lfcSE)
-# z.deseq <- with(results(deseq),log2FoldChange/lfcSE)
 ```
 
 *Add text here.*
 
-```{r fasttopics-vs-deseq2-zscores, eval=FALSE}
+```{r fasttopics-vs-deseq2-zscores, fig.height=3, fig.width=3}
 plot(deseq$log2FoldChange,de$postmean[,2],pch = 20,col = "royalblue")
 abline(a = 0,b = 1,col = "black",lty = "dotted")
+```
+
+```{r fasttopics-vs-deseq2-zscores-2, fig.height=3, fig.width=3}
 plot(z.deseq,de$z[,2],pch = 20,col = "royalblue")
 abline(a = 0,b = 1,col = "black",lty = "dotted")
 ```
 
 *Add text here.*
 
-```{r fasttopics-vs-deseq2-pvalues, eval=FALSE}
+```{r fasttopics-vs-deseq2-pvalues, fig.height=3, fig.width=6}
 pdat <- data.frame(deseq2 = deseq$padj,
                    shrink = de$lfsr[,2],
                    de     = factor(nonzero_lfc))
@@ -321,4 +323,4 @@ p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
 print(plot_grid(p1,p2))
 ```
 
-TO DO: Add power vs. FDR plots comparing DESeq2 and fastTopics.
+*TO DO: Add power vs. FDR plots comparing DESeq2 and fastTopics.*
