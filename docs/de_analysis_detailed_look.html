@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1a55a9bbfdb0c09d6cc948bf2b816779055bb8a9targetblank1a55a9ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1a55a9bbfdb0c09d6cc948bf2b816779055bb8a9" target="_blank">1a55a9b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree35cee4ebe05a380360d1809a7805be3068faae67targetblank35cee4ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/35cee4ebe05a380360d1809a7805be3068faae67" target="_blank">35cee4e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1a55a9bbfdb0c09d6cc948bf2b816779055bb8a9targetblank1a55a9ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree35cee4ebe05a380360d1809a7805be3068faae67targetblank35cee4ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1a55a9bbfdb0c09d6cc948bf2b816779055bb8a9" target="_blank">1a55a9b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/35cee4ebe05a380360d1809a7805be3068faae67" target="_blank">35cee4e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -498,6 +498,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/35cee4ebe05a380360d1809a7805be3068faae67/analysis/de_analysis_detailed_look.Rmd" target="_blank">35cee4e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/25798e0533999ba6a12349de8e738ee343388668/docs/de_analysis_detailed_look.html" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+<td>
+Added plots comparing deseq2 vs fastTopics in de_analysis_detailed_look.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -917,9 +951,6 @@ I have an initial implementation of function simulate_twotopic_scrnaseq_data use
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
 library(scran)
-# Warning: package &#39;S4Vectors&#39; was built under R version 3.6.3
-# Warning: package &#39;GenomeInfoDb&#39; was built under R version 3.6.3
-# Warning: package &#39;DelayedArray&#39; was built under R version 3.6.3
 library(DESeq2)
 library(fastTopics)
 library(ggplot2)
@@ -1570,6 +1601,43 @@ p11 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   theme_cowplot()
 print(plot_grid(p10,p11))</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-1-1">
+Past versions of kl-vs-fasttopics-1-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>To underscore this point, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform better than the ranking based on the KL divergence measure. We also see that shrinkage leads to a modest improvement.</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
 pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
@@ -1583,20 +1651,57 @@ p12 &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   theme_cowplot()
 print(p12)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-2,%20fig.height-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-kl-vs-fasttopics-2,-fig.height-1">
+Past versions of “kl-vs-fasttopics-2, fig.height-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-kl-vs-fasttopics-2,-fig.height-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-2, fig.height-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="comparison-with-deseq2" class="section level2">
 <h2>Comparison with DESeq2</h2>
-<p>A very popular method for DE analysis in single-cell RNA sequencing data is DESeq2. Here we apply DESeq2 to these same UMI count data, and show that the fastTopics DE results are very similar to DESeq2. Since DESeq2 requires that each cell be assigned to a cluster, we apply DESeq2 to the subset of cells that were are almost entirely (&gt;99%) simulated from a single topic; approximatmely 2/3 of the cells were simulated from one topic, and about the remaining 1/3 of the cells were simulated from a mixture of the two topics. There may be a small loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3 of the data, but overall we expect that the fastTopics DE analysis will closely replicate the DESeq2 analysis.</p>
+<p>DESeq2 is a leading method for DE analysis with single-cell RNA sequencing data. Here we apply DESeq2 to these same UMI count data, and show that the fastTopics DE results are very similar to DESeq2. Since DESeq2 assumes discrete cell types or conditions, we apply DESeq2 to the subset of cells that were are almost entirely (&gt;99%) simulated from one topic; in this simulation, approximatmely 2/3 of the cells were simulated from one topic (entirely topic 1, or entirely topic 2), and the remaining 1/3 were simulated from a mixture of the two topics. There may be a small loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3 of the data, but overall we expect that the fastTopics DE analysis should closely replicate the DESeq2 analysis.</p>
 <pre class="r"><code>single_topic &lt;- apply(L,1,max) &gt; 0.99
 mean(single_topic)
 # [1] 0.655</code></pre>
-<p>These next few lines of code prepare the UMI count data for analysis with DESeq2.</p>
+<p>These next few lines of code prepare the UMI count data for analysis with DESeq2:</p>
 <pre class="r"><code>i &lt;- which(single_topic)
 Y &lt;- t(X[i,])
 cluster &lt;- factor(apply(L,1,which.max))
 deseq &lt;- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
 # converting counts to integer mode</code></pre>
-<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the DESeq2 vignette for these recommendations in detail). To replicate the fastTopics analysis as closely as possible, we shrink the LFC estimates using adaptive shrinkage.</p>
+<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the DESeq2 vignette for details). To replicate the fastTopics analysis as closely as possible, we also shrink the LFC estimates using adaptive shrinkage.</p>
 <pre class="r"><code>sizeFactors(deseq) &lt;- calculateSumFactors(Y)
 deseq &lt;- DESeq(deseq,test = &quot;LRT&quot;,reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
@@ -1623,6 +1728,43 @@ p14 &lt;- ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
   theme_cowplot()
 print(p14)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-lfc-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fasttopics-vs-deseq2-lfc-1">
+Past versions of fasttopics-vs-deseq2-lfc-1.png
+</button>
+</p>
+<div id="fig-fasttopics-vs-deseq2-lfc-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-lfc-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>And likewise for the <span class="math inline">\(z\)</span>-scores:</p>
 <pre class="r"><code>deseq$z &lt;- with(deseq,log2FoldChange/lfcSE)
 pdat &lt;- data.frame(DESeq2     = deseq$z,
@@ -1656,6 +1798,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-zscores-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/090a487cb2ec24118864979753d9f0340a892bb8/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-zscores-1.png" target="_blank">090a487</a>
@@ -1713,6 +1866,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-pvalues-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/090a487cb2ec24118864979753d9f0340a892bb8/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-pvalues-1.png" target="_blank">090a487</a>
 </td>
 <td>
@@ -1726,17 +1890,54 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>And therefore the performance of the two DE methods for discovering differentially expressed genes is very similar, with the slight advantage given to fastTopics:</p>
+<p>And therefore the performance of the two DE methods for discovering differentially expressed genes is very similar, with the slight advantage given to fastTopics (probably because it makde use of 1/3 more data):</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc)
 pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
                cbind(pdat2,method = &quot;fastTopics&quot;))
 p18 &lt;- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   geom_point(size = 0.3)  +
-  scale_color_manual(values = c(&quot;darkblue&quot;,&quot;magenta&quot;)) +
+  scale_color_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;)) +
   theme_cowplot()
 print(p18)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-power-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fasttopics-vs-deseq2-power-1">
+Past versions of fasttopics-vs-deseq2-power-1.png
+</button>
+</p>
+<div id="fig-fasttopics-vs-deseq2-power-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-power-1.png" target="_blank">25798e0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
