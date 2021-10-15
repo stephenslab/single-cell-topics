@@ -229,7 +229,9 @@ divergence measure used in Dey, Hsiao & Stephens (2017) to rank genes,
 a measure which doesn't fully account for uncertainty in the LFCs. As
 a result, sometimes genes with very large LFCs get highly ranked, but
 after a full accounting for uncertainty, they are no longer ranked
-highly.
+highly. (Since the K-L divergence is not a signed ranking measure like
+the $z$-score, here we focus only on genes that are estimated to have
+greater expression in topic 2 compared to topic 1.)
 
 ```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
 i     <- which(fit$F[,2] - fit$F[,1] > -1e-8)
@@ -279,17 +281,44 @@ print(p12)
 Comparison with DESeq2
 ----------------------
 
-*Add text and code here.*
+A very popular method for DE analysis in single-cell RNA sequencing
+data is DESeq2. Here we apply DESeq2 to these same UMI count data, and
+show that the fastTopics DE results are very similar to DESeq2. Since
+DESeq2 requires that each cell be assigned to a cluster, we apply
+DESeq2 to the subset of cells that were are almost entirely (>99%)
+simulated from a single topic; approximatmely 2/3 of the cells were
+simulated from one topic, and about the remaining 1/3 of the cells
+were simulated from a mixture of the two topics. There may be a small
+loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3
+of the data, but overall we expect that the fastTopics DE analysis
+will closely replicate the DESeq2 analysis.
 
-```{r deseq2}
-i       <- which(apply(L,1,max) > 0.99)
-Y       <- t(X[i,])
+```{r deseq-1}
+single_topic <- apply(L,1,max) > 0.99
+mean(single_topic)
+```
+
+These next few lines of code prepare the UMI count data for analysis
+with DESeq2.
+
+```{r deseq-2}
+i <- which(single_topic)
+Y <- t(X[i,])
 cluster <- factor(apply(L,1,which.max))
-deseq   <- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
+deseq <- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
+```
+
+Now we perform the DE analysis using DESeq2, using the settings
+recommended for single-cell RNA-seq data (refer to the DESeq2 vignette
+for an explanation of these recommendations). To replicate the
+fastTopics analysis as closely as possible, we shrink the LFC
+estimates using adaptive shrinkage.
+
+```{r deseq-3}
 sizeFactors(deseq) <- calculateSumFactors(Y)
-deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
+deseq   <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
-deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
+deseq   <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
 z.deseq <- with(deseq,log2FoldChange/lfcSE)
 ```
 
