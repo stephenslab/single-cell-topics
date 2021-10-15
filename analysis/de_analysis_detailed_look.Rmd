@@ -272,7 +272,7 @@ pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
 p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_point(size = 0.75)  +
+  geom_point(size = 0.3)  +
   scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
   theme_cowplot()
 print(p12)
@@ -309,53 +309,80 @@ deseq <- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
 ```
 
 Now we perform the DE analysis using DESeq2, using the settings
-recommended for single-cell RNA-seq data (refer to the DESeq2 vignette
-for an explanation of these recommendations). To replicate the
-fastTopics analysis as closely as possible, we shrink the LFC
-estimates using adaptive shrinkage.
+recommended for single-cell RNA-seq data (see the DESeq2 vignette for
+these recommendations in detail). To replicate the fastTopics analysis
+as closely as possible, we shrink the LFC estimates using adaptive
+shrinkage.
 
 ```{r deseq-3}
 sizeFactors(deseq) <- calculateSumFactors(Y)
-deseq   <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
+deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
-deseq   <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
-z.deseq <- with(deseq,log2FoldChange/lfcSE)
+deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
 ```
 
-*Add text here.*
+The posterior mean estimates from the fastTopics DE analysis closely
+align with the DESeq2 estimates:
+
+```{r fasttopics-vs-deseq2-lfc, fig.height=3, fig.width=3}
+pdat <- data.frame(DESeq2     = deseq$log2FoldChange,
+                   fastTopics = de$postmean[,2])
+p14 <- ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
+  geom_point() +
+  geom_abline(intercept = 0,slope = 1,color = "skyblue",linetype = "dotted") +
+  ggtitle("LFC estimates") +
+  theme_cowplot()
+print(p14)
+```
+
+And likewise for the $z$-scores:
 
 ```{r fasttopics-vs-deseq2-zscores, fig.height=3, fig.width=3}
-plot(deseq$log2FoldChange,de$postmean[,2],pch = 20,col = "royalblue")
-abline(a = 0,b = 1,col = "black",lty = "dotted")
+deseq$z <- with(deseq,log2FoldChange/lfcSE)
+pdat <- data.frame(DESeq2     = deseq$z,
+                   fastTopics = de$z[,2])
+p15 <- ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
+  geom_point() +
+  geom_abline(intercept = 0,slope = 1,color = "skyblue",linetype = "dotted") +
+  ggtitle("z-scores") +
+  theme_cowplot()
+print(p15)
 ```
 
-```{r fasttopics-vs-deseq2-zscores-2, fig.height=3, fig.width=3}
-plot(z.deseq,de$z[,2],pch = 20,col = "royalblue")
-abline(a = 0,b = 1,col = "black",lty = "dotted")
-```
+The $p$-value and LFSR distributions are also correspondingly similar
+in shape:
 
-*Add text here.*
-
-```{r fasttopics-vs-deseq2-pvalues, fig.height=3, fig.width=6}
+```{r fasttopics-vs-deseq2-pvalues, fig.height=2.5, fig.width=8, warning=FALSE}
 pdat <- data.frame(deseq2 = deseq$padj,
                    shrink = de$lfsr[,2],
                    de     = factor(nonzero_lfc))
-p1 <- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
+p16 <- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "p-value",y = "genes",title = "deseq with shrinkage") +
-  theme_cowplot() +
-  theme(plot.title = element_text(size = 12,face = "plain"))
-p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  labs(x = "p-value",y = "genes",title = "DESeq2") +
+  theme_cowplot()
+p17 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "lfsr",y = "genes",
-       title = "de_analysis(shrink.method = \"ash\")") +
-  theme_cowplot() +
-  theme(plot.title = element_text(size = 12,face = "plain"))
-print(plot_grid(p1,p2))
+  labs(x = "lfsr",y = "genes",title = "fastTopics") +
+  theme_cowplot()
+print(plot_grid(p16,p17))
 ```
 
-*TO DO: Add power vs. FDR plots comparing DESeq2 and fastTopics.*
+And therefore the performance of the two DE methods for discovering
+differentially expressed genes is very similar, with the slight
+advantage given to fastTopics:
+
+```{r fasttopics-vs-deseq2-power, fig.height=3, fig.width=4.5}
+pdat1 <- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc)
+pdat2 <- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc)
+pdat  <- rbind(cbind(pdat1,method = "DESeq2"),
+               cbind(pdat2,method = "fastTopics"))
+p18 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_point(size = 0.3)  +
+  scale_color_manual(values = c("darkblue","magenta")) +
+  theme_cowplot()
+print(p18)
+```
