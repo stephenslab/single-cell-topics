@@ -50,7 +50,7 @@ inspect some basic properties of the simulated data.
 The sample sizes (total counts for each cell) are roughly normal on
 the (base-10) log scale:
 
-```{r sizes, fig.height=2.5, fig.width=3.5}
+```{r sizes, fig.height=2, fig.width=3.5}
 s <- rowSums(X)
 p1 <- ggplot(data.frame(s = log10(s)),aes(x = s)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
@@ -62,7 +62,7 @@ print(p1)
 The expression rates were simulated so that they are normally
 distributed on the log scale:
 
-```{r gene-expression-rates, fig.height=2.5, fig.width=3.5}
+```{r gene-expression-rates, fig.height=2, fig.width=3.5}
 p2 <- ggplot(data.frame(f = as.vector(F)),aes(x = log10(f))) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 expression rate",y = "genes") +
@@ -74,7 +74,7 @@ About half of the genes have nonzero differences in expression between
 the two topics. Among the nonzero gene expression differences, the
 log-fold changes (LFCs) were simulated from the normal distribution:
 
-```{r lfc-density, fig.height=2.5, fig.width=3.5}
+```{r lfc-density, fig.height=2, fig.width=3.5}
 nonzero_lfc <- abs(F[,1] - F[,2]) > 1e-8
 lfc <- log2(F[,2]/F[,1])
 p3 <- ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
@@ -124,8 +124,8 @@ de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 2))
 
 In this scatterplot, we compare the posterior mean LFC estimates with
 and without performing the shrinkage step. As expected, the smaller
-LFC estimates, or the LFC estimates corresponding to genes with lower
-expression, tend to be more strongly shrunk toward zero.
+LFC estimates, as well as the LFC estimates corresponding to genes
+with lower expression, tend to be more strongly shrunk toward zero.
 
 ```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
 pdat <- data.frame(noshrink  = de.noshrink$postmean[,2],
@@ -188,6 +188,10 @@ p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
 print(plot_grid(p7,p8))
 ```
 
+Both the $z$-score and $p$-value plots show that the adaptive
+shrinkage step more strongly encourages the LFC estimates for the
+non-DE genes toward zero, thereby improving the overall accuracy.
+
 Quantifying uncertainty in the LFC estimates
 --------------------------------------------
 
@@ -199,11 +203,11 @@ DESeq2, also using adaptive shrinkage.
 A more important aspect of the DE analysis methods in fastTopics is
 that it quantifies uncertainty in the LFC estimates by computing
 posterior HPD intervals. To see why this is important, consider this
-plot compare the point estimates (specifically, MLEs) of the LFCs (X
+plot comparing point estimates (specifically, MLEs) of the LFCs (X
 axis) against the shrunken posterior mean estimates (Y axis). What is
-striking is that even very large (in magnitude) point estimates can be
-shrunk to zero; this happens because although the MLEs can be far from
-zero, the HPD intervals are also very large.
+striking is that even very large (in magnitude) point estimates are
+sometimes shrunk to zero; this happens because although the MLEs can
+be far from zero, the HPD intervals are also very large. 
 
 ```{r point-vs-shrunken-scatterplot, fig.width=8, fig.height=2.5}
 pdat <- data.frame(est       = de$est[,2],
@@ -222,11 +226,12 @@ print(p9)
 
 To illustrate the impact of this on the DE analysis, consider the K-L
 divergence measure used in Dey, Hsiao & Stephens (2017) to rank genes,
-which doesn't fully account for uncertainty in the LFCs. As a result,
-sometimes genes with very large LFCs get highly ranked, but after a
-full accounting for uncertainty, they are no longer ranked highly.
+a measure which doesn't fully account for uncertainty in the LFCs. As
+a result, sometimes genes with very large LFCs get highly ranked, but
+after a full accounting for uncertainty, they are no longer ranked
+highly.
 
-```{r etc-1, fig.width=8, fig.height=2.5}
+```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
 i     <- which(fit$F[,2] - fit$F[,1] > -1e-8)
 D     <- fastTopics:::min_kl_poisson(fit$F)
 pdat1 <- data.frame(kl = pmin(D[,2],0.00025),de = factor(nonzero_lfc))
@@ -249,14 +254,15 @@ p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
 print(plot_grid(p10,p11))
 ```
 
-To drive home this point, suppose we used the KL-divergences and the
+To underscore this point, suppose we used the KL-divergences and the
 *p*-values returned by `de_analysis(shrink.method = "ash")` to
 discover differentially expressed genes. The power vs. FDR curves show
 that the rankings accounting for uncertainty in the LFC estimates
 (with or without shrinkage) perform better than the ranking based on
-the KL divergence measure.
+the KL divergence measure. We also see that shrinkage leads to a
+modest improvement.
 
-```{r etc-3, fig.height, fig.width=4.5, fig.height=3}
+```{r kl-vs-fasttopics-2, fig.height, fig.width=4.5, fig.height=3}
 pdat1 <- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
 pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
 pdat3 <- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
