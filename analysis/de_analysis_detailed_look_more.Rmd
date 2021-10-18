@@ -26,3 +26,11 @@ Simulate UMI counts
 -------------------
 
 *Add code and text here.*
+
+```{r simulate-counts}
+set.seed(1)
+dat <- simulate_manytopic_umi_data()
+X <- dat$X
+F <- dat$F
+L <- dat$L
+```
