@@ -3,3 +3,26 @@ title: "Evaluation of DE analysis with more than two topics"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
+
+*Add summary of the analysis here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.show = "hold",fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, and some additional
+functions for simulating the data.
+
+```{r load-pkgs, message=FALSE, warning=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/de_analysis_functions.R")
+```
+
+Simulate UMI counts
+-------------------
+
+*Add code and text here.*
