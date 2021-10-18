@@ -9,9 +9,11 @@ Evaluation of DE analysis using a topic model
 ---------------------------------------------
 
 In these pages, we assess the new topic-model-based methods for
-differential expression analysis, and compare with alternatives.
+differential expression analysis, and compare with DESEq2.
 
 + [Evaluation of DE methods using simulated data](de_analysis_detailed_look.html)
+
++ [Evaluation of DE analysis with more than two topics](de_analysis_detailed_look_more.Rmd)
 
 Data preparation
 ----------------
