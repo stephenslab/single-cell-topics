@@ -60,8 +60,17 @@ simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
   return(list(X = X,s = s,F = F,L = L))
 }
 
-# TO DO: Explain what this function does, and how to use it.
-# Explain how NAs are handled.
+# Create a data frame used to plot a power vs. FDR curve. Input
+# argument "true" is a logical vector in which true[i] is TRUE if and
+# only if the ith element is a true discovery; input argument "pval"
+# may be either a vector of p-values of the same length as "true", or
+# an equivalent ranking in which the discoveries with the strongest
+# support are ordered first in an ordering obtained from order(pval).
+# The output is a data frame with three columns: "power", "fdr" (false
+# discovery rate") and "t", the latter being the threshold used to
+# calculate power and FDR. Note power = TP/(TP + TN) and fdr = FP/(TP
+# + FP), where TP is the number of true positives, FP is the number of
+# false positives, and TN is the number of true negatives.
 create_fdr_vs_power_curve <- function (pval, true) {
   pval[is.na(pval)] <- max(pval,na.rm = TRUE)
   t   <- sort(unique(pval))
