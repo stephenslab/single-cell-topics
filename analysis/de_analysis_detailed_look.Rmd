@@ -4,7 +4,11 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add summary of the analysis here.*
+Here we evaluate the new topic-model-based DE methods implemented in
+the fastTopics package using simulalted data. We show the benefits of
+shrinking the estimates using adaptive shrinkage and quantifying
+uncertainty. We also compare with DESeq2 and show that the results are
+very similar when the cells separate into distinct clusters.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
