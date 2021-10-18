@@ -21,7 +21,7 @@ library(DESeq2)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
-source("../code/de_eval_functions.R")
+source("../code/de_analysis_functions.R")
 ```
 
 Simulate UMI counts
