@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree63c16ca8c9b3353e0ce00321ed0d274d4b8c9e25targetblank63c16caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/63c16ca8c9b3353e0ce00321ed0d274d4b8c9e25" target="_blank">63c16ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree825dad09d9284253a368e453a205c0c7efcba1d0targetblank825dad0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/825dad09d9284253a368e453a205c0c7efcba1d0" target="_blank">825dad0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree63c16ca8c9b3353e0ce00321ed0d274d4b8c9e25targetblank63c16caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree825dad09d9284253a368e453a205c0c7efcba1d0targetblank825dad0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/63c16ca8c9b3353e0ce00321ed0d274d4b8c9e25" target="_blank">63c16ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/825dad09d9284253a368e453a205c0c7efcba1d0" target="_blank">825dad0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -463,9 +463,6 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   analysis/de_analysis_detailed_look_more.Rmd
 
 </code></pre>
 <p>
@@ -504,6 +501,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/825dad09d9284253a368e453a205c0c7efcba1d0/analysis/de_analysis_detailed_look.Rmd" target="_blank">825dad0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7682717241c7257148bd41e88a3799fd70e69a5b/docs/de_analysis_detailed_look.html" target="_blank">7682717</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1816,7 +1847,7 @@ Peter Carbonetto
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>A simple MCMC algorithm is used to approximate the posterior means estimates of the log-fold change statistics and the posterior intervals. To check that the posterior calculations are reasonably accurate, one can perform the DE analysis twice, and compare the outputted <span class="math inline">\(z\)</span>-scores by the two <code>de_analysis</code> runs.</p>
+<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To check that the posterior calculations are reasonably accurate, we can perform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs.</p>
 <p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples,</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Using 2 RcppParallel threads.
@@ -1830,7 +1861,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
-<p>and compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs:</p>
+<p>when we compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 pp1 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -1840,7 +1871,44 @@ pp1 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   theme_cowplot()
 print(pp1)</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-2-1">
+Past versions of assess-monte-carlo-2-1.png
+</button>
+</p>
+<div id="fig-assess-monte-carlo-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7682717241c7257148bd41e88a3799fd70e69a5b/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" target="_blank">7682717</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Here we see that the concordance is quite strong, but we should be able to improve the accuracy by running a longer Markov chain. Let’s try 10,000 iterations:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 # Using 2 RcppParallel threads.
 # Using 2 threads.
@@ -1859,7 +1927,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p><em>Add text here.</em></p>
+<p>Indeed, with 10,000 Monte Carlo samples the two sets of <span class="math inline">\(z\)</span>-score estimates are very close to each other:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 pp2 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -1868,7 +1936,44 @@ pp2 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
        y = &quot;second z-score estimate&quot;) +
   theme_cowplot()
 print(pp2)</code></pre>
-<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" width="390" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-4-1">
+Past versions of assess-monte-carlo-4-1.png
+</button>
+</p>
+<div id="fig-assess-monte-carlo-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7682717241c7257148bd41e88a3799fd70e69a5b/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" target="_blank">7682717</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="comparison-with-deseq2" class="section level2">
 <h2>Comparison with DESeq2</h2>
