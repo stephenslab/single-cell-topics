@@ -285,11 +285,10 @@ print(p12)
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
 
-A simple MCMC algorithm is used to approximate the posterior means
-estimates of the log-fold change statistics and the posterior
-intervals. To check that the posterior calculations are reasonably
-accurate, one can perform the DE analysis twice, and compare the
-outputted $z$-scores by the two `de_analysis` runs.
+We use a simple MCMC algorithm to estimate LFC posterior statistics.
+To check that the posterior calculations are reasonably accurate, we
+can perform the DE analysis twice, and compare the $z$-scores returned
+by the two `de_analysis` runs.
 
 To illustrate, we first compute the posteriors using 1,000 Monte Carlo
 samples,
@@ -299,7 +298,7 @@ set.seed(1); de1 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 ```
 
-and compare the $z$-scores estimated by these two runs:
+when we compare the $z$-scores estimated by these two runs:
 
 ```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
@@ -312,16 +311,19 @@ pp1 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
 print(pp1)
 ```
 
-*Add text here.*
+Here we see that the concordance is quite strong, but we should be
+able to improve the accuracy by running a longer Markov chain. Let's
+try 10,000 iterations:
 
 ```{r assess-monte-carlo-3, cache=TRUE}
 set.seed(1); de1 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 ```
 
-*Add text here.*
+Indeed, with 10,000 Monte Carlo samples the two sets of $z$-score
+estimates are very close to each other:
 
-```{r assess-monte-carlo-4, fig.width=3, fig.height=3}
+```{r assess-monte-carlo-4, fig.width=3.25, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
 pp2 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
