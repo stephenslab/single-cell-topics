@@ -25,7 +25,7 @@ source("../code/de_analysis_functions.R")
 Simulate UMI counts
 -------------------
 
-*Add code and text here.*
+*Add text here.*
 
 ```{r simulate-counts}
 set.seed(1)
@@ -34,3 +34,101 @@ X <- dat$X
 F <- dat$F
 L <- dat$L
 ```
+
+Fit multinomial topic model to UMI counts
+-----------------------------------------
+
+*Add text here.*
+
+```{r fit-poisson-nmf, warning=FALSE, message=FALSE, cache=TRUE}
+fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
+fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
+                       update.loadings = NULL,verbose = "none")
+fit <- poisson2multinom(fit)
+summary(fit)
+```
+
+DE analysis with and without shrinkage
+--------------------------------------
+
+First we perform a DE analysis *without* shrinking the LFC estimates:
+
+```{r de-noshrink, message=FALSE, cache=TRUE}
+set.seed(1)
+de.noshrink <- de_analysis(fit,X,shrink.method = "none",
+                           control = list(ns = 10000,nc = 2))
+```
+
+Now we perform a second DE analysis using adaptive shrinkage to
+shrink the LFC estimates:
+
+```{r de-with-ash, message=FALSE, cache=TRUE}
+set.seed(1)
+de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 2))
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
+pdat <- data.frame(noshrink  = de.noshrink$postmean[,2],
+                   shrink    = de$postmean[,2],
+                   log10mean = log10(de$f0))
+p1 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       midpoint = -4) +
+  labs(x = "original LFC estimates",
+       y = "shrunken LFC estimates") +
+  theme_cowplot()
+print(p1)
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
+pdat <- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
+                   shrink   = clamp(de$z[,2],-8,+8),
+                   de       = factor(nonzero_lfc))
+p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "z-score",y = "genes",title = "without shrinkage") +
+  theme_cowplot()
+p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "z-score",y = "genes",title = "with shrinkage") +
+  theme_cowplot()
+print(plot_grid(p5,p6))
+```
+
+*Add text here.*
+
+```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
+pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
+                   shrink   = 10^(-de$lpval[,2]),
+                   de       = factor(nonzero_lfc))
+p7 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "without shrinkage") +
+  theme_cowplot()
+p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "with shrinkage") +
+  theme_cowplot()
+print(plot_grid(p7,p8))
+```
+
+*Add text here.*
+
+Quantifying uncertainty in the LFC estimates
+--------------------------------------------
+
+*Add code and text here.*
