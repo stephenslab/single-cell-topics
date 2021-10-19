@@ -115,7 +115,7 @@ First we perform a DE analysis *without* shrinking the LFC estimates:
 ```{r de-noshrink, message=FALSE, cache=TRUE}
 set.seed(1)
 de.noshrink <- de_analysis(fit,X,shrink.method = "none",
-                           control = list(ns = 1e4,nc = 2))
+                           control = list(ns = 10000,nc = 2))
 ```
 
 Now we perform a second DE analysis using adaptive shrinkage to
@@ -282,8 +282,8 @@ p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
 print(p12)
 ```
 
-Assessing accuracy of Monte Carlo estimates
--------------------------------------------
+Assessing accuracy of the Monte Carlo estimates
+-----------------------------------------------
 
 A simple MCMC algorithm is used to approximate the posterior means
 estimates of the log-fold change statistics and the posterior
@@ -301,7 +301,15 @@ set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 
 and compare the $z$-scores estimated by these two runs:
 
-```{r assess-monte-carlo-2}
+```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
+pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
+pp1 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+  geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  labs(x = "first z-score estimate",
+       y = "second z-score estimate") +
+  theme_cowplot()
+print(pp1)
 ```
 
 *Add text here.*
@@ -311,7 +319,17 @@ set.seed(1); de1 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 ```
 
-```{r assess-monte-carlo-4}
+*Add text here.*
+
+```{r assess-monte-carlo-4, fig.width=3, fig.height=3}
+pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
+pp2 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+  geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  labs(x = "first z-score estimate",
+       y = "second z-score estimate") +
+  theme_cowplot()
+print(pp2)
 ```
 
 Comparison with DESeq2
