@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-18
+<strong>Last updated:</strong> 2021-10-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -401,9 +401,6 @@ The following chunks had caches available:
 de-noshrink
 </li>
 <li>
-de-with-ash
-</li>
-<li>
 fit-poisson-nmf
 </li>
 </ul>
@@ -426,22 +423,23 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeff01162d1a1d6088cf9a0fdde01e126ad73c5a38targetblankff01162a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ff01162d1a1d6088cf9a0fdde01e126ad73c5a38" target="_blank">ff01162</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree633212a89bedd89b14041302363440e89ce8a7fdtargetblank633212aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/633212a89bedd89b14041302363440e89ce8a7fd" target="_blank">633212a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeff01162d1a1d6088cf9a0fdde01e126ad73c5a38targetblankff01162a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree633212a89bedd89b14041302363440e89ce8a7fdtargetblank633212aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ff01162d1a1d6088cf9a0fdde01e126ad73c5a38" target="_blank">ff01162</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/633212a89bedd89b14041302363440e89ce8a7fd" target="_blank">633212a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -498,6 +496,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/633212a89bedd89b14041302363440e89ce8a7fd/analysis/de_analysis_detailed_look.Rmd" target="_blank">633212a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/90e13523c4f15b31376b40fe1d0754435a4f8aa8/docs/de_analysis_detailed_look.html" target="_blank">90e1352</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-18
+</td>
+<td>
+Added summary to top of de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1740,6 +1772,43 @@ Peter Carbonetto
 </div>
 </div>
 </div>
+<div id="assessing-accuracy-of-monte-carlo-estimates" class="section level2">
+<h2>Assessing accuracy of Monte Carlo estimates</h2>
+<p>A simple MCMC algorithm is used to approximate the posterior means estimates of the log-fold change statistics and the posterior intervals. To check that the posterior calculations are reasonably accurate, one can perform the DE analysis twice, and compare the outputted <span class="math inline">\(z\)</span>-scores by the two <code>de_analysis</code> runs.</p>
+<p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples,</p>
+<pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
+# Using 2 RcppParallel threads.
+# Using 2 threads.
+set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
+# Using 2 RcppParallel threads.
+# Using 2 threads.
+# Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
+# Computing log-fold change statistics from 10000 Poisson models with k=2.
+# Stabilizing posterior log-fold change estimates using adaptive shrinkage.
+# Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
+# Computing log-fold change statistics from 10000 Poisson models with k=2.
+# Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
+<p>and compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs:</p>
+<p><em>Add text here.</em></p>
+<pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
+# Using 2 RcppParallel threads.
+# Using 2 threads.
+set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
+# Using 2 RcppParallel threads.
+# Using 2 threads.
+# Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
+# Computing log-fold change statistics from 10000 Poisson models with k=2.
+# Stabilizing posterior log-fold change estimates using adaptive shrinkage.
+# Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
+# Computing log-fold change statistics from 10000 Poisson models with k=2.
+# Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
+<div class="alert alert-warning">
+<p>
+<strong>Warning:</strong> The above code chunk cached its results, but it won’t be re-run if previous chunks it depends on are updated. If you need to use caching, it is highly recommended to also set <code>knitr::opts_chunk$set(autodep = TRUE)</code> at the top of the file (in a chunk that is not cached). Alternatively, you can customize the option <code>dependson</code> for each individual chunk that is cached. Using either <code>autodep</code> or <code>dependson</code> will remove this warning. See the <a href="https://yihui.name/knitr/options/#cache"
+>knitr cache options</a> for more details.
+</p>
+</div>
+</div>
 <div id="comparison-with-deseq2" class="section level2">
 <h2>Comparison with DESeq2</h2>
 <p>DESeq2 is a leading method for DE analysis with single-cell RNA sequencing data. Here we apply DESeq2 to these same UMI count data, and show that the fastTopics DE results are very similar to DESeq2. Since DESeq2 assumes discrete cell types or conditions, we apply DESeq2 to the subset of cells that were are almost entirely (&gt;99%) simulated from one topic; in this simulation, approximatmely 2/3 of the cells were simulated from one topic (entirely topic 1, or entirely topic 2), and the remaining 1/3 were simulated from a mixture of the two topics. There may be a small loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3 of the data, but overall we expect that the fastTopics DE analysis should closely replicate the DESeq2 analysis.</p>
@@ -2025,7 +2094,7 @@ Peter Carbonetto
 # 
 # other attached packages:
 #  [1] cowplot_1.0.0               ggplot2_3.3.5              
-#  [3] fastTopics_0.6-73           DESeq2_1.33.5              
+#  [3] fastTopics_0.6-74           DESeq2_1.33.5              
 #  [5] scran_1.14.6                SingleCellExperiment_1.8.0 
 #  [7] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
 #  [9] BiocParallel_1.18.1         matrixStats_0.56.0         
@@ -2039,40 +2108,40 @@ Peter Carbonetto
 #   [4] ellipsis_0.3.2           rprojroot_1.3-2          XVector_0.26.0          
 #   [7] BiocNeighbors_1.2.0      fs_1.3.1                 farver_2.0.1            
 #  [10] MatrixModels_0.4-1       ggrepel_0.9.1            bit64_0.9-7             
-#  [13] AnnotationDbi_1.48.0     fansi_0.4.0              splines_3.6.2           
-#  [16] geneplotter_1.64.0       knitr_1.26               scater_1.14.6           
-#  [19] jsonlite_1.7.2           workflowr_1.6.2          mcmc_0.9-6              
-#  [22] annotate_1.64.0          ashr_2.2-51              httr_1.4.2              
-#  [25] compiler_3.6.2           dqrng_0.2.1              backports_1.1.5         
-#  [28] lazyeval_0.2.2           assertthat_0.2.1         limma_3.42.2            
-#  [31] later_1.0.0              BiocSingular_1.2.2       prettyunits_1.1.1       
-#  [34] htmltools_0.4.0          quantreg_5.54            tools_3.6.2             
-#  [37] rsvd_1.0.2               igraph_1.2.5             coda_0.19-3             
-#  [40] gtable_0.3.0             glue_1.4.2               GenomeInfoDbData_1.2.2  
-#  [43] dplyr_1.0.7              Rcpp_1.0.7               vctrs_0.3.8             
-#  [46] DelayedMatrixStats_1.6.1 xfun_0.11                stringr_1.4.0           
-#  [49] lifecycle_1.0.0          irlba_2.3.3              statmod_1.4.34          
-#  [52] XML_3.99-0.3             edgeR_3.28.1             zlibbioc_1.32.0         
-#  [55] MASS_7.3-51.4            scales_1.1.0             hms_1.1.0               
-#  [58] promises_1.1.0           SparseM_1.78             RColorBrewer_1.1-2      
-#  [61] yaml_2.2.0               memoise_1.1.0            gridExtra_2.3           
-#  [64] stringi_1.4.3            RSQLite_2.2.0            SQUAREM_2017.10-1       
-#  [67] genefilter_1.68.0        truncnorm_1.0-8          rlang_0.4.11            
-#  [70] pkgconfig_2.0.3          bitops_1.0-6             invgamma_1.1            
-#  [73] evaluate_0.14            lattice_0.20-38          purrr_0.3.4             
-#  [76] labeling_0.3             htmlwidgets_1.5.1        bit_1.1-15.2            
-#  [79] tidyselect_1.1.1         magrittr_2.0.1           R6_2.4.1                
-#  [82] generics_0.0.2           DBI_1.1.0                withr_2.4.2             
-#  [85] pillar_1.6.2             whisker_0.4              mixsqp_0.3-46           
-#  [88] survival_3.1-8           RCurl_1.98-1.2           tibble_3.1.3            
-#  [91] crayon_1.4.1             utf8_1.1.4               plotly_4.9.2            
-#  [94] rmarkdown_2.3            progress_1.2.2           viridis_0.5.1           
-#  [97] locfit_1.5-9.4           grid_3.6.2               data.table_1.12.8       
-# [100] blob_1.2.1               git2r_0.26.1             digest_0.6.23           
-# [103] xtable_1.8-4             tidyr_1.1.3              httpuv_1.5.2            
-# [106] MCMCpack_1.4-5           RcppParallel_4.4.2       munsell_0.5.0           
-# [109] beeswarm_0.2.3           viridisLite_0.3.0        vipor_0.4.5             
-# [112] quadprog_1.5-8</code></pre>
+#  [13] AnnotationDbi_1.48.0     fansi_0.4.0              codetools_0.2-16        
+#  [16] splines_3.6.2            geneplotter_1.64.0       knitr_1.26              
+#  [19] scater_1.14.6            jsonlite_1.7.2           workflowr_1.6.2         
+#  [22] mcmc_0.9-6               annotate_1.64.0          ashr_2.2-51             
+#  [25] httr_1.4.2               compiler_3.6.2           dqrng_0.2.1             
+#  [28] backports_1.1.5          lazyeval_0.2.2           assertthat_0.2.1        
+#  [31] limma_3.42.2             later_1.0.0              BiocSingular_1.2.2      
+#  [34] prettyunits_1.1.1        htmltools_0.4.0          quantreg_5.54           
+#  [37] tools_3.6.2              rsvd_1.0.2               igraph_1.2.5            
+#  [40] coda_0.19-3              gtable_0.3.0             glue_1.4.2              
+#  [43] GenomeInfoDbData_1.2.2   dplyr_1.0.7              Rcpp_1.0.7              
+#  [46] vctrs_0.3.8              DelayedMatrixStats_1.6.1 xfun_0.11               
+#  [49] stringr_1.4.0            lifecycle_1.0.0          irlba_2.3.3             
+#  [52] statmod_1.4.34           XML_3.99-0.3             edgeR_3.28.1            
+#  [55] zlibbioc_1.32.0          MASS_7.3-51.4            scales_1.1.0            
+#  [58] hms_1.1.0                promises_1.1.0           SparseM_1.78            
+#  [61] RColorBrewer_1.1-2       yaml_2.2.0               pbapply_1.5-1           
+#  [64] memoise_1.1.0            gridExtra_2.3            stringi_1.4.3           
+#  [67] RSQLite_2.2.0            SQUAREM_2017.10-1        genefilter_1.68.0       
+#  [70] truncnorm_1.0-8          rlang_0.4.11             pkgconfig_2.0.3         
+#  [73] bitops_1.0-6             invgamma_1.1             evaluate_0.14           
+#  [76] lattice_0.20-38          purrr_0.3.4              labeling_0.3            
+#  [79] htmlwidgets_1.5.1        bit_1.1-15.2             tidyselect_1.1.1        
+#  [82] magrittr_2.0.1           R6_2.4.1                 generics_0.0.2          
+#  [85] DBI_1.1.0                withr_2.4.2              pillar_1.6.2            
+#  [88] whisker_0.4              mixsqp_0.3-46            survival_3.1-8          
+#  [91] RCurl_1.98-1.2           tibble_3.1.3             crayon_1.4.1            
+#  [94] utf8_1.1.4               plotly_4.9.2             rmarkdown_2.3           
+#  [97] progress_1.2.2           viridis_0.5.1            locfit_1.5-9.4          
+# [100] grid_3.6.2               data.table_1.12.8        blob_1.2.1              
+# [103] git2r_0.26.1             digest_0.6.23            xtable_1.8-4            
+# [106] tidyr_1.1.3              httpuv_1.5.2             MCMCpack_1.4-5          
+# [109] RcppParallel_4.4.2       munsell_0.5.0            beeswarm_0.2.3          
+# [112] viridisLite_0.3.0        vipor_0.4.5              quadprog_1.5-8</code></pre>
 </div>
 </div>
 
