@@ -298,7 +298,7 @@ set.seed(1); de1 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 ```
 
-when we compare the $z$-scores estimated by these two runs:
+then we compare the $z$-scores estimated by these two runs:
 
 ```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
