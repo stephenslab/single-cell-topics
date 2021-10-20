@@ -5,17 +5,18 @@ output: workflowr::wflow_html
 ---
 
 Here we expand the evaluation of the new topic-model-based DE analysis
-methods to consider the case of more than two topics. We can no longer
-compare to DESeq2 because DESeq2 is designed to compare gene
-expression across two groups. Still, we can closely examine the
-benefit of accounting for uncertainty, and in so doing we will see
-that the benefits become more pronounced because our analysis factors
-in correlations in the estimates across the different topics.
+methods to consider the case of more than two topics. When comparing
+multiple groups, clusters or topics it is less clear what it means for
+a gene to be "differentially expressed". So to simplify the evaluation
+we simulate the data so that each gene is differentially expressed in
+at most one topic.
 
-When comparing multiple groups, clusters or topics it is lessclear
-what it means for a gene to be "differentially expressed". So to
-simplify the evaluation we simulate the data so that each gene is
-differentially expressed in at most one topic.
+In this evaluation can no longer compare to DESeq2 because DESeq2 is
+designed to compare gene expression across two groups. Still, we can
+closely examine the benefit of accounting for uncertainty, and in so
+doing we will see that the benefits become more pronounced because our
+analysis factors in correlations in the estimates across the different
+topics.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -88,9 +89,16 @@ set.seed(1)
 de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 2))
 ```
 
-*Add text here.*
+To measure differential expression across multiple topics, we use the
+"least extreme" log-fold change, which, for topic $k$, is defined as
+the LFC between topic $k$ and each other topic $j \neq k$ with a
+expression ratio closest to 1. Then we compare estimates of the "least
+extreme" LFCs with and without shrinkage.
 
-```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
+As expected, smaller estimates, and estimates corresponding to genes
+with lower expression, tend to be more strongly shrunk toward zero.
+
+```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=4.5}
 pdat <- data.frame(noshrink  = c(de.noshrink$postmean),
                    shrink    = c(de$postmean),
                    log10mean = rep(log10(de$f0),k))
@@ -105,9 +113,12 @@ p1 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
 print(p1)
 ```
 
-*Add text here.*
+The next two bar charts show the overall impact of the shrinkage on
+the distribution of the $z$-scores; dark blue bars are for
+diifferentially expressed genes, and orange bars are for
+non-differentially expressed genes.
 
-```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
+```{r shrink-vs-noshrink-zscores, fig.height=5, fig.width=8, warning=FALSE}
 nonzero_lfc <- matrix(FALSE,m,k)
 for (i in 1:m) {
   y <- dat$F[i,]
@@ -118,44 +129,59 @@ for (i in 1:m) {
 }
 pdat <- data.frame(noshrink = clamp(c(de.noshrink$z),-4,+4),
                    shrink   = clamp(c(de$z),-4,+4),
-                   de       = factor(c(nonzero_lfc)))
-p2 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c("darkorange","darkblue")) +
-  scale_fill_manual(values = c("darkorange","darkblue")) +
+                   de       = c(nonzero_lfc))
+p2 <- ggplot(subset(pdat,de),aes(x = noshrink,color = de)) +
+  geom_histogram(color = "darkblue",fill = "darkblue",bins = 64) +
+  coord_cartesian(xlim = c(-4,+4),,ylim = c(0,400)) +
   labs(x = "z-score",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p3 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c("darkorange","darkblue")) +
-  scale_fill_manual(values = c("darkorange","darkblue")) +
+p3 <- ggplot(subset(pdat,de),aes(x = shrink,color = de)) +
+  geom_histogram(color = "darkblue",fill = "darkblue",bins = 64) +
+  coord_cartesian(xlim = c(-4,+4),ylim = c(0,400)) +
   labs(x = "z-score",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p2,p3))
+p4 <- ggplot(subset(pdat,!de),aes(x = noshrink,color = de)) +
+  geom_histogram(color = "darkorange",fill = "darkorange",bins = 64) +
+  coord_cartesian(xlim = c(-4,+4)) +
+  labs(x = "z-score",y = "genes",title = "without shrinkage") +
+  theme_cowplot()
+p5 <- ggplot(subset(pdat,!de),aes(x = shrink,color = de)) +
+  geom_histogram(color = "darkorange",fill = "darkorange",bins = 64) +
+  coord_cartesian(xlim = c(-4,+4)) +
+  labs(x = "z-score",y = "genes",title = "with shrinkage") +
+  theme_cowplot()
+print(plot_grid(p2,p3,p4,p5,nrow = 2,ncol = 2))
 ```
 
-*Add text here.*
+And the next two bar charts show the overall impact of the shrinkage
+on the $p$-values. (The Y axis in the "with shrinkage" plot has been
+cut off at 2,500 genes to show in more detail the smaller $p$-values
+identifying true positives.)
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
                    shrink   = 10^(-c(de$lpval)),
                    de       = factor(c(nonzero_lfc)))
-p4 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+p6 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
+  coord_cartesian(ylim = c(0,2500)) +
   labs(x = "p-value",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p5 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p7 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
+  coord_cartesian(ylim = c(0,2500)) +
   labs(x = "p-value",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p4,p5))
+print(plot_grid(p6,p7))
 ```
 
-*Add text here.*
+Both the $z$-score and $p$-value plots show that the adaptive
+shrinkage step more strongly encourages the LFC estimates for the
+non-DE genes toward zero, thereby improving overall accuracy.
 
 Quantifying uncertainty in the LFC estimates
 --------------------------------------------
