@@ -10,8 +10,8 @@ shrinking the estimates using adaptive shrinkage and quantifying
 uncertainty. We also compare with DESeq2 and show that the results are
 very similar when the cells separate into distinct clusters. In this
 first analysis, we focus on the case of $K = 2$ topics, and in the
-[second analysis](de_analysis_detailed_look.html) we evaluate the new
-DE methods with more than two topics.
+[second analysis](de_analysis_detailed_look_more.html) we evaluate the
+new DE methods with more than two topics.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
