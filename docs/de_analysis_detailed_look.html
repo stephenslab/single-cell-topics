@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree32d547965b92f4dab3300ba2a2f01ed62380016ftargetblank32d5479a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/32d547965b92f4dab3300ba2a2f01ed62380016f" target="_blank">32d5479</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree53da33b0b77d5ead706041b653e3181fd265fd95targetblank53da33ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/53da33b0b77d5ead706041b653e3181fd265fd95" target="_blank">53da33b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree32d547965b92f4dab3300ba2a2f01ed62380016ftargetblank32d5479a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree53da33b0b77d5ead706041b653e3181fd265fd95targetblank53da33ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/32d547965b92f4dab3300ba2a2f01ed62380016f" target="_blank">32d5479</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/53da33b0b77d5ead706041b653e3181fd265fd95" target="_blank">53da33b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -502,6 +502,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/53da33b0b77d5ead706041b653e3181fd265fd95/analysis/de_analysis_detailed_look.Rmd" target="_blank">53da33b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/bd91aec3383cd4086332a613ffaea2b9220d7942/analysis/de_analysis_detailed_look.Rmd" target="_blank">bd91aec</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+Fixed small typo in text.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/fe1290c070b0699230cea42826ab568291caba1e/docs/de_analysis_detailed_look.html" target="_blank">fe1290c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+Revised accompanying text in de_analysis_detailed_look analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/71a19efd9035cc73f7549163a4e14b90711616e6/docs/de_analysis_detailed_look.html" target="_blank">71a19ef</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+Revised accompanying text in de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1155,7 +1223,7 @@ I have an initial implementation of function simulate_twotopic_scrnaseq_data use
 </div>
 </div>
 </div>
-<p>Here we evaluate the new topic-model-based DE methods implemented in the fastTopics package using simulated data. We show the benefits of shrinking the estimates using adaptive shrinkage and quantifying uncertainty. We also compare with DESeq2 and show that the results are very similar when the cells separate into distinct clusters. In this first analysis, we focus on the case of <span class="math inline">\(K = 2\)</span> topics, and in the <a href="de_analysis_detailed_look.html">second analysis</a> we evaluate the new DE methods with more than two topics.</p>
+<p>Here we evaluate the new topic-model-based DE methods implemented in the fastTopics package using simulated data. We show the benefits of shrinking the estimates using adaptive shrinkage and quantifying uncertainty. We also compare with DESeq2 and show that the results are very similar when the cells separate into distinct clusters. In this first analysis, we focus on the case of <span class="math inline">\(K = 2\)</span> topics, and in the <a href="de_analysis_detailed_look_more.html">second analysis</a> we evaluate the new DE methods with more than two topics.</p>
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
 library(scran)
@@ -1714,7 +1782,7 @@ Peter Carbonetto
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
 <p>Above, we assessed the usefulness of applying the adaptive shrinkage method to improve the accuracy of the LFC estimates. This idea of shrinking the LFC estimates is not new, and is already implemented in DESeq2 (also using adaptive shrinkage).</p>
-<p>A more important aspect of the DE analysis methods in fastTopics is that the methods also quantify uncertainty in the LFC estimates by computing posterior HPD intervals. To see why this is important, consider this plot comparing the MLEs of the LFCs against the shrunken posterior mean estimates of the LFCCs. What is striking is that even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
+<p>A more important aspect of the DE analysis methods in fastTopics is that the methods also quantify uncertainty in the LFC estimates by computing posterior HPD intervals. To see why this is important, consider this plot comparing the MLEs of the LFCs against the shrunken posterior mean estimates of the LFCs. What is striking is that even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
 <pre class="r"><code>pdat &lt;- data.frame(est       = de$est[,2],
                    shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
