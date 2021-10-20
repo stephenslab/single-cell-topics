@@ -210,7 +210,7 @@ A more important aspect of the DE analysis methods in fastTopics is
 that the methods also quantify uncertainty in the LFC estimates by
 computing posterior HPD intervals. To see why this is important,
 consider this plot comparing the MLEs of the LFCs against the shrunken
-posterior mean estimates of the LFCCs. What is striking is that even
+posterior mean estimates of the LFCs. What is striking is that even
 very large (in magnitude) point estimates are sometimes shrunk to
 zero; this happens because although the MLEs can be far from zero, the
 HPD intervals are also very large.
