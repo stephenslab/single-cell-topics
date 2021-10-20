@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree503cca366a85e331949a323913caa7f4fd0f6515targetblank503cca3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/503cca366a85e331949a323913caa7f4fd0f6515" target="_blank">503cca3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef746cb38c01345741ac11b701c409bf66da53902targetblankf746cb3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f746cb38c01345741ac11b701c409bf66da53902" target="_blank">f746cb3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree503cca366a85e331949a323913caa7f4fd0f6515targetblank503cca3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef746cb38c01345741ac11b701c409bf66da53902targetblankf746cb3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/503cca366a85e331949a323913caa7f4fd0f6515" target="_blank">503cca3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f746cb38c01345741ac11b701c409bf66da53902" target="_blank">f746cb3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -499,6 +499,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f746cb38c01345741ac11b701c409bf66da53902/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">f746cb3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look_more.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/9d6104692d58c818b5d33f9f15a09630b59e7261/docs/de_analysis_detailed_look_more.html" target="_blank">9d61046</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+Revised text and plots in de_analysis_detailed_look_more analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -745,7 +779,7 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>To measure differential expression across multiple topics, we use the “least extreme” log-fold change, which, for topic <span class="math inline">\(k\)</span>, is defined as the LFC between topic <span class="math inline">\(k\)</span> and each other topic <span class="math inline">\(j \neq k\)</span> with a expression ratio closest to 1. Then we compare estimates of the “least extreme” LFCs with and without shrinkage.</p>
+<p>To measure differential expression across multiple topics, we use the “least extreme” log-fold change, which, for topic <span class="math inline">\(k\)</span>, is defined as the LFC between topic <span class="math inline">\(k\)</span> and <span class="math inline">\(j \neq k\)</span> such that the expression ratio is closest to 1. Then we compare estimates of the “least extreme” LFCs with and without shrinkage.</p>
 <p>As expected, smaller estimates, and estimates corresponding to genes with lower expression, tend to be more strongly shrunk toward zero.</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink  = c(de.noshrink$postmean),
                    shrink    = c(de$postmean),
@@ -784,6 +818,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9d6104692d58c818b5d33f9f15a09630b59e7261/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">9d61046</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">36acb71</a>
 </td>
 <td>
@@ -811,7 +856,7 @@ pdat &lt;- data.frame(noshrink = clamp(c(de.noshrink$z),-4,+4),
                    de       = c(nonzero_lfc))
 p2 &lt;- ggplot(subset(pdat,de),aes(x = noshrink,color = de)) +
   geom_histogram(color = &quot;darkblue&quot;,fill = &quot;darkblue&quot;,bins = 64) +
-  coord_cartesian(xlim = c(-4,+4),,ylim = c(0,400)) +
+  coord_cartesian(xlim = c(-4,+4),ylim = c(0,400)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
 p3 &lt;- ggplot(subset(pdat,de),aes(x = shrink,color = de)) +
@@ -853,6 +898,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9d6104692d58c818b5d33f9f15a09630b59e7261/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-zscores-1.png" target="_blank">9d61046</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-zscores-1.png" target="_blank">36acb71</a>
@@ -912,6 +968,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9d6104692d58c818b5d33f9f15a09630b59e7261/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" target="_blank">9d61046</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" target="_blank">36acb71</a>
 </td>
 <td>
@@ -925,15 +992,16 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Both the <span class="math inline">\(z\)</span>-score and <span class="math inline">\(p\)</span>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero, thereby improving overall accuracy.</p>
+<p>Since most of the LFCs are zero, the adaptiev shrinkage strongly shrinks most of the LFC estimates toward zero. Still, because it is adaptive, the DE genes with stronger support are shrunk only a little or not at all.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
-<p><em>Add text here.</em></p>
+<p>Here we briefly assess the benefits of accounting for uncertainty in the LFC estimates. The benefits are more pronounced here because more topics brings more uncertainty to the estimates.</p>
+<p>First we compare the point estimates to the (shrunk) posterior mean estimates:</p>
 <pre class="r"><code>pdat &lt;- data.frame(est       = c(de$est),
                    shrink    = c(de$postmean),
                    log10mean = rep(log10(de$f0),k))
-p6 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+p8 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
@@ -941,7 +1009,7 @@ p6 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   labs(x = &quot;point estimates&quot;,
        y = &quot;shrunken estimates&quot;) +
   theme_cowplot()
-print(p6)</code></pre>
+print(p8)</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/point-vs-shrunken-scatterplot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-point-vs-shrunken-scatterplot-1">
@@ -980,21 +1048,24 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>As before, even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
+<p>Now we compare a ranking of the LFCs based on the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017), which doesn’t fully account for uncertainty in the LFC estimates, to a ranking based on the <span class="math inline">\(z\)</span>-scores. Since the K-L divergence is not a signed ranking, here we restrict our attention to LFCs estimated to be positive. (The Y axis in the right-hand plot has been cut off at 2,000 genes to give more detail to the distribution of the true positives.)</p>
 <pre class="r"><code>D     &lt;- fastTopics:::min_kl_poisson(fit$F)
-i     &lt;- which(de$z &gt; 0)
-pdat1 &lt;- data.frame(kl = pmin(D[i],5e-6),de = factor(nonzero_lfc[i]))
-pdat2 &lt;- data.frame(z = clamp(de$z[i],-2,+2),de = factor(nonzero_lfc[i]))
+i     &lt;- which(de$est &gt; 0)
+pdat1 &lt;- data.frame(kl = pmin(D[i],1e-6),de = factor(nonzero_lfc[i]))
+pdat2 &lt;- data.frame(z = clamp(de$z[i],-4,+4),de = factor(nonzero_lfc[i]))
 p7 &lt;- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_x_continuous(breaks = seq(0,1e-6,length.out = 3)) +
   labs(x = &quot;K-L divergence&quot;,y = &quot;genes&quot;) +
   theme_cowplot()
 p8 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  coord_cartesian(ylim = c(0,2000)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;) +
   theme_cowplot()
 print(plot_grid(p7,p8))</code></pre>
@@ -1036,52 +1107,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
-<pre class="r"><code>p9  &lt;- p7 + scale_x_continuous(limits = 1e-6 * c(0.5,5.1))
-p10 &lt;- p8 + scale_x_continuous(limits = c(0.05,2.1))
-print(plot_grid(p9,p10))
-# Warning: Removed 16305 rows containing non-finite values (stat_bin).
-# Warning: Removed 4 rows containing missing values (geom_bar).
-# Warning: Removed 23604 rows containing non-finite values (stat_bin).
-# Warning: Removed 4 rows containing missing values (geom_bar).</code></pre>
-<p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-2-1">
-Past versions of kl-vs-fasttopics-2-1.png
-</button>
-</p>
-<div id="fig-kl-vs-fasttopics-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">36acb71</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2021-10-20
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<p>What is most striking is that the K-L divergence measure produces a long tail of false positives, and this goes away once we compute <span class="math inline">\(z\)</span>-scores that more properly account for uncertainty in the LFC estimates.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
