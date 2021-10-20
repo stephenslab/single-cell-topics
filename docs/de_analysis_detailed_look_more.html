@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea7f4b810df1dde08c7b24c9a361c349a0945b25atargetblanka7f4b81a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a7f4b810df1dde08c7b24c9a361c349a0945b25a" target="_blank">a7f4b81</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree503cca366a85e331949a323913caa7f4fd0f6515targetblank503cca3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/503cca366a85e331949a323913caa7f4fd0f6515" target="_blank">503cca3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea7f4b810df1dde08c7b24c9a361c349a0945b25atargetblanka7f4b81a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree503cca366a85e331949a323913caa7f4fd0f6515targetblank503cca3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a7f4b810df1dde08c7b24c9a361c349a0945b25a" target="_blank">a7f4b81</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/503cca366a85e331949a323913caa7f4fd0f6515" target="_blank">503cca3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -499,6 +499,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/503cca366a85e331949a323913caa7f4fd0f6515/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">503cca3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look_more.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/36acb71112107faba6b3030aa762bc469fb2d51e/docs/de_analysis_detailed_look_more.html" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+Added some text to the de_analysis_detailed_look_more analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -642,8 +676,8 @@ workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
 </div>
 </div>
 </div>
-<p>Here we expand the evaluation of the new topic-model-based DE analysis methods to consider the case of more than two topics. We can no longer compare to DESeq2 because DESeq2 is designed to compare gene expression across two groups. Still, we can closely examine the benefit of accounting for uncertainty, and in so doing we will see that the benefits become more pronounced because our analysis factors in correlations in the estimates across the different topics.</p>
-<p>When comparing multiple groups, clusters or topics it is lessclear what it means for a gene to be “differentially expressed”. So to simplify the evaluation we simulate the data so that each gene is differentially expressed in at most one topic.</p>
+<p>Here we expand the evaluation of the new topic-model-based DE analysis methods to consider the case of more than two topics. When comparing multiple groups, clusters or topics it is less clear what it means for a gene to be “differentially expressed”. So to simplify the evaluation we simulate the data so that each gene is differentially expressed in at most one topic.</p>
+<p>In this evaluation can no longer compare to DESeq2 because DESeq2 is designed to compare gene expression across two groups. Still, we can closely examine the benefit of accounting for uncertainty, and in so doing we will see that the benefits become more pronounced because our analysis factors in correlations in the estimates across the different topics.</p>
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
@@ -711,7 +745,8 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p><em>Add text here.</em></p>
+<p>To measure differential expression across multiple topics, we use the “least extreme” log-fold change, which, for topic <span class="math inline">\(k\)</span>, is defined as the LFC between topic <span class="math inline">\(k\)</span> and each other topic <span class="math inline">\(j \neq k\)</span> with a expression ratio closest to 1. Then we compare estimates of the “least extreme” LFCs with and without shrinkage.</p>
+<p>As expected, smaller estimates, and estimates corresponding to genes with lower expression, tend to be more strongly shrunk toward zero.</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink  = c(de.noshrink$postmean),
                    shrink    = c(de$postmean),
                    log10mean = rep(log10(de$f0),k))
@@ -724,8 +759,45 @@ p1 &lt;- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
        y = &quot;shrunken LFC estimates&quot;) +
   theme_cowplot()
 print(p1)</code></pre>
-<p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" width="600" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-scatterplot-1">
+Past versions of shrink-vs-noshrink-scatterplot-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-scatterplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes.</p>
 <pre class="r"><code>nonzero_lfc &lt;- matrix(FALSE,m,k)
 for (i in 1:m) {
   y &lt;- dat$F[i,]
@@ -736,40 +808,124 @@ for (i in 1:m) {
 }
 pdat &lt;- data.frame(noshrink = clamp(c(de.noshrink$z),-4,+4),
                    shrink   = clamp(c(de$z),-4,+4),
-                   de       = factor(c(nonzero_lfc)))
-p2 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+                   de       = c(nonzero_lfc))
+p2 &lt;- ggplot(subset(pdat,de),aes(x = noshrink,color = de)) +
+  geom_histogram(color = &quot;darkblue&quot;,fill = &quot;darkblue&quot;,bins = 64) +
+  coord_cartesian(xlim = c(-4,+4),,ylim = c(0,400)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
-p3 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
-  geom_histogram(bins = 64) +
-  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+p3 &lt;- ggplot(subset(pdat,de),aes(x = shrink,color = de)) +
+  geom_histogram(color = &quot;darkblue&quot;,fill = &quot;darkblue&quot;,bins = 64) +
+  coord_cartesian(xlim = c(-4,+4),ylim = c(0,400)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p2,p3))</code></pre>
+p4 &lt;- ggplot(subset(pdat,!de),aes(x = noshrink,color = de)) +
+  geom_histogram(color = &quot;darkorange&quot;,fill = &quot;darkorange&quot;,bins = 64) +
+  coord_cartesian(xlim = c(-4,+4)) +
+  labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
+  theme_cowplot()
+p5 &lt;- ggplot(subset(pdat,!de),aes(x = shrink,color = de)) +
+  geom_histogram(color = &quot;darkorange&quot;,fill = &quot;darkorange&quot;,bins = 64) +
+  coord_cartesian(xlim = c(-4,+4)) +
+  labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
+  theme_cowplot()
+print(plot_grid(p2,p3,p4,p5,nrow = 2,ncol = 2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-zscores-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-zscores-1">
+Past versions of shrink-vs-noshrink-zscores-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-zscores-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-zscores-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>And the next two bar charts show the overall impact of the shrinkage on the <span class="math inline">\(p\)</span>-values. (The Y axis in the “with shrinkage” plot has been cut off at 2,500 genes to show in more detail the smaller <span class="math inline">\(p\)</span>-values identifying true positives.)</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
                    shrink   = 10^(-c(de$lpval)),
                    de       = factor(c(nonzero_lfc)))
-p4 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+p6 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  coord_cartesian(ylim = c(0,2500)) +
   labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
-p5 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p7 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  coord_cartesian(ylim = c(0,2500)) +
   labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p4,p5))</code></pre>
+print(plot_grid(p6,p7))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-pvalues-1">
+Past versions of shrink-vs-noshrink-pvalues-1.png
+</button>
+</p>
+<div id="fig-shrink-vs-noshrink-pvalues-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Both the <span class="math inline">\(z\)</span>-score and <span class="math inline">\(p\)</span>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero, thereby improving overall accuracy.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
@@ -787,6 +943,43 @@ p6 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   theme_cowplot()
 print(p6)</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/point-vs-shrunken-scatterplot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-point-vs-shrunken-scatterplot-1">
+Past versions of point-vs-shrunken-scatterplot-1.png
+</button>
+</p>
+<div id="fig-point-vs-shrunken-scatterplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/point-vs-shrunken-scatterplot-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><em>Add text here.</em></p>
 <pre class="r"><code>D     &lt;- fastTopics:::min_kl_poisson(fit$F)
 i     &lt;- which(de$z &gt; 0)
@@ -806,6 +999,43 @@ p8 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   theme_cowplot()
 print(plot_grid(p7,p8))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-1-1">
+Past versions of kl-vs-fasttopics-1-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p><em>Add text here.</em></p>
 <pre class="r"><code>p9  &lt;- p7 + scale_x_continuous(limits = 1e-6 * c(0.5,5.1))
 p10 &lt;- p8 + scale_x_continuous(limits = c(0.05,2.1))
@@ -815,6 +1045,43 @@ print(plot_grid(p9,p10))
 # Warning: Removed 23604 rows containing non-finite values (stat_bin).
 # Warning: Removed 4 rows containing missing values (geom_bar).</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-2-1">
+Past versions of kl-vs-fasttopics-2-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
