@@ -29,7 +29,9 @@ Simulate UMI counts
 
 ```{r simulate-counts}
 set.seed(1)
-dat <- simulate_manytopic_umi_data()
+m <- 10000
+k <- 6
+dat <- simulate_manytopic_umi_data(m = m,k = k)
 X <- dat$X
 F <- dat$F
 L <- dat$L
@@ -70,9 +72,9 @@ de <- de_analysis(fit,X,shrink.method = "ash",control = list(ns = 1e4,nc = 2))
 *Add text here.*
 
 ```{r shrink-vs-noshrink-scatterplot, fig.height=2.75, fig.width=5}
-pdat <- data.frame(noshrink  = de.noshrink$postmean[,2],
-                   shrink    = de$postmean[,2],
-                   log10mean = log10(de$f0))
+pdat <- data.frame(noshrink  = c(de.noshrink$postmean),
+                   shrink    = c(de$postmean),
+                   log10mean = rep(log10(de$f0),k))
 p1 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
@@ -87,43 +89,51 @@ print(p1)
 *Add text here.*
 
 ```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
-pdat <- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
-                   shrink   = clamp(de$z[,2],-8,+8),
-                   de       = factor(nonzero_lfc))
-p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+nonzero_lfc <- matrix(FALSE,m,k)
+for (i in 1:m) {
+  y <- dat$F[i,]
+  if (max(y) - min(y) > 1e-8) {
+    j <- which.max((y - mean(y))^2)
+    nonzero_lfc[i,j] <- TRUE
+  }
+}
+pdat <- data.frame(noshrink = clamp(c(de.noshrink$z),-4,+4),
+                   shrink   = clamp(c(de$z),-4,+4),
+                   de       = factor(c(nonzero_lfc)))
+p2 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "z-score",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p3 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "z-score",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p5,p6))
+print(plot_grid(p2,p3))
 ```
 
 *Add text here.*
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
-pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
-                   shrink   = 10^(-de$lpval[,2]),
-                   de       = factor(nonzero_lfc))
-p7 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+pdat <- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
+                   shrink   = 10^(-c(de$lpval)),
+                   de       = factor(c(nonzero_lfc)))
+p4 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p5 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p7,p8))
+print(plot_grid(p4,p5))
 ```
 
 *Add text here.*
@@ -131,4 +141,49 @@ print(plot_grid(p7,p8))
 Quantifying uncertainty in the LFC estimates
 --------------------------------------------
 
-*Add code and text here.*
+*Add text here.*
+
+```{r point-vs-shrunken-scatterplot, fig.width=8, fig.height=2.5}
+pdat <- data.frame(est       = c(de$est),
+                   shrink    = c(de$postmean),
+				   log10mean = rep(log10(de$f0),k))
+p6 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       midpoint = -4) +
+  labs(x = "point estimates",
+       y = "shrunken estimates") +
+  theme_cowplot()
+print(p6)
+```
+
+*Add text here.*
+
+```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
+D     <- fastTopics:::min_kl_poisson(fit$F)
+i     <- which(de$z > 0)
+pdat1 <- data.frame(kl = pmin(D[i],5e-6),de = factor(nonzero_lfc[i]))
+pdat2 <- data.frame(z = clamp(de$z[i],-2,+2),de = factor(nonzero_lfc[i]))
+p7 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "K-L divergence",y = "genes") +
+  theme_cowplot()
+p8 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+  geom_histogram(bins = 64) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "z-score",y = "genes") +
+  theme_cowplot()
+print(plot_grid(p7,p8))
+```
+
+*Add text here.*
+
+```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
+p9  <- p7 + scale_x_continuous(limits = 1e-6 * c(0.5,5.1))
+p10 <- p8 + scale_x_continuous(limits = c(0.05,2.1))
+print(plot_grid(p9,p10))
+```
