@@ -244,6 +244,6 @@ print(plot_grid(p7,p8))
 ```
 
 What is most striking is that the K-L divergence measure produces a
-long tail of false positives, and this goes away once we compute
-$z$-scores that more properly account for uncertainty in the LFC
-estimates.
+long tail of false positives (in addition to true positives), and this
+goes away once we compute $z$-scores that more properly account for
+uncertainty in the LFC estimates.
