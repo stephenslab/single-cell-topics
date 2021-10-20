@@ -4,7 +4,18 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add summary of the analysis here.*
+Here we expand the evaluation of the new topic-model-based DE analysis
+methods to consider the case of more than two topics. We can no longer
+compare to DESeq2 because DESeq2 is designed to compare gene
+expression across two groups. Still, we can closely examine the
+benefit of accounting for uncertainty, and in so doing we will see
+that the benefits become more pronounced because our analysis factors
+in correlations in the estimates across the different topics.
+
+When comparing multiple groups, clusters or topics it is lessclear
+what it means for a gene to be "differentially expressed". So to
+simplify the evaluation we simulate the data so that each gene is
+differentially expressed in at most one topic.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -25,7 +36,11 @@ source("../code/de_analysis_functions.R")
 Simulate UMI counts
 -------------------
 
-*Add text here.*
+We begin by simulating UMI count data from a rank-6 Poisson NMF model
+such that roughly half of the genes have the same expression rate
+across all topics, and the other half have a different rate of
+expression in exactly one out of the six topics. The details of the
+simulation are similar to the two-topic case.
 
 ```{r simulate-counts}
 set.seed(1)
@@ -40,7 +55,11 @@ L <- dat$L
 Fit multinomial topic model to UMI counts
 -----------------------------------------
 
-*Add text here.*
+Now we fit a multinomial topic model to the simulated UMI count data.
+To simplify evaluation, we assume that the topic proportions are
+known, and fix them to their ground-truth values. In this way, the
+only error that can arise is in the estimates of the expression rates
+$f_{ij}$.
 
 ```{r fit-poisson-nmf, warning=FALSE, message=FALSE, cache=TRUE}
 fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
@@ -61,7 +80,7 @@ de.noshrink <- de_analysis(fit,X,shrink.method = "none",
                            control = list(ns = 10000,nc = 2))
 ```
 
-Now we perform a second DE analysis using adaptive shrinkage to
+Next we perform a second DE analysis using adaptive shrinkage to
 shrink the LFC estimates:
 
 ```{r de-with-ash, message=FALSE, cache=TRUE}
@@ -182,7 +201,7 @@ print(plot_grid(p7,p8))
 
 *Add text here.*
 
-```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
+```{r kl-vs-fasttopics-2, fig.width=8, fig.height=2.5}
 p9  <- p7 + scale_x_continuous(limits = 1e-6 * c(0.5,5.1))
 p10 <- p8 + scale_x_continuous(limits = c(0.05,2.1))
 print(plot_grid(p9,p10))
