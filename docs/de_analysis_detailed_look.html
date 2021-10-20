@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-19
+<strong>Last updated:</strong> 2021-10-20
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree825dad09d9284253a368e453a205c0c7efcba1d0targetblank825dad0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/825dad09d9284253a368e453a205c0c7efcba1d0" target="_blank">825dad0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree32d547965b92f4dab3300ba2a2f01ed62380016ftargetblank32d5479a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/32d547965b92f4dab3300ba2a2f01ed62380016f" target="_blank">32d5479</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree825dad09d9284253a368e453a205c0c7efcba1d0targetblank825dad0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree32d547965b92f4dab3300ba2a2f01ed62380016ftargetblank32d5479a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/825dad09d9284253a368e453a205c0c7efcba1d0" target="_blank">825dad0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/32d547965b92f4dab3300ba2a2f01ed62380016f" target="_blank">32d5479</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -462,6 +462,7 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
+    Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
 
 </code></pre>
@@ -501,6 +502,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/32d547965b92f4dab3300ba2a2f01ed62380016f/analysis/de_analysis_detailed_look.Rmd" target="_blank">32d5479</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d9557e4e60e5692593648fae88a2271943adf843/analysis/de_analysis_detailed_look.Rmd" target="_blank">d9557e4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+<td>
+Fixed typo.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6a25fa860a3a6e9f4b90d11f8281aff552d032bf/docs/de_analysis_detailed_look.html" target="_blank">6a25fa8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+<td>
+Added more detailed analysis of Monte Carlo estimates to
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1103,7 +1155,7 @@ I have an initial implementation of function simulate_twotopic_scrnaseq_data use
 </div>
 </div>
 </div>
-<p>Here we evaluate the new topic-model-based DE methods implemented in the fastTopics package using simulalted data. We show the benefits of shrinking the estimates using adaptive shrinkage and quantifying uncertainty. We also compare with DESeq2 and show that the results are very similar when the cells separate into distinct clusters.</p>
+<p>Here we evaluate the new topic-model-based DE methods implemented in the fastTopics package using simulated data. We show the benefits of shrinking the estimates using adaptive shrinkage and quantifying uncertainty. We also compare with DESeq2 and show that the results are very similar when the cells separate into distinct clusters. In this first analysis, we focus on the case of <span class="math inline">\(K = 2\)</span> topics, and in the <a href="de_analysis_detailed_look.html">second analysis</a> we evaluate the new DE methods with more than two topics.</p>
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
 library(scran)
@@ -1371,7 +1423,7 @@ Peter Carbonetto
 </div>
 <div id="fit-multinomial-topic-model-to-umi-counts" class="section level2">
 <h2>Fit multinomial topic model to UMI counts</h2>
-<p>Here we fit a multinomial topic model to the simulated UMI count data. To simplify evaluation of the DE methods, we assume that the topic proportions are known, and set them to their ground truth values (that is, the values used to simulate the data). In this way, the only error that can arise is in the estimates of the expression rates <span class="math inline">\(f_{ij}\)</span>.</p>
+<p>Now we fit a multinomial topic model to the simulated UMI count data. To simplify evaluation, we assume that the topic proportions are known, and fix them to their ground-truth values. In this way, the only error that can arise is in the estimates of the expression rates <span class="math inline">\(f_{ij}\)</span>.</p>
 <pre class="r"><code>fit0 &lt;- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
 fit &lt;- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = &quot;scd&quot;,
                        update.loadings = NULL,verbose = &quot;none&quot;)
@@ -1395,7 +1447,7 @@ summary(fit)
 </div>
 <div id="de-analysis-with-and-without-shrinkage" class="section level2">
 <h2>DE analysis with and without shrinkage</h2>
-<p>First we perform a DE analysis <em>without</em> shrinking the LFC estimates:</p>
+<p>We perform a DE analysis <em>without</em> shrinking the LFC estimates,</p>
 <pre class="r"><code>set.seed(1)
 de.noshrink &lt;- de_analysis(fit,X,shrink.method = &quot;none&quot;,
                            control = list(ns = 10000,nc = 2))
@@ -1407,7 +1459,7 @@ de.noshrink &lt;- de_analysis(fit,X,shrink.method = &quot;none&quot;,
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Now we perform a second DE analysis using adaptive shrinkage to shrink (and hopefully improve accuracy of) the LFC estimates:</p>
+<p>and we perform a second DE analysis using adaptive shrinkage to shrink (and hopefully improve accuracy of) the LFC estimates,</p>
 <pre class="r"><code>set.seed(1)
 de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1e4,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
@@ -1419,7 +1471,7 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>In this scatterplot, we compare the posterior mean LFC estimates with and without performing the shrinkage step. As expected, the smaller LFC estimates, as well as the LFC estimates corresponding to genes with lower expression, tend to be more strongly shrunk toward zero.</p>
+<p>This next scatterplot compares the posterior mean LFC estimates with and without performing the shrinkage step. As expected, the smaller (in magnitude) LFC estimates and the LFC estimates corresponding to genes with lower expression tend to be more strongly shrunk toward zero.</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink  = de.noshrink$postmean[,2],
                    shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
@@ -1503,7 +1555,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>These next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes.</p>
+<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes.</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
                    shrink   = clamp(de$z[,2],-8,+8),
                    de       = factor(nonzero_lfc))
@@ -1657,12 +1709,12 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Both the <span class="math inline">\(z\)</span>-score and <span class="math inline">\(p\)</span>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero, thereby improving the overall accuracy.</p>
+<p>Both the <span class="math inline">\(z\)</span>-score and <span class="math inline">\(p\)</span>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero, thereby improving overall accuracy.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
-<p>Above, we assessed the usefulness of applying the adaptive shrinkage method to improve the accuracy of the LFC estimates. This idea of shrinking the LFC estimates is not new, and is already implemented in DESeq2, also using adaptive shrinkage.</p>
-<p>A more important aspect of the DE analysis methods in fastTopics is that it quantifies uncertainty in the LFC estimates by computing posterior HPD intervals. To see why this is important, consider this plot comparing point estimates (specifically, MLEs) of the LFCs (X axis) against the shrunken posterior mean estimates (Y axis). What is striking is that even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
+<p>Above, we assessed the usefulness of applying the adaptive shrinkage method to improve the accuracy of the LFC estimates. This idea of shrinking the LFC estimates is not new, and is already implemented in DESeq2 (also using adaptive shrinkage).</p>
+<p>A more important aspect of the DE analysis methods in fastTopics is that the methods also quantify uncertainty in the LFC estimates by computing posterior HPD intervals. To see why this is important, consider this plot comparing the MLEs of the LFCs against the shrunken posterior mean estimates of the LFCCs. What is striking is that even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
 <pre class="r"><code>pdat &lt;- data.frame(est       = de$est[,2],
                    shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
@@ -1735,7 +1787,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, a measure which doesn’t fully account for uncertainty in the LFCs. As a result, sometimes genes with very large LFCs get highly ranked, but after a full accounting for uncertainty, they are no longer ranked highly. (Since the K-L divergence is not a signed ranking measure like the <span class="math inline">\(z\)</span>-score, here we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1.)</p>
+<p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, a measure which doesn’t fully account for uncertainty in the LFCs. Without fully accounting for uncertainty, sometimes genes with very large LFCs get highly ranked. (Note that, since the K-L divergence is not a signed ranking measure like the <span class="math inline">\(z\)</span>-score, here we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1.)</p>
 <pre class="r"><code>i     &lt;- which(fit$F[,2] - fit$F[,1] &gt; -1e-8)
 D     &lt;- fastTopics:::min_kl_poisson(fit$F)
 pdat1 &lt;- data.frame(kl = pmin(D[,2],0.00025),de = factor(nonzero_lfc))
@@ -1794,7 +1846,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>To underscore this point, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform better than the ranking based on the KL divergence measure. We also see that shrinkage leads to a modest improvement.</p>
+<p>To underscore the importance of accounting for uncertainty, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform better than the ranking based on the KL divergence measure. We also see that using adaptive shrinkage produces a modest improvement.</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
 pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
 pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
@@ -1847,8 +1899,8 @@ Peter Carbonetto
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To check that the posterior calculations are reasonably accurate, we can perform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs.</p>
-<p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples,</p>
+<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we erform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs. If the <span class="math inline">\(z\)</span>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
+<p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Using 2 RcppParallel threads.
 # Using 2 threads.
@@ -1861,7 +1913,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
-<p>when we compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs:</p>
+<p>Now we compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs in a simple scatterplot:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 pp1 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -1908,7 +1960,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Here we see that the concordance is quite strong, but we should be able to improve the accuracy by running a longer Markov chain. Let’s try 10,000 iterations:</p>
+<p>Here we see that the concordance is quite strong, but we should be able to improve the accuracy by running a longer Markov chain. Let’s try simulating a longer Markov chain with 10,000 iterations:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 # Using 2 RcppParallel threads.
 # Using 2 threads.
@@ -1927,7 +1979,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Indeed, with 10,000 Monte Carlo samples the two sets of <span class="math inline">\(z\)</span>-score estimates are very close to each other:</p>
+<p>Indeed, with 10,000 Monte Carlo samples the two sets of <span class="math inline">\(z\)</span>-score estimates are now very similar:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 pp2 &lt;- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -1961,6 +2013,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6a25fa860a3a6e9f4b90d11f8281aff552d032bf/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" target="_blank">6a25fa8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7682717241c7257148bd41e88a3799fd70e69a5b/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" target="_blank">7682717</a>
 </td>
 <td>
@@ -1977,17 +2040,17 @@ Peter Carbonetto
 </div>
 <div id="comparison-with-deseq2" class="section level2">
 <h2>Comparison with DESeq2</h2>
-<p>DESeq2 is a leading method for DE analysis with single-cell RNA sequencing data. Here we apply DESeq2 to these same UMI count data, and show that the fastTopics DE results are very similar to DESeq2. Since DESeq2 assumes discrete cell types or conditions, we apply DESeq2 to the subset of cells that were are almost entirely (&gt;99%) simulated from one topic; in this simulation, approximatmely 2/3 of the cells were simulated from one topic (entirely topic 1, or entirely topic 2), and the remaining 1/3 were simulated from a mixture of the two topics. There may be a small loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3 of the data, but overall we expect that the fastTopics DE analysis should closely replicate the DESeq2 analysis.</p>
+<p>DESeq2 is a leading method for DE analysis in single-cell RNA sequencing data. Here we apply DESeq2 to these same UMI count data, and show that the fastTopics DE results are very similar to DESeq2. Since DESeq2 assumes discrete cell types or conditions, we apply DESeq2 to the subset of cells that were are almost entirely (&gt;99%) simulated from one topic; in this simulation, approximatmely 2/3 of the cells were simulated from one topic (entirely topic 1 or entirely topic 2), and the remaining 1/3 were simulated from a mixture of the two topics (with the mixture proportion being uniformly distributed on <span class="math inline">\([0,1]\)</span>). There may be a small loss of accuracy in the DESeq2 results since DESeq2 is using only 2/3 of the data, but overall we expect that the fastTopics DE analysis should closely replicate the DESeq2 analysis.</p>
 <pre class="r"><code>single_topic &lt;- apply(L,1,max) &gt; 0.99
 mean(single_topic)
 # [1] 0.655</code></pre>
-<p>These next few lines of code prepare the UMI count data for analysis with DESeq2:</p>
+<p>These next few lines of code prepare the UMI count data for analysis with DESeq2.</p>
 <pre class="r"><code>i &lt;- which(single_topic)
 Y &lt;- t(X[i,])
 cluster &lt;- factor(apply(L,1,which.max))
 deseq &lt;- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
 # converting counts to integer mode</code></pre>
-<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the DESeq2 vignette for details). To replicate the fastTopics analysis as closely as possible, we also shrink the LFC estimates using adaptive shrinkage.</p>
+<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the main DESeq2 vignette for details). To replicate the fastTopics analysis as closely as possible, we also shrink the LFC estimates using adaptive shrinkage.</p>
 <pre class="r"><code>sizeFactors(deseq) &lt;- calculateSumFactors(Y)
 deseq &lt;- DESeq(deseq,test = &quot;LRT&quot;,reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
@@ -2051,7 +2114,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>And likewise for the <span class="math inline">\(z\)</span>-scores:</p>
+<p>And likewise the <span class="math inline">\(z\)</span>-scores:</p>
 <pre class="r"><code>deseq$z &lt;- with(deseq,log2FoldChange/lfcSE)
 pdat &lt;- data.frame(DESeq2     = deseq$z,
                    fastTopics = de$z[,2])
@@ -2176,7 +2239,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>And therefore the performance of the two DE methods for discovering differentially expressed genes is very similar, with the slight advantage given to fastTopics (probably because it makde use of 1/3 more data):</p>
+<p>Based on these results, we would expect that the performance of fastTopics and DESeq2 for discovering differentially expressed genes is very similar, with a slight advantage given to fastTopics (mainly because it is using 1/3 more data):</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc)
 pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
