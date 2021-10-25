@@ -109,6 +109,24 @@ simulate_manytopic_umi_data <- function (m = 10000, s = 10^rnorm(1000,0,0.2),
   return(list(X = X,s = s,F = F,L = L))
 }
 
+# TO DO: Explain here what this function does, and how to use it.
+create_roc_curve <- function (pval, true) {
+  pval[is.na(pval)] <- max(pval,na.rm = TRUE)
+  t   <- sort(unique(pval))
+  n   <- length(t)
+  out <- data.frame(t = t,tpr = 0,fpr = 0)
+  for (i in 1:n) {
+    pos <- pval <= t[i]
+    tp  <- sum(pos & true)
+    fp  <- sum(pos & !true)
+    fn  <- sum(!pos & true)
+    tn  <- sum(!pos & !true)
+    out[i,"tpr"] <- tp/(tp + fn)
+    out[i,"fpr"] <- fp/(fp + tn)
+  }
+  return(out)
+}
+
 # Create a data frame used to plot a power vs. FDR curve. Input
 # argument "true" is a logical vector in which true[i] is TRUE if and
 # only if the ith element is a true discovery; input argument "pval"
