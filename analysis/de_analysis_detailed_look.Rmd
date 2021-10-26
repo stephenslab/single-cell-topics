@@ -270,15 +270,16 @@ this happens less often for the $z$-scores.
 To underscore the importance of accounting for uncertainty, suppose we
 used the KL-divergences and the *p*-values returned by
 `de_analysis(shrink.method = "ash")` to discover differentially
-expressed genes. The power vs. FDR curves show that the rankings
-accounting for uncertainty in the LFC estimates (with or without
-shrinkage) perform better than the ranking based on the KL divergence
-measure. We also see that using adaptive shrinkage produces a modest
-improvement. As before, to draw a fair comparison with the K-L
+expressed genes. The power vs. FDR curves show that, at low false
+discovery rates (say, FDR < 0.2), the rankings accounting for
+uncertainty in the LFC estimates (with or without shrinkage) perform
+much better than the ranking based on the KL divergence measure. We
+also see that using adaptive shrinkage produces a modest improvement.
+As before, to draw a fair comparison with the K-L
 divergence-based ranking, we focus only on genes that are estimated to
 have greater expression in topic 2 compared to topic 1.
 
-```{r kl-vs-fasttopics-2, fig.width=4.5, fig.height=3}
+```{r kl-vs-fasttopics-2, fig.width=4.25, fig.height=3}
 pdat1 <- create_fdr_vs_power_curve(-D[i,2],nonzero_lfc[i],length.out = 140)
 pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
                                    length.out = 140)
@@ -294,7 +295,7 @@ p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
 print(p12)
 ```
 
-```{r kl-vs-fasttopics-2, fig.width=4.5, fig.height=3}
+```{r kl-vs-fasttopics-3, fig.width=4.5, fig.height=3}
 pdat1 <- create_roc_curve(-D[,2],nonzero_lfc)
 pdat2 <- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc)
 pdat3 <- create_roc_curve(-de$lpval[,2],nonzero_lfc)
