@@ -110,10 +110,12 @@ simulate_manytopic_umi_data <- function (m = 10000, s = 10^rnorm(1000,0,0.2),
 }
 
 # TO DO: Explain here what this function does, and how to use it.
-create_roc_curve <- function (pval, true) {
+create_roc_curve <- function (pval, true, length.out = Inf) {
   pval[is.na(pval)] <- max(pval,na.rm = TRUE)
-  t   <- sort(unique(pval))
-  n   <- length(t)
+  t <- sort(unique(pval))
+  if (length.out < Inf)
+    t <- quantile(t,seq(0,1,length.out = length.out))
+  n <- length(t)
   out <- data.frame(t = t,tpr = 0,fpr = 0)
   for (i in 1:n) {
     pos <- pval <= t[i]
@@ -138,10 +140,12 @@ create_roc_curve <- function (pval, true) {
 # calculate power and FDR. Note power = TP/(TP + TN) and fdr = FP/(TP
 # + FP), where TP is the number of true positives, FP is the number of
 # false positives, and TN is the number of true negatives.
-create_fdr_vs_power_curve <- function (pval, true) {
+create_fdr_vs_power_curve <- function (pval, true, length.out = Inf) {
   pval[is.na(pval)] <- max(pval,na.rm = TRUE)
-  t   <- sort(unique(pval))
-  n   <- length(t)
+  t <- sort(unique(pval))
+  if (length.out < Inf)
+    t <- quantile(t,seq(0,1,length.out = length.out))
+  n <- length(t)
   out <- data.frame(t = t,power = 0,fdr = 0)
   for (i in 1:n) {
     pos <- pval <= t[i]

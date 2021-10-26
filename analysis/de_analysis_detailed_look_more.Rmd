@@ -228,6 +228,8 @@ D     <- fastTopics:::min_kl_poisson(fit$F)
 i     <- which(de$est > 0)
 pdat1 <- data.frame(kl = log10(D[i] + 1e-10),de = factor(nonzero_lfc[i]))
 pdat2 <- data.frame(z = clamp(de$z[i],-4,+4),de = factor(nonzero_lfc[i]))
+pdat1 <- subset(pdat1,de == "TRUE")
+pdat2 <- subset(pdat2,de == "TRUE")
 p7 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
@@ -249,3 +251,43 @@ long tail of false positives (in addition to true positives), and this
 goes away once we compute $z$-scores that more properly account for
 uncertainty in the LFC estimates.
 
+```{r kl-vs-fasttopics-2}
+pdat1 <- create_fdr_vs_power_curve(-D[i],nonzero_lfc[i],length.out = 800)
+pdat2 <- create_fdr_vs_power_curve(-de$lpval[i],nonzero_lfc[i],length.out=800)
+pdat  <- rbind(cbind(pdat1,method = "kl"),
+               cbind(pdat2,method = "fastTopics"))
+p9 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.75)  +
+  scale_color_manual(values = c("royalblue","darkorange")) +
+  theme_cowplot()
+print(p9)
+```
+
+*Add text here.*
+
+```{r kl-vs-fasttopics-2}
+pdat1 <- create_fdr_vs_power_curve(-log(D[i]),nonzero_lfc[i],length.out=200)
+pdat2 <- create_fdr_vs_power_curve(de$lfsr[i],nonzero_lfc[i],length.out=200)
+pdat  <- rbind(cbind(pdat1,method = "kl"),
+               cbind(pdat2,method = "fastTopics"))
+p9 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.75)  +
+  scale_color_manual(values = c("royalblue","darkorange")) +
+  theme_cowplot()
+print(p9)
+```
+
+*Add text here.*
+
+```{r kl-vs-fasttopics-3}
+pdat1 <- create_roc_curve(-log(D[i]),nonzero_lfc[i],length.out = 500)
+pdat2 <- create_roc_curve(de$lfsr[i],nonzero_lfc[i],length.out = 500)
+pdat  <- rbind(cbind(pdat1,method = "kl"),
+               cbind(pdat2,method = "fastTopics"))
+p10 <- ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
+  geom_line(size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_color_manual(values = c("royalblue","darkorange")) +
+  theme_cowplot()
+print(p10)
+```

@@ -271,6 +271,22 @@ shrinkage) perform better than the ranking based on the KL divergence
 measure. We also see that using adaptive shrinkage produces a modest
 improvement.
 
+TO DO: Focus only on genes with LFC > 0.
+
+```{r kl-vs-fasttopics-2, fig.width=4.5, fig.height=3}
+pdat1 <- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
+pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
+pdat3 <- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
+pdat  <- rbind(cbind(pdat1,method = "kl"),
+               cbind(pdat2,method = "noshrink"),
+               cbind(pdat3,method = "shrink"))
+p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_point(size = 0.3)  +
+  scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
+  theme_cowplot()
+print(p12)
+```
+
 ```{r kl-vs-fasttopics-2, fig.width=4.5, fig.height=3}
 pdat1 <- create_roc_curve(-D[,2],nonzero_lfc)
 pdat2 <- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc)
@@ -287,20 +303,6 @@ print(p12)
 ```
 
 *Add text here.*
-
-```{r kl-vs-fasttopics-3, fig.width=4.5, fig.height=3}
-pdat1 <- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
-pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
-pdat3 <- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
-pdat  <- rbind(cbind(pdat1,method = "kl"),
-               cbind(pdat2,method = "noshrink"),
-               cbind(pdat3,method = "shrink"))
-p14 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_point(size = 0.3)  +
-  scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
-  theme_cowplot()
-print(p14)
-```
 
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
