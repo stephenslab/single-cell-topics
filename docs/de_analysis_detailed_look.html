@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecaa23002bf964a3122bc83e09da0303fd26d7c12targetblankcaa2300a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/caa23002bf964a3122bc83e09da0303fd26d7c12" target="_blank">caa2300</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree473b08590f0282b55f223df7199837fb44e9f39btargetblank473b085a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/473b08590f0282b55f223df7199837fb44e9f39b" target="_blank">473b085</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreecaa23002bf964a3122bc83e09da0303fd26d7c12targetblankcaa2300a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree473b08590f0282b55f223df7199837fb44e9f39btargetblank473b085a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/caa23002bf964a3122bc83e09da0303fd26d7c12" target="_blank">caa2300</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/473b08590f0282b55f223df7199837fb44e9f39b" target="_blank">473b085</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -464,6 +464,9 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
+
+Unstaged changes:
+    Modified:   analysis/de_analysis_detailed_look_more.Rmd
 
 </code></pre>
 <p>
@@ -502,6 +505,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/473b08590f0282b55f223df7199837fb44e9f39b/analysis/de_analysis_detailed_look.Rmd" target="_blank">473b085</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/de_analysis_detailed_look.html" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+<td>
+Added ROC curves to the de_analysis_detailed_look analysis, and made
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1997,6 +2034,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/25798e0533999ba6a12349de8e738ee343388668/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">25798e0</a>
 </td>
 <td>
@@ -2010,7 +2058,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Without fully accounting for uncertainty, sometimes genes with very large LFCs get highly ranked by the K-L divergence measure, whereas this happens less often for the <span class="math inline">\(z\)</span>-scores.</p>
+<p>Without fully accounting for uncertainty, sometimes genes with very large LFCs get highly ranked by the K-L divergence measure (while also being uncertain about these estimates), whereas this happens less often for the <span class="math inline">\(z\)</span>-scores.</p>
 <p>To underscore the importance of accounting for uncertainty, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that, at low false discovery rates (say, FDR &lt; 0.2), the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform much better than the ranking based on the KL divergence measure. We also see that using adaptive shrinkage produces a modest improvement. As before, to draw a fair comparison with the K-L divergence-based ranking, we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1.</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[i,2],nonzero_lfc[i],length.out = 140)
 pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
@@ -2025,6 +2073,43 @@ ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   scale_color_manual(values = c(&quot;royalblue&quot;,&quot;limegreen&quot;,&quot;darkorange&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-2-1.png" width="510" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-2-1">
+Past versions of kl-vs-fasttopics-2-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>For a different perspective we also show the ROC curve comparinig the true positive rate (TPR) against the false positive rate (FPR):</p>
 <pre class="r"><code>pdat1 &lt;- create_roc_curve(-D[,2],nonzero_lfc,length.out = 100)
 pdat2 &lt;- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc,length.out = 100)
@@ -2038,6 +2123,43 @@ ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
   scale_color_manual(values = c(&quot;royalblue&quot;,&quot;limegreen&quot;,&quot;darkorange&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-3-1">
+Past versions of kl-vs-fasttopics-3-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-3-1.png" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
@@ -2411,6 +2533,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-power-1.png" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/c483c156c4d26f1174108f5ae5bc8bfa819ed111/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-power-1.png" target="_blank">c483c15</a>
 </td>
 <td>
@@ -2442,9 +2575,47 @@ pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
                cbind(pdat2,method = &quot;fastTopics&quot;))
 ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
   geom_line(size = 0.65)  +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   scale_color_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-roc-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fasttopics-vs-deseq2-roc-1">
+Past versions of fasttopics-vs-deseq2-roc-1.png
+</button>
+</p>
+<div id="fig-fasttopics-vs-deseq2-roc-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-roc-1.png" target="_blank">b7503ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
