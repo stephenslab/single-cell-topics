@@ -60,7 +60,10 @@ simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
   return(list(X = X,s = s,F = F,L = L))
 }
 
-# TO DO: Explain here what this function does, and how to use it.
+# This is similar to simulate_twotopic_umi_data, generalized to k
+# topics. As before, p is the probability that the expression rate is
+# different among the topics; when it is different, it is different in
+# exactly one out of the k topics.
 simulate_manytopic_umi_data <- function (m = 10000, s = 10^rnorm(1000,0,0.2),
                                          k = 6, p = 0.5) {
 
@@ -109,13 +112,28 @@ simulate_manytopic_umi_data <- function (m = 10000, s = 10^rnorm(1000,0,0.2),
   return(list(X = X,s = s,F = F,L = L))
 }
 
-# TO DO: Explain here what this function does, and how to use it.
-create_roc_curve <- function (pval, true, length.out = Inf) {
+# Create a data frame used to plot an ROC curve. Input argument "true"
+# is a logical vector in which true[i] is TRUE if and only if the ith
+# element is a true discovery; input argument "pval" may be either a
+# vector of p-values of the same length as "true", or an equivalent
+# ranking in which the discoveries with the strongest support are
+# ordered first in an ordering obtained from order(pval).  The output
+# is a data frame with three columns: "tpr" (true positive rate),
+# "fpr" (false positive rate") and "t", the latter being the threshold
+# used to calculate TPR annd FPR. Note TPR = TP/(TP + FN) and fpr =
+# FP/(FP + TN), where TP is the number of true positives, FP is the
+# number of false positives, TN is the number of true negatives, and
+# FN is the number of false negatives. The number of rows should be
+# equal to either length.out or the number of unique p-values,
+# whichever is smaller.
+create_roc_curve <- function (pval, true, length.out = 100) {
   pval[is.na(pval)] <- max(pval,na.rm = TRUE)
-  t <- sort(unique(pval))
-  if (length.out < Inf)
+  t <- unique(pval)
+  if (length.out < length(t))
     t <- quantile(t,seq(0,1,length.out = length.out))
-  n <- length(t)
+  else
+    t <- sort(t)
+  n   <- length(t)
   out <- data.frame(t = t,tpr = 0,fpr = 0)
   for (i in 1:n) {
     pos <- pval <= t[i]
