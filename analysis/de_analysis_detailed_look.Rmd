@@ -151,7 +151,8 @@ print(p4)
 The next two bar charts show the overall impact of the shrinkage on
 the distribution of the $z$-scores; dark blue bars are for
 diifferentially expressed genes, and orange bars are for
-non-differentially expressed genes.
+non-differentially expressed genes. (For better visualizataion the
+$z$-scores have been projected onto the interval $[-8,+8]$.)
 
 ```{r shrink-vs-noshrink-zscores, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
@@ -196,7 +197,7 @@ print(plot_grid(p7,p8))
 
 Both the $z$-score and $p$-value plots show that the adaptive
 shrinkage step more strongly encourages the LFC estimates for the
-non-DE genes toward zero, thereby improving overall accuracy.
+non-DE genes toward zero.
 
 Quantifying uncertainty in the LFC estimates
 --------------------------------------------
@@ -233,25 +234,25 @@ print(p9)
 To illustrate the impact of this on the DE analysis, consider the K-L
 divergence measure used in Dey, Hsiao & Stephens (2017) to rank genes,
 a measure which doesn't fully account for uncertainty in the
-LFCs. Without fully accounting for uncertainty, sometimes genes with
-very large LFCs get highly ranked. (Note that, since the K-L
-divergence is not a signed ranking measure like the $z$-score, here we
-focus only on genes that are estimated to have greater expression in
-topic 2 compared to topic 1.)
+LFCs. Since the K-L divergence is not a
+signed ranking measure like the $z$-score, here we focus only on genes
+that are estimated to have greater expression in topic 2 compared to
+topic 1. (For better visualization, we show the distribution of the
+K-L divergences on the log scale, and any $z$-scores larger than 4 are
+shown as 4.)
 
 ```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
 i     <- which(fit$F[,2] - fit$F[,1] > -1e-8)
 D     <- fastTopics:::min_kl_poisson(fit$F)
-pdat1 <- data.frame(kl = pmin(D[,2],0.00025),de = factor(nonzero_lfc))
+pdat1 <- data.frame(lkl = log10(D[,2] + 1e-8),de = factor(nonzero_lfc))
 pdat2 <- data.frame(z = clamp(de$z[,2],-4,+4),de = factor(nonzero_lfc))
 pdat1 <- pdat1[i,]
 pdat2 <- pdat2[i,]
-p10 <- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+p10 <- ggplot(pdat1,aes(x = lkl,color = de,fill = de)) +
   geom_histogram(bins = 64) +
-  scale_x_continuous(breaks = c(0,0.0001,0.0002)) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
-  labs(x = "K-L divergence",y = "genes") +
+  labs(x = "log10 K-L divergence",y = "genes") +
   theme_cowplot()
 p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -262,6 +263,10 @@ p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
 print(plot_grid(p10,p11))
 ```
 
+Without fully accounting for uncertainty, sometimes genes with very
+large LFCs get highly ranked by the K-L divergence measure, whereas
+this happens less often for the $z$-scores.
+
 To underscore the importance of accounting for uncertainty, suppose we
 used the KL-divergences and the *p*-values returned by
 `de_analysis(shrink.method = "ash")` to discover differentially
@@ -269,19 +274,21 @@ expressed genes. The power vs. FDR curves show that the rankings
 accounting for uncertainty in the LFC estimates (with or without
 shrinkage) perform better than the ranking based on the KL divergence
 measure. We also see that using adaptive shrinkage produces a modest
-improvement.
-
-TO DO: Focus only on genes with LFC > 0.
+improvement. As before, to draw a fair comparison with the K-L
+divergence-based ranking, we focus only on genes that are estimated to
+have greater expression in topic 2 compared to topic 1.
 
 ```{r kl-vs-fasttopics-2, fig.width=4.5, fig.height=3}
-pdat1 <- create_fdr_vs_power_curve(-D[,2],nonzero_lfc)
-pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[,2],nonzero_lfc)
-pdat3 <- create_fdr_vs_power_curve(-de$lpval[,2],nonzero_lfc)
+pdat1 <- create_fdr_vs_power_curve(-D[i,2],nonzero_lfc[i],length.out = 140)
+pdat2 <- create_fdr_vs_power_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
+                                   length.out = 140)
+pdat3 <- create_fdr_vs_power_curve(-de$lpval[i,2],nonzero_lfc[i],
+                                   length.out = 140)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
 p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_point(size = 0.3)  +
+  geom_line(size = 0.75)  +
   scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
   theme_cowplot()
 print(p12)

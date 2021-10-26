@@ -139,13 +139,17 @@ create_roc_curve <- function (pval, true, length.out = Inf) {
 # discovery rate") and "t", the latter being the threshold used to
 # calculate power and FDR. Note power = TP/(TP + TN) and fdr = FP/(TP
 # + FP), where TP is the number of true positives, FP is the number of
-# false positives, and TN is the number of true negatives.
-create_fdr_vs_power_curve <- function (pval, true, length.out = Inf) {
+# false positives, and TN is the number of true negatives. The number
+# of rows should be equal to either length.out or the number of unique
+# p-values, whichever is smaller.
+create_fdr_vs_power_curve <- function (pval, true, length.out = 200) {
   pval[is.na(pval)] <- max(pval,na.rm = TRUE)
-  t <- sort(unique(pval))
-  if (length.out < Inf)
+  t <- unique(pval)
+  if (length.out < length(t))
     t <- quantile(t,seq(0,1,length.out = length.out))
-  n <- length(t)
+  else
+    t <- sort(t)
+  n   <- length(t)
   out <- data.frame(t = t,power = 0,fdr = 0)
   for (i in 1:n) {
     pos <- pval <= t[i]
