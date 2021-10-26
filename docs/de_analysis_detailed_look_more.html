@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-20
+<strong>Last updated:</strong> 2021-10-26
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea65de9e7c10a6194c0696675c507a8056c27499dtargetblanka65de9ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a65de9e7c10a6194c0696675c507a8056c27499d" target="_blank">a65de9e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree17d0249a6e011bac52f9e66597beb7dd8d939b60targetblank17d0249a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/17d0249a6e011bac52f9e66597beb7dd8d939b60" target="_blank">17d0249</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea65de9e7c10a6194c0696675c507a8056c27499dtargetblanka65de9ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree17d0249a6e011bac52f9e66597beb7dd8d939b60targetblank17d0249a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a65de9e7c10a6194c0696675c507a8056c27499d" target="_blank">a65de9e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/17d0249a6e011bac52f9e66597beb7dd8d939b60" target="_blank">17d0249</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -499,6 +499,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/17d0249a6e011bac52f9e66597beb7dd8d939b60/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">17d0249</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look_more.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/2b5780a574f73a75892b238be9e7db51e5126f63/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">2b5780a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-25
+</td>
+<td>
+Made some improvements to the detailed DE investigations.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9a8de60be67463472ddbb15e492237be00ed27bc/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">9a8de60</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-25
+</td>
+<td>
+A few revisions to de_analysis_detailed_look_more analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/8445a1c125f93aace463d66d46d2a58165277cd3/docs/de_analysis_detailed_look_more.html" target="_blank">8445a1c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+<td>
+One more small edit to the de_analysis_detailed_look_more analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -745,7 +813,7 @@ workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”)
 </div>
 </div>
 <p>Here we expand the evaluation of the new topic-model-based DE analysis methods to consider the case of more than two topics. When comparing multiple groups, clusters or topics it is less clear what it means for a gene to be “differentially expressed”. So to simplify the evaluation we simulate the data so that each gene is differentially expressed in at most one topic.</p>
-<p>In this evaluation can no longer compare to DESeq2 because DESeq2 is designed to compare gene expression across two groups. Still, we can closely examine the benefit of accounting for uncertainty, and in so doing we will see that the benefits become more pronounced because our analysis factors in correlations in the estimates across the different topics.</p>
+<p>In this evaluation can no longer compare to DESeq2 because DESeq2 is designed to compare gene expression across two groups. Still, we can closely examine the benefit of accounting for uncertainty.</p>
 <p>Load the packages used in the analysis below, and some additional functions for simulating the data.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
@@ -818,15 +886,14 @@ de &lt;- de_analysis(fit,X,shrink.method = &quot;ash&quot;,control = list(ns = 1
 <pre class="r"><code>pdat &lt;- data.frame(noshrink  = c(de.noshrink$postmean),
                    shrink    = c(de$postmean),
                    log10mean = rep(log10(de$f0),k))
-p1 &lt;- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
+ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
                        midpoint = -4) +
   labs(x = &quot;original LFC estimates&quot;,
        y = &quot;shrunken LFC estimates&quot;) +
-  theme_cowplot()
-print(p1)</code></pre>
+  theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-scatterplot-1.png" width="540" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-scatterplot-1">
@@ -876,7 +943,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes.</p>
+<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes. Note that for visualization purposes the <span class="math inline">\(z\)</span>-scores are projected onto the interval <span class="math inline">\([-4,+4]\)</span>.</p>
 <pre class="r"><code>nonzero_lfc &lt;- matrix(FALSE,m,k)
 for (i in 1:m) {
   y &lt;- dat$F[i,]
@@ -888,27 +955,27 @@ for (i in 1:m) {
 pdat &lt;- data.frame(noshrink = clamp(c(de.noshrink$z),-4,+4),
                    shrink   = clamp(c(de$z),-4,+4),
                    de       = c(nonzero_lfc))
-p2 &lt;- ggplot(subset(pdat,de),aes(x = noshrink,color = de)) +
+p1 &lt;- ggplot(subset(pdat,de),aes(x = noshrink,color = de)) +
   geom_histogram(color = &quot;darkblue&quot;,fill = &quot;darkblue&quot;,bins = 64) +
   coord_cartesian(xlim = c(-4,+4),ylim = c(0,400)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
-p3 &lt;- ggplot(subset(pdat,de),aes(x = shrink,color = de)) +
+p2 &lt;- ggplot(subset(pdat,de),aes(x = shrink,color = de)) +
   geom_histogram(color = &quot;darkblue&quot;,fill = &quot;darkblue&quot;,bins = 64) +
   coord_cartesian(xlim = c(-4,+4),ylim = c(0,400)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-p4 &lt;- ggplot(subset(pdat,!de),aes(x = noshrink,color = de)) +
+p3 &lt;- ggplot(subset(pdat,!de),aes(x = noshrink,color = de)) +
   geom_histogram(color = &quot;darkorange&quot;,fill = &quot;darkorange&quot;,bins = 64) +
   coord_cartesian(xlim = c(-4,+4)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
-p5 &lt;- ggplot(subset(pdat,!de),aes(x = shrink,color = de)) +
+p4 &lt;- ggplot(subset(pdat,!de),aes(x = shrink,color = de)) +
   geom_histogram(color = &quot;darkorange&quot;,fill = &quot;darkorange&quot;,bins = 64) +
   coord_cartesian(xlim = c(-4,+4)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p2,p3,p4,p5,nrow = 2,ncol = 2))</code></pre>
+print(plot_grid(p1,p2,p3,p4,nrow = 2,ncol = 2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-zscores-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-zscores-1">
@@ -962,21 +1029,21 @@ Peter Carbonetto
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
                    shrink   = 10^(-c(de$lpval)),
                    de       = factor(c(nonzero_lfc)))
-p6 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+p1 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   coord_cartesian(ylim = c(0,2500)) +
   labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;without shrinkage&quot;) +
   theme_cowplot()
-p7 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p2 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   coord_cartesian(ylim = c(0,2500)) +
   labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
-print(plot_grid(p6,p7))</code></pre>
+print(plot_grid(p1,p2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-shrink-vs-noshrink-pvalues-1">
@@ -1026,7 +1093,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Since most of the LFCs are zero, the adaptiev shrinkage strongly shrinks most of the LFC estimates toward zero. Still, because it is adaptive, the DE genes with stronger support are shrunk only a little or not at all.</p>
+<p>Since most of the LFCs are zero, the adaptive shrinkage strongly shrinks most of the LFC estimates toward zero. Still, because it is adaptive, the DE genes with stronger support are shrunk only a little or not at all.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
@@ -1035,15 +1102,14 @@ Peter Carbonetto
 <pre class="r"><code>pdat &lt;- data.frame(est       = c(de$est),
                    shrink    = c(de$postmean),
                    log10mean = rep(log10(de$f0),k))
-p8 &lt;- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_gradient2(low = &quot;deepskyblue&quot;,mid = &quot;gold&quot;,high = &quot;orangered&quot;,
                        midpoint = -4) +
   labs(x = &quot;point estimates&quot;,
        y = &quot;shrunken estimates&quot;) +
-  theme_cowplot()
-print(p8)</code></pre>
+  theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/point-vs-shrunken-scatterplot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-point-vs-shrunken-scatterplot-1">
@@ -1082,27 +1148,26 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>As before, even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals are also very large.</p>
-<p>Now we compare a ranking of the LFCs based on the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017), which doesn’t fully account for uncertainty in the LFC estimates, to a ranking based on the <span class="math inline">\(z\)</span>-scores. Since the K-L divergence is not a signed ranking, here we restrict our attention to LFCs estimated to be positive. (The Y axis in the right-hand plot has been cut off at 2,000 genes to give more detail to the distribution of the true positives.)</p>
+<p>As before, even very large (in magnitude) point estimates are sometimes shrunk to zero; this happens because although the MLEs can be far from zero, the HPD intervals can also be very large.</p>
+<p>Now we compare a ranking of the LFCs based on the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017), which doesn’t fully account for uncertainty in the LFC estimates, to a ranking based on the <span class="math inline">\(z\)</span>-scores. Since the K-L divergence is not a signed ranking, here we restrict our attention to LFCs estimated to be positive. (Note that the Y axis in the right-hand plot has been cut off at 2,000 genes to give more detail to the distribution of the true positives. Also, for better visualization the K-L divergences are shown on the log scale.)</p>
 <pre class="r"><code>D     &lt;- fastTopics:::min_kl_poisson(fit$F)
 i     &lt;- which(de$est &gt; 0)
-pdat1 &lt;- data.frame(kl = pmin(D[i],1e-6),de = factor(nonzero_lfc[i]))
+pdat1 &lt;- data.frame(lkl = log10(D[i] + 1e-8),de = factor(nonzero_lfc[i]))
 pdat2 &lt;- data.frame(z = clamp(de$z[i],-4,+4),de = factor(nonzero_lfc[i]))
-p7 &lt;- ggplot(pdat1,aes(x = kl,color = de,fill = de)) +
+p1 &lt;- ggplot(pdat1,aes(x = lkl,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  scale_x_continuous(breaks = seq(0,1e-6,length.out = 3)) +
-  labs(x = &quot;K-L divergence&quot;,y = &quot;genes&quot;) +
+  labs(x = &quot;log10 K-L divergence&quot;,y = &quot;genes&quot;) +
   theme_cowplot()
-p8 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+p2 &lt;- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   coord_cartesian(ylim = c(0,2000)) +
   labs(x = &quot;z-score&quot;,y = &quot;genes&quot;) +
   theme_cowplot()
-print(plot_grid(p7,p8))</code></pre>
+print(plot_grid(p1,p2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-1-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-1-1">
@@ -1152,7 +1217,75 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>What is most striking is that the K-L divergence measure produces a long tail of false positives (in addition to true positives), and this goes away once we compute <span class="math inline">\(z\)</span>-scores that more properly account for uncertainty in the LFC estimates.</p>
+<p>Sometimes genes with very large LFCs get highly ranked by the K-L divergence measure (while being uncertain about these estimates), whereas this happens less often for the <span class="math inline">\(z\)</span>-scores. As a result the fastTopics <span class="math inline">\(z\)</span>-scores yield improved power at low false discovery rates:</p>
+<pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[i],nonzero_lfc[i],length.out = 400)
+pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[i],nonzero_lfc[i],length.out = 400)
+pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
+               cbind(pdat2,method = &quot;fastTopics&quot;))
+ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65)  +
+  scale_color_manual(values = c(&quot;royalblue&quot;,&quot;darkorange&quot;)) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-2-1">
+Past versions of kl-vs-fasttopics-2-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e3cc4a3acdf723a08f706bf02be25b3d666c4bb9/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">e3cc4a3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/36acb71112107faba6b3030aa762bc469fb2d51e/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">36acb71</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-20
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Alternatively we can compare the two rankings in an ROC plot:</p>
+<pre class="r"><code>pdat1 &lt;- create_roc_curve(-log(D[i]),nonzero_lfc[i],length.out = 100)
+pdat2 &lt;- create_roc_curve(de$lfsr[i],nonzero_lfc[i],length.out = 100)
+pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
+               cbind(pdat2,method = &quot;fastTopics&quot;))
+ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
+  geom_line(size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  scale_color_manual(values = c(&quot;royalblue&quot;,&quot;darkorange&quot;)) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-3-1.png" width="540" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
