@@ -289,13 +289,14 @@ ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   theme_cowplot()
 ```
 
-For a different perspective we also show the ROC curve comparinig the
+For a different perspective we also show the ROC curve comparing the
 true positive rate (TPR) against the false positive rate (FPR):
 
 ```{r kl-vs-fasttopics-3, fig.width=4.5, fig.height=3}
-pdat1 <- create_roc_curve(-D[,2],nonzero_lfc,length.out = 100)
-pdat2 <- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc,length.out = 100)
-pdat3 <- create_roc_curve(-de$lpval[,2],nonzero_lfc,length.out = 100)
+pdat1 <- create_roc_curve(-D[i,2],nonzero_lfc[i],length.out = 100)
+pdat2 <- create_roc_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
+                          length.out = 100)
+pdat3 <- create_roc_curve(-de$lpval[i,2],nonzero_lfc[i],length.out = 100)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
