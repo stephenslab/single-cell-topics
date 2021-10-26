@@ -59,22 +59,20 @@ the (base-10) log scale:
 
 ```{r sizes, fig.height=2, fig.width=3.5}
 s <- rowSums(X)
-p1 <- ggplot(data.frame(s = log10(s)),aes(x = s)) +
+ggplot(data.frame(s = log10(s)),aes(x = s)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 size",y = "cells") +
   theme_cowplot()
-print(p1)
 ```
 
 The expression rates were simulated so that they are normally
 distributed on the log scale:
 
 ```{r gene-expression-rates, fig.height=2, fig.width=3.5}
-p2 <- ggplot(data.frame(f = as.vector(F)),aes(x = log10(f))) +
+ggplot(data.frame(f = as.vector(F)),aes(x = log10(f))) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "log10 expression rate",y = "genes") +
   theme_cowplot()
-print(p2)
 ```
 
 About half of the genes have nonzero differences in expression between
@@ -84,11 +82,10 @@ log-fold changes (LFCs) were simulated from the normal distribution:
 ```{r lfc-density, fig.height=2, fig.width=3.5}
 nonzero_lfc <- abs(F[,1] - F[,2]) > 1e-8
 lfc <- log2(F[,2]/F[,1])
-p3 <- ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
+ggplot(data.frame(lfc = lfc[nonzero_lfc]),aes(x = lfc)) +
   geom_histogram(color = "white",fill = "black",bins = 32) +
   labs(x = "LFC",y = "genes") +
   theme_cowplot()
-print(p3)
 mean(nonzero_lfc)
 ```
 
@@ -137,7 +134,7 @@ with lower expression tend to be more strongly shrunk toward zero.
 pdat <- data.frame(noshrink  = de.noshrink$postmean[,2],
                    shrink    = de$postmean[,2],
                    log10mean = log10(de$f0))
-p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
+ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
@@ -145,7 +142,6 @@ p4 <- ggplot(pdat,aes(x = noshrink,y = shrink,fill = log10mean)) +
   labs(x = "original LFC estimates",
        y = "shrunken LFC estimates") +
   theme_cowplot()
-print(p4)
 ```
 
 The next two bar charts show the overall impact of the shrinkage on
@@ -158,19 +154,19 @@ $z$-scores have been projected onto the interval $[-8,+8]$.)
 pdat <- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
                    shrink   = clamp(de$z[,2],-8,+8),
                    de       = factor(nonzero_lfc))
-p5 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+p1 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "z-score",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p6 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "z-score",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p5,p6))
+print(plot_grid(p1,p2))
 ```
 
 And the next two bar charts show the overall impact of the shrinkage
@@ -180,19 +176,19 @@ on the $p$-values.
 pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
                    shrink   = 10^(-de$lpval[,2]),
                    de       = factor(nonzero_lfc))
-p7 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
+p1 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "without shrinkage") +
   theme_cowplot()
-p8 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "with shrinkage") +
   theme_cowplot()
-print(plot_grid(p7,p8))
+print(plot_grid(p1,p2))
 ```
 
 Both the $z$-score and $p$-value plots show that the adaptive
@@ -220,7 +216,7 @@ HPD intervals are also very large.
 pdat <- data.frame(est       = de$est[,2],
                    shrink    = de$postmean[,2],
 				   log10mean = log10(de$f0))
-p9 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
+ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
@@ -228,7 +224,6 @@ p9 <- ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
   labs(x = "point estimates",
        y = "shrunken estimates") +
   theme_cowplot()
-print(p9)
 ```
 
 To illustrate the impact of this on the DE analysis, consider the K-L
@@ -248,19 +243,19 @@ pdat1 <- data.frame(lkl = log10(D[,2] + 1e-8),de = factor(nonzero_lfc))
 pdat2 <- data.frame(z = clamp(de$z[,2],-4,+4),de = factor(nonzero_lfc))
 pdat1 <- pdat1[i,]
 pdat2 <- pdat2[i,]
-p10 <- ggplot(pdat1,aes(x = lkl,color = de,fill = de)) +
+p1 <- ggplot(pdat1,aes(x = lkl,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "log10 K-L divergence",y = "genes") +
   theme_cowplot()
-p11 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
+p2 <- ggplot(pdat2,aes(x = z,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "z-score",y = "genes") +
   theme_cowplot()
-print(plot_grid(p10,p11))
+print(plot_grid(p1,p2))
 ```
 
 Without fully accounting for uncertainty, sometimes genes with very
@@ -288,29 +283,28 @@ pdat3 <- create_fdr_vs_power_curve(-de$lpval[i,2],nonzero_lfc[i],
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
-p12 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.75)  +
+ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65)  +
   scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
   theme_cowplot()
-print(p12)
 ```
 
+For a different perspective we also show the ROC curve comparinig the
+true positive rate (TPR) against the false positive rate (FPR):
+
 ```{r kl-vs-fasttopics-3, fig.width=4.5, fig.height=3}
-pdat1 <- create_roc_curve(-D[,2],nonzero_lfc)
-pdat2 <- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc)
-pdat3 <- create_roc_curve(-de$lpval[,2],nonzero_lfc)
+pdat1 <- create_roc_curve(-D[,2],nonzero_lfc,length.out = 100)
+pdat2 <- create_roc_curve(-de.noshrink$lpval[,2],nonzero_lfc,length.out = 100)
+pdat3 <- create_roc_curve(-de$lpval[,2],nonzero_lfc,length.out = 100)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
-p12 <- ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
-  geom_line(size = 0.75) +
+ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
+  geom_line(size = 0.65) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
   theme_cowplot()
-print(p12)
 ```
-
-*Add text here.*
 
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
@@ -334,13 +328,12 @@ scatterplot:
 
 ```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-pp1 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   labs(x = "first z-score estimate",
        y = "second z-score estimate") +
   theme_cowplot()
-print(pp1)
 ```
 
 Here we see that the concordance is quite strong, but we should be
@@ -357,13 +350,12 @@ estimates are now very similar:
 
 ```{r assess-monte-carlo-4, fig.width=3.25, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-pp2 <- ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   labs(x = "first z-score estimate",
        y = "second z-score estimate") +
   theme_cowplot()
-print(pp2)
 ```
 
 Comparison with DESeq2
@@ -416,12 +408,11 @@ align with the DESeq2 estimates:
 ```{r fasttopics-vs-deseq2-lfc, fig.height=3, fig.width=3}
 pdat <- data.frame(DESeq2     = deseq$log2FoldChange,
                    fastTopics = de$postmean[,2])
-p14 <- ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
+ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = "skyblue",linetype = "dotted") +
   ggtitle("LFC estimates") +
   theme_cowplot()
-print(p14)
 ```
 
 And likewise the $z$-scores:
@@ -430,12 +421,11 @@ And likewise the $z$-scores:
 deseq$z <- with(deseq,log2FoldChange/lfcSE)
 pdat <- data.frame(DESeq2     = deseq$z,
                    fastTopics = de$z[,2])
-p15 <- ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
+ggplot(pdat,aes(x = DESeq2,y = fastTopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = "skyblue",linetype = "dotted") +
   ggtitle("z-scores") +
   theme_cowplot()
-print(p15)
 ```
 
 The $p$-value and LFSR distributions are also correspondingly similar
@@ -445,34 +435,46 @@ in shape:
 pdat <- data.frame(deseq2 = deseq$padj,
                    shrink = de$lfsr[,2],
                    de     = factor(nonzero_lfc))
-p16 <- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
+p1 <- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "DESeq2") +
   theme_cowplot()
-p17 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
+p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "lfsr",y = "genes",title = "fastTopics") +
   theme_cowplot()
-print(plot_grid(p16,p17))
+print(plot_grid(p1,p2))
 ```
 
 Based on these results, we would expect that the performance of
 fastTopics and DESeq2 for discovering differentially expressed genes
-is very similar, with a slight advantage given to fastTopics (mainly
-because it is using 1/3 more data):
+is very similar, with a slight advantage given to fastTopics (although
+consider it is using 1/3 more data):
 
 ```{r fasttopics-vs-deseq2-power, fig.height=3, fig.width=4.5}
-pdat1 <- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc)
-pdat2 <- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc)
+pdat1 <- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc,length.out = 200)
+pdat2 <- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc,length.out = 200)
 pdat  <- rbind(cbind(pdat1,method = "DESeq2"),
                cbind(pdat2,method = "fastTopics"))
-p18 <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_point(size = 0.3)  +
+ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65)  +
   scale_color_manual(values = c("darkblue","tomato")) +
   theme_cowplot()
-print(p18)
+```
+
+And here is the ROC curve comparing DESeq2 and fastTopics:
+
+```{r fasttopics-vs-deseq2-roc, fig.height=3, fig.width=4.5}
+pdat1 <- create_roc_curve(deseq$padj,nonzero_lfc,length.out = 100)
+pdat2 <- create_roc_curve(de$lfsr[,2],nonzero_lfc,length.out = 100)
+pdat  <- rbind(cbind(pdat1,method = "DESeq2"),
+               cbind(pdat2,method = "fastTopics"))
+ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
+  geom_line(size = 0.65)  +
+  scale_color_manual(values = c("darkblue","tomato")) +
+  theme_cowplot()
 ```
