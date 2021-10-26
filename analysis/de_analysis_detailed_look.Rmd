@@ -229,12 +229,11 @@ ggplot(pdat,aes(x = est,y = shrink,fill = log10mean)) +
 To illustrate the impact of this on the DE analysis, consider the K-L
 divergence measure used in Dey, Hsiao & Stephens (2017) to rank genes,
 a measure which doesn't fully account for uncertainty in the
-LFCs. Since the K-L divergence is not a
-signed ranking measure like the $z$-score, here we focus only on genes
-that are estimated to have greater expression in topic 2 compared to
-topic 1. (For better visualization, we show the distribution of the
-K-L divergences on the log scale, and any $z$-scores larger than 4 are
-shown as 4.)
+LFCs. Since the K-L divergence is not a signed ranking measure like
+the $z$-score, here we focus only on genes that are estimated to have
+greater expression in topic 2 compared to topic 1. (For better
+visualization, we show the distribution of the K-L divergences on the
+log scale, and any $z$-scores larger than 4 are shown as 4.)
 
 ```{r kl-vs-fasttopics-1, fig.width=8, fig.height=2.5}
 i     <- which(fit$F[,2] - fit$F[,1] > -1e-8)
@@ -259,8 +258,9 @@ print(plot_grid(p1,p2))
 ```
 
 Without fully accounting for uncertainty, sometimes genes with very
-large LFCs get highly ranked by the K-L divergence measure, whereas
-this happens less often for the $z$-scores.
+large LFCs get highly ranked by the K-L divergence measure (while also
+being uncertain about these estimates), whereas this happens less
+often for the $z$-scores.
 
 To underscore the importance of accounting for uncertainty, suppose we
 used the KL-divergences and the *p*-values returned by
@@ -475,6 +475,7 @@ pdat  <- rbind(cbind(pdat1,method = "DESeq2"),
                cbind(pdat2,method = "fastTopics"))
 ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
   geom_line(size = 0.65)  +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   scale_color_manual(values = c("darkblue","tomato")) +
   theme_cowplot()
 ```
