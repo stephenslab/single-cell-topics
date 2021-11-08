@@ -1,5 +1,8 @@
+# TO DO: Explain here what this script is for, and how to use it.
+
 # Load a few packages.
 library(Matrix)
+library(scran)
 library(DESeq2)
 library(fastTopics)
 
