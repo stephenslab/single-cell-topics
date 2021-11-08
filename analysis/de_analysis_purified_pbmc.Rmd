@@ -1,0 +1,22 @@
+---
+title: "DE analysis using a topic model: illustration in mixture of FACS-purified PBMC data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*TO DO: Give overview of analysis here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis below, as well as additional
+functions that we will use to generate some of the plots.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
