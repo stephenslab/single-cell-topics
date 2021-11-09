@@ -45,3 +45,6 @@ stop()
 deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
 deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
+
+# Save the results.
+# TO DO.
