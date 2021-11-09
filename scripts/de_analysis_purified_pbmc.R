@@ -3,6 +3,7 @@
 #   --time=24:00:00
 
 # Load a few packages.
+library(tools)
 library(Matrix)
 library(fastTopics)
 
@@ -35,5 +36,4 @@ cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 # Save the results.
 save(list = c("genes","de1","de2"),
      file = "de-pbmc-purified.RData")
-
-
+resaveRdaFiles("de-pbmc-purified.RData")
