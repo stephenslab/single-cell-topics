@@ -1,6 +1,6 @@
 # TO DO: Explain here what this script is for, and how to use it.
 # sinteractive -p mstephens --account=pi-mstephens -c 20 --mem=16G \
-#   --time=24:00:00
+#   --time=48:00:00
 
 # Load a few packages.
 library(tools)
@@ -21,7 +21,7 @@ fit <- poisson2multinom(fit)
 # Perform the DE analysis.
 set.seed(1)
 t0  <- proc.time()
-de1 <- de_analysis(fit,counts,control = list(ns = 10000,nc = 20))
+de1 <- de_analysis(fit,counts,control = list(ns = 1e5,nc = 20))
 t1  <- proc.time()
 cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
@@ -29,7 +29,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 # posterior calculations.
 set.seed(2)
 t0  <- proc.time()
-de2 <- de_analysis(fit,counts,control = list(ns = 10000,nc = 20))
+de2 <- de_analysis(fit,counts,control = list(ns = 1e5,nc = 20))
 t1  <- proc.time()
 cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
