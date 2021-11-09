@@ -1,4 +1,7 @@
 # TO DO: Explain here what this script is for, and how to use it.
+# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=64G \
+#   --time=24:00:00
+# module load R/4.1.0
 
 # Load a few packages.
 library(Matrix)
@@ -10,7 +13,6 @@ set.seed(1)
 
 # Load the count data.
 load("../data/pbmc_purified.RData")
-counts <- t(counts)
 
 # Create a single label for all the T cells.
 celltype <- as.character(samples$celltype)
@@ -29,9 +31,11 @@ i <- "CD19+ B"
 # Prepare the UMI count data for analysis with DESeq2.
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
+counts <- t(counts)
 deseq <- DESeqDataSetFromMatrix(counts,coldata,~celltype)
 sizeFactors(deseq) <- calculateSumFactors(counts)
-# }
+
+stop()
 
 # Now we perform the DE analysis using DESeq2, using the settings
 # recommended for single-cell RNA-seq data (see the main DESeq2

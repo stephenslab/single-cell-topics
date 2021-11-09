@@ -311,7 +311,7 @@ Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
 
 We use a simple MCMC algorithm to estimate LFC posterior statistics.
-To assess accuracy of the posterior calculations, we erform the DE
+To assess accuracy of the posterior calculations, we perform the DE
 analysis twice, and compare the $z$-scores returned by the two
 `de_analysis` runs. If the $z$-scores are very consistent between the
 two runs this suggests that they are mostly accurate.
