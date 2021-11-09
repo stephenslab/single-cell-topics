@@ -14,6 +14,13 @@ set.seed(1)
 # Load the count data.
 load("../data/pbmc_purified.RData")
 
+# Remove genes that are expressed in fewer than 20 cells. It is
+# doubtful that we will be able to obtain accurate estimates of
+# differential expression for these genes.
+j      <- which(colSums(counts > 0) >= 20)
+genes  <- genes[j,]
+counts <- counts[,j]
+
 # Create a single label for all the T cells.
 celltype <- as.character(samples$celltype)
 celltype[celltype == "CD4+ T Helper2" |
