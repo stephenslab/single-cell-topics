@@ -1,5 +1,5 @@
 # TO DO: Explain here what this script is for, and how to use it.
-# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=64G \
+# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=80G \
 #   --time=24:00:00
 # module load R/4.1.0
 
@@ -24,18 +24,15 @@ celltype[celltype == "CD4+ T Helper2" |
   celltype == "CD8+ Cytotoxic T"] <- "T cell"
 celltype <- factor(celltype)
 
-# Repeat the DESeq2 analysis for each cell type.
-# for (i in celltype) {
 i <- "CD19+ B"
 
 # Prepare the UMI count data for analysis with DESeq2.
+t0 <- proc.time()
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
 counts <- t(counts)
 deseq <- DESeqDataSetFromMatrix(counts,coldata,~celltype)
 sizeFactors(deseq) <- calculateSumFactors(counts)
-
-stop()
 
 # Now we perform the DE analysis using DESeq2, using the settings
 # recommended for single-cell RNA-seq data (see the main DESeq2
@@ -45,6 +42,10 @@ stop()
 deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
 deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
+t1 <- proc.time()
+cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
 # Save the results.
-# TO DO.
+save(list = c("genes","deseq"),
+     file = "deseq2-pbmc-purified.RData")
+resaveRdaFiles("deseq2-pbmc-purified.RData")
