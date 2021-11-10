@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-26
+<strong>Last updated:</strong> 2021-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebd52791297b79fa16f492ed5f3d262d72eb0f604targetblankbd52791a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/bd52791297b79fa16f492ed5f3d262d72eb0f604" target="_blank">bd52791</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0818502afcd8f7861007d54f63d18a9e8b7539ebtargetblank0818502a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/0818502afcd8f7861007d54f63d18a9e8b7539eb" target="_blank">0818502</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreebd52791297b79fa16f492ed5f3d262d72eb0f604targetblankbd52791a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree0818502afcd8f7861007d54f63d18a9e8b7539ebtargetblank0818502a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/bd52791297b79fa16f492ed5f3d262d72eb0f604" target="_blank">bd52791</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/0818502afcd8f7861007d54f63d18a9e8b7539eb" target="_blank">0818502</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -464,6 +464,7 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
+    Untracked:  scripts/pbmc_purified_for_de.RData
 
 Unstaged changes:
     Modified:   analysis/de_analysis_detailed_look_more.Rmd
@@ -505,6 +506,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/0818502afcd8f7861007d54f63d18a9e8b7539eb/analysis/de_analysis_detailed_look.Rmd" target="_blank">0818502</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/caa13f1f2e3c50405f87538bb176e584cd0b553a/analysis/de_analysis_detailed_look.Rmd" target="_blank">caa13f1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-08
+</td>
+<td>
+Still working on DE analysis scripts.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/043e480322dc887e1cc443bfcba43f91ab0a0f19/docs/de_analysis_detailed_look.html" target="_blank">043e480</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+<td>
+Fixed ROC curves in de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2103,7 +2155,7 @@ pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;noshrink&quot;),
                cbind(pdat3,method = &quot;shrink&quot;))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = &quot;y&quot;)  +
   scale_color_manual(values = c(&quot;royalblue&quot;,&quot;limegreen&quot;,&quot;darkorange&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-2-1.png" width="510" style="display: block; margin: auto;" /></p>
@@ -2182,6 +2234,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/043e480322dc887e1cc443bfcba43f91ab0a0f19/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-3-1.png" target="_blank">043e480</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/b7503caa46b8ec7259f7fadd1b7ed59cd2c57864/docs/figure/de_analysis_detailed_look.Rmd/kl-vs-fasttopics-3-1.png" target="_blank">b7503ca</a>
 </td>
 <td>
@@ -2198,7 +2261,7 @@ Peter Carbonetto
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we erform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs. If the <span class="math inline">\(z\)</span>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
+<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we perform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs. If the <span class="math inline">\(z\)</span>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
 <p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Using 2 RcppParallel threads.
@@ -2540,7 +2603,7 @@ pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc,length.out = 200)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
                cbind(pdat2,method = &quot;fastTopics&quot;))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = &quot;y&quot;)  +
   scale_color_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-power-1.png" width="540" style="display: block; margin: auto;" /></p>
