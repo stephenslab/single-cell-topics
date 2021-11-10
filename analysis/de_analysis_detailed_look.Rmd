@@ -284,7 +284,7 @@ pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "noshrink"),
                cbind(pdat3,method = "shrink"))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = "y")  +
   scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
   theme_cowplot()
 ```
@@ -462,7 +462,7 @@ pdat2 <- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc,length.out = 200)
 pdat  <- rbind(cbind(pdat1,method = "DESeq2"),
                cbind(pdat2,method = "fastTopics"))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = "y")  +
   scale_color_manual(values = c("darkblue","tomato")) +
   theme_cowplot()
 ```
