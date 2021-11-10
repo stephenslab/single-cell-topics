@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4dd44afc935f95113cbb9bbfdc4a53154c8d8aa5targetblank4dd44afa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4dd44afc935f95113cbb9bbfdc4a53154c8d8aa5" target="_blank">4dd44af</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree34217d5e3e9a18f3afaacfe00af8e1775506c0e4targetblank34217d5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/34217d5e3e9a18f3afaacfe00af8e1775506c0e4" target="_blank">34217d5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4dd44afc935f95113cbb9bbfdc4a53154c8d8aa5targetblank4dd44afa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree34217d5e3e9a18f3afaacfe00af8e1775506c0e4targetblank34217d5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4dd44afc935f95113cbb9bbfdc4a53154c8d8aa5" target="_blank">4dd44af</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/34217d5e3e9a18f3afaacfe00af8e1775506c0e4" target="_blank">34217d5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -503,6 +503,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/34217d5e3e9a18f3afaacfe00af8e1775506c0e4/analysis/de_analysis_detailed_look.Rmd" target="_blank">34217d5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/c0bc1616cd8a654b67b11dd11a46479f3304e943/docs/de_analysis_detailed_look.html" target="_blank">c0bc161</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Added MAST results to de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1877,7 +1911,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <span class="math inline">\(z\)</span>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes. (For better visualizataion the <span class="math inline">\(z\)</span>-scores have been projected onto the interval <span class="math inline">\([-8,+8]\)</span>.)</p>
+<p>The next two bar charts show the overall impact of the shrinkage on the distribution of the <em>z</em>-scores; dark blue bars are for diifferentially expressed genes, and orange bars are for non-differentially expressed genes. (For better visualizataion the <em>z</em>-scores have been projected onto the interval <span class="math inline">\([-8,+8]\)</span>.)</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = clamp(de.noshrink$z[,2],-8,+8),
                    shrink   = clamp(de$z[,2],-8,+8),
                    de       = factor(nonzero_lfc))
@@ -1954,7 +1988,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>And the next two bar charts show the overall impact of the shrinkage on the <span class="math inline">\(p\)</span>-values.</p>
+<p>And the next two bar charts show the overall impact of the shrinkage on the <em>p</em>-values.</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
                    shrink   = 10^(-de$lpval[,2]),
                    de       = factor(nonzero_lfc))
@@ -2031,7 +2065,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Both the <span class="math inline">\(z\)</span>-score and <span class="math inline">\(p\)</span>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero.</p>
+<p>Both the <em>z</em>-score and <em>p</em>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
@@ -2108,7 +2142,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, a measure which doesn’t fully account for uncertainty in the LFCs. Since the K-L divergence is not a signed ranking measure like the <span class="math inline">\(z\)</span>-score, here we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1. (For better visualization, we show the distribution of the K-L divergences on the log scale, and any <span class="math inline">\(z\)</span>-scores larger than 4 are shown as 4.)</p>
+<p>To illustrate the impact of this on the DE analysis, consider the K-L divergence measure used in Dey, Hsiao &amp; Stephens (2017) to rank genes, a measure which doesn’t fully account for uncertainty in the LFCs. Since the K-L divergence is not a signed ranking measure like the <em>z</em>-score, here we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1. (For better visualization, we show the distribution of the K-L divergences on the log scale, and any <em>z</em>-scores larger than 4 are shown as 4.)</p>
 <pre class="r"><code>i     &lt;- which(fit$F[,2] - fit$F[,1] &gt; -1e-8)
 D     &lt;- fastTopics:::min_kl_poisson(fit$F)
 pdat1 &lt;- data.frame(lkl = log10(D[,2] + 1e-8),de = factor(nonzero_lfc))
@@ -2177,7 +2211,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Without fully accounting for uncertainty, sometimes genes with very large LFCs get highly ranked by the K-L divergence measure (while also being uncertain about these estimates), whereas this happens less often for the <span class="math inline">\(z\)</span>-scores.</p>
+<p>Without fully accounting for uncertainty, sometimes genes with very large LFCs get highly ranked by the K-L divergence measure (while also being uncertain about these estimates), whereas this happens less often for the <em>z</em>-scores.</p>
 <p>To underscore the importance of accounting for uncertainty, suppose we used the KL-divergences and the <em>p</em>-values returned by <code>de_analysis(shrink.method = &quot;ash&quot;)</code> to discover differentially expressed genes. The power vs. FDR curves show that, at low false discovery rates (say, FDR &lt; 0.2), the rankings accounting for uncertainty in the LFC estimates (with or without shrinkage) perform much better than the ranking based on the KL divergence measure. We also see that using adaptive shrinkage produces a modest improvement. As before, to draw a fair comparison with the K-L divergence-based ranking, we focus only on genes that are estimated to have greater expression in topic 2 compared to topic 1.</p>
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[i,2],nonzero_lfc[i],length.out = 140)
 pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
@@ -2305,7 +2339,7 @@ Peter Carbonetto
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we perform the DE analysis twice, and compare the <span class="math inline">\(z\)</span>-scores returned by the two <code>de_analysis</code> runs. If the <span class="math inline">\(z\)</span>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
+<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we perform the DE analysis twice, and compare the <em>z</em>-scores returned by the two <code>de_analysis</code> runs. If the <em>z</em>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
 <p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Using 2 RcppParallel threads.
@@ -2319,7 +2353,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
-<p>Now we compare the <span class="math inline">\(z\)</span>-scores estimated by these two runs in a simple scatterplot:</p>
+<p>Now we compare the <em>z</em>-scores estimated by these two runs in a simple scatterplot:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -2384,7 +2418,7 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 >knitr cache options</a> for more details.
 </p>
 </div>
-<p>Indeed, with 10,000 Monte Carlo samples the two sets of <span class="math inline">\(z\)</span>-score estimates are now very similar:</p>
+<p>Indeed, with 10,000 Monte Carlo samples the two sets of <em>z</em>-score estimates are now very similar:</p>
 <pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
 ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
@@ -2472,7 +2506,7 @@ deseq &lt;- lfcShrink(deseq,coef = &quot;cluster_2_vs_1&quot;,type = &quot;ashr&
 # using &#39;ashr&#39; for LFC shrinkage. If used in published research, please cite:
 #     Stephens, M. (2016) False discovery rates: a new deal. Biostatistics, 18:2.
 #     https://doi.org/10.1093/biostatistics/kxw041</code></pre>
-<p>Now we run the MAST DE analysis via the “FindMarkers” interface in Seurat:</p>
+<p>Now we run the MAST differential expression analysis via the “FindMarkers” interface in Seurat:</p>
 <pre class="r"><code>seurat &lt;- CreateSeuratObject(counts = t(X))
 Idents(seurat) &lt;- cluster
 mast &lt;- FindMarkers(seurat,ident.1 = &quot;2&quot;,ident.2 = NULL,test.use = &quot;MAST&quot;,
@@ -2480,30 +2514,11 @@ mast &lt;- FindMarkers(seurat,ident.1 = &quot;2&quot;,ident.2 = NULL,test.use = 
 # 
 # Done!
 # Combining coefficients and standard errors
-# Warning in melt(coefAndCI, as.is = TRUE): The melt generic in data.table has
-# been passed a array and will attempt to redirect to the relevant reshape2
-# method; please note that reshape2 is deprecated, and this redirection is now
-# deprecated as well. To continue using melt methods from reshape2 while both
-# libraries are attached, e.g. melt.list, you can prepend the namespace like
-# reshape2::melt(coefAndCI). In the next version, this warning will become an
-# error.
 # Calculating log-fold changes
-# Warning in melt(lfc): The melt generic in data.table has been passed a list
-# and will attempt to redirect to the relevant reshape2 method; please note that
-# reshape2 is deprecated, and this redirection is now deprecated as well. To
-# continue using melt methods from reshape2 while both libraries are attached,
-# e.g. melt.list, you can prepend the namespace like reshape2::melt(lfc). In the
-# next version, this warning will become an error.
 # Calculating likelihood ratio tests
 # Refitting on reduced model...
 # 
-# Done!
-# Warning in melt(llrt): The melt generic in data.table has been passed a list
-# and will attempt to redirect to the relevant reshape2 method; please note that
-# reshape2 is deprecated, and this redirection is now deprecated as well. To
-# continue using melt methods from reshape2 while both libraries are attached,
-# e.g. melt.list, you can prepend the namespace like reshape2::melt(llrt). In the
-# next version, this warning will become an error.</code></pre>
+# Done!</code></pre>
 <p>The posterior mean estimates from the fastTopics DE analysis closely align with the DESeq2 estimates:</p>
 <pre class="r"><code>pdat &lt;- data.frame(DESeq2     = deseq$log2FoldChange,
                    fastTopics = de$postmean[,2])
@@ -2550,17 +2565,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
-<pre class="r"><code>genes &lt;- rownames(mast)
-pdat  &lt;- data.frame(MAST       = mast$avg_logFC,
-                    fastTopics = de$postmean[genes,2])
-ggplot(pdat,aes(x = MAST,y = fastTopics)) +
-  geom_point() +
-  geom_abline(intercept = 0,slope = 1,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
-  ggtitle(&quot;LFC estimates&quot;) +
-  theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-1.png" width="360" style="display: block; margin: auto;" /></p>
-<p>And likewise the <span class="math inline">\(z\)</span>-scores:</p>
+<p>And likewise the <em>z</em>-scores:</p>
 <pre class="r"><code>deseq$z &lt;- with(deseq,log2FoldChange/lfcSE)
 pdat &lt;- data.frame(DESeq2     = deseq$z,
                    fastTopics = de$z[,2])
@@ -2618,7 +2623,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The <span class="math inline">\(p\)</span>-value and LFSR distributions are also correspondingly similar in shape:</p>
+<p>The <em>p</em>-value and LFSR distributions are also correspondingly similar in shape:</p>
 <pre class="r"><code>pdat &lt;- data.frame(deseq2 = deseq$padj,
                    shrink = de$lfsr[,2],
                    de     = factor(nonzero_lfc))
@@ -2684,15 +2689,100 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>The MAST LFC estimates broadly resemble the fastTopics estimates, although the MAST estimates tend to be underestimates, and occasionally some estimates that are much more extreme (and probably would benefit from a shrinkage step, e.g., using adaptive shrinkage):</p>
+<pre class="r"><code>genes &lt;- rownames(mast)
+pdat  &lt;- data.frame(MAST       = mast$avg_logFC,
+                    fastTopics = de$postmean[genes,2])
+ggplot(pdat,aes(x = MAST,y = fastTopics)) +
+  geom_point() +
+  geom_abline(intercept = 0,slope = 1,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
+  ggtitle(&quot;LFC estimates&quot;) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fasttopics-vs-mast-1">
+Past versions of fasttopics-vs-mast-1.png
+</button>
+</p>
+<div id="fig-fasttopics-vs-mast-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c0bc1616cd8a654b67b11dd11a46479f3304e943/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-1.png" target="_blank">c0bc161</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The <code>FindMarkers</code> function in Seurat does not output <em>z</em>-scores, but we can compare <em>p</em>-values:</p>
 <pre class="r"><code>pdat &lt;- data.frame(MAST       = pmax(-10,log10(mast$p_val)),
                    fastTopics = pmax(-10,-de$lpval[genes,2]))
 ggplot(pdat,aes(x = MAST,y = fastTopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
-  ggtitle(&quot;p-values&quot;) +
+  ggtitle(&quot;log10 p-values&quot;) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-pvalues-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fasttopics-vs-mast-pvalues-1">
+Past versions of fasttopics-vs-mast-pvalues-1.png
+</button>
+</p>
+<div id="fig-fasttopics-vs-mast-pvalues-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c0bc1616cd8a654b67b11dd11a46479f3304e943/docs/figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-pvalues-1.png" target="_blank">c0bc161</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Again, the <em>p</em>-values are broadly similar. The effect of the fastTopics shrinkage step is apparent as many less significant <em>p</em>-values get driven toward 1.</p>
 <p>Based on these results, we would expect that the performance of fastTopics and DESeq2 for discovering differentially expressed genes is very similar, with a slight advantage given to fastTopics (although consider it is using 1/3 more data):</p>
 <pre class="r"><code>mast_pval                 &lt;- rep(1,10000)
 names(mast_pval)          &lt;- colnames(X)
@@ -2708,6 +2798,44 @@ ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   scale_color_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;,&quot;dodgerblue&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fdr-vs-power-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-fdr-vs-power-1">
+Past versions of fdr-vs-power-1.png
+</button>
+</p>
+<div id="fig-fdr-vs-power-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c0bc1616cd8a654b67b11dd11a46479f3304e943/docs/figure/de_analysis_detailed_look.Rmd/fdr-vs-power-1.png" target="_blank">c0bc161</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Interestingly, MAST underperforms DESeq2 at lower FDRs, and overperforms DESeq2 at higher FDRs, whereas fastTopics performs at least as well as the other methods at any FDR.</p>
 <p>And here is the ROC curve comparing DESeq2, MAST and fastTopics:</p>
 <pre class="r"><code>pdat1 &lt;- create_roc_curve(deseq$padj,nonzero_lfc,length.out = 100)
 pdat2 &lt;- create_roc_curve(de$lfsr[,2],nonzero_lfc,length.out = 100)
@@ -2721,7 +2849,43 @@ ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
   scale_color_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;,&quot;dodgerblue&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/roc-1.png" width="540" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-roc-1">
+Past versions of roc-1.png
+</button>
+</p>
+<div id="fig-roc-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c0bc1616cd8a654b67b11dd11a46479f3304e943/docs/figure/de_analysis_detailed_look.Rmd/roc-1.png" target="_blank">c0bc161</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
