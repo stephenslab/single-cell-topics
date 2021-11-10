@@ -251,7 +251,7 @@ pdat2 <- create_fdr_vs_power_curve(de$lfsr[i],nonzero_lfc[i],length.out = 400)
 pdat  <- rbind(cbind(pdat1,method = "kl"),
                cbind(pdat2,method = "fastTopics"))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = "y")  +
   scale_color_manual(values = c("royalblue","darkorange")) +
   theme_cowplot()
 ```
