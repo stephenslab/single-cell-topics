@@ -32,13 +32,6 @@ celltype <- celltype[i]
 samples  <- samples[i,]
 counts   <- counts[i,]
 
-# Remove genes that are expressed in fewer than 10 cells. It is
-# doubtful that we will be able to obtain accurate estimates of
-# differential expression for these genes anyhow.
-j      <- which(colSums(counts > 0) >= 10)
-genes  <- genes[j,]
-counts <- counts[,j]
-
 # Save the new data set.
 save(list = c("genes","celltype","samples","counts"),
      file = "pbmc_purified_for_de.RData")

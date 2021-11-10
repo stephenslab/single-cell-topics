@@ -12,7 +12,14 @@ library(DESeq2)
 set.seed(1)
 
 # Load the count data.
-load("../data/pbmc_purified.RData")
+load("pbmc_purified_for_de.RData")
+
+# Remove genes that are expressed in fewer than 10 cells. It is
+# doubtful that we will be able to obtain accurate estimates of
+# differential expression for these genes anyhow.
+j      <- which(colSums(counts > 0) >= 10)
+genes  <- genes[j,]
+counts <- counts[,j]
 
 i <- "CD19+ B"
 
@@ -29,8 +36,8 @@ sizeFactors(deseq) <- calculateSumFactors(counts)
 # vignette for details). To replicate the fastTopics analysis as
 # closely as possible, we also shrink the LFC estimates using adaptive
 # shrinkage.
-deseq <- DESeq(deseq,test = "LRT",reduced=~1,useT = TRUE,minmu = 1e-6,
-               minReplicatesForReplace = Inf)
+deseq <- DESeq(deseq,test = "LRT",fitType = "glmGamPoi",reduced = ~1,
+               useT = TRUE,minmu = 1e-6,minReplicatesForReplace = Inf)
 deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
 t1 <- proc.time()
 cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
