@@ -23,4 +23,5 @@ counts <- t(counts)
 names(celltype) <- colnames(counts)
 pbmc <- CreateSeuratObject(counts = counts)
 Idents(pbmc) <- celltype
-de <- FindMarkers(pbmc,ident.1 = "CD19+ B",ident.2 = NULL,test.use = "MAST")
+de <- FindMarkers(pbmc,ident.1 = "CD19+ B",ident.2 = NULL,
+                  test.use = "MAST")
