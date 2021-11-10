@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-10-26
+<strong>Last updated:</strong> 2021-11-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree17d0249a6e011bac52f9e66597beb7dd8d939b60targetblank17d0249a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/17d0249a6e011bac52f9e66597beb7dd8d939b60" target="_blank">17d0249</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5b63bc5fde38b61b5d9285a077e4628ee75a9edtargetblankc5b63bca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c5b63bc5fde38b61b5d9285a077e4628ee75a9ed" target="_blank">c5b63bc</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree17d0249a6e011bac52f9e66597beb7dd8d939b60targetblank17d0249a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5b63bc5fde38b61b5d9285a077e4628ee75a9edtargetblankc5b63bca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/17d0249a6e011bac52f9e66597beb7dd8d939b60" target="_blank">17d0249</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c5b63bc5fde38b61b5d9285a077e4628ee75a9ed" target="_blank">c5b63bc</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,6 +461,7 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
+    Untracked:  scripts/pbmc_purified_for_de.RData
 
 </code></pre>
 <p>
@@ -499,6 +500,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c5b63bc5fde38b61b5d9285a077e4628ee75a9ed/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">c5b63bc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look_more.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/47275515ba30625131c2f281b36066c20c713203/docs/de_analysis_detailed_look_more.html" target="_blank">4727551</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+<td>
+Added ROC curve to de_analysis_detailed_look_more analysis, and made a
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1193,6 +1228,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/47275515ba30625131c2f281b36066c20c713203/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">4727551</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e3cc4a3acdf723a08f706bf02be25b3d666c4bb9/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-1-1.png" target="_blank">e3cc4a3</a>
 </td>
 <td>
@@ -1223,7 +1269,7 @@ pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[i],nonzero_lfc[i],length.out = 400
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;fastTopics&quot;))
 ggplot(pdat,aes(x = fdr,y = power,color = method)) +
-  geom_line(size = 0.65)  +
+  geom_line(size = 0.65,orientation = &quot;y&quot;)  +
   scale_color_manual(values = c(&quot;royalblue&quot;,&quot;darkorange&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" width="540" style="display: block; margin: auto;" /></p>
@@ -1249,6 +1295,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/47275515ba30625131c2f281b36066c20c713203/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">4727551</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e3cc4a3acdf723a08f706bf02be25b3d666c4bb9/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">e3cc4a3</a>
@@ -1286,6 +1343,43 @@ ggplot(pdat,aes(x = fpr,y = tpr,color = method)) +
   scale_color_manual(values = c(&quot;royalblue&quot;,&quot;darkorange&quot;)) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-kl-vs-fasttopics-3-1">
+Past versions of kl-vs-fasttopics-3-1.png
+</button>
+</p>
+<div id="fig-kl-vs-fasttopics-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/47275515ba30625131c2f281b36066c20c713203/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-3-1.png" target="_blank">4727551</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-10-26
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
