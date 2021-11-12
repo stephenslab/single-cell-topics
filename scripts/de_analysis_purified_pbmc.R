@@ -42,5 +42,4 @@ cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
 # Save the results.
 save(list = c("genes","de1","de2"),
-     file = "de-pbmc-purified.RData")
-resaveRdaFiles("de-pbmc-purified-pseudocount=0.1.RData")
+     file = "de-pbmc-purified-pseudocount=0.1.RData")
