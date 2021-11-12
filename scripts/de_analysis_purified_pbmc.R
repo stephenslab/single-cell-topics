@@ -7,6 +7,9 @@ library(tools)
 library(Matrix)
 library(fastTopics)
 
+pseudocount = 0.1
+print(pseudocount)
+
 # Initialize the sequence of pseudorandom numbers.
 set.seed(1)
 
@@ -23,7 +26,8 @@ fit <- select_loadings(fit,i)
 # Perform the DE analysis.
 set.seed(1)
 t0  <- proc.time()
-de1 <- de_analysis(fit,counts,control = list(ns = 5e4,nc = 20))
+de1 <- de_analysis(fit,counts,pseudocount = pseudocount,
+                   control = list(ns = 1e4,nc = 20))
 t1  <- proc.time()
 cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
@@ -31,11 +35,12 @@ cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 # posterior calculations.
 set.seed(2)
 t0  <- proc.time()
-de2 <- de_analysis(fit,counts,control = list(ns = 5e4,nc = 20))
+de2 <- de_analysis(fit,counts,pseudocount = pseudocount,
+                   control = list(ns = 1e4,nc = 20))
 t1  <- proc.time()
 cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
 # Save the results.
 save(list = c("genes","de1","de2"),
      file = "de-pbmc-purified.RData")
-resaveRdaFiles("de-pbmc-purified.RData")
+resaveRdaFiles("de-pbmc-purified-pseudocount=0.1.RData")
