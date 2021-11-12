@@ -12,7 +12,7 @@ library(DESeq2)
 set.seed(1)
 
 # Load the count data.
-load("pbmc_purified_for_de.RData")
+load("pbmc_purified_for_de_n=800.RData")
 
 # Remove genes that are expressed in fewer than 10 cells. It is
 # doubtful that we will be able to obtain accurate estimates of
@@ -24,7 +24,6 @@ counts <- counts[,j]
 i <- "CD19+ B"
 
 # Prepare the UMI count data for analysis with DESeq2.
-t0 <- proc.time()
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
 counts <- t(counts)
@@ -36,11 +35,12 @@ sizeFactors(deseq) <- calculateSumFactors(counts)
 # vignette for details). To replicate the fastTopics analysis as
 # closely as possible, we also shrink the LFC estimates using adaptive
 # shrinkage.
-deseq <- DESeq(deseq,test = "LRT",fitType = "glmGamPoi",reduced = ~1,
-               useT = TRUE,minmu = 1e-6,minReplicatesForReplace = Inf)
-deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr")
+t0 <- proc.time()
+deseq <- DESeq(deseq,test = "LRT",reduced = ~1,useT = TRUE,minmu = 1e-6,
+               minReplicatesForReplace = Inf)
+deseq <- lfcShrink(deseq,coef = "celltype_2_vs_1",type = "ashr")
 t1 <- proc.time()
-cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
+cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
