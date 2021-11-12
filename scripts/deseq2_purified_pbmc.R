@@ -44,5 +44,5 @@ cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
-     file = "deseq2-pbmc-purified.RData")
-resaveRdaFiles("deseq2-pbmc-purified.RData")
+     file = "deseq2-pbmc-purified-n=800.RData")
+
