@@ -12,7 +12,7 @@ library(DESeq2)
 set.seed(1)
 
 # Load the count data.
-load("pbmc_purified_for_de_n=1600.RData")
+load("pbmc_purified_for_de_n=3000.RData")
 
 # Remove genes that are expressed in fewer than 10 cells. It is
 # doubtful that we will be able to obtain accurate estimates of
@@ -44,4 +44,4 @@ cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
-     file = "deseq2-pbmc-purified-n=1600.RData")
+     file = "deseq2-pbmc-purified-n=3000.RData")
