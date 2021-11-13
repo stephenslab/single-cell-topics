@@ -9,4 +9,4 @@ to do next:
 
 + Compare DESeq2 and fastTopics results on PBMC data.
 
-+ Clean up files.
++ Clean up code and data files in analysis/ and scripts/ directories.
