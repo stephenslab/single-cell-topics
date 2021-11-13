@@ -1,5 +1,5 @@
 # TO DO: Explain here what this script is for, and how to use it.
-# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=16G \
+# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=32G \
 #   --time=24:00:00
 # module load R/4.1.0
 
