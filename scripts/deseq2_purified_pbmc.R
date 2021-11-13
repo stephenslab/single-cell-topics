@@ -1,5 +1,5 @@
 # TO DO: Explain here what this script is for, and how to use it.
-# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=24G \
+# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=16G \
 #   --time=24:00:00
 # module load R/4.1.0
 
@@ -38,11 +38,10 @@ sizeFactors(deseq) <- calculateSumFactors(counts)
 t0 <- proc.time()
 deseq <- DESeq(deseq,test = "LRT",reduced = ~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
-deseq <- lfcShrink(deseq,coef = "celltype_2_vs_1",type = "ashr")
 t1 <- proc.time()
-cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
+timing <- t1 - t0
+cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
      file = "deseq2-pbmc-purified-n=800.RData")
-
