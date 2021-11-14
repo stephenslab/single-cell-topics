@@ -22,7 +22,7 @@ celltype <- factor(celltype)
 
 # Subsample the cell types so that there are at most n of each
 # cell type.
-n <- 3000
+n <- 5000
 i <- c(which(celltype == "CD14+ Monocyte"),
        sample(which(celltype == "CD19+ B"),n),
        sample(which(celltype == "CD34+"),n),
@@ -35,5 +35,5 @@ counts   <- counts[i,]
 
 # Save the new data set.
 save(list = c("genes","celltype","samples","counts"),
-     file = "pbmc_purified_for_de_n=3000.RData")
+     file = "pbmc_purified_for_de_n=5000.RData")
 resaveRdaFiles("pbmc_purified_for_de.RData")

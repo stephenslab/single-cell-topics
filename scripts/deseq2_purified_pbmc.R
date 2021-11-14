@@ -1,7 +1,9 @@
 # TO DO: Explain here what this script is for, and how to use it.
-# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=32G \
+# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=60G \
 #   --time=24:00:00
 # module load R/4.1.0
+# export MEM_CHECK_INTERVAL=0.01
+# python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
 
 # Load a few packages.
 library(Matrix)
@@ -12,7 +14,7 @@ library(DESeq2)
 set.seed(1)
 
 # Load the count data.
-load("pbmc_purified_for_de_n=3000.RData")
+load("pbmc_purified_for_de_n=5000.RData")
 
 # Remove genes that are expressed in fewer than 10 cells. It is
 # doubtful that we will be able to obtain accurate estimates of
@@ -44,4 +46,4 @@ cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
-     file = "deseq2-pbmc-purified-n=3000.RData")
+     file = "deseq2-pbmc-purified-n=5000.RData")
