@@ -16,7 +16,7 @@ library(DESeq2)
 set.seed(1)
 
 # Load the count data.
-load("../data/pbmc_purified")
+load("../data/pbmc_purified.RData")
 
 # Remove genes that are expressed in fewer than 10 cells. It is
 # doubtful that we will be able to obtain accurate estimates of
@@ -28,6 +28,7 @@ counts <- counts[,j]
 i <- "CD19+ B"
 
 # Prepare the UMI count data for analysis with DESeq2.
+celltype <- samples$celltype
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
 counts <- t(counts)
