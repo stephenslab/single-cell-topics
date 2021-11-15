@@ -31,7 +31,6 @@ genes  <- genes[j,]
 counts <- counts[,j]
 
 # Prepare the UMI count data for analysis with DESeq2.
-print(i)
 celltype <- samples$celltype
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
