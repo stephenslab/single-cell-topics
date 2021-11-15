@@ -12,8 +12,11 @@
 library(Matrix)
 library(scran)
 library(DESeq2)
-i <- "CD19+ B"
+i <- "CD19+ B" # CD19+ B, CD56+ NK, CD14+ Monocyte
 outfile <- "deseq2-pbmc-purified-bcells.RData"
+# deseq2-pbmc-purified-bcells.RData
+# deseq2-pbmc-purified-nkcells.RData
+# deseq2-pbmc-purified-cd14+.RData
 print(i)
 print(outfile)
 
@@ -34,6 +37,7 @@ counts <- counts[,j]
 celltype <- samples$celltype
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
+print(summary(coldata$celltype))
 counts <- t(counts)
 deseq <- DESeqDataSetFromMatrix(counts,coldata,~celltype)
 sizeFactors(deseq) <- calculateSumFactors(counts)
