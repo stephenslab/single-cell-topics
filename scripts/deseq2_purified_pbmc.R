@@ -1,11 +1,12 @@
 # TO DO: Explain here what this script is for, and how to use it.
+#
 # sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=264G \
-#   --time=24:00:00
+#   --time=30:00:00
 # module load R/4.1.0
 # export MEM_CHECK_INTERVAL=0.01
 # python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
-# DESeq + lfcShrink took 11370.51 seconds.
-# max rss_memory: 61.97GB
+# DESeq + lfcShrink took 92,235 s.
+# max rss_memory: 262 GB
 
 # Load a few packages.
 library(Matrix)
