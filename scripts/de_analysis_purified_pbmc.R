@@ -7,14 +7,13 @@ library(tools)
 library(Matrix)
 library(fastTopics)
 
-pseudocount = 0.1
-print(pseudocount)
-
 # Initialize the sequence of pseudorandom numbers.
-set.seed(1)
+seed <- 1
+print(seed)
+set.seed(seed)
 
 # Load the count data.
-load("pbmc_purified_for_de.RData")
+load("../data/pbmc_purified.RData")
 
 # Load the K = 6 multinomial topic model fit.
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
@@ -25,21 +24,13 @@ fit <- select_loadings(fit,i)
 
 # Perform the DE analysis.
 set.seed(1)
-t0  <- proc.time()
-de1 <- de_analysis(fit,counts,pseudocount = pseudocount,
-                   control = list(ns = 1e4,nc = 20))
-t1  <- proc.time()
-cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
-
-# Perform the DE analysis a second time to assess accuracy of the
-# posterior calculations.
-set.seed(2)
-t0  <- proc.time()
-de2 <- de_analysis(fit,counts,pseudocount = pseudocount,
-                   control = list(ns = 1e4,nc = 20))
-t1  <- proc.time()
-cat(sprintf("Computation took %0.2f seconds.\n",(t1 - t0)["elapsed"]))
+t0 <- proc.time()
+de <- de_analysis(fit,counts,pseudocount = 0.1,
+                  control = list(ns = 1e5,nc = 20,nsplit = 1000))
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
-save(list = c("genes","de1","de2"),
-     file = "de-pbmc-purified-pseudocount=0.1.RData")
+save(list = c("genes","de"),
+     file = "de-pbmc-purified-seed=1.RData")
