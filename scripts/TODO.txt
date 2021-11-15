@@ -1,10 +1,7 @@
 to do next:
 ----------
 
-+ Figure out how large a PBMC data set DESeq2 can handle, and run
-  DESeq2 on that data set, separately for each cell type.
-
-+ make some improvements to de_analysis in de-overhaul-2 branch.
++ Run DESeq2 on PBMC data, separately for each cell type.
 
 + Run de_analysis on that PBMC data set with enough Monte Carlo
   samples to get reliable z-score estimates.

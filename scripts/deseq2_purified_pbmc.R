@@ -12,6 +12,10 @@
 library(Matrix)
 library(scran)
 library(DESeq2)
+i <- "CD19+ B"
+outfile <- "deseq2-pbmc-purified-bcells.RData"
+print(i)
+print(outfile)
 
 # Initialize the sequence of pseudorandom numbers.
 set.seed(1)
@@ -26,9 +30,8 @@ j      <- which(colSums(counts > 0) >= 10)
 genes  <- genes[j,]
 counts <- counts[,j]
 
-i <- "CD19+ B"
-
 # Prepare the UMI count data for analysis with DESeq2.
+print(i)
 celltype <- samples$celltype
 coldata <- data.frame(celltype = factor(celltype == i))
 levels(coldata$celltype) <- 1:2
@@ -44,10 +47,12 @@ sizeFactors(deseq) <- calculateSumFactors(counts)
 t0 <- proc.time()
 deseq <- DESeq(deseq,test = "LRT",reduced = ~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
+deseq <- lfcShrink(deseq,coef = "celltype_2_vs_1",type = "ashr")
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("DESeq + lfcShrink took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
 save(list = c("genes","deseq"),
-     file = "deseq2-pbmc-purified.RData")
+     file = outfile)
+
