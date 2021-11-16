@@ -12,11 +12,13 @@
 library(Matrix)
 library(scran)
 library(DESeq2)
-i <- "CD19+ B" # CD19+ B, CD56+ NK, CD14+ Monocyte
-outfile <- "deseq2-pbmc-purified-bcells.RData"
+i <- "T cell" # CD19+ B, CD56+ NK, T cell, CD14+ Monocyte, CD34+
+outfile <- "deseq2-pbmc-purified-tcells.RData"
 # deseq2-pbmc-purified-bcells.RData
 # deseq2-pbmc-purified-nkcells.RData
+# deseq2-pbmc-purified-tcells.RData
 # deseq2-pbmc-purified-cd14+.RData
+# deseq2-pbmc-purified-cd34+.RData
 print(i)
 print(outfile)
 
@@ -35,7 +37,17 @@ counts <- counts[,j]
 
 # Prepare the UMI count data for analysis with DESeq2.
 celltype <- samples$celltype
-coldata <- data.frame(celltype = factor(celltype == i))
+if (i == "T cell") {
+  t_cell_subtypes <- c("CD4+ T Helper2",
+                       "CD8+ Cytotoxic T",
+                       "CD4+/CD45RO+ Memory",
+                       "CD8+/CD45RA+ Naive Cytotoxic",
+                       "CD4+/CD45RA+/CD25- Naive T",
+                       "CD4+/CD25 T Reg")
+  coldata <- data.frame(celltype=factor(is.element(celltype,t_cell_subtypes)))
+} else {
+  coldata <- data.frame(celltype = factor(celltype == i))
+}
 levels(coldata$celltype) <- 1:2
 print(summary(coldata$celltype))
 counts <- t(counts)
