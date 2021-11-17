@@ -1,7 +1,7 @@
 # TO DO: Explain here what this script is for, and how to use it.
 #
-# sinteractive -p mstephens --account=pi-mstephens -c 4 --mem=264G \
-#   --time=30:00:00
+# sinteractive -p gilad --account=pi-gilad -c 4 --mem=264G \
+#   --time=36:00:00
 # module load R/4.1.0
 # export MEM_CHECK_INTERVAL=0.01
 # python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
@@ -12,8 +12,8 @@
 library(Matrix)
 library(scran)
 library(DESeq2)
-i <- "T cell" # CD19+ B, CD56+ NK, T cell, CD14+ Monocyte, CD34+
-outfile <- "deseq2-pbmc-purified-tcells.RData"
+i <- "CD19+ B" # CD19+ B, CD56+ NK, T cell, CD14+ Monocyte, CD34+
+outfile <- "deseq2-pbmc-purified-bcells.RData"
 # deseq2-pbmc-purified-bcells.RData
 # deseq2-pbmc-purified-nkcells.RData
 # deseq2-pbmc-purified-tcells.RData
