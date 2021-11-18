@@ -1,7 +1,7 @@
 # TO DO: Explain here what this script is for, and how to use it.
 #
 # sinteractive -p gilad --account=pi-gilad -c 4 --mem=264G \
-#   --time=36:00:00
+#   --time=48:00:00
 # module load R/4.1.0
 # export MEM_CHECK_INTERVAL=0.01
 # python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
