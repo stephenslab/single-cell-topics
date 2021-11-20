@@ -5,11 +5,11 @@
 # steps taken to allocate computing resources on midway2 and run the
 # DESeq2 analysis while also assessing memory usage:
 #
-# sinteractive -p gilad --account=pi-gilad -c 4 --mem=264G \
-#   --time=48:00:00
-# module load R/4.1.0
-# export MEM_CHECK_INTERVAL=0.01
-# python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
+#   sinteractive -p gilad --account=pi-gilad -c 4 --mem=264G \
+#     --time=48:00:00
+#   module load R/4.1.0
+#   export MEM_CHECK_INTERVAL=0.01
+#   python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
 #
 
 # Load a few packages.

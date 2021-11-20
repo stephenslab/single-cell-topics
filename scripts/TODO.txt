@@ -1,11 +1,4 @@
 to do next:
 ----------
 
-+ Run DESeq2 on PBMC data, separately for each cell type.
-
-+ Run de_analysis on that PBMC data set with enough Monte Carlo
-  samples to get reliable z-score estimates.
-
-+ Compare DESeq2 and fastTopics results on PBMC data.
-
 + Clean up code and data files in analysis/ and scripts/ directories.
