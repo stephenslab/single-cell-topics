@@ -43,3 +43,4 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 # Save the results.
 save(list = c("seed","genes","de"),
      file = outfile)
+resaveRdaFiles(outfile)

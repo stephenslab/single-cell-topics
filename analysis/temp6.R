@@ -47,3 +47,5 @@ pdat2[order(pdat2$postmean,decreasing = TRUE),]
 pdat2 <- subset(pdat,fasttopics > 4 & deseq < 4 & postmean > 1)
 pdat2[order(pdat2$postmean,decreasing = TRUE),]
 pdat2 <- subset(pdat,deseq > 50 & fasttopics < 4)
+plot(de1$postmean,de2$postmean,pch = 20)
+abline(a = 0,b = 1,col = "dodgerblue",lty = "dotted")
