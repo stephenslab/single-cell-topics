@@ -1,12 +1,16 @@
-# TO DO: Explain here what this script is for, and how to use it.
+# This is the script that was used to perform differential expression
+# (DE) analysis for a single (FACS) cell-type in the mixture of
+# purified PBMC data, using DESeq2. The DESeq2 analysis took roughly
+# 30 h and required a lot of memory, roughly 262 GB. These were the
+# steps taken to allocate computing resources on midway2 and run the
+# DESeq2 analysis while also assessing memory usage:
 #
 # sinteractive -p gilad --account=pi-gilad -c 4 --mem=264G \
 #   --time=48:00:00
 # module load R/4.1.0
 # export MEM_CHECK_INTERVAL=0.01
 # python3 monitor_memory.py Rscript deseq2_purified_pbmc.R
-# DESeq + lfcShrink took 92,235 s.
-# max rss_memory: 262 GB
+#
 
 # Load a few packages.
 library(Matrix)

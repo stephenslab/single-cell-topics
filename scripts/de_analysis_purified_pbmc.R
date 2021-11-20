@@ -1,12 +1,14 @@
 # A short script used to perform the differential expression (DE)
-# analysis using the multinomial topic model fitted to the purified
-# PBMC data, with k = 6 topics. Computing the log-fold change
+# analysis using the multinomial topic model fitted to the mixture of
+# purified PBMC data, with k = 6 topics. Computing the log-fold change
 # posterior estimates by simulating a Markov chain with 100,000 states
-# takes about 56. This is the Slurm commmand used on midway2:
+# takes about 56. These were the steps taken to load R and allocate
+# computing resources for this analysis:
 #
 #   sinteractive -p mstephens --account=pi-mstephens -c 20 \
 #     --mem=16G --time=60:00:00
-# 
+#   module load R/3.5.1
+#
 
 # Load a few packages.
 library(tools)
