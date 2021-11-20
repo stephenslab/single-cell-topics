@@ -1,4 +1,0 @@
-to do next:
-----------
-
-+ Clean up code and data files in analysis/ and scripts/ directories.
