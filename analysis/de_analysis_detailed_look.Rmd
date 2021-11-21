@@ -329,7 +329,7 @@ set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 Now we compare the posterior means and *z*-scores estimated by these
 two runs in simple scatterplot:
 
-```{r assess-monte-carlo-2, fig.width=7, fig.height=3}
+```{r assess-monte-carlo-2, fig.width=6, fig.height=3}
 pdat <- data.frame(postmean1 = de1$postmean[,2],
                    postmean2 = de2$postmean[,2],
                    z1        = de1$z[,2],
@@ -359,7 +359,7 @@ set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 Indeed, with 10,000 Monte Carlo samples the two sets of *z*-score
 estimates are now very similar:
 
-```{r assess-monte-carlo-4, fig.width=7, fig.height=3}
+```{r assess-monte-carlo-4, fig.width=6, fig.height=3}
 pdat <- data.frame(postmean1 = de1$postmean[,2],
                    postmean2 = de2$postmean[,2],
                    z1        = de1$z[,2],
