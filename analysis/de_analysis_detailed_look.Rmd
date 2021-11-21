@@ -326,17 +326,25 @@ set.seed(1); de1 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 ```
 
-Now we compare the *z*-scores estimated by these two runs in a simple
-scatterplot:
+Now we compare the posterior means and *z*-scores estimated by these
+two runs in simple scatterplot:
 
-```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
-pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y)) +
+```{r assess-monte-carlo-2, fig.width=7, fig.height=3}
+pdat <- data.frame(postmean1 = de1$postmean[,2],
+                   postmean2 = de2$postmean[,2],
+                   z1        = de1$z[,2],
+				   z2        = de2$z[,2])
+p1 <- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
-  labs(x = "first z-score estimate",
-       y = "second z-score estimate") +
+  labs(x = "first posterior mean",y = "second posterior mean") +
   theme_cowplot()
+p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  labs(x = "first z-score estimate",y = "second z-score estimate") +
+  theme_cowplot()
+plot_grid(p1,p2)
 ```
 
 Here we see that the concordance is quite strong, but we should be
@@ -351,14 +359,22 @@ set.seed(2); de2 <- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 Indeed, with 10,000 Monte Carlo samples the two sets of *z*-score
 estimates are now very similar:
 
-```{r assess-monte-carlo-4, fig.width=3.25, fig.height=3}
-pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y)) +
+```{r assess-monte-carlo-4, fig.width=7, fig.height=3}
+pdat <- data.frame(postmean1 = de1$postmean[,2],
+                   postmean2 = de2$postmean[,2],
+                   z1        = de1$z[,2],
+				   z2        = de2$z[,2])
+p1 <- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
-  labs(x = "first z-score estimate",
-       y = "second z-score estimate") +
+  labs(x = "first posterior mean",y = "second posterior mean") +
   theme_cowplot()
+p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  labs(x = "first z-score estimate",y = "second z-score estimate") +
+  theme_cowplot()
+plot_grid(p1,p2)
 ```
 
 Comparison with DESeq2 and MAST
