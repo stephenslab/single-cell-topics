@@ -11,8 +11,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the packages used in the analysis below, as well as additional
-functions that we will use to generate some of the plots.
+Load the packages used in the analysis below.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
@@ -20,3 +19,52 @@ library(fastTopics)
 library(ggplot2)
 library(cowplot)
 ```
+
+Load the count data.
+
+```{r load-data}
+load("../data/pbmc_purified.RData")
+table(samples$celltype)
+```
+
+Load the $K = 6$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS(file.path("../output/pbmc-purified/rds",
+                         "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
+fit <- poisson2multinom(fit)
+```
+
+This Structure plot summarizes the correspondence between the topics
+and the FACS cell populations. It shows the FACS mislabeling of the
+CD34+ cells.
+
+```{r structure-plot, fig.width=8, fig.height=1.8}
+set.seed(1)
+topic_colors <- c("gold","forestgreen","dodgerblue","gray",
+                  "darkmagenta","violet")
+topics <- c(5,3,2,4,1,6)
+celltype <- as.character(samples$celltype)
+celltype[celltype == "CD4+ T Helper2" |
+         celltype == "CD4+/CD45RO+ Memory" |
+         celltype == "CD8+/CD45RA+ Naive Cytotoxic" |
+         celltype == "CD4+/CD45RA+/CD25- Naive T" |
+         celltype == "CD8+ Cytotoxic T" |
+         celltype == "CD4+/CD25 T Reg"] <- "T cell"
+celltype <- factor(celltype,
+                   c("CD19+ B","CD14+ Monocyte","CD34+","CD56+ NK","T cell"))
+rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
+               sample(which(celltype == "CD14+ Monocyte"),250),
+               sample(which(celltype == "CD34+"),500),
+               sample(which(celltype == "CD56+ NK"),400),
+               sample(which(celltype == "T cell"),1000)))
+p1 <- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = celltype[rows],
+                     topics = topics,colors = topic_colors[topics],
+   	  			     perplexity = c(70,30,30,30,70),n = Inf,gap = 30,
+					 num_threads = 4,verbose = FALSE)
+print(p1)
+```
+
+B cells
+-------
