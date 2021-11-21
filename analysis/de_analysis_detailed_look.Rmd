@@ -331,7 +331,7 @@ scatterplot:
 
 ```{r assess-monte-carlo-2, fig.width=4, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+ggplot(pdat,aes(x = x,y = y)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   labs(x = "first z-score estimate",
@@ -353,7 +353,7 @@ estimates are now very similar:
 
 ```{r assess-monte-carlo-4, fig.width=3.25, fig.height=3}
 pdat <- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+ggplot(pdat,aes(x = x,y = y)) +
   geom_point(shape = 21,color = "white",fill = "royalblue",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   labs(x = "first z-score estimate",
