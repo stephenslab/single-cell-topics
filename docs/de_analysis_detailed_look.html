@@ -323,10 +323,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-20
+<strong>Last updated:</strong> 2021-11-21
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 5 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 2
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -342,12 +342,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree709c3d38b75a6ea1884e202c5114cdda19b0fc8etargetblank709c3d3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/709c3d38b75a6ea1884e202c5114cdda19b0fc8e" target="_blank">709c3d3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb73c409d70c66404f7493cede033a1dae99370a8targetblankb73c409a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b73c409d70c66404f7493cede033a1dae99370a8" target="_blank">b73c409</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree709c3d38b75a6ea1884e202c5114cdda19b0fc8etargetblank709c3d3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb73c409d70c66404f7493cede033a1dae99370a8targetblankb73c409a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/709c3d38b75a6ea1884e202c5114cdda19b0fc8e" target="_blank">709c3d3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b73c409d70c66404f7493cede033a1dae99370a8" target="_blank">b73c409</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -466,7 +466,7 @@ Untracked files:
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   analysis/de_analysis_detailed_look.Rmd
+    Modified:   analysis/de_analysis_purified_pbmc.Rmd
 
 </code></pre>
 <p>
@@ -505,6 +505,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b73c409d70c66404f7493cede033a1dae99370a8/analysis/de_analysis_detailed_look.Rmd" target="_blank">b73c409</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d74b363ab943841ba42a8a2edb707a062b8e552f/analysis/de_analysis_detailed_look.Rmd" target="_blank">d74b363</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-20
+</td>
+<td>
+Fixed a couple small coding mistakes in the de_analysis_detailed_look analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/d74b363ab943841ba42a8a2edb707a062b8e552f/docs/de_analysis_detailed_look.html" target="_blank">d74b363</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-20
+</td>
+<td>
+Fixed a couple small coding mistakes in the de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -2372,15 +2423,23 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Fitting 10000 Poisson models with k=2 using method=&quot;scd&quot;.
 # Computing log-fold change statistics from 10000 Poisson models with k=2.
 # Stabilizing posterior log-fold change estimates using adaptive shrinkage.</code></pre>
-<p>Now we compare the <em>z</em>-scores estimated by these two runs in a simple scatterplot:</p>
-<pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+<p>Now we compare the posterior means and <em>z</em>-scores estimated by these two runs in simple scatterplot:</p>
+<pre class="r"><code>pdat &lt;- data.frame(postmean1 = de1$postmean[,2],
+                   postmean2 = de2$postmean[,2],
+                   z1        = de1$z[,2],
+                   z2        = de2$z[,2])
+p1 &lt;- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
-  labs(x = &quot;first z-score estimate&quot;,
-       y = &quot;second z-score estimate&quot;) +
-  theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" width="387.6" style="display: block; margin: auto;" /></p>
+  labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
+  theme_cowplot()
+p2 &lt;- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  labs(x = &quot;first z-score estimate&quot;,y = &quot;second z-score estimate&quot;) +
+  theme_cowplot()
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-2-1">
 Past versions of assess-monte-carlo-2-1.png
@@ -2403,6 +2462,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d74b363ab943841ba42a8a2edb707a062b8e552f/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" target="_blank">d74b363</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-20
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7682717241c7257148bd41e88a3799fd70e69a5b/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" target="_blank">7682717</a>
@@ -2438,14 +2508,22 @@ set.seed(2); de2 &lt;- de_analysis(fit,X,control = list(ns = 10000,nc = 2))
 </p>
 </div>
 <p>Indeed, with 10,000 Monte Carlo samples the two sets of <em>z</em>-score estimates are now very similar:</p>
-<pre class="r"><code>pdat &lt;- data.frame(x = de1$z[,2],y = de2$z[,2])
-ggplot(pdat,aes(x = x,y = y,fill = log10mean)) +
+<pre class="r"><code>pdat &lt;- data.frame(postmean1 = de1$postmean[,2],
+                   postmean2 = de2$postmean[,2],
+                   z1        = de1$z[,2],
+                   z2        = de2$z[,2])
+p1 &lt;- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
-  labs(x = &quot;first z-score estimate&quot;,
-       y = &quot;second z-score estimate&quot;) +
-  theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" width="390" style="display: block; margin: auto;" /></p>
+  labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
+  theme_cowplot()
+p2 &lt;- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;royalblue&quot;,size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  labs(x = &quot;first z-score estimate&quot;,y = &quot;second z-score estimate&quot;) +
+  theme_cowplot()
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" width="840" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-4-1">
 Past versions of assess-monte-carlo-4-1.png
@@ -2531,297 +2609,12 @@ Idents(seurat) &lt;- cluster
 mast &lt;- FindMarkers(seurat,ident.1 = &quot;2&quot;,ident.2 = NULL,test.use = &quot;MAST&quot;,
                     logfc.threshold = 0,min.pct = 0)
 # 
- Completed [--------------------------------------------]   1% with 0 failures
- Completed [&gt;-------------------------------------------]   1% with 0 failures
- Completed [&gt;-------------------------------------------]   2% with 0 failures
- Completed [&gt;-------------------------------------------]   3% with 0 failures
- Completed [=&gt;------------------------------------------]   3% with 0 failures
- Completed [=&gt;------------------------------------------]   4% with 0 failures
- Completed [=&gt;------------------------------------------]   5% with 0 failures
- Completed [=&gt;------------------------------------------]   6% with 0 failures
- Completed [==&gt;-----------------------------------------]   6% with 0 failures
- Completed [==&gt;-----------------------------------------]   7% with 0 failures
- Completed [==&gt;-----------------------------------------]   8% with 0 failures
- Completed [===&gt;----------------------------------------]   8% with 0 failures
- Completed [===&gt;----------------------------------------]   9% with 0 failures
- Completed [===&gt;----------------------------------------]  10% with 0 failures
- Completed [====&gt;---------------------------------------]  10% with 0 failures
- Completed [====&gt;---------------------------------------]  11% with 0 failures
- Completed [====&gt;---------------------------------------]  12% with 0 failures
- Completed [=====&gt;--------------------------------------]  13% with 0 failures
- Completed [=====&gt;--------------------------------------]  14% with 0 failures
- Completed [=====&gt;--------------------------------------]  15% with 0 failures
- Completed [======&gt;-------------------------------------]  15% with 0 failures
- Completed [======&gt;-------------------------------------]  16% with 0 failures
- Completed [======&gt;-------------------------------------]  17% with 0 failures
- Completed [=======&gt;------------------------------------]  17% with 0 failures
- Completed [=======&gt;------------------------------------]  18% with 0 failures
- Completed [=======&gt;------------------------------------]  19% with 0 failures
- Completed [========&gt;-----------------------------------]  19% with 0 failures
- Completed [========&gt;-----------------------------------]  20% with 0 failures
- Completed [========&gt;-----------------------------------]  21% with 0 failures
- Completed [========&gt;-----------------------------------]  22% with 0 failures
- Completed [=========&gt;----------------------------------]  22% with 0 failures
- Completed [=========&gt;----------------------------------]  23% with 0 failures
- Completed [=========&gt;----------------------------------]  24% with 0 failures
- Completed [==========&gt;---------------------------------]  24% with 0 failures
- Completed [==========&gt;---------------------------------]  25% with 0 failures
- Completed [==========&gt;---------------------------------]  26% with 0 failures
- Completed [===========&gt;--------------------------------]  26% with 0 failures
- Completed [===========&gt;--------------------------------]  27% with 0 failures
- Completed [===========&gt;--------------------------------]  28% with 0 failures
- Completed [============&gt;-------------------------------]  28% with 0 failures
- Completed [============&gt;-------------------------------]  29% with 0 failures
- Completed [============&gt;-------------------------------]  30% with 0 failures
- Completed [============&gt;-------------------------------]  31% with 0 failures
- Completed [=============&gt;------------------------------]  31% with 0 failures
- Completed [=============&gt;------------------------------]  32% with 0 failures
- Completed [=============&gt;------------------------------]  33% with 0 failures
- Completed [==============&gt;-----------------------------]  33% with 0 failures
- Completed [==============&gt;-----------------------------]  34% with 0 failures
- Completed [==============&gt;-----------------------------]  35% with 0 failures
- Completed [===============&gt;----------------------------]  35% with 0 failures
- Completed [===============&gt;----------------------------]  36% with 0 failures
- Completed [===============&gt;----------------------------]  37% with 0 failures
- Completed [================&gt;---------------------------]  38% with 0 failures
- Completed [================&gt;---------------------------]  39% with 0 failures
- Completed [================&gt;---------------------------]  40% with 0 failures
- Completed [=================&gt;--------------------------]  40% with 0 failures
- Completed [=================&gt;--------------------------]  41% with 0 failures
- Completed [=================&gt;--------------------------]  42% with 0 failures
- Completed [==================&gt;-------------------------]  42% with 0 failures
- Completed [==================&gt;-------------------------]  43% with 0 failures
- Completed [==================&gt;-------------------------]  44% with 0 failures
- Completed [===================&gt;------------------------]  44% with 0 failures
- Completed [===================&gt;------------------------]  45% with 0 failures
- Completed [===================&gt;------------------------]  46% with 0 failures
- Completed [===================&gt;------------------------]  47% with 0 failures
- Completed [====================&gt;-----------------------]  47% with 0 failures
- Completed [====================&gt;-----------------------]  48% with 0 failures
- Completed [====================&gt;-----------------------]  49% with 0 failures
- Completed [=====================&gt;----------------------]  49% with 0 failures
- Completed [=====================&gt;----------------------]  50% with 0 failures
- Completed [=====================&gt;----------------------]  51% with 0 failures
- Completed [======================&gt;---------------------]  51% with 0 failures
- Completed [======================&gt;---------------------]  52% with 0 failures
- Completed [======================&gt;---------------------]  53% with 0 failures
- Completed [=======================&gt;--------------------]  53% with 0 failures
- Completed [=======================&gt;--------------------]  54% with 0 failures
- Completed [=======================&gt;--------------------]  55% with 0 failures
- Completed [=======================&gt;--------------------]  56% with 0 failures
- Completed [========================&gt;-------------------]  56% with 0 failures
- Completed [========================&gt;-------------------]  57% with 0 failures
- Completed [========================&gt;-------------------]  58% with 0 failures
- Completed [=========================&gt;------------------]  58% with 0 failures
- Completed [=========================&gt;------------------]  59% with 0 failures
- Completed [=========================&gt;------------------]  60% with 0 failures
- Completed [==========================&gt;-----------------]  60% with 0 failures
- Completed [==========================&gt;-----------------]  61% with 0 failures
- Completed [==========================&gt;-----------------]  62% with 0 failures
- Completed [===========================&gt;----------------]  63% with 0 failures
- Completed [===========================&gt;----------------]  64% with 0 failures
- Completed [===========================&gt;----------------]  65% with 0 failures
- Completed [============================&gt;---------------]  65% with 0 failures
- Completed [============================&gt;---------------]  66% with 0 failures
- Completed [============================&gt;---------------]  67% with 0 failures
- Completed [=============================&gt;--------------]  67% with 0 failures
- Completed [=============================&gt;--------------]  68% with 0 failures
- Completed [=============================&gt;--------------]  69% with 0 failures
- Completed [==============================&gt;-------------]  69% with 0 failures
- Completed [==============================&gt;-------------]  70% with 0 failures
- Completed [==============================&gt;-------------]  71% with 0 failures
- Completed [==============================&gt;-------------]  72% with 0 failures
- Completed [===============================&gt;------------]  72% with 0 failures
- Completed [===============================&gt;------------]  73% with 0 failures
- Completed [===============================&gt;------------]  74% with 0 failures
- Completed [================================&gt;-----------]  74% with 0 failures
- Completed [================================&gt;-----------]  75% with 0 failures
- Completed [================================&gt;-----------]  76% with 0 failures
- Completed [=================================&gt;----------]  76% with 0 failures
- Completed [=================================&gt;----------]  77% with 0 failures
- Completed [=================================&gt;----------]  78% with 0 failures
- Completed [==================================&gt;---------]  78% with 0 failures
- Completed [==================================&gt;---------]  79% with 0 failures
- Completed [==================================&gt;---------]  80% with 0 failures
- Completed [==================================&gt;---------]  81% with 0 failures
- Completed [===================================&gt;--------]  81% with 0 failures
- Completed [===================================&gt;--------]  82% with 0 failures
- Completed [===================================&gt;--------]  83% with 0 failures
- Completed [====================================&gt;-------]  83% with 0 failures
- Completed [====================================&gt;-------]  84% with 0 failures
- Completed [====================================&gt;-------]  85% with 0 failures
- Completed [=====================================&gt;------]  85% with 0 failures
- Completed [=====================================&gt;------]  86% with 0 failures
- Completed [=====================================&gt;------]  87% with 0 failures
- Completed [======================================&gt;-----]  88% with 0 failures
- Completed [======================================&gt;-----]  89% with 0 failures
- Completed [======================================&gt;-----]  90% with 0 failures
- Completed [=======================================&gt;----]  90% with 0 failures
- Completed [=======================================&gt;----]  91% with 0 failures
- Completed [=======================================&gt;----]  92% with 0 failures
- Completed [========================================&gt;---]  92% with 0 failures
- Completed [========================================&gt;---]  93% with 0 failures
- Completed [========================================&gt;---]  94% with 0 failures
- Completed [=========================================&gt;--]  94% with 0 failures
- Completed [=========================================&gt;--]  95% with 0 failures
- Completed [=========================================&gt;--]  96% with 0 failures
- Completed [=========================================&gt;--]  97% with 0 failures
- Completed [==========================================&gt;-]  97% with 0 failures
- Completed [==========================================&gt;-]  98% with 0 failures
- Completed [==========================================&gt;-]  99% with 0 failures
- Completed [===========================================&gt;]  99% with 0 failures
- Completed [===========================================&gt;] 100% with 0 failures
- Completed [============================================] 100% with 0 failures
-                                                                              
 # Done!
 # Combining coefficients and standard errors
 # Calculating log-fold changes
 # Calculating likelihood ratio tests
 # Refitting on reduced model...
 # 
- Completed [--------------------------------------------]   0% with 0 failures
- Completed [--------------------------------------------]   1% with 0 failures
- Completed [&gt;-------------------------------------------]   1% with 0 failures
- Completed [&gt;-------------------------------------------]   2% with 0 failures
- Completed [&gt;-------------------------------------------]   3% with 0 failures
- Completed [=&gt;------------------------------------------]   3% with 0 failures
- Completed [=&gt;------------------------------------------]   4% with 0 failures
- Completed [=&gt;------------------------------------------]   5% with 0 failures
- Completed [=&gt;------------------------------------------]   6% with 0 failures
- Completed [==&gt;-----------------------------------------]   6% with 0 failures
- Completed [==&gt;-----------------------------------------]   7% with 0 failures
- Completed [==&gt;-----------------------------------------]   8% with 0 failures
- Completed [===&gt;----------------------------------------]   8% with 0 failures
- Completed [===&gt;----------------------------------------]   9% with 0 failures
- Completed [===&gt;----------------------------------------]  10% with 0 failures
- Completed [====&gt;---------------------------------------]  10% with 0 failures
- Completed [====&gt;---------------------------------------]  11% with 0 failures
- Completed [====&gt;---------------------------------------]  12% with 0 failures
- Completed [=====&gt;--------------------------------------]  13% with 0 failures
- Completed [=====&gt;--------------------------------------]  14% with 0 failures
- Completed [=====&gt;--------------------------------------]  15% with 0 failures
- Completed [======&gt;-------------------------------------]  15% with 0 failures
- Completed [======&gt;-------------------------------------]  16% with 0 failures
- Completed [======&gt;-------------------------------------]  17% with 0 failures
- Completed [=======&gt;------------------------------------]  17% with 0 failures
- Completed [=======&gt;------------------------------------]  18% with 0 failures
- Completed [=======&gt;------------------------------------]  19% with 0 failures
- Completed [========&gt;-----------------------------------]  19% with 0 failures
- Completed [========&gt;-----------------------------------]  20% with 0 failures
- Completed [========&gt;-----------------------------------]  21% with 0 failures
- Completed [========&gt;-----------------------------------]  22% with 0 failures
- Completed [=========&gt;----------------------------------]  22% with 0 failures
- Completed [=========&gt;----------------------------------]  23% with 0 failures
- Completed [=========&gt;----------------------------------]  24% with 0 failures
- Completed [==========&gt;---------------------------------]  24% with 0 failures
- Completed [==========&gt;---------------------------------]  25% with 0 failures
- Completed [==========&gt;---------------------------------]  26% with 0 failures
- Completed [===========&gt;--------------------------------]  26% with 0 failures
- Completed [===========&gt;--------------------------------]  27% with 0 failures
- Completed [===========&gt;--------------------------------]  28% with 0 failures
- Completed [============&gt;-------------------------------]  28% with 0 failures
- Completed [============&gt;-------------------------------]  29% with 0 failures
- Completed [============&gt;-------------------------------]  30% with 0 failures
- Completed [============&gt;-------------------------------]  31% with 0 failures
- Completed [=============&gt;------------------------------]  31% with 0 failures
- Completed [=============&gt;------------------------------]  32% with 0 failures
- Completed [=============&gt;------------------------------]  33% with 0 failures
- Completed [==============&gt;-----------------------------]  33% with 0 failures
- Completed [==============&gt;-----------------------------]  34% with 0 failures
- Completed [==============&gt;-----------------------------]  35% with 0 failures
- Completed [===============&gt;----------------------------]  35% with 0 failures
- Completed [===============&gt;----------------------------]  36% with 0 failures
- Completed [===============&gt;----------------------------]  37% with 0 failures
- Completed [================&gt;---------------------------]  38% with 0 failures
- Completed [================&gt;---------------------------]  39% with 0 failures
- Completed [================&gt;---------------------------]  40% with 0 failures
- Completed [=================&gt;--------------------------]  40% with 0 failures
- Completed [=================&gt;--------------------------]  41% with 0 failures
- Completed [=================&gt;--------------------------]  42% with 0 failures
- Completed [==================&gt;-------------------------]  42% with 0 failures
- Completed [==================&gt;-------------------------]  43% with 0 failures
- Completed [==================&gt;-------------------------]  44% with 0 failures
- Completed [===================&gt;------------------------]  44% with 0 failures
- Completed [===================&gt;------------------------]  45% with 0 failures
- Completed [===================&gt;------------------------]  46% with 0 failures
- Completed [===================&gt;------------------------]  47% with 0 failures
- Completed [====================&gt;-----------------------]  47% with 0 failures
- Completed [====================&gt;-----------------------]  48% with 0 failures
- Completed [====================&gt;-----------------------]  49% with 0 failures
- Completed [=====================&gt;----------------------]  49% with 0 failures
- Completed [=====================&gt;----------------------]  50% with 0 failures
- Completed [=====================&gt;----------------------]  51% with 0 failures
- Completed [======================&gt;---------------------]  51% with 0 failures
- Completed [======================&gt;---------------------]  52% with 0 failures
- Completed [======================&gt;---------------------]  53% with 0 failures
- Completed [=======================&gt;--------------------]  53% with 0 failures
- Completed [=======================&gt;--------------------]  54% with 0 failures
- Completed [=======================&gt;--------------------]  55% with 0 failures
- Completed [=======================&gt;--------------------]  56% with 0 failures
- Completed [========================&gt;-------------------]  56% with 0 failures
- Completed [========================&gt;-------------------]  57% with 0 failures
- Completed [========================&gt;-------------------]  58% with 0 failures
- Completed [=========================&gt;------------------]  58% with 0 failures
- Completed [=========================&gt;------------------]  59% with 0 failures
- Completed [=========================&gt;------------------]  60% with 0 failures
- Completed [==========================&gt;-----------------]  60% with 0 failures
- Completed [==========================&gt;-----------------]  61% with 0 failures
- Completed [==========================&gt;-----------------]  62% with 0 failures
- Completed [===========================&gt;----------------]  63% with 0 failures
- Completed [===========================&gt;----------------]  64% with 0 failures
- Completed [===========================&gt;----------------]  65% with 0 failures
- Completed [============================&gt;---------------]  65% with 0 failures
- Completed [============================&gt;---------------]  66% with 0 failures
- Completed [============================&gt;---------------]  67% with 0 failures
- Completed [=============================&gt;--------------]  67% with 0 failures
- Completed [=============================&gt;--------------]  68% with 0 failures
- Completed [=============================&gt;--------------]  69% with 0 failures
- Completed [==============================&gt;-------------]  69% with 0 failures
- Completed [==============================&gt;-------------]  70% with 0 failures
- Completed [==============================&gt;-------------]  71% with 0 failures
- Completed [==============================&gt;-------------]  72% with 0 failures
- Completed [===============================&gt;------------]  72% with 0 failures
- Completed [===============================&gt;------------]  73% with 0 failures
- Completed [===============================&gt;------------]  74% with 0 failures
- Completed [================================&gt;-----------]  74% with 0 failures
- Completed [================================&gt;-----------]  75% with 0 failures
- Completed [================================&gt;-----------]  76% with 0 failures
- Completed [=================================&gt;----------]  76% with 0 failures
- Completed [=================================&gt;----------]  77% with 0 failures
- Completed [=================================&gt;----------]  78% with 0 failures
- Completed [==================================&gt;---------]  78% with 0 failures
- Completed [==================================&gt;---------]  79% with 0 failures
- Completed [==================================&gt;---------]  80% with 0 failures
- Completed [==================================&gt;---------]  81% with 0 failures
- Completed [===================================&gt;--------]  81% with 0 failures
- Completed [===================================&gt;--------]  82% with 0 failures
- Completed [===================================&gt;--------]  83% with 0 failures
- Completed [====================================&gt;-------]  83% with 0 failures
- Completed [====================================&gt;-------]  84% with 0 failures
- Completed [====================================&gt;-------]  85% with 0 failures
- Completed [=====================================&gt;------]  85% with 0 failures
- Completed [=====================================&gt;------]  86% with 0 failures
- Completed [=====================================&gt;------]  87% with 0 failures
- Completed [======================================&gt;-----]  88% with 0 failures
- Completed [======================================&gt;-----]  89% with 0 failures
- Completed [======================================&gt;-----]  90% with 0 failures
- Completed [=======================================&gt;----]  90% with 0 failures
- Completed [=======================================&gt;----]  91% with 0 failures
- Completed [=======================================&gt;----]  92% with 0 failures
- Completed [========================================&gt;---]  92% with 0 failures
- Completed [========================================&gt;---]  93% with 0 failures
- Completed [========================================&gt;---]  94% with 0 failures
- Completed [=========================================&gt;--]  94% with 0 failures
- Completed [=========================================&gt;--]  95% with 0 failures
- Completed [=========================================&gt;--]  96% with 0 failures
- Completed [=========================================&gt;--]  97% with 0 failures
- Completed [==========================================&gt;-]  97% with 0 failures
- Completed [==========================================&gt;-]  98% with 0 failures
- Completed [==========================================&gt;-]  99% with 0 failures
- Completed [===========================================&gt;]  99% with 0 failures
- Completed [===========================================&gt;] 100% with 0 failures
- Completed [============================================] 100% with 0 failures
-                                                                              
 # Done!</code></pre>
 <p>The posterior mean estimates from the fastTopics DE analysis closely align with the DESeq2 estimates:</p>
 <pre class="r"><code>pdat &lt;- data.frame(DESeq2     = deseq$log2FoldChange,
@@ -3242,53 +3035,52 @@ Peter Carbonetto
 #   [7] grid_3.6.2               Rtsne_0.15               munsell_0.5.0           
 #  [10] codetools_0.2-16         ica_1.0-2                statmod_1.4.34          
 #  [13] future_1.18.0            miniUI_0.1.1.1           withr_2.4.2             
-#  [16] colorspace_1.4-1         knitr_1.26               rstudioapi_0.13         
-#  [19] ROCR_1.0-11              tensor_1.5               listenv_0.8.0           
-#  [22] labeling_0.3             git2r_0.26.1             GenomeInfoDbData_1.2.2  
-#  [25] mixsqp_0.3-46            polyclip_1.10-0          MCMCpack_1.4-5          
-#  [28] farver_2.0.1             bit64_0.9-7              rprojroot_1.3-2         
-#  [31] coda_0.19-3              vctrs_0.3.8              generics_0.0.2          
-#  [34] xfun_0.11                R6_2.4.1                 ggbeeswarm_0.6.0        
-#  [37] rsvd_1.0.2               invgamma_1.1             locfit_1.5-9.4          
-#  [40] bitops_1.0-6             spatstat.utils_1.17-0    assertthat_0.2.1        
-#  [43] promises_1.1.0           scales_1.1.0             beeswarm_0.2.3          
-#  [46] gtable_0.3.0             globals_0.13.0           goftest_1.2-2           
-#  [49] mcmc_0.9-6               workflowr_1.6.2          rlang_0.4.11            
-#  [52] MatrixModels_0.4-1       genefilter_1.68.0        splines_3.6.2           
-#  [55] lazyeval_0.2.2           yaml_2.2.0               reshape2_1.4.3          
-#  [58] abind_1.4-5              backports_1.1.5          httpuv_1.5.2            
-#  [61] tools_3.6.2              ellipsis_0.3.2           RColorBrewer_1.1-2      
-#  [64] ggridges_0.5.2           Rcpp_1.0.7               plyr_1.8.5              
-#  [67] progress_1.2.2           zlibbioc_1.32.0          purrr_0.3.4             
-#  [70] RCurl_1.98-1.2           prettyunits_1.1.1        rpart_4.1-15            
-#  [73] deldir_0.1-29            pbapply_1.5-1            viridis_0.5.1           
-#  [76] ashr_2.2-51              zoo_1.8-7                ggrepel_0.9.1           
-#  [79] cluster_2.1.0            fs_1.3.1                 magrittr_2.0.1          
-#  [82] data.table_1.12.8        scattermore_0.7          SparseM_1.78            
-#  [85] lmtest_0.9-38            RANN_2.6.1               truncnorm_1.0-8         
-#  [88] SQUAREM_2017.10-1        whisker_0.4              fitdistrplus_1.1-1      
-#  [91] hms_1.1.0                patchwork_1.0.1          mime_0.8                
-#  [94] evaluate_0.14            xtable_1.8-4             XML_3.99-0.3            
-#  [97] gridExtra_2.3            compiler_3.6.2           scater_1.14.6           
-# [100] tibble_3.1.3             KernSmooth_2.23-16       crayon_1.4.1            
-# [103] htmltools_0.4.0          mgcv_1.8-31              later_1.0.0             
-# [106] tidyr_1.1.3              geneplotter_1.64.0       RcppParallel_4.4.2      
-# [109] DBI_1.1.0                MASS_7.3-51.4            rappdirs_0.3.1          
-# [112] quadprog_1.5-8           igraph_1.2.5             pkgconfig_2.0.3         
-# [115] plotly_4.9.2             annotate_1.64.0          vipor_0.4.5             
-# [118] dqrng_0.2.1              XVector_0.26.0           stringr_1.4.0           
-# [121] digest_0.6.23            sctransform_0.3.2        RcppAnnoy_0.0.18        
-# [124] spatstat.data_1.4-3      rmarkdown_2.3            leiden_0.3.3            
-# [127] uwot_0.1.10              edgeR_3.28.1             DelayedMatrixStats_1.6.1
-# [130] shiny_1.4.0              quantreg_5.54            lifecycle_1.0.0         
-# [133] nlme_3.1-142             jsonlite_1.7.2           BiocNeighbors_1.2.0     
-# [136] viridisLite_0.3.0        limma_3.42.2             fansi_0.4.0             
-# [139] pillar_1.6.2             lattice_0.20-38          fastmap_1.0.1           
-# [142] httr_1.4.2               survival_3.1-8           glue_1.4.2              
-# [145] spatstat_1.64-1          png_0.1-7                bit_1.1-15.2            
-# [148] stringi_1.4.3            blob_1.2.1               BiocSingular_1.2.2      
-# [151] memoise_1.1.0            dplyr_1.0.7              irlba_2.3.3             
-# [154] future.apply_1.6.0</code></pre>
+#  [16] colorspace_1.4-1         knitr_1.26               ROCR_1.0-11             
+#  [19] tensor_1.5               listenv_0.8.0            labeling_0.3            
+#  [22] git2r_0.26.1             GenomeInfoDbData_1.2.2   mixsqp_0.3-46           
+#  [25] polyclip_1.10-0          MCMCpack_1.4-5           farver_2.0.1            
+#  [28] bit64_0.9-7              rprojroot_1.3-2          coda_0.19-3             
+#  [31] vctrs_0.3.8              generics_0.0.2           xfun_0.11               
+#  [34] R6_2.4.1                 ggbeeswarm_0.6.0         rsvd_1.0.2              
+#  [37] invgamma_1.1             locfit_1.5-9.4           bitops_1.0-6            
+#  [40] spatstat.utils_1.17-0    assertthat_0.2.1         promises_1.1.0          
+#  [43] scales_1.1.0             beeswarm_0.2.3           gtable_0.3.0            
+#  [46] globals_0.13.0           goftest_1.2-2            mcmc_0.9-6              
+#  [49] workflowr_1.6.2          rlang_0.4.11             MatrixModels_0.4-1      
+#  [52] genefilter_1.68.0        splines_3.6.2            lazyeval_0.2.2          
+#  [55] yaml_2.2.0               reshape2_1.4.3           abind_1.4-5             
+#  [58] backports_1.1.5          httpuv_1.5.2             tools_3.6.2             
+#  [61] ellipsis_0.3.2           RColorBrewer_1.1-2       ggridges_0.5.2          
+#  [64] Rcpp_1.0.7               plyr_1.8.5               progress_1.2.2          
+#  [67] zlibbioc_1.32.0          purrr_0.3.4              RCurl_1.98-1.2          
+#  [70] prettyunits_1.1.1        rpart_4.1-15             deldir_0.1-29           
+#  [73] pbapply_1.5-1            viridis_0.5.1            ashr_2.2-51             
+#  [76] zoo_1.8-7                ggrepel_0.9.1            cluster_2.1.0           
+#  [79] fs_1.3.1                 magrittr_2.0.1           data.table_1.12.8       
+#  [82] scattermore_0.7          SparseM_1.78             lmtest_0.9-38           
+#  [85] RANN_2.6.1               truncnorm_1.0-8          SQUAREM_2017.10-1       
+#  [88] whisker_0.4              fitdistrplus_1.1-1       hms_1.1.0               
+#  [91] patchwork_1.0.1          mime_0.8                 evaluate_0.14           
+#  [94] xtable_1.8-4             XML_3.99-0.3             gridExtra_2.3           
+#  [97] compiler_3.6.2           scater_1.14.6            tibble_3.1.3            
+# [100] KernSmooth_2.23-16       crayon_1.4.1             htmltools_0.4.0         
+# [103] mgcv_1.8-31              later_1.0.0              tidyr_1.1.3             
+# [106] geneplotter_1.64.0       RcppParallel_4.4.2       DBI_1.1.0               
+# [109] MASS_7.3-51.4            quadprog_1.5-8           igraph_1.2.5            
+# [112] pkgconfig_2.0.3          plotly_4.9.2             annotate_1.64.0         
+# [115] vipor_0.4.5              dqrng_0.2.1              XVector_0.26.0          
+# [118] stringr_1.4.0            digest_0.6.23            sctransform_0.3.2       
+# [121] RcppAnnoy_0.0.18         spatstat.data_1.4-3      rmarkdown_2.3           
+# [124] leiden_0.3.3             uwot_0.1.10              edgeR_3.28.1            
+# [127] DelayedMatrixStats_1.6.1 shiny_1.4.0              quantreg_5.54           
+# [130] lifecycle_1.0.0          nlme_3.1-142             jsonlite_1.7.2          
+# [133] BiocNeighbors_1.2.0      viridisLite_0.3.0        limma_3.42.2            
+# [136] fansi_0.4.0              pillar_1.6.2             lattice_0.20-38         
+# [139] fastmap_1.0.1            httr_1.4.2               survival_3.1-8          
+# [142] glue_1.4.2               spatstat_1.64-1          png_0.1-7               
+# [145] bit_1.1-15.2             stringi_1.4.3            blob_1.2.1              
+# [148] BiocSingular_1.2.2       memoise_1.1.0            dplyr_1.0.7             
+# [151] irlba_2.3.3              future.apply_1.6.0</code></pre>
 </div>
 </div>
 
