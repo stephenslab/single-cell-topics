@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree90c6584edade80ea1f4392583675771808dd6951targetblank90c6584a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/90c6584edade80ea1f4392583675771808dd6951" target="_blank">90c6584</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef7a5a86cbff1d6abde9046f9d263ee261b03ff65targetblankf7a5a86a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f7a5a86cbff1d6abde9046f9d263ee261b03ff65" target="_blank">f7a5a86</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree90c6584edade80ea1f4392583675771808dd6951targetblank90c6584a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef7a5a86cbff1d6abde9046f9d263ee261b03ff65targetblankf7a5a86a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/90c6584edade80ea1f4392583675771808dd6951" target="_blank">90c6584</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f7a5a86cbff1d6abde9046f9d263ee261b03ff65" target="_blank">f7a5a86</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -491,6 +491,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f7a5a86cbff1d6abde9046f9d263ee261b03ff65/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">f7a5a86</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/1917832caf043fcd580e128dc4915c404d95cd3f/docs/de_analysis_purified_pbmc.html" target="_blank">1917832</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+<td>
+Working on de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -601,11 +635,12 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 <p>The aim of this analysis is to understand the differences between a classical differential expresion analysis comparing expression among cell types (implemented using DESEq2) and a differential expression analysis using the topic model, which allows for grades of membership to cell types or cell states.</p>
-<p>Begin by loading the packages used in the analysis.</p>
+<p>Begin by loading the packages and some function definitions used in the analysis.</p>
 <pre class="r"><code>library(Matrix)
 library(fastTopics)
 library(ggplot2)
-library(cowplot)</code></pre>
+library(cowplot)
+source(&quot;../code/de_analysis_functions.R&quot;)</code></pre>
 <p>Load the UMI gene count data.</p>
 <pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)</code></pre>
 <p>Load the <span class="math inline">\(K = 6\)</span> Poisson NMF model fit, and convert it to a topic model.</p>
@@ -643,8 +678,45 @@ p1 &lt;- structure_plot(select_loadings(fit,loadings = rows),
                      num_threads = 4,verbose = FALSE)
 print(p1)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
+Past versions of structure-plot-1.png
+</button>
+</p>
+<div id="fig-structure-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1917832caf043fcd580e128dc4915c404d95cd3f/docs/figure/de_analysis_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">1917832</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>In particular, topics 1 through 4 closely correspond, respectively, to T cells, CD14+ monocytes (myeloid cells), B cells and natural killer cells. Topic 5 (violet) also closely corresponds to the “CD34+” FACS cell type label but also suggests considerable FACS FACS mislabeling of the CD34+ cells. Topic 6 (magenta) does not correspond to any FACS cell type and as we will it is capturing a different characteristic of the cells—specifically, abundance of ribosomal protein genes. Therefore, we expect the results from the topic-model-based DE analysis for topics 1–4 to most closely resemble the DESeq2 results for the corresponding cell types.</p>
-<p>Before entering into this comparison, we first assess accuracy of the Monte Carlo computations.</p>
+<p>Before entering into this comparison, we first assess accuracy of the MCMC computations in the topic-model-based analysis.</p>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
 <p>To assess accuracy of the posterior calculations, we perform the DE analysis twice (using different seeds), and compare the posterior mean estimates and <em>z</em>-scores returned by the two <code>de_analysis</code> runs.</p>
@@ -653,7 +725,33 @@ de1 &lt;- de
 load(&quot;../output/pbmc-purified/de-pbmc-purified-seed=2.RData&quot;)
 de2 &lt;- de
 rm(de)</code></pre>
-<p><em>Next:</em> compare classical DE analysis (DESeq2) against DE analysis allowing for grades of membership.</p>
+<p>The two MCMC estimates of the posterior mean log-fold change (LFC) estimates are largely consistent:</p>
+<pre class="r"><code>pdat &lt;- data.frame(postmean1 = as.vector(de1$postmean),
+                   postmean2 = as.vector(de2$postmean))
+ggplot(pdat,aes(x = postmean1,y = postmean2)) +
+  geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;black&quot;,size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dashed&quot;) +
+  labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" width="390" style="display: block; margin: auto;" /></p>
+<p>The <span class="math inline">\(z\)</span>-scores on the other hand are estimated less consistently, presumably because accurately calculating uncertainty in the estimates is harder. Despite this, the <span class="math inline">\(z\)</span>-scores are still are consistent enough in that it is rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation and not the other (these are the red points in the scatterplot).</p>
+<pre class="r"><code>pdat &lt;- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
+                   z2 = clamp(as.vector(de2$z),-100,+100),
+                   lfsr = factor((de1$lfsr &lt; 0.05) + (de2$lfsr &lt; 0.05)))
+ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  scale_fill_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;,&quot;dodgerblue&quot;),
+                    na.value = &quot;white&quot;) +
+  labs(x = &quot;first z-score&quot;,y = &quot;second z-score&quot;,fill = &quot;lfsr &lt; 0.05&quot;) +
+  theme_cowplot()
+# Warning: Removed 1546 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p><em>Note:</em> For better visualization <span class="math inline">\(z\)</span>-scores larger than 100 or smaller than -100 are shown as 100 (or -100).</p>
+</div>
+<div id="deseq2-vs.fasttopics" class="section level2">
+<h2>DESeq2 vs. fastTopics</h2>
+<p><em>Next:</em> Compare classical DE analysis (DESeq2) against DE analysis allowing for grades of membership.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
