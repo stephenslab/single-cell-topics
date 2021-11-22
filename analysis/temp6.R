@@ -3,7 +3,7 @@ library(fastTopics)
 library(ggplot2)
 library(cowplot)
 clamp <- function (x, a, b)
-    pmax(a,pmin(b,x)) 
+  pmax(a,pmin(b,x)) 
 load("deseq2-pbmc-purified-bcells.RData")
 load("de-pbmc-purified-seed=1.RData")
 de1 <- de

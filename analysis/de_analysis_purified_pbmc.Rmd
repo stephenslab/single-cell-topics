@@ -113,7 +113,7 @@ rm(de)
 The two MCMC estimates of the posterior mean log-fold change (LFC)
 estimates are largely consistent:
 
-```{r assess-monte-carlo-1, fig.width=3.25, fig.height=3}
+```{r assess-monte-carlo-1, fig.width=3, fig.height=3}
 pdat <- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
 ggplot(pdat,aes(x = postmean1,y = postmean2)) +
@@ -130,7 +130,7 @@ enough in that it is rare for an LFC to have an lfsr less than 0.05 in
 one MCMC simulation and not the other (these are the red points in the
 scatterplot).
 
-```{r assess-monte-carlo-3, fig.width=3.5, fig.height=3}
+```{r assess-monte-carlo-3, fig.width=4.5, fig.height=3, warning=FALSE}
 pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
 				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
@@ -152,3 +152,8 @@ DESeq2 vs. fastTopics
 *Next:* Compare classical DE analysis (DESeq2) against DE analysis
 allowing for grades of membership.
 
+TO DO:
+
++ Load DESeq2 results.
+
++ Compare histogram of DESeq2 z-scores against fastTopics z-scores.
