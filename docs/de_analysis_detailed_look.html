@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-21
+<strong>Last updated:</strong> 2021-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -429,16 +429,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea3c5695f77d492d0232c5635902adce7729e1586targetblanka3c5695a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a3c5695f77d492d0232c5635902adce7729e1586" target="_blank">a3c5695</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea731eb84fa2bece8fcbce68d5aa290abc2d775a6targetblanka731eb8a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a731eb84fa2bece8fcbce68d5aa290abc2d775a6" target="_blank">a731eb8</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea3c5695f77d492d0232c5635902adce7729e1586targetblanka3c5695a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea731eb84fa2bece8fcbce68d5aa290abc2d775a6targetblanka731eb8a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a3c5695f77d492d0232c5635902adce7729e1586" target="_blank">a3c5695</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a731eb84fa2bece8fcbce68d5aa290abc2d775a6" target="_blank">a731eb8</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -466,7 +466,7 @@ Untracked files:
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   analysis/de_analysis_purified_pbmc.Rmd
+    Modified:   analysis/de_analysis_detailed_look_more.Rmd
 
 </code></pre>
 <p>
@@ -505,6 +505,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a731eb84fa2bece8fcbce68d5aa290abc2d775a6/analysis/de_analysis_detailed_look.Rmd" target="_blank">a731eb8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-22
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c81e16e26328caec83b3364e757d7aba9098fe38/analysis/de_analysis_detailed_look.Rmd" target="_blank">c81e16e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-22
+</td>
+<td>
+In de_analysis_detailed_look switched to using s-values in deseq2 and fastTopics.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c30816e5db07a8b957f8eea91318412be3791378/analysis/de_analysis_detailed_look.Rmd" target="_blank">c30816e</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+<td>
+A few small edits.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/d8271373ba51b3691efd90ae00e0d1417bc2dc19/docs/de_analysis_detailed_look.html" target="_blank">d827137</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+<td>
+Adjusted a couple plots in de_analysis_detailed_look analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -2092,9 +2160,9 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>And the next two bar charts show the overall impact of the shrinkage on the <em>p</em>-values.</p>
+<p>And the next two bar charts show the overall impact of the shrinkage on the <em>p</em>-values and <em>s</em>-values (which are computed from the LFSRs).</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
-                   shrink   = 10^(-de$lpval[,2]),
+                   shrink   = de$svalue[,2],
                    de       = factor(nonzero_lfc))
 p1 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -2106,7 +2174,7 @@ p2 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
 print(plot_grid(p1,p2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/shrink-vs-noshrink-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -2169,7 +2237,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Both the <em>z</em>-score and <em>p</em>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero.</p>
+<p>Both the <em>z</em>-score and <em>p</em>-value/<em>s</em>-value plots show that the adaptive shrinkage step more strongly encourages the LFC estimates for the non-DE genes toward zero.</p>
 </div>
 <div id="quantifying-uncertainty-in-the-lfc-estimates" class="section level2">
 <h2>Quantifying uncertainty in the LFC estimates</h2>
@@ -2320,7 +2388,7 @@ Peter Carbonetto
 <pre class="r"><code>pdat1 &lt;- create_fdr_vs_power_curve(-D[i,2],nonzero_lfc[i],length.out = 140)
 pdat2 &lt;- create_fdr_vs_power_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
                                    length.out = 140)
-pdat3 &lt;- create_fdr_vs_power_curve(-de$lpval[i,2],nonzero_lfc[i],
+pdat3 &lt;- create_fdr_vs_power_curve(de$lfsr[i,2],nonzero_lfc[i],
                                    length.out = 140)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;noshrink&quot;),
@@ -2382,7 +2450,7 @@ Peter Carbonetto
 <pre class="r"><code>pdat1 &lt;- create_roc_curve(-D[i,2],nonzero_lfc[i],length.out = 100)
 pdat2 &lt;- create_roc_curve(-de.noshrink$lpval[i,2],nonzero_lfc[i],
                           length.out = 100)
-pdat3 &lt;- create_roc_curve(-de$lpval[i,2],nonzero_lfc[i],length.out = 100)
+pdat3 &lt;- create_roc_curve(de$lfsr[i,2],nonzero_lfc[i],length.out = 100)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;kl&quot;),
                cbind(pdat2,method = &quot;noshrink&quot;),
                cbind(pdat3,method = &quot;shrink&quot;))
@@ -2443,7 +2511,7 @@ Peter Carbonetto
 </div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we perform the DE analysis twice, and compare the <em>z</em>-scores returned by the two <code>de_analysis</code> runs. If the <em>z</em>-scores are very consistent between the two runs this suggests that they are mostly accurate.</p>
+<p>We use a simple MCMC algorithm to estimate LFC posterior statistics. To assess accuracy of the posterior calculations, we perform the DE analysis twice, and compare the posterior mean estimates and <em>z</em>-scores returned by the two <code>de_analysis</code> runs. If the posterior means and <em>z</em>-scores are consistent between the two runs, this provides a good indication that they are mostly accurate.</p>
 <p>To illustrate, we first compute the posteriors using 1,000 Monte Carlo samples:</p>
 <pre class="r"><code>set.seed(1); de1 &lt;- de_analysis(fit,X,control = list(ns = 1000,nc = 2))
 # Using 2 RcppParallel threads.
@@ -2496,6 +2564,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d8271373ba51b3691efd90ae00e0d1417bc2dc19/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" target="_blank">d827137</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3242dd84ba7e50c4fcd159b768bf96b96311d4e1/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-2-1.png" target="_blank">3242dd8</a>
@@ -2593,6 +2672,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d8271373ba51b3691efd90ae00e0d1417bc2dc19/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" target="_blank">d827137</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-21
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3242dd84ba7e50c4fcd159b768bf96b96311d4e1/docs/figure/de_analysis_detailed_look.Rmd/assess-monte-carlo-4-1.png" target="_blank">3242dd8</a>
 </td>
 <td>
@@ -2642,7 +2732,7 @@ Y &lt;- t(X[i,])
 cluster &lt;- factor(apply(L,1,which.max))
 deseq &lt;- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster[i]),~cluster)
 # converting counts to integer mode</code></pre>
-<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the main DESeq2 vignette for details). To replicate the fastTopics analysis as closely as possible, we also shrink the LFC estimates using adaptive shrinkage.</p>
+<p>Now we perform the DE analysis using DESeq2, using the settings recommended for single-cell RNA-seq data (see the main DESeq2 vignette for details). To replicate the fastTopics analysis as closely as possible, we also shrink the LFC estimates using adaptive shrinkage (as implemented in the R package ashr).</p>
 <pre class="r"><code>sizeFactors(deseq) &lt;- calculateSumFactors(Y)
 deseq &lt;- DESeq(deseq,test = &quot;LRT&quot;,reduced=~1,useT = TRUE,minmu = 1e-6,
                minReplicatesForReplace = Inf)
@@ -2655,15 +2745,16 @@ deseq &lt;- DESeq(deseq,test = &quot;LRT&quot;,reduced=~1,useT = TRUE,minmu = 1e
 #    specify fitType=&#39;local&#39; or &#39;mean&#39; to avoid this message next time.
 # final dispersion estimates
 # fitting model and testing
-deseq &lt;- lfcShrink(deseq,coef = &quot;cluster_2_vs_1&quot;,type = &quot;ashr&quot;)
+deseq &lt;- lfcShrink(deseq,coef = &quot;cluster_2_vs_1&quot;,type = &quot;ashr&quot;,svalue = TRUE)
 # using &#39;ashr&#39; for LFC shrinkage. If used in published research, please cite:
 #     Stephens, M. (2016) False discovery rates: a new deal. Biostatistics, 18:2.
 #     https://doi.org/10.1093/biostatistics/kxw041</code></pre>
+<p>Note that <code>lfcShrink</code> outputs the shrunken log-fold change estimate the “log2FoldChange” column) as the posterior mean estimated by ashr, and the s.e. (the “lfcSE”) column is the posterior standard deviation estimmated by ashr.</p>
 <p>Now we run the MAST differential expression analysis via the “FindMarkers” interface in Seurat:</p>
 <pre class="r"><code>seurat &lt;- CreateSeuratObject(counts = t(X))
 Idents(seurat) &lt;- cluster
 mast &lt;- FindMarkers(seurat,ident.1 = &quot;2&quot;,ident.2 = NULL,test.use = &quot;MAST&quot;,
-                    logfc.threshold = 0,min.pct = 0)
+                    logfc.threshold = 0,min.pct = 0,verbose = FALSE)
 # 
 # Done!
 # Combining coefficients and standard errors
@@ -2776,21 +2867,21 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The <em>p</em>-value and LFSR distributions are also correspondingly similar in shape:</p>
-<pre class="r"><code>pdat &lt;- data.frame(deseq2 = deseq$padj,
-                   shrink = de$lfsr[,2],
+<p>Correspondingly, the <em>s</em>-value distributions are very similar in shape:</p>
+<pre class="r"><code>pdat &lt;- data.frame(deseq2 = deseq$svalue,
+                   shrink = de$svalue[,2],
                    de     = factor(nonzero_lfc))
 p1 &lt;- ggplot(pdat,aes(x = deseq2,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;DESeq2&quot;) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;DESeq2&quot;) +
   theme_cowplot()
 p2 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
-  labs(x = &quot;lfsr&quot;,y = &quot;genes&quot;,title = &quot;fastTopics&quot;) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;fastTopics&quot;) +
   theme_cowplot()
 print(plot_grid(p1,p2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-deseq2-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -2889,13 +2980,13 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The <code>FindMarkers</code> function in Seurat does not output <em>z</em>-scores, but we can compare <em>p</em>-values:</p>
-<pre class="r"><code>pdat &lt;- data.frame(MAST       = pmax(-10,log10(mast$p_val)),
-                   fastTopics = pmax(-10,-de$lpval[genes,2]))
+<p>The <code>FindMarkers</code> function in Seurat does not output <em>z</em>-scores, but we can compare <em>p</em>-values against <em>s</em>-values:</p>
+<pre class="r"><code>pdat &lt;- data.frame(MAST       = pmax(-6,log10(mast$p_val)),
+                   fastTopics = pmax(-6,log10(de$svalue[genes,2])))
 ggplot(pdat,aes(x = MAST,y = fastTopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = &quot;skyblue&quot;,linetype = &quot;dotted&quot;) +
-  ggtitle(&quot;log10 p-values&quot;) +
+  labs(x = &quot;MAST log10 p-value&quot;,y = &quot;fastTopics log10 s-value&quot;) +
   theme_cowplot()</code></pre>
 <p><img src="figure/de_analysis_detailed_look.Rmd/fasttopics-vs-mast-pvalues-1.png" width="360" style="display: block; margin: auto;" /></p>
 <p>
@@ -2946,12 +3037,12 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Again, the <em>p</em>-values are broadly similar. The effect of the fastTopics shrinkage step is apparent as many less significant <em>p</em>-values get driven toward 1.</p>
+<p>The <em>p</em>-values are <em>s</em>-value broadly similar. The effect of the fastTopics shrinkage step is apparent as many less significant <em>p</em>-values get driven toward 1.</p>
 <p>Based on these results, we would expect that the performance of fastTopics and DESeq2 for discovering differentially expressed genes is very similar, with a slight advantage given to fastTopics (although consider it is using 1/3 more data):</p>
 <pre class="r"><code>mast_pval                 &lt;- rep(1,10000)
 names(mast_pval)          &lt;- colnames(X)
 mast_pval[rownames(mast)] &lt;- mast$p_val
-pdat1 &lt;- create_fdr_vs_power_curve(deseq$padj,nonzero_lfc,length.out = 200)
+pdat1 &lt;- create_fdr_vs_power_curve(deseq$svalue,nonzero_lfc,length.out = 200)
 pdat2 &lt;- create_fdr_vs_power_curve(de$lfsr[,2],nonzero_lfc,length.out = 200)
 pdat3 &lt;- create_fdr_vs_power_curve(mast_pval,nonzero_lfc,length.out = 200)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
@@ -3001,7 +3092,7 @@ Peter Carbonetto
 </div>
 <p>Interestingly, MAST underperforms DESeq2 at lower FDRs, and overperforms DESeq2 at higher FDRs, whereas fastTopics performs at least as well as the other methods at any FDR.</p>
 <p>And here is the ROC curve comparing DESeq2, MAST and fastTopics:</p>
-<pre class="r"><code>pdat1 &lt;- create_roc_curve(deseq$padj,nonzero_lfc,length.out = 100)
+<pre class="r"><code>pdat1 &lt;- create_roc_curve(deseq$svalue,nonzero_lfc,length.out = 100)
 pdat2 &lt;- create_roc_curve(de$lfsr[,2],nonzero_lfc,length.out = 100)
 pdat3 &lt;- create_roc_curve(mast_pval,nonzero_lfc,length.out = 100)
 pdat  &lt;- rbind(cbind(pdat1,method = &quot;DESeq2&quot;),
@@ -3075,7 +3166,7 @@ Peter Carbonetto
 # 
 # other attached packages:
 #  [1] cowplot_1.0.0               ggplot2_3.3.5              
-#  [3] fastTopics_0.6-74           MAST_1.12.0                
+#  [3] fastTopics_0.6-79           MAST_1.12.0                
 #  [5] Seurat_3.2.3                DESeq2_1.33.5              
 #  [7] scran_1.14.6                SingleCellExperiment_1.8.0 
 #  [9] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
