@@ -176,7 +176,7 @@ on the *p*-values and *s*-values (which are computed from the LFSRs).
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = 10^(-de.noshrink$lpval[,2]),
-                   shrink   = de$svalue[,2]),
+                   shrink   = de$svalue[,2],
                    de       = factor(nonzero_lfc))
 p1 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -441,7 +441,7 @@ Now we run the MAST differential expression analysis via the
 seurat <- CreateSeuratObject(counts = t(X))
 Idents(seurat) <- cluster
 mast <- FindMarkers(seurat,ident.1 = "2",ident.2 = NULL,test.use = "MAST",
-                    logfc.threshold = 0,min.pct = 0)
+                    logfc.threshold = 0,min.pct = 0,verbose = FALSE)
 ```
 
 The posterior mean estimates from the fastTopics DE analysis closely
