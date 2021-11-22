@@ -4,14 +4,18 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*TO DO: Give overview of analysis here.*
+The aim of this analysis is to understand the differences between a
+classical differential expresion analysis comparing expression among
+cell types (implemented using DESEq2) and a differential expression
+analysis using the topic model, which allows for grades of membership
+to cell types or cell states.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the packages used in the analysis below.
+Begin by loading the packages used in the analysis.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
@@ -20,14 +24,14 @@ library(ggplot2)
 library(cowplot)
 ```
 
-Load the count data.
+Load the UMI gene count data.
 
 ```{r load-data}
 load("../data/pbmc_purified.RData")
-table(samples$celltype)
 ```
 
-Load the $K = 6$ Poisson NMF model fit.
+Load the $K = 6$ Poisson NMF model fit, and convert it to a
+topic model.
 
 ```{r load-fit}
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
@@ -35,15 +39,13 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 ```
 
-This Structure plot summarizes the correspondence between the topics
-and the FACS cell populations. It shows the FACS mislabeling of the
-CD34+ cells.
+The cells are subdivided, based on FACS sorting, into 10 "cell types",
+almost many of the cell types are virtually indistinguishable based on
+their gene expression, so we combine them into a single "T cell"
+category. This results in 5 predefined cell types:
 
-```{r structure-plot, fig.width=8, fig.height=1.8}
+```{r cell-types}
 set.seed(1)
-topic_colors <- c("gold","forestgreen","dodgerblue","gray",
-                  "darkmagenta","violet")
-topics <- c(5,3,2,4,1,6)
 celltype <- as.character(samples$celltype)
 celltype[celltype == "CD4+ T Helper2" |
          celltype == "CD4+/CD45RO+ Memory" |
@@ -53,6 +55,17 @@ celltype[celltype == "CD4+ T Helper2" |
          celltype == "CD4+/CD25 T Reg"] <- "T cell"
 celltype <- factor(celltype,
                    c("CD19+ B","CD14+ Monocyte","CD34+","CD56+ NK","T cell"))
+table(celltype)
+```
+
+This Structure plot, in which cells are arranged horizontally
+according to their predefined cell type, shows how the estimated topic
+proportions relate to the predefined cell types.
+
+```{r structure-plot, fig.width=8, fig.height=1.8, eval=FALSE}
+topic_colors <- c("gold","forestgreen","dodgerblue","gray",
+                  "darkmagenta","violet")
+topics <- c(5,3,2,4,1,6)
 rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
                sample(which(celltype == "CD14+ Monocyte"),250),
                sample(which(celltype == "CD34+"),500),
@@ -66,5 +79,13 @@ p1 <- structure_plot(select_loadings(fit,loadings = rows),
 print(p1)
 ```
 
-B cells
--------
+In particular, topics 1--4 closely correspond, respectively, to T
+cells, CD14+ monocytes (myeloid cells), B cells annd natural killer
+cells. Topic 5 (violet) also closely corresponds to the "CD34+" FACS
+cell type label but also suggests considerable FACS FACS mislabeling
+of the CD34+ cells. Topic 6 does not correspond to any FACS cell type
+and as we will it is capturing a different characteristic of the
+cells---specifically, abundance of ribosomal protein genes.
+
+*Next:* compare classical DE analysis (DESeq2) against DE analysis
+allowing for grades of membership.
