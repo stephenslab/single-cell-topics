@@ -15,13 +15,15 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Begin by loading the packages used in the analysis.
+Begin by loading the packages and some function definitions used in
+the analysis.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
+source("../code/de_analysis_functions.R")
 ```
 
 Load the UMI gene count data.
@@ -91,7 +93,7 @@ analysis for topics 1--4 to most closely resemble the DESeq2 results
 for the corresponding cell types.
 
 Before entering into this comparison, we first assess accuracy of the
-Monte Carlo computations.
+MCMC computations in the topic-model-based analysis.
 
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
@@ -108,8 +110,45 @@ de2 <- de
 rm(de)
 ```
 
-```{r assess-monte-carlo-1}
+The two MCMC estimates of the posterior mean log-fold change (LFC)
+estimates are largely consistent:
+
+```{r assess-monte-carlo-1, fig.width=3.25, fig.height=3}
+pdat <- data.frame(postmean1 = as.vector(de1$postmean),
+                   postmean2 = as.vector(de2$postmean))
+ggplot(pdat,aes(x = postmean1,y = postmean2)) +
+  geom_point(shape = 21,color = "white",fill = "black",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
+  labs(x = "first posterior mean",y = "second posterior mean") +
+  theme_cowplot()
 ```
 
-*Next:* compare classical DE analysis (DESeq2) against DE analysis
+The $z$-scores on the other hand are estimated less consistently,
+presumably because accurately calculating uncertainty in the estimates
+is harder. Despite this, the $z$-scores are still are consistent
+enough in that it is rare for an LFC to have an lfsr less than 0.05 in
+one MCMC simulation and not the other (these are the red points in the
+scatterplot).
+
+```{r assess-monte-carlo-3, fig.width=3.5, fig.height=3}
+pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
+                   z2 = clamp(as.vector(de2$z),-100,+100),
+				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
+ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
+  geom_point(shape = 21,color = "white",size = 2) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  scale_fill_manual(values = c("darkblue","tomato","dodgerblue"),
+                    na.value = "white") +
+  labs(x = "first z-score",y = "second z-score",fill = "lfsr < 0.05") +
+  theme_cowplot()
+```
+
+*Note:* For better visualization $z$-scores larger than 100 or smaller
+ than -100 are shown as 100 (or -100).
+
+DESeq2 vs. fastTopics
+---------------------
+
+*Next:* Compare classical DE analysis (DESeq2) against DE analysis
 allowing for grades of membership.
+
