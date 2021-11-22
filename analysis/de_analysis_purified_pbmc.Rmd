@@ -1,5 +1,5 @@
 ---
-title: "DE analysis using a topic model: illustration in mixture of FACS-purified PBMC data"
+title: "Differential expression analysis using a topic model: illustration in mixture of FACS-purified PBMC data"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
@@ -62,7 +62,7 @@ This Structure plot, in which cells are arranged horizontally
 according to their predefined cell type, shows how the estimated topic
 proportions relate to the predefined cell types.
 
-```{r structure-plot, fig.width=8, fig.height=1.8, eval=FALSE}
+```{r structure-plot, fig.width=8, fig.height=1.8}
 topic_colors <- c("gold","forestgreen","dodgerblue","gray",
                   "darkmagenta","violet")
 topics <- c(5,3,2,4,1,6)
@@ -79,13 +79,37 @@ p1 <- structure_plot(select_loadings(fit,loadings = rows),
 print(p1)
 ```
 
-In particular, topics 1--4 closely correspond, respectively, to T
-cells, CD14+ monocytes (myeloid cells), B cells annd natural killer
+In particular, topics 1 through 4 closely correspond, respectively, to
+T cells, CD14+ monocytes (myeloid cells), B cells and natural killer
 cells. Topic 5 (violet) also closely corresponds to the "CD34+" FACS
 cell type label but also suggests considerable FACS FACS mislabeling
-of the CD34+ cells. Topic 6 does not correspond to any FACS cell type
-and as we will it is capturing a different characteristic of the
-cells---specifically, abundance of ribosomal protein genes.
+of the CD34+ cells. Topic 6 (magenta) does not correspond to any FACS
+cell type and as we will it is capturing a different characteristic of
+the cells---specifically, abundance of ribosomal protein genes.
+Therefore, we expect the results from the topic-model-based DE
+analysis for topics 1--4 to most closely resemble the DESeq2 results
+for the corresponding cell types.
+
+Before entering into this comparison, we first assess accuracy of the
+Monte Carlo computations.
+
+Assessing accuracy of the Monte Carlo estimates
+-----------------------------------------------
+
+To assess accuracy of the posterior calculations, we perform the DE
+analysis twice (using different seeds), and compare the posterior mean
+estimates and *z*-scores returned by the two `de_analysis` runs.
+
+```{r load-de-analysis}
+load("../output/pbmc-purified/de-pbmc-purified-seed=1.RData")
+de1 <- de
+load("../output/pbmc-purified/de-pbmc-purified-seed=2.RData")
+de2 <- de
+rm(de)
+```
+
+```{r assess-monte-carlo-1}
+```
 
 *Next:* compare classical DE analysis (DESeq2) against DE analysis
 allowing for grades of membership.
