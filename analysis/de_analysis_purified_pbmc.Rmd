@@ -4,11 +4,12 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-The aim of this analysis is to understand the differences between a
-classical differential expresion analysis comparing expression among
-cell types (implemented using DESEq2) and a differential expression
+The aim of this analysis is to understand by way of illustration the
+differences between a "classical" differential expresion analysis
+comparing expression among cell types (here we implement this
+"classical" DE analysis using [DESEq2][deseq2]), and a differential expression
 analysis using the topic model, which allows for grades of membership
-to cell types or cell states.
+to cell types (or more generally cellular expression factors).
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -28,14 +29,15 @@ library(cowplot)
 source("../code/de_analysis_functions.R")
 ```
 
-Load the UMI gene count data.
+Load the UMI count data for 94,655 cells and 21,952 genes.
 
 ```{r load-data}
 load("../data/pbmc_purified.RData")
+dim(counts)
 ```
 
-Load the $K = 6$ Poisson NMF model fit, and convert it to a
-topic model.
+Load the $K = 6$ Poisson NMF model fit to these data, and convert the
+Poisson NMF model fit to a multinomial topic model fit.
 
 ```{r load-fit}
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
@@ -43,10 +45,11 @@ fit <- readRDS(file.path("../output/pbmc-purified/rds",
 fit <- poisson2multinom(fit)
 ```
 
-The cells are subdivided, based on FACS sorting, into 10 "cell types",
-almost many of the cell types are virtually indistinguishable based on
-their gene expression, so we combine them into a single "T cell"
-category. This results in 5 predefined cell types:
+The cells are subdivided, based on FACS sorting, into 10 "cell
+types". Several of the cell types are virtually indistinguishable
+based on their gene expression profiles alone, so we combine these
+indistinguishable cell types into a single "T cell" cell type. This
+results in 5 predefined cell types, the majority of which are T cells:
 
 ```{r cell-types}
 set.seed(1)
@@ -62,9 +65,10 @@ celltype <- factor(celltype,
 table(celltype)
 ```
 
-This Structure plot, in which cells are arranged horizontally
-according to their predefined cell type, shows how the estimated topic
-proportions relate to the predefined cell types.
+Next we visualize the structure inferred by the $K = $ topic model
+using a "structure plot". The cells in this plot are arranged
+horizontally according to their predefined cell type to relate the
+topics to these predefinend cell types:
 
 ```{r structure-plot, fig.width=8, fig.height=1.8}
 topic_colors <- c("gold","forestgreen","dodgerblue","gray",
@@ -83,19 +87,23 @@ p1 <- structure_plot(select_loadings(fit,loadings = rows),
 print(p1)
 ```
 
-In particular, topics 1 through 4 closely correspond, respectively, to
-T cells, CD14+ monocytes (myeloid cells), B cells and natural killer
-cells. Topic 5 (violet) also closely corresponds to the "CD34+" FACS
-cell type label but also suggests considerable FACS FACS mislabeling
-of the CD34+ cells. Topic 6 (magenta) does not correspond to any FACS
-cell type and as we will it is capturing a different characteristic of
-the cells---specifically, abundance of ribosomal protein genes.
-Therefore, we expect the results from the topic-model-based DE
-analysis for topics 1--4 to most closely resemble the DESeq2 results
-for the corresponding cell types.
+Some of the topics correspond very closely to the predefined cell
+types.  In particular, topics 1 through 4 closely correspond,
+respectively, to T cells, CD14+ monocytes (myeloid cells), B cells and
+natural killer (NK) cells.
 
-Before entering into this comparison, we first assess accuracy of the
-MCMC computations in the topic-model-based analysis.
+Topic 5 (violet) closely corresponds to the "CD34+" FACS cell type,
+but from the structure plot we observe many cells labeled as "CD34+"
+with little to no contribution from topic 5, which suggests
+mislabeling of the CD34+ cells.
+
+Topic 6 (magenta) does not correspond to any FACS cell type and as we
+will see it captures a different characteristic of the
+cells---specifically, abundance of ribosomal protein genes.
+Therefore, the DE results for topics 1--4 are most comparable to a
+classical DE analysis, and we begin with these comparisons. But before
+doing this we first assess accuracy of the MCMC computations used in
+the topic-model-based DE analysis.
 
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
@@ -281,3 +289,4 @@ ggplot(pdat,aes(x = postmean,y = z,fill = lfsr,label = gene)) +
   theme_cowplot()
 ```
 
+[deseq2]: https://github.com/mikelove/DESeq2
