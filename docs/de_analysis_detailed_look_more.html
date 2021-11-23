@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-10
+<strong>Last updated:</strong> 2021-11-22
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -426,16 +426,16 @@ fit-poisson-nmf
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5b63bc5fde38b61b5d9285a077e4628ee75a9edtargetblankc5b63bca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/c5b63bc5fde38b61b5d9285a077e4628ee75a9ed" target="_blank">c5b63bc</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree62354cbb7f53999e6daed43cbd540ad7ac6b86b0targetblank62354cba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/62354cbb7f53999e6daed43cbd540ad7ac6b86b0" target="_blank">62354cb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreec5b63bc5fde38b61b5d9285a077e4628ee75a9edtargetblankc5b63bca" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree62354cbb7f53999e6daed43cbd540ad7ac6b86b0targetblank62354cba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/c5b63bc5fde38b61b5d9285a077e4628ee75a9ed" target="_blank">c5b63bc</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/62354cbb7f53999e6daed43cbd540ad7ac6b86b0" target="_blank">62354cb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -461,7 +461,6 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
-    Untracked:  scripts/pbmc_purified_for_de.RData
 
 </code></pre>
 <p>
@@ -500,6 +499,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/62354cbb7f53999e6daed43cbd540ad7ac6b86b0/analysis/de_analysis_detailed_look_more.Rmd" target="_blank">62354cb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-22
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_detailed_look_more.Rmd”,
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/2febad21a69f79c20bd24fe36242d7233b3bdc0e/docs/de_analysis_detailed_look_more.html" target="_blank">2febad2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+<td>
+Fixed power vs. fdr plots in de_analysis_detailed_look_more analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1062,7 +1095,7 @@ Peter Carbonetto
 </div>
 <p>And the next two bar charts show the overall impact of the shrinkage on the <span class="math inline">\(p\)</span>-values. (The Y axis in the “with shrinkage” plot has been cut off at 2,500 genes to show in more detail the smaller <span class="math inline">\(p\)</span>-values identifying true positives.)</p>
 <pre class="r"><code>pdat &lt;- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
-                   shrink   = 10^(-c(de$lpval)),
+                   shrink   = c(de$svalue),
                    de       = factor(c(nonzero_lfc)))
 p1 &lt;- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -1076,7 +1109,7 @@ p2 &lt;- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
   coord_cartesian(ylim = c(0,2500)) +
-  labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;with shrinkage&quot;) +
   theme_cowplot()
 print(plot_grid(p1,p2))</code></pre>
 <p><img src="figure/de_analysis_detailed_look_more.Rmd/shrink-vs-noshrink-pvalues-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -1297,6 +1330,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/2febad21a69f79c20bd24fe36242d7233b3bdc0e/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">2febad2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/47275515ba30625131c2f281b36066c20c713203/docs/figure/de_analysis_detailed_look_more.Rmd/kl-vs-fasttopics-2-1.png" target="_blank">4727551</a>
 </td>
 <td>
@@ -1403,7 +1447,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-74 Matrix_1.2-18    
+# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-79 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
