@@ -18,10 +18,12 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Begin by loading the packages and some function definitions used in
 the analysis.
 
-```{r load-pkgs, message=FALSE}
+```{r load-pkgs, message=FALSE, warning=FALSE}
 library(Matrix)
+library(DESeq2)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
 source("../code/de_analysis_functions.R")
 ```
@@ -143,8 +145,19 @@ ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   theme_cowplot()
 ```
 
-*Note:* For better visualization $z$-scores larger than 100 or smaller
- than -100 are shown as 100 (or -100).
+Note that for better visualization $z$-scores larger than 100 (or
+smaller than -100) are shown as 100 (or -100).
+
+*Add text here.*
+
+```{r fix-z-scores}
+de <- de1[c("f0","postmean","z","lfsr")]
+class(de) <- c("topic_model_de_analysis","list")
+i  <- which(abs(de2$z) < abs(de1$z))
+de$postmean[i] <- de2$postmean[i]
+de$z[i]        <- de2$z[i]
+de$lfsr[i]     <- de$lfsr[i]
+```
 
 DESeq2 vs. fastTopics
 ---------------------
@@ -152,8 +165,75 @@ DESeq2 vs. fastTopics
 *Next:* Compare classical DE analysis (DESeq2) against DE analysis
 allowing for grades of membership.
 
-TO DO:
+*Add text here.*
 
-+ Load DESeq2 results.
+```{r load-deseq2}
+load("../output/pbmc-purified/deseq2-pbmc-purified.RData")
+celltypes <- names(deseq)
+n <- length(celltypes)
+p <- nrow(genes)
+deseq2 <- list(postmean = matrix(0,p,n),
+               z        = matrix(0,p,n))
+rownames(deseq2$postmean) <- genes$ensembl
+rownames(deseq2$z)        <- genes$ensembl
+colnames(deseq2$postmean) <- celltypes
+colnames(deseq2$z)        <- celltypes
+for (i in 1:n) {
+  deseq2$postmean[,i] <- deseq[[i]]$log2FoldChange
+  deseq2$z[,i]        <- with(deseq[[i]],log2FoldChange/lfcSE)
+}
+deseq <- deseq2
+rm(deseq2)
+```
 
-+ Compare histogram of DESeq2 z-scores against fastTopics z-scores.
+*Add text here.*
+
+```{r align-with-deseq2}
+rows        <- match(rownames(deseq$z),rownames(de$z))
+de$f0       <- de$f0[rows]
+de$postmean <- de$postmean[rows,]
+de$z        <- de$z[rows,]
+de$lfsr     <- de$lfsr[rows,]
+```
+
+*Add text here.*
+
+```{r zscore-hist}
+pdat1 <- data.frame(x = clamp(as.vector(deseq$z),-40,+40))
+pdat2 <- data.frame(x = clamp(as.vector(de$z),-40,+40))
+p1 <- ggplot(pdat1,aes(x = x)) +
+  geom_histogram(bins = 64,fill = "black") +
+  labs(x = "z-score",y = "genes",title = "DESeq2") +
+  theme_cowplot()
+p2 <- ggplot(pdat1,aes(x = x)) +
+  geom_histogram(bins = 64,fill = "black") +
+  labs(x = "z-score",y = "genes",title = "fastTopics") +
+  theme_cowplot()
+plot_grid(p1,p2)
+```
+
+*Add text here.*
+
+```{r bcell-zscores}
+pdat <- data.frame(deseq        = deseq$postmean[,"CD19+ B"],
+                   fasttopics   = de$postmean[,"k3"],
+				   z.deseq      = deseq$z[,"CD19+ B"],
+				   z.fasttopics = de$z[,"k3"],
+                   f0           = log10(de$f0),
+                   gene         = genes$symbol,
+				   stringsAsFactors = FALSE)
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+i <- which(pdat$fasttopics < 8)
+pdat[i,"gene"] <- ""
+ggplot(pdat,aes(x = deseq,y = fasttopics,fill = f0,label = gene)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
+                       na.value = "gainsboro",midpoint = -4) +
+  labs(x = "DESeq2",y = "fastTopics",
+       title = "LFC in B cells") +
+  theme_cowplot()
+```
