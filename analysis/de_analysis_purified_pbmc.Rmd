@@ -239,17 +239,19 @@ pdat <- data.frame(deseq        = deseq$postmean[,"CD19+ B"],
                    f0           = log10(de$f0),
                    gene         = genes$symbol,
 				   stringsAsFactors = FALSE)
-pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+pdat <- transform(pdat,lfsr = cut(lfsr,c(0,1.3,2,3,Inf)))
 i <- which(pdat$fasttopics < 8)
 pdat[i,"gene"] <- ""
+pdat[genes$symbol == "HOPX","gene"] <- "HOPX"
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 ggplot(pdat,aes(x = deseq,y = fasttopics,fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       na.value = "gainsboro",midpoint = 10) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","tomato"),
+                    na.value = "gainsboro") +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in B cells") +
   theme_cowplot()
