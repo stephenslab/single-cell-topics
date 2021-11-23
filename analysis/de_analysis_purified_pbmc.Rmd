@@ -262,7 +262,7 @@ ggplot(pdat,aes(x = deseq,y = fasttopics,fill = lfsr,label = gene)) +
 ```{r bcells-volcano-plot}
 pdat <- data.frame(gene     = genes$symbol,
                    postmean = de$postmean[,"k3"],
-                   z        = abs(de$z[,"k3"]),
+                   z        = pmin(200,abs(de$z[,"k3"])),
 				   lfsr     = -log10(de$lfsr[,"k3"]),
 				   stringsAsFactors = FALSE)
 pdat <- transform(pdat,lfsr = cut(lfsr,c(0,1.3,2,3,Inf)))
@@ -270,10 +270,11 @@ i <- which(with(pdat,!(postmean > 8 | z > 75 | (postmean > 5 & z > 20))))
 pdat[i,"gene"] <- ""
 ggplot(pdat,aes(x = postmean,y = z,fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white",size = 2) +
+  geom_vline(xintercept = 0,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_y_continuous(trans = "sqrt") +
+  scale_y_continuous(trans = "sqrt",breaks = c(1,2,4,10,20,50,100,200)) +
   scale_fill_manual(values = c("deepskyblue","gold","orange","tomato"),
                     na.value = "gainsboro") +
   labs(x = "posterior mean LFC",y = "|z-score|") +
