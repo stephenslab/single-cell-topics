@@ -198,7 +198,7 @@ de$lfsr     <- de$lfsr[rows,]
 
 *Add text here.*
 
-```{r zscore-hist}
+```{r z-score-hist}
 pdat1 <- data.frame(x = clamp(as.vector(deseq$z),-40,+40))
 pdat2 <- data.frame(x = clamp(as.vector(de$z),-40,+40))
 p1 <- ggplot(pdat1,aes(x = x)) +
@@ -214,25 +214,42 @@ plot_grid(p1,p2)
 
 *Add text here.*
 
-```{r bcell-zscores}
+```{r z-score-scatterplot}
+pdat <-
+  data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
+             fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
+pdat <- transform(pdat,
+                  deseq      = clamp(deseq,-100,+100),
+                  fasttopics = clamp(fasttopics,-100,+100))
+ggplot(pdat,aes(x = deseq,y = fasttopics)) +
+  geom_point() +
+  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
+  labs(x = "DESeq2",y = "fastTopics") +
+  theme_cowplot()
+```
+
+*Add text here.*
+
+```{r bcell-z-scores}
 pdat <- data.frame(deseq        = deseq$postmean[,"CD19+ B"],
                    fasttopics   = de$postmean[,"k3"],
 				   z.deseq      = deseq$z[,"CD19+ B"],
 				   z.fasttopics = de$z[,"k3"],
+				   lfsr         = -log10(de$lfsr[,"k3"] + 1e-20),
                    f0           = log10(de$f0),
                    gene         = genes$symbol,
 				   stringsAsFactors = FALSE)
 pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 i <- which(pdat$fasttopics < 8)
 pdat[i,"gene"] <- ""
-ggplot(pdat,aes(x = deseq,y = fasttopics,fill = f0,label = gene)) +
+ggplot(pdat,aes(x = deseq,y = fasttopics,fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
   scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       na.value = "gainsboro",midpoint = -4) +
+                       na.value = "gainsboro",midpoint = 10) +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in B cells") +
   theme_cowplot()
