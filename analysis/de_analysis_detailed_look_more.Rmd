@@ -157,7 +157,7 @@ identifying true positives.)
 
 ```{r shrink-vs-noshrink-pvalues, fig.height=2.75, fig.width=8, warning=FALSE}
 pdat <- data.frame(noshrink = 10^(-c(de.noshrink$lpval)),
-                   shrink   = 10^(-c(de$lpval)),
+                   shrink   = c(de$svalue),
                    de       = factor(c(nonzero_lfc)))
 p1 <- ggplot(pdat,aes(x = noshrink,color = de,fill = de)) +
   geom_histogram(bins = 64) +
@@ -171,7 +171,7 @@ p2 <- ggplot(pdat,aes(x = shrink,color = de,fill = de)) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   coord_cartesian(ylim = c(0,2500)) +
-  labs(x = "p-value",y = "genes",title = "with shrinkage") +
+  labs(x = "s-value",y = "genes",title = "with shrinkage") +
   theme_cowplot()
 print(plot_grid(p1,p2))
 ```
