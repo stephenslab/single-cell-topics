@@ -29,6 +29,9 @@ library(cowplot)
 source("../code/de_analysis_functions.R")
 ```
 
+Load count data and topic model fit
+-----------------------------------
+
 Load the UMI count data for 94,655 cells and 21,952 genes.
 
 ```{r load-data}
@@ -64,6 +67,9 @@ celltype <- factor(celltype,
                    c("CD19+ B","CD14+ Monocyte","CD34+","CD56+ NK","T cell"))
 table(celltype)
 ```
+
+Structure plot
+--------------
 
 Next we visualize the structure inferred by the $K = $ topic model
 using a "structure plot". The cells in this plot are arranged
@@ -108,9 +114,12 @@ the topic-model-based DE analysis.
 Assessing accuracy of the Monte Carlo estimates
 -----------------------------------------------
 
-To assess accuracy of the posterior calculations, we perform the DE
-analysis twice (using different seeds), and compare the posterior mean
-estimates and *z*-scores returned by the two `de_analysis` runs.
+The topic-model-based DE analysis was performed previously by
+simulating the posterior distribution of the LFC statistics via
+MCMC. Here we assess accuracy of the MCMC calculations. We performed
+the DE analysis twice (using different seeds, each with 100,000 Monte
+Carlo samples), so we can compare the posterior mean estimates and
+*z*-scores returned by the two `de_analysis` runs.
 
 ```{r load-de-analysis}
 load("../output/pbmc-purified/de-pbmc-purified-seed=1.RData")
@@ -120,10 +129,10 @@ de2 <- de
 rm(de)
 ```
 
-The two MCMC estimates of the posterior mean log-fold change (LFC)
+The MCMC estimates of the posterior mean log-fold change (LFC)
 estimates are largely consistent:
 
-```{r assess-monte-carlo-1, fig.width=3, fig.height=3}
+```{r assess-monte-carlo-1, fig.width=3.25, fig.height=3}
 pdat <- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
 ggplot(pdat,aes(x = postmean1,y = postmean2)) +
@@ -134,13 +143,14 @@ ggplot(pdat,aes(x = postmean1,y = postmean2)) +
 ```
 
 The $z$-scores on the other hand are estimated less consistently,
-presumably because accurately calculating uncertainty in the estimates
-is harder. Despite this, the $z$-scores are still are consistent
-enough in that it is rare for an LFC to have an lfsr less than 0.05 in
-one MCMC simulation and not the other (these are the red points in the
-scatterplot).
+presumably because accurately estimating uncertainty is harder.
+Still, the $z$-scores are still are consistent enough in that it is
+rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation
+and not the other (these are the red points in the scatterplot).  Note
+for better visualization $z$-scores larger than 100 (or smaller than
+-100) are shown as 100 (or -100) in this plot.
 
-```{r assess-monte-carlo-3, fig.width=4.5, fig.height=3, warning=FALSE}
+```{r assess-monte-carlo-3, fig.width=4.25, fig.height=3, warning=FALSE}
 pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
 				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
@@ -153,27 +163,24 @@ ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   theme_cowplot()
 ```
 
-Note that for better visualization $z$-scores larger than 100 (or
-smaller than -100) are shown as 100 (or -100).
-
-*Add text here.*
+Moving forward, when the two *z*-scores disagree, we use the one that
+is nearer to zero.
 
 ```{r fix-z-scores}
-de <- de1[c("f0","postmean","z","lfsr")]
-class(de) <- c("topic_model_de_analysis","list")
-i  <- which(abs(de2$z) < abs(de1$z))
+de             <- de1[c("f0","postmean","z","lfsr")]
+class(de)      <- c("topic_model_de_analysis","list")
+i              <- which(abs(de2$z) < abs(de1$z))
 de$postmean[i] <- de2$postmean[i]
 de$z[i]        <- de2$z[i]
 de$lfsr[i]     <- de$lfsr[i]
 ```
 
-DESeq2 vs. fastTopics
----------------------
+Load DESeq2 results for all cell types
+--------------------------------------
 
-*Next:* Compare classical DE analysis (DESeq2) against DE analysis
-allowing for grades of membership.
-
-*Add text here.*
+We load the results of the DESeq2 analyes, and combine them into two
+data frames: a data frame for the posterior mean LFC estimates, and a
+data frame for the *z*-scores.
 
 ```{r load-deseq2}
 load("../output/pbmc-purified/deseq2-pbmc-purified.RData")
@@ -194,9 +201,10 @@ deseq <- deseq2
 rm(deseq2)
 ```
 
-*Add text here.*
+Since we filtered out a few lowly expressed genes before running
+DESeq2, we subset the fastTopics results to match up with DESeq2.
 
-```{r align-with-deseq2}
+```{r align-with-deseq2, eval=FALSE}
 rows        <- match(rownames(deseq$z),rownames(de$z))
 de$f0       <- de$f0[rows]
 de$postmean <- de$postmean[rows,]
@@ -204,25 +212,16 @@ de$z        <- de$z[rows,]
 de$lfsr     <- de$lfsr[rows,]
 ```
 
-*Add text here.*
+DESeq2 vs. fastTopics
+---------------------
 
-```{r z-score-hist}
-pdat1 <- data.frame(x = clamp(as.vector(deseq$z),-40,+40))
-pdat2 <- data.frame(x = clamp(as.vector(de$z),-40,+40))
-p1 <- ggplot(pdat1,aes(x = x)) +
-  geom_histogram(bins = 64,fill = "black") +
-  labs(x = "z-score",y = "genes",title = "DESeq2") +
-  theme_cowplot()
-p2 <- ggplot(pdat1,aes(x = x)) +
-  geom_histogram(bins = 64,fill = "black") +
-  labs(x = "z-score",y = "genes",title = "fastTopics") +
-  theme_cowplot()
-plot_grid(p1,p2)
-```
+Comparing the distributions of all $z$-scores, we see that the DE
+analysis allowing for grades of membership has many more $z$-scores
+near zero, yet still has (Because there are a few extremely large and extremely small
+$z$-scores, for better visualization z-scores larger than 100 in
+magnitude are shown as 100 or -100.)
 
-*Add text here.*
-
-```{r z-score-scatterplot}
+```{r z-score-scatterplot, fig.height=2.75, fig.width=3}
 pdat <-
   data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
              fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
@@ -232,13 +231,13 @@ pdat <- transform(pdat,
 ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
-  labs(x = "DESeq2",y = "fastTopics") +
+  labs(x = "DESeq2",y = "fastTopics",title = "z-score quantiles") +
   theme_cowplot()
 ```
 
 *Add text here.*
 
-```{r bcells-z-scores}
+```{r bcells-z-scores, eval=FALSE}
 pdat <- data.frame(deseq        = deseq$postmean[,"CD19+ B"],
                    fasttopics   = de$postmean[,"k3"],
 				   z.deseq      = deseq$z[,"CD19+ B"],
@@ -267,7 +266,7 @@ ggplot(pdat,aes(x = deseq,y = fasttopics,fill = lfsr,label = gene)) +
 
 *Add text here.*
 
-```{r bcells-volcano-plot}
+```{r bcells-volcano-plot, eval=FALSE}
 pdat <- data.frame(gene     = genes$symbol,
                    postmean = de$postmean[,"k3"],
                    z        = pmin(200,abs(de$z[,"k3"])),
