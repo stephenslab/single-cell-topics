@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -323,10 +323,10 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-22
+<strong>Last updated:</strong> 2021-11-24
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -342,12 +342,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
 </div>
 </div>
 </div>
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree454ab6f812972e4374fc2b00b1cc7dd72e41866ftargetblank454ab6fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/454ab6f812972e4374fc2b00b1cc7dd72e41866f" target="_blank">454ab6f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9fcc15c96215475bec2005681bada954265a3fd2targetblank9fcc15ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/9fcc15c96215475bec2005681bada954265a3fd2" target="_blank">9fcc15c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree454ab6f812972e4374fc2b00b1cc7dd72e41866ftargetblank454ab6fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree9fcc15c96215475bec2005681bada954265a3fd2targetblank9fcc15ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/454ab6f812972e4374fc2b00b1cc7dd72e41866f" target="_blank">454ab6f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/9fcc15c96215475bec2005681bada954265a3fd2" target="_blank">9fcc15c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -451,7 +451,7 @@ Untracked files:
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   analysis/de_analysis_purified_pbmc.Rmd
+    Modified:   analysis/temp6.R
 
 </code></pre>
 <p>
@@ -490,6 +490,176 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/9fcc15c96215475bec2005681bada954265a3fd2/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">9fcc15c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7b343625d0cd1703c01264f3e02fa9aac173c620/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">7b34362</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+Working on comparison of deseq2 and fasttopics in B cells in de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6fbc554ad02c880ae6f30ebdb757663763551df1/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">6fbc554</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-24
+</td>
+<td>
+Working on deseq2 vs fasttopics comparison in de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c1e09319e31e07d33c7987d22effa810f529a461/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">c1e0931</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Revised explanatory test in de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fb81385c61542066eac866572060790b8bfca4a0/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">fb81385</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Made a few improvements to the volcano plot in de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a11826f6195b1ef2317b667c7da4dce9469f02bd/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">a11826f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Added scatterplot to de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/161d0e92a73270a74ffcc18886f76c67828872f4/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">161d0e9</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Made a few improvements the b-cells scatterplot in the de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/760f6ad2b614361a13c0833ae4e07c6814c51e51/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">760f6ad</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Added a z-score q-q plot to de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5fa98f8d53a7df09c136d86b584428e632396055/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">5fa98f8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Working on de_analysis_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/5fa98f8d53a7df09c136d86b584428e632396055/docs/de_analysis_purified_pbmc.html" target="_blank">5fa98f8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+<td>
+Working on de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -667,21 +837,26 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 </div>
-<p>The aim of this analysis is to understand the differences between a classical differential expresion analysis comparing expression among cell types (implemented using DESEq2) and a differential expression analysis using the topic model, which allows for grades of membership to cell types or cell states.</p>
+<p>The aim of this analysis is to understand by way of illustration the differences between a “classical” differential expresion analysis comparing expression among cell types (here we implement this “classical” DE analysis using <a href="https://github.com/mikelove/DESeq2">DESEq2</a>), and a differential expression analysis using the topic model, which allows for grades of membership to cell types (or more generally cellular expression factors).</p>
 <p>Begin by loading the packages and some function definitions used in the analysis.</p>
 <pre class="r"><code>library(Matrix)
 library(DESeq2)
 library(fastTopics)
 library(ggplot2)
+library(ggrepel)
 library(cowplot)
 source(&quot;../code/de_analysis_functions.R&quot;)</code></pre>
-<p>Load the UMI gene count data.</p>
-<pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)</code></pre>
-<p>Load the <span class="math inline">\(K = 6\)</span> Poisson NMF model fit, and convert it to a topic model.</p>
+<div id="load-count-data-and-topic-model-fit" class="section level2">
+<h2>Load count data and topic model fit</h2>
+<p>Load the UMI count data for 94,655 cells and 21,952 genes.</p>
+<pre class="r"><code>load(&quot;../data/pbmc_purified.RData&quot;)
+dim(counts)
+# [1] 94655 21952</code></pre>
+<p>Load the <span class="math inline">\(K = 6\)</span> Poisson NMF model fit to these data, and convert the Poisson NMF model fit to a multinomial topic model fit.</p>
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)</code></pre>
-<p>The cells are subdivided, based on FACS sorting, into 10 “cell types”, almost many of the cell types are virtually indistinguishable based on their gene expression, so we combine them into a single “T cell” category. This results in 5 predefined cell types:</p>
+<p>The cells are subdivided, based on FACS sorting, into 10 “cell types”. Several of the cell types are virtually indistinguishable based on their gene expression profiles alone, so we combine these indistinguishable cell types into a single “T cell” cell type. This results in 5 predefined cell types, the majority of which are T cells:</p>
 <pre class="r"><code>set.seed(1)
 celltype &lt;- as.character(samples$celltype)
 celltype[celltype == &quot;CD4+ T Helper2&quot; |
@@ -696,7 +871,10 @@ table(celltype)
 # celltype
 #        CD19+ B CD14+ Monocyte          CD34+       CD56+ NK         T cell 
 #          10085           2612           9232           8385          64341</code></pre>
-<p>This Structure plot, in which cells are arranged horizontally according to their predefined cell type, shows how the estimated topic proportions relate to the predefined cell types.</p>
+</div>
+<div id="structure-plot" class="section level2">
+<h2>Structure plot</h2>
+<p>Next we visualize the structure inferred by the $K = $ topic model using a “structure plot”. The cells in this plot are arranged horizontally according to their predefined cell type to relate the topics to these predefinend cell types:</p>
 <pre class="r"><code>topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,
                   &quot;darkmagenta&quot;,&quot;violet&quot;)
 topics &lt;- c(5,3,2,4,1,6)
@@ -749,17 +927,19 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>In particular, topics 1 through 4 closely correspond, respectively, to T cells, CD14+ monocytes (myeloid cells), B cells and natural killer cells. Topic 5 (violet) also closely corresponds to the “CD34+” FACS cell type label but also suggests considerable FACS FACS mislabeling of the CD34+ cells. Topic 6 (magenta) does not correspond to any FACS cell type and as we will it is capturing a different characteristic of the cells—specifically, abundance of ribosomal protein genes. Therefore, we expect the results from the topic-model-based DE analysis for topics 1–4 to most closely resemble the DESeq2 results for the corresponding cell types.</p>
-<p>Before entering into this comparison, we first assess accuracy of the MCMC computations in the topic-model-based analysis.</p>
+<p>Some of the topics correspond very closely to the predefined cell types. In particular, topics 1 through 4 closely correspond, respectively, to T cells, CD14+ monocytes (myeloid cells), B cells and natural killer (NK) cells.</p>
+<p>Topic 5 (violet) closely corresponds to the “CD34+” FACS cell type, but from the structure plot we observe many cells labeled as “CD34+” with little to no contribution from topic 5, which suggests mislabeling of the CD34+ cells.</p>
+<p>Topic 6 (magenta) does not correspond to any FACS cell type and as we will see it captures a different characteristic of the cells—specifically, abundance of ribosomal protein genes. Therefore, the DE results for topics 1–4 are most comparable to a classical DE analysis, and we begin with these comparisons. But before doing this we first assess accuracy of the MCMC computations used in the topic-model-based DE analysis.</p>
+</div>
 <div id="assessing-accuracy-of-the-monte-carlo-estimates" class="section level2">
 <h2>Assessing accuracy of the Monte Carlo estimates</h2>
-<p>To assess accuracy of the posterior calculations, we perform the DE analysis twice (using different seeds), and compare the posterior mean estimates and <em>z</em>-scores returned by the two <code>de_analysis</code> runs.</p>
+<p>The topic-model-based DE analysis was performed previously by simulating the posterior distribution of the LFC statistics via MCMC. Here we assess accuracy of the MCMC calculations. We performed the DE analysis twice (using different seeds, each with 100,000 Monte Carlo samples), so we can compare the posterior mean estimates and <em>z</em>-scores returned by the two <code>de_analysis</code> runs.</p>
 <pre class="r"><code>load(&quot;../output/pbmc-purified/de-pbmc-purified-seed=1.RData&quot;)
 de1 &lt;- de
 load(&quot;../output/pbmc-purified/de-pbmc-purified-seed=2.RData&quot;)
 de2 &lt;- de
 rm(de)</code></pre>
-<p>The two MCMC estimates of the posterior mean log-fold change (LFC) estimates are largely consistent:</p>
+<p>The MCMC estimates of the posterior mean log-fold change (LFC) estimates are largely consistent:</p>
 <pre class="r"><code>pdat &lt;- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
 ggplot(pdat,aes(x = postmean1,y = postmean2)) +
@@ -767,7 +947,7 @@ ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dashed&quot;) +
   labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
   theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" width="360" style="display: block; margin: auto;" /></p>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" width="390" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-1-1">
 Past versions of assess-monte-carlo-1-1.png
@@ -792,6 +972,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5fa98f8d53a7df09c136d86b584428e632396055/docs/figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" target="_blank">5fa98f8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/0d0c72069543e91cacb46f4034c361e1a4c8f50f/docs/figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" target="_blank">0d0c720</a>
 </td>
 <td>
@@ -805,18 +996,18 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The <span class="math inline">\(z\)</span>-scores on the other hand are estimated less consistently, presumably because accurately calculating uncertainty in the estimates is harder. Despite this, the <span class="math inline">\(z\)</span>-scores are still are consistent enough in that it is rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation and not the other (these are the red points in the scatterplot).</p>
+<p>The <span class="math inline">\(z\)</span>-scores on the other hand are estimated less consistently, presumably because accurately estimating uncertainty is harder. Still, the <span class="math inline">\(z\)</span>-scores are still are consistent enough in that it is rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation and not the other (these are the red points in the scatterplot). Note for better visualization <span class="math inline">\(z\)</span>-scores larger than 100 (or smaller than -100) are shown as 100 (or -100) in this plot.</p>
 <pre class="r"><code>pdat &lt;- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
                    lfsr = factor((de1$lfsr &lt; 0.05) + (de2$lfsr &lt; 0.05)))
 ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
-  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;,&quot;dodgerblue&quot;),
                     na.value = &quot;white&quot;) +
   labs(x = &quot;first z-score&quot;,y = &quot;second z-score&quot;,fill = &quot;lfsr &lt; 0.05&quot;) +
   theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" width="540" style="display: block; margin: auto;" /></p>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" width="510" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-3-1">
 Past versions of assess-monte-carlo-3-1.png
@@ -841,6 +1032,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5fa98f8d53a7df09c136d86b584428e632396055/docs/figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" target="_blank">5fa98f8</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-23
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/0d0c72069543e91cacb46f4034c361e1a4c8f50f/docs/figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" target="_blank">0d0c720</a>
 </td>
 <td>
@@ -854,15 +1056,110 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Note that for better visualization <span class="math inline">\(z\)</span>-scores larger than 100 (or smaller than -100) are shown as 100 (or -100).</p>
+<p>Moving forward, when the two <em>z</em>-scores disagree, we use the one that is nearer to zero.</p>
+<pre class="r"><code>de             &lt;- de1[c(&quot;f0&quot;,&quot;postmean&quot;,&quot;z&quot;,&quot;lfsr&quot;)]
+class(de)      &lt;- c(&quot;topic_model_de_analysis&quot;,&quot;list&quot;)
+i              &lt;- which(abs(de2$z) &lt; abs(de1$z))
+de$postmean[i] &lt;- de2$postmean[i]
+de$z[i]        &lt;- de2$z[i]
+de$lfsr[i]     &lt;- de$lfsr[i]</code></pre>
+</div>
+<div id="load-deseq2-results-for-all-cell-types" class="section level2">
+<h2>Load DESeq2 results for all cell types</h2>
+<p>We load the results of the DESeq2 analyes, and combine them into two data frames: a data frame for the posterior mean LFC estimates, and a data frame for the <em>z</em>-scores.</p>
+<pre class="r"><code>load(&quot;../output/pbmc-purified/deseq2-pbmc-purified.RData&quot;)
+celltypes &lt;- names(deseq)
+n &lt;- length(celltypes)
+p &lt;- nrow(genes)
+deseq2 &lt;- list(postmean = matrix(0,p,n),
+               z        = matrix(0,p,n))
+rownames(deseq2$postmean) &lt;- genes$ensembl
+rownames(deseq2$z)        &lt;- genes$ensembl
+colnames(deseq2$postmean) &lt;- celltypes
+colnames(deseq2$z)        &lt;- celltypes
+for (i in 1:n) {
+  deseq2$postmean[,i] &lt;- deseq[[i]]$log2FoldChange
+  deseq2$z[,i]        &lt;- with(deseq[[i]],log2FoldChange/lfcSE)
+}
+deseq &lt;- deseq2
+rm(deseq2)</code></pre>
+<p>Since we filtered out a few lowly expressed genes before running DESeq2, we subset the fastTopics results to match up with DESeq2.</p>
+<pre class="r"><code>rows        &lt;- match(rownames(deseq$z),rownames(de$z))
+de$f0       &lt;- de$f0[rows]
+de$postmean &lt;- de$postmean[rows,]
+de$z        &lt;- de$z[rows,]
+de$lfsr     &lt;- de$lfsr[rows,]</code></pre>
 </div>
 <div id="deseq2-vs.fasttopics" class="section level2">
 <h2>DESeq2 vs. fastTopics</h2>
-<p><em>Next:</em> Compare classical DE analysis (DESeq2) against DE analysis allowing for grades of membership.</p>
-<pre class="r"><code>load(&quot;../output/pbmc-purified/de-pbmc-purified-seed=1.RData&quot;)</code></pre>
+<p>Comparing the distributions of all <span class="math inline">\(z\)</span>-scores, we see that the DE analysis allowing for grades of membership has many more <span class="math inline">\(z\)</span>-scores near zero, yet still has (Because there are a few extremely large and extremely small <span class="math inline">\(z\)</span>-scores, for better visualization z-scores larger than 100 in magnitude are shown as 100 or -100.)</p>
+<pre class="r"><code>pdat &lt;-
+  data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
+             fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
+pdat &lt;- transform(pdat,
+                  deseq      = clamp(deseq,-100,+100),
+                  fasttopics = clamp(fasttopics,-100,+100))
+ggplot(pdat,aes(x = deseq,y = fasttopics)) +
+  geom_point() +
+  geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dotted&quot;) +
+  labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,title = &quot;z-score quantiles&quot;) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/z-score-scatterplot-1.png" width="390" style="display: block; margin: auto;" /></p>
+<p>Now let’s look closely at the DESeq2 and fastTopics results for B cells, one of the cell types that closely corresponds to a topic (topic 3). Here we focus on genes for which the <span class="math inline">\(z\)</span>-score is greater than 2 in at least one of the analyses. Genes are colored according to the LFSR estimated in the fastTopics analysis ().</p>
+<pre class="r"><code>i &lt;- &quot;CD19+ B&quot;
+k &lt;- &quot;k3&quot;
+pdat &lt;- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+                   z.deseq             = deseq$z[,i],
+                   z.fasttopics        = de$z[,k],
+                   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                   stringsAsFactors = FALSE)
+j &lt;- which(pdat$postmean.fasttopics &lt; 8)
+pdat[j,&quot;gene&quot;] &lt;- &quot;&quot;
+pdat[genes$symbol == &quot;HOPX&quot;,&quot;gene&quot;] &lt;- &quot;HOPX&quot;
+pdat &lt;- subset(pdat,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = &quot;white&quot;) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  geom_text_repel(color = &quot;darkgray&quot;,size = 2.25,fontface = &quot;italic&quot;,
+                  segment.color = &quot;darkgray&quot;,segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c(&quot;deepskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,&quot;coral&quot;),
+                    na.value = &quot;gainsboro&quot;) +
+  xlim(-12.3,13.1) +
+  ylim(-10,13.1) +
+  labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
+       title = &quot;LFC in B cells&quot;) +
+  theme_cowplot()</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>A few interesting themes emerge from this plot:</p>
 <ul>
-<li>Compare histogram of DESeq2 z-scores against fastTopics z-scores.</li>
+<li><p>Many genes with large LFC in the DESeq2, particularly genes with very negative LFCs (genes with large decreases in expression in B cells) have zero LFC in the fastTopics analysis.</p></li>
+<li><p>Most of the LFC estimates in the fastTopics DE analysis agree with, but are lower than, the LFC estimates in the DESeq2 analysis. The one exception is the genes with the largest expression increases in B cells: both DESeq2 and fastTopics largely identifies the same genes with the largest increases in expression in B cells, but the LFC is higher for most of these genes in the fastTopics analysis.</p></li>
+<li><p>I highlighted here the <em>HOPX</em> gene because this is a gene that was identified in the fastTopics analysis, but not DESeq2 analysis, presumably because this gene is more strongly expressed in cells that are not actually labeled as “B cell” by FACS.</p></li>
 </ul>
+<p>The fastTopics DE analysis for the “B cells” topic is summarized in the following volcano plot:</p>
+<pre class="r"><code>pdat &lt;- data.frame(gene     = genes$symbol,
+                   postmean = de$postmean[,k],
+                   z        = pmin(150,abs(de$z[,k])),
+                   lfsr     = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                   stringsAsFactors = FALSE)
+j &lt;- which(with(pdat,!(postmean &gt; 8 | z &gt; 75)))
+pdat[j,&quot;gene&quot;] &lt;- &quot;&quot;
+ggplot(pdat,aes(x = postmean,y = z,fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = &quot;white&quot;,size = 1.5) +
+  geom_text_repel(color = &quot;darkgray&quot;,size = 2.25,fontface = &quot;italic&quot;,
+                  segment.color = &quot;darkgray&quot;,segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_y_continuous(trans = &quot;sqrt&quot;,breaks = c(1,2,5,10,20,50,100)) +
+  scale_fill_manual(values = c(&quot;deepskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,&quot;tomato&quot;),
+                    na.value = &quot;gainsboro&quot;) +
+  labs(x = &quot;posterior mean LFC&quot;,y = &quot;|z-score|&quot;) +
+  theme_cowplot()
+# Warning: Removed 323 rows containing missing values (geom_point).</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/bcells-volcano-plot-1.png" width="540" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -887,50 +1184,49 @@ Peter Carbonetto
 # [8] methods   base     
 # 
 # other attached packages:
-#  [1] cowplot_1.0.0               ggplot2_3.3.5              
-#  [3] fastTopics_0.6-79           DESeq2_1.33.5              
-#  [5] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
-#  [7] BiocParallel_1.18.1         matrixStats_0.61.0         
-#  [9] Biobase_2.46.0              GenomicRanges_1.38.0       
-# [11] GenomeInfoDb_1.22.1         IRanges_2.20.2             
-# [13] S4Vectors_0.24.4            BiocGenerics_0.32.0        
-# [15] Matrix_1.2-18              
+#  [1] cowplot_1.0.0               ggrepel_0.9.1              
+#  [3] ggplot2_3.3.5               fastTopics_0.6-79          
+#  [5] DESeq2_1.33.5               SummarizedExperiment_1.16.1
+#  [7] DelayedArray_0.12.3         BiocParallel_1.18.1        
+#  [9] matrixStats_0.61.0          Biobase_2.46.0             
+# [11] GenomicRanges_1.38.0        GenomeInfoDb_1.22.1        
+# [13] IRanges_2.20.2              S4Vectors_0.24.4           
+# [15] BiocGenerics_0.32.0         Matrix_1.2-18              
 # 
 # loaded via a namespace (and not attached):
-#   [1] Rtsne_0.15             colorspace_1.4-1       ellipsis_0.3.2        
-#   [4] rprojroot_1.3-2        XVector_0.26.0         fs_1.3.1              
-#   [7] rstudioapi_0.13        farver_2.0.1           MatrixModels_0.4-1    
-#  [10] ggrepel_0.9.1          bit64_0.9-7            AnnotationDbi_1.48.0  
-#  [13] fansi_0.4.0            splines_3.6.2          geneplotter_1.64.0    
-#  [16] knitr_1.26             jsonlite_1.7.2         workflowr_1.6.2       
-#  [19] mcmc_0.9-6             annotate_1.64.0        ashr_2.2-51           
-#  [22] compiler_3.6.2         httr_1.4.2             backports_1.1.5       
-#  [25] assertthat_0.2.1       lazyeval_0.2.2         later_1.0.0           
-#  [28] prettyunits_1.1.1      htmltools_0.4.0        quantreg_5.54         
-#  [31] tools_3.6.2            coda_0.19-3            gtable_0.3.0          
-#  [34] glue_1.4.2             GenomeInfoDbData_1.2.2 dplyr_1.0.7           
-#  [37] Rcpp_1.0.7             vctrs_0.3.8            xfun_0.11             
-#  [40] stringr_1.4.0          ps_1.6.0               lifecycle_1.0.0       
-#  [43] irlba_2.3.3            XML_3.99-0.3           zlibbioc_1.32.0       
-#  [46] MASS_7.3-51.4          scales_1.1.0           hms_1.1.0             
-#  [49] promises_1.1.0         SparseM_1.78           RColorBrewer_1.1-2    
-#  [52] yaml_2.2.0             memoise_1.1.0          pbapply_1.5-1         
-#  [55] stringi_1.4.3          RSQLite_2.2.0          SQUAREM_2017.10-1     
-#  [58] genefilter_1.68.0      truncnorm_1.0-8        rlang_0.4.11          
-#  [61] pkgconfig_2.0.3        bitops_1.0-6           evaluate_0.14         
-#  [64] lattice_0.20-38        invgamma_1.1           purrr_0.3.4           
-#  [67] labeling_0.3           htmlwidgets_1.5.1      bit_1.1-15.2          
-#  [70] processx_3.5.2         tidyselect_1.1.1       magrittr_2.0.1        
-#  [73] R6_2.4.1               generics_0.0.2         DBI_1.1.0             
-#  [76] withr_2.4.2            pillar_1.6.2           whisker_0.4           
-#  [79] survival_3.1-8         RCurl_1.98-1.2         mixsqp_0.3-46         
-#  [82] tibble_3.1.3           crayon_1.4.1           utf8_1.1.4            
-#  [85] plotly_4.9.2           rmarkdown_2.3          progress_1.2.2        
-#  [88] locfit_1.5-9.4         grid_3.6.2             data.table_1.12.8     
-#  [91] blob_1.2.1             callr_3.7.0            git2r_0.26.1          
-#  [94] digest_0.6.23          xtable_1.8-4           tidyr_1.1.3           
-#  [97] httpuv_1.5.2           MCMCpack_1.4-5         RcppParallel_4.4.2    
-# [100] munsell_0.5.0          viridisLite_0.3.0      quadprog_1.5-8</code></pre>
+#  [1] Rtsne_0.15             colorspace_1.4-1       ellipsis_0.3.2        
+#  [4] rprojroot_1.3-2        XVector_0.26.0         fs_1.3.1              
+#  [7] farver_2.0.1           MatrixModels_0.4-1     bit64_0.9-7           
+# [10] AnnotationDbi_1.48.0   fansi_0.4.0            splines_3.6.2         
+# [13] geneplotter_1.64.0     knitr_1.26             jsonlite_1.7.2        
+# [16] workflowr_1.6.2        mcmc_0.9-6             annotate_1.64.0       
+# [19] ashr_2.2-51            compiler_3.6.2         httr_1.4.2            
+# [22] backports_1.1.5        assertthat_0.2.1       lazyeval_0.2.2        
+# [25] later_1.0.0            htmltools_0.4.0        quantreg_5.54         
+# [28] prettyunits_1.1.1      tools_3.6.2            coda_0.19-3           
+# [31] gtable_0.3.0           glue_1.4.2             GenomeInfoDbData_1.2.2
+# [34] dplyr_1.0.7            Rcpp_1.0.7             vctrs_0.3.8           
+# [37] xfun_0.11              stringr_1.4.0          lifecycle_1.0.0       
+# [40] irlba_2.3.3            XML_3.99-0.3           zlibbioc_1.32.0       
+# [43] MASS_7.3-51.4          scales_1.1.0           hms_1.1.0             
+# [46] promises_1.1.0         SparseM_1.78           RColorBrewer_1.1-2    
+# [49] yaml_2.2.0             memoise_1.1.0          pbapply_1.5-1         
+# [52] stringi_1.4.3          RSQLite_2.2.0          SQUAREM_2017.10-1     
+# [55] genefilter_1.68.0      truncnorm_1.0-8        rlang_0.4.11          
+# [58] pkgconfig_2.0.3        bitops_1.0-6           evaluate_0.14         
+# [61] lattice_0.20-38        invgamma_1.1           purrr_0.3.4           
+# [64] htmlwidgets_1.5.1      labeling_0.3           bit_1.1-15.2          
+# [67] tidyselect_1.1.1       magrittr_2.0.1         R6_2.4.1              
+# [70] generics_0.0.2         DBI_1.1.0              pillar_1.6.2          
+# [73] whisker_0.4            withr_2.4.2            survival_3.1-8        
+# [76] RCurl_1.98-1.2         mixsqp_0.3-46          tibble_3.1.3          
+# [79] crayon_1.4.1           utf8_1.1.4             plotly_4.9.2          
+# [82] rmarkdown_2.3          progress_1.2.2         locfit_1.5-9.4        
+# [85] grid_3.6.2             data.table_1.12.8      blob_1.2.1            
+# [88] git2r_0.26.1           digest_0.6.23          xtable_1.8-4          
+# [91] tidyr_1.1.3            httpuv_1.5.2           MCMCpack_1.4-5        
+# [94] RcppParallel_4.4.2     munsell_0.5.0          viridisLite_0.3.0     
+# [97] quadprog_1.5-8</code></pre>
 </div>
 </div>
 
