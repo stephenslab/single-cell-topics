@@ -156,7 +156,7 @@ pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
 				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
 ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   geom_point(shape = 21,color = "white",size = 2) +
-  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
   scale_fill_manual(values = c("darkblue","tomato","dodgerblue"),
                     na.value = "white") +
   labs(x = "first z-score",y = "second z-score",fill = "lfsr < 0.05") +
@@ -204,7 +204,7 @@ rm(deseq2)
 Since we filtered out a few lowly expressed genes before running
 DESeq2, we subset the fastTopics results to match up with DESeq2.
 
-```{r align-with-deseq2, eval=FALSE}
+```{r align-with-deseq2}
 rows        <- match(rownames(deseq$z),rownames(de$z))
 de$f0       <- de$f0[rows]
 de$postmean <- de$postmean[rows,]
@@ -221,7 +221,7 @@ near zero, yet still has (Because there are a few extremely large and extremely 
 $z$-scores, for better visualization z-scores larger than 100 in
 magnitude are shown as 100 or -100.)
 
-```{r z-score-scatterplot, fig.height=2.75, fig.width=3}
+```{r z-score-scatterplot, fig.height=3.25, fig.width=3.25}
 pdat <-
   data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
              fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
@@ -235,36 +235,60 @@ ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   theme_cowplot()
 ```
 
-*Add text here.*
+Now let's look closely at the DESeq2 and fastTopics results for B
+cells, one of the cell types that closely corresponds to a topic
+(topic 3). Here we focus on genes for which the $z$-score is greater
+than 2 in at least one of the analyses. Genes are colored according
+to the LFSR estimated in the fastTopics analysis ().
 
-```{r bcells-z-scores, eval=FALSE}
-pdat <- data.frame(deseq        = deseq$postmean[,"CD19+ B"],
-                   fasttopics   = de$postmean[,"k3"],
-				   z.deseq      = deseq$z[,"CD19+ B"],
-				   z.fasttopics = de$z[,"k3"],
-				   lfsr         = -log10(de$lfsr[,"k3"] + 1e-20),
-                   f0           = log10(de$f0),
-                   gene         = genes$symbol,
+```{r bcells-z-scores, fig.height=4.5, fig.width=6}
+i <- "CD19+ B"
+k <- "k3"
+pdat <- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+				   z.deseq             = deseq$z[,i],
+				   z.fasttopics        = de$z[,k],
+				   lfsr                = de$lfsr[,k],
 				   stringsAsFactors = FALSE)
-pdat <- transform(pdat,lfsr = cut(lfsr,c(0,1.3,2,3,Inf)))
-i <- which(pdat$fasttopics < 8)
-pdat[i,"gene"] <- ""
+pdat <- transform(pdat,lfsr = cut(lfsr,10^(-c(0,1.3,2,3,Inf))))
+j    <- which(pdat$postmean.fasttopics < 8)
+pdat[j,"gene"] <- ""
 pdat[genes$symbol == "HOPX","gene"] <- "HOPX"
 pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
-ggplot(pdat,aes(x = deseq,y = fasttopics,fill = lfsr,label = gene)) +
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_manual(values = c("deepskyblue","gold","orange","tomato"),
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
                     na.value = "gainsboro") +
+  xlim(-12.3,13.1) +
+  ylim(-10,13.1) +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in B cells") +
   theme_cowplot()
 ```
 
-*Add text here.*
+A few interesting themes emerge from this plot:
+
++ Many genes with large LFC in the DESeq2, particularly genes with
+  very negative LFCs (genes with large decreases in expression in B
+  cells) have zero LFC in the fastTopics analysis.
+
++ Most of the LFC estimates in the fastTopics DE analysis agree with,
+  but are lower than, the LFC estimates in the DESeq2 analysis. The
+  one exception is the genes with the largest expression increases in
+  B cells: both DESeq2 and fastTopics largely identifies the same
+  genes with the largest increases in expression in B cells, but the
+  LFC is higher for most of these genes in the fastTopics analysis.
+
++ I highlighted here the *HOPX* gene because this is a gene that was
+  identified in the fastTopics analysis, but not DESeq2 analysis,
+  presumably because this gene is more strongly expressed in cells
+  that are not actually labeled as "B cell" by FACS.
 
 ```{r bcells-volcano-plot, eval=FALSE}
 pdat <- data.frame(gene     = genes$symbol,
