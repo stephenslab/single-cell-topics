@@ -1,7 +1,4 @@
 to do
 =====
 
-+ Clean up code and data files in analysis/ directory.
-
-+ Clean up files and code, including files that are not committed to
-  git repository.
++ Clean up code and data files that are no longer being used.
