@@ -1,8 +1,6 @@
 to do
 =====
 
-+ Clean up code and data files in scripts/ directory.
-
 + Clean up code and data files in analysis/ directory.
 
 + Clean up files and code, including files that are not committed to
