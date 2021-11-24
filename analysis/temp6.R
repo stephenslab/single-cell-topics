@@ -1,51 +1,125 @@
-library(DESeq2)
-library(fastTopics)
-library(ggplot2)
-library(cowplot)
-clamp <- function (x, a, b)
-  pmax(a,pmin(b,x)) 
-load("deseq2-pbmc-purified-bcells.RData")
-load("de-pbmc-purified-seed=1.RData")
-de1 <- de
-load("de-pbmc-purified-seed=2.RData")
-de2 <- de
-k   <- 3
-z   <- de1$z
-i   <- which(abs(de2$z) < abs(de1$z))
-z[i] <- de2$z[i]
-z   <- z[abs(de1$est[,k]) > 0.25 & de1$f0 > 1e-5,]
-i   <- intersect(rownames(deseq),rownames(z))
-deseq$z <- with(deseq,log2FoldChange/lfcSE)
-rownames(genes) <- genes$ensembl
-pdat <- data.frame(deseq      = deseq[i,"z"],
-                   fasttopics = z[i,k],
-                   deseq.est  = deseq[i,"log2FoldChange"],
-                   ft.est     = de1$postmean[i,k],
-                   f0         = log10(de1$f0[i]),
-                   postmean   = de1$postmean[i,k],
-                   gene       = genes[i,"symbol"])
-pdat <- transform(pdat,
-                  deseq      = clamp(deseq,-200,+200),
-                  fasttopics = clamp(fasttopics,-200,+200))
-ggplot(pdat,aes(x = deseq,y = fasttopics,fill = f0)) +
+# T cells
+i <- "T cell"
+k <- "k1"
+pdat <- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+		   z.deseq             = deseq$z[,i],
+		   z.fasttopics        = de$z[,k],
+		   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+		   stringsAsFactors = FALSE)
+j <- which(with(pdat,
+                !(postmean.fasttopics > 6 |
+                  (postmean.fasttopics > 4 & postmean.deseq < 3))))
+pdat[j,"gene"] <- ""
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       na.value = "gainsboro",midpoint = -3) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
+                    na.value = "gainsboro") +
+  labs(x = "DESeq2",y = "fastTopics") +
   theme_cowplot()
-pdat2 <- subset(pdat,abs(fasttopics) > 4)
-ggplot(pdat2,aes(x = deseq.est,y = ft.est,fill = f0)) +
+
+# NK cells
+i <- "CD56+ NK"
+k <- "k4"
+pdat <- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+		   z.deseq             = deseq$z[,i],
+		   z.fasttopics        = de$z[,k],
+		   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+		   stringsAsFactors = FALSE)
+j <- which(with(pdat,
+                !(postmean.fasttopics > 8 |
+                  (postmean.fasttopics > 4 & postmean.deseq < 2))))
+pdat[j,"gene"] <- ""
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
-  scale_fill_gradient2(low = "deepskyblue",mid = "gold",high = "orangered",
-                       na.value = "gainsboro",midpoint = -3) +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
+                    na.value = "gainsboro") +
+  labs(x = "DESeq2",y = "fastTopics") +
   theme_cowplot()
-hist(clamp(deseq$z,-20,+20),n = 64)
-hist(clamp(z,-20,+20),n = 64)
-pdat2 <- subset(pdat,fasttopics > 4 & postmean > 4)
-pdat2[order(pdat2$postmean,decreasing = TRUE),]
-pdat2 <- subset(pdat,fasttopics > 4 & deseq < 4 & postmean > 1)
-pdat2[order(pdat2$postmean,decreasing = TRUE),]
-pdat2 <- subset(pdat,deseq > 50 & fasttopics < 4)
-plot(de1$postmean,de2$postmean,pch = 20)
-abline(a = 0,b = 1,col = "dodgerblue",lty = "dotted")
+
+# CD14+ cells
+i <- "CD14+ Monocyte"
+k <- "k2"
+pdat <- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+		   z.deseq             = deseq$z[,i],
+		   z.fasttopics        = de$z[,k],
+		   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+		   stringsAsFactors = FALSE)
+j <- which(with(pdat,
+                !(postmean.fasttopics > 10 |
+                  (postmean.fasttopics > 5 & postmean.deseq < 2))))
+pdat[j,"gene"] <- ""
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
+                    na.value = "gainsboro") +
+  labs(x = "DESeq2",y = "fastTopics") +
+  theme_cowplot()
+
+# CD34+ cells
+i <- "CD34+"
+k <- "k5"
+pdat <- data.frame(gene                = genes$symbol,
+                   postmean.deseq      = deseq$postmean[,i],
+                   postmean.fasttopics = de$postmean[,k],
+		   z.deseq             = deseq$z[,i],
+		   z.fasttopics        = de$z[,k],
+		   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+		   stringsAsFactors = FALSE)
+j <- which(with(pdat,postmean.fasttopics < 9))
+pdat[j,"gene"] <- ""
+pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
+                    na.value = "gainsboro") +
+  labs(x = "DESeq2",y = "fastTopics") +
+  theme_cowplot()
+
+# Ribosomal protein genes
+k <- "k6"
+pdat <- data.frame(gene     = genes$symbol,
+                   postmean = de$postmean[,k],
+                   z        = pmin(200,abs(de$z[,k])),
+                   lfsr     = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                   stringsAsFactors = FALSE)
+j <- which(with(pdat,!(postmean > 4 | z > 100)))
+pdat[j,"gene"] <- ""
+ggplot(pdat,aes(x = postmean,y = z,fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = "white",size = 1.5) +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_y_continuous(trans = "sqrt",breaks = c(1,2,5,10,20,50,100)) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","tomato"),
+                    na.value = "gainsboro") +
+  labs(x = "posterior mean LFC",y = "|z-score|") +
+  theme_cowplot()
