@@ -292,7 +292,7 @@ A few interesting themes emerge from this plot:
 The fastTopics DE analysis for the "B cells" topic is summarized in
 the following volcano plot:
 
-```{r bcells-volcano-plot, fig.height=4, fig.width=4.5}
+```{r bcells-volcano-plot, fig.height=4, fig.width=6, warning=FALSE}
 pdat <- data.frame(gene     = genes$symbol,
                    postmean = de$postmean[,k],
                    z        = pmin(150,abs(de$z[,k])),
