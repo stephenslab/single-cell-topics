@@ -291,14 +291,14 @@ A few interesting themes emerge from this plot:
 The fastTopics DE analysis for the "B cells" topic is summarized in
 the following volcano plot:
 
-```{r bcells-volcano-plot, fig.height=4, fig.width=6, warning=FALSE}
+```{r bcells-volcano-plot, fig.height=4, fig.width=5.5, warning=FALSE}
 volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol)
 ```
 
-These same results can also be explored in an interactive volcano
-plot (you can view the plot [here](de_analysis_purified_pbmc_bcells.html):
+These same results can also be explored in an interactive volcano plot
+(you can view the plot [here](de_analysis_purified_pbmc_bcells.html)):
 
-```{r bcells-volcano-plotly, results="hide"}
+```{r bcells-volcano-plotly, results="hide", warning=FALSE}
 volcano_plotly(de,k = "k3",ymax = 150,labels = genes$symbol,
                file = "de_analysis_purified_pbmc_bcells.html")
 ```
