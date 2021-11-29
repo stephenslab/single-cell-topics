@@ -86,9 +86,8 @@ rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
                sample(which(celltype == "CD56+ NK"),400),
                sample(which(celltype == "T cell"),1000)))
 p1 <- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = celltype[rows],
-                     topics = topics,colors = topic_colors[topics],
-   	  			     perplexity = c(70,30,30,30,70),n = Inf,gap = 30,
+                     grouping = celltype[rows],topics = topics,
+					 colors = topic_colors,perplexity = 70,n = Inf,gap = 30,
 					 num_threads = 4,verbose = FALSE)
 print(p1)
 ```
@@ -293,23 +292,15 @@ The fastTopics DE analysis for the "B cells" topic is summarized in
 the following volcano plot:
 
 ```{r bcells-volcano-plot, fig.height=4, fig.width=6, warning=FALSE}
-pdat <- data.frame(gene     = genes$symbol,
-                   postmean = de$postmean[,k],
-                   z        = pmin(150,abs(de$z[,k])),
-				   lfsr     = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
-				   stringsAsFactors = FALSE)
-j <- which(with(pdat,!(postmean > 8 | z > 75)))
-pdat[j,"gene"] <- ""
-ggplot(pdat,aes(x = postmean,y = z,fill = lfsr,label = gene)) +
-  geom_point(shape = 21,color = "white",size = 1.5) +
-  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
-                  segment.color = "darkgray",segment.size = 0.25,
-                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_y_continuous(trans = "sqrt",breaks = c(1,2,5,10,20,50,100)) +
-  scale_fill_manual(values = c("deepskyblue","gold","orange","tomato"),
-                    na.value = "gainsboro") +
-  labs(x = "posterior mean LFC",y = "|z-score|") +
-  theme_cowplot()
+volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol)
+```
+
+These same results can also be explored in an interactive volcano
+plot (you can view the plot [here](de_analysis_purified_pbmc_bcells.html):
+
+```{r bcells-volcano-plotly, results="hide"}
+volcano_plotly(de,k = "k3",ymax = 150,labels = genes$symbol,
+               file = "de_analysis_purified_pbmc_bcells.html")
 ```
 
 [deseq2]: https://github.com/mikelove/DESeq2
