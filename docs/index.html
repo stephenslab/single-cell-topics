@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-11-30
+<strong>Last updated:</strong> 2021-12-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -354,16 +354,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree54d2d19c9bd4ac0b45d375c6971bf00b00e3c244targetblank54d2d19a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/54d2d19c9bd4ac0b45d375c6971bf00b00e3c244" target="_blank">54d2d19</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4001127e7e45cb69f675071177eca6740d2d1bectargetblank4001127a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4001127e7e45cb69f675071177eca6740d2d1bec" target="_blank">4001127</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree54d2d19c9bd4ac0b45d375c6971bf00b00e3c244targetblank54d2d19a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4001127e7e45cb69f675071177eca6740d2d1bectargetblank4001127a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/54d2d19c9bd4ac0b45d375c6971bf00b00e3c244" target="_blank">54d2d19</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4001127e7e45cb69f675071177eca6740d2d1bec" target="_blank">4001127</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -427,6 +427,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/4001127e7e45cb69f675071177eca6740d2d1bec/analysis/index.Rmd" target="_blank">4001127</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+<td>
+Removed the clustering and assessment of fits for the 68k pbmc data.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7bb307736e1f48b84a93e95ab99ab29d87a52bcd/docs/index.html" target="_blank">7bb3077</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-11-30
+</td>
+<td>
+Updated link on overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1374,8 +1408,7 @@ Added workflowr files.
 <h2>Assess Poisson NMF model fits</h2>
 <p>In these pages, we compare the quality of the Poisson NMF fits with different updates (EM, CCD, SCD, with and without extrapolation), and with different settings for <span class="math inline">\(K\)</span>.</p>
 <ul>
-<li><p><a href="assess_fits_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="assess_fits_68k_pbmc.html">PBMC 68k</a></p></li>
+<li><p><a href="assess_fits_purified_pbmc.html">PBMC</a></p></li>
 <li><p><a href="assess_fits_droplet.html">Droplet</a></p></li>
 <li><p><a href="assess_fits_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
@@ -1384,8 +1417,7 @@ Added workflowr files.
 <h2>Identify clusters</h2>
 <p>In these pages, we identify clusters of cells from the mixture proportions.</p>
 <ul>
-<li><p><a href="clusters_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="clusters_68k_pbmc.html">PBMC 68k</a></p></li>
+<li><p><a href="clusters_purified_pbmc.html">PBMC</a></p></li>
 <li><p><a href="clusters_droplet.html">Droplet</a></p></li>
 <li><p><a href="clusters_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
@@ -1395,7 +1427,6 @@ Added workflowr files.
 <p>In these pages, we annotate topics and substructures to determine their biological relevance. This includes differential expression analysis using the topic model.</p>
 <ul>
 <li><p><a href="plots_purified_pbmc.html">Mixture of FACS-purified PBMCs</a></p></li>
-<li><p><a href="plots_68k_pbmc.html">PBMC 68k</a></p></li>
 <li><p><a href="plots_tracheal_epithelium.html">Droplet and pulse-seq</a></p></li>
 </ul>
 </div>
