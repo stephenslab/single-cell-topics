@@ -10,13 +10,6 @@ transcriptome" profiles generated via single-cell RNA-seq of 10
 bead-enriched subpopulations as described in
 [Zheng *et al* (2017)][zheng-2017].
 
-**Note:** In Zheng *et al* (2017), the clustering analysis suggests that
-the subpopulations are mostly "homogenous", with a couple exceptions,
-the CD14+ and CD34+ subpopulations. For the CD14+ monocytes, two
-clusters were observed, and they were identified as "CD14+ monocytes"
-and "dendritic cells". See Supplementary Figures 6 and 7 in that
-paper.
-
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center")
