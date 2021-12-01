@@ -36,9 +36,7 @@ In these pages, we compare the quality of the Poisson NMF fits with
 different updates (EM, CCD, SCD, with and without extrapolation), and
 with different settings for $K$.
 
-+ [Mixture of FACS-purified PBMCs](assess_fits_purified_pbmc.html)
-
-+ [PBMC 68k](assess_fits_68k_pbmc.html)
++ [PBMC](assess_fits_purified_pbmc.html)
 
 + [Droplet](assess_fits_droplet.html)
 
@@ -50,9 +48,7 @@ Identify clusters
 In these pages, we identify clusters of cells from the mixture
 proportions.
 
-+ [Mixture of FACS-purified PBMCs](clusters_purified_pbmc.html)
-
-+ [PBMC 68k](clusters_68k_pbmc.html)
++ [PBMC](clusters_purified_pbmc.html)
 
 + [Droplet](clusters_droplet.html)
 
@@ -66,8 +62,6 @@ their biological relevance. This includes differential expression
 analysis using the topic model.
 
 + [Mixture of FACS-purified PBMCs](plots_purified_pbmc.html)
-
-+ [PBMC 68k](plots_68k_pbmc.html)
 
 + [Droplet and pulse-seq](plots_tracheal_epithelium.html)
 
