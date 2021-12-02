@@ -29,8 +29,6 @@ load("../data/pbmc_purified.RData")
 fit <- readRDS(file.path("../output/pbmc-purified/rds",
                          "fit-pbmc-purified-scd-ex-k=6.rds"))$fit
 fit <- poisson2multinom(fit)
-i   <- match(rownames(counts),rownames(fit$L))
-fit <- select_loadings(fit,i)
 
 # Perform the DE analysis.
 t0 <- proc.time()
