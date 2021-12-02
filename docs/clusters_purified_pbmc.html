@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-01-21
+<strong>Last updated:</strong> 2021-12-01
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -333,7 +333,7 @@ $(document).ready(function () {
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2.9000). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -414,22 +414,23 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08e3b9876346be75a580a61e025f1fe9bc189331targetblank08e3b98a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/08e3b9876346be75a580a61e025f1fe9bc189331" target="_blank">08e3b98</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1938a3ad316ebb7e938a36407e8d875d10d3f5a9targetblank1938a3aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1938a3ad316ebb7e938a36407e8d875d10d3f5a9" target="_blank">1938a3a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree08e3b9876346be75a580a61e025f1fe9bc189331targetblank08e3b98a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1938a3ad316ebb7e938a36407e8d875d10d3f5a9targetblank1938a3aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/08e3b9876346be75a580a61e025f1fe9bc189331" target="_blank">08e3b98</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1938a3ad316ebb7e938a36407e8d875d10d3f5a9" target="_blank">1938a3a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -439,7 +440,6 @@ Ignored files:
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
     Ignored:    output/pbmc-68k/rds/
-    Ignored:    output/pbmc-purified/diff-count-pbmc-purified.RData
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
@@ -447,13 +447,12 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/plots_purified_pbmc_cache/
+    Untracked:  analysis/de_analysis_detailed_look_cache/
+    Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   analysis/loglik_purified_pbmc.Rmd
-    Modified:   analysis/plots_purified_pbmc.Rmd
-    Modified:   analysis/temp2.R
+    Modified:   analysis/de_analysis_purified_pbmc.Rmd
 
 </code></pre>
 <p>
@@ -492,6 +491,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/1938a3ad316ebb7e938a36407e8d875d10d3f5a9/analysis/clusters_purified_pbmc.Rmd" target="_blank">1938a3a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/52d16f37ba1415098d61d613faa9e0e555afa585/analysis/clusters_purified_pbmc.Rmd" target="_blank">52d16f3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-02-10
+</td>
+<td>
+Created topic volcano plots for paper in plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/890a1cedb60b8d1ead3cf9390923e3063d795b11/docs/clusters_purified_pbmc.html" target="_blank">890a1ce</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+<td>
+Added short note to plots_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/6f3c83adef80e288c727d4be1cbbac815afe5049/docs/clusters_purified_pbmc.html" target="_blank">6f3c83a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+<td>
+Added short note to plots_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1651,56 +1718,6 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The continuous variation in T cells captured by topics 1 and 6 suggests CD4+/CD8+ lineage differentiation in T cells:</p>
-<pre class="r"><code>x    &lt;- samples$celltype
-i    &lt;- names(sort(tapply(fit$L[,1],x,mean)))
-x    &lt;- factor(as.character(x),i)
-rows &lt;- which(!(samples$celltype == &quot;CD19+ B&quot; |
-                samples$celltype == &quot;CD14+ Monocyte&quot; |
-                samples$celltype == &quot;CD34+&quot; |
-                samples$celltype == &quot;CD56+ NK&quot;))
-p4 &lt;- loadings_plot(select_loadings(fit,loadings = rows),x = x[rows],k = 1) +
-  scale_y_continuous(limits = c(0,1)) +
-  labs(y = &quot;topic 1 mixture proportion&quot;,title = &quot;&quot;)
-print(p4)</code></pre>
-<p><img src="figure/clusters_purified_pbmc.Rmd/loadings-plot-t-1.png" width="300" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-loadings-plot-t-1">
-Past versions of loadings-plot-t-1.png
-</button>
-</p>
-<div id="fig-loadings-plot-t-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/loadings-plot-t-1.png" target="_blank">edaec3f</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2021-01-03
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 <p>The Structure plot summarizes the mixture proportions in each of the 7 clusters:</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;gold&quot;,&quot;forestgreen&quot;,&quot;dodgerblue&quot;,&quot;gray&quot;,
@@ -1715,12 +1732,18 @@ rows &lt;- sort(c(sample(which(x == &quot;B&quot;),1000),
                sample(which(x == &quot;NK&quot;),500),
                sample(which(x == &quot;T&quot;),1000),
                which(samples$cluster == &quot;dendritic&quot;)))
-p5 &lt;- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = x[rows],topics = topics,
-                     colors = topic_colors[topics],
-                     perplexity = c(70,30,30,30,30,30,70),n = Inf,gap = 50,
-                     num_threads = 4,verbose = FALSE)
-print(p5)</code></pre>
+p4 &lt;- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = x[rows],topics = topics,colors = topic_colors,
+                     perplexity = 70,n = Inf,gap = 50,num_threads = 4,
+                     verbose = FALSE)
+# Running tsne on 1000 x 6 matrix.
+# Running tsne on 300 x 6 matrix.
+# Running tsne on 500 x 6 matrix.
+# Running tsne on 308 x 6 matrix.
+# Running tsne on 500 x 6 matrix.
+# Running tsne on 400 x 6 matrix.
+# Running tsne on 1000 x 6 matrix.
+print(p4)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
@@ -1744,6 +1767,28 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/890a1cedb60b8d1ead3cf9390923e3063d795b11/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">890a1ce</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6f3c83adef80e288c727d4be1cbbac815afe5049/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">6f3c83a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/3501298baa69160ac8d1220329f83f8b2cb6ab30/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">3501298</a>
@@ -1802,12 +1847,17 @@ rows &lt;- sort(c(sample(which(celltype == &quot;CD19+ B&quot;),500),
                sample(which(celltype == &quot;CD56+ NK&quot;),400),
                sample(which(celltype == &quot;CD8+ Cytotoxic T&quot;),400),
                sample(which(celltype == &quot;T cell&quot;),1000)))
-p6 &lt;- structure_plot(select_loadings(fit,loadings = rows),
-                     grouping = celltype[rows],
-                     topics = topics,colors = topic_colors[topics],
-                     perplexity = c(70,30,30,30,30,70),n = Inf,gap = 30,
-                     num_threads = 4,verbose = FALSE)
-print(p6)</code></pre>
+p5 &lt;- structure_plot(select_loadings(fit,loadings = rows),
+                     grouping = celltype[rows],topics = topics,
+                     colors = topic_colors,perplexity = 70,n = Inf,
+                     gap = 30,num_threads = 4,verbose = FALSE)
+# Running tsne on 500 x 6 matrix.
+# Running tsne on 250 x 6 matrix.
+# Running tsne on 500 x 6 matrix.
+# Running tsne on 400 x 6 matrix.
+# Running tsne on 400 x 6 matrix.
+# Running tsne on 1000 x 6 matrix.
+print(p5)</code></pre>
 <p><img src="figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-2-1">
@@ -1831,6 +1881,28 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/890a1cedb60b8d1ead3cf9390923e3063d795b11/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">890a1ce</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/6f3c83adef80e288c727d4be1cbbac815afe5049/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">6f3c83a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-01-21
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/410fd1a7a2b9a9270ebadebdc34a908404728370/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">410fd1a</a>
@@ -1904,32 +1976,30 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.0     fastTopics_0.4-23 Matrix_1.2-18    
+# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-93 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
-#  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
-#  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
-#  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
-# [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
-# [13] evaluate_0.14        coda_0.19-3          httr_1.4.2          
-# [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
-# [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
-# [22] SparseM_1.78         hexbin_1.28.0        whisker_0.4         
-# [25] rmarkdown_2.3        labeling_0.3         Rtsne_0.15          
-# [28] stringr_1.4.0        htmlwidgets_1.5.1    munsell_0.5.0       
-# [31] compiler_3.6.2       httpuv_1.5.2         xfun_0.11           
-# [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
-# [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
-# [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
-# [43] dplyr_0.8.3          withr_2.1.2          later_1.0.0         
-# [46] MASS_7.3-51.4        grid_3.6.2           jsonlite_1.6        
-# [49] gtable_0.3.0         lifecycle_0.1.0      git2r_0.26.1        
-# [52] magrittr_1.5         scales_1.1.0         RcppParallel_4.4.2  
-# [55] stringi_1.4.3        farver_2.0.1         fs_1.3.1            
-# [58] promises_1.1.0       vctrs_0.2.1          tools_3.6.2         
-# [61] glue_1.3.1           purrr_0.3.3          hms_0.5.2           
-# [64] yaml_2.2.0           colorspace_1.4-1     plotly_4.9.2        
-# [67] knitr_1.26           quantreg_5.54        MCMCpack_1.4-5</code></pre>
+#  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
+#  [5] RcppParallel_4.4.2 assertthat_0.2.1   mixsqp_0.3-46      yaml_2.2.0        
+#  [9] progress_1.2.2     ggrepel_0.9.1      pillar_1.6.2       backports_1.1.5   
+# [13] lattice_0.20-38    quantreg_5.54      glue_1.4.2         quadprog_1.5-8    
+# [17] digest_0.6.23      promises_1.1.0     colorspace_1.4-1   htmltools_0.4.0   
+# [21] httpuv_1.5.2       pkgconfig_2.0.3    invgamma_1.1       SparseM_1.78      
+# [25] purrr_0.3.4        scales_1.1.0       whisker_0.4        later_1.0.0       
+# [29] Rtsne_0.15         MatrixModels_0.4-1 git2r_0.26.1       tibble_3.1.3      
+# [33] farver_2.0.1       generics_0.0.2     ellipsis_0.3.2     withr_2.4.2       
+# [37] ashr_2.2-51        pbapply_1.5-1      hexbin_1.28.0      lazyeval_0.2.2    
+# [41] magrittr_2.0.1     crayon_1.4.1       mcmc_0.9-6         evaluate_0.14     
+# [45] fs_1.3.1           fansi_0.4.0        MASS_7.3-51.4      truncnorm_1.0-8   
+# [49] tools_3.6.2        data.table_1.12.8  prettyunits_1.1.1  hms_1.1.0         
+# [53] lifecycle_1.0.0    stringr_1.4.0      MCMCpack_1.4-5     plotly_4.9.2      
+# [57] munsell_0.5.0      irlba_2.3.3        compiler_3.6.2     systemfonts_1.0.2 
+# [61] rlang_0.4.11       grid_3.6.2         htmlwidgets_1.5.1  labeling_0.3      
+# [65] rmarkdown_2.3      gtable_0.3.0       DBI_1.1.0          R6_2.4.1          
+# [69] knitr_1.26         dplyr_1.0.7        uwot_0.1.10        utf8_1.1.4        
+# [73] workflowr_1.6.2    rprojroot_1.3-2    ragg_0.3.1         stringi_1.4.3     
+# [77] parallel_3.6.2     SQUAREM_2017.10-1  Rcpp_1.0.7         vctrs_0.3.8       
+# [81] tidyselect_1.1.1   xfun_0.11          coda_0.19-3</code></pre>
 </div>
 
 
