@@ -87,8 +87,8 @@ rows <- sort(c(sample(which(celltype == "CD19+ B"),500),
                sample(which(celltype == "T cell"),1000)))
 p1 <- structure_plot(select_loadings(fit,loadings = rows),
                      grouping = celltype[rows],topics = topics,
-					 colors = topic_colors,perplexity = 70,n = Inf,gap = 30,
-					 num_threads = 4,verbose = FALSE)
+		             colors = topic_colors,perplexity = 70,n = Inf,gap = 30,
+		             num_threads = 4,verbose = FALSE)
 print(p1)
 ```
 
