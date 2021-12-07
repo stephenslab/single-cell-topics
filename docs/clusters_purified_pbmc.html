@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-01
+<strong>Last updated:</strong> 2021-12-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1938a3ad316ebb7e938a36407e8d875d10d3f5a9targetblank1938a3aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1938a3ad316ebb7e938a36407e8d875d10d3f5a9" target="_blank">1938a3a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9targetblank5be067ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9" target="_blank">5be067b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1938a3ad316ebb7e938a36407e8d875d10d3f5a9targetblank1938a3aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9targetblank5be067ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1938a3ad316ebb7e938a36407e8d875d10d3f5a9" target="_blank">1938a3a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9" target="_blank">5be067b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,12 +447,13 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
+    Untracked:  analysis/clustering-pbmc-purified.rds
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   analysis/de_analysis_purified_pbmc.Rmd
+    Modified:   analysis/temp4.R
 
 </code></pre>
 <p>
@@ -491,6 +492,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9/analysis/clusters_purified_pbmc.Rmd" target="_blank">5be067b</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/clusters_purified_pbmc.html" target="_blank">f5c1c59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+<td>
+A few small updates to the clusters_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1457,7 +1492,7 @@ table(samples$celltype)
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)</code></pre>
-<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”). (We labels “B”, “CD14+” and “CD34+” so that we can conveniently refer to them, noting that the labels are informed by downstream analyses.)</p>
+<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. (See the very bottom of this analysis for quick check that these cluster labels make sense.) The remaining cells are assigned to the U cluster (“U” for “unknown”). (We labels “B”, “CD14+” and “CD34+” so that we can conveniently refer to them, noting that the labels are informed by downstream analyses.)</p>
 <pre class="r"><code>pca &lt;- prcomp(fit$L)$x
 n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;U&quot;,n)
@@ -1506,7 +1541,7 @@ table(samples$cluster)
                     &quot;skyblue&quot;,     # dendritic
                     &quot;gray&quot;,        # NK
                     &quot;darkorange&quot;)  # T cells
-p1 &lt;- pca_plot(fit,fill = samples$cluster) +
+p1 &lt;- pca_plot(fit,fill = samples$cluster,n = Inf) +
   scale_fill_manual(values = cluster_colors) +
   labs(fill = &quot;cluster&quot;)
 p2 &lt;- pca_hexbin_plot(fit)
@@ -1534,6 +1569,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">f5c1c59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/edaec3f931a8b46d040f885d54dd8564d5e3054c/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">edaec3f</a>
@@ -1621,7 +1667,7 @@ celltype[celltype == &quot;CD4+ T Helper2&quot; |
   celltype == &quot;CD4+/CD45RA+/CD25- Naive T&quot; | 
   celltype == &quot;CD4+/CD25 T Reg&quot;] &lt;- &quot;T cell&quot;
 celltype &lt;- factor(celltype)
-p3 &lt;- pca_plot(fit,fill = celltype) +
+p3 &lt;- pca_plot(fit,fill = celltype,n = Inf) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = &quot;FACS subpopulation&quot;)
 print(p3)</code></pre>
@@ -1648,6 +1694,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">f5c1c59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/a7c641fe3b3a248ff72460c5e31f3d5965781119/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">a7c641f</a>
@@ -1769,6 +1826,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">f5c1c59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/890a1cedb60b8d1ead3cf9390923e3063d795b11/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-1.png" target="_blank">890a1ce</a>
 </td>
 <td>
@@ -1883,6 +1951,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">f5c1c59</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-01
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/890a1cedb60b8d1ead3cf9390923e3063d795b11/docs/figure/clusters_purified_pbmc.Rmd/structure-plot-2-1.png" target="_blank">890a1ce</a>
 </td>
 <td>
@@ -1953,6 +2032,74 @@ Peter Carbonetto
 </div>
 <p>Save the clustering of the PBMC data to an RDS file.</p>
 <pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-purified.rds&quot;)</code></pre>
+<p>Here we run a “quick and dirty” analysis to check the cluster labels by computing “least extreme” LFC estimates and K-L divergence scores:</p>
+<pre class="r"><code>fit_clusters &lt;- fit_multinom_model(samples$cluster,counts)
+B &lt;- fastTopics:::le_lfc(fit_clusters$F,e = 1e-8)
+D &lt;- fastTopics:::min_kl_poisson(fit_clusters$F)</code></pre>
+<p>Top genes in the “B cells” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;B&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+print(subset(dat,lfc &gt; 3 &amp; kl &gt; 0.001))
+#               ensembl    symbol      lfc          kl
+# 18945 ENSG00000156738     MS4A1 5.114135 0.002483689
+# 23289 ENSG00000100721     TCL1A 5.080792 0.001804630
+# 23927 ENSG00000247982 LINC00926 6.087069 0.001342164
+# 27508 ENSG00000007312     CD79B 4.459434 0.004541300
+# 30657 ENSG00000105369     CD79A 3.912082 0.004706088
+# 31699 ENSG00000128218    VPREB3 5.217585 0.001028539</code></pre>
+<p>Top genes in the “CD14+” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;CD14+&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc &gt; 3 &amp; kl &gt; 0.001)
+#              ensembl symbol      lfc          kl
+# 1956 ENSG00000163220 S100A9 3.083904 0.013008237
+# 1958 ENSG00000143546 S100A8 3.309013 0.013556268
+# 9634 ENSG00000170458   CD14 3.300589 0.001572774</code></pre>
+<p>Top genes in the “CD34+” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;CD34+&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc &gt; 5 &amp; kl &gt; 3e-4)
+#               ensembl        symbol      lfc           kl
+# 2744  ENSG00000174059          CD34 5.167976 0.0003279023
+# 3872  ENSG00000119865        CNRIP1 6.241944 0.0003169037
+# 7232  ENSG00000170891         CYTL1 5.664702 0.0011725756
+# 7856  ENSG00000163106         HPGDS 6.999871 0.0003126782
+# 13038 ENSG00000204983         PRSS1 5.406293 0.0007416350
+# 16790 ENSG00000172889         EGFL7 5.545776 0.0007007256
+# 17065 ENSG00000233968 RP11-354E11.2 6.403424 0.0005120880
+# 18751 ENSG00000110492           MDK 5.195610 0.0003366275
+# 28627 ENSG00000101200           AVP 6.276046 0.0004569793
+# 29544 ENSG00000095932      C19orf77 5.110764 0.0006198187</code></pre>
+<p>Top genes in the “CD8+ T cells” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;CD8+&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc &gt; 1.5 &amp; kl &gt; 1e-4)
+#               ensembl symbol      lfc           kl
+# 561   ENSG00000176083 ZNF683 3.081122 0.0001286671
+# 4065  ENSG00000153563   CD8A 1.802188 0.0001820851
+# 8887  ENSG00000113088   GZMK 2.918688 0.0010744353
+# 20246 ENSG00000111796  KLRB1 2.486709 0.0002181944</code></pre>
+<p>Top genes in the “NK cells” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;NK&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc &gt; 2 &amp; kl &gt; 0.001)
+#               ensembl symbol      lfc          kl
+# 4047  ENSG00000115523   GNLY 2.584700 0.014035967
+# 16816 ENSG00000169583  CLIC3 3.369812 0.002243863
+# 17450 ENSG00000180644   PRF1 2.725144 0.001059490
+# 20246 ENSG00000111796  KLRB1 2.577032 0.001376575
+# 20252 ENSG00000150045  KLRF1 5.309548 0.001719737
+# 22590 ENSG00000100453   GZMB 2.958679 0.002752145</code></pre>
+<p>Top genes in the “dendritic cells” cluster:</p>
+<pre class="r"><code>k   &lt;- &quot;dendritic&quot;
+dat &lt;- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc &gt; 4 &amp; kl &gt; 1e-4)
+#               ensembl   symbol      lfc           kl
+# 1583  ENSG00000155367    PPM1J 4.006179 0.0001169833
+# 6028  ENSG00000163687 DNASE1L3 4.157729 0.0008080376
+# 14715 ENSG00000131203     IDO1 6.134402 0.0003588578
+# 20263 ENSG00000197992   CLEC9A 4.281489 0.0004500294
+# 26175 ENSG00000182853     VMO1 5.309791 0.0001345992</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1976,7 +2123,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-93 Matrix_1.2-18    
+# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-94 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
