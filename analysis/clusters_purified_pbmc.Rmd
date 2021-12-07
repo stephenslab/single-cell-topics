@@ -38,11 +38,11 @@ fit <- poisson2multinom(fit)
 ```
 
 From the PCs of the mixture proportions, we define clusters for B
-cells, CD14+ cells and CD34+ cells. (See the very bottom of this
-analysis for quick check that these cluster labels make sense.) The
-remaining cells are assigned to the U cluster ("U" for "unknown"). (We
-labels "B", "CD14+" and "CD34+" so that we can conveniently refer to
-them, noting that the labels are informed by downstream analyses.)
+cells, CD14+ cells and CD34+ cells. The remaining cells are assigned
+to the U cluster ("U" for "unknown"). (We labels "B", "CD14+" and
+"CD34+" so that we can conveniently refer to them, noting that the
+labels are informed by downstream analyses---see the very bottom of
+this analysis for quick check that these cluster labels make sense.)
 
 ```{r clustering-1}
 pca <- prcomp(fit$L)$x
@@ -212,7 +212,7 @@ saveRDS(samples,"clustering-pbmc-purified.rds")
 ```
 
 Here we run a "quick and dirty" analysis to check the cluster labels
-by computing "least extreme" LFC estimates and K-L divergence scores:
+by computing "least extreme" LFC estimates and K-L divergence scores.
 
 ```{r create-fit-clusters}
 fit_clusters <- fit_multinom_model(samples$cluster,counts)
