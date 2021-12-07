@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9targetblank5be067ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9" target="_blank">5be067b</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeacb37634b1cc5b646d9ebbfea3539fd76baa2e7atargetblankacb3763a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/acb37634b1cc5b646d9ebbfea3539fd76baa2e7a" target="_blank">acb3763</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9targetblank5be067ba" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeacb37634b1cc5b646d9ebbfea3539fd76baa2e7atargetblankacb3763a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/5be067bb02ee44a6cb08a75e1fdebc7cdb5079e9" target="_blank">5be067b</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/acb37634b1cc5b646d9ebbfea3539fd76baa2e7a" target="_blank">acb3763</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -447,13 +446,9 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  analysis/clustering-pbmc-purified.rds
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   analysis/temp4.R
 
 </code></pre>
 <p>
@@ -492,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/acb37634b1cc5b646d9ebbfea3539fd76baa2e7a/analysis/clusters_purified_pbmc.Rmd" target="_blank">acb3763</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+workflowr::wflow_publish(“clusters_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/5e6f88cf00c31884f1b68da3a97eb0c572f706f2/docs/clusters_purified_pbmc.html" target="_blank">5e6f88c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-07
+</td>
+<td>
+Added checks for cluster labels to clusters_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1492,7 +1521,7 @@ table(samples$celltype)
 <pre class="r"><code>fit &lt;- readRDS(file.path(&quot;../output/pbmc-purified/rds&quot;,
                          &quot;fit-pbmc-purified-scd-ex-k=6.rds&quot;))$fit
 fit &lt;- poisson2multinom(fit)</code></pre>
-<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. (See the very bottom of this analysis for quick check that these cluster labels make sense.) The remaining cells are assigned to the U cluster (“U” for “unknown”). (We labels “B”, “CD14+” and “CD34+” so that we can conveniently refer to them, noting that the labels are informed by downstream analyses.)</p>
+<p>From the PCs of the mixture proportions, we define clusters for B cells, CD14+ cells and CD34+ cells. The remaining cells are assigned to the U cluster (“U” for “unknown”). (We labels “B”, “CD14+” and “CD34+” so that we can conveniently refer to them, noting that the labels are informed by downstream analyses—see the very bottom of this analysis for quick check that these cluster labels make sense.)</p>
 <pre class="r"><code>pca &lt;- prcomp(fit$L)$x
 n   &lt;- nrow(pca)
 x   &lt;- rep(&quot;U&quot;,n)
@@ -1569,6 +1598,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5e6f88cf00c31884f1b68da3a97eb0c572f706f2/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">5e6f88c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/clustering-5-1.png" target="_blank">f5c1c59</a>
@@ -1694,6 +1734,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5e6f88cf00c31884f1b68da3a97eb0c572f706f2/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">5e6f88c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f5c1c59bc3522c6fdd1c10e52b2f9ea759868243/docs/figure/clusters_purified_pbmc.Rmd/clustering-7-1.png" target="_blank">f5c1c59</a>
@@ -2032,7 +2083,7 @@ Peter Carbonetto
 </div>
 <p>Save the clustering of the PBMC data to an RDS file.</p>
 <pre class="r"><code>saveRDS(samples,&quot;clustering-pbmc-purified.rds&quot;)</code></pre>
-<p>Here we run a “quick and dirty” analysis to check the cluster labels by computing “least extreme” LFC estimates and K-L divergence scores:</p>
+<p>Here we run a “quick and dirty” analysis to check the cluster labels by computing “least extreme” LFC estimates and K-L divergence scores.</p>
 <pre class="r"><code>fit_clusters &lt;- fit_multinom_model(samples$cluster,counts)
 B &lt;- fastTopics:::le_lfc(fit_clusters$F,e = 1e-8)
 D &lt;- fastTopics:::min_kl_poisson(fit_clusters$F)</code></pre>
