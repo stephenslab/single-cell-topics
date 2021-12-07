@@ -38,10 +38,11 @@ fit <- poisson2multinom(fit)
 ```
 
 From the PCs of the mixture proportions, we define clusters for B
-cells, CD14+ cells and CD34+ cells. The remaining cells are assigned
-to the U cluster ("U" for "unknown"). (We labels "B", "CD14+" and
-"CD34+" so that we can conveniently refer to them, noting that the
-labels are informed by downstream analyses.)
+cells, CD14+ cells and CD34+ cells. (See the very bottom of this
+analysis for quick check that these cluster labels make sense.) The
+remaining cells are assigned to the U cluster ("U" for "unknown"). (We
+labels "B", "CD14+" and "CD34+" so that we can conveniently refer to
+them, noting that the labels are informed by downstream analyses.)
 
 ```{r clustering-1}
 pca <- prcomp(fit$L)$x
@@ -109,7 +110,7 @@ cluster_colors <- c("dodgerblue",  # B cells
 					"skyblue",     # dendritic
 					"gray",        # NK
 					"darkorange")  # T cells
-p1 <- pca_plot(fit,fill = samples$cluster) +
+p1 <- pca_plot(fit,fill = samples$cluster,n = Inf) +
   scale_fill_manual(values = cluster_colors) +
   labs(fill = "cluster")
 p2 <- pca_hexbin_plot(fit)
@@ -140,7 +141,7 @@ celltype[celltype == "CD4+ T Helper2" |
   celltype == "CD4+/CD45RA+/CD25- Naive T" | 
   celltype == "CD4+/CD25 T Reg"] <- "T cell"
 celltype <- factor(celltype)
-p3 <- pca_plot(fit,fill = celltype) +
+p3 <- pca_plot(fit,fill = celltype,n = Inf) +
   scale_fill_manual(values = facs_colors) +
   labs(fill = "FACS subpopulation")
 print(p3)
@@ -149,7 +150,7 @@ print(p3)
 ```{r pca-plots-for-paper, echo=FALSE}
 ggsave("../plots/pca_hexbin_pbmc_purified.eps",p2,height = 3,width = 4)
 ggsave("../plots/pca_facs_pbmc_purified.png",p3,height = 4,width = 5.5,
-       dpi = 450)
+       dpi = 450,bg = "white")
 ```
 
 The Structure plot summarizes the mixture proportions in each of the 7
@@ -208,4 +209,61 @@ Save the clustering of the PBMC data to an RDS file.
 
 ```{r save-results}
 saveRDS(samples,"clustering-pbmc-purified.rds")
+```
+
+Here we run a "quick and dirty" analysis to check the cluster labels
+by computing "least extreme" LFC estimates and K-L divergence scores:
+
+```{r create-fit-clusters}
+fit_clusters <- fit_multinom_model(samples$cluster,counts)
+B <- fastTopics:::le_lfc(fit_clusters$F,e = 1e-8)
+D <- fastTopics:::min_kl_poisson(fit_clusters$F)
+```
+
+Top genes in the "B cells" cluster:
+
+```{r b-cells-cluster-genes}
+k   <- "B"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+print(subset(dat,lfc > 3 & kl > 0.001))
+```
+
+Top genes in the "CD14+" cluster:
+
+```{r cd14-genes}
+k   <- "CD14+"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc > 3 & kl > 0.001)
+```
+
+Top genes in the "CD34+" cluster:
+
+```{r cd34-genes}
+k   <- "CD34+"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc > 5 & kl > 3e-4)
+```
+
+Top genes in the "CD8+ T cells" cluster:
+
+```{r cd8-genes}
+k   <- "CD8+"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc > 1.5 & kl > 1e-4)
+```
+
+Top genes in the "NK cells" cluster:
+
+```{r nk-genes}
+k   <- "NK"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc > 2 & kl > 0.001)
+```
+
+Top genes in the "dendritic cells" cluster:
+
+```{r dendritic-genes}
+k   <- "dendritic"
+dat <- cbind(genes,data.frame(lfc = B[,k],kl = D[,k]))
+subset(dat,lfc > 4 & kl > 1e-4)
 ```
