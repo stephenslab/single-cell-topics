@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea5216285363542fc51b3fac81c2531370be24fa1targetblanka521628a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/a5216285363542fc51b3fac81c2531370be24fa1" target="_blank">a521628</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee5637017e1f68686f0132a85dcb030fcb5af1e3ctargetblanke563701a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e5637017e1f68686f0132a85dcb030fcb5af1e3c" target="_blank">e563701</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreea5216285363542fc51b3fac81c2531370be24fa1targetblanka521628a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee5637017e1f68686f0132a85dcb030fcb5af1e3ctargetblanke563701a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/a5216285363542fc51b3fac81c2531370be24fa1" target="_blank">a521628</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e5637017e1f68686f0132a85dcb030fcb5af1e3c" target="_blank">e563701</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e5637017e1f68686f0132a85dcb030fcb5af1e3c/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">e563701</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e7b7153efca85220a66f6434feb35e43647339eb/docs/de_analysis_purified_pbmc.html" target="_blank">e7b7153</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+<td>
+Added volcano plots to de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1399,6 +1433,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7b7153efca85220a66f6434feb35e43647339eb/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">e7b7153</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/13d5e90ca17189ed131e48cea51278311802ca46/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">13d5e90</a>
 </td>
 <td>
@@ -1458,8 +1503,45 @@ p3 &lt;- volcano_plot(de,k = &quot;k3&quot;,ymax = 150,labels = genes$symbol)
 p4 &lt;- volcano_plot(de,k = &quot;k4&quot;,ymax = 175,labels = genes$symbol)
 p5 &lt;- volcano_plot(de,k = &quot;k5&quot;,ymax = 175,labels = genes$symbol)
 p6 &lt;- volcano_plot(de,k = &quot;k6&quot;,ymax = 200,labels = genes$symbol)
-plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)</code></pre>
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-1">
+Past versions of volcano-plots-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7b7153efca85220a66f6434feb35e43647339eb/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">e7b7153</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>These same results can also be explored in interactive volcano plots:</p>
 <pre class="r"><code>volcano_plotly(de,k = &quot;k1&quot;,ymax = 150,labels = genes$symbol,
                file = &quot;de_analysis_purified_pbmc_tcells.html&quot;,
@@ -1481,14 +1563,13 @@ volcano_plotly(de,k = &quot;k6&quot;,ymax = 200,labels = genes$symbol,
                width = 600,height = 600)</code></pre>
 <p>You can explore these interactive volcano plots by following these links:</p>
 <ul>
-<li><p><a href="de_analysis_purified_pbmc_tcells.html">T cells</a></p></li>
-<li><p><a href="de_analysis_purified_pbmc_cd14.html">CD14+ monocytes</a></p></li>
-<li><p><a href="de_analysis_purified_pbmc_bcells.html">B cells</a></p></li>
-<li><p><a href="de_analysis_purified_pbmc_nkcells.html">Natural killer cells</a></p></li>
-<li><p><a href="de_analysis_purified_pbmc_cd34.html">CD34+</a></p></li>
-<li><p><a href="de_analysis_purified_pbmc_ribosome.html">Ribosomal protein genes</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_tcells.html">topic 1 (T cells)</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_cd14.html">topic 2 (CD14+ monocytes)</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_bcells.html">topic 3 (B cells)</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_nkcells.html">topic 4 (natural killer cells)</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_cd34.html">topic 5 (CD34+)</a></p></li>
+<li><p><a href="de_analysis_purified_pbmc_ribosome.html">topic 6 (ribosomal protein genes)</a></p></li>
 </ul>
-<p><em>Add text here.</em></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
