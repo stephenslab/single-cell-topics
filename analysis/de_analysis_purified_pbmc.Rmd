@@ -288,19 +288,39 @@ A few interesting themes emerge from this plot:
   presumably because this gene is more strongly expressed in cells
   that are not actually labeled as "B cell" by FACS.
 
-The fastTopics DE analysis for the "B cells" topic is summarized in
-the following volcano plot:
+The fastTopics DE analysis for all 6 topics is summarized in
+the following volcano plots:
 
-```{r bcells-volcano-plot, fig.height=4, fig.width=5.5, warning=FALSE}
-volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol)
+```{r volcano-plots, fig.height=6, fig.width=8, warning=FALSE}
+p1 <- volcano_plot(de,k = "k1",ymax = 150,labels = genes$symbol)
+p2 <- volcano_plot(de,k = "k2",ymax = 175,labels = genes$symbol)
+p3 <- volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol)
+p4 <- volcano_plot(de,k = "k4",ymax = 175,labels = genes$symbol)
+p5 <- volcano_plot(de,k = "k5",ymax = 175,labels = genes$symbol)
+p6 <- volcano_plot(de,k = "k6",ymax = 200,labels = genes$symbol)
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)
 ```
 
-These same results can also be explored in an interactive volcano plot
-(you can view the plot [here](de_analysis_purified_pbmc_bcells.html)):
+These same results can also be explored in interactive volcano plots:
 
 ```{r bcells-volcano-plotly, results="hide", warning=FALSE}
 volcano_plotly(de,k = "k3",ymax = 150,labels = genes$symbol,
                file = "de_analysis_purified_pbmc_bcells.html")
+```
+
+You can view these plots by following these links:
+
++ [B cells](de_analysis_purified_pbmc_bcells.html)
+
+```{r volcano-plots-for-paper, echo=FALSE}
+ggsave("../plots/volcano_plots_purified_pbmc.eps",
+       plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3),
+	   height = 7,width = 12.5)
+```
+
+*Add text here.*
+
+```{r more-volcano-plotly}
 ```
 
 [deseq2]: https://github.com/mikelove/DESeq2
