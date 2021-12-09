@@ -141,12 +141,12 @@ ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   theme_cowplot()
 ```
 
-The $z$-scores on the other hand are estimated less consistently,
+The *z*-scores on the other hand are estimated less consistently,
 presumably because accurately estimating uncertainty is harder.
-Still, the $z$-scores are still are consistent enough in that it is
+Still, the *z*-scores are still are consistent enough in that it is
 rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation
 and not the other (these are the red points in the scatterplot).  Note
-for better visualization $z$-scores larger than 100 (or smaller than
+for better visualization *z*-scores larger than 100 (or smaller than
 -100) are shown as 100 (or -100) in this plot.
 
 ```{r assess-monte-carlo-3, fig.width=4.25, fig.height=3, warning=FALSE}
@@ -214,11 +214,13 @@ de$lfsr     <- de$lfsr[rows,]
 DESeq2 vs. fastTopics
 ---------------------
 
-Comparing the distributions of all $z$-scores, we see that the DE
-analysis allowing for grades of membership has many more $z$-scores
-near zero, yet still has (Because there are a few extremely large and extremely small
-$z$-scores, for better visualization z-scores larger than 100 in
-magnitude are shown as 100 or -100.)
+Comparing the distributions of all *z*-scores, we see that the DE
+analysis allowing for grades of membership has many more *z*-scores
+near zero, yet still allows for very large $z$-scores, illustrating
+the flexibility of the adaptive shrinkage. (Because there are a few
+extremely large and extremely small *z*-scores, for better
+visualization z-scores larger than 100 in magnitude are shown as 100
+or -100.)
 
 ```{r z-score-scatterplot, fig.height=3.25, fig.width=3.25}
 pdat <-
@@ -235,26 +237,27 @@ ggplot(pdat,aes(x = deseq,y = fasttopics)) +
 ```
 
 Now let's look closely at the DESeq2 and fastTopics results for B
-cells, one of the cell types that closely corresponds to a topic
-(topic 3). Here we focus on genes for which the $z$-score is greater
-than 2 in at least one of the analyses. Genes are colored according
-to the LFSR estimated in the fastTopics analysis ().
+cells and CD14+ cells. These two cell types are chosen because they
+each closely correspond to a topic (topic 2 and topic 3). Here we
+focus on genes for which the *z*-score is greater than 2 in at least
+one of the analyses. Genes are colored according to the LFSR estimated
+in the fastTopics analysis.
 
-```{r bcells-z-scores, fig.height=4.5, fig.width=6}
+```{r bcells-z-scores, fig.height=4, fig.width=8, warning=FALSE}
 i <- "CD19+ B"
 k <- "k3"
-pdat <- data.frame(gene                = genes$symbol,
-                   postmean.deseq      = deseq$postmean[,i],
-                   postmean.fasttopics = de$postmean[,k],
-				   z.deseq             = deseq$z[,i],
-				   z.fasttopics        = de$z[,k],
-				   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
-				   stringsAsFactors = FALSE)
-j <- which(pdat$postmean.fasttopics < 8)
-pdat[j,"gene"] <- ""
-pdat[genes$symbol == "HOPX","gene"] <- "HOPX"
-pdat <- subset(pdat,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
-ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+pdat1 <- data.frame(gene                = genes$symbol,
+                    postmean.deseq      = deseq$postmean[,i],
+                    postmean.fasttopics = de$postmean[,k],
+	  			    z.deseq             = deseq$z[,i],
+	  			    z.fasttopics        = de$z[,k],
+  				    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+  				    stringsAsFactors = FALSE)
+j <- which(pdat1$postmean.fasttopics < 8)
+pdat1[j,"gene"] <- ""
+pdat1[genes$symbol == "HOPX","gene"] <- "HOPX"
+pdat1 <- subset(pdat1,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+p1 <- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
                 fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
@@ -268,6 +271,35 @@ ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in B cells") +
   theme_cowplot()
+i <- "CD14+ Monocyte"
+k <- "k2"
+pdat2 <- data.frame(gene                = genes$symbol,
+                    postmean.deseq      = deseq$postmean[,i],
+                    postmean.fasttopics = de$postmean[,k],
+	  			    z.deseq             = deseq$z[,i],
+	  			    z.fasttopics        = de$z[,k],
+  				    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+  				    stringsAsFactors = FALSE)
+j <- which(with(pdat2,
+                !((postmean.fasttopics > 10) |
+                (postmean.deseq < 2 & postmean.fasttopics > 6))))
+pdat2[j,"gene"] <- ""
+pdat2 <- subset(pdat2,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
+p2 <- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = "white") +
+  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
+  geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
+                  segment.color = "darkgray",segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
+                    na.value = "gainsboro") +
+  xlim(-12.3,13.1) +
+  ylim(-10,13.1) +
+  labs(x = "DESeq2",y = "fastTopics",
+       title = "LFC in CD14+ monocytes") +
+  theme_cowplot()
+plot_grid(p1,p2)
 ```
 
 A few interesting themes emerge from this plot:
