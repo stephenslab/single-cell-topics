@@ -134,11 +134,12 @@ estimates are largely consistent:
 ```{r assess-monte-carlo-1, fig.width=3.25, fig.height=3}
 pdat <- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
-ggplot(pdat,aes(x = postmean1,y = postmean2)) +
+p1 <- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = "white",fill = "black",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
   labs(x = "first posterior mean",y = "second posterior mean") +
   theme_cowplot()
+print(p1)
 ```
 
 The *z*-scores on the other hand are estimated less consistently,
@@ -153,13 +154,14 @@ for better visualization *z*-scores larger than 100 (or smaller than
 pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
 				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
-ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
+p2 <- ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
   scale_fill_manual(values = c("darkblue","tomato","dodgerblue"),
                     na.value = "white") +
   labs(x = "first z-score",y = "second z-score",fill = "lfsr < 0.05") +
   theme_cowplot()
+print(p2)
 ```
 
 Moving forward, when the two *z*-scores disagree, we use the one that
@@ -172,6 +174,13 @@ i              <- which(abs(de2$z) < abs(de1$z))
 de$postmean[i] <- de2$postmean[i]
 de$z[i]        <- de2$z[i]
 de$lfsr[i]     <- de$lfsr[i]
+```
+
+```{r mcmc-accuracy-plots-for-paper, echo=FALSE}
+ggsave("../plots/postmean_scatterplot_purified_pbmc.eps",p1,
+       height = 4,width = 4)
+ggsave("../plots/zscore_scatterplot_purified_pbmc.eps",p2,
+	   height = 4,width = 5)
 ```
 
 Load DESeq2 results for all cell types
@@ -229,11 +238,16 @@ pdat <-
 pdat <- transform(pdat,
                   deseq      = clamp(deseq,-100,+100),
                   fasttopics = clamp(fasttopics,-100,+100))
-ggplot(pdat,aes(x = deseq,y = fasttopics)) +
+p1 <- ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
   labs(x = "DESeq2",y = "fastTopics",title = "z-score quantiles") +
   theme_cowplot()
+print(p1)
+```
+
+```{r zscore-qq-plots-for-paper, echo=FALSE}
+ggsave("../plots/zscore_qq_purified_pbmc.eps",p1,height = 4,width = 4)
 ```
 
 Now let's look closely at the DESeq2 and fastTopics results for B
@@ -243,7 +257,7 @@ focus on genes for which the *z*-score is greater than 2 in at least
 one of the analyses. Genes are colored according to the LFSR estimated
 in the fastTopics analysis.
 
-```{r bcells-z-scores, fig.height=4, fig.width=8, warning=FALSE}
+```{r bcells-z-scores, fig.height=3.2, fig.width=8, warning=FALSE}
 i <- "CD19+ B"
 k <- "k3"
 pdat1 <- data.frame(gene                = genes$symbol,
@@ -270,7 +284,7 @@ p1 <- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
   ylim(-10,13.1) +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in B cells") +
-  theme_cowplot()
+  theme_cowplot(font_size = 10)
 i <- "CD14+ Monocyte"
 k <- "k2"
 pdat2 <- data.frame(gene                = genes$symbol,
@@ -298,7 +312,7 @@ p2 <- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
   ylim(-10,13.1) +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in CD14+ monocytes") +
-  theme_cowplot()
+  theme_cowplot(font_size = 10)
 plot_grid(p1,p2)
 ```
 
@@ -319,6 +333,11 @@ A few interesting themes emerge from this plot:
   identified in the fastTopics analysis, but not DESeq2 analysis,
   presumably because this gene is more strongly expressed in cells
   that are not actually labeled as "B cell" by FACS.
+
+```{r scatterplots-plots-for-paper, echo=FALSE}
+ggsave("../plots/scatterplots_purified_pbmc.eps",plot_grid(p1,p2),
+	   height = 3,width = 6)
+```
 
 The fastTopics DE analysis for all 6 topics is summarized in
 the following volcano plots:
