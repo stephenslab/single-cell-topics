@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-08
+<strong>Last updated:</strong> 2021-12-09
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee5637017e1f68686f0132a85dcb030fcb5af1e3ctargetblanke563701a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e5637017e1f68686f0132a85dcb030fcb5af1e3c" target="_blank">e563701</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree278c1ca56f136ad5144294a21c4dc3f6e4f91178targetblank278c1caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/278c1ca56f136ad5144294a21c4dc3f6e4f91178" target="_blank">278c1ca</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee5637017e1f68686f0132a85dcb030fcb5af1e3ctargetblanke563701a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree278c1ca56f136ad5144294a21c4dc3f6e4f91178targetblank278c1caa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e5637017e1f68686f0132a85dcb030fcb5af1e3c" target="_blank">e563701</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/278c1ca56f136ad5144294a21c4dc3f6e4f91178" target="_blank">278c1ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/278c1ca56f136ad5144294a21c4dc3f6e4f91178/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">278c1ca</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-09
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e13338acc8abba5b5612657a6b21d22f1af54ca9/docs/de_analysis_purified_pbmc.html" target="_blank">e13338a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+<td>
+A few small fixes to the plots in the de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1223,7 +1257,7 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The <span class="math inline">\(z\)</span>-scores on the other hand are estimated less consistently, presumably because accurately estimating uncertainty is harder. Still, the <span class="math inline">\(z\)</span>-scores are still are consistent enough in that it is rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation and not the other (these are the red points in the scatterplot). Note for better visualization <span class="math inline">\(z\)</span>-scores larger than 100 (or smaller than -100) are shown as 100 (or -100) in this plot.</p>
+<p>The <em>z</em>-scores on the other hand are estimated less consistently, presumably because accurately estimating uncertainty is harder. Still, the <em>z</em>-scores are still are consistent enough in that it is rare for an LFC to have an lfsr less than 0.05 in one MCMC simulation and not the other (these are the red points in the scatterplot). Note for better visualization <em>z</em>-scores larger than 100 (or smaller than -100) are shown as 100 (or -100) in this plot.</p>
 <pre class="r"><code>pdat &lt;- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
                    lfsr = factor((de1$lfsr &lt; 0.05) + (de2$lfsr &lt; 0.05)))
@@ -1330,7 +1364,7 @@ de$lfsr     &lt;- de$lfsr[rows,]</code></pre>
 </div>
 <div id="deseq2-vs.fasttopics" class="section level2">
 <h2>DESeq2 vs. fastTopics</h2>
-<p>Comparing the distributions of all <span class="math inline">\(z\)</span>-scores, we see that the DE analysis allowing for grades of membership has many more <span class="math inline">\(z\)</span>-scores near zero, yet still has (Because there are a few extremely large and extremely small <span class="math inline">\(z\)</span>-scores, for better visualization z-scores larger than 100 in magnitude are shown as 100 or -100.)</p>
+<p>Comparing the distributions of all <em>z</em>-scores, we see that the DE analysis allowing for grades of membership has many more <em>z</em>-scores near zero, yet still allows for very large <span class="math inline">\(z\)</span>-scores, illustrating the flexibility of the adaptive shrinkage. (Because there are a few extremely large and extremely small <em>z</em>-scores, for better visualization z-scores larger than 100 in magnitude are shown as 100 or -100.)</p>
 <pre class="r"><code>pdat &lt;-
   data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
              fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
@@ -1380,21 +1414,21 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Now let’s look closely at the DESeq2 and fastTopics results for B cells, one of the cell types that closely corresponds to a topic (topic 3). Here we focus on genes for which the <span class="math inline">\(z\)</span>-score is greater than 2 in at least one of the analyses. Genes are colored according to the LFSR estimated in the fastTopics analysis ().</p>
+<p>Now let’s look closely at the DESeq2 and fastTopics results for B cells and CD14+ cells. These two cell types are chosen because they each closely correspond to a topic (topic 2 and topic 3). Here we focus on genes for which the <em>z</em>-score is greater than 2 in at least one of the analyses. Genes are colored according to the LFSR estimated in the fastTopics analysis.</p>
 <pre class="r"><code>i &lt;- &quot;CD19+ B&quot;
 k &lt;- &quot;k3&quot;
-pdat &lt;- data.frame(gene                = genes$symbol,
-                   postmean.deseq      = deseq$postmean[,i],
-                   postmean.fasttopics = de$postmean[,k],
-                   z.deseq             = deseq$z[,i],
-                   z.fasttopics        = de$z[,k],
-                   lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
-                   stringsAsFactors = FALSE)
-j &lt;- which(pdat$postmean.fasttopics &lt; 8)
-pdat[j,&quot;gene&quot;] &lt;- &quot;&quot;
-pdat[genes$symbol == &quot;HOPX&quot;,&quot;gene&quot;] &lt;- &quot;HOPX&quot;
-pdat &lt;- subset(pdat,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
-ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
+pdat1 &lt;- data.frame(gene                = genes$symbol,
+                    postmean.deseq      = deseq$postmean[,i],
+                    postmean.fasttopics = de$postmean[,k],
+                    z.deseq             = deseq$z[,i],
+                    z.fasttopics        = de$z[,k],
+                    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                    stringsAsFactors = FALSE)
+j &lt;- which(pdat1$postmean.fasttopics &lt; 8)
+pdat1[j,&quot;gene&quot;] &lt;- &quot;&quot;
+pdat1[genes$symbol == &quot;HOPX&quot;,&quot;gene&quot;] &lt;- &quot;HOPX&quot;
+pdat1 &lt;- subset(pdat1,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
+p1 &lt;- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
                 fill = lfsr,label = gene)) +
   geom_point(shape = 21,color = &quot;white&quot;) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
@@ -1407,8 +1441,37 @@ ggplot(pdat,aes(x = postmean.deseq,y = postmean.fasttopics,
   ylim(-10,13.1) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
        title = &quot;LFC in B cells&quot;) +
-  theme_cowplot()</code></pre>
-<p><img src="figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" width="720" style="display: block; margin: auto;" /></p>
+  theme_cowplot()
+i &lt;- &quot;CD14+ Monocyte&quot;
+k &lt;- &quot;k2&quot;
+pdat2 &lt;- data.frame(gene                = genes$symbol,
+                    postmean.deseq      = deseq$postmean[,i],
+                    postmean.fasttopics = de$postmean[,k],
+                    z.deseq             = deseq$z[,i],
+                    z.fasttopics        = de$z[,k],
+                    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                    stringsAsFactors = FALSE)
+j &lt;- which(with(pdat2,
+                !((postmean.fasttopics &gt; 10) |
+                (postmean.deseq &lt; 2 &amp; postmean.fasttopics &gt; 6))))
+pdat2[j,&quot;gene&quot;] &lt;- &quot;&quot;
+pdat2 &lt;- subset(pdat2,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
+p2 &lt;- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
+                fill = lfsr,label = gene)) +
+  geom_point(shape = 21,color = &quot;white&quot;) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  geom_text_repel(color = &quot;darkgray&quot;,size = 2.25,fontface = &quot;italic&quot;,
+                  segment.color = &quot;darkgray&quot;,segment.size = 0.25,
+                  min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
+  scale_fill_manual(values = c(&quot;deepskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,&quot;coral&quot;),
+                    na.value = &quot;gainsboro&quot;) +
+  xlim(-12.3,13.1) +
+  ylim(-10,13.1) +
+  labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
+       title = &quot;LFC in CD14+ monocytes&quot;) +
+  theme_cowplot()
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-bcells-z-scores-1">
 Past versions of bcells-z-scores-1.png
@@ -1431,6 +1494,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e13338acc8abba5b5612657a6b21d22f1af54ca9/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">e13338a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e7b7153efca85220a66f6434feb35e43647339eb/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">e7b7153</a>
@@ -1527,6 +1601,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e13338acc8abba5b5612657a6b21d22f1af54ca9/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">e13338a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-08
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e7b7153efca85220a66f6434feb35e43647339eb/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">e7b7153</a>
