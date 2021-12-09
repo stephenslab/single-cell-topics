@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree278c1ca56f136ad5144294a21c4dc3f6e4f91178targetblank278c1caa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/278c1ca56f136ad5144294a21c4dc3f6e4f91178" target="_blank">278c1ca</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree59329423a74c83c06d712bb68195e8c316a5eb8ftargetblank5932942a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/59329423a74c83c06d712bb68195e8c316a5eb8f" target="_blank">5932942</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree278c1ca56f136ad5144294a21c4dc3f6e4f91178targetblank278c1caa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree59329423a74c83c06d712bb68195e8c316a5eb8ftargetblank5932942a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/278c1ca56f136ad5144294a21c4dc3f6e4f91178" target="_blank">278c1ca</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/59329423a74c83c06d712bb68195e8c316a5eb8f" target="_blank">5932942</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -448,6 +448,12 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
+    Untracked:  analysis/de_analysis_purified_pbmc_bcells.html
+    Untracked:  analysis/de_analysis_purified_pbmc_cd14.html
+    Untracked:  analysis/de_analysis_purified_pbmc_cd34.html
+    Untracked:  analysis/de_analysis_purified_pbmc_nkcells.html
+    Untracked:  analysis/de_analysis_purified_pbmc_ribosome.html
+    Untracked:  analysis/de_analysis_purified_pbmc_tcells.html
     Untracked:  plots/
 
 </code></pre>
@@ -487,6 +493,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/59329423a74c83c06d712bb68195e8c316a5eb8f/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">5932942</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-09
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/16b967fbe3688c1b5dcc52e06cfc77aca06856b4/docs/de_analysis_purified_pbmc.html" target="_blank">16b967f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-09
+</td>
+<td>
+Added CD14+ scatterplot to de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1192,11 +1232,12 @@ rm(de)</code></pre>
 <p>The MCMC estimates of the posterior mean log-fold change (LFC) estimates are largely consistent:</p>
 <pre class="r"><code>pdat &lt;- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
-ggplot(pdat,aes(x = postmean1,y = postmean2)) +
+p1 &lt;- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = &quot;white&quot;,fill = &quot;black&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dashed&quot;) +
   labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
-  theme_cowplot()</code></pre>
+  theme_cowplot()
+print(p1)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-1-1.png" width="390" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-1-1">
@@ -1261,13 +1302,14 @@ Peter Carbonetto
 <pre class="r"><code>pdat &lt;- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
                    lfsr = factor((de1$lfsr &lt; 0.05) + (de2$lfsr &lt; 0.05)))
-ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
+p2 &lt;- ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   geom_point(shape = 21,color = &quot;white&quot;,size = 2) +
   geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dotted&quot;) +
   scale_fill_manual(values = c(&quot;darkblue&quot;,&quot;tomato&quot;,&quot;dodgerblue&quot;),
                     na.value = &quot;white&quot;) +
   labs(x = &quot;first z-score&quot;,y = &quot;second z-score&quot;,fill = &quot;lfsr &lt; 0.05&quot;) +
-  theme_cowplot()</code></pre>
+  theme_cowplot()
+print(p2)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/assess-monte-carlo-3-1.png" width="510" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-assess-monte-carlo-3-1">
@@ -1335,6 +1377,7 @@ i              &lt;- which(abs(de2$z) &lt; abs(de1$z))
 de$postmean[i] &lt;- de2$postmean[i]
 de$z[i]        &lt;- de2$z[i]
 de$lfsr[i]     &lt;- de$lfsr[i]</code></pre>
+<pre><code># Warning: Removed 1546 rows containing missing values (geom_point).</code></pre>
 </div>
 <div id="load-deseq2-results-for-all-cell-types" class="section level2">
 <h2>Load DESeq2 results for all cell types</h2>
@@ -1371,11 +1414,12 @@ de$lfsr     &lt;- de$lfsr[rows,]</code></pre>
 pdat &lt;- transform(pdat,
                   deseq      = clamp(deseq,-100,+100),
                   fasttopics = clamp(fasttopics,-100,+100))
-ggplot(pdat,aes(x = deseq,y = fasttopics)) +
+p1 &lt;- ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dotted&quot;) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,title = &quot;z-score quantiles&quot;) +
-  theme_cowplot()</code></pre>
+  theme_cowplot()
+print(p1)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/z-score-scatterplot-1.png" width="390" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-z-score-scatterplot-1">
@@ -1441,7 +1485,7 @@ p1 &lt;- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
   ylim(-10,13.1) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
        title = &quot;LFC in B cells&quot;) +
-  theme_cowplot()
+  theme_cowplot(font_size = 10)
 i &lt;- &quot;CD14+ Monocyte&quot;
 k &lt;- &quot;k2&quot;
 pdat2 &lt;- data.frame(gene                = genes$symbol,
@@ -1469,7 +1513,7 @@ p2 &lt;- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
   ylim(-10,13.1) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
        title = &quot;LFC in CD14+ monocytes&quot;) +
-  theme_cowplot()
+  theme_cowplot(font_size = 10)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1494,6 +1538,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/16b967fbe3688c1b5dcc52e06cfc77aca06856b4/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">16b967f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e13338acc8abba5b5612657a6b21d22f1af54ca9/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">e13338a</a>
@@ -1570,6 +1625,7 @@ Peter Carbonetto
 <li><p>Most of the LFC estimates in the fastTopics DE analysis agree with, but are lower than, the LFC estimates in the DESeq2 analysis. The one exception is the genes with the largest expression increases in B cells: both DESeq2 and fastTopics largely identifies the same genes with the largest increases in expression in B cells, but the LFC is higher for most of these genes in the fastTopics analysis.</p></li>
 <li><p>I highlighted here the <em>HOPX</em> gene because this is a gene that was identified in the fastTopics analysis, but not DESeq2 analysis, presumably because this gene is more strongly expressed in cells that are not actually labeled as “B cell” by FACS.</p></li>
 </ul>
+<pre><code># Warning: Removed 3 rows containing missing values (geom_point).</code></pre>
 <p>The fastTopics DE analysis for all 6 topics is summarized in the following volcano plots:</p>
 <pre class="r"><code>p1 &lt;- volcano_plot(de,k = &quot;k1&quot;,ymax = 150,labels = genes$symbol)
 p2 &lt;- volcano_plot(de,k = &quot;k2&quot;,ymax = 175,labels = genes$symbol)
@@ -1601,6 +1657,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/16b967fbe3688c1b5dcc52e06cfc77aca06856b4/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">16b967f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-09
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/e13338acc8abba5b5612657a6b21d22f1af54ca9/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">e13338a</a>
