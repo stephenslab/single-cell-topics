@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4aac42e3a7743981f7dd6d23c6e7d5aa73739eb9targetblank4aac42ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4aac42e3a7743981f7dd6d23c6e7d5aa73739eb9" target="_blank">4aac42e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee15c65593821120ed98f2652a42b4392e6584fd0targetblanke15c655a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e15c65593821120ed98f2652a42b4392e6584fd0" target="_blank">e15c655</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4aac42e3a7743981f7dd6d23c6e7d5aa73739eb9targetblank4aac42ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee15c65593821120ed98f2652a42b4392e6584fd0targetblanke15c655a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4aac42e3a7743981f7dd6d23c6e7d5aa73739eb9" target="_blank">4aac42e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e15c65593821120ed98f2652a42b4392e6584fd0" target="_blank">e15c655</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -446,7 +446,6 @@ Ignored files:
     Ignored:    output/pulseseq/rds/
 
 Untracked files:
-    Untracked:  .DS_Store
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
@@ -488,6 +487,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e15c65593821120ed98f2652a42b4392e6584fd0/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">e15c655</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-10
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ef4caa1e9b9a929cfe2a4662a71516a751a08939/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">ef4caa1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-10
+</td>
+<td>
+Small fix.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/82324193d37d909ff5cef954da09c518af9b6e0a/docs/de_analysis_purified_pbmc.html" target="_blank">8232419</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-10
+</td>
+<td>
+Revised the volcano plots in the de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1498,10 +1548,12 @@ Peter Carbonetto
 </div>
 </div>
 <p>Moving forward, when the two <em>z</em>-scores disagree, we use the one that is nearer to zero.</p>
-<pre class="r"><code>de             &lt;- de1[c(&quot;f0&quot;,&quot;postmean&quot;,&quot;z&quot;,&quot;lfsr&quot;)]
+<pre class="r"><code>de             &lt;- de1[c(&quot;f0&quot;,&quot;lower&quot;,&quot;postmean&quot;,&quot;upper&quot;,&quot;z&quot;,&quot;lfsr&quot;)]
 class(de)      &lt;- c(&quot;topic_model_de_analysis&quot;,&quot;list&quot;)
 i              &lt;- which(abs(de2$z) &lt; abs(de1$z))
+de$lower[i]    &lt;- de2$lower[i]
 de$postmean[i] &lt;- de2$postmean[i]
+de$upper[i]    &lt;- de2$upper[i]
 de$z[i]        &lt;- de2$z[i]
 de$lfsr[i]     &lt;- de$lfsr[i]</code></pre>
 </div>
@@ -1527,7 +1579,9 @@ rm(deseq2)</code></pre>
 <p>Since we filtered out a few lowly expressed genes before running DESeq2, we subset the fastTopics results to match up with DESeq2.</p>
 <pre class="r"><code>rows        &lt;- match(rownames(deseq$z),rownames(de$z))
 de$f0       &lt;- de$f0[rows]
+de$lower    &lt;- de$lower[rows,]
 de$postmean &lt;- de$postmean[rows,]
+de$upper    &lt;- de$upper[rows,]
 de$z        &lt;- de$z[rows,]
 de$lfsr     &lt;- de$lfsr[rows,]</code></pre>
 </div>
@@ -1663,6 +1717,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/82324193d37d909ff5cef954da09c518af9b6e0a/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">8232419</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-10
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/241361544a8108e4d291d6654673f7182f2bb60f/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">2413615</a>
 </td>
 <td>
@@ -1785,7 +1850,6 @@ Peter Carbonetto
   i &lt;- which(with(dat,zabs &gt; 0.5 | abs(postmean) &gt; 0.5))
   j &lt;- sample(which(with(dat,zabs &lt;= 1 &amp; abs(postmean) &lt;= 0.5)),100)
   dat &lt;- dat[c(i,j),]
-  print(nrow(dat))
   return(volcano_plot_ggplot_call(dat,plot.title,max.overlaps))
 }
 p1 &lt;- volcano_plot(de,k = &quot;k1&quot;,ymax = 150,labels = genes$symbol,ggplot_call = my_ggplot_call)
@@ -1818,6 +1882,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/82324193d37d909ff5cef954da09c518af9b6e0a/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">8232419</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-10
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/241361544a8108e4d291d6654673f7182f2bb60f/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">2413615</a>
@@ -1888,12 +1963,6 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<pre><code># [1] 5173
-# [1] 4691
-# [1] 4350
-# [1] 5101
-# [1] 6007
-# [1] 4043</code></pre>
 <p>These same results can also be explored in interactive volcano plots:</p>
 <pre class="r"><code>volcano_plotly(de,k = &quot;k1&quot;,ymax = 150,labels = genes$symbol,
                file = &quot;de_analysis_purified_pbmc_tcells.html&quot;,
@@ -1947,7 +2016,7 @@ volcano_plotly(de,k = &quot;k6&quot;,ymax = 200,labels = genes$symbol,
 # 
 # other attached packages:
 #  [1] cowplot_1.0.0               ggrepel_0.9.1              
-#  [3] ggplot2_3.3.5               fastTopics_0.6-94          
+#  [3] ggplot2_3.3.5               fastTopics_0.6-96          
 #  [5] DESeq2_1.33.5               SummarizedExperiment_1.16.1
 #  [7] DelayedArray_0.12.3         BiocParallel_1.18.1        
 #  [9] matrixStats_0.61.0          Biobase_2.46.0             
