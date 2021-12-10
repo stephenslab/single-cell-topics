@@ -134,6 +134,10 @@ estimates are largely consistent:
 ```{r assess-monte-carlo-1, fig.width=3.25, fig.height=3}
 pdat <- data.frame(postmean1 = as.vector(de1$postmean),
                    postmean2 = as.vector(de2$postmean))
+pdat1 <- subset(pdat,abs(postmean1) > 0.1 | abs(postmean2) > 0.1)
+pdat2 <- subset(pdat,abs(postmean1) <= 0.1 & abs(postmean2) <= 0.1)
+pdat2 <- pdat[sample(nrow(pdat2),100),]
+pdat  <- rbind(pdat1,pdat2)
 p1 <- ggplot(pdat,aes(x = postmean1,y = postmean2)) +
   geom_point(shape = 21,color = "white",fill = "black",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
@@ -154,6 +158,10 @@ for better visualization *z*-scores larger than 100 (or smaller than
 pdat <- data.frame(z1 = clamp(as.vector(de1$z),-100,+100),
                    z2 = clamp(as.vector(de2$z),-100,+100),
 				   lfsr = factor((de1$lfsr < 0.05) + (de2$lfsr < 0.05)))
+pdat1 <- subset(pdat,abs(z1) > 0.5 | abs(z2) > 0.5)
+pdat2 <- subset(pdat,abs(z1) <= 0.5 & abs(z2) <= 0.5)
+pdat2 <- pdat[sample(nrow(pdat2),100),]
+pdat  <- rbind(pdat1,pdat2)
 p2 <- ggplot(pdat,aes(x = z1,y = z2,fill = lfsr)) +
   geom_point(shape = 21,color = "white",size = 2) +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
@@ -176,11 +184,11 @@ de$z[i]        <- de2$z[i]
 de$lfsr[i]     <- de$lfsr[i]
 ```
 
-```{r mcmc-accuracy-plots-for-paper, echo=FALSE}
+```{r mcmc-accuracy-plots-for-paper, echo=FALSE, warning=FALSE}
 ggsave("../plots/postmean_scatterplot_purified_pbmc.eps",p1,
        height = 4,width = 4)
 ggsave("../plots/zscore_scatterplot_purified_pbmc.eps",p2,
-	   height = 4,width = 5)
+	   height = 4,width = 5.25)
 ```
 
 Load DESeq2 results for all cell types
@@ -252,12 +260,12 @@ ggsave("../plots/zscore_qq_purified_pbmc.eps",p1,height = 4,width = 4)
 
 Now let's look closely at the DESeq2 and fastTopics results for B
 cells and CD14+ cells. These two cell types are chosen because they
-each closely correspond to a topic (topic 2 and topic 3). Here we
-focus on genes for which the *z*-score is greater than 2 in at least
-one of the analyses. Genes are colored according to the LFSR estimated
-in the fastTopics analysis.
+each closely correspond to a topic (topics 2 and 3). Here we focus on
+genes for which the *z*-score is greater than 2 in at least one of the
+analyses. Genes are colored according to the LFSR estimated in the
+fastTopics analysis.
 
-```{r bcells-z-scores, fig.height=3.2, fig.width=8, warning=FALSE}
+```{r bcells-z-scores, fig.height=3.1, fig.width=8, warning=FALSE}
 i <- "CD19+ B"
 k <- "k3"
 pdat1 <- data.frame(gene                = genes$symbol,
@@ -269,7 +277,6 @@ pdat1 <- data.frame(gene                = genes$symbol,
   				    stringsAsFactors = FALSE)
 j <- which(pdat1$postmean.fasttopics < 8)
 pdat1[j,"gene"] <- ""
-pdat1[genes$symbol == "HOPX","gene"] <- "HOPX"
 pdat1 <- subset(pdat1,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 p1 <- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
                 fill = lfsr,label = gene)) +
@@ -294,9 +301,7 @@ pdat2 <- data.frame(gene                = genes$symbol,
 	  			    z.fasttopics        = de$z[,k],
   				    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
   				    stringsAsFactors = FALSE)
-j <- which(with(pdat2,
-                !((postmean.fasttopics > 10) |
-                (postmean.deseq < 2 & postmean.fasttopics > 6))))
+j <- which(pdat2$postmean.fasttopics < 10)
 pdat2[j,"gene"] <- ""
 pdat2 <- subset(pdat2,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 p2 <- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
@@ -308,33 +313,24 @@ p2 <- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
   scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
                     na.value = "gainsboro") +
-  xlim(-12.3,13.1) +
-  ylim(-10,13.1) +
+  xlim(-8.2,15) +
+  ylim(-8.2,15) +
   labs(x = "DESeq2",y = "fastTopics",
        title = "LFC in CD14+ monocytes") +
   theme_cowplot(font_size = 10)
 plot_grid(p1,p2)
 ```
 
-A few interesting themes emerge from this plot:
+A couple interesting themes emerge from this plot:
 
-+ Many genes with large LFC in the DESeq2, particularly genes with
-  very negative LFCs (genes with large decreases in expression in B
-  cells) have zero LFC in the fastTopics analysis.
++ Many genes with large LFC in the DESeq2 analysis, particularly genes
+  with very negative LFCs, have zero LFC in the fastTopics analysis.
 
-+ Most of the LFC estimates in the fastTopics DE analysis agree with,
-  but are lower than, the LFC estimates in the DESeq2 analysis. The
-  one exception is the genes with the largest expression increases in
-  B cells: both DESeq2 and fastTopics largely identifies the same
-  genes with the largest increases in expression in B cells, but the
-  LFC is higher for most of these genes in the fastTopics analysis.
++ DESeq2 and fastTopics largely identify the same genes with the
+  largest expression increases (largest LFC), but fastTopics estimates
+  larger LFCs for these genes.
 
-+ I highlighted here the *HOPX* gene because this is a gene that was
-  identified in the fastTopics analysis, but not DESeq2 analysis,
-  presumably because this gene is more strongly expressed in cells
-  that are not actually labeled as "B cell" by FACS.
-
-```{r scatterplots-plots-for-paper, echo=FALSE}
+```{r scatterplots-plots-for-paper, echo=FALSE, warning=FALSE}
 ggsave("../plots/scatterplots_purified_pbmc.eps",plot_grid(p1,p2),
 	   height = 3,width = 6)
 ```
