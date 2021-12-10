@@ -176,10 +176,12 @@ Moving forward, when the two *z*-scores disagree, we use the one that
 is nearer to zero.
 
 ```{r fix-z-scores}
-de             <- de1[c("f0","postmean","z","lfsr")]
+de             <- de1[c("f0","lower","postmean","upper","z","lfsr")]
 class(de)      <- c("topic_model_de_analysis","list")
 i              <- which(abs(de2$z) < abs(de1$z))
+de$lower[i]    <- de2$lower[i]
 de$postmean[i] <- de2$postmean[i]
+de$upper[i]    <- de2$upper[i]
 de$z[i]        <- de2$z[i]
 de$lfsr[i]     <- de$lfsr[i]
 ```
@@ -223,7 +225,9 @@ DESeq2, we subset the fastTopics results to match up with DESeq2.
 ```{r align-with-deseq2}
 rows        <- match(rownames(deseq$z),rownames(de$z))
 de$f0       <- de$f0[rows]
+de$lower    <- de$lower[rows,]
 de$postmean <- de$postmean[rows,]
+de$upper    <- de$upper[rows,]
 de$z        <- de$z[rows,]
 de$lfsr     <- de$lfsr[rows,]
 ```
