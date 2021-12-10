@@ -339,12 +339,19 @@ The fastTopics DE analysis for all 6 topics is summarized in
 the following volcano plots:
 
 ```{r volcano-plots, fig.height=10, fig.width=8, warning=FALSE}
-p1 <- volcano_plot(de,k = "k1",ymax = 150,labels = genes$symbol)
-p2 <- volcano_plot(de,k = "k2",ymax = 175,labels = genes$symbol)
-p3 <- volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol)
-p4 <- volcano_plot(de,k = "k4",ymax = 175,labels = genes$symbol)
-p5 <- volcano_plot(de,k = "k5",ymax = 175,labels = genes$symbol)
-p6 <- volcano_plot(de,k = "k6",ymax = 200,labels = genes$symbol)
+my_ggplot_call <- function (dat, plot.title, max.overlaps) {
+  i <- which(with(dat,zabs > 0.5 | abs(postmean) > 0.5))
+  j <- sample(which(with(dat,zabs <= 1 & abs(postmean) <= 0.5)),100)
+  dat <- dat[c(i,j),]
+  print(nrow(dat))
+  return(volcano_plot_ggplot_call(dat,plot.title,max.overlaps))
+}
+p1 <- volcano_plot(de,k = "k1",ymax = 150,labels = genes$symbol,ggplot_call = my_ggplot_call)
+p2 <- volcano_plot(de,k = "k2",ymax = 175,labels = genes$symbol,ggplot_call = my_ggplot_call)
+p3 <- volcano_plot(de,k = "k3",ymax = 150,labels = genes$symbol,ggplot_call = my_ggplot_call)
+p4 <- volcano_plot(de,k = "k4",ymax = 175,labels = genes$symbol,ggplot_call = my_ggplot_call)
+p5 <- volcano_plot(de,k = "k5",ymax = 175,labels = genes$symbol,ggplot_call = my_ggplot_call)
+p6 <- volcano_plot(de,k = "k6",ymax = 200,labels = genes$symbol,ggplot_call = my_ggplot_call)
 plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
 ```
 
