@@ -362,22 +362,22 @@ These same results can also be explored in interactive volcano plots:
 
 ```{r bcells-volcano-plotly, results="hide", warning=FALSE}
 volcano_plotly(de,k = "k1",ymax = 150,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_tcells.html",
+               file = "volcano_plot_purified_pbmc_tcells.html",
                width = 600,height = 600)
 volcano_plotly(de,k = "k2",ymax = 175,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_cd14.html",
+               file = "volcano_plot_purified_pbmc_cd14.html",
                width = 600,height = 600)
 volcano_plotly(de,k = "k3",ymax = 150,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_bcells.html",
+               file = "volcano_plot_purified_pbmc_bcells.html",
                width = 600,height = 600)
 volcano_plotly(de,k = "k4",ymax = 175,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_nkcells.html",
+               file = "volcano_plot_purified_pbmc_nkcells.html",
                width = 600,height = 600)
 volcano_plotly(de,k = "k5",ymax = 175,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_cd34.html",
+               file = "volcano_plot_purified_pbmc_cd34.html",
                width = 600,height = 600)
 volcano_plotly(de,k = "k6",ymax = 200,labels = genes$symbol,
-               file = "volcano_plots/volcano_plot_purified_pbmc_ribosome.html",
+               file = "volcano_plot_purified_pbmc_ribosome.html",
                width = 600,height = 600)
 ```
 
