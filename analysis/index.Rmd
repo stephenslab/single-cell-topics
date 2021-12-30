@@ -61,8 +61,6 @@ In these pages, we annotate topics and substructures to determine
 their biological relevance. This includes differential expression
 analysis using the topic model.
 
-+ [Mixture of FACS-purified PBMCs](plots_purified_pbmc.html)
-
 + [Droplet and pulse-seq](plots_tracheal_epithelium.html)
 
 Examine single-cell likelihoods
