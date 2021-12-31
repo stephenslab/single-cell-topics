@@ -235,21 +235,20 @@ de$lfsr     <- de$lfsr[rows,]
 DESeq2 vs. fastTopics
 ---------------------
 
-Comparing the distributions of all *z*-scores, we see that the DE
-analysis allowing for grades of membership has many more *z*-scores
-near zero, yet still allows for very large $z$-scores, illustrating
-the flexibility of the adaptive shrinkage. (Because there are a few
-extremely large and extremely small *z*-scores, for better
-visualization z-scores larger than 100 in magnitude are shown as 100
-or -100.)
+Comparing the distributions of all *z*-scores for B cells and CD14+
+cells, we see that the DE analysis allowing for grades of membership
+has many more *z*-scores near zero, yet still allows for large
+*z*-scores, illustrating the flexibility of the model. (Because there
+are a few extremely large and extremely small *z*-scores, for better
+visualization z-scores larger than 20 in magnitude are counted as 20
+or -20.)
 
 ```{r z-score-scatterplot, fig.height=3.25, fig.width=3.25}
-pdat <-
-  data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
-             fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
-pdat <- transform(pdat,
-                  deseq      = clamp(deseq,-100,+100),
-                  fasttopics = clamp(fasttopics,-100,+100))
+pdat <- data.frame(
+  deseq = quantile(clamp(deseq$z[,c("CD19+ B","CD14+ Monocyte")],-20,+20),
+                   seq(0,1,length.out = 100),na.rm = TRUE),
+  fasttopics = quantile(clamp(de$z[,1:2],-20,+20),
+                        seq(0,1,length.out = 100),na.rm = TRUE))
 p1 <- ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dotted") +
