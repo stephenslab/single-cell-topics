@@ -344,7 +344,7 @@ ggsave("../plots/scatterplots_purified_pbmc.eps",plot_grid(p1,p2),
 	   height = 3.5,width = 8)
 ```
 
-The fastTopics DE analysis for all 6 topics is summarized in
+The fastTopics DE analysis for all 6 topics is summarized in 
 the following volcano plots:
 
 ```{r volcano-plots, fig.height=10, fig.width=8, warning=FALSE}
