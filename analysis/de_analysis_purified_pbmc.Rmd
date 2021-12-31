@@ -268,7 +268,7 @@ genes for which the *z*-score is greater than 2 in at least one of the
 analyses. Genes are colored according to the LFSR estimated in the
 fastTopics analysis.
 
-```{r bcells-z-scores, fig.height=3.1, fig.width=8, warning=FALSE}
+```{r bcells-z-scores, fig.height=3.5, fig.width=8, warning=FALSE}
 i <- "CD19+ B"
 k <- "k3"
 pdat1 <- data.frame(gene                = genes$symbol,
@@ -341,7 +341,7 @@ A couple interesting themes emerge from this plot:
 
 ```{r scatterplots-plots-for-paper, echo=FALSE, warning=FALSE}
 ggsave("../plots/scatterplots_purified_pbmc.eps",plot_grid(p1,p2),
-	   height = 3,width = 8)
+	   height = 3.5,width = 8)
 ```
 
 The fastTopics DE analysis for all 6 topics is summarized in
