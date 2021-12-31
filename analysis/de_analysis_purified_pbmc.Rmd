@@ -276,20 +276,23 @@ pdat1 <- data.frame(gene                = genes$symbol,
                     postmean.fasttopics = de$postmean[,k],
 	  			    z.deseq             = deseq$z[,i],
 	  			    z.fasttopics        = de$z[,k],
-  				    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+					f0                  = log10(de$f0),
   				    stringsAsFactors = FALSE)
-j <- which(pdat1$postmean.fasttopics < 8)
+j <- which(with(pdat1,
+                !(postmean.fasttopics > 8 |
+                  postmean.deseq < -10 |
+			      postmean.fasttopics < -5)))
 pdat1[j,"gene"] <- ""
 pdat1 <- subset(pdat1,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 p1 <- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
-                fill = lfsr,label = gene)) +
+                       fill = f0,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
-                    na.value = "gainsboro") +
+  scale_fill_gradient2(low = "royalblue",mid = "lightskyblue",high = "red",
+                       midpoint = -4.5) +
   xlim(-12.3,13.1) +
   ylim(-10,13.1) +
   labs(x = "DESeq2",y = "fastTopics",
@@ -302,20 +305,23 @@ pdat2 <- data.frame(gene                = genes$symbol,
                     postmean.fasttopics = de$postmean[,k],
 	  			    z.deseq             = deseq$z[,i],
 	  			    z.fasttopics        = de$z[,k],
-  				    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+					f0                  = log10(de$f0),
   				    stringsAsFactors = FALSE)
-j <- which(pdat2$postmean.fasttopics < 10)
+j <- which(with(pdat2,
+                !(postmean.fasttopics > 10 |
+                  postmean.deseq < -6.25 |
+			      postmean.fasttopics < -5)))
 pdat2[j,"gene"] <- ""
 pdat2 <- subset(pdat2,abs(z.deseq) > 2 | abs(z.fasttopics) > 2)
 p2 <- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
-                fill = lfsr,label = gene)) +
+                fill = f0,label = gene)) +
   geom_point(shape = 21,color = "white") +
   geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
   geom_text_repel(color = "darkgray",size = 2.25,fontface = "italic",
                   segment.color = "darkgray",segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_manual(values = c("deepskyblue","gold","orange","coral"),
-                    na.value = "gainsboro") +
+  scale_fill_gradient2(low = "royalblue",mid = "lightskyblue",
+                       high = "red",midpoint = -4.5) +
   xlim(-8.2,15) +
   ylim(-8.2,15) +
   labs(x = "DESeq2",y = "fastTopics",
