@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb4ebbb34e098bc9bd645eab54b059008ac891980targetblankb4ebbb3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b4ebbb34e098bc9bd645eab54b059008ac891980" target="_blank">b4ebbb3</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeca564bbd2eafe01e8718ad439da5e3590a7e659ftargetblankca564bba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ca564bbd2eafe01e8718ad439da5e3590a7e659f" target="_blank">ca564bb</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb4ebbb34e098bc9bd645eab54b059008ac891980targetblankb4ebbb3a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeca564bbd2eafe01e8718ad439da5e3590a7e659ftargetblankca564bba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b4ebbb34e098bc9bd645eab54b059008ac891980" target="_blank">b4ebbb3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ca564bbd2eafe01e8718ad439da5e3590a7e659f" target="_blank">ca564bb</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -487,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/ca564bbd2eafe01e8718ad439da5e3590a7e659f/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">ca564bb</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/fd6a115862297f11c1db2b23a069d91025ed3ae7/docs/de_analysis_purified_pbmc.html" target="_blank">fd6a115</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+<td>
+Revised q-q plot in de_analysis_purified_pbmc analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1709,6 +1743,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fd6a115862297f11c1db2b23a069d91025ed3ae7/docs/figure/de_analysis_purified_pbmc.Rmd/z-score-scatterplot-1.png" target="_blank">fd6a115</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/29aada6272d398a823dcb8d9a2a5fd3e2b7d4912/docs/figure/de_analysis_purified_pbmc.Rmd/z-score-scatterplot-1.png" target="_blank">29aada6</a>
 </td>
 <td>
@@ -1730,20 +1775,23 @@ pdat1 &lt;- data.frame(gene                = genes$symbol,
                     postmean.fasttopics = de$postmean[,k],
                     z.deseq             = deseq$z[,i],
                     z.fasttopics        = de$z[,k],
-                    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                    f0                  = log10(de$f0),
                     stringsAsFactors = FALSE)
-j &lt;- which(pdat1$postmean.fasttopics &lt; 8)
+j &lt;- which(with(pdat1,
+                !(postmean.fasttopics &gt; 8 |
+                  postmean.deseq &lt; -10 |
+                  postmean.fasttopics &lt; -5)))
 pdat1[j,&quot;gene&quot;] &lt;- &quot;&quot;
 pdat1 &lt;- subset(pdat1,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
 p1 &lt;- ggplot(pdat1,aes(x = postmean.deseq,y = postmean.fasttopics,
-                fill = lfsr,label = gene)) +
+                       fill = f0,label = gene)) +
   geom_point(shape = 21,color = &quot;white&quot;) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   geom_text_repel(color = &quot;darkgray&quot;,size = 2.25,fontface = &quot;italic&quot;,
                   segment.color = &quot;darkgray&quot;,segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_manual(values = c(&quot;deepskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,&quot;coral&quot;),
-                    na.value = &quot;gainsboro&quot;) +
+  scale_fill_gradient2(low = &quot;royalblue&quot;,mid = &quot;lightskyblue&quot;,high = &quot;red&quot;,
+                       midpoint = -4.5) +
   xlim(-12.3,13.1) +
   ylim(-10,13.1) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
@@ -1756,20 +1804,23 @@ pdat2 &lt;- data.frame(gene                = genes$symbol,
                     postmean.fasttopics = de$postmean[,k],
                     z.deseq             = deseq$z[,i],
                     z.fasttopics        = de$z[,k],
-                    lfsr = cut(de$lfsr[,k],c(-1,0.001,0.01,0.05,Inf)),
+                    f0                  = log10(de$f0),
                     stringsAsFactors = FALSE)
-j &lt;- which(pdat2$postmean.fasttopics &lt; 10)
+j &lt;- which(with(pdat2,
+                !(postmean.fasttopics &gt; 10 |
+                  postmean.deseq &lt; -6.25 |
+                  postmean.fasttopics &lt; -5)))
 pdat2[j,&quot;gene&quot;] &lt;- &quot;&quot;
 pdat2 &lt;- subset(pdat2,abs(z.deseq) &gt; 2 | abs(z.fasttopics) &gt; 2)
 p2 &lt;- ggplot(pdat2,aes(x = postmean.deseq,y = postmean.fasttopics,
-                fill = lfsr,label = gene)) +
+                fill = f0,label = gene)) +
   geom_point(shape = 21,color = &quot;white&quot;) +
   geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
   geom_text_repel(color = &quot;darkgray&quot;,size = 2.25,fontface = &quot;italic&quot;,
                   segment.color = &quot;darkgray&quot;,segment.size = 0.25,
                   min.segment.length = 0,max.overlaps = Inf,na.rm = TRUE) +
-  scale_fill_manual(values = c(&quot;deepskyblue&quot;,&quot;gold&quot;,&quot;orange&quot;,&quot;coral&quot;),
-                    na.value = &quot;gainsboro&quot;) +
+  scale_fill_gradient2(low = &quot;royalblue&quot;,mid = &quot;lightskyblue&quot;,
+                       high = &quot;red&quot;,midpoint = -4.5) +
   xlim(-8.2,15) +
   ylim(-8.2,15) +
   labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,
@@ -1799,6 +1850,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fd6a115862297f11c1db2b23a069d91025ed3ae7/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">fd6a115</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7533a43dcd0c24cfb992ead5b5bb2ab04fd9aeda/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">7533a43</a>
@@ -1988,6 +2050,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/fd6a115862297f11c1db2b23a069d91025ed3ae7/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">fd6a115</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7533a43dcd0c24cfb992ead5b5bb2ab04fd9aeda/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">7533a43</a>
