@@ -323,7 +323,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-12-30
+<strong>Last updated:</strong> 2021-12-31
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8d3498dc08f4b4bcf8bdd4d98bb70504a8609b4dtargetblank8d3498da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/8d3498dc08f4b4bcf8bdd4d98bb70504a8609b4d" target="_blank">8d3498d</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb4ebbb34e098bc9bd645eab54b059008ac891980targetblankb4ebbb3a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b4ebbb34e098bc9bd645eab54b059008ac891980" target="_blank">b4ebbb3</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree8d3498dc08f4b4bcf8bdd4d98bb70504a8609b4dtargetblank8d3498da" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb4ebbb34e098bc9bd645eab54b059008ac891980targetblankb4ebbb3a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/8d3498dc08f4b4bcf8bdd4d98bb70504a8609b4d" target="_blank">8d3498d</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b4ebbb34e098bc9bd645eab54b059008ac891980" target="_blank">b4ebbb3</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -449,7 +448,6 @@ Ignored files:
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
-    Untracked:  analysis/files.txt
     Untracked:  plots/
 
 </code></pre>
@@ -489,6 +487,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/b4ebbb34e098bc9bd645eab54b059008ac891980/analysis/de_analysis_purified_pbmc.Rmd" target="_blank">b4ebbb3</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-31
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_purified_pbmc.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/7533a43dcd0c24cfb992ead5b5bb2ab04fd9aeda/docs/de_analysis_purified_pbmc.html" target="_blank">7533a43</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-30
+</td>
+<td>
+Rebuilt de_analysis_purified_pbmc page after reorg.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1640,13 +1672,12 @@ de$lfsr     &lt;- de$lfsr[rows,]</code></pre>
 </div>
 <div id="deseq2-vs.fasttopics" class="section level2">
 <h2>DESeq2 vs. fastTopics</h2>
-<p>Comparing the distributions of all <em>z</em>-scores, we see that the DE analysis allowing for grades of membership has many more <em>z</em>-scores near zero, yet still allows for very large <span class="math inline">\(z\)</span>-scores, illustrating the flexibility of the adaptive shrinkage. (Because there are a few extremely large and extremely small <em>z</em>-scores, for better visualization z-scores larger than 100 in magnitude are shown as 100 or -100.)</p>
-<pre class="r"><code>pdat &lt;-
-  data.frame(deseq     =quantile(deseq$z,seq(0,1,length.out=1000),na.rm=TRUE),
-             fasttopics=quantile(de$z,seq(0,1,length.out=1000),na.rm=TRUE))
-pdat &lt;- transform(pdat,
-                  deseq      = clamp(deseq,-100,+100),
-                  fasttopics = clamp(fasttopics,-100,+100))
+<p>Comparing the distributions of all <em>z</em>-scores for B cells and CD14+ cells, we see that the DE analysis allowing for grades of membership has many more <em>z</em>-scores near zero, yet still allows for large <em>z</em>-scores, illustrating the flexibility of the model. (Because there are a few extremely large and extremely small <em>z</em>-scores, for better visualization z-scores larger than 20 in magnitude are counted as 20 or -20.)</p>
+<pre class="r"><code>pdat &lt;- data.frame(
+  deseq = quantile(clamp(deseq$z[,c(&quot;CD19+ B&quot;,&quot;CD14+ Monocyte&quot;)],-20,+20),
+                   seq(0,1,length.out = 100),na.rm = TRUE),
+  fasttopics = quantile(clamp(de$z[,1:2],-20,+20),
+                        seq(0,1,length.out = 100),na.rm = TRUE))
 p1 &lt;- ggplot(pdat,aes(x = deseq,y = fasttopics)) +
   geom_point() +
   geom_abline(intercept = 0,slope = 1,color = &quot;magenta&quot;,linetype = &quot;dotted&quot;) +
@@ -1768,6 +1799,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7533a43dcd0c24cfb992ead5b5bb2ab04fd9aeda/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">7533a43</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-30
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f4b9bd25b017f8c63ecd8e5bd7086cdb80f02720/docs/figure/de_analysis_purified_pbmc.Rmd/bcells-z-scores-1.png" target="_blank">f4b9bd2</a>
@@ -1946,6 +1988,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7533a43dcd0c24cfb992ead5b5bb2ab04fd9aeda/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">7533a43</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2021-12-30
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/f4b9bd25b017f8c63ecd8e5bd7086cdb80f02720/docs/figure/de_analysis_purified_pbmc.Rmd/volcano-plots-1.png" target="_blank">f4b9bd2</a>
