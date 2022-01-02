@@ -7,8 +7,14 @@ library(fastTopics)
 library(tools)
 source("../code/de_analysis_functions.R")
 
-# Script parameters.
-ns <- 20
+# These variables control the simulations: ns is the number of
+# simulations to run; k is the number of topics to simulate; m is the
+# number of genes to simulate; "outfile" is the file where the results
+# of the simulations are stored.
+ns      <- 20
+k       <- 2
+m       <- 10000
+outfile <- "sims.RData"
 
 # This data structure will be used to store the results of the
 # simulations.
@@ -24,7 +30,10 @@ for (i in 1:ns) {
   # sequencing experiment.
   cat(" - Generating data set.\n")
   set.seed(i)
-  dat <- simulate_twotopic_umi_data()
+  if (k == 2)
+    dat <- simulate_twotopic_umi_data(m = m)
+  else
+    dat <- simulate_manytopic_umi_data(m = m,k = k)
   X   <- dat$X
   F   <- dat$F
   L   <- dat$L
@@ -35,5 +44,5 @@ for (i in 1:ns) {
 
 # Write the simulation results to an RData file.
 cat("Saving results to file.\n")
-save(list = "res",file = "sims.RData")
-resaveRdaFiles("sims.RData")
+save(list = "res",file = outfile)
+resaveRdaFiles(outfile)
