@@ -13,12 +13,14 @@ source("../code/de_analysis_functions.R")
 
 # These variables control the simulations: ns is the number of
 # simulations to run; k is the number of topics to simulate; m is the
-# number of genes to simulate; "alpha" is passed to rdirichlet to
+# number of genes to simulate; num.mc, the length of the Markov chain
+# simulated for the DEanalysis; "alpha" is passed to rdirichlet to
 # simulate the topic proportions; "outfile" is the file where the
 # results of the simulations are stored.
 ns      <- 20
 k       <- 2 # 6
-m       <- 10000
+m       <- 1e4
+num.mc  <- 1000 # 1e4
 alpha   <- rep(1,k) # rep(0.01,k)
 outfile <- "sims.RData"
 
@@ -29,12 +31,12 @@ names(res) <- paste0("sim",1:ns)
 
 # Repeat for each simulation.
 for (i in 1:ns) {
-  cat(sprintf("Running simulation %d:\n",i))
+  cat(sprintf("SIMULATION %d\n",i))
 
   # Simulate counts from a rank-2 Poisson NMF model with parameters
   # chosen to roughly mimic the UMI counts from a single-cell RNA
   # sequencing experiment.
-  cat(" - Generating data set.\n")
+  cat("Generating data set.\n")
   set.seed(i)
   if (k == 2)
     dat <- simulate_twotopic_umi_data(m,alpha = alpha)
@@ -46,16 +48,35 @@ for (i in 1:ns) {
   # simplify evaluation, L is assumed to be known, and fix them to
   # their ground-truth values. In this way, the only error that can
   # arise is in the estimates of F.
-  cat(" - Fitting multinomial topic model.\n")
+  cat("Fitting multinomial topic model.\n")
   fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
-  fit <- suppressMessages(
-           fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
-                           update.loadings = NULL,verbose = "none",
-                           control = list(nc = 2)))
+  fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
+                         update.loadings = NULL,verbose = "none",
+                         control = list(nc = 2))
   fit <- poisson2multinom(fit)
 
+  # Perform a DE analysis *without* shrinking the LFC estimates.
+  cat("Performing DE analysis without shrinkage.\n")
+  de0 <- de_analysis(fit,X,shrink.method = "none",verbose = FALSE,
+                     control = list(ns = num.mc,nc = 2))
+
+
+  # Perform a second DE analysis using adaptive shrinkage to shrink
+  # (and hopefully improve accuracy of) the LFC estimates.
+  cat("Performing first DE analysis with shrinkage.\n")
+  de1 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
+                     control = list(ns = num.mc,nc = 2))
+
+  # Perform a third DE analysis with the exact same settings as the
+  # second, but with a different sequence of pseudorandom numbers.
+  # This is intended to verify accuracy of the posterior calculations.
+  cat("Performing second DE analysis with shrinkage.\n")
+  de2 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
+                     control = list(ns = num.mc,nc = 2))
+  
   # Store results from the simulations.
-  res[[i]] <- list(data = dat,fit = fit)
+  cat("Storing results.\n")
+  res[[i]] <- list(data = dat,fit = fit,de0 = de0,de1 = de1,de2 = de2)
 
   stop()
 }
