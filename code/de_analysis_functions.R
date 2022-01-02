@@ -10,13 +10,13 @@ clamp <- function (x, a, b)
 # each cell); and p is the probability of a expression rates being
 # different in the two topics.
 simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
-                                        p = 0.5) {
+                                        p = 0.5, alpha = c(1,1)) {
 
   # Get the number of cells to simulate.
   n <- length(s)
     
   # For each sample (row), generate the two topic proportions.
-  L <- fastTopics:::generate_mixture_proportions(n,2)
+  L <- fastTopics:::generate_mixture_proportions(n,2,alpha)
 
   # Generate the expression rates. The process for generating the
   # expression rates F[i,j] is as follows: with probability 0.5, the
@@ -65,13 +65,13 @@ simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
 # different among the topics; when it is different, it is different in
 # exactly one out of the k topics.
 simulate_manytopic_umi_data <- function (m = 10000, s = 10^rnorm(1000,0,0.2),
-                                         k = 6, p = 0.5) {
+                                         k = 6, p = 0.5, alpha = rep(1,k)) {
 
   # Get the number of cells to simulate.
   n <- length(s)
     
   # For each sample (row), generate the topic proportions.
-  L <- fastTopics:::generate_mixture_proportions(n,k)
+  L <- fastTopics:::generate_mixture_proportions(n,k,alpha)
 
   # Generate the expression rates. The process for generating the
   # expression rates F[i,j] is as follows: with probability 0.5, the
