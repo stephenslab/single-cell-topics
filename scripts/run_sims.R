@@ -41,11 +41,23 @@ for (i in 1:ns) {
   else
     dat <- simulate_manytopic_umi_data(m,k = k,alpha = alpha)
   X <- dat$X
-  F <- dat$F
-  L <- dat$L
-  
+
+  # Fit a multinomial topic model to the simulated UMI count data. To
+  # simplify evaluation, L is assumed to be known, and fix them to
+  # their ground-truth values. In this way, the only error that can
+  # arise is in the estimates of F.
+  cat(" - Fitting multinomial topic model.\n")
+  fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
+  fit <- suppressMessages(
+           fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
+                           update.loadings = NULL,verbose = "none",
+                           control = list(nc = 2)))
+  fit <- poisson2multinom(fit)
+
   # Store results from the simulations.
-  res[[i]] <- list(data = dat)
+  res[[i]] <- list(data = dat,fit = fit)
+
+  stop()
 }
 
 # Write the simulation results to an RData file.
