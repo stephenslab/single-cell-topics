@@ -73,12 +73,16 @@ for (i in 1:ns) {
   cat("Performing second DE analysis with shrinkage.\n")
   de2 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
                      control = list(ns = num.mc,nc = 2))
+
+  # Perform DE analysis using DESeq2.
+  # TO DO.
+  
+  # Run MAST differential expression analysis.
+  # TO DO.
   
   # Store results from the simulations.
   cat("Storing results.\n")
   res[[i]] <- list(data = dat,fit = fit,de0 = de0,de1 = de1,de2 = de2)
-
-  stop()
 }
 
 # Write the simulation results to an RData file.
