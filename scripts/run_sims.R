@@ -1,0 +1,38 @@
+# TO DO: Explain what this script is for, and how to use it.
+#
+# TO DO: Add sinteractive command used.
+#
+library(fastTopics)
+library(tools)
+source("../code/de_analysis_functions.R")
+
+# Script parameters.
+ns <- 20
+
+# This data structure will be used to store the results of the
+# simulations.
+res <- vector("list",ns)
+names(res) <- paste0("sim",1:ns)
+
+# Repeat for each simulation.
+for (i in 1:ns) {
+  cat(sprintf("Running simulation %d:\n",i))
+
+  # Simulate counts from a rank-2 Poisson NMF model with parameters
+  # chosen to roughly mimic the UMI counts from a single-cell RNA
+  # sequencing experiment.
+  cat(" - Generating data set.\n")
+  set.seed(i)
+  dat <- simulate_twotopic_umi_data()
+  X   <- dat$X
+  F   <- dat$F
+  L   <- dat$L
+
+  # Store results from the simulations.
+  res[[i]] <- list(data = dat)
+}
+
+# Write the simulation results to an RData file.
+cat("Saving results to file.\n")
+save(list = "res",file = "sims.RData")
+resaveRdaFiles("sims.RData")
