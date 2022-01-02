@@ -2,6 +2,7 @@
 #
 # TO DO: Add sinteractive command used.
 #
+library(Matrix)
 library(fastTopics)
 library(tools)
 source("../code/de_analysis_functions.R")
