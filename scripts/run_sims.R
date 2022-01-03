@@ -1,16 +1,17 @@
 # This script implements the simulation experiments for evaluating the
-# DE analysis methods. For more details see:
+# fastTopics DE analysis methods. For more details see:
 #
 #   de_analysis_detailed_look.html
 #   de_analysis_detailed_look_more.html
 #
-# These analyses contain initial implementations of the simulation
-# experiments.
+# These two analyses contain initial implementations of the simulation
+# experiments, and explain the design of the simulations in more
+# detail.
 #
 # These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p mstephens --account=pi-mstephens -c 4 \
+#   sinteractive -p mstephens --account=pi-mstephens -c 8 \
 #     --mem=16G --time=24:00:00
 #   module load R/4.1.0
 #
@@ -22,6 +23,8 @@ library(Seurat)
 library(MAST)
 library(fastTopics)
 source("../code/de_analysis_functions.R")
+
+t0 <- proc.time()
 
 # These variables control the simulations: ns is the number of
 # simulations to run; k is the number of topics to simulate; m is the
@@ -66,27 +69,27 @@ for (i in 1:ns) {
   fit0 <- init_poisson_nmf(X,F = dat$F,L = with(dat,s*L))
   fit <- fit_poisson_nmf(X,fit0 = fit0,numiter = 40,method = "scd",
                          update.loadings = NULL,verbose = "none",
-                         control = list(nc = 2))
+                         control = list(nc = 8,nsplit = 400))
   fit <- poisson2multinom(fit)
 
   # Perform a DE analysis *without* shrinking the LFC estimates.
   cat("Performing DE analysis without shrinkage.\n")
   de0 <- de_analysis(fit,X,shrink.method = "none",verbose = FALSE,
-                     control = list(ns = num.mc,nc = 2))
+                     control = list(ns = num.mc,nc = 8,nsplit = 400))
 
 
   # Perform a second DE analysis using adaptive shrinkage to shrink
   # (and hopefully improve accuracy of) the LFC estimates.
   cat("Performing first DE analysis with shrinkage.\n")
   de1 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
-                     control = list(ns = num.mc,nc = 2))
+                     control = list(ns = num.mc,nc = 8,nsplit = 400))
 
   # Perform a third DE analysis with the exact same settings as the
   # second, but with a different sequence of pseudorandom numbers.
   # This is intended to verify accuracy of the posterior calculations.
   cat("Performing second DE analysis with shrinkage.\n")
   de2 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
-                     control = list(ns = num.mc,nc = 2))
+                     control = list(ns = num.mc,nc = 8,nsplit = 400))
 
   # Perform DE analysis using DESeq2. First we prepare the UMI count
   # data for analysis with DESeq2. DESeq2 is called using the settings
@@ -115,6 +118,9 @@ for (i in 1:ns) {
   res[[i]] <- list(data = dat,fit = fit,de0 = de0,de1 = de1,
                    de2 = de2,deseq = deseq,mast = mast)
 }
+
+t1 <- proc.time()
+print(t1 - t0)
 
 # Write the simulation results to an .RData file.
 cat("Saving results to file.\n")
