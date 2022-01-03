@@ -6,9 +6,13 @@
 #
 # TO DO: Add sinteractive command used.
 #
-library(Matrix)
-library(fastTopics)
 library(tools)
+library(Matrix)
+library(scran)
+library(DESeq2)
+library(Seurat)
+library(MAST)
+library(fastTopics)
 source("../code/de_analysis_functions.R")
 
 # These variables control the simulations: ns is the number of
@@ -74,15 +78,32 @@ for (i in 1:ns) {
   de2 <- de_analysis(fit,X,shrink.method = "ash",verbose = FALSE,
                      control = list(ns = num.mc,nc = 2))
 
-  # Perform DE analysis using DESeq2.
-  # TO DO.
-  
-  # Run MAST differential expression analysis.
-  # TO DO.
+  # Perform DE analysis using DESeq2. First we prepare the UMI count
+  # data for analysis with DESeq2. DESeq2 is called using the settings
+  # recommended for single-cell RNA-seq data (see the main DESeq2
+  # vignette) To replicate the fastTopics analysis as closely as
+  # possible, he LFC estimates are shrunk using ashr.
+  cat("Performing DESeq2 analysis.\n")
+  Y <- t(X)
+  cluster <- factor(apply(dat$L,1,which.max))
+  deseq <- DESeqDataSetFromMatrix(Y,data.frame(cluster = cluster),~cluster)
+  sizeFactors(deseq) <- calculateSumFactors(Y)
+  deseq <- DESeq(deseq,test = "LRT",reduced = ~1,useT = TRUE,minmu = 1e-6,
+                 minReplicatesForReplace = Inf)
+  deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr",svalue = TRUE)
+
+  # RUN MAST differential expression analysis via the "FindMarkers"
+  # interface in Seurat.
+  cat("Performing MAST analysis.\n")
+  seurat <- CreateSeuratObject(counts = Y)
+  Idents(seurat) <- cluster
+  mast <- FindMarkers(seurat,ident.1 = "2",ident.2 = NULL,test.use = "MAST",
+                      logfc.threshold = 0,min.pct = 0,verbose = FALSE)
   
   # Store results from the simulations.
   cat("Storing results.\n")
-  res[[i]] <- list(data = dat,fit = fit,de0 = de0,de1 = de1,de2 = de2)
+  res[[i]] <- list(data = dat,fit = fit,de0 = de0,de1 = de1,
+                   de2 = de2,deseq = deseq,mast = mast)
 }
 
 # Write the simulation results to an RData file.
