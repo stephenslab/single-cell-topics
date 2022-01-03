@@ -11,8 +11,7 @@
 # These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p mstephens --account=pi-mstephens -c 8 \
-#     --mem=16G --time=24:00:00
+#   sinteractive -p broadwl -c 8 --mem=24G --time=80:00:00
 #   module load R/4.1.0
 #
 library(tools)
@@ -24,22 +23,26 @@ library(MAST)
 library(fastTopics)
 source("../code/de_analysis_functions.R")
 
-t0 <- proc.time()
-
 # These variables control the simulations: ns is the number of
 # simulations to run; k is the number of topics to simulate; m is the
 # number of genes to simulate; num.mc, the length of the Markov chain
 # simulated for the DEanalysis; "alpha" is passed to rdirichlet to
 # simulate the topic proportions; "outfile" is the file where the
 # results of the simulations are stored.
-ns      <- 4 # 20
-k       <- 6 # 2
+ns      <- 20
+k       <- 2 # 6
 m       <- 1e4
-num.mc  <- 1000 # 1e4
+num.mc  <- 1e4
 alpha   <- rep(1,k) # rep(0.01,k)
-outfile <- "sims-k=6.RData"
-# outfile <- "sims-k=2.RData"
+outfile <- "sims-k=2.RData"
+# outfile <- "sims-k=6.RData"
 # outfile <- "sims-k=2-alpha=0.01.RData"
+
+# Echo the main script parameters.
+cat("ns      =",ns,"\n")
+cat("k       =",k,"\n")
+cat("alpha   =",alpha,"\n")
+cat("outfile =",outfile,"\n")
 
 # This data structure will be used to store the results of the
 # simulations.
@@ -119,11 +122,8 @@ for (i in 1:ns) {
                    de2 = de2,deseq = deseq,mast = mast)
 }
 
-t1 <- proc.time()
-print(t1 - t0)
-
 # Write the simulation results to an .RData file.
 cat("Saving results to file.\n")
-res$session.Info <- sessionInfo()
+res$session.info <- sessionInfo()
 save(list = "res",file = outfile)
 resaveRdaFiles(outfile)

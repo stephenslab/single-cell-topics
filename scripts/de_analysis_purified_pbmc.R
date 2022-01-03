@@ -5,8 +5,7 @@
 # takes about 56. These were the steps taken to load R and allocate
 # computing resources for this analysis:
 #
-#   sinteractive -p mstephens --account=pi-mstephens -c 20 \
-#     --mem=16G --time=60:00:00
+#   sinteractive -p broadwl -c 20 --mem=16G --time=60:00:00
 #   module load R/3.5.1
 #
 
