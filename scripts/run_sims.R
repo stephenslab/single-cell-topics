@@ -21,7 +21,7 @@ source("../code/de_analysis_functions.R")
 # simulated for the DEanalysis; "alpha" is passed to rdirichlet to
 # simulate the topic proportions; "outfile" is the file where the
 # results of the simulations are stored.
-ns      <- 20
+ns      <- 4 # 20
 k       <- 2 # 6
 m       <- 1e4
 num.mc  <- 1000 # 1e4
@@ -106,7 +106,7 @@ for (i in 1:ns) {
                    de2 = de2,deseq = deseq,mast = mast)
 }
 
-# Write the simulation results to an RData file.
+# Write the simulation results to an .RData file.
 cat("Saving results to file.\n")
 save(list = "res",file = outfile)
 resaveRdaFiles(outfile)
