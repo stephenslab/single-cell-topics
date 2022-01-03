@@ -1,10 +1,18 @@
-# TO DO: Explain what this script is for, and how to use it.
+# This script implements the simulation experiments for evaluating the
+# DE analysis methods. For more details see:
 #
-# Refer to:
-# de_analysis_detailed_look.html
-# de_analysis_detailed_look_more.html
+#   de_analysis_detailed_look.html
+#   de_analysis_detailed_look_more.html
 #
-# TO DO: Add sinteractive command used.
+# These analyses contain initial implementations of the simulation
+# experiments.
+#
+# These were the steps taken to load R and allocate computing
+# resources for this analysis:
+#
+#   sinteractive -p mstephens --account=pi-mstephens -c 4 \
+#     --mem=16G --time=24:00:00
+#   module load R/4.1.0
 #
 library(tools)
 library(Matrix)
@@ -22,11 +30,13 @@ source("../code/de_analysis_functions.R")
 # simulate the topic proportions; "outfile" is the file where the
 # results of the simulations are stored.
 ns      <- 4 # 20
-k       <- 2 # 6
+k       <- 6 # 2
 m       <- 1e4
 num.mc  <- 1000 # 1e4
 alpha   <- rep(1,k) # rep(0.01,k)
-outfile <- "sims.RData"
+outfile <- "sims-k=6.RData"
+# outfile <- "sims-k=2.RData"
+# outfile <- "sims-k=2-alpha=0.01.RData"
 
 # This data structure will be used to store the results of the
 # simulations.
@@ -108,5 +118,6 @@ for (i in 1:ns) {
 
 # Write the simulation results to an .RData file.
 cat("Saving results to file.\n")
+res$session.Info <- sessionInfo()
 save(list = "res",file = outfile)
 resaveRdaFiles(outfile)
