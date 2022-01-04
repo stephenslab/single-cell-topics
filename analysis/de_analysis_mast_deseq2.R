@@ -70,7 +70,7 @@ p3 <- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
   theme_cowplot(font_size = 12)
 
 # Save the plots.
-ggsave("../plots/mast_deseq2_scatterplots_sims.png",
+ggsave("../plots/mast_deseq2_sims_scatterplots.png",
        plot_grid(p1,p2,p3,nrow = 1,ncol = 3),
        height = 3,width = 9,dpi = 600)
 
@@ -101,25 +101,22 @@ p6 <- ggplot(pdat,aes(x = fasttopics,color = nonzero_lfc,fill = nonzero_lfc)) +
   theme_cowplot(font_size = 12)
 
 # Save the plots.
-ggsave("../plots/mast_deseq2_pvalues_sims.eps",
+ggsave("../plots/mast_deseq2_sims_pvalues.eps",
        plot_grid(p4,p5,p6,nrow = 1,ncol = 3),
        height = 2.75,width = 9)
 
-stop()
-
-# Assess FDR vs. power for all methods, including de_analysis with and
-# without shrinkage.
-dat1 <- create_fdr_vs_power_curve(pdat2$deseq,nonzero_lfc,length.out = 200)
-dat2 <- create_fdr_vs_power_curve(pdat2$fastTopics,nonzero_lfc,length.out = 200)
-dat3 <- create_fdr_vs_power_curve(pdat2$mast,nonzero_lfc,length.out = 200)
-pdat <- rbind(cbind(dat1,method = "deseq2"),
-              cbind(dat2,method = "fastTopics"),
-              cbind(dat3,method = "mast"))
+# Assess FDR vs. power for all methods.
+pdat1 <- create_fdr_vs_power_curve(pdat$deseq,nonzero_lfc,length.out = 200)
+pdat2 <- create_fdr_vs_power_curve(combine_sim_res(res,function (x) x$de1$lfsr[,2]),
+                                   nonzero_lfc,length.out = 200)
+pdat3 <- create_fdr_vs_power_curve(pdat$mast,nonzero_lfc,length.out = 200)
+pdat  <- rbind(cbind(pdat1,method = "deseq2"),
+               cbind(pdat2,method = "fastTopics"),
+               cbind(pdat3,method = "mast"))
 p <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
   geom_line(size = 0.65,orientation = "y")  +
-  scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
-  theme_cowplot()
+  scale_color_manual(values = c("dodgerblue","darkorange","darkblue")) +
+  theme_cowplot(font_size = 12)
 
 # Save the plot.
-ggsave("../plots/mast_deseq2_fdr_vs_power_sims.png",p,
-       height = 3,width = 3,dpi = 600)
+ggsave("../plots/mast_deseq2_sims_fdr_vs_power.eps",p,height = 3,width = 4)
