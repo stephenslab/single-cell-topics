@@ -1,4 +1,5 @@
 library(Matrix)
+library(Seurat)
 library(DESeq2)
 library(MAST)
 library(fastTopics)
@@ -39,53 +40,60 @@ p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
 ggsave("../plots/mcmc_scatterplots_sims_k=2_alpha=0.01.png",
        plot_grid(p1,p2),height = 3,width = 6,dpi = 600)
 
-# Compare MAST, DESeq2 and fastTopics outputs.
-j <- paste0("g",1:1e4)
-pdat1 <-
+# Compare MAST, DESeq2 and fastTopics LFC estimates.
+j <- paste0("g",1:10000)
+pdat <-
   data.frame(lfc.deseq      = combine_sim_res(res,function (x) x$deseq$log2FoldChange),
              lfc.fasttopics = combine_sim_res(res,function (x) x$de1$postmean[,2]),
              lfc.mast       = combine_sim_res(res,function(x)x$mast[j,"avg_log2FC"]),
              z.deseq        = combine_sim_res(res,
                                function (x) with(x$deseq,log2FoldChange/lfcSE)),
              z.fasttopics   = combine_sim_res(res,function (x) x$de1$z[,2]))
-pdat2 <-
-  data.frame(deseq      = combine_sim_res(res,function (x) x$deseq$svalue),
-             fasttopics = combine_sim_res(res,function (x) x$de1$svalue[,2]),
-             mast       = combine_sim_res(res,function (x) x$mast[j,"p_val"]),
-             de         = factor(combine_sim_res(res,
-                            function (x) with(x$dat,abs(F[,1] - F[,2]) > 1e-8))))
-pdat1 <- transform(pdat1,lfc.mast = clamp(lfc.mast,-6,+6))
-p1 <- ggplot(pdat1,aes(x = lfc.mast,y = lfc.fasttopics)) +
+pdat <- transform(pdat,lfc.mast = clamp(lfc.mast,-6,+6))
+p1 <- ggplot(pdat,aes(x = lfc.mast,y = lfc.fasttopics)) +
   geom_point(shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,color = "lightsalmon",
               linetype = "dotted") +
-  labs(x = "MAST",y = "GoM DE",title = "LFC estimates") +
+  labs(x = "MAST",y = "fastTopics",title = "LFC estimates") +
   theme_cowplot(font_size = 12)
-p2 <- ggplot(pdat1,aes(x = lfc.deseq,y = lfc.fasttopics)) +
+p2 <- ggplot(pdat,aes(x = lfc.deseq,y = lfc.fasttopics)) +
   geom_point(shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,color = "lightsalmon",
               linetype = "dotted") +
-  labs(x = "DESeq2",y = "GoM DE",title = "LFC estimates") +
+  labs(x = "DESeq2",y = "fastTopics",title = "LFC estimates") +
   theme_cowplot(font_size = 12)
-p3 <- ggplot(pdat1,aes(x = z.deseq,y = z.fasttopics)) +
+p3 <- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
   geom_point(shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,color = "lightsalmon",
               linetype = "dotted") +
-  labs(x = "DESeq2",y = "GoM DE",title = "z-scores") +
+  labs(x = "DESeq2",y = "fastTopics",title = "z-scores") +
   theme_cowplot(font_size = 12)
-p4 <- ggplot(pdat2,aes(x = mast,color = de,fill = de)) +
+
+# Save the plots.
+ggsave("../plots/mast_deseq2_scatterplots_sims.png",
+       plot_grid(p1,p2,p3,nrow = 1,ncol = 3),
+       height = 3,width = 9,dpi = 600)
+
+# Compare MAST, DESeq2 and fastTopics p-values or s-values.
+nonzero_lfc <-
+  combine_sim_res(res,function (x) with(x$dat,abs(F[,1] - F[,2]) > 1e-8))
+pdat <- data.frame(deseq       = combine_sim_res(res,function (x) x$deseq$svalue),
+                   fasttopics  = combine_sim_res(res,function (x) x$de1$svalue[,2]),
+                   mast        = combine_sim_res(res,function (x) x$mast[j,"p_val"]),
+                   nonzero_lfc = factor(nonzero_lfc))
+p4 <- ggplot(pdat,aes(x = mast,color = nonzero_lfc,fill = nonzero_lfc)) +
   geom_histogram(bins = 64,show.legend = FALSE) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "p-value",y = "genes",title = "MAST") +
   theme_cowplot(font_size = 12)
-p5 <- ggplot(pdat2,aes(x = deseq,color = de,fill = de)) +
+p5 <- ggplot(pdat,aes(x = deseq,color = nonzero_lfc,fill = nonzero_lfc)) +
   geom_histogram(bins = 64,show.legend = FALSE) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "s-value",y = "genes",title = "DESeq2") +
   theme_cowplot(font_size = 12)
-p6 <- ggplot(pdat2,aes(x = fasttopics,color = de,fill = de)) +
+p6 <- ggplot(pdat,aes(x = fasttopics,color = nonzero_lfc,fill = nonzero_lfc)) +
   geom_histogram(bins = 64,show.legend = FALSE) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
@@ -93,6 +101,25 @@ p6 <- ggplot(pdat2,aes(x = fasttopics,color = de,fill = de)) +
   theme_cowplot(font_size = 12)
 
 # Save the plots.
-ggsave("../plots/deseq2_vs_fasttopics_sims.png",
-       plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3),
-       height = 6,width = 9,dpi = 600)
+ggsave("../plots/mast_deseq2_pvalues_sims.eps",
+       plot_grid(p4,p5,p6,nrow = 1,ncol = 3),
+       height = 2.75,width = 9)
+
+stop()
+
+# Assess FDR vs. power for all methods, including de_analysis with and
+# without shrinkage.
+dat1 <- create_fdr_vs_power_curve(pdat2$deseq,nonzero_lfc,length.out = 200)
+dat2 <- create_fdr_vs_power_curve(pdat2$fastTopics,nonzero_lfc,length.out = 200)
+dat3 <- create_fdr_vs_power_curve(pdat2$mast,nonzero_lfc,length.out = 200)
+pdat <- rbind(cbind(dat1,method = "deseq2"),
+              cbind(dat2,method = "fastTopics"),
+              cbind(dat3,method = "mast"))
+p <- ggplot(pdat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65,orientation = "y")  +
+  scale_color_manual(values = c("royalblue","limegreen","darkorange")) +
+  theme_cowplot()
+
+# Save the plot.
+ggsave("../plots/mast_deseq2_fdr_vs_power_sims.png",p,
+       height = 3,width = 3,dpi = 600)
