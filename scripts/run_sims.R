@@ -109,7 +109,7 @@ for (i in 1:ns) {
                  minReplicatesForReplace = Inf)
   deseq <- lfcShrink(deseq,coef = "cluster_2_vs_1",type = "ashr",svalue = TRUE)
 
-  # RUN MAST differential expression analysis via the "FindMarkers"
+  # Run MAST differential expression analysis via the "FindMarkers"
   # interface in Seurat.
   cat("Performing MAST analysis.\n")
   seurat <- CreateSeuratObject(counts = Y)

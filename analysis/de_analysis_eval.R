@@ -39,40 +39,51 @@ p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
 ggsave("../plots/mcmc_scatterplots_sims_k=2_alpha=0.01.png",
        plot_grid(p1,p2),height = 3,width = 6,dpi = 600)
 
-# Compare DESeq2 and fastTopics output.
+# Compare MAST, DESeq2 and fastTopics outputs.
 pdat1 <- data.frame(lfc.deseq      = combine_sim_res(res,function (x) x$deseq$log2FoldChange),
+                    lfc.mast       = combine_sim_res(res,function (x) x$mast$avg_log2FC),
                     lfc.fasttopics = combine_sim_res(res,function (x) x$de1$postmean[,2]),
                     z.deseq        = combine_sim_res(res,
                                        function (x) with(x$deseq,log2FoldChange/lfcSE)),
                     z.fasttopics   = combine_sim_res(res,function (x) x$de1$z[,2]))
-pdat2 <- data.frame(deseq2 = combine_sim_res(res,function (x) x$deseq$svalue),
-                    shrink = combine_sim_res(res,function (x) x$de1$svalue[,2]),
-                    de     = factor(combine_sim_res(res,
-                               function (x) with(x$dat,abs(F[,1] - F[,2]) > 1e-8))))
+pdat2 <- data.frame(deseq      = combine_sim_res(res,function (x) x$deseq$svalue),
+                    mast       = combine_sim_res(res,function (x) x$mast$p_val),
+                    fasttopics = combine_sim_res(res,function (x) x$de1$svalue[,2]),
+                    de         = factor(combine_sim_res(res,
+                                   function (x) with(x$dat,abs(F[,1] - F[,2]) > 1e-8))))
+pdat1 <- transform(pdat1,lfc.mast = clamp(lfc.mast,-6,+6))
 p1 <- ggplot(pdat1,aes(x = lfc.deseq,y = lfc.fasttopics)) +
   geom_point(shape = 4,size = 0.75) +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
+  geom_abline(intercept = 0,slope = 1,color = "lightsalmon",linetype = "dotted") +
   labs(x = "DESeq2",y = "GoM DE",title = "LFC estimates") +
   theme_cowplot(font_size = 12)
 p2 <- ggplot(pdat1,aes(x = z.deseq,y = z.fasttopics)) +
   geom_point(shape = 4,size = 0.75) +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
+  geom_abline(intercept = 0,slope = 1,color = "lightsalmon",linetype = "dotted") +
   labs(x = "DESeq2",y = "GoM DE",title = "z-scores") +
   theme_cowplot(font_size = 12)
-p3 <- ggplot(pdat2,aes(x = deseq2,color = de,fill = de)) +
+p3 <- ggplot(pdat1,aes(x = lfc.mast,y = lfc.fasttopics)) +
+  geom_point(shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = "lightsalmon",linetype = "dotted") +
+  labs(x = "MAST",y = "GoM DE",title = "LFC estimates") +
+  theme_cowplot(font_size = 12)
+
+p3 <- ggplot(pdat2,aes(x = deseq,color = de,fill = de)) +
   geom_histogram(bins = 64,show.legend = FALSE) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "s-value",y = "genes",title = "DESeq2") +
   theme_cowplot(font_size = 12)
-p4 <- ggplot(pdat2,aes(x = shrink,color = de,fill = de)) +
+p4 <- ggplot(pdat2,aes(x = fasttopics,color = de,fill = de)) +
   geom_histogram(bins = 64,show.legend = FALSE) +
   scale_color_manual(values = c("darkorange","darkblue")) +
   scale_fill_manual(values = c("darkorange","darkblue")) +
   labs(x = "s-value",y = "genes",title = "fastTopics") +
   theme_cowplot(font_size = 12)
-       
+
+stop()
+
 # Save the plots.
 ggsave("../plots/deseq2_vs_fasttopics_sims.png",
-       plot_grid(p1,p2,p3,p4,nrow = 2,ncol = 2),
+       plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 2),
        height = 6,width = 6,dpi = 600)
