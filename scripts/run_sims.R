@@ -33,7 +33,8 @@ ns      <- 20
 k       <- 2 # 6
 m       <- 1e4
 num.mc  <- 1e4
-alpha   <- rep(1,k) # rep(0.01,k)
+alpha <- rep(1,k)
+# alpha   <- rep(0.01,k)
 outfile <- "sims-k=2.RData"
 # outfile <- "sims-k=6.RData"
 # outfile <- "sims-k=2-alpha=0.01.RData"
