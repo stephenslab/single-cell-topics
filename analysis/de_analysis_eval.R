@@ -75,4 +75,4 @@ p4 <- ggplot(pdat2,aes(x = shrink,color = de,fill = de)) +
 # Save the plots.
 ggsave("../plots/deseq2_vs_fasttopics_sims.png",
        plot_grid(p1,p2,p3,p4,nrow = 2,ncol = 2),
-       height = 3,width = 9,dpi = 600)
+       height = 6,width = 6,dpi = 600)
