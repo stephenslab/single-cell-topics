@@ -414,23 +414,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree95017e421e13469830bab4671df3d24ab16a6e72targetblank95017e4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/95017e421e13469830bab4671df3d24ab16a6e72" target="_blank">95017e4</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed27daa08dad5bb571097bfcde90339e8b28db911targetblankd27daa0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/d27daa08dad5bb571097bfcde90339e8b28db911" target="_blank">d27daa0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree95017e421e13469830bab4671df3d24ab16a6e72targetblank95017e4a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreed27daa08dad5bb571097bfcde90339e8b28db911targetblankd27daa0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/95017e421e13469830bab4671df3d24ab16a6e72" target="_blank">95017e4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/d27daa08dad5bb571097bfcde90339e8b28db911" target="_blank">d27daa0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    analysis/figure/
     Ignored:    data/droplet.RData
     Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
@@ -451,9 +450,6 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   analysis/de_analysis_mast_deseq2.R
 
 </code></pre>
 <p>
@@ -492,6 +488,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d27daa08dad5bb571097bfcde90339e8b28db911/analysis/de_analysis_mast_deseq2.Rmd" target="_blank">d27daa0</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_mast_deseq2.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/17a878292119876a93b65720592b801f58c53972/docs/de_analysis_mast_deseq2.html" target="_blank">17a8782</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+Added power vs. fdr plot to de_analysis_mast_deseq2 analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -998,7 +1028,44 @@ p &lt;- ggplot(dat,aes(x = fdr,y = power,color = method)) +
   theme_cowplot(font_size = 12)
 print(p)</code></pre>
 <p><img src="figure/de_analysis_mast_deseq2.Rmd/plot-fdr-vs-power-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>At low false discovery rates, DESeq2 has a slight edge, but otherwise the performance of all three methods is very close.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-fdr-vs-power-1">
+Past versions of plot-fdr-vs-power-1.png
+</button>
+</p>
+<div id="fig-plot-fdr-vs-power-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/17a878292119876a93b65720592b801f58c53972/docs/figure/de_analysis_mast_deseq2.Rmd/plot-fdr-vs-power-1.png" target="_blank">17a8782</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>At low false discovery rates, DESeq2 has a slight advantage over the other methods, but overall the performance of all three methods is very close.</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
