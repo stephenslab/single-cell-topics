@@ -18,7 +18,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
 Load the packages needed for this analysis, and some additional
 functions used to compile the results and generate the plots.
 
-```{r load-pkgs, message=FALSE}
+```{r load-pkgs, message=FALSE, warning=FALSE}
 library(Matrix)
 library(Seurat)
 library(DESeq2)
@@ -88,7 +88,7 @@ Now we compare LFC estimates for the second topic:
 j  <- paste0("g",1:10000)
 lfc.deseq <- combine_sim_res(res,function (x) x$deseq$log2FoldChange)
 lfc.fasttopics <- combine_sim_res(res,function (x) x$de1$postmean[,2])
-lfc.mast <- combine_sim_res(res,function(x)x$mast[j,"avg_log2FC"])
+lfc.mast <- combine_sim_res(res,function (x) x$mast[j,"avg_log2FC"])
 z.deseq <- combine_sim_res(res,function (x) with(x$deseq,log2FoldChange/lfcSE))
 z.fasttopics <- combine_sim_res(res,function (x) x$de1$z[,2])
 pdat <- data.frame(lfc.deseq      = lfc.deseq,
@@ -114,11 +114,54 @@ p3 <- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 ```
 
-The fastTopics and DESeq2 estimates are very similar, whereas the MAST
-estimare are broadly correlated, but show a number of large differences.
+The fastTopics and DESeq2 estimates are very similar across the board,
+whereas the MAST estimare are broadly correlated, but show a number of
+large differences.
 
 ```{r lfc-scatterplots-for-paper, echo=FALSE}
 ggsave("../plots/mast_deseq2_sims_scatterplots.png",
        plot_grid(p1,p2,p3,nrow = 1,ncol = 3),
        height = 3,width = 9,dpi = 600)
+```
+
+Compare the MAST, DESeq2 and fastTopics *p*-values (or *s*-values),
+separately for all true positives (dark blue) and true negatives
+(orange). Not surprisingly, the DESeq2 and fastTopics *s*-value
+distributions are also very similar.
+
+```{r pval-histograms, fig.height=2.25, fig.width=7}
+deseq       <- combine_sim_res(res,function (x) x$deseq$svalue)
+fasttopics  <- combine_sim_res(res,function (x) x$de1$svalue[,2])
+mast        <- combine_sim_res(res,function (x) x$mast[j,"p_val"])
+nonzero_lfc <-
+  combine_sim_res(res,function (x) with(x$dat,abs(F[,1] - F[,2]) > 1e-8))
+pdat <- data.frame(deseq       = deseq,
+                   fasttopics  = fasttopics,
+                   mast        = mast,
+                   nonzero_lfc = factor(nonzero_lfc))
+p4 <- ggplot(pdat,aes(x = mast,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "p-value",y = "genes",title = "MAST") +
+  theme_cowplot(font_size = 12)
+p5 <- ggplot(pdat,aes(x = deseq,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "s-value",y = "genes",title = "DESeq2") +
+  theme_cowplot(font_size = 12)
+p6 <- ggplot(pdat,aes(x = fasttopics,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c("darkorange","darkblue")) +
+  scale_fill_manual(values = c("darkorange","darkblue")) +
+  labs(x = "s-value",y = "genes",title = "fastTopics") +
+  theme_cowplot(font_size = 12)
+plot_grid(p4,p5,p6,nrow = 1,ncol = 3)
+```
+
+```{r pval-histograms-for-paper, echo=FALSE}
+ggsave("../plots/mast_deseq2_sims_pvalues.eps",
+       plot_grid(p4,p5,p6,nrow = 1,ncol = 3),
+       height = 2.75,width = 9)
 ```
