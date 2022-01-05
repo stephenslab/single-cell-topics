@@ -22,9 +22,9 @@ differential expression analysis, and compare with MAST and DESeq2.
 
   - [Comparison of new DE analysis methods with MAST and DESeq2](de_analysis_mast_deseq2.html)
 
-  - *Add another link here*
+  - [Evaluation of fastTopics DE analysis methods in simulations---case of 2 topics](de_analysis_two_topics.html)
 
-  - *Add yet another link here*
+  - [Evaluation of fastTopics DE analysis methods in simulations---case of more than 2 topics](de_analysis_six_topics.html)
 
 Data preparation
 ----------------
