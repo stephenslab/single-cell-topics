@@ -128,11 +128,11 @@ ggsave("../plots/rankings_sims_k=2.eps",
        plot_grid(p1,p2,p3,nrow = 1,ncol = 3),height = 2.25,width = 7)
 ```
 
-Having compared the overall distributions, we now compare performance
-of the K-L divergence and fastTopics rankings (usinng *lfsr*) by
-plotting power vs. FDR. Again, we restrict this comparison only to
-genes that are estimated to have greater (or equal) expression in
-topic 2 compared to topic 1.
+Having compared the overall distributions of the gene-wise rankings,
+we now compare performance of these rankings by plotting power
+vs. FDR. Again, we restrict this comparison only to genes that are
+estimated to have greater (or equal) expression in topic 2 compared to
+topic 1.
 
 ```{r fdr-vs-power, fig.height=2.5, fig.width=4}
 v1 <- create_fdr_vs_power_curve(-pdat$lkl,nonzero_lfc,length.out = 200)
