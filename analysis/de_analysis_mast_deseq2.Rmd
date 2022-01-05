@@ -165,3 +165,29 @@ ggsave("../plots/mast_deseq2_sims_pvalues.eps",
        plot_grid(p4,p5,p6,nrow = 1,ncol = 3),
        height = 2.75,width = 9)
 ```
+
+Finally, we plot, for each method, FDR vs. power for identifying genes
+that are differentially expressed between among the two topics or
+groups.
+
+```{r plot-fdr-vs-power, fig.height=3, fig.width=4}
+v1 <- create_fdr_vs_power_curve(pdat$deseq,nonzero_lfc,length.out = 200)
+v2 <- create_fdr_vs_power_curve(combine_sim_res(res,function(x)x$de1$lfsr[,2]),
+                                nonzero_lfc,length.out = 200)
+v3 <- create_fdr_vs_power_curve(pdat$mast,nonzero_lfc,length.out = 200)
+dat <- rbind(cbind(v1,method = "deseq2"),
+             cbind(v2,method = "fastTopics"),
+             cbind(v3,method = "mast"))
+p <- ggplot(dat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65,orientation = "y")  +
+  scale_color_manual(values = c("dodgerblue","darkorange","darkblue")) +
+  theme_cowplot(font_size = 12)
+print(p)
+```
+
+At low false discovery rates, DESeq2 has a slight edge, but otherwise
+the performance of all three methods is very close.
+
+```{r fdr-vs-power-for-paper, echo=FALSE}
+ggsave("../plots/mast_deseq2_sims_fdr_vs_power.eps",p,height = 3,width = 4)
+```
