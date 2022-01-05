@@ -12,7 +12,7 @@
 <meta name="author" content="Peter Carbonetto" />
 
 
-<title>Comparison of grade-of-membership DE analysis with MAST and DESeq2</title>
+<title>Comparison of fastTopics DE analysis with MAST and DESeq2</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Comparison of grade-of-membership DE analysis with MAST and DESeq2</h1>
+<h1 class="title toc-ignore">Comparison of fastTopics DE analysis with MAST and DESeq2</h1>
 <h4 class="author">Peter Carbonetto</h4>
 
 </div>
@@ -305,7 +305,7 @@ $(document).ready(function () {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -314,7 +314,7 @@ $(document).ready(function () {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -326,7 +326,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2022-01-05
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -342,12 +342,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef60a9750a7d710342ad3d040ebc5c6b6581aa9a8targetblankf60a975a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f60a9750a7d710342ad3d040ebc5c6b6581aa9a8" target="_blank">f60a975</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4ff98f43c8d478f04ed817713f5d5f3818857bfatargetblank4ff98f4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/4ff98f43c8d478f04ed817713f5d5f3818857bfa" target="_blank">4ff98f4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef60a9750a7d710342ad3d040ebc5c6b6581aa9a8targetblankf60a975a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree4ff98f43c8d478f04ed817713f5d5f3818857bfatargetblank4ff98f4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f60a9750a7d710342ad3d040ebc5c6b6581aa9a8" target="_blank">f60a975</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/4ff98f43c8d478f04ed817713f5d5f3818857bfa" target="_blank">4ff98f4</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,12 +447,14 @@ Ignored files:
     Ignored:    output/sims/
 
 Untracked files:
+    Untracked:  .DS_Store
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
 
 Unstaged changes:
     Modified:   analysis/de_analysis_mast_deseq2.R
+    Modified:   analysis/de_analysis_mast_deseq2.Rmd
     Modified:   analysis/index.Rmd
 
 </code></pre>
@@ -497,6 +499,23 @@ Message
 html
 </td>
 <td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/4ff98f43c8d478f04ed817713f5d5f3818857bfa/docs/de_analysis_mast_deseq2.html" target="_blank">4ff98f4</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+Built de_analysis_mast_deseq2 page.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
 <a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/e164b8f9de0726673212a0b103e6f6351f9cbec1/docs/de_analysis_mast_deseq2.html" target="_blank">e164b8f</a>
 </td>
 <td>
@@ -533,7 +552,185 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 </div>
-<p>This is a more systematic comparison of the fastTopics DE analysis with MAST and DESeq2 based on an x<a href="de_analysis_detailed_look.html">initial smaller simulation</a>. The results were generated using the <code>run_sims.R</code> script, and here we summarize the results.</p>
+<p>This is a more systematic comparison of the new fastTopics DE analysis with MAST and DESeq2 based on an <a href="de_analysis_detailed_look.html">initial smaller simulation</a>. The results were generated using the <code>run_sims.R</code> script, and here we summarize the results of these simulations.</p>
+<p>Load the packages needed for this analysis, and some additional functions used to compile the results and generate the plots.</p>
+<pre class="r"><code>library(Matrix)
+library(Seurat)
+library(DESeq2)
+# Warning: package &#39;S4Vectors&#39; was built under R version 3.6.3
+# Warning: package &#39;GenomeInfoDb&#39; was built under R version 3.6.3
+# Warning: package &#39;DelayedArray&#39; was built under R version 3.6.3
+library(MAST)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source(&quot;../code/de_analysis_functions.R&quot;)</code></pre>
+<p>Load the results of the simulations.</p>
+<pre class="r"><code>load(&quot;../output/sims/sims-k=2-alpha=0.01.RData&quot;)</code></pre>
+<p>These were the R packages used to run the simulations:</p>
+<pre class="r"><code>res$session.info
+# R version 4.1.0 (2021-05-18)
+# Platform: x86_64-pc-linux-gnu (64-bit)
+# Running under: Scientific Linux 7.4 (Nitrogen)
+# 
+# Matrix products: default
+# BLAS/LAPACK: /software/openblas-0.3.13-el7-x86_64/lib/libopenblas_haswellp-r0.3.13.so
+# 
+# locale:
+#  [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              
+#  [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    
+#  [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   
+#  [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 
+#  [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+# [11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       
+# 
+# attached base packages:
+# [1] stats4    tools     stats     graphics  grDevices utils     datasets 
+# [8] methods   base     
+# 
+# other attached packages:
+#  [1] fastTopics_0.6-97           MAST_1.20.0                
+#  [3] SeuratObject_4.0.2          Seurat_4.0.3               
+#  [5] DESeq2_1.34.0               scran_1.22.1               
+#  [7] scuttle_1.4.0               SingleCellExperiment_1.16.0
+#  [9] SummarizedExperiment_1.24.0 Biobase_2.54.0             
+# [11] GenomicRanges_1.46.0        GenomeInfoDb_1.30.0        
+# [13] IRanges_2.28.0              S4Vectors_0.32.0           
+# [15] BiocGenerics_0.40.0         MatrixGenerics_1.6.0       
+# [17] matrixStats_0.60.1          Matrix_1.3-3               
+# 
+# loaded via a namespace (and not attached):
+#   [1] utf8_1.2.1                reticulate_1.20          
+#   [3] tidyselect_1.1.1          RSQLite_2.2.8            
+#   [5] AnnotationDbi_1.56.1      htmlwidgets_1.5.3        
+#   [7] grid_4.1.0                BiocParallel_1.28.0      
+#   [9] Rtsne_0.15                munsell_0.5.0            
+#  [11] ScaledMatrix_1.2.0        codetools_0.2-18         
+#  [13] ica_1.0-2                 statmod_1.4.36           
+#  [15] future_1.21.0             miniUI_0.1.1.1           
+#  [17] colorspace_2.0-2          rstudioapi_0.13          
+#  [19] ROCR_1.0-11               tensor_1.5               
+#  [21] listenv_0.8.0             GenomeInfoDbData_1.2.7   
+#  [23] mixsqp_0.3-43             polyclip_1.10-0          
+#  [25] MCMCpack_1.6-0            bit64_4.0.5              
+#  [27] coda_0.19-4               parallelly_1.26.1        
+#  [29] vctrs_0.3.8               generics_0.1.0           
+#  [31] R6_2.5.0                  rsvd_1.0.5               
+#  [33] invgamma_1.1              locfit_1.5-9.4           
+#  [35] bitops_1.0-7              spatstat.utils_2.2-0     
+#  [37] cachem_1.0.5              DelayedArray_0.20.0      
+#  [39] assertthat_0.2.1          promises_1.2.0.1         
+#  [41] scales_1.1.1              gtable_0.3.0             
+#  [43] beachmat_2.10.0           globals_0.14.0           
+#  [45] conquer_1.0.2             goftest_1.2-2            
+#  [47] mcmc_0.9-7                rlang_0.4.11             
+#  [49] MatrixModels_0.5-0        genefilter_1.76.0        
+#  [51] splines_4.1.0             lazyeval_0.2.2           
+#  [53] spatstat.geom_2.2-0       reshape2_1.4.4           
+#  [55] abind_1.4-5               httpuv_1.6.1             
+#  [57] ggplot2_3.3.5             ellipsis_0.3.2           
+#  [59] spatstat.core_2.2-0       RColorBrewer_1.1-2       
+#  [61] ggridges_0.5.3            Rcpp_1.0.7               
+#  [63] plyr_1.8.6                sparseMatrixStats_1.6.0  
+#  [65] progress_1.2.2            zlibbioc_1.40.0          
+#  [67] purrr_0.3.4               RCurl_1.98-1.5           
+#  [69] prettyunits_1.1.1         rpart_4.1-15             
+#  [71] deldir_0.2-10             pbapply_1.4-3            
+#  [73] ashr_2.2-51               cowplot_1.1.1            
+#  [75] zoo_1.8-9                 ggrepel_0.9.1            
+#  [77] cluster_2.1.2             magrittr_2.0.1           
+#  [79] data.table_1.14.0         scattermore_0.7          
+#  [81] SparseM_1.81              lmtest_0.9-38            
+#  [83] RANN_2.6.1                truncnorm_1.0-8          
+#  [85] SQUAREM_2021.1            fitdistrplus_1.1-5       
+#  [87] hms_1.1.0                 patchwork_1.1.1          
+#  [89] mime_0.11                 xtable_1.8-4             
+#  [91] XML_3.99-0.6              gridExtra_2.3            
+#  [93] compiler_4.1.0            tibble_3.1.2             
+#  [95] KernSmooth_2.23-20        crayon_1.4.1             
+#  [97] htmltools_0.5.1.1         mgcv_1.8-35              
+#  [99] later_1.2.0               tidyr_1.1.3              
+# [101] geneplotter_1.72.0        RcppParallel_5.1.4       
+# [103] DBI_1.1.1                 MASS_7.3-54              
+# [105] quadprog_1.5-8            parallel_4.1.0           
+# [107] metapod_1.2.0             igraph_1.2.6             
+# [109] pkgconfig_2.0.3           plotly_4.9.4.1           
+# [111] spatstat.sparse_2.0-0     annotate_1.72.0          
+# [113] dqrng_0.3.0               XVector_0.34.0           
+# [115] stringr_1.4.0             digest_0.6.27            
+# [117] sctransform_0.3.2         RcppAnnoy_0.0.18         
+# [119] spatstat.data_2.1-0       Biostrings_2.62.0        
+# [121] leiden_0.3.8              uwot_0.1.10              
+# [123] edgeR_3.36.0              DelayedMatrixStats_1.16.0
+# [125] shiny_1.6.0               quantreg_5.86            
+# [127] lifecycle_1.0.0           nlme_3.1-152             
+# [129] jsonlite_1.7.2            BiocNeighbors_1.12.0     
+# [131] viridisLite_0.4.0         limma_3.50.0             
+# [133] fansi_0.5.0               pillar_1.6.1             
+# [135] lattice_0.20-44           KEGGREST_1.34.0          
+# [137] fastmap_1.1.0             httr_1.4.2               
+# [139] survival_3.2-11           glue_1.4.2               
+# [141] png_0.1-7                 bluster_1.4.0            
+# [143] bit_4.0.4                 stringi_1.6.2            
+# [145] blob_1.2.1                BiocSingular_1.10.0      
+# [147] memoise_2.0.0             dplyr_1.0.7              
+# [149] irlba_2.3.3               future.apply_1.7.0</code></pre>
+<p>Since we are comparing with MAST and DESeq2, two methods that do not allow for partial membership to groups, we have simulated count data from a topic model in which the true topic proportions are all 0 or 1, or mostly very close to 0 or 1.</p>
+<pre class="r"><code>res[&quot;session.info&quot;] &lt;- NULL
+x &lt;- combine_sim_res(res,function (x) apply(x$dat$L,1,max))
+mean(x &gt; 0.99)
+# [1] 0.9862</code></pre>
+<p>Before comparing the methods, first we assess accuracy of the Monte Carlo computations by comparing the estimates from two independent MCMC simulations. The estimates from the two independent simulations are largely consistent.</p>
+<pre class="r"><code>pdat &lt;- data.frame(lfc1 = combine_sim_res(res,function (x) x$de1$postmean[,2]),
+                   lfc2 = combine_sim_res(res,function (x) x$de2$postmean[,2]),
+                   z1   = combine_sim_res(res,function (x) x$de1$z[,2]),
+           z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
+p1 &lt;- ggplot(pdat,aes(x = lfc1,y = lfc2)) +
+  geom_point(color = &quot;dodgerblue&quot;,shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  labs(x = &quot;first posterior mean&quot;,y = &quot;second posterior mean&quot;) +
+  theme_cowplot(font_size = 12)
+p2 &lt;- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(color = &quot;dodgerblue&quot;,shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
+  labs(x = &quot;first z-score estimate&quot;,y = &quot;second z-score estimate&quot;) +
+  xlim(-45,42) + 
+  ylim(-45,42) + 
+  theme_cowplot(font_size = 12)
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/de_analysis_mast_deseq2.Rmd/mcmc-scatterplots-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>Now we compare the LFC in the second topic as estimated by MAST, DESeq2 and fastTopics:</p>
+<pre class="r"><code>j  &lt;- paste0(&quot;g&quot;,1:10000)
+lfc.deseq &lt;- combine_sim_res(res,function (x) x$deseq$log2FoldChange)
+lfc.fasttopics &lt;- combine_sim_res(res,function (x) x$de1$postmean[,2])
+lfc.mast &lt;- combine_sim_res(res,function(x)x$mast[j,&quot;avg_log2FC&quot;])
+z.deseq &lt;- combine_sim_res(res,function (x) with(x$deseq,log2FoldChange/lfcSE))
+z.fasttopics &lt;- combine_sim_res(res,function (x) x$de1$z[,2])
+pdat &lt;- data.frame(lfc.deseq      = lfc.deseq,
+                   lfc.fasttopics = lfc.fasttopics,
+                   lfc.mast       = clamp(lfc.mast,-6,+6),
+                   z.deseq        = z.deseq,
+                   z.fasttopics   = z.fasttopics)
+p1 &lt;- ggplot(pdat,aes(x = lfc.mast,y = lfc.fasttopics)) +
+  geom_point(shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;lightsalmon&quot;,
+              linetype = &quot;dotted&quot;) +
+  labs(x = &quot;MAST&quot;,y = &quot;fastTopics&quot;,title = &quot;LFC estimates&quot;) +
+  theme_cowplot(font_size = 12)
+p2 &lt;- ggplot(pdat,aes(x = lfc.deseq,y = lfc.fasttopics)) +
+  geom_point(shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;lightsalmon&quot;,
+              linetype = &quot;dotted&quot;) +
+  labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,title = &quot;LFC estimates&quot;) +
+  theme_cowplot(font_size = 12)
+p3 &lt;- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
+  geom_point(shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,color = &quot;lightsalmon&quot;,
+              linetype = &quot;dotted&quot;) +
+  labs(x = &quot;DESeq2&quot;,y = &quot;fastTopics&quot;,title = &quot;z-scores&quot;) +
+  theme_cowplot(font_size = 12)
+plot_grid(p1,p2,p3,nrow = 1,ncol = 3)</code></pre>
+<p><img src="figure/de_analysis_mast_deseq2.Rmd/lfc-scatterplots-1.png" width="840" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -554,16 +751,69 @@ workflowr::wflow_publish(“index.Rmd”)
 # [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 # 
 # attached base packages:
-# [1] stats     graphics  grDevices utils     datasets  methods   base     
+# [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+# [8] methods   base     
+# 
+# other attached packages:
+#  [1] cowplot_1.0.0               ggplot2_3.3.5              
+#  [3] fastTopics_0.6-96           MAST_1.12.0                
+#  [5] SingleCellExperiment_1.8.0  DESeq2_1.33.5              
+#  [7] SummarizedExperiment_1.16.1 DelayedArray_0.12.3        
+#  [9] BiocParallel_1.18.1         matrixStats_0.61.0         
+# [11] Biobase_2.46.0              GenomicRanges_1.38.0       
+# [13] GenomeInfoDb_1.22.1         IRanges_2.20.2             
+# [15] S4Vectors_0.24.4            BiocGenerics_0.32.0        
+# [17] Seurat_3.2.3                Matrix_1.2-18              
 # 
 # loaded via a namespace (and not attached):
-#  [1] workflowr_1.6.2 Rcpp_1.0.7      rprojroot_1.3-2 digest_0.6.23  
-#  [5] later_1.0.0     R6_2.4.1        backports_1.1.5 git2r_0.26.1   
-#  [9] magrittr_2.0.1  evaluate_0.14   stringi_1.4.3   rlang_0.4.11   
-# [13] fs_1.3.1        promises_1.1.0  whisker_0.4     rmarkdown_2.3  
-# [17] tools_3.6.2     stringr_1.4.0   glue_1.4.2      httpuv_1.5.2   
-# [21] xfun_0.11       yaml_2.2.0      compiler_3.6.2  htmltools_0.4.0
-# [25] knitr_1.26</code></pre>
+#   [1] backports_1.1.5        workflowr_1.6.2        systemfonts_1.0.2     
+#   [4] plyr_1.8.5             igraph_1.2.5           lazyeval_0.2.2        
+#   [7] splines_3.6.2          listenv_0.8.0          scattermore_0.7       
+#  [10] digest_0.6.23          invgamma_1.1           htmltools_0.4.0       
+#  [13] SQUAREM_2017.10-1      fansi_0.4.0            memoise_1.1.0         
+#  [16] magrittr_2.0.1         tensor_1.5             cluster_2.1.0         
+#  [19] ROCR_1.0-11            globals_0.13.0         annotate_1.64.0       
+#  [22] RcppParallel_4.4.2     MCMCpack_1.4-5         prettyunits_1.1.1     
+#  [25] colorspace_1.4-1       blob_1.2.1             rappdirs_0.3.1        
+#  [28] ggrepel_0.9.1          xfun_0.11              dplyr_1.0.7           
+#  [31] crayon_1.4.1           RCurl_1.98-1.2         jsonlite_1.7.2        
+#  [34] genefilter_1.68.0      spatstat_1.64-1        spatstat.data_1.4-3   
+#  [37] survival_3.1-8         zoo_1.8-7              glue_1.4.2            
+#  [40] polyclip_1.10-0        gtable_0.3.0           zlibbioc_1.32.0       
+#  [43] XVector_0.26.0         MatrixModels_0.4-1     leiden_0.3.3          
+#  [46] future.apply_1.6.0     SparseM_1.78           abind_1.4-5           
+#  [49] scales_1.1.0           DBI_1.1.0              miniUI_0.1.1.1        
+#  [52] Rcpp_1.0.7             progress_1.2.2         viridisLite_0.3.0     
+#  [55] xtable_1.8-4           reticulate_1.16        bit_1.1-15.2          
+#  [58] rsvd_1.0.2             truncnorm_1.0-8        htmlwidgets_1.5.1     
+#  [61] httr_1.4.2             RColorBrewer_1.1-2     ellipsis_0.3.2        
+#  [64] ica_1.0-2              farver_2.0.1           pkgconfig_2.0.3       
+#  [67] XML_3.99-0.3           uwot_0.1.10            deldir_0.1-29         
+#  [70] locfit_1.5-9.4         utf8_1.1.4             labeling_0.3          
+#  [73] tidyselect_1.1.1       rlang_0.4.11           reshape2_1.4.3        
+#  [76] later_1.0.0            AnnotationDbi_1.48.0   munsell_0.5.0         
+#  [79] tools_3.6.2            generics_0.0.2         RSQLite_2.2.0         
+#  [82] ggridges_0.5.2         evaluate_0.14          stringr_1.4.0         
+#  [85] fastmap_1.0.1          ragg_0.3.1             yaml_2.2.0            
+#  [88] goftest_1.2-2          mcmc_0.9-6             knitr_1.26            
+#  [91] bit64_0.9-7            fs_1.3.1               fitdistrplus_1.1-1    
+#  [94] purrr_0.3.4            RANN_2.6.1             pbapply_1.5-1         
+#  [97] future_1.18.0          nlme_3.1-142           quantreg_5.54         
+# [100] whisker_0.4            mime_0.8               compiler_3.6.2        
+# [103] rstudioapi_0.13        plotly_4.9.2           png_0.1-7             
+# [106] spatstat.utils_1.17-0  geneplotter_1.64.0     tibble_3.1.3          
+# [109] stringi_1.4.3          lattice_0.20-38        vctrs_0.3.8           
+# [112] pillar_1.6.2           lifecycle_1.0.0        lmtest_0.9-38         
+# [115] RcppAnnoy_0.0.18       data.table_1.12.8      bitops_1.0-6          
+# [118] irlba_2.3.3            httpuv_1.5.2           patchwork_1.0.1       
+# [121] R6_2.4.1               promises_1.1.0         KernSmooth_2.23-16    
+# [124] gridExtra_2.3          codetools_0.2-16       MASS_7.3-51.4         
+# [127] assertthat_0.2.1       rprojroot_1.3-2        withr_2.4.2           
+# [130] sctransform_0.3.2      GenomeInfoDbData_1.2.2 hms_1.1.0             
+# [133] mgcv_1.8-31            quadprog_1.5-8         grid_3.6.2            
+# [136] rpart_4.1-15           coda_0.19-3            tidyr_1.1.3           
+# [139] rmarkdown_2.3          ashr_2.2-51            Rtsne_0.15            
+# [142] git2r_0.26.1           mixsqp_0.3-46          shiny_1.4.0</code></pre>
 </div>
 
 

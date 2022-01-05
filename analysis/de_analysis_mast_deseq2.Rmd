@@ -1,16 +1,121 @@
 ---
-title: "Comparison of grade-of-membership DE analysis with MAST and DESeq2"
+title: "Comparison of fastTopics DE analysis with MAST and DESeq2"
 author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-This is a more systematic comparison of the fastTopics DE analysis
+This is a more systematic comparison of the new fastTopics DE analysis
 with MAST and DESeq2 based on an
-x[initial smaller simulation](de_analysis_detailed_look.html). The
+[initial smaller simulation](de_analysis_detailed_look.html). The
 results were generated using the `run_sims.R` script, and here we
-summarize the results.
+summarize the results of these simulations.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.show = "hold",fig.align = "center",dpi = 120)
+```
+
+Load the packages needed for this analysis, and some additional
+functions used to compile the results and generate the plots.
+
+```{r load-pkgs, message=FALSE}
+library(Matrix)
+library(Seurat)
+library(DESeq2)
+library(MAST)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/de_analysis_functions.R")
+```
+
+Load the results of the simulations.
+
+```{r load-sims}
+load("../output/sims/sims-k=2-alpha=0.01.RData")
+```
+
+These were the R packages used to run the simulations:
+
+```{r session-info}
+res$session.info
+```
+
+Since we are comparing with MAST and DESeq2, two methods that do not
+allow for partial membership to groups, we have simulated count data
+from a topic model in which the true topic proportions are all 0 or
+1, or mostly very close to 0 or 1.
+
+```{r check-topic-props}
+res["session.info"] <- NULL
+x <- combine_sim_res(res,function (x) apply(x$dat$L,1,max))
+mean(x > 0.99)
+```
+
+Before comparing the methods, first we assess accuracy of the Monte
+Carlo computations by comparing the estimates from two independent
+MCMC simulations. The estimates from the two independent simulations
+are largely consistent.
+
+```{r mcmc-scatterplots, fig.height=3, fig.width=6}
+pdat <- data.frame(lfc1 = combine_sim_res(res,function (x) x$de1$postmean[,2]),
+                   lfc2 = combine_sim_res(res,function (x) x$de2$postmean[,2]),
+                   z1   = combine_sim_res(res,function (x) x$de1$z[,2]),
+		   z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
+p1 <- ggplot(pdat,aes(x = lfc1,y = lfc2)) +
+  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  labs(x = "first posterior mean",y = "second posterior mean") +
+  theme_cowplot(font_size = 12)
+p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
+  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  labs(x = "first z-score estimate",y = "second z-score estimate") +
+  xlim(-45,42) + 
+  ylim(-45,42) + 
+  theme_cowplot(font_size = 12)
+plot_grid(p1,p2)
+```
+
+```{r mcmc-scatterplots-for-paper, echo=FALSE}
+ggsave("../plots/mcmc_scatterplots_sims_k=2_alpha=0.01.png",
+       plot_grid(p1,p2),height = 3,width = 6,dpi = 600)
+```
+
+Now we compare LFC estimates for the second topic:
+
+```{r lfc-scatterplots, fig.height=2.5, fig.width=7}
+j  <- paste0("g",1:10000)
+lfc.deseq <- combine_sim_res(res,function (x) x$deseq$log2FoldChange)
+lfc.fasttopics <- combine_sim_res(res,function (x) x$de1$postmean[,2])
+lfc.mast <- combine_sim_res(res,function(x)x$mast[j,"avg_log2FC"])
+z.deseq <- combine_sim_res(res,function (x) with(x$deseq,log2FoldChange/lfcSE))
+z.fasttopics <- combine_sim_res(res,function (x) x$de1$z[,2])
+pdat <- data.frame(lfc.deseq      = lfc.deseq,
+                   lfc.fasttopics = lfc.fasttopics,
+                   lfc.mast       = clamp(lfc.mast,-6,+6),
+                   z.deseq        = z.deseq,
+                   z.fasttopics   = z.fasttopics)
+p1 <- ggplot(pdat,aes(x = lfc.mast,y = lfc.fasttopics)) +
+  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  labs(x = "MAST",y = "fastTopics",title = "LFC estimates") +
+  theme_cowplot(font_size = 12)
+p2 <- ggplot(pdat,aes(x = lfc.deseq,y = lfc.fasttopics)) +
+  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  labs(x = "DESeq2",y = "fastTopics",title = "LFC estimates") +
+  theme_cowplot(font_size = 12)
+p3 <- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
+  geom_point(color = "mediumblue,shape = 4,size = 0.75) +
+  geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
+  labs(x = "DESeq2",y = "fastTopics",title = "z-scores") +
+  theme_cowplot(font_size = 12)
+plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
+```
+
+```{r lfc-scatterplots-for-paper, echo=FALSE}
+ggsave("../plots/mast_deseq2_sims_scatterplots.png",
+       plot_grid(p1,p2,p3,nrow = 1,ncol = 3),
+       height = 3,width = 9,dpi = 600)
 ```

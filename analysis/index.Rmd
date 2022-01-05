@@ -20,7 +20,7 @@ differential expression analysis, and compare with MAST and DESeq2.
 + For a more systematic evaluation in multiple simulated data sets,
   see these pages:
 
-  - [Comparison of new DE analysis methods with MAST and DESeq2)](de_analysis_mast_deseq2.html)
+  - [Comparison of new DE analysis methods with MAST and DESeq2](de_analysis_mast_deseq2.html)
 
   - *Add another link here*
 
