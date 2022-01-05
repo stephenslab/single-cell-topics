@@ -7,8 +7,8 @@ library(ggplot2)
 library(cowplot)
 source("../code/de_analysis_functions.R")
 
-# Load the results of the simulations when simulated topic proportions
-# are mostly 0 or 1.
+# Load the results of the simulations when the simulated topic
+# proportions are mostly 0 or 1.
 load("../output/sims/sims-k=2-alpha=0.01.RData")
 res["session.info"] <- NULL
 
@@ -25,12 +25,14 @@ pdat <- data.frame(lfc1 = combine_sim_res(res,function (x) x$de1$postmean[,2]),
 		   z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
 p1 <- ggplot(pdat,aes(x = lfc1,y = lfc2)) +
   geom_point(shape = 4,size = 0.75) +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
+  geom_abline(intercept = 0,slope = 1,color = "lightsalmon",
+              linetype = "dotted") +
   labs(x = "first posterior mean",y = "second posterior mean") +
   theme_cowplot(font_size = 12)
 p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
   geom_point(shape = 4,size = 0.75) +
-  geom_abline(intercept = 0,slope = 1,color = "magenta",linetype = "dashed") +
+  geom_abline(intercept = 0,slope = 1,color = "lightsalmon",
+              linetype = "dotted") +
   labs(x = "first z-score estimate",y = "second z-score estimate") +
   xlim(-45,42) + 
   ylim(-45,42) + 
