@@ -3,6 +3,11 @@
 clamp <- function (x, a, b)
   pmax(a,pmin(b,x))
 
+# This is used to combine results from multiple simulations generated
+# by the run_sims.R script.
+combine_sim_res <- function (res, f)
+  do.call("c",lapply(res,function (x) f(x)))
+
 # Simulate counts from a K=2 Poisson NMF model so that the count data
 # look roughly like UMI counts from a single-cell RNA sequencing
 # experiment. Input argument m is the number of genes to simulate;

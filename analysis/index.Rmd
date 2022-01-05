@@ -9,13 +9,22 @@ Evaluation of DE analysis using a topic model
 ---------------------------------------------
 
 In these pages, we assess the new topic-model-based methods for
-differential expression analysis, and compare with DESEq2.
+differential expression analysis, and compare with MAST and DESeq2.
 
 + [Evaluation of DE methods using simulated data](de_analysis_detailed_look.html)
 
 + [Evaluation of DE analysis with more than two topics](de_analysis_detailed_look_more.html)
 
 + [Illustration in PBMC data](de_analysis_purified_pbmc.html)
+
++ For a more systematic evaluation in multiple simulated data sets,
+  see these pages:
+
+  - [Comparison DE analysis methods (GoM DE, MAST, DESeq2)](de_analysis_mast_deseq2.html)
+
+  - *Add another link here*
+
+  - *Add yet another link here*
 
 Data preparation
 ----------------

@@ -1,0 +1,16 @@
+---
+title: "Comparison of grade-of-membership DE analysis with MAST and DESeq2"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+This is a more systematic comparison of the fastTopics DE analysis
+with MAST and DESeq2 based on an
+x[initial smaller simulation](de_analysis_detailed_look.html). The
+results were generated using the `run_sims.R` script, and here we
+summarize the results.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.show = "hold",fig.align = "center",dpi = 120)
+```
