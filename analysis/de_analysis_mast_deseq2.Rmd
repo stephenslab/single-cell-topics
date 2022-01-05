@@ -63,12 +63,12 @@ pdat <- data.frame(lfc1 = combine_sim_res(res,function (x) x$de1$postmean[,2]),
                    z1   = combine_sim_res(res,function (x) x$de1$z[,2]),
 		   z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
 p1 <- ggplot(pdat,aes(x = lfc1,y = lfc2)) +
-  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   labs(x = "first posterior mean",y = "second posterior mean") +
   theme_cowplot(font_size = 12)
 p2 <- ggplot(pdat,aes(x = z1,y = z2)) +
-  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   labs(x = "first z-score estimate",y = "second z-score estimate") +
   xlim(-45,42) + 
@@ -97,22 +97,25 @@ pdat <- data.frame(lfc.deseq      = lfc.deseq,
                    z.deseq        = z.deseq,
                    z.fasttopics   = z.fasttopics)
 p1 <- ggplot(pdat,aes(x = lfc.mast,y = lfc.fasttopics)) +
-  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   labs(x = "MAST",y = "fastTopics",title = "LFC estimates") +
   theme_cowplot(font_size = 12)
 p2 <- ggplot(pdat,aes(x = lfc.deseq,y = lfc.fasttopics)) +
-  geom_point(color = "mediumblue",shape = 4,size = 0.75) +
+  geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   labs(x = "DESeq2",y = "fastTopics",title = "LFC estimates") +
   theme_cowplot(font_size = 12)
 p3 <- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
-  geom_point(color = "mediumblue,shape = 4,size = 0.75) +
+  geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
   labs(x = "DESeq2",y = "fastTopics",title = "z-scores") +
   theme_cowplot(font_size = 12)
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 ```
+
+The fastTopics and DESeq2 estimates are very similar, whereas the MAST
+estimare are broadly correlated, but show a number of large differences.
 
 ```{r lfc-scatterplots-for-paper, echo=FALSE}
 ggsave("../plots/mast_deseq2_sims_scatterplots.png",
