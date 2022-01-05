@@ -76,10 +76,11 @@ Next we consider the K-L divergence measure used in Dey, Hsiao &
 Stephens (2017) to rank genes, and compare its ranking to a ranking
 based on *p*-values (without using adaptive shrinkage) or *s*-values
 (after applying adaptive shrinkage). Since the K-L divergence is not a
-signed ranking, we restrict this comparison only to LFCs estimated to
-be non-negative.
+signed ranking, we restrict this comparison only to genes that are
+estimated to have greater (or equal) expression in topic 2 compared to
+topic 1.
 
-```{r pval-histograms, fig.height=2.25, fig.width=7}
+```{r ranking-histograms, fig.height=2.25, fig.width=7}
 get_nonneg_lfcs <- function (F)
   which(F[,2] - F[,1] > -1e-8)
 nonzero_lfc <- combine_sim_res(res,
@@ -122,8 +123,31 @@ plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 
 *Add text here.*
 
-```{r pval-histograms-for-paper, echo=FALSE}
+```{r ranking-histograms-for-paper, echo=FALSE}
 ggsave("../plots/rankings_sims_k=2.eps",
        plot_grid(p1,p2,p3,nrow = 1,ncol = 3),height = 2.25,width = 7)
 ```
 
+Having compared the overall distributions, we now compare performance
+of the K-L divergence and fastTopics rankings (usinng *lfsr*) by
+plotting power vs. FDR. Again, we restrict this comparison only to
+genes that are estimated to have greater (or equal) expression in
+topic 2 compared to topic 1.
+
+```{r fdr-vs-power, fig.height=2.5, fig.width=4}
+v1 <- create_fdr_vs_power_curve(-pdat$lkl,nonzero_lfc,length.out = 200)
+v2 <- create_fdr_vs_power_curve(pdat$lfsr,nonzero_lfc,length.out = 200)
+dat  <- rbind(cbind(v1,method = "kl"),
+              cbind(v2,method = "fastTopics"))
+p <- ggplot(dat,aes(x = fdr,y = power,color = method)) +
+  geom_line(size = 0.65,orientation = "y")  +
+  scale_color_manual(values = c("royalblue","orange")) +
+  theme_cowplot()
+print(p)
+```
+
+*Add text here.*
+
+```{r fdr-vs-power-for-paper, echo=FALSE}
+ggsave("../plots/fdr_vs_power_sims_k=2.eps",p,height = 2.5,width = 4)
+```
