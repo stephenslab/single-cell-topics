@@ -61,7 +61,7 @@ are largely consistent.
 pdat <- data.frame(lfc1 = combine_sim_res(res,function (x) x$de1$postmean[,2]),
                    lfc2 = combine_sim_res(res,function (x) x$de2$postmean[,2]),
                    z1   = combine_sim_res(res,function (x) x$de1$z[,2]),
-		   z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
+                   z2   = combine_sim_res(res,function (x) x$de2$z[,2]))
 p1 <- ggplot(pdat,aes(x = lfc1,y = lfc2)) +
   geom_point(color = "dodgerblue",shape = 4,size = 0.75) +
   geom_abline(intercept = 0,slope = 1,linetype = "dotted") +
