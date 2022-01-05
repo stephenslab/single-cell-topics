@@ -1,0 +1,23 @@
+---
+title: "Evaluation of fastTopics DE analysis methods in simulations---case of more than 2 topics"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.show = "hold",fig.align = "center",dpi = 120)
+```
+
+Load the packages needed for this analysis, and some additional
+functions used to compile the results and generate the plots.
+
+```{r load-pkgs, message=FALSE, warning=FALSE}
+library(Matrix)
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+source("../code/de_analysis_functions.R")
+```
