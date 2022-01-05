@@ -170,7 +170,7 @@ Finally, we plot, for each method, FDR vs. power for identifying genes
 that are differentially expressed between among the two topics or
 groups.
 
-```{r plot-fdr-vs-power, fig.height=3, fig.width=4}
+```{r plot-fdr-vs-power, fig.height=2.75, fig.width=4}
 v1 <- create_fdr_vs_power_curve(pdat$deseq,nonzero_lfc,length.out = 200)
 v2 <- create_fdr_vs_power_curve(combine_sim_res(res,function(x)x$de1$lfsr[,2]),
                                 nonzero_lfc,length.out = 200)
@@ -185,8 +185,9 @@ p <- ggplot(dat,aes(x = fdr,y = power,color = method)) +
 print(p)
 ```
 
-At low false discovery rates, DESeq2 has a slight edge, but otherwise
-the performance of all three methods is very close.
+At low false discovery rates, DESeq2 has a slight advantage over the
+other methods, but overall the performance of all three methods is
+very close.
 
 ```{r fdr-vs-power-for-paper, echo=FALSE}
 ggsave("../plots/mast_deseq2_sims_fdr_vs_power.eps",p,height = 3,width = 4)
