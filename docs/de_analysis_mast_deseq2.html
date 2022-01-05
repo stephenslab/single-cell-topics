@@ -414,16 +414,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree85eeed0e3c1f7c7e42f7a5e28cbba86f56ab85f9targetblank85eeed0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/85eeed0e3c1f7c7e42f7a5e28cbba86f56ab85f9" target="_blank">85eeed0</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2a2d9b163fad86423b630733a1eaa2ca3dd250aftargetblank2a2d9b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/2a2d9b163fad86423b630733a1eaa2ca3dd250af" target="_blank">2a2d9b1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree85eeed0e3c1f7c7e42f7a5e28cbba86f56ab85f9targetblank85eeed0a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree2a2d9b163fad86423b630733a1eaa2ca3dd250aftargetblank2a2d9b1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/85eeed0e3c1f7c7e42f7a5e28cbba86f56ab85f9" target="_blank">85eeed0</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/2a2d9b163fad86423b630733a1eaa2ca3dd250af" target="_blank">2a2d9b1</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -447,10 +447,12 @@ Ignored files:
     Ignored:    output/sims/
 
 Untracked files:
-    Untracked:  .DS_Store
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
+
+Unstaged changes:
+    Modified:   analysis/de_analysis_mast_deseq2.R
 
 </code></pre>
 <p>
@@ -489,6 +491,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/2a2d9b163fad86423b630733a1eaa2ca3dd250af/analysis/de_analysis_mast_deseq2.Rmd" target="_blank">2a2d9b1</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_mast_deseq2.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/10fc0dc9e8913ea6f028fc8e0b6d0c86603be3ec/docs/de_analysis_mast_deseq2.html" target="_blank">10fc0dc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+<td>
+Added scatterplots to de_analysis_mast_deseq2 analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -603,9 +639,6 @@ workflowr::wflow_publish(“index.Rmd”)
 <pre class="r"><code>library(Matrix)
 library(Seurat)
 library(DESeq2)
-# Warning: package &#39;S4Vectors&#39; was built under R version 3.6.3
-# Warning: package &#39;GenomeInfoDb&#39; was built under R version 3.6.3
-# Warning: package &#39;DelayedArray&#39; was built under R version 3.6.3
 library(MAST)
 library(fastTopics)
 library(ggplot2)
@@ -745,11 +778,48 @@ p2 &lt;- ggplot(pdat,aes(x = z1,y = z2)) +
   theme_cowplot(font_size = 12)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/de_analysis_mast_deseq2.Rmd/mcmc-scatterplots-1.png" width="720" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-mcmc-scatterplots-1">
+Past versions of mcmc-scatterplots-1.png
+</button>
+</p>
+<div id="fig-mcmc-scatterplots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/10fc0dc9e8913ea6f028fc8e0b6d0c86603be3ec/docs/figure/de_analysis_mast_deseq2.Rmd/mcmc-scatterplots-1.png" target="_blank">10fc0dc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Now we compare LFC estimates for the second topic:</p>
 <pre class="r"><code>j  &lt;- paste0(&quot;g&quot;,1:10000)
 lfc.deseq &lt;- combine_sim_res(res,function (x) x$deseq$log2FoldChange)
 lfc.fasttopics &lt;- combine_sim_res(res,function (x) x$de1$postmean[,2])
-lfc.mast &lt;- combine_sim_res(res,function(x)x$mast[j,&quot;avg_log2FC&quot;])
+lfc.mast &lt;- combine_sim_res(res,function (x) x$mast[j,&quot;avg_log2FC&quot;])
 z.deseq &lt;- combine_sim_res(res,function (x) with(x$deseq,log2FoldChange/lfcSE))
 z.fasttopics &lt;- combine_sim_res(res,function (x) x$de1$z[,2])
 pdat &lt;- data.frame(lfc.deseq      = lfc.deseq,
@@ -774,7 +844,74 @@ p3 &lt;- ggplot(pdat,aes(x = z.deseq,y = z.fasttopics)) +
   theme_cowplot(font_size = 12)
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)</code></pre>
 <p><img src="figure/de_analysis_mast_deseq2.Rmd/lfc-scatterplots-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p>The fastTopics and DESeq2 estimates are very similar, whereas the MAST estimare are broadly correlated, but show a number of large differences.</p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-lfc-scatterplots-1">
+Past versions of lfc-scatterplots-1.png
+</button>
+</p>
+<div id="fig-lfc-scatterplots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/10fc0dc9e8913ea6f028fc8e0b6d0c86603be3ec/docs/figure/de_analysis_mast_deseq2.Rmd/lfc-scatterplots-1.png" target="_blank">10fc0dc</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-05
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The fastTopics and DESeq2 estimates are very similar across the board, whereas the MAST estimare are broadly correlated, but show a number of large differences.</p>
+<p>Compare the MAST, DESeq2 and fastTopics <em>p</em>-values (or <em>s</em>-values), separately for all true positives (dark blue) and true negatives (orange). Not surprisingly, the DESeq2 and fastTopics <em>s</em>-value distributions are also very similar.</p>
+<pre class="r"><code>deseq       &lt;- combine_sim_res(res,function (x) x$deseq$svalue)
+fasttopics  &lt;- combine_sim_res(res,function (x) x$de1$svalue[,2])
+mast        &lt;- combine_sim_res(res,function (x) x$mast[j,&quot;p_val&quot;])
+nonzero_lfc &lt;-
+  combine_sim_res(res,function (x) with(x$dat,abs(F[,1] - F[,2]) &gt; 1e-8))
+pdat &lt;- data.frame(deseq       = deseq,
+                   fasttopics  = fasttopics,
+                   mast        = mast,
+                   nonzero_lfc = factor(nonzero_lfc))
+p4 &lt;- ggplot(pdat,aes(x = mast,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;p-value&quot;,y = &quot;genes&quot;,title = &quot;MAST&quot;) +
+  theme_cowplot(font_size = 12)
+p5 &lt;- ggplot(pdat,aes(x = deseq,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;DESeq2&quot;) +
+  theme_cowplot(font_size = 12)
+p6 &lt;- ggplot(pdat,aes(x = fasttopics,color = nonzero_lfc,fill = nonzero_lfc)) +
+  geom_histogram(bins = 64,show.legend = FALSE) +
+  scale_color_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  scale_fill_manual(values = c(&quot;darkorange&quot;,&quot;darkblue&quot;)) +
+  labs(x = &quot;s-value&quot;,y = &quot;genes&quot;,title = &quot;fastTopics&quot;) +
+  theme_cowplot(font_size = 12)
+plot_grid(p4,p5,p6,nrow = 1,ncol = 3)</code></pre>
+<p><img src="figure/de_analysis_mast_deseq2.Rmd/pval-histograms-1.png" width="840" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
