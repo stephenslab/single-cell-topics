@@ -116,7 +116,9 @@ plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 
 The fastTopics and DESeq2 estimates are very similar across the board,
 whereas the MAST estimare are broadly correlated, but show a number of
-large differences.
+large differences. (Note that MAST occasionally produces extreme LFC
+estimates, so any estimates larger than 6 or less than -6 were shown
+as 6 or -6.)
 
 ```{r lfc-scatterplots-for-paper, echo=FALSE}
 ggsave("../plots/mast_deseq2_sims_scatterplots.png",
