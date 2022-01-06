@@ -134,12 +134,14 @@ topic 1.
 
 ```{r fdr-vs-power, fig.height=2.5, fig.width=4}
 v1  <- create_fdr_vs_power_curve(-pdat$lkl,nonzero_lfc,length.out = 200)
-v2  <- create_fdr_vs_power_curve(pdat$lfsr,nonzero_lfc,length.out = 200)
+v2  <- create_fdr_vs_power_curve(pdat$noshrink,nonzero_lfc,length.out = 200)
+v3  <- create_fdr_vs_power_curve(pdat$lfsr,nonzero_lfc,length.out = 200)
 dat <- rbind(cbind(v1,method = "kl"),
-             cbind(v2,method = "fastTopics"))
+             cbind(v2,method = "noshrink"),
+             cbind(v3,method = "shrink"))
 p <- ggplot(dat,aes(x = fdr,y = power,color = method)) +
   geom_line(size = 0.65,orientation = "y")  +
-  scale_color_manual(values = c("royalblue","orange")) +
+  scale_color_manual(values = c("royalblue","limegreen","orange")) +
   theme_cowplot()
 print(p)
 ```
