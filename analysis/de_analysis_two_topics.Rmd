@@ -121,8 +121,6 @@ p3 <- ggplot(pdat,aes(x = shrink,color = nonzero_lfc,fill = nonzero_lfc)) +
 plot_grid(p1,p2,p3,nrow = 1,ncol = 3)
 ```
 
-*Add text here.*
-
 ```{r ranking-histograms-for-paper, echo=FALSE}
 ggsave("../plots/rankings_sims_k=2.eps",
        plot_grid(p1,p2,p3,nrow = 1,ncol = 3),height = 2.25,width = 7)
@@ -145,8 +143,6 @@ p <- ggplot(dat,aes(x = fdr,y = power,color = method)) +
   theme_cowplot()
 print(p)
 ```
-
-*Add text here.*
 
 ```{r fdr-vs-power-for-paper, echo=FALSE}
 ggsave("../plots/fdr_vs_power_sims_k=2.eps",p,height = 2.5,width = 4)
