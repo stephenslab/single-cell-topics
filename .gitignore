@@ -33,4 +33,5 @@ output/droplet/diff-count-droplet.RData
 output/pulseseq/diff-count-pulseseq.RData
 output/pbmc-purified/diff-count-pbmc-purified.RData
 output/sims/sims-k=2.RData
+output/sims/sims-k=6.RData
 output/sims/sims-k=2-alpha=0.01.RData
