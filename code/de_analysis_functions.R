@@ -24,7 +24,7 @@ simulate_twotopic_umi_data <- function (m = 10000, s = 10^rnorm(200,0,0.2),
   L <- fastTopics:::generate_mixture_proportions(n,2,alpha)
 
   # Generate the expression rates. The process for generating the
-  # expression rates F[i,j] is as follows: with probability 0.5, the
+  # expression rates F[i,j] is as follows: with probability p, the
   # rates F[i,1] and F[i,2] are the same, F[i,1] = F[i,2] = 2^y;
   # otherwise, the rates are different, with (multiplicative, base-2)
   # difference e. Here, y is normal with mean -4 and s.d., and e is

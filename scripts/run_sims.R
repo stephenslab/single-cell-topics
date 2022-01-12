@@ -26,14 +26,14 @@ source("../code/de_analysis_functions.R")
 # These variables control the simulations: ns is the number of
 # simulations to run; k is the number of topics to simulate; m is the
 # number of genes to simulate; num.mc, the length of the Markov chain
-# simulated for the DEanalysis; "alpha" is passed to rdirichlet to
+# simulated for the DE analysis; "alpha" is passed to rdirichlet to
 # simulate the topic proportions; "outfile" is the file where the
 # results of the simulations are stored.
 ns      <- 20
 k       <- 2 # 6
 m       <- 1e4
 num.mc  <- 1e4
-alpha <- rep(1,k)
+alpha   <- rep(1,k)
 # alpha   <- rep(0.01,k)
 outfile <- "sims-k=2.RData"
 # outfile <- "sims-k=6.RData"
