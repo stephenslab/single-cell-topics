@@ -54,9 +54,9 @@ names(res) <- paste0("sim",1:ns)
 for (i in 1:ns) {
   cat(sprintf("SIMULATION %d\n",i))
 
-  # Simulate counts from a rank-2 Poisson NMF model with parameters
-  # chosen to roughly mimic the UMI counts from a single-cell RNA
-  # sequencing experiment.
+  # Simulate counts from a Poisson NMF model with parameters chosen to
+  # roughly mimic the UMI counts from a single-cell RNA sequencing
+  # experiment.
   cat("Generating data set.\n")
   set.seed(i)
   if (k == 2)
