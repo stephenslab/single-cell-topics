@@ -8,8 +8,8 @@ clamp <- function (x, a, b)
 combine_sim_res <- function (res, f)
   do.call("c",lapply(res,function (x) f(x)))
 
-# Simulate counts from a K=2 Poisson NMF model so that the count data
-# look roughly like UMI counts from a single-cell RNA sequencing
+# Simulate counts from a rank-2 Poisson NMF model so that the count
+# data look roughly like UMI counts from a single-cell RNA sequencing
 # experiment. Input argument m is the number of genes to simulate;
 # input s is the vector of scaling factors (one scaling factor for
 # each cell); and p is the probability of a expression rates being
