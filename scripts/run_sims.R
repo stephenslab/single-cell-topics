@@ -81,7 +81,6 @@ for (i in 1:ns) {
   de0 <- de_analysis(fit,X,shrink.method = "none",verbose = FALSE,
                      control = list(ns = num.mc,nc = 8,nsplit = 400))
 
-
   # Perform a second DE analysis using adaptive shrinkage to shrink
   # (and hopefully improve accuracy of) the LFC estimates.
   cat("Performing first DE analysis with shrinkage.\n")
