@@ -24,7 +24,7 @@ load("../data/gene_sets_human.RData")
 gene_sets <- gene_sets_human$gene_sets
 
 # *** TESTING ***
-i         <- sample(ncol(gene_sets),20)
+i         <- sample(ncol(gene_sets),1000)
 gene_sets <- as.matrix(gene_sets[,i])
 
 # Load the results of the DE analysis, and create the summary data
@@ -33,8 +33,10 @@ gene_sets <- as.matrix(gene_sets[,i])
 load("../output/pbmc-purified/de-pbmc-purified-seed=1.RData")
 zscores <- de$z[,k]
 sdat    <- with(de,data.frame(log2FoldChange = postmean[,k],
-                                   lfcSE2         = (postmean[,k]/z[,k])^2))
-sdat <- subset(sdat,!is.na(lfcSE2))
+                              lfcSE2         = (postmean[,k]/z[,k])^2))
+i       <- which(!(is.na(zscores) | is.na(sdat$lfcSE2)))
+zscores <- zscores[i]
+sdat    <- sdat[i,]
 
 # Align the gene-set data with the gene-wise statistics.
 ids <- intersect(rownames(gene_sets),rownames(sdat))
@@ -55,27 +57,35 @@ gene_sets <- gene_sets[,i]
 gene_sets <- matrix2list(gene_sets)
 
 # Perform a gene set enrichment analysis using fgsea.
+t0 <- proc.time()
 out <- fgsea(lapply(gene_sets,function (x) names(x)),zscores,
-             eps = 1e-32,nproc = 2)
+             eps = 1e-32,nproc = 20)
 class(out)    <- "data.frame"
 rownames(out) <- names(gene_sets)
 out <- out[c("pval","padj","log2err","ES","NES","size")]
 out <- out[names(gene_sets),]
 out[is.na(out$log2err),] <- NA
 out.fgsea <- out
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Perform a gene set enrichment analysis using iDEA.
+t0 <- proc.time()
 idea <- new(Class      = "iDEA",
             gene_id    = rownames(sdat),
             annot_id   = names(gene_sets),
             summary    = sdat,
             annotation = gene_sets,
             num_gene   = nrow(sdat),
-            num_core   = 2,
+            num_core   = 20,
             project    = "idea")
 idea <- iDEA.fit(idea,min_degene = 4,em_iter = 20,mcmc_iter = 1000, 
 	         fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
 idea <- iDEA.louis(idea)
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
 save(list = c("out.fgsea","idea"),file = outfile)
