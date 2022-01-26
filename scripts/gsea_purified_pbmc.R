@@ -1,9 +1,9 @@
-# TO DO: Explain here what this script does, and how to use it.
-#
-# These were the steps taken to load R and allocate computing
+# A short script used to perform the gene set enrichment analysis
+# using the DE analysis results on the purified PBMC data, with k = 6
+# topics. These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p broadwl -c 20 --mem=16G --time=10:00:00
+#   sinteractive -p broadwl -c 20 --mem=16G --time=60:00:00
 #   module load R/4.1.0
 #
 library(Matrix)
@@ -22,10 +22,6 @@ set.seed(1)
 # Load the gene sets.
 load("../data/gene_sets_human.RData")
 gene_sets <- gene_sets_human$gene_sets
-
-# *** TESTING ***
-i         <- sample(ncol(gene_sets),1000)
-gene_sets <- as.matrix(gene_sets[,i])
 
 # Load the results of the DE analysis, and create the summary data
 # object, a data frame with two rows: (1) the LFC estimates, and (2)
@@ -88,5 +84,6 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
-save(list = c("out.fgsea","idea"),file = outfile)
+idea_gsea <- idea@gsea
+save(list = c("out.fgsea","idea_gsea"),file = outfile)
 resaveRdaFiles(outfile)

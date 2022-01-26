@@ -2,7 +2,7 @@
 # analysis using the multinomial topic model fitted to the mixture of
 # purified PBMC data, with k = 6 topics. Computing the log-fold change
 # posterior estimates by simulating a Markov chain with 100,000 states
-# takes about 56. These were the steps taken to load R and allocate
+# takes about 56 h. These were the steps taken to load R and allocate
 # computing resources for this analysis:
 #
 #   sinteractive -p broadwl -c 20 --mem=16G --time=60:00:00
