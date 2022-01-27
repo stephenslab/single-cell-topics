@@ -3,7 +3,7 @@
 # topics. These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p broadwl -c 20 --mem=16G --time=60:00:00
+#   sinteractive -p broadwl -c 20 --mem=24G --time=60:00:00
 #   module load R/4.1.0
 #
 library(Matrix)
