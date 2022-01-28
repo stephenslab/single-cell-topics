@@ -71,7 +71,7 @@ table(celltype)
 Structure plot
 --------------
 
-Next we visualize the structure inferred by the $K = $ topic model
+Next we visualize the structure inferred by the $K = 6$ topic model
 using a "structure plot". The cells in this plot are arranged
 horizontally according to their predefined cell type to relate the
 topics to these predefinend cell types:
@@ -93,7 +93,7 @@ print(p1)
 ```
 
 Some of the topics correspond very closely to the predefined cell
-types.  In particular, topics 1 through 4 closely correspond,
+types. In particular, topics 1 through 4 closely correspond,
 respectively, to T cells, CD14+ monocytes (myeloid cells), B cells and
 natural killer (NK) cells.
 
