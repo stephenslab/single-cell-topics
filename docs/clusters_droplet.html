@@ -14,17 +14,26 @@
 
 <title>Identify clusters in droplet data using topic model</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/readable.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 
-<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/master/img/reproducible.png">
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
 <style type="text/css">
 div.section {
@@ -32,12 +41,16 @@ div.section {
 }
 </style>
 
-<style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
 <script type="text/javascript">
 if (window.hljs) {
   hljs.configure({languages: []});
@@ -50,32 +63,7 @@ if (window.hljs) {
 
 
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+
 
 
 
@@ -85,10 +73,6 @@ h6 {
   max-width: 940px;
   margin-left: auto;
   margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
 }
 img {
   max-width:100%;
@@ -105,40 +89,13 @@ button.code-folding-btn:focus {
 summary {
   display: list-item;
 }
+pre code {
+  padding: 0;
+}
 </style>
 
 
 <style type="text/css">
-/* padding for bootstrap navbar */
-body {
-  padding-top: 51px;
-  padding-bottom: 40px;
-}
-/* offset scroll position for anchor links (for fixed navbar)  */
-.section h1 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h2 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h3 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h4 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h5 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
-.section h6 {
-  padding-top: 56px;
-  margin-top: -56px;
-}
 .dropdown-submenu {
   position: relative;
 }
@@ -166,7 +123,7 @@ body {
   margin-right: -10px;
 }
 .dropdown-submenu:hover>a:after {
-  border-left-color: #ffffff;
+  border-left-color: #adb5bd;
 }
 .dropdown-submenu.pull-left {
   float: none;
@@ -178,7 +135,7 @@ body {
 }
 </style>
 
-<script>
+<script type="text/javascript">
 // manage active state of menu based on current page
 $(document).ready(function () {
   // active menu anchor
@@ -189,10 +146,23 @@ $(document).ready(function () {
   var menuAnchor = $('a[href="' + href + '"]');
 
   // mark it active
-  menuAnchor.parent().addClass('active');
+  menuAnchor.tab('show');
 
   // if it's got a parent navbar menu mark it active as well
   menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
 });
 </script>
 
@@ -204,7 +174,6 @@ $(document).ready(function () {
   max-height: 500px;
   min-height: 44px;
   overflow-y: auto;
-  background: white;
   border: 1px solid #ddd;
   border-radius: 4px;
 }
@@ -293,7 +262,7 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div class="fluid-row" id="header">
+<div id="header">
 
 
 
@@ -323,7 +292,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-10-18
+<strong>Last updated:</strong> 2022-01-28
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -332,8 +301,8 @@ $(document).ready(function () {
 <strong>Knit directory:</strong> <code>single-cell-topics/analysis/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
-This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
-  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.6.2.9000). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version 1.7.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
 </p>
 <hr>
 </div>
@@ -414,16 +383,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee672ef7e7809a8b9f50bf85b1dce365e1b79b664targetblanke672ef7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e672ef7e7809a8b9f50bf85b1dce365e1b79b664" target="_blank">e672ef7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef38e9f770cfb25d9a61570cf5a22422f4a4563a5targetblankf38e9f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f38e9f770cfb25d9a61570cf5a22422f4a4563a5" target="_blank">f38e9f7</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee672ef7e7809a8b9f50bf85b1dce365e1b79b664targetblanke672ef7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef38e9f770cfb25d9a61570cf5a22422f4a4563a5targetblankf38e9f7a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e672ef7e7809a8b9f50bf85b1dce365e1b79b664" target="_blank">e672ef7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f38e9f770cfb25d9a61570cf5a22422f4a4563a5" target="_blank">f38e9f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -437,16 +406,21 @@ Ignored files:
     Ignored:    output/droplet/diff-count-droplet.RData
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
-    Ignored:    output/pbmc-68k/fits-pbmc-68k.RData
-    Ignored:    output/pbmc-68k/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
     Ignored:    output/pulseseq/diff-count-pulseseq.RData
     Ignored:    output/pulseseq/fits-pulseseq.RData
     Ignored:    output/pulseseq/rds/
+    Ignored:    output/sims/
 
 Untracked files:
-    Untracked:  analysis/temp.RData
+    Untracked:  analysis/clustering-droplet.rds
+    Untracked:  analysis/de_analysis_detailed_look_cache/
+    Untracked:  analysis/de_analysis_detailed_look_more_cache/
+    Untracked:  plots/
+
+Unstaged changes:
+    Modified:   code/plots.R
 
 </code></pre>
 <p>
@@ -485,6 +459,74 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/f38e9f770cfb25d9a61570cf5a22422f4a4563a5/analysis/clusters_droplet.Rmd" target="_blank">f38e9f7</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-28
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/015e254e35de4ad463e1da7116a6eb3b06becd98/analysis/clusters_droplet.Rmd" target="_blank">015e254</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-11-22
+</td>
+<td>
+Fixed up some of the text and plots in clusters_purified_pbmc analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5d7ff64db92778ff2dbda6b94e9d56b9f7096c13/analysis/clusters_droplet.Rmd" target="_blank">5d7ff64</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-18
+</td>
+<td>
+Added analysis of single-cell likelihoods to clusters_pulseseq.Rmd.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/8e6c3843ab553f5c8acc7ef1b1007f7faa9ea86a/docs/clusters_droplet.html" target="_blank">8e6c384</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-18
+</td>
+<td>
+Added text describing likelihood scatterplots in clusters_droplet
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1384,129 +1426,13 @@ library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source(&quot;../code/plots.R&quot;)</code></pre>
-<div id="load-data-and-results" class="section level2">
-<h2>Load data and results</h2>
-<p>Load the droplet data.</p>
+<p>Load the count data.</p>
 <pre class="r"><code>load(&quot;../data/droplet.RData&quot;)</code></pre>
-<p>Load the <span class="math inline">\(k = 7\)</span> Poisson NMF model fit.</p>
-<pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit</code></pre>
-</div>
-<div id="identify-clusters-from-principal-components" class="section level2">
-<h2>Identify clusters from principal components</h2>
-<p>To identify clusters, we begin by plotting PCs computed from the topic proportions. (Note that only 6 PCs are needed for 7 topics.)</p>
-<pre class="r"><code>p1 &lt;- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = &quot;none&quot;)
-p2 &lt;- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = &quot;none&quot;)
-p3 &lt;- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = &quot;none&quot;)
-plot_grid(p1,p2,p3,nrow = 1,ncol = 3)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-1-1">
-Past versions of clustering-1-1.png
-</button>
-</p>
-<div id="fig-clustering-1-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-1-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b1cb82e4b0ce2e1db51ebb5f3a34a91178fe9dc3/docs/figure/clusters_droplet.Rmd/clustering-1-1.png" target="_blank">b1cb82e</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Some of the structure is more evident from “hexbin” plots showing the density of the points.</p>
-<pre class="r"><code>breaks &lt;- c(0,1,5,10,100,Inf)
-p4 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 1:2,breaks = breaks)
-p5 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 3:4,breaks = breaks)
-p6 &lt;- pca_hexbin_plot(poisson2multinom(fit),pcs = 5:6,breaks = breaks)
-p4 &lt;- p4 + guides(fill = &quot;none&quot;)
-p5 &lt;- p5 + guides(fill = &quot;none&quot;)
-p6 &lt;- p6 + guides(fill = &quot;none&quot;)
-plot_grid(p4,p5,p6,nrow = 1,ncol = 3)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-2-1">
-Past versions of clustering-2-1.png
-</button>
-</p>
-<div id="fig-clustering-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-2-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b1cb82e4b0ce2e1db51ebb5f3a34a91178fe9dc3/docs/figure/clusters_droplet.Rmd/clustering-2-1.png" target="_blank">b1cb82e</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>From these PCA plots, we define 4 clusters, labeled A, Cil, G and T+N. (The reasoning behind these labels will become clear later.) Points that do not fit in any of these clusters are assigned to a “background cluster”, labeled U.</p>
-<pre class="r"><code>pca &lt;- prcomp(poisson2multinom(fit)$L)$x
+<p>Load the <span class="math inline">\(K = 7\)</span> Poisson NMF model fit.</p>
+<pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
+fit &lt;- poisson2multinom(fit)</code></pre>
+<p>From the PCs of the topic proportions, we define 4 clusters, labeled A, Cil, G and T+N. (The reasoning behind these labels will become clear later.) Points that do not fit in any of these clusters are assigned to a “background cluster”, labeled U.</p>
+<pre class="r"><code>pca &lt;- prcomp(fit$L)$x
 x   &lt;- rep(&quot;U&quot;,nrow(pca))
 pc1 &lt;- pca[,1]
 pc2 &lt;- pca[,2]
@@ -1515,87 +1441,56 @@ x[pc2 &gt; -0.15] &lt;- &quot;A&quot;
 x[pc1 &gt; 0.3 &amp; pc2 &lt; -0.75] &lt;- &quot;Cil&quot;
 x[pc1 &lt;= 0.3 &amp; pc2 &gt;= -0.75 &amp; pc2 &lt; -0.4] &lt;- &quot;T+N&quot;
 x[pc6 &lt; -0.05] &lt;- &quot;G&quot;</code></pre>
-<p>There is additional substructure in cluster A, which is more apparent in the projection onto the top 2 PCs computed from cluster A only.</p>
+<p>Within the “A” cluster, we label the three more-or-less distinct subclusters as B, C and H, and assign the remaining “in between” data points to cluster “B+C+H”.</p>
 <pre class="r"><code>rows &lt;- which(x == &quot;A&quot;)
-fit2 &lt;- select(poisson2multinom(fit),loadings = rows)
-p7   &lt;- pca_plot(fit2,fill = &quot;none&quot;)
-p8   &lt;- pca_hexbin_plot(fit2,breaks = breaks) + guides(fill = &quot;none&quot;)
-plot_grid(p7,p8)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-4-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-4-1">
-Past versions of clustering-4-1.png
-</button>
-</p>
-<div id="fig-clustering-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5361fdfce874122596ccf2e97e7c00b8379f3e0b/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">5361fdf</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/311b4e8f0de36c046e249e00f893c8a2b7721f81/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">311b4e8</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b1cb82e4b0ce2e1db51ebb5f3a34a91178fe9dc3/docs/figure/clusters_droplet.Rmd/clustering-4-1.png" target="_blank">b1cb82e</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The variation in PCs 1 and 2 is mostly produced by topics 2, 4 and 5.</p>
-<pre class="r"><code>p9 &lt;- pca_plot(fit2,k = c(2,4,5))
-print(p9)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-5-1.png" width="660" style="display: block; margin: auto;" /></p>
+fit2 &lt;- select(fit,loadings = rows)
+pca  &lt;- prcomp(fit2$L)$x
+pc1  &lt;- pca[,1]
+pc2   &lt;- pca[,2]
+y    &lt;- rep(&quot;B+C+H&quot;,nrow(pca))
+y[pc1 &lt; 0.1] &lt;- &quot;B&quot;
+y[pc1 &gt; 0.4 &amp; pc2 &lt; 0.45] &lt;- &quot;C&quot;
+y[pc2 &gt; 0.55] &lt;- &quot;H&quot;
+x[rows] &lt;- y</code></pre>
+<p>In summary, we have subdivided the droplet data into 8 subsets:</p>
+<pre class="r"><code>samples$cluster &lt;- factor(x,c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C+H&quot;,&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;))
+table(samples$cluster)
+# 
+#     B     C     H B+C+H   Cil   T+N     G     U 
+#  3841  1936   197   570   372   168    47    62</code></pre>
+<p>There is a close correspondence, with some exceptions, between these clusters based on the topic proportions and the Montoro <em>et al</em> (2018) clustering:</p>
+<pre class="r"><code>with(samples,table(tissue,cluster))
+#                 cluster
+# tissue              B    C    H B+C+H  Cil  T+N    G    U
+#   Basal          3682   16    5   142    0    0    0    0
+#   Ciliated          1   13    0     4  371    5    0   31
+#   Club             93 1878  192   411    0    0    2    2
+#   Goblet            2   20    0     1    0    0   42    0
+#   Ionocyte          9    0    0     1    0    1    1   14
+#   Neuroendocrine   27    4    0     6    0   51    0    8
+#   Tuft             27    5    0     5    1  111    2    7</code></pre>
+<p>This correspondence can also be seen from these PCA plots:</p>
+<pre class="r"><code>abundant      &lt;- c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C+H&quot;)
+rare          &lt;- c(&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;)
+tissue_colors &lt;- c(&quot;royalblue&quot;,   # basal
+                   &quot;firebrick&quot;,   # ciliated
+                    &quot;forestgreen&quot;, # club
+                    &quot;gold&quot;,        # goblet
+                    &quot;darkmagenta&quot;, # ionocyte
+                    &quot;darkorange&quot;,  # neuroendocrine
+                    &quot;skyblue&quot;)     # tuft
+rows1 &lt;- which(is.element(samples$cluster,abundant))
+rows2 &lt;- which(is.element(samples$cluster,rare))
+fit1  &lt;- select(fit,loadings = rows1)
+fit2  &lt;- select(fit,loadings = rows2)
+p1 &lt;- pca_plot(fit1,fill = samples[rows1,&quot;tissue&quot;]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+p2 &lt;- pca_plot(fit2,fill = samples[rows2,&quot;tissue&quot;]) +
+        scale_fill_manual(values = tissue_colors,drop = FALSE) +
+        labs(fill = &quot;cluster&quot;)
+plot_grid(p1,p2)</code></pre>
+<p><img src="figure/clusters_droplet.Rmd/clustering-5-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-5-1">
 Past versions of clustering-5-1.png
@@ -1666,487 +1561,25 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Topic 4 in particular corresponds closely to expression of <em>Krt13</em> which was identified as being uniquely expressed by transitional “hillock” cells.</p>
-<pre class="r"><code>p10 &lt;- pca_plot(fit2,fill = log10(counts[rows,&quot;Krt13&quot;])) +
-       labs(fill = &quot;log10(count)&quot;,title = &quot;Krt13&quot;)
-print(p10)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-6-1.png" width="390" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-6-1">
-Past versions of clustering-6-1.png
-</button>
-</p>
-<div id="fig-clustering-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/ab1ed99109322c2f5ad7df5d0041ce367a9fcfb7/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">ab1ed99</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-27
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/bf299b96b71c97ebe700d19ad9de13f44ad23f41/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">bf299b9</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-27
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/0a8b5712281df02f14f686e1b9556794094d97f7/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">0a8b571</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">db6135c</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-21
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/417202458ee4055297b95a2ea3994a867c13866f/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">4172024</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-20
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5361fdfce874122596ccf2e97e7c00b8379f3e0b/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">5361fdf</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/311b4e8f0de36c046e249e00f893c8a2b7721f81/docs/figure/clusters_droplet.Rmd/clustering-6-1.png" target="_blank">311b4e8</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-19
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>We label the three more-or-less distinct subclusters as B, C and H, and assign the remaining “in between” data points to a new “background cluster”, B+C.</p>
-<pre class="r"><code>pca &lt;- prcomp(fit2$L)$x
-pc1 &lt;- pca[,1]
-pc2 &lt;- pca[,2]
-y   &lt;- rep(&quot;B+C&quot;,nrow(pca))
-y[pc1 &lt; 0.1] &lt;- &quot;B&quot;
-y[pc1 &gt; 0.4 &amp; pc2 &lt; 0.45] &lt;- &quot;C&quot;
-y[pc2 &gt; 0.55] &lt;- &quot;H&quot;
-x[rows] &lt;- y</code></pre>
-<p>In summary, we have subdivided the droplet data into 8 subsets. The substructure is more clear when we plot PCs separately for the abundant and rare cell-types.</p>
-<pre class="r"><code>samples$cluster &lt;- factor(x,c(&quot;B&quot;,&quot;C&quot;,&quot;B+C&quot;,&quot;H&quot;,&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;))
-abundant        &lt;- c(&quot;B&quot;,&quot;C&quot;,&quot;B+C&quot;,&quot;H&quot;)
-rare            &lt;- c(&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;)
-cluster_colors &lt;- c(&quot;royalblue&quot;,   # B
-                    &quot;forestgreen&quot;, # C
-                    &quot;slategray&quot;,   # B+C
-                    &quot;turquoise&quot;,   # H
-                    &quot;firebrick&quot;,   # Cil
-                    &quot;darkorange&quot;,  # T+N
-                    &quot;gold&quot;,        # G
-                    &quot;gainsboro&quot;)   # U
-rows1 &lt;- which(is.element(samples$cluster,abundant))
-rows2 &lt;- which(is.element(samples$cluster,rare))
-fit1  &lt;- select(poisson2multinom(fit),loadings = rows1)
-fit2  &lt;- select(poisson2multinom(fit),loadings = rows2)
-p11a &lt;- pca_plot(fit1,fill = samples[rows1,&quot;cluster&quot;]) +
-        scale_fill_manual(values = cluster_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
-p11b &lt;- pca_plot(fit2,fill = samples[rows2,&quot;cluster&quot;]) +
-        scale_fill_manual(values = cluster_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
-plot_grid(p11a,p11b,nrow = 1,ncol = 2)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-8-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-8-1">
-Past versions of clustering-8-1.png
-</button>
-</p>
-<div id="fig-clustering-8-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">c679d14</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/4fe31a61b346b7fc77438bc5b1c5828eb11d7266/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">4fe31a6</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-22
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/clustering-8-1.png" target="_blank">db6135c</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-09-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The clusters identified here correspond well to the Montoro <em>et al</em> (2018) clustering, with some exceptions (e.g., we do not identify an ionocytes cluster, and the neuroendocrine and tuft cells are included in the same cluster).</p>
-<pre class="r"><code>with(samples,table(tissue,cluster))
-#                 cluster
-# tissue              B    C  B+C    H  Cil  T+N    G    U
-#   Basal          3682   16  142    5    0    0    0    0
-#   Ciliated          1   13    4    0  371    5    0   31
-#   Club             93 1878  411  192    0    0    2    2
-#   Goblet            2   20    1    0    0    0   42    0
-#   Ionocyte          9    0    1    0    0    1    1   14
-#   Neuroendocrine   27    4    6    0    0   51    0    8
-#   Tuft             27    5    5    0    1  111    2    7</code></pre>
-<p>This close correspondence is also clear from the PCA plots:</p>
-<pre class="r"><code>tissue_colors &lt;- c(&quot;royalblue&quot;,   # basal
-                   &quot;firebrick&quot;,   # ciliated
-                   &quot;forestgreen&quot;, # club
-                   &quot;gold&quot;,        # goblet
-                   &quot;darkmagenta&quot;, # ionocyte
-                   &quot;darkorange&quot;,  # neuroendocrine
-                   &quot;skyblue&quot;)     # tuft
-p12a &lt;- pca_plot(fit1,fill = samples[rows1,&quot;tissue&quot;]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
-p12b &lt;- pca_plot(fit2,fill = samples[rows2,&quot;tissue&quot;]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
-plot_grid(p12a,p12b,nrow = 1,ncol = 2)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-10-1.png" width="900" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-10-1">
-Past versions of clustering-10-1.png
-</button>
-</p>
-<div id="fig-clustering-10-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/4cb48bacfc61b8a55ec3def34cb2d6a32846361d/docs/figure/clusters_droplet.Rmd/clustering-10-1.png" target="_blank">4cb48ba</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-10-1.png" target="_blank">c679d14</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>By computing inter-cluster and inter-topic <em>total variation distances</em> in relative expression levels, we see that the clusters identified above show greater differentiation in gene expression, and the topics show more differentiation than the clusters.</p>
-<pre class="r"><code>fit_montoro &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
-fit_cluster &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
-fit_merge   &lt;- merge_topics(poisson2multinom(fit),c(&quot;k5&quot;,&quot;k7&quot;))
-d_montoro   &lt;- totalvardist(poisson2multinom(fit_montoro)$F)
-d_cluster   &lt;- totalvardist(poisson2multinom(fit_cluster)$F[,-c(3,8)])
-d_topics    &lt;- totalvardist(fit_merge$F[,-3])
-cat(&quot;Montoro et al (2018) clustering:\n&quot;)
-print(d_montoro,digits = 3)
-cat(&quot;Our clustering:\n&quot;)
-print(d_cluster,digits = 3)
-cat(&quot;Topics:\n&quot;)
-print(d_topics,digits = 3)
-# Montoro et al (2018) clustering:
-#                Basal Ciliated  Club Goblet Ionocyte Neuroendocrine  Tuft
-# Basal          0.000    0.362 0.446  0.579    0.262          0.236 0.272
-# Ciliated       0.362    0.000 0.487  0.587    0.362          0.340 0.351
-# Club           0.446    0.487 0.000  0.445    0.497          0.425 0.472
-# Goblet         0.579    0.587 0.445  0.000    0.589          0.515 0.553
-# Ionocyte       0.262    0.362 0.497  0.589    0.000          0.275 0.294
-# Neuroendocrine 0.236    0.340 0.425  0.515    0.275          0.000 0.214
-# Tuft           0.272    0.351 0.472  0.553    0.294          0.214 0.000
-# Our clustering:
-#         B     C     H   Cil   T+N     G
-# B   0.000 0.511 0.347 0.390 0.351 0.626
-# C   0.511 0.000 0.523 0.579 0.632 0.574
-# H   0.347 0.523 0.000 0.422 0.436 0.659
-# Cil 0.390 0.579 0.422 0.000 0.391 0.658
-# T+N 0.351 0.632 0.436 0.391 0.000 0.681
-# G   0.626 0.574 0.659 0.658 0.681 0.000
-# Topics:
-#          k1    k2    k4    k6 k5+k7
-# k1    0.000 0.821 0.826 0.810 0.797
-# k2    0.821 0.000 0.381 0.409 0.695
-# k4    0.826 0.381 0.000 0.427 0.681
-# k6    0.810 0.409 0.427 0.000 0.705
-# k5+k7 0.797 0.695 0.681 0.705 0.000</code></pre>
-<p>Here is a plot summarizing these differences:</p>
-<pre class="r"><code>pdat &lt;-
-  rbind(data.frame(method=&quot;montoro.et.al&quot;,d=d_montoro[upper.tri(d_montoro)]),
-        data.frame(method=&quot;clusters&quot;,     d=d_cluster[upper.tri(d_cluster)]),
-        data.frame(method=&quot;topics&quot;,       d=d_topics[upper.tri(d_topics)]))
-p13 &lt;- ggplot(pdat,aes(x = method,y = d)) +
-  geom_boxplot(width = 0.25) +
-  labs(x = &quot;&quot;,y = &quot;total variation dist&quot;) +
-  theme_cowplot(font_size = 9)
-print(p13)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-12-1.png" width="300" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-12-1">
-Past versions of clustering-12-1.png
-</button>
-</p>
-<div id="fig-clustering-12-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">c679d14</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-15
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d9bf10daf49c48601d1918b63efb774ecc9944a7/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">d9bf10d</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-11
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/b6374a110a3a839698ea093c6ea08c6330d9cda1/docs/figure/clusters_droplet.Rmd/clustering-12-1.png" target="_blank">b6374a1</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-11
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>This next plot provides a more direct comparison of the total variation distances among the 5 clusters that are comparable to the Montoro <em>et al</em> clusters:</p>
-<pre class="r"><code>fit_montoro &lt;- merge_topics(poisson2multinom(fit_montoro),
-                            c(&quot;Tuft&quot;,&quot;Neuroendocrine&quot;))
-d_montoro &lt;- totalvardist(fit_montoro$F[,c(&quot;Basal&quot;,&quot;Ciliated&quot;,&quot;Club&quot;,&quot;Goblet&quot;,
-                                           &quot;Tuft+Neuroendocrine&quot;)])
-d_cluster &lt;-
-  totalvardist(poisson2multinom(fit_cluster)$F[,c(&quot;B&quot;,&quot;Cil&quot;,&quot;C&quot;,&quot;G&quot;,&quot;T+N&quot;)])
-pdat &lt;- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
-                   clusters = d_cluster[upper.tri(d_cluster)])
-p14 &lt;- ggplot(pdat,aes(x = montoro,y = clusters)) +
-  geom_point(shape = 21,size = 2,color = &quot;white&quot;,fill = &quot;dodgerblue&quot;) +
-  geom_abline(intercept = 0,slope = 1,color = &quot;black&quot;,linetype = &quot;dotted&quot;) +
-  xlim(0.2,0.7) + 
-  ylim(0.2,0.7) + 
-  labs(x = &quot;Montoro et al clusters&quot;,y = &quot;our clusters&quot;) +
-  theme_cowplot(font_size = 9)
-print(p14)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/clustering-13-1.png" width="300" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clustering-13-1">
-Past versions of clustering-13-1.png
-</button>
-</p>
-<div id="fig-clustering-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/c679d143a300e1d909ceade9348b05241f51e91f/docs/figure/clusters_droplet.Rmd/clustering-13-1.png" target="_blank">c679d14</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-15
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="structure-plot" class="section level2">
-<h2>Structure plot</h2>
 <p>The structure plot summarizes the topic proportions in each of these 8 subsets:</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;salmon&quot;,&quot;turquoise&quot;,&quot;olivedrab&quot;,
                   &quot;firebrick&quot;,&quot;forestgreen&quot;)
 topics &lt;- c(3,4,5,1,7,2,6)
-rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),800),
-               sample(which(samples$cluster == &quot;C&quot;),800),
-               which(samples$cluster == &quot;B+C&quot;),
+rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),400),
+               sample(which(samples$cluster == &quot;C&quot;),400),
                which(samples$cluster == &quot;H&quot;),
-               which(samples$cluster == &quot;Cil&quot;),
+               sample(which(samples$cluster == &quot;B+C+H&quot;),200),
+               sample(which(samples$cluster == &quot;Cil&quot;),200),
                which(samples$cluster == &quot;T+N&quot;),
                which(samples$cluster == &quot;G&quot;),
                which(samples$cluster == &quot;U&quot;)))
-p15 &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
-                      grouping = samples[rows,&quot;cluster&quot;],
-                      topics = topics,colors = topic_colors[topics],
-                      perplexity = c(70,70,30,30,50,30,12,18),
-                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p15)</code></pre>
+p &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+                    grouping = samples[rows,&quot;cluster&quot;],
+                    topics = topics,colors = topic_colors,
+                    perplexity = 70,
+                    n = Inf,gap = 15,num_threads = 4,verbose = FALSE)
+print(p)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-structure-plot-1">
@@ -2207,160 +1640,33 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Based on this structure plot, and the above results, we roughly subdivide the droplet data into two: (1) the Cil, T+N and G clusters that give rise to well-separated clusters, and (2) the B, C, B+C and H subsets that contain interesting substructure but much less distinct clustering. Therefore,the cluster labels B, C, B+C and H are useful as a guide but should be taken with a grain of salt as the boundaries between these clusters are somewhat arbitrary.</p>
-<p>Note the distribution of the topics in cluster C suggests that there is further substantial heterogeneity in these cells beyond what can be captured by identifying “hard” clusters. In particular, there is additional continuous variation in gene expression primarily captured by topics 5 and 7:</p>
-<pre class="r"><code>p16 &lt;- pca_plot(fit1,pcs = 2:3,k = c(4,5,7))
-print(p16)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/pca-plot-club-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-club-1">
-Past versions of pca-plot-club-1.png
-</button>
-</p>
-<div id="fig-pca-plot-club-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/5510fd590388c8e04154c6981bcc7c420ce29cc6/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">5510fd5</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-club-1.png" target="_blank">3bada76</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Although subtle, there is variation in topics 2 and 6 within the T+N cluster that tracks closely with the tuft (here signaled by gene <em>Gnat3</em>) and pulmonary neuroendocrine (<em>Chga</em>) cell-types:</p>
-<pre class="r"><code>p17 &lt;- pca_plot(poisson2multinom(fit),k = 2)
-p18 &lt;- pca_plot(poisson2multinom(fit),k = 6)
-p19 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Chga&quot;])) +
-       labs(fill = &quot;log10(count)&quot;,title = &quot;Chga&quot;)
-p20 &lt;- pca_plot(poisson2multinom(fit),fill = log10(counts[,&quot;Gnat3&quot;])) +
-       labs(fill = &quot;log10(count)&quot;,title = &quot;Gnat3&quot;)
-plot_grid(p17,p18,p19,p20)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-plot-tuft-neuroendocrine-1">
-Past versions of pca-plot-tuft-neuroendocrine-1.png
-</button>
-</p>
-<div id="fig-pca-plot-tuft-neuroendocrine-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" target="_blank">d707238</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-06
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/3bada76cfc4e31fc068b34049f7ced46cdf91750/docs/figure/clusters_droplet.Rmd/pca-plot-tuft-neuroendocrine-1.png" target="_blank">3bada76</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-04
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
+<p>Save the clustering of the droplet data to an RDS file:</p>
+<pre class="r"><code>saveRDS(samples,&quot;clustering-droplet.rds&quot;)</code></pre>
 <div id="analysis-of-single-cell-likelihoods" class="section level2">
 <h2>Analysis of single-cell likelihoods</h2>
-<p>Here we calculate single-cell likelihoods to assess how well the multinomial topic model captures expression in different cell-types.</p>
+<p>Here we calculate single-cell likelihoods to assess how well the topic model captures expression in different cell types.</p>
 <pre class="r"><code>fit_merge      &lt;- merge_topics(poisson2multinom(fit),c(&quot;k5&quot;,&quot;k7&quot;))
-fit_cluster    &lt;- init_poisson_nmf_from_clustering(counts,samples$cluster)
 fit_montoro    &lt;- init_poisson_nmf_from_clustering(counts,samples$tissue)
-fit_cluster    &lt;- poisson2multinom(fit_cluster)
 fit_montoro    &lt;- poisson2multinom(fit_montoro)
 loglik_topics  &lt;- loglik_multinom_topic_model(counts,fit_merge)
-loglik_cluster &lt;- loglik_multinom_topic_model(counts,fit_cluster)
 loglik_montoro &lt;- loglik_multinom_topic_model(counts,fit_montoro)</code></pre>
-<p>Here we compare the likelihood under gene expression levels estimated by a hard clustering; specifically, we compare the Montoro <em>et al</em> (2018) clustering against our clustering. Overall, our clustering appears to better fit the data, particularly in the abundant cell types (basal, club, ciliated).</p>
+<p>Next, we compare the topic-model likelihoods to the clustering-based likelihoods. In most cases, the topic model provides a fit that is better or at least as good as the clustering-based fit. The exceptions are the less abundant tuft, neuroendocrine and ionocyte cell types.</p>
 <pre class="r"><code>minloglik &lt;- -20000
-p1 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,&quot;Basal&quot;,
-                         &quot;royalblue&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                         &quot;our clusters&quot;)
-p2 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,&quot;Club&quot;,
-                         &quot;forestgreen&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                         &quot;our clusters&quot;)
-p3 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
-                         &quot;Ciliated&quot;,&quot;firebrick&quot;,minloglik,
-                         &quot;Montoro et al (2018) cluster&quot;,&quot;our clusters&quot;)
-p4 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,
-                         &quot;Neuroendocrine&quot;,&quot;darkorange&quot;,minloglik,
-                         &quot;Montoro et al (2018) cluster&quot;,&quot;our clusters&quot;)
-p5 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,&quot;Tuft&quot;,
-                         &quot;dodgerblue&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                         &quot;our clusters&quot;)
-p6 &lt;- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,&quot;Goblet&quot;,
-                         &quot;gold&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                         &quot;our clusters&quot;)
-plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3)</code></pre>
+p1 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Basal&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p2 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Ciliated&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p3 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Club&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p4 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Goblet&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p5 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Ionocyte&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p6 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Neuroendocrine&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+p7 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
+                         &quot;Tuft&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
+plot_grid(p1,p2,p3,p4,p5,p6,p7,nrow = 3,ncol = 3)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/likelihood-2-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-likelihood-2-1">
@@ -2386,6 +1692,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/8e6c3843ab553f5c8acc7ef1b1007f7faa9ea86a/docs/figure/clusters_droplet.Rmd/likelihood-2-1.png" target="_blank">8e6c384</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2020-10-18
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/7363e2a6c24b06ced2571eff46e760e63626af56/docs/figure/clusters_droplet.Rmd/likelihood-2-1.png" target="_blank">7363e2a</a>
 </td>
 <td>
@@ -2399,124 +1716,6 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>Next, we compare the topic-model likelihoods to the clustering-based likelihoods. In most cases, the topic model provides a fit that is better or at least as good as the clustering-based fit. The one excecption is the tuft and neuroendocrine cells; the clustering provides a better fit of the observed expression levels given that no single topic represents tuft and neuroendocrine cells. Despite this, the topic model provides a reasonably good fit for the tuft and neuroendocrine cells.</p>
-<pre class="r"><code>p7  &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;B&quot;,
-                          &quot;royalblue&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-p8  &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;C&quot;,
-                          &quot;forestgreen&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-p9  &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;Cil&quot;,
-                          &quot;firebrick&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-p10 &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;H&quot;,
-                          &quot;turquoise&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-p11 &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;T+N&quot;,
-                          &quot;darkorange&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-p12 &lt;- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,&quot;G&quot;,
-                          &quot;gold&quot;,minloglik,&quot;cluster&quot;,&quot;topics&quot;)
-plot_grid(p7,p8,p9,p10,p11,p12,nrow = 2,ncol = 3)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/likelihood-3-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-likelihood-3-1">
-Past versions of likelihood-3-1.png
-</button>
-</p>
-<div id="fig-likelihood-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/7363e2a6c24b06ced2571eff46e760e63626af56/docs/figure/clusters_droplet.Rmd/likelihood-3-1.png" target="_blank">7363e2a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>Comparing against the Montoro <em>et al</em> (2018) shows a similar pattern. The ionocyte cluster is also better captured by the cluster with 26 cells, although the improvement is small, indicating that the gene expression patterns in ionocyte cells are well-captured by the topics mixture.</p>
-<pre class="r"><code>p13 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,&quot;Basal&quot;,
-                          &quot;royalblue&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                          &quot;topics&quot;)
-p14 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,&quot;Club&quot;,
-                          &quot;forestgreen&quot;,minloglik,
-                          &quot;Montoro et al (2018) cluster&quot;,&quot;topics&quot;)
-p15 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
-                          &quot;Ciliated&quot;,&quot;firebrick&quot;,minloglik,
-                          &quot;Montoro et al (2018) cluster&quot;,&quot;topics&quot;)
-p16 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
-                          &quot;Neuroendocrine&quot;,&quot;darkorange&quot;,minloglik,
-                          &quot;Montoro et al (2018) cluster&quot;,&quot;topics&quot;)
-p17 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,&quot;Tuft&quot;,
-                          &quot;dodgerblue&quot;,minloglik,&quot;Montoro et al (2018) cluster&quot;,
-                          &quot;topics&quot;)
-p18 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
-                          &quot;Ionocyte&quot;,&quot;darkmagenta&quot;,minloglik,
-                          &quot;Montoro et al (2018) cluster&quot;,&quot;topics&quot;)
-p19 &lt;- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
-                          &quot;Goblet&quot;,&quot;gold&quot;,minloglik,
-                          &quot;Montoro et al (2018) cluster&quot;,&quot;topics&quot;)
-plot_grid(p13,p14,p15,p16,p17,p18,p19,nrow = 3,ncol = 3)</code></pre>
-<p><img src="figure/clusters_droplet.Rmd/likelihood-4-1.png" width="720" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-likelihood-4-1">
-Past versions of likelihood-4-1.png
-</button>
-</p>
-<div id="fig-likelihood-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/stephenslab/single-cell-topics/blob/7363e2a6c24b06ced2571eff46e760e63626af56/docs/figure/clusters_droplet.Rmd/likelihood-4-1.png" target="_blank">7363e2a</a>
-</td>
-<td>
-Peter Carbonetto
-</td>
-<td>
-2020-10-18
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="save-results" class="section level2">
-<h2>Save results</h2>
-<p>Save the clustering of the droplet data to an RDS file.</p>
-<pre class="r"><code>saveRDS(samples,&quot;clustering-droplet.rds&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2527,7 +1726,7 @@ Peter Carbonetto
 <pre class="r"><code>sessionInfo()
 # R version 3.6.2 (2019-12-12)
 # Platform: x86_64-apple-darwin15.6.0 (64-bit)
-# Running under: macOS Catalina 10.15.6
+# Running under: macOS Catalina 10.15.7
 # 
 # Matrix products: default
 # BLAS:   /Library/Frameworks/R.framework/Versions/3.6/Resources/lib/libRblas.0.dylib
@@ -2540,40 +1739,38 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0      ggplot2_3.3.0      fastTopics_0.3-184 dplyr_0.8.3       
-# [5] Matrix_1.2-18     
+# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-98 dplyr_1.0.7      
+# [5] Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
-#  [1] ggrepel_0.9.0        Rcpp_1.0.5           lattice_0.20-38     
-#  [4] tidyr_1.0.0          prettyunits_1.1.1    assertthat_0.2.1    
-#  [7] zeallot_0.1.0        rprojroot_1.3-2      digest_0.6.23       
-# [10] R6_2.4.1             backports_1.1.5      MatrixModels_0.4-1  
-# [13] evaluate_0.14        coda_0.19-3          httr_1.4.2          
-# [16] pillar_1.4.3         rlang_0.4.5          progress_1.2.2      
-# [19] lazyeval_0.2.2       data.table_1.12.8    irlba_2.3.3         
-# [22] SparseM_1.78         hexbin_1.28.0        whisker_0.4         
-# [25] rmarkdown_2.3        labeling_0.3         Rtsne_0.15          
-# [28] stringr_1.4.0        htmlwidgets_1.5.1    munsell_0.5.0       
-# [31] compiler_3.6.2       httpuv_1.5.2         xfun_0.11           
-# [34] pkgconfig_2.0.3      mcmc_0.9-6           htmltools_0.4.0     
-# [37] tidyselect_0.2.5     tibble_2.1.3         workflowr_1.6.2.9000
-# [40] quadprog_1.5-8       viridisLite_0.3.0    crayon_1.3.4        
-# [43] withr_2.1.2          later_1.0.0          MASS_7.3-51.4       
-# [46] grid_3.6.2           jsonlite_1.6         gtable_0.3.0        
-# [49] lifecycle_0.1.0      git2r_0.26.1         magrittr_1.5        
-# [52] scales_1.1.0         RcppParallel_4.4.2   stringi_1.4.3       
-# [55] farver_2.0.1         fs_1.3.1             promises_1.1.0      
-# [58] vctrs_0.2.1          tools_3.6.2          glue_1.3.1          
-# [61] purrr_0.3.3          hms_0.5.2            yaml_2.2.0          
-# [64] colorspace_1.4-1     plotly_4.9.2         knitr_1.26          
-# [67] quantreg_5.54        MCMCpack_1.4-5</code></pre>
+#  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
+#  [5] RcppParallel_4.4.2 assertthat_0.2.1   highr_0.8          mixsqp_0.3-46     
+#  [9] yaml_2.2.0         progress_1.2.2     ggrepel_0.9.1      pillar_1.6.2      
+# [13] backports_1.1.5    lattice_0.20-38    quantreg_5.54      glue_1.4.2        
+# [17] quadprog_1.5-8     digest_0.6.23      promises_1.1.0     colorspace_1.4-1  
+# [21] htmltools_0.4.0    httpuv_1.5.2       pkgconfig_2.0.3    invgamma_1.1      
+# [25] SparseM_1.78       purrr_0.3.4        scales_1.1.0       whisker_0.4       
+# [29] later_1.0.0        Rtsne_0.15         MatrixModels_0.4-1 git2r_0.26.1      
+# [33] tibble_3.1.3       farver_2.0.1       generics_0.0.2     ellipsis_0.3.2    
+# [37] withr_2.4.2        ashr_2.2-51        pbapply_1.5-1      lazyeval_0.2.2    
+# [41] magrittr_2.0.1     crayon_1.4.1       mcmc_0.9-6         evaluate_0.14     
+# [45] fs_1.3.1           fansi_0.4.0        MASS_7.3-51.4      truncnorm_1.0-8   
+# [49] tools_3.6.2        data.table_1.12.8  prettyunits_1.1.1  hms_1.1.0         
+# [53] lifecycle_1.0.0    stringr_1.4.0      MCMCpack_1.4-5     plotly_4.9.2      
+# [57] munsell_0.5.0      irlba_2.3.3        compiler_3.6.2     jquerylib_0.1.4   
+# [61] rlang_0.4.11       grid_3.6.2         htmlwidgets_1.5.1  labeling_0.3      
+# [65] rmarkdown_2.11     gtable_0.3.0       DBI_1.1.0          R6_2.4.1          
+# [69] knitr_1.37         uwot_0.1.10        utf8_1.1.4         workflowr_1.7.0   
+# [73] rprojroot_1.3-2    stringi_1.4.3      parallel_3.6.2     SQUAREM_2017.10-1 
+# [77] Rcpp_1.0.7         vctrs_0.3.8        tidyselect_1.1.1   xfun_0.29         
+# [81] coda_0.19-3</code></pre>
 </div>
 </div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
 TeX fonts only; see
-http://docs.mathjax.org/en/latest/configuration.html.  This will make
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
 the presentation more consistent at the cost of the webpage sometimes
 taking slightly longer to load. Note that this only works because the
 footer is added to webpages before the MathJax javascript. -->
@@ -2591,7 +1788,7 @@ footer is added to webpages before the MathJax javascript. -->
 
 // add bootstrap table styles to pandoc tables
 function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
 }
 $(document).ready(function () {
   bootstrapStylePandocTables();
@@ -2609,7 +1806,7 @@ $(document).ready(function () {
 
 $(document).ready(function () {
   $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
+    $(this).parent().toggleClass('nav-tabs-open');
   });
 });
 </script>
