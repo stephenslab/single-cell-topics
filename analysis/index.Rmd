@@ -66,24 +66,11 @@ proportions.
 Visualize and annotate topics
 -----------------------------
 
-In these pages, we annotate topics and substructures to determine
-their biological relevance. This includes differential expression
-analysis using the topic model.
+In these pages, we annotate topics determine their biological
+relevance. This includes differential expression analysis using the
+topic model.
 
-+ [Droplet and pulse-seq](plots_tracheal_epithelium.html)
-
-Examine single-cell likelihoods
--------------------------------
-
-In these pages, we calculate single-cell likelihoods to assess how
-well the multinomial topic model captures expression in different
-cells and cell types.
-
-+ [PBMC](loglik_purified_pbmc.html)
-
-+ [Droplet](loglik_droplet.html)
-
-+ [Pulse-seq](loglik_pulseseq.html)
++ [Droplet](de_droplet.html)
 
 Other analyses
 --------------
