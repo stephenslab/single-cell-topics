@@ -66,9 +66,8 @@ proportions.
 Visualize and annotate topics
 -----------------------------
 
-In these pages, we annotate topics determine their biological
-relevance. This includes differential expression analysis using the
-topic model.
+In these pages, we annotate topics to determine their biological
+relevance.
 
 + [Droplet](de_droplet.html)
 
