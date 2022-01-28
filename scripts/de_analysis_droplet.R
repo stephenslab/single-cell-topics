@@ -1,4 +1,11 @@
-# TO DO: Explain here what this script does, and how to use it.
+# A short script used to perform the differential expression (DE)
+# analysis using the multinomial topic model fitted to the droplet
+# data, with k = 7 topics. These were the steps taken to load R and
+# allocate computing resources for this analysis:
+#
+#   sinteractive -p broadwl -c 20 --mem=16G --time=60:00:00
+#   module load R/3.5.1
+#
 
 # Load a few packages.
 library(tools)
@@ -17,8 +24,8 @@ fit <- poisson2multinom(fit)
 
 # Perform the DE analysis.
 t0 <- proc.time()
-de1 <- de_analysis(fit,counts,pseudocount = 0.1,
-                   control = list(ns = 1000,nc = 4,nsplit = 100))
+de <- de_analysis(fit,counts,pseudocount = 0.1,
+                  control = list(ns = 1000,nc = 20,nsplit = 100))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
@@ -27,7 +34,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 t0 <- proc.time()
 fit_merged <- merge_topics(fit,c("k5","k7"))
 de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
-                         control = list(ns = 1000,nc = 4,nsplit = 100))
+                         control = list(ns = 1000,nc = 20,nsplit = 100))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
