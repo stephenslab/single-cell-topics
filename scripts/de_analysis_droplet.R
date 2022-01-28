@@ -3,7 +3,7 @@
 # data, with k = 7 topics. These were the steps taken to load R and
 # allocate computing resources for this analysis:
 #
-#   sinteractive -p broadwl -c 20 --mem=16G --time=10:00:00
+#   sinteractive -p broadwl -c 20 --mem=16G --time=20:00:00
 #   module load R/3.5.1
 #
 
@@ -30,7 +30,7 @@ t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
-# Perform a second DE analysis after merging topics X and Y.
+# Perform a second DE analysis after merging topics 5 and 7.
 t0 <- proc.time()
 fit_merged <- merge_topics(fit,c("k5","k7"))
 de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
