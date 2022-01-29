@@ -42,11 +42,17 @@ gene_sets <- gene_sets[i,]
 sdat      <- sdat[j,]
 zscores   <- zscores[j]
 
-# Next, remove gene sets with fewer than 4 genes, and with more than
+# Remove gene sets in several collections that aren't relevant.
+i <- which(!is.element(gene_sets_human$gene_set_info$database,
+                       c("MSigDB-ARCHIVED","MSigDB-C1","MSigDB-C3",
+                         "MSigDB-C4","MSigDB-C6")))
+gene_sets <- gene_sets[,i]
+
+# Next, remove gene sets with fewer than 10 genes, and with more than
 # 400 genes. Gene sets with a large number of genes are less likely to
 # be interesting, and slow down the enrichment analysis, so they are
 # removed.
-i <- which(colSums(gene_sets) >= 4 & colSums(gene_sets) <= 400)
+i <- which(colSums(gene_sets) >= 10 & colSums(gene_sets) <= 400)
 gene_sets <- gene_sets[,i]
 
 # Convert the sparse matrix representation of the gene sets to a list.
