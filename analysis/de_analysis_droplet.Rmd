@@ -47,7 +47,6 @@ plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
 
 *Add text here.*
 
-
 ```{r volcano-plots-2, fig.height=3, fig.width=7}
 p7 <- volcano_plot(de,k = "k5",ymax = 200)
 p8 <- volcano_plot(de,k = "k7",ymax = 200)
