@@ -11,3 +11,47 @@ data using the topic model with $K = 7$ topics.
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
+
+Load the packages and used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the results of the differential expression analysis.
+
+```{r load-results}
+load("../output/droplet/de-droplet.RData")
+```
+
+For reference, here is the Structure plot from 
+[an earlier analysis of the droplet data](clusters_droplet.html):
+
+<img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width=1920
+style="display: block; margin: auto;">
+
+These volcano plots summarize the results off the DE analysis after
+merging topics 5 and 7:
+
+```{r volcano-plots-1, fig.height=5, fig.width=7}
+p1 <- volcano_plot(de_merged,ymax = 100,k = "k1")
+p2 <- volcano_plot(de_merged,ymax = 100,k = "k2")
+p3 <- volcano_plot(de_merged,ymax = 200,k = "k3")
+p4 <- volcano_plot(de_merged,ymax = 200,k = "k4")
+p5 <- volcano_plot(de_merged,ymax = 200,k = "k5+k7")
+p6 <- volcano_plot(de_merged,ymax = 100,k = "k6")
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
+```
+
+*Add text here.*
+
+
+```{r volcano-plots-2, fig.height=3, fig.width=7}
+p7 <- volcano_plot(de,k = "k5",ymax = 200)
+p8 <- volcano_plot(de,k = "k7",ymax = 200)
+plot_grid(p7,p8)
+```
+
+*Add text here.*
