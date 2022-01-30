@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb08d53054aedebf3e67aeecafc14342929ae9f8btargetblankb08d530a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/b08d53054aedebf3e67aeecafc14342929ae9f8b" target="_blank">b08d530</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree154843c5aed892ebb2362eede867dbf625587a95targetblank154843ca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/154843c5aed892ebb2362eede867dbf625587a95" target="_blank">154843c</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreeb08d53054aedebf3e67aeecafc14342929ae9f8btargetblankb08d530a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree154843c5aed892ebb2362eede867dbf625587a95targetblank154843ca" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/b08d53054aedebf3e67aeecafc14342929ae9f8b" target="_blank">b08d530</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/154843c5aed892ebb2362eede867dbf625587a95" target="_blank">154843c</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -417,9 +417,6 @@ Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   scripts/gsea_purified_pbmc.R
 
 </code></pre>
 <p>
@@ -458,6 +455,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/154843c5aed892ebb2362eede867dbf625587a95/analysis/de_analysis_droplet.Rmd" target="_blank">154843c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-30
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/c0803ab7cba255769df6a9e3410c3d00c02d1c11/analysis/de_analysis_droplet.Rmd" target="_blank">c0803ab</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-30
+</td>
+<td>
+A couple small edits.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/515f2b21bf76fcd7651c549cee8a97ce4c9c24d1/docs/de_analysis_droplet.html" target="_blank">515f2b2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-30
+</td>
+<td>
+First build of de_analysis_droplet page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -511,19 +559,93 @@ library(cowplot)</code></pre>
 style="display: block; margin: auto;"></p>
 <p>These volcano plots summarize the results off the DE analysis after merging topics 5 and 7:</p>
 <pre class="r"><code>p1 &lt;- volcano_plot(de_merged,ymax = 100,k = &quot;k1&quot;)
-p2 &lt;- volcano_plot(de_merged,ymax = 100,k = &quot;k2&quot;)
+p2 &lt;- volcano_plot(de_merged,ymax = 200,k = &quot;k2&quot;)
 p3 &lt;- volcano_plot(de_merged,ymax = 200,k = &quot;k3&quot;)
 p4 &lt;- volcano_plot(de_merged,ymax = 200,k = &quot;k4&quot;)
 p5 &lt;- volcano_plot(de_merged,ymax = 200,k = &quot;k5+k7&quot;)
 p6 &lt;- volcano_plot(de_merged,ymax = 100,k = &quot;k6&quot;)
 plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)</code></pre>
-<p><img src="figure/de_analysis_droplet.Rmd/volcano-plots-1-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p><img src="figure/de_analysis_droplet.Rmd/volcano-plots-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-1-1">
+Past versions of volcano-plots-1-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-1-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/515f2b21bf76fcd7651c549cee8a97ce4c9c24d1/docs/figure/de_analysis_droplet.Rmd/volcano-plots-1-1.png" target="_blank">515f2b2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Judging by the most overexpressed genes in these volcano plots, the topics capture goblet cells (topic 1), basal cells (topic 2), “hillock” club cells (topic 4), ciliated cells (topic 6), and club cells (topics 5 + 7).</p>
+<p>Topic 7 is driven by variation in expression of <em>Scgb1a1</em> in club cells:</p>
 <pre class="r"><code>p7 &lt;- volcano_plot(de,k = &quot;k5&quot;,ymax = 200)
 p8 &lt;- volcano_plot(de,k = &quot;k7&quot;,ymax = 200)
 plot_grid(p7,p8)</code></pre>
-<p><img src="figure/de_analysis_droplet.Rmd/volcano-plots-2-1.png" width="840" style="display: block; margin: auto;" /></p>
-<p><em>Add text here.</em></p>
+<p><img src="figure/de_analysis_droplet.Rmd/volcano-plots-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-volcano-plots-2-1">
+Past versions of volcano-plots-2-1.png
+</button>
+</p>
+<div id="fig-volcano-plots-2-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/515f2b21bf76fcd7651c549cee8a97ce4c9c24d1/docs/figure/de_analysis_droplet.Rmd/volcano-plots-2-1.png" target="_blank">515f2b2</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-30
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
