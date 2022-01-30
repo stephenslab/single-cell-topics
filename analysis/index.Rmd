@@ -69,7 +69,7 @@ Visualize and annotate topics
 In these pages, we annotate topics to determine their biological
 relevance.
 
-+ [Droplet](de_droplet.html)
++ [Droplet](de_analysis_droplet.html)
 
 Other analyses
 --------------
