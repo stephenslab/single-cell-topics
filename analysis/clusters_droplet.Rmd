@@ -63,7 +63,7 @@ rows <- which(x == "A")
 fit2 <- select(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 pc1  <- pca[,1]
-pc2   <- pca[,2]
+pc2  <- pca[,2]
 y    <- rep("B+C+H",nrow(pca))
 y[pc1 < 0.1] <- "B"
 y[pc1 > 0.4 & pc2 < 0.45] <- "C"
