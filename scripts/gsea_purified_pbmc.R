@@ -54,6 +54,8 @@ gene_sets <- gene_sets[,i]
 # removed.
 i <- which(colSums(gene_sets) >= 10 & colSums(gene_sets) <= 400)
 gene_sets <- gene_sets[,i]
+# *** TESTING ***
+gene_sets <- gene_sets[,sample(i,1000)]
 
 # Convert the sparse matrix representation of the gene sets to a list.
 gene_sets <- matrix2list(gene_sets)
@@ -82,7 +84,7 @@ idea <- new(Class      = "iDEA",
             num_gene   = nrow(sdat),
             num_core   = 20,
             project    = "idea")
-idea <- iDEA.fit(idea,min_degene = 4,em_iter = 20,mcmc_iter = 1000, 
+idea <- iDEA.fit(idea,min_degene = 4,em_iter = 10,mcmc_iter = 100, 
 	         fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
 idea <- iDEA.louis(idea)
 t1 <- proc.time()
