@@ -53,9 +53,9 @@ gene_sets <- gene_sets[,i]
 # be interesting, and slow down the enrichment analysis, so they are
 # removed.
 i <- which(colSums(gene_sets) >= 10 & colSums(gene_sets) <= 400)
-gene_sets <- gene_sets[,i]
+# gene_sets <- gene_sets[,i]
 # *** TESTING ***
-gene_sets <- gene_sets[,sample(i,1000)]
+gene_sets <- gene_sets[,sample(i,4000)]
 
 # Convert the sparse matrix representation of the gene sets to a list.
 gene_sets <- matrix2list(gene_sets)
