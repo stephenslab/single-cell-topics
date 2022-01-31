@@ -1,0 +1,60 @@
+---
+title: "GoM DE analysis of droplet data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+Here we summarize the results of performing DE analysis on the droplet
+data using the topic model with $K = 7$ topics.
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages and used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Load the results of the differential expression analysis.
+
+```{r load-results}
+load("../output/droplet/de-droplet.RData")
+```
+
+For reference, here is the Structure plot from 
+[an earlier analysis of the droplet data](clusters_droplet.html):
+
+<img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width=1920
+style="display: block; margin: auto;">
+
+These volcano plots summarize the results off the DE analysis after
+merging topics 5 and 7:
+
+```{r volcano-plots-1, fig.height=10.75, fig.width=8}
+p1 <- volcano_plot(de_merged,ymax = 100,k = "k1")
+p2 <- volcano_plot(de_merged,ymax = 200,k = "k2")
+p3 <- volcano_plot(de_merged,ymax = 200,k = "k3")
+p4 <- volcano_plot(de_merged,ymax = 200,k = "k4")
+p5 <- volcano_plot(de_merged,ymax = 200,k = "k5+k7")
+p6 <- volcano_plot(de_merged,ymax = 100,k = "k6")
+plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
+```
+
+Judging by the most overexpressed genes in these volcano plots, the
+topics capture goblet cells (topic 1), basal cells (topic 2),
+"hillock" club cells (topic 4), ciliated cells (topic 6), and club
+cells (topics 5 + 7).
+
+Topic 7 is driven by variation in expression of *Scgb1a1* in club
+cells:
+
+```{r volcano-plots-2, fig.height=3.75, fig.width=8}
+p7 <- volcano_plot(de,k = "k5",ymax = 200)
+p8 <- volcano_plot(de,k = "k7",ymax = 200)
+plot_grid(p7,p8)
+```

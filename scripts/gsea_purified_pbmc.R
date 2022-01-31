@@ -84,6 +84,8 @@ idea <- new(Class      = "iDEA",
             num_gene   = nrow(sdat),
             num_core   = 20,
             project    = "idea")
+# Error in names(res_idea) <- object@annot_id :
+#   attempt to set an attribute on NULL
 idea <- iDEA.fit(idea,min_degene = 4,em_iter = 10,mcmc_iter = 100, 
 	         fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
 idea <- iDEA.louis(idea)
