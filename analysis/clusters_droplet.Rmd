@@ -127,11 +127,11 @@ rows <- sort(c(sample(which(samples$cluster == "B"),400),
                which(samples$cluster == "T+N"),
                which(samples$cluster == "G"),
 			   which(samples$cluster == "U")))
-p <- structure_plot(select(poisson2multinom(fit),loadings = rows),
+p <- structure_plot(select_loadings(fit,loadings = rows),
                     grouping = samples[rows,"cluster"],
                     topics = topics,colors = topic_colors,
-  					perplexity = 70,
-                    n = Inf,gap = 15,num_threads = 4,verbose = FALSE)
+  					perplexity = 70,n = Inf,gap = 15,
+					num_threads = 4,verbose = FALSE)
 print(p)
 ```
 
