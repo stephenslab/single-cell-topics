@@ -3,7 +3,7 @@
 # topics. These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p broadwl -c 20 --mem=24G --time=60:00:00
+#   sinteractive -p broadwl -c 20 --mem=36G --time=60:00:00
 #   module load R/4.1.0
 #
 library(Matrix)
@@ -53,9 +53,7 @@ gene_sets <- gene_sets[,i]
 # be interesting, and slow down the enrichment analysis, so they are
 # removed.
 i <- which(colSums(gene_sets) >= 10 & colSums(gene_sets) <= 400)
-# gene_sets <- gene_sets[,i]
-# *** TESTING ***
-gene_sets <- gene_sets[,sample(i,4000)]
+gene_sets <- gene_sets[,i]
 
 # Convert the sparse matrix representation of the gene sets to a list.
 gene_sets <- matrix2list(gene_sets)
@@ -74,6 +72,8 @@ t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
+stop()
+
 # Perform a gene set enrichment analysis using iDEA.
 t0 <- proc.time()
 idea <- new(Class      = "iDEA",
@@ -86,8 +86,12 @@ idea <- new(Class      = "iDEA",
             project    = "idea")
 # Error in names(res_idea) <- object@annot_id :
 #   attempt to set an attribute on NULL
-idea <- iDEA.fit(idea,min_degene = 4,em_iter = 10,mcmc_iter = 100, 
-	         fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
+set.seed(1)
+idea1 <- iDEA.fit(idea,min_degene = 4,em_iter = 10,mcmc_iter = 100, 
+ 	          fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
+set.seed(1)
+idea2 <- iDEA.fit(idea,min_degene = 4,em_iter = 10,mcmc_iter = 100, 
+ 	          fit.tol = 1e-6,modelVariant = TRUE,verbose = TRUE)
 idea <- iDEA.louis(idea)
 t1 <- proc.time()
 timing <- t1 - t0
