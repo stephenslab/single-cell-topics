@@ -22,6 +22,10 @@ load("../data/pulseseq.RData")
 fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
 fit <- poisson2multinom(fit)
 
+# Merge topics 4-6, 8 and 10, then merge topics 3 and 9.
+fit <- merge_topics(fit,c("k4","k5","k6","k8","k10"))
+fit <- merge_topics(fit,c("k3","k9"))
+
 # Perform the DE analysis.
 t0 <- proc.time()
 de <- de_analysis(fit,counts,pseudocount = 0.1,
@@ -32,5 +36,5 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
 save(list = c("seed","genes","de"),
-     file = "de-pulseseq-all.RData")
-resaveRdaFiles("de-pulseseq-all.RData")
+     file = "de-pulseseq-merged.RData")
+resaveRdaFiles("de-pulseseq-merged.RData")
