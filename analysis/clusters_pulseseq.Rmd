@@ -17,17 +17,13 @@ functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
 source("../code/plots.R")
 ```
 
-Load data and results
----------------------
-
-Load the pulse-seq data.
+Load the count data.
 
 ```{r load-data}
 load("../data/pulseseq.RData")
@@ -42,43 +38,17 @@ Load the $K = 11$ Poisson NMF model fit.
 
 ```{r load-fit}
 fit <- readRDS("../output/pulseseq/rds/fit-pulseseq-scd-ex-k=11.rds")$fit
+fit <- poisson2multinom(fit)
 ```
 
-Identify clusters from principal components
--------------------------------------------
+From the PCs of the topic proportions PCA plots, we define 4 clusters,
+labeled A, D, Cil and T+N. (The reasoning behind these cluster labels
+will become clear later.) Points that do not fit in any of these
+clusters are assigned to an "unknown" cluster, labeled U for
+"unknown".
 
-To identify clusters, we begin by plotting PCs computed from the topic
-proportions. (Note that only 10 PCs are needed for 11 topics.)
-
-```{r clustering-1, fig.width=8, fig.height=5}
-p1 <- pca_plot(poisson2multinom(fit),pcs = 1:2,fill = "none")
-p2 <- pca_plot(poisson2multinom(fit),pcs = 3:4,fill = "none")
-p3 <- pca_plot(poisson2multinom(fit),pcs = 5:6,fill = "none")
-p4 <- pca_plot(poisson2multinom(fit),pcs = 7:8,fill = "none")
-p5 <- pca_plot(poisson2multinom(fit),pcs = 9:10,fill = "none")
-plot_grid(p1,p2,p3,p4,p5,nrow = 2,ncol = 3)
-```
-
-Some of the structure is more evident from "hexbin" plots showing the
-density of the points. For example, clear clusters emerge in the
-hexbin plots for PCs 3 and 4, and for PCs 5 and 6:
-
-```{r clustering-2, fig.width=8, fig.height=5}
-p6  <- pca_hexbin_plot(poisson2multinom(fit),pcs = 1:2) + guides(fill = "none")
-p7  <- pca_hexbin_plot(poisson2multinom(fit),pcs = 3:4) + guides(fill = "none")
-p8  <- pca_hexbin_plot(poisson2multinom(fit),pcs = 5:6) + guides(fill = "none")
-p9  <- pca_hexbin_plot(poisson2multinom(fit),pcs = 7:8) + guides(fill = "none")
-p10 <- pca_hexbin_plot(poisson2multinom(fit),pcs = 9:10)+ guides(fill = "none")
-plot_grid(p6,p7,p8,p9,p10,nrow = 2,ncol = 3)
-```
-
-From these PCA plots, we define 4 clusters, labeled A, D, Cil and
-T+N. (The reasoning behind these cluster labels will become clear
-later.) Points that do not fit in any of these clusters are assigned
-to a "background cluster", labeled U for "unknown".
-
-```{r clustering-3}
-pca <- prcomp(poisson2multinom(fit)$L)$x
+```{r clustering-1}
+pca <- prcomp(fit$L)$x
 x   <- rep("U",nrow(pca))
 pc3 <- pca[,3]
 pc4 <- pca[,4]
@@ -90,20 +60,13 @@ x[x == "A" & pc6 > 1.3*pc5 + 0.87] <- "T+N"
 x[x == "A" & pc5 > -0.4 & pc6 < 1.3*pc5 + 0.49] <- "D"
 ```
 
-We can refine the small cluster A somewhat by plotting PCs computed
-from cluster A only:
+We can refine the small cluster A somewhat using the PCs computed from
+cluster A only. We label this refined cluster as "I", and the rest are
+added back to the background cluster (U).
 
-```{r clustering-4, fig.width=3, fig.height=2.75}
+```{r clustering-2}
 rows <- which(x == "A")
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p11  <- pca_plot(fit2,fill = "none")
-print(p11)
-```
-
-We label this refined cluster as "I", and the rest are added back to
-the background cluster (U).
-
-```{r clustering-5}
+fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 y    <- rep("U",nrow(pca))
 pc1  <- pca[,1]
@@ -111,21 +74,15 @@ y[pc1 > -0.1] <- "I"
 x[rows] <- y
 ```
 
-Similarly, we mine the much larger cluster D for substructure:
-
 ```{r clustering-6, fig.width=6, fig.height=2.75}
-rows <- which(x == "D")
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p12  <- pca_plot(fit2,fill = "none")
-p13  <- pca_hexbin_plot(fit2) + guides(fill = "none")
-plot_grid(p12,p13)
 ```
 
-The hexbin plot suggests two clusters. Although these clusters are not
-distinct, it may nonetheless be useful to subdivide these data points
-(somewhat arbitrarily) into two subsets, which we label as B and C.
+We subdivide the data points in cluster D, somewhat arbitrarily, into
+two subsets, which we label as B and C.
 
-```{r clustering-7}
+```{r clustering-3}
+rows <- which(x == "D")
+fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 y    <- rep("C",nrow(pca))
 pc1  <- pca[,1]
@@ -134,86 +91,32 @@ y[pc2 > -pc1 - 0.15] <- "B"
 x[rows] <- y
 ```
 
-Within cluster B, there is some interesting structure along PCs 5 and
-6:
+Within cluster B, from PCs 5 and 6 we define a new cluster, "P",
+recognizing that this cluster is not particularly distinct:
 
-```{r clustering-8, fig.width=6, fig.height=2.75}
+```{r clustering-4}
 rows <- which(x == "B")
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p14  <- pca_plot(fit2,pcs = 5:6,fill = "none")
-p15  <- pca_hexbin_plot(fit2,pcs = 5:6) + guides(fill = "none")
-plot_grid(p14,p15)
-```
-
-From PCs 5 and 6, define a new cluster, "P", recognizing that this
-cluster is not particularly distinct.
-
-```{r clustering-9}
-pca <- prcomp(fit2$L)$x
-y   <- rep("B",nrow(pca))
-pc5 <- pca[,5]
-pc6 <- pca[,6]
+fit2 <- select_loadings(fit,loadings = rows)
+pca  <- prcomp(fit2$L)$x
+y    <- rep("B",nrow(pca))
+pc5  <- pca[,5]
+pc6  <- pca[,6]
 y[pc5 > 0.1 & pc6 < 0] <- "P"
 x[rows] <- y
-```
-
-Although subtle, there is variation in topics 2 and 11 within the T+N
-cluster that tracks closely with the tuft (here signaled by gene
-*Gnat3*) and pulmonary neuroendocrine (*Chga*) cell-types:
-
-```{r pca-plot-tuft-neuroendocrine, fig.width=6, fig.height=4.5}
-p16 <- pca_plot(poisson2multinom(fit),pcs = 5:6,k = 2)
-p17 <- pca_plot(poisson2multinom(fit),pcs = 5:6,k = 11)
-p18 <- pca_plot(poisson2multinom(fit),pcs = 5:6,
-                fill = log10(counts[,"Chga"])) +
-       labs(fill = "log10(count)",title = "Chga")
-p19 <- pca_plot(poisson2multinom(fit),pcs = 5:6,
-                fill = log10(counts[,"Gnat3"])) +
-       labs(fill = "log10(count)",title = "Gnat3")
-plot_grid(p16,p17,p18,p19)
-```
-
-In summary, we have subdivided the pulse-seq data into 7 subsets,
-which includes a background cluster (U). The substructure is more
-clear when we plot PCs separately for the abundant and rare
-cell-types.
-
-```{r clustering-10, fig.width=8, fig.height=2, message=FALSE}
 samples$cluster <- factor(x,c("B","C","P","Cil","T+N","I","U"))
-abundant        <- c("B","C","Cil","U")
-rare            <- c("T+N","I","P")
-cluster_colors  <- c("royalblue",   # B
-                     "forestgreen", # C
-                     "peru",        # P
-                     "firebrick",   # Cil
- 					 "darkorange",  # T+N
-					 "darkmagenta", # I
-                     "gainsboro")   # U
-rows1 <- which(is.element(samples$cluster,abundant))
-rows2 <- which(is.element(samples$cluster,rare))
-fit1  <- select(poisson2multinom(fit),loadings = rows1)
-fit2  <- select(poisson2multinom(fit),loadings = rows2)
-p20 <- pca_plot(fit1,pcs = 1:2,fill = samples[rows1,"cluster"]) +
-       scale_fill_manual(values = cluster_colors,drop = FALSE) +
-       labs(fill = "cluster")
-p21 <- pca_plot(fit1,pcs = 3:4,fill = samples[rows1,"cluster"]) +
-       scale_fill_manual(values = cluster_colors,drop = FALSE) +
-       labs(fill = "cluster")
-p22 <- pca_plot(fit2,pcs = 1:2,fill = samples[rows2,"cluster"]) +
-       scale_fill_manual(values = cluster_colors,drop = FALSE) +
-       labs(fill = "cluster")
-plot_grid(p20,p21,p22,nrow = 1)
 ```
 
+In summary, we have subdivided the pulse-seq data into 7 subsets.
 Comparing this to the Montoro *et al* (2018) clustering, we observe
-some close correspondence (e.g., B and "basal cells", P and
-"proliferating cells").
+some close correspondence between these subsets and the Montoro *et
+al* clustering:
 
-```{r clustering-11}
+```{r clustering-5}
 with(samples,table(tissue,cluster))
 ```
 
-This close correspondence is also clear from the PCA plots:
+This close correspondence is also clear from PCA plots of the topic
+proportions:
 
 ```{r clustering-12, fig.width=8, fig.height=1.5, message=FALSE}
 tissue_colors <- c("royalblue",   # basal
@@ -224,82 +127,25 @@ tissue_colors <- c("royalblue",   # basal
 				   "darkorange",  # neuroendocrine
 				   "peru",        # proliferating
                    "skyblue")     # tuft
-p20 <- pca_plot(fit1,pcs = 1:2,fill = samples[rows1,"tissue"]) +
-       scale_fill_manual(values = tissue_colors,drop = FALSE) +
-       labs(fill = "cluster")
-p21 <- pca_plot(fit1,pcs = 3:4,fill = samples[rows1,"tissue"]) +
-       scale_fill_manual(values = tissue_colors,drop = FALSE) +
-       labs(fill = "cluster")
-p22 <- pca_plot(fit2,pcs = 1:2,fill = samples[rows2,"tissue"]) +
-       scale_fill_manual(values = tissue_colors,drop = FALSE) +
-       labs(fill = "cluster")
-plot_grid(p20,p21,p22,nrow = 1)
+abundant <- c("B","C","Cil","U")
+rare     <- c("T+N","I","P")
+rows1 <- which(is.element(samples$cluster,abundant))
+rows2 <- which(is.element(samples$cluster,rare))
+fit1  <- select_loadings(fit,loadings = rows1)
+fit2  <- select_loadings(fit,loadings = rows2)
+p1 <- pca_plot(fit1,pcs = 1:2,fill = samples[rows1,"tissue"]) +
+  scale_fill_manual(values = tissue_colors,drop = FALSE) +
+  labs(fill = "cluster")
+p2 <- pca_plot(fit1,pcs = 3:4,fill = samples[rows1,"tissue"]) +
+  scale_fill_manual(values = tissue_colors,drop = FALSE) +
+  labs(fill = "cluster")
+p3 <- pca_plot(fit2,pcs = 1:2,fill = samples[rows2,"tissue"]) +
+  scale_fill_manual(values = tissue_colors,drop = FALSE) +
+  labs(fill = "cluster")
+plot_grid(p1,p2,p3,nrow = 1)
 ```
 
-By computing inter-cluster and inter-topic expression differences by
-the *total variation distance* in relative expression levels, we see
-that the clusters identified above show, on average, above the same
-level of differentiation in gene expression, and the topics show more
-differentiation than the clusters.
-
-```{r clustering-13}
-fit_montoro <- init_poisson_nmf_from_clustering(counts,samples$tissue)
-fit_cluster <- init_poisson_nmf_from_clustering(counts,samples$cluster)
-fit_merge   <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
-fit_merge   <- merge_topics(fit_merge,c("k1","k3","k9"))
-d_montoro   <- totalvardist(poisson2multinom(fit_montoro)$F)
-d_cluster   <- totalvardist(poisson2multinom(fit_cluster)$F[,-7])
-d_topics    <- totalvardist(fit_merge$F[,-3])
-cat("Montoro et al (2018) clustering:\n")
-print(d_montoro,digits = 3)
-cat("Our clustering:\n")
-print(d_cluster,digits = 3)
-cat("Topics:\n")
-print(d_topics,digits = 3)
-```
-
-Here is a plot summarizing these differences:
-
-```{r clustering-14, fig.height=2, fig.width=2.5}
-pdat <-
-  rbind(data.frame(method="montoro.et.al",d=d_montoro[upper.tri(d_montoro)]),
-        data.frame(method="clusters",     d=d_cluster[upper.tri(d_cluster)]),
-        data.frame(method="topics",       d=d_topics[upper.tri(d_topics)]))
-p23 <- ggplot(pdat,aes(x = method,y = d)) +
-  geom_boxplot(width = 0.25) +
-  ylim(0,1) +
-  labs(x = "",y = "total variation dist") +
-  theme_cowplot(font_size = 9)
-print(p23)
-```
-
-When we directly compare differentiation among the 6 clusters that are
-comparable to the Montoro *et al* clusters, we observe that the
-clusters identified here for the most part show stronger
-differentiation in gene expression:
-
-```{r clustering-15, fig.height=2.25, fig.width=2.5}
-fit_montoro <- merge_topics(poisson2multinom(fit_montoro),
-                            c("tuft","neuroendocrine"))
-d_montoro <- totalvardist(fit_montoro$F[,-4])
-d_cluster <-
-  totalvardist(poisson2multinom(fit_cluster)$F[,c("B","Cil","C","I","P","T+N")])
-pdat <- data.frame(montoro  = d_montoro[upper.tri(d_montoro)],
-                   clusters = d_cluster[upper.tri(d_cluster)])
-p24 <- ggplot(pdat,aes(x = montoro,y = clusters)) +
-  geom_point(shape = 21,size = 2,color = "white",fill = "dodgerblue") +
-  geom_abline(intercept = 0,slope = 1,color = "black",linetype = "dotted") +
-  xlim(0.1,0.5) + 
-  ylim(0.1,0.5) + 
-  labs(x = "Montoro et al clusters",y = "our clusters") +
-  theme_cowplot(font_size = 9)
-print(p24)
-```
-
-Structure plot
---------------
-
-The structure plot summarizes the topic proportions in each of the 7
+This Structure plot summarizes the topic proportions in each of the 7
 subsets:
 
 ```{r structure-plot, fig.width=8, fig.height=1.5}
@@ -308,20 +154,37 @@ topic_colors <- c("turquoise","darkorange","dodgerblue","gold","peru",
                   "greenyellow","firebrick","olivedrab","royalblue",
                   "forestgreen","gray")
 topics <- c(11,1,3,4,5,6,8,10,9,2,7)
-rows <- sort(c(sample(which(samples$cluster == "B"),1000),
+rows <- sort(c(sample(which(samples$cluster == "B" & fit$L[,"k1"] < 0.5),800),
+               sample(which(samples$cluster == "B" & fit$L[,"k1"] > 0.5),200),
                sample(which(samples$cluster == "C"),1000),
-               sample(which(samples$cluster == "P"),500),
-               sample(which(samples$cluster == "Cil"),500),
-               sample(which(samples$cluster == "T+N"),500),
-               which(samples$cluster == "I"),
-               which(samples$cluster == "U")))
-p25 <- structure_plot(select(poisson2multinom(fit),loadings = rows),
-                      grouping = samples[rows,"cluster"],
-                      topics = topics,
-   		 			  colors = topic_colors[topics],
-		 			  perplexity = c(70,70,30,50,50,30,70),
-                      n = Inf,gap = 30,num_threads = 4,verbose = FALSE)
-print(p25)
+               sample(which(samples$cluster == "P"),200),
+               sample(which(samples$cluster == "Cil"),200),
+               sample(which(samples$cluster == "T+N"),200),
+               sample(which(samples$cluster == "I"),150),
+               sample(which(samples$cluster == "U"),100)))
+p <- structure_plot(select_loadings(fit,loadings = rows),
+                    grouping = samples[rows,"cluster"],
+                    topics = topics,colors = topic_colors,
+		 			perplexity = 70,n = Inf,gap = 30,
+					num_threads = 4,verbose = FALSE)
+print(p1)
+```
+
+Second structure plot after merging some topics:
+
+```{r structure-plot-2, fig.width=8, fig.height=1.5}
+set.seed(1)
+fit2 <- merge_topics(fit,c("k4","k5","k6","k8","k10"))
+fit2 <- merge_topics(fit2,c("k3","k9"))
+topic_colors <- c("turquoise","darkorange","firebrick","gray","olivedrab",
+                  "royalblue")
+topics <- c(4,1,5,6,2,3)
+p2 <- structure_plot(select_loadings(fit2,loadings = rows),
+                    grouping = samples[rows,"cluster"],
+                    topics = topics,colors = topic_colors,
+		 			perplexity = 70,n = Inf,gap = 30,
+					num_threads = 4,verbose = FALSE)
+print(p2)
 ```
 
 Based on this structure plot, and from the other results above, we
@@ -339,34 +202,10 @@ cells in this cluster, and two other topics ($k = 4, 8$) primarily
 contribute to the cells in this cluster, although can be found in
 small proportions elsewhere.
 
-These topics indeed pick up continuous variation in gene expression
-among the cells in this cluster:
+Save the clustering of the pulse-seq data to an RDS file.
 
-```{r pca-plot-club-1, fig.width=6, fig.height=4.5}
-rows <- which(x == "C")
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p26  <- pca_plot(fit2,k = c(5,8,10))
-print(p26)
-```
-
-And in PCs 3 and 4:
-
-```{r pca-plot-club-2, fig.width=6, fig.height=4.5}
-p27 <- pca_plot(fit2,pcs = 3:4,k = c(4,5,6))
-print(p27)
-```
-
-The B cluster also shows a lot of heterogeneity. Topic 1 is of particular
-interest because of its close connection to expression of the "hillock"
-gene *Krt13*:
-
-```{r pca-plot-basal, fig.width=6, fig.height=2.5}
-rows <- which(x == "B")
-fit2 <- select(poisson2multinom(fit),loadings = rows)
-p28  <- pca_plot(fit2,pcs = 2:3,k = 1) + guides(fill = "none")
-p29  <- pca_plot(fit2,pcs = 2:3,fill = log10(counts[rows,"Krt13"])) +
-        labs(fill = "log10(count)")
-plot_grid(p28,p29,rel_widths = c(4,5))
+```{r save-results}
+saveRDS(samples,"clustering-pulseseq.rds")
 ```
 
 Analysis of single-cell likelihoods
@@ -375,7 +214,7 @@ Analysis of single-cell likelihoods
 Here we calculate single-cell likelihoods to assess how well the
 multinomial topic model captures expression in different cell-types.
 
-```{r likelihood-1}
+```{r likelihood-1, eval=FALSE}
 fit <- merge_topics(poisson2multinom(fit),c("k4","k5","k6","k8","k10"))
 fit <- merge_topics(fit,c("k1","k3","k9"))
 fit_cluster    <- init_poisson_nmf_from_clustering(counts,samples$cluster)
@@ -393,7 +232,7 @@ by a hard clustering; specifically, we compare the Montoro *et al*
 appears to better fit the observed expression, particularly in the
 most abundant cell types (basal, club).
 
-```{r likelihood-2, fig.width=6, fig.height=6}
+```{r likelihood-2, fig.width=6, fig.height=6, eval=FALSE}
 minloglik <- -30000
 p1 <- loglik_scatterplot(loglik_montoro,loglik_cluster,samples$tissue,"basal",
                          "royalblue",minloglik,"Montoro et al (2018) cluster",
@@ -428,7 +267,7 @@ specifically representing ionocytes, the mixture of topics capturing
 these cells fits the observed expression levels nearly as well as
 estimates from an ionocytes cluster.
 
-```{r likelihood-3,, fig.width=6, fig.height=4}
+```{r likelihood-3,, fig.width=6, fig.height=4, eval=FALSE}
 minloglik <- -25000
 p9  <- loglik_scatterplot(loglik_cluster,loglik_topics,samples$cluster,"B",
 				  "royalblue",minloglik,"cluster","topics")
@@ -451,7 +290,7 @@ One difference here is that tuft and neuroendocrine cells are split
 into two clusters. But, judging by the likelihoods, this split provides
 little improvement in fit.
 
-```{r likelihood-4, fig.width=6, fig.height=6}
+```{r likelihood-4, fig.width=6, fig.height=6, eval=FALSE}
 minloglik <- -30000
 p15 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,"basal",
                           "royalblue",minloglik,"Montoro et al (2018) cluster",
@@ -479,9 +318,3 @@ plot_grid(p15,p16,p17,p18,p19,p20,p21,nrow = 3,ncol = 3)
 
 Save results
 ------------
-
-Save the clustering of the pulse-seq data to an RDS file.
-
-```{r save-results}
-saveRDS(samples,"clustering-pulseseq.rds")
-```
