@@ -47,8 +47,8 @@ plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
 
 Judging by the most overexpressed genes in these volcano plots, the
 topics capture goblet cells (topic 1), basal cells (topic 2),
-"hillock" club cells (topic 4), ciliated cells (topic 6), and club
-cells (topics 5 + 7).
+"hillock" club cells (topic 4), ciliated, tuft and neuroendocrine
+cells (topic 6), and club cells (topics 5 + 7).
 
 Topic 7 is driven by variation in expression of *Scgb1a1* in club
 cells:
