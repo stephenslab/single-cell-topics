@@ -29,7 +29,7 @@ fit <- merge_topics(fit,c("k3","k9"))
 # Perform the DE analysis.
 t0 <- proc.time()
 de <- de_analysis(fit,counts,pseudocount = 0.1,
-                  control = list(ns = 1000,nc = 20,nsplit = 1000))
+                  control = list(ns = 1e4,nc = 20,nsplit = 1000))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
