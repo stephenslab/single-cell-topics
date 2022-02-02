@@ -31,6 +31,5 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
-save(list = c("seed","genes","de"),
-     file = "de-pulseseq-all.RData")
+save(list = "de",file = "de-pulseseq-all.RData")
 resaveRdaFiles("de-pulseseq-all.RData")
