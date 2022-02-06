@@ -17,7 +17,6 @@ functions that we will use to generate some of the plots.
 
 ```{r load-pkgs, message=FALSE}
 library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
@@ -60,7 +59,7 @@ points to cluster "B+C+H".
 
 ```{r clustering-2}
 rows <- which(x == "A")
-fit2 <- select(fit,loadings = rows)
+fit2 <- select_loadings(fit,loadings = rows)
 pca  <- prcomp(fit2$L)$x
 pc1  <- pca[,1]
 pc2  <- pca[,2]
@@ -100,8 +99,8 @@ tissue_colors <- c("royalblue",   # basal
                     "skyblue")     # tuft
 rows1 <- which(is.element(samples$cluster,abundant))
 rows2 <- which(is.element(samples$cluster,rare))
-fit1  <- select(fit,loadings = rows1)
-fit2  <- select(fit,loadings = rows2)
+fit1  <- select_loadings(fit,loadings = rows1)
+fit2  <- select_loadings(fit,loadings = rows2)
 p1 <- pca_plot(fit1,fill = samples[rows1,"tissue"]) +
         scale_fill_manual(values = tissue_colors,drop = FALSE) +
 	    labs(fill = "cluster")
