@@ -71,7 +71,7 @@ p1 <- plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 p2 <- create_progress_plots(dat,fits,"loglik")
 p3 <- create_progress_plots(dat,fits,"res")
-ggsave("loglik_vs_k_pbmc_purified.eps",p1,height = 3,width = 3.25)
-ggsave("progress_loglik_pbmc_purified.eps",p2,height = 6,width = 9)
-ggsave("progress_res_pbmc_purified.eps",p3,height = 6,width = 9)
+ggsave("../plots/loglik_vs_k_pbmc_purified.eps",p1,height = 3,width = 3.25)
+ggsave("../plots/progress_loglik_pbmc_purified.eps",p2,height = 6,width = 9)
+ggsave("../plots/progress_res_pbmc_purified.eps",p3,height = 6,width = 9)
 ```
