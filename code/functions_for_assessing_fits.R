@@ -21,9 +21,10 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
   n           <- length(fits)
   names(fits) <- with(dat,paste0(method,ifelse(extrapolate,"+ex","")))
   for (i in 1:n) {
-    fit                 <- fits[[i]]
-    fit$progress$timing <- fit$progress$timing/3600
-    fits[[i]]           <- fit
+    fit                          <- fits[[i]]
+    fit$progress$timing          <- fit$progress$timing/3600
+    fit$progress$loglik.multinom <- 0
+    fits[[i]]                    <- fit
   }
    
   # Repeat for each choice of k, the number of topics. The legend is
@@ -33,10 +34,10 @@ create_progress_plots <- function (dat, fits, y = c("loglik","res")) {
     rows <- which(dat$k == i)
     plots[[i]] <-
       suppressMessages(
-        plot_progress_poisson_nmf(fits[rows],x = "timing",y = y,
-                                  add.point.every = 150,shapes = 21,
-                                  colors = rep(clrs,2),
-                                  fills = c(clrs,rep("white",3))) +
+        plot_progress(fits[rows],x = "timing",y = y,
+                      add.point.every = 150,shapes = 21,
+                      colors = rep(clrs,2),
+                      fills = c(clrs,rep("white",3))) +
         scale_y_continuous(trans = "log10",breaks = 10^seq(-8,8)) +
         labs(x = "runtime (h)",title = paste("K =",i)) +
         theme_cowplot(font_size = 10) +
