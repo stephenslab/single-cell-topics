@@ -64,15 +64,11 @@ monotonically over time.
 create_progress_plots(dat,fits,"res")
 ```
 
-```{r plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
+```{r plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE, eval=FALSE}
 p1 <- plot_loglik_vs_rank(fits) +
   labs(x = "number of topics (K)") +
   scale_x_continuous(breaks = c(2,seq(5,30,5))) +
   scale_y_continuous(breaks = c(0,5e6,1e7)) +
   theme_cowplot(font_size = 12)
-p2 <- create_progress_plots(dat,fits,"loglik")
-p3 <- create_progress_plots(dat,fits,"res")
-ggsave("loglik_vs_k_droplet.eps",p1,height = 3,width = 3.25)
-ggsave("progress_loglik_droplet.eps",p2,height = 6,width = 9)
-ggsave("progress_res_droplet.eps",p3,height = 6,width = 9)
+ggsave("../plots/loglik_vs_k_droplet.eps",p1,height = 3,width = 3.25)
 ```
