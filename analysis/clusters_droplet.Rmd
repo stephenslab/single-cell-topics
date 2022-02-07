@@ -36,102 +36,66 @@ fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
 fit <- poisson2multinom(fit)
 ```
 
-From the PCs of the topic proportions, we define 4 clusters, labeled
-A, Cil, G and T+N. (The reasoning behind these labels will become
-clear later.)  Points that do not fit in any of these clusters are
-assigned to a "background cluster", labeled U.
+From the PCs of the topic proportions, we define two subsets, labeled
+as "abundant" and "rare" to indicate that these subsets roughly
+capture the more abundant (e.g., basal) and more rare cell types
+(e.g., neuroendocrine).
 
 ```{r clustering-1}
 pca <- prcomp(fit$L)$x
-x   <- rep("U",nrow(pca))
-pc1 <- pca[,1]
+x   <- rep("rare",nrow(pca))
 pc2 <- pca[,2]
 pc6 <- pca[,6]
-x[pc2 > -0.15] <- "A"
-x[pc1 > 0.3 & pc2 < -0.75] <- "Cil"
-x[pc1 <= 0.3 & pc2 >= -0.75 & pc2 < -0.4] <- "T+N"
-x[pc6 < -0.05] <- "G"
-```
-
-Within the "A" cluster, we label the three more-or-less distinct
-subclusters as B, C and H, and assign the remaining "in between" data
-points to cluster "B+C+H".
-
-```{r clustering-2}
-rows <- which(x == "A")
-fit2 <- select_loadings(fit,loadings = rows)
-pca  <- prcomp(fit2$L)$x
-pc1  <- pca[,1]
-pc2  <- pca[,2]
-y    <- rep("B+C+H",nrow(pca))
-y[pc1 < 0.1] <- "B"
-y[pc1 > 0.4 & pc2 < 0.45] <- "C"
-y[pc2 > 0.55] <- "H"
-x[rows] <- y
-```
-
-In summary, we have subdivided the droplet data into 8 subsets:
-
-```{r clustering-3}
-samples$cluster <- factor(x,c("B","C","H","B+C+H","Cil","T+N","G","U"))
+x[pc2 > -0.15] <- "abundant"
+x[pc6 < -0.05] <- "rare"
+samples$cluster <- factor(x)
 table(samples$cluster)
 ```
 
-There is a close correspondence, with some exceptions, between these
-clusters based on the topic proportions and the Montoro *et al* (2018)
-clustering:
-
-```{r clustering-4}
-with(samples,table(tissue,cluster))
-```
-
-This correspondence can also be seen from these PCA plots:
+The reduced representation of the cells (from the topic proportions
+with $K = 7$ topics) mostly preserves the 7 clusters identified in the
+Montoro *et al* (2018) paper:
 
 ```{r clustering-5, fig.width=7.5, fig.height=2.5, message=FALSE}
-abundant      <- c("B","C","H","B+C+H")
-rare          <- c("Cil","T+N","G","U")
 tissue_colors <- c("royalblue",   # basal
                    "firebrick",   # ciliated
-                    "forestgreen", # club
-                    "gold",        # goblet
-                    "darkmagenta", # ionocyte
-                    "darkorange",  # neuroendocrine
-                    "skyblue")     # tuft
-rows1 <- which(is.element(samples$cluster,abundant))
-rows2 <- which(is.element(samples$cluster,rare))
-fit1  <- select_loadings(fit,loadings = rows1)
-fit2  <- select_loadings(fit,loadings = rows2)
-p1 <- pca_plot(fit1,fill = samples[rows1,"tissue"]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-	    labs(fill = "cluster")
-p2 <- pca_plot(fit2,fill = samples[rows2,"tissue"]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-	    labs(fill = "cluster")
+                   "forestgreen", # club
+                   "gold",        # goblet
+                   "darkmagenta", # ionocyte
+                   "darkorange",  # neuroendocrine
+                   "skyblue")     # tuft
+p1 <- pca_plot(fit,pcs = 1:2,fill = samples$tissue) +
+  scale_fill_manual(values = tissue_colors)
+p2 <- pca_plot(fit,pcs = 5:6,fill = samples$tissue) +
+  scale_fill_manual(values = tissue_colors)
 plot_grid(p1,p2)
 ```
 
-The structure plot summarizes the topic proportions in each of these 8
-subsets:
+```{r pca-plots-for-paper, echo=FALSE}
+ggsave("../plots/pca_cluster_droplet.png",plot_grid(p1,p2),
+       height = 3,width = 8,dpi = 450,bg = "white")
+```
+
+The structure plot summarizes the topic proportions in the "abundant"
+and "rare" subsets:
 
 ```{r structure-plot, fig.width=8, fig.height=1.5, message=FALSE}
 set.seed(1)
 topic_colors <- c("gold","royalblue","salmon","turquoise","olivedrab",
                   "firebrick","forestgreen")
 topics <- c(3,4,5,1,7,2,6)
-rows <- sort(c(sample(which(samples$cluster == "B"),400),
-               sample(which(samples$cluster == "C"),400),
-               which(samples$cluster == "H"),
-			   sample(which(samples$cluster == "B+C+H"),200),
-               sample(which(samples$cluster == "Cil"),200),
-               which(samples$cluster == "T+N"),
-               which(samples$cluster == "G"),
-			   which(samples$cluster == "U")))
+rows <- sort(c(sample(which(samples$cluster == "abundant"),1200),
+               which(samples$cluster == "rare")))
 p <- structure_plot(select_loadings(fit,loadings = rows),
                     grouping = samples[rows,"cluster"],
                     topics = topics,colors = topic_colors,
-  					perplexity = 70,n = Inf,gap = 15,
-					num_threads = 4,verbose = FALSE)
+                    perplexity = 70,n = Inf,gap = 20,
+                    num_threads = 4,verbose = FALSE)
 print(p)
+```
+
+```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
+ggsave("../plots/structure_plot_droplet.eps",p,height = 1.6,width = 7)
 ```
 
 Save the clustering of the droplet data to an RDS file:
