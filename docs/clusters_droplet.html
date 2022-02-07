@@ -292,7 +292,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-01-28
+<strong>Last updated:</strong> 2022-02-07
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef38e9f770cfb25d9a61570cf5a22422f4a4563a5targetblankf38e9f7a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/f38e9f770cfb25d9a61570cf5a22422f4a4563a5" target="_blank">f38e9f7</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee7b5bc5aa9773359f3d74d95c3158485aabcde0ctargetblanke7b5bc5a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/e7b5bc5aa9773359f3d74d95c3158485aabcde0c" target="_blank">e7b5bc5</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreef38e9f770cfb25d9a61570cf5a22422f4a4563a5targetblankf38e9f7a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreee7b5bc5aa9773359f3d74d95c3158485aabcde0ctargetblanke7b5bc5a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/f38e9f770cfb25d9a61570cf5a22422f4a4563a5" target="_blank">f38e9f7</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/e7b5bc5aa9773359f3d74d95c3158485aabcde0c" target="_blank">e7b5bc5</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -417,10 +417,11 @@ Untracked files:
     Untracked:  analysis/clustering-droplet.rds
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
+    Untracked:  analysis/structure-plot-pulseseq-merged.png
     Untracked:  plots/
 
 Unstaged changes:
-    Modified:   code/plots.R
+    Modified:   analysis/clusters_droplet_v2.R
 
 </code></pre>
 <p>
@@ -459,6 +460,91 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/e7b5bc5aa9773359f3d74d95c3158485aabcde0c/analysis/clusters_droplet.Rmd" target="_blank">e7b5bc5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-07
+</td>
+<td>
+workflowr::wflow_publish(“clusters_droplet.Rmd”, verbose = TRUE)
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/3a8ae707bb73bea52e8914b4b057b919c38c83af/analysis/clusters_droplet.Rmd" target="_blank">3a8ae70</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-05
+</td>
+<td>
+Created exploratory script clusters_droplet_v2.R.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/5ef162a96e5dd22bbd83130e542fa8eecf0edaac/analysis/clusters_droplet.Rmd" target="_blank">5ef162a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-31
+</td>
+<td>
+Working on revisions to clusters_pulseseq analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/d71aaeeed287af7afa87d27419b1520f11f4de8c/analysis/clusters_droplet.Rmd" target="_blank">d71aaee</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-29
+</td>
+<td>
+Sketched the volcano plots in de_analysis_droplet.R.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/dcfeee5ac0c2c1c59b28c67340368a2f7afada15/docs/clusters_droplet.html" target="_blank">dcfeee5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-28
+</td>
+<td>
+Revamped and simplified clusters_droplet analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1421,7 +1507,6 @@ Implemented basic_pca_plot; improved labeled_pca_plot function.
 <p>Here we perform PCA on the topic proportions to identify clusters in the droplet data.</p>
 <p>Load the packages used in the analysis below, as well as additional functions that we will use to generate some of the plots.</p>
 <pre class="r"><code>library(Matrix)
-library(dplyr)
 library(fastTopics)
 library(ggplot2)
 library(cowplot)
@@ -1431,64 +1516,30 @@ source(&quot;../code/plots.R&quot;)</code></pre>
 <p>Load the <span class="math inline">\(K = 7\)</span> Poisson NMF model fit.</p>
 <pre class="r"><code>fit &lt;- readRDS(&quot;../output/droplet/rds/fit-droplet-scd-ex-k=7.rds&quot;)$fit
 fit &lt;- poisson2multinom(fit)</code></pre>
-<p>From the PCs of the topic proportions, we define 4 clusters, labeled A, Cil, G and T+N. (The reasoning behind these labels will become clear later.) Points that do not fit in any of these clusters are assigned to a “background cluster”, labeled U.</p>
+<p>From the PCs of the topic proportions, we define two subsets, labeled as “abundant” and “rare” to indicate that these subsets roughly capture the more abundant (e.g., basal) and more rare cell types (e.g., neuroendocrine).</p>
 <pre class="r"><code>pca &lt;- prcomp(fit$L)$x
-x   &lt;- rep(&quot;U&quot;,nrow(pca))
-pc1 &lt;- pca[,1]
+x   &lt;- rep(&quot;rare&quot;,nrow(pca))
 pc2 &lt;- pca[,2]
 pc6 &lt;- pca[,6]
-x[pc2 &gt; -0.15] &lt;- &quot;A&quot;
-x[pc1 &gt; 0.3 &amp; pc2 &lt; -0.75] &lt;- &quot;Cil&quot;
-x[pc1 &lt;= 0.3 &amp; pc2 &gt;= -0.75 &amp; pc2 &lt; -0.4] &lt;- &quot;T+N&quot;
-x[pc6 &lt; -0.05] &lt;- &quot;G&quot;</code></pre>
-<p>Within the “A” cluster, we label the three more-or-less distinct subclusters as B, C and H, and assign the remaining “in between” data points to cluster “B+C+H”.</p>
-<pre class="r"><code>rows &lt;- which(x == &quot;A&quot;)
-fit2 &lt;- select(fit,loadings = rows)
-pca  &lt;- prcomp(fit2$L)$x
-pc1  &lt;- pca[,1]
-pc2   &lt;- pca[,2]
-y    &lt;- rep(&quot;B+C+H&quot;,nrow(pca))
-y[pc1 &lt; 0.1] &lt;- &quot;B&quot;
-y[pc1 &gt; 0.4 &amp; pc2 &lt; 0.45] &lt;- &quot;C&quot;
-y[pc2 &gt; 0.55] &lt;- &quot;H&quot;
-x[rows] &lt;- y</code></pre>
-<p>In summary, we have subdivided the droplet data into 8 subsets:</p>
-<pre class="r"><code>samples$cluster &lt;- factor(x,c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C+H&quot;,&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;))
+x[pc2 &gt; -0.15] &lt;- &quot;abundant&quot;
+x[pc6 &lt; -0.05] &lt;- &quot;rare&quot;
+samples$cluster &lt;- factor(x)
 table(samples$cluster)
 # 
-#     B     C     H B+C+H   Cil   T+N     G     U 
-#  3841  1936   197   570   372   168    47    62</code></pre>
-<p>There is a close correspondence, with some exceptions, between these clusters based on the topic proportions and the Montoro <em>et al</em> (2018) clustering:</p>
-<pre class="r"><code>with(samples,table(tissue,cluster))
-#                 cluster
-# tissue              B    C    H B+C+H  Cil  T+N    G    U
-#   Basal          3682   16    5   142    0    0    0    0
-#   Ciliated          1   13    0     4  371    5    0   31
-#   Club             93 1878  192   411    0    0    2    2
-#   Goblet            2   20    0     1    0    0   42    0
-#   Ionocyte          9    0    0     1    0    1    1   14
-#   Neuroendocrine   27    4    0     6    0   51    0    8
-#   Tuft             27    5    0     5    1  111    2    7</code></pre>
-<p>This correspondence can also be seen from these PCA plots:</p>
-<pre class="r"><code>abundant      &lt;- c(&quot;B&quot;,&quot;C&quot;,&quot;H&quot;,&quot;B+C+H&quot;)
-rare          &lt;- c(&quot;Cil&quot;,&quot;T+N&quot;,&quot;G&quot;,&quot;U&quot;)
-tissue_colors &lt;- c(&quot;royalblue&quot;,   # basal
+# abundant     rare 
+#     6544      649</code></pre>
+<p>The reduced representation of the cells (from the topic proportions with <span class="math inline">\(K = 7\)</span> topics) mostly preserves the 7 clusters identified in the Montoro <em>et al</em> (2018) paper:</p>
+<pre class="r"><code>tissue_colors &lt;- c(&quot;royalblue&quot;,   # basal
                    &quot;firebrick&quot;,   # ciliated
-                    &quot;forestgreen&quot;, # club
-                    &quot;gold&quot;,        # goblet
-                    &quot;darkmagenta&quot;, # ionocyte
-                    &quot;darkorange&quot;,  # neuroendocrine
-                    &quot;skyblue&quot;)     # tuft
-rows1 &lt;- which(is.element(samples$cluster,abundant))
-rows2 &lt;- which(is.element(samples$cluster,rare))
-fit1  &lt;- select(fit,loadings = rows1)
-fit2  &lt;- select(fit,loadings = rows2)
-p1 &lt;- pca_plot(fit1,fill = samples[rows1,&quot;tissue&quot;]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
-p2 &lt;- pca_plot(fit2,fill = samples[rows2,&quot;tissue&quot;]) +
-        scale_fill_manual(values = tissue_colors,drop = FALSE) +
-        labs(fill = &quot;cluster&quot;)
+                   &quot;forestgreen&quot;, # club
+                   &quot;gold&quot;,        # goblet
+                   &quot;darkmagenta&quot;, # ionocyte
+                   &quot;darkorange&quot;,  # neuroendocrine
+                   &quot;skyblue&quot;)     # tuft
+p1 &lt;- pca_plot(fit,pcs = 1:2,fill = samples$tissue) +
+  scale_fill_manual(values = tissue_colors)
+p2 &lt;- pca_plot(fit,pcs = 5:6,fill = samples$tissue) +
+  scale_fill_manual(values = tissue_colors)
 plot_grid(p1,p2)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/clustering-5-1.png" width="900" style="display: block; margin: auto;" /></p>
 <p>
@@ -1513,6 +1564,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dcfeee5ac0c2c1c59b28c67340368a2f7afada15/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">dcfeee5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/d707238a4eff6946e4e84130725678bfcb8ff27f/docs/figure/clusters_droplet.Rmd/clustering-5-1.png" target="_blank">d707238</a>
@@ -1561,24 +1623,18 @@ Peter Carbonetto
 </table>
 </div>
 </div>
-<p>The structure plot summarizes the topic proportions in each of these 8 subsets:</p>
+<p>The structure plot summarizes the topic proportions in the “abundant” and “rare” subsets:</p>
 <pre class="r"><code>set.seed(1)
 topic_colors &lt;- c(&quot;gold&quot;,&quot;royalblue&quot;,&quot;salmon&quot;,&quot;turquoise&quot;,&quot;olivedrab&quot;,
                   &quot;firebrick&quot;,&quot;forestgreen&quot;)
 topics &lt;- c(3,4,5,1,7,2,6)
-rows &lt;- sort(c(sample(which(samples$cluster == &quot;B&quot;),400),
-               sample(which(samples$cluster == &quot;C&quot;),400),
-               which(samples$cluster == &quot;H&quot;),
-               sample(which(samples$cluster == &quot;B+C+H&quot;),200),
-               sample(which(samples$cluster == &quot;Cil&quot;),200),
-               which(samples$cluster == &quot;T+N&quot;),
-               which(samples$cluster == &quot;G&quot;),
-               which(samples$cluster == &quot;U&quot;)))
-p &lt;- structure_plot(select(poisson2multinom(fit),loadings = rows),
+rows &lt;- sort(c(sample(which(samples$cluster == &quot;abundant&quot;),1200),
+               which(samples$cluster == &quot;rare&quot;)))
+p &lt;- structure_plot(select_loadings(fit,loadings = rows),
                     grouping = samples[rows,&quot;cluster&quot;],
                     topics = topics,colors = topic_colors,
-                    perplexity = 70,
-                    n = Inf,gap = 15,num_threads = 4,verbose = FALSE)
+                    perplexity = 70,n = Inf,gap = 20,
+                    num_threads = 4,verbose = FALSE)
 print(p)</code></pre>
 <p><img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
@@ -1603,6 +1659,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dcfeee5ac0c2c1c59b28c67340368a2f7afada15/docs/figure/clusters_droplet.Rmd/structure-plot-1.png" target="_blank">dcfeee5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-28
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/db6135c17587e1bb862ac005452ee934662b0c7b/docs/figure/clusters_droplet.Rmd/structure-plot-1.png" target="_blank">db6135c</a>
@@ -1692,6 +1759,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dcfeee5ac0c2c1c59b28c67340368a2f7afada15/docs/figure/clusters_droplet.Rmd/likelihood-2-1.png" target="_blank">dcfeee5</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-01-28
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/8e6c3843ab553f5c8acc7ef1b1007f7faa9ea86a/docs/figure/clusters_droplet.Rmd/likelihood-2-1.png" target="_blank">8e6c384</a>
 </td>
 <td>
@@ -1739,8 +1817,7 @@ Peter Carbonetto
 # [1] stats     graphics  grDevices utils     datasets  methods   base     
 # 
 # other attached packages:
-# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-98 dplyr_1.0.7      
-# [5] Matrix_1.2-18    
+# [1] cowplot_1.0.0     ggplot2_3.3.5     fastTopics_0.6-98 Matrix_1.2-18    
 # 
 # loaded via a namespace (and not attached):
 #  [1] httr_1.4.2         tidyr_1.1.3        jsonlite_1.7.2     viridisLite_0.3.0 
@@ -1758,12 +1835,12 @@ Peter Carbonetto
 # [49] tools_3.6.2        data.table_1.12.8  prettyunits_1.1.1  hms_1.1.0         
 # [53] lifecycle_1.0.0    stringr_1.4.0      MCMCpack_1.4-5     plotly_4.9.2      
 # [57] munsell_0.5.0      irlba_2.3.3        compiler_3.6.2     jquerylib_0.1.4   
-# [61] rlang_0.4.11       grid_3.6.2         htmlwidgets_1.5.1  labeling_0.3      
-# [65] rmarkdown_2.11     gtable_0.3.0       DBI_1.1.0          R6_2.4.1          
-# [69] knitr_1.37         uwot_0.1.10        utf8_1.1.4         workflowr_1.7.0   
-# [73] rprojroot_1.3-2    stringi_1.4.3      parallel_3.6.2     SQUAREM_2017.10-1 
-# [77] Rcpp_1.0.7         vctrs_0.3.8        tidyselect_1.1.1   xfun_0.29         
-# [81] coda_0.19-3</code></pre>
+# [61] systemfonts_1.0.2  rlang_0.4.11       grid_3.6.2         htmlwidgets_1.5.1 
+# [65] labeling_0.3       rmarkdown_2.11     gtable_0.3.0       DBI_1.1.0         
+# [69] R6_2.4.1           knitr_1.37         dplyr_1.0.7        uwot_0.1.10       
+# [73] utf8_1.1.4         workflowr_1.7.0    rprojroot_1.3-2    ragg_0.3.1        
+# [77] stringi_1.4.3      parallel_3.6.2     SQUAREM_2017.10-1  Rcpp_1.0.7        
+# [81] vctrs_0.3.8        tidyselect_1.1.1   xfun_0.29          coda_0.19-3</code></pre>
 </div>
 </div>
 
