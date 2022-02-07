@@ -365,7 +365,7 @@ plot_grid(p1,p2,p3,p4,p5,p6,nrow = 3,ncol = 2)
 
 These same results can also be explored in interactive volcano plots:
 
-```{r bcells-volcano-plotly, results="hide", warning=FALSE}
+```{r volcano-plotly, results="hide", warning=FALSE}
 volcano_plotly(de,k = "k1",ymax = 150,labels = genes$symbol,
                file = "volcano_plot_purified_pbmc_tcells.html",
                width = 600,height = 600)
