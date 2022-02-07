@@ -58,3 +58,51 @@ p7 <- volcano_plot(de,k = "k5",ymax = 200)
 p8 <- volcano_plot(de,k = "k7",ymax = 200)
 plot_grid(p7,p8)
 ```
+
+These same results can also be explored in interactive volcano plots:
+
+```{r volcano-plotly, results="hide", warning=FALSE}
+volcano_plotly(de_merged,k = "k1",ymax = 100,
+               file = "volcano_plot_droplet_goblet.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k2",ymax = 200,
+               file = "volcano_plot_droplet_basal.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k3",ymax = 200,
+               file = "volcano_plot_droplet_k3.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k4",ymax = 200,
+               file = "volcano_plot_droplet_hillock.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k5+k7",ymax = 200,
+               file = "volcano_plot_droplet_club.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k6",ymax = 100,
+               file = "volcano_plot_droplet_rare.html",
+               width = 600,height = 600)
+volcano_plotly(de,k = "k5",ymax = 200,
+               file = "volcano_plot_droplet_club_splunc1.html",
+               width = 600,height = 600)
+volcano_plotly(de,k = "k7",ymax = 200,
+               file = "volcano_plot_droplet_club_scgb1a1.html",
+               width = 600,height = 600)
+```
+
+You can explore these interactive volcano plots by following these
+links:
+
++ [topic 1 (goblet cells)](volcano_plots/volcano_plot_droplet_goblet.html)
+
++ [topic 2 (basal cells)](volcano_plots/volcano_plot_droplet_basal.html)
+
++ [topic 3](volcano_plots/volcano_plot_droplet_k3.html)
+
++ [topic 4 (hillock cells)](volcano_plots/volcano_plot_droplet_hillock.html)
+
++ [topic 5 + 7 (club cells)](volcano_plots/volcano_plot_droplet_club.html)
+
++ [topic 6 (rare cell types)](volcano_plots/volcano_plot_droplet_rare.html)
+
++ [topic 5 (Splunc1+ club cells)](volcano_plots/volcano_plot_droplet_club_splunc1.html)
+
++ [topic 7 (Scgb1a1+ club cells)](volcano_plots/volcano_plot_droplet_club_scgb1a1.html)
