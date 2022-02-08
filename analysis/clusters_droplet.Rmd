@@ -141,3 +141,9 @@ p7 <- loglik_scatterplot(loglik_montoro,loglik_topics,samples$tissue,
                          "Tuft",minloglik,"cluster","topics")
 plot_grid(p1,p2,p3,p4,p5,p6,p7,nrow = 3,ncol = 3)
 ```
+
+```{r likelihood-scatterplots-for-paper, echo=FALSE}
+ggsave("../plots/likelihoods_droplet.png",
+       plot_grid(p1,p2,p3,p4,p5,p6,p7,nrow = 3,ncol = 3),
+	   height = 6,width = 6,dpi = 600,bg = "white")
+```
