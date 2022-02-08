@@ -106,3 +106,12 @@ links:
 + [topic 5 (Splunc1+ club cells)](volcano_plots/volcano_plot_droplet_club_splunc1.html)
 
 + [topic 7 (Scgb1a1+ club cells)](volcano_plots/volcano_plot_droplet_club_scgb1a1.html)
+
+```{r volcano-plots-for-paper, echo=FALSE}
+ggsave("../plots/volcano_plots_droplet_part1.eps",
+       plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3),
+	   height = 7,width = 12.5)
+ggsave("../plots/volcano_plots_droplet_part2.eps",
+       plot_grid(p7,p8),
+	   height = 3.5,width = 8.5)
+```
