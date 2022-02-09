@@ -17,17 +17,36 @@ rows    <- which(fit$L[,6] > 0.1)
 samples <- samples[rows,]
 counts  <- counts[rows,]
 
-# FIT POISSON NMF
-# ---------------
 # Now we are ready to perform the main model-fitting step.
-timing <- system.time({
-  fit <- fit_poisson_nmf(counts,k = 5,numiter = 200,method = "scd",
-                         innt.method = "random",
-                         control = list(extrapolate = TRUE,numiter = 4,nc = 4))
-})
+fits        <- vector("list",6)
+names(fits) <- paste0("k",1:6)
+for (k in 2:6)
+  fits[[k]] <- fit_poisson_nmf(counts,k = k,numiter = 100,method = "scd",
+                               init.method = "random",
+                               control = list(extrapolate = TRUE,
+                                              numiter = 4,nc = 4))
+fits <- fits[-1]
+
+plot_loglik_vs_rank(fits)
+
+stop()
+
+# Perform the DE analysis.
+t0 <- proc.time()
+de <- de_analysis(fit,counts,pseudocount = 0.1,control = list(ns = 1e4,nc = 4))
+t1 <- proc.time()
+timing <- t1 - t0
+cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
+
+# Perform a second DE analysis after merging topics 1 and 3.
+t0 <- proc.time()
+fit_merged <- merge_topics(fit,c("k1","k3"))
+de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
+                         control = list(ns = 1e4,nc = 4))
+t1 <- proc.time()
+timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # SAVE RESULTS
 # ------------
-saveRDS(fit,file = "refit-droplet-scd-ex=k=7.rds")
-
+saveRDS(list(fit = fit),file = "refit-droplet-scd-ex=k=7.rds")
