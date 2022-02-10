@@ -24,7 +24,7 @@ Results to add:
 + loglik vs. K plot for "rare cells" in droplet data.
 
 + PCA plot for "rare cells" in droplet data showing correspondence
-between topics and Montoro et al clusters.
+  between topics and Montoro *et al* (2018) clusters.
 
 + Volcano plots for "rare cells" in droplet data.
 
