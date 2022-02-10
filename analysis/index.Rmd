@@ -69,9 +69,13 @@ Visualize and annotate topics
 In these pages, we annotate topics to determine their biological
 relevance.
 
++ [PBMC](de_analysis_purified_pbmc.html)
+
 + [Droplet](de_analysis_droplet.html)
 
 Other analyses
 --------------
 
 + [PCA vs. t-SNE and UMAP: an illustration](pca_vs_tsne.html)
+
++ [Analysis of rare epithelial cell types in droplet data](droplet_rare.html)

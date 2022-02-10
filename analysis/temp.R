@@ -4,17 +4,13 @@ clusters[clusters == "Basal" |
          clusters == "Club" |
          clusters == "Goblet"] <- "Other"
 clusters <- factor(clusters)
+pca_plot(fit,pcs = 1:2,fill = clusters)
 set.seed(1)
 p1 <- structure_plot(fit,
                      topics = c(4,5,2,3,1),
                      colors = c("firebrick","darkorange","salmon","gainsboro",
                                 "skyblue"),
                      perplexity = 70)
-p2 <- structure_plot(fit,grouping = clusters,
-                    topics = c(4,5,2,3,1),
-                    colors = c("firebrick","darkorange","salmon","gainsboro",
-                               "skyblue"),
-                    perplexity = 30,gap = 8)
 
 # ----
 
