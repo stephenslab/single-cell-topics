@@ -292,7 +292,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-07
+<strong>Last updated:</strong> 2022-02-10
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree726bd7a70fb95e3bea5954d81886503bb6e25e95targetblank726bd7aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/726bd7a70fb95e3bea5954d81886503bb6e25e95" target="_blank">726bd7a</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7742b5187ca611aa89841cbfe98d7ed4ec5c06eatargetblank7742b51a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/7742b5187ca611aa89841cbfe98d7ed4ec5c06ea" target="_blank">7742b51</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree726bd7a70fb95e3bea5954d81886503bb6e25e95targetblank726bd7aa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree7742b5187ca611aa89841cbfe98d7ed4ec5c06eatargetblank7742b51a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/726bd7a70fb95e3bea5954d81886503bb6e25e95" target="_blank">726bd7a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/7742b5187ca611aa89841cbfe98d7ed4ec5c06ea" target="_blank">7742b51</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -414,18 +414,17 @@ Ignored files:
     Ignored:    output/sims/
 
 Untracked files:
+    Untracked:  analysis/clustering-droplet.rds
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
+    Untracked:  analysis/droplet_rare.Rmd
+    Untracked:  analysis/droplet_rare.Rmd~
     Untracked:  analysis/structure-plot-pulseseq-merged.png
-    Untracked:  analysis/volcano_plot_droplet_basal.html
-    Untracked:  analysis/volcano_plot_droplet_club.html
-    Untracked:  analysis/volcano_plot_droplet_club_scgb1a1.html
-    Untracked:  analysis/volcano_plot_droplet_club_splunc1.html
-    Untracked:  analysis/volcano_plot_droplet_goblet.html
-    Untracked:  analysis/volcano_plot_droplet_hillock.html
-    Untracked:  analysis/volcano_plot_droplet_k3.html
-    Untracked:  analysis/volcano_plot_droplet_rare.html
     Untracked:  plots/
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/temp.R
 
 </code></pre>
 <p>
@@ -464,6 +463,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/7742b5187ca611aa89841cbfe98d7ed4ec5c06ea/analysis/de_analysis_droplet.Rmd" target="_blank">7742b51</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-10
+</td>
+<td>
+workflowr::wflow_publish(“de_analysis_droplet.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/65429520ddd5a11896eb6de48842dd07e3a53a8c/docs/de_analysis_droplet.html" target="_blank">6542952</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-07
+</td>
+<td>
+Create droplet volcano plots for paper in de_analysis_droplet analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -642,7 +675,7 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 <p>Here we summarize the results of performing DE analysis on the droplet data using the topic model with <span class="math inline">\(K = 7\)</span> topics.</p>
-<p>Load the packages and used in the analysis.</p>
+<p>Load the packages used in the analysis.</p>
 <pre class="r"><code>library(fastTopics)
 library(ggplot2)
 library(cowplot)</code></pre>
@@ -682,6 +715,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/65429520ddd5a11896eb6de48842dd07e3a53a8c/docs/figure/de_analysis_droplet.Rmd/volcano-plots-1-1.png" target="_blank">6542952</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/cdfb0dc930a92bc2d6e7ad062ee29b25e8ce9b09/docs/figure/de_analysis_droplet.Rmd/volcano-plots-1-1.png" target="_blank">cdfb0dc</a>
@@ -747,6 +791,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/65429520ddd5a11896eb6de48842dd07e3a53a8c/docs/figure/de_analysis_droplet.Rmd/volcano-plots-2-1.png" target="_blank">6542952</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-07
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/stephenslab/single-cell-topics/blob/cdfb0dc930a92bc2d6e7ad062ee29b25e8ce9b09/docs/figure/de_analysis_droplet.Rmd/volcano-plots-2-1.png" target="_blank">cdfb0dc</a>
