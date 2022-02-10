@@ -75,3 +75,5 @@ Other analyses
 --------------
 
 + [PCA vs. t-SNE and UMAP: an illustration](pca_vs_tsne.html)
+
++ [Analysis of rare epithelial cell types in droplet data](droplet_rare.html)
