@@ -7,7 +7,7 @@
 # These were the steps taken to load R and allocate computing
 # resources for this analysis:
 #
-#   sinteractive -p broadwl -c 8 --mem=16G --time=24:00:00
+#   sinteractive -p broadwl -c 8 --mem=16G --time=4:00:00
 #   module load R/3.5.1
 #
 
@@ -42,7 +42,7 @@ fits <- fits[-1]
 # Perform a DE analysis using the topic model with k = 5 topics.
 fit <- poisson2multinom(fits$k5)
 t0 <- proc.time()
-de <- de_analysis(fit,counts,pseudocount = 0.1,control = list(ns = 1e4,nc = 8))
+de <- de_analysis(fit,counts,pseudocount = 0.1,control = list(ns = 1e5,nc = 8))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
@@ -52,7 +52,7 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 t0 <- proc.time()
 fit_merged <- merge_topics(fit,c("k2","k4"))
 de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
-                         control = list(ns = 1e4,nc = 8))
+                         control = list(ns = 1e5,nc = 8))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
