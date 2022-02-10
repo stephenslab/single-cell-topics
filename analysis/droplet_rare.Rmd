@@ -1,0 +1,31 @@
+---
+title: "Analysis of rare epithelial cell types in droplet data"
+author: Peter Carbonetto
+output: workflowr::wflow_html
+---
+
+*Add text here.*
+
+```{r knitr-opts, include=FALSE}
+knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
+                      fig.align = "center",dpi = 120)
+```
+
+Load the packages used in the analysis.
+
+```{r load-pkgs, message=FALSE}
+library(fastTopics)
+library(ggplot2)
+library(cowplot)
+```
+
+Results to add:
+
++ loglik vs. K plot for "rare cells" in droplet data.
+
++ PCA plot for "rare cells" in droplet data showing correspondence
+between topics and Montoro et al clusters.
+
++ Volcano plots for "rare cells" in droplet data.
+
++ Structure plot for "rare cells" in droplet data.
