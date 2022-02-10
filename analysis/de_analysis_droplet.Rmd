@@ -12,7 +12,7 @@ knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
                       fig.align = "center",dpi = 120)
 ```
 
-Load the packages and used in the analysis.
+Load the packages used in the analysis.
 
 ```{r load-pkgs, message=FALSE}
 library(fastTopics)
