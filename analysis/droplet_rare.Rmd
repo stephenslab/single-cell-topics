@@ -19,6 +19,44 @@ library(ggplot2)
 library(cowplot)
 ```
 
+Initialize the sequence of pseudorandom numbers.
+
+```{r set-seed}
+set.seed(1)
+```
+
+Load the previously prepared count data.
+
+```{r load-data}
+load("../data/droplet.RData")
+```
+
+Load the $K = 7$ Poisson NMF model fit.
+
+```{r load-fit}
+fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+fit <- poisson2multinom(fit)
+```
+
+Select cells that have at least 10% membership in topic 6.
+
+```{r subset-fit}
+fit     <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
+fit     <- poisson2multinom(fit)
+rows    <- which(fit$L[,6] > 0.1)
+samples <- samples[rows,]
+counts  <- counts[rows,]
+```
+
+This plot shows the improvement in the log-likelihood as the rank,
+$K$, is increased. The log-likelihoods are shown relative to the
+log-likelihood at $K = 2$. 
+
+```{r plot-loglik-vs-k, fig.height=3, fig.width=5}
+plot_loglik_vs_rank(fits) +
+  theme_cowplot(font_size = 12)
+```
+
 Results to add:
 
 + loglik vs. K plot for "rare cells" in droplet data.
