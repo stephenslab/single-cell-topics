@@ -31,21 +31,28 @@ Load the previously prepared count data.
 load("../data/droplet.RData")
 ```
 
-Load the $K = 7$ Poisson NMF model fit.
+Load the results on the rare cell types.
 
-```{r load-fit}
-fit <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-fit <- poisson2multinom(fit)
+```{r load-results-1}
+out       <- readRDS("../output/droplet/refit-droplet.rds")
+fits      <- out$fits
+de        <- out$de
+de_merged <- out$de_merged
 ```
 
-Select cells that have at least 10% membership in topic 6.
+Below we will look more closely at the topic model with $K = 5$
+topics:
+
+```{r load-results-2}
+fit <- poisson2multinom(fits$k5)
+```
+
+Find the subset of genes and samples that were used to fit the model:
 
 ```{r subset-fit}
-fit     <- readRDS("../output/droplet/rds/fit-droplet-scd-ex-k=7.rds")$fit
-fit     <- poisson2multinom(fit)
-rows    <- which(fit$L[,6] > 0.1)
-samples <- samples[rows,]
-counts  <- counts[rows,]
+rownames(samples) <- with(samples,paste(mouse.id,barcode,sep = "_"))
+samples <- samples[rownames(fit$L),]
+counts  <- counts[rownames(fit$L),rownames(fit$F)]
 ```
 
 This plot shows the improvement in the log-likelihood as the rank,
@@ -57,9 +64,14 @@ plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
 
-Results to add:
+```{r plots-loglik-vs-k-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
+p <- plot_loglik_vs_rank(fits) +
+  labs(x = "number of topics (K)") +
+  theme_cowplot(font_size = 12)
+ggsave("../plots/loglik_vs_k_droplet_rare.eps",p,height = 3,width = 3.25)
+```
 
-+ loglik vs. K plot for "rare cells" in droplet data.
+Results to add:
 
 + PCA plot for "rare cells" in droplet data showing correspondence
   between topics and Montoro *et al* (2018) clusters.
