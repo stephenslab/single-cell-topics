@@ -115,7 +115,33 @@ print(p)
 ggsave("../plots/structure_plot_droplet_rare.eps",p,height = 1.6,width = 5)
 ```
 
-Results to add:
+These volcano plots summarize the results of the GoM DE analysis after
+merging topics 3 and 4:
 
-+ Volcano plots for "rare cells" in droplet data.
+```{r volcano-plots-1, fig.height=7, fig.width=8}
+p1 <- volcano_plot(de_merged,k = "k1",ymax = 50)
+p2 <- volcano_plot(de_merged,k = "k2",ymax = 100)
+p3 <- volcano_plot(de_merged,k = "k3+k4",ymax = 100)
+p4 <- volcano_plot(de_merged,k = "k5",ymax = 100)
+plot_grid(p1,p2,p3,p4)
+```
 
+Judging by the most distinctive genes in these volcano plots, the
+topics capture tuft cells (topic 1), neuroendocrine cells (topic 2)
+and ciliated cells (topics 3 + 4).
+
+Meanwhile, from the structure plot above, we see that topics 3 and 4
+capture continuous variation in the ciliated cells. The most
+distinctive genes in these two topics suggest...
+
+```{r volcano-plots-2, fig.height=3.5, fig.width=8}
+p5 <- volcano_plot(de,k = "k3",ymax = 50)
+p6 <- volcano_plot(de,k = "k4",ymax = 200)
+plot_grid(p5,p6)
+```
+
+```{r volcano-plots-for-paper, echo=FALSE}
+ggsave("../plots/volcano_plots_droplet_part1.eps",
+       plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3),
+	   height = 7,width = 12.5)
+```
