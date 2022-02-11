@@ -383,16 +383,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1bd5cef02952634d8bc281e66e4926d5be4824aftargetblank1bd5cefa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/1bd5cef02952634d8bc281e66e4926d5be4824af" target="_blank">1bd5cef</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree096729f8478ca31aa51b65e9bdc97db7a7af71f5targetblank096729fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/096729f8478ca31aa51b65e9bdc97db7a7af71f5" target="_blank">096729f</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree1bd5cef02952634d8bc281e66e4926d5be4824aftargetblank1bd5cefa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstree096729f8478ca31aa51b65e9bdc97db7a7af71f5targetblank096729fa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/1bd5cef02952634d8bc281e66e4926d5be4824af" target="_blank">1bd5cef</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/096729f8478ca31aa51b65e9bdc97db7a7af71f5" target="_blank">096729f</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -421,6 +421,7 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/assess_fits_droplet.Rmd
+    Modified:   analysis/temp.R
 
 </code></pre>
 <p>
@@ -459,6 +460,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/096729f8478ca31aa51b65e9bdc97db7a7af71f5/analysis/droplet_rare.Rmd" target="_blank">096729f</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-11
+</td>
+<td>
+workflowr::wflow_publish(“droplet_rare.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/a64f3eaa07942a5c302ebab68983fd663e16e6c6/docs/droplet_rare.html" target="_blank">a64f3ea</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-11
+</td>
+<td>
+Added loglik-vs-k plot to droplet_rare analysis.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -568,7 +603,7 @@ workflowr::wflow_publish(“index.Rmd”)
 </div>
 </div>
 </div>
-<p><em>Add text here.</em></p>
+<p>Based on the topic modeling results in the droplet data, with <span class="math inline">\(K = 7\)</span> topics, one of the topics, topic 6, appears to be capturing rare, specialized epithelial cells, including ionocyte, tuft and neuroendocrine cells. Therefore, here we reanalyze the cells with membership to this topic.</p>
 <p>Load the packages used in the analysis.</p>
 <pre class="r"><code>library(fastTopics)
 library(ggplot2)
@@ -591,12 +626,74 @@ counts  &lt;- counts[rownames(fit$L),rownames(fit$F)]</code></pre>
 <p>This plot shows the improvement in the log-likelihood as the rank, <span class="math inline">\(K\)</span>, is increased. The log-likelihoods are shown relative to the log-likelihood at <span class="math inline">\(K = 2\)</span>.</p>
 <pre class="r"><code>plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)</code></pre>
-<p><img src="figure/droplet_rare.Rmd/plot-loglik-vs-k-1.png" width="600" style="display: block; margin: auto;" /></p>
+<p><img src="figure/droplet_rare.Rmd/plot-loglik-vs-k-1.png" width="420" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-plot-loglik-vs-k-1">
+Past versions of plot-loglik-vs-k-1.png
+</button>
+</p>
+<div id="fig-plot-loglik-vs-k-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/a64f3eaa07942a5c302ebab68983fd663e16e6c6/docs/figure/droplet_rare.Rmd/plot-loglik-vs-k-1.png" target="_blank">a64f3ea</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>This PCA plot showing the top two PCs of the topic proportions shows that the topics correspond well with the clusters identified by Montoro <em>et al</em> (2018):</p>
+<pre class="r"><code>clusters &lt;- as.character(samples$tissue)
+clusters[clusters == &quot;Basal&quot; |
+         clusters == &quot;Club&quot; |
+         clusters == &quot;Goblet&quot;] &lt;- &quot;Other&quot;
+clusters &lt;- factor(clusters)
+tissue_colors &lt;- c(&quot;firebrick&quot;,   # ciliated
+                   &quot;darkmagenta&quot;, # ionocyte
+                   &quot;darkorange&quot;,  # neuroendocrine
+                   &quot;gainsboro&quot;,   # other
+                   &quot;skyblue&quot;)     # tuft
+p &lt;- pca_plot(fit,pcs = 1:2,fill = clusters) +
+  scale_fill_manual(values = tissue_colors)
+# Scale for &#39;fill&#39; is already present. Adding another scale for &#39;fill&#39;, which
+# will replace the existing scale.
+print(p)</code></pre>
+<p><img src="figure/droplet_rare.Rmd/pca-plot-1.png" width="510" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggsave(&quot;../plots/pca_cluster_droplet_rare.png&quot;,p,
+       height = 3,width = 4,dpi = 450,bg = &quot;white&quot;)</code></pre>
+<p>The structure plot summarizes the estimated topic proportions:</p>
+<pre class="r"><code>set.seed(1)
+topic_colors &lt;- c(&quot;skyblue&quot;,&quot;darkorange&quot;,&quot;red&quot;,&quot;violet&quot;,&quot;gainsboro&quot;)
+topics &lt;- c(5,2,1,3,4)
+p &lt;- structure_plot(fit,topics = topics,colors = topic_colors,
+                    perplexity = 70,num_threads = 2,verbose = FALSE)
+print(p)</code></pre>
+<p><img src="figure/droplet_rare.Rmd/structure-plot-1.png" width="720" style="display: block; margin: auto;" /></p>
 <p>Results to add:</p>
 <ul>
-<li><p>PCA plot for “rare cells” in droplet data showing correspondence between topics and Montoro <em>et al</em> (2018) clusters.</p></li>
-<li><p>Volcano plots for “rare cells” in droplet data.</p></li>
-<li><p>Structure plot for “rare cells” in droplet data.</p></li>
+<li>Volcano plots for “rare cells” in droplet data.</li>
 </ul>
 <br>
 <p>
