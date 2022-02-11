@@ -65,12 +65,12 @@ create_progress_plots(dat,fits,"res")
 ```
 
 ```{r plots-for-paper, message=FALSE, warning=FALSE, echo=FALSE}
-p1 <- plot_loglik_vs_rank(fits[with(dat,
-                                    as.numeric(as.character(k)) <= 13 &
-                                    method == "scd" &
-                                    extrapolate)]) +
+p <- plot_loglik_vs_rank(fits[with(dat,
+                                   as.numeric(as.character(k)) <= 13 &
+                                   method == "scd" &
+                                   extrapolate)]) +
   labs(x = "number of topics (K)") +
   scale_y_continuous(breaks = seq(0,8e6,1e6)) +
   theme_cowplot(font_size = 12)
-ggsave("../plots/loglik_vs_k_droplet.eps",p1,height = 3,width = 3.25)
+ggsave("../plots/loglik_vs_k_droplet.eps",p,height = 3,width = 3.25)
 ```

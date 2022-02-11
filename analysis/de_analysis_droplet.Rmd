@@ -32,7 +32,7 @@ For reference, here is the Structure plot from
 <img src="figure/clusters_droplet.Rmd/structure-plot-1.png" width=1920
 style="display: block; margin: auto;">
 
-These volcano plots summarize the results off the DE analysis after
+These volcano plots summarize the results of the DE analysis after
 merging topics 5 and 7:
 
 ```{r volcano-plots-1, fig.height=10.75, fig.width=8}
