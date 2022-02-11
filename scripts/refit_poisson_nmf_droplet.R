@@ -12,7 +12,6 @@
 #
 
 # Load a couple packages.
-library(tools)
 library(Matrix)
 library(fastTopics)
 
@@ -67,4 +66,3 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 # ------------
 saveRDS(list(fits = fits,de = de,de_merged = de_merged),
         file = "refit-droplet.rds")
-resaveRdaFiles("refit-droplet.RData")
