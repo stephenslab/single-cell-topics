@@ -4,7 +4,11 @@ author: Peter Carbonetto
 output: workflowr::wflow_html
 ---
 
-*Add text here.*
+Based on the topic modeling results in the droplet data, with $K = 7$
+topics, one of the topics, topic 6, appears to be capturing rare,
+specialized epithelial cells, including ionocyte, tuft and
+neuroendocrine cells. Therefore, here we reanalyze the cells with
+membership to this topic.
 
 ```{r knitr-opts, include=FALSE}
 knitr::opts_chunk$set(comment = "#",collapse = TRUE,results = "hold",
@@ -59,7 +63,7 @@ This plot shows the improvement in the log-likelihood as the rank,
 $K$, is increased. The log-likelihoods are shown relative to the
 log-likelihood at $K = 2$. 
 
-```{r plot-loglik-vs-k, fig.height=3, fig.width=5}
+```{r plot-loglik-vs-k, fig.height=3, fig.width=3.5}
 plot_loglik_vs_rank(fits) +
   theme_cowplot(font_size = 12)
 ```
@@ -71,11 +75,47 @@ p <- plot_loglik_vs_rank(fits) +
 ggsave("../plots/loglik_vs_k_droplet_rare.eps",p,height = 3,width = 3.25)
 ```
 
-Results to add:
+This PCA plot showing the top two PCs of the topic proportions shows
+that the topics correspond well with the clusters identified by
+Montoro *et al* (2018):
 
-+ PCA plot for "rare cells" in droplet data showing correspondence
-  between topics and Montoro *et al* (2018) clusters.
+```{r pca-plot, fig.height=3, fig.width=4.25, warning=FALSE}
+clusters <- as.character(samples$tissue)
+clusters[clusters == "Basal" |
+         clusters == "Club" |
+         clusters == "Goblet"] <- "Other"
+clusters <- factor(clusters)
+tissue_colors <- c("firebrick",   # ciliated
+                   "darkmagenta", # ionocyte
+                   "darkorange",  # neuroendocrine
+				   "gainsboro",   # other
+                   "skyblue")     # tuft
+p <- pca_plot(fit,pcs = 1:2,fill = clusters) +
+  scale_fill_manual(values = tissue_colors)
+print(p)
+```
+
+```{r pca-plot-for-paper}
+ggsave("../plots/pca_cluster_droplet_rare.png",p,
+       height = 3,width = 4,dpi = 450,bg = "white")
+```
+
+The structure plot summarizes the estimated topic proportions:
+
+```{r structure-plot, fig.width=6, fig.height=1.5, message=FALSE}
+set.seed(1)
+topic_colors <- c("skyblue","darkorange","red","violet","gainsboro")
+topics <- c(5,2,1,3,4)
+p <- structure_plot(fit,topics = topics,colors = topic_colors,
+                    perplexity = 70,num_threads = 2,verbose = FALSE)
+print(p)
+```
+
+```{r structure-plot-for-paper, message=FALSE, warning=FALSE, echo=FALSE, results="hide"}
+ggsave("../plots/structure_plot_droplet_rare.eps",p,height = 1.6,width = 5)
+```
+
+Results to add:
 
 + Volcano plots for "rare cells" in droplet data.
 
-+ Structure plot for "rare cells" in droplet data.
