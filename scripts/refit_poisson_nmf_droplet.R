@@ -12,6 +12,7 @@
 #
 
 # Load a couple packages.
+library(tools)
 library(Matrix)
 library(fastTopics)
 
@@ -27,6 +28,11 @@ fit     <- poisson2multinom(fit)
 rows    <- which(fit$L[,6] > 0.1)
 samples <- samples[rows,]
 counts  <- counts[rows,]
+
+# Remove genes that are not expressed in any of the cells.
+j      <- which(colSums(counts > 0) >= 1)
+counts <- counts[,j]
+print(dim(counts))
 
 # Now we are ready to perform the main model-fitting step. We repeat
 # the model fitting for k = 2 through 6.
@@ -48,9 +54,9 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Perform a second DE analysis with the k = 5 topic model after
-# merging topics 2 and 4.
+# merging topics 3 and 4.
 t0 <- proc.time()
-fit_merged <- merge_topics(fit,c("k2","k4"))
+fit_merged <- merge_topics(fit,c("k3","k4"))
 de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
                          control = list(ns = 1e5,nc = 8))
 t1 <- proc.time()
@@ -61,3 +67,4 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 # ------------
 saveRDS(list(fits = fits,de = de,de_merged = de_merged),
         file = "refit-droplet.rds")
+resaveRdaFiles("refit-droplet.RData")
