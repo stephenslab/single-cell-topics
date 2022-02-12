@@ -57,6 +57,7 @@ Find the subset of genes and samples that were used to fit the model:
 rownames(samples) <- with(samples,paste(mouse.id,barcode,sep = "_"))
 samples <- samples[rownames(fit$L),]
 counts  <- counts[rownames(fit$L),rownames(fit$F)]
+dim(counts)
 ```
 
 This plot shows the improvement in the log-likelihood as the rank,
@@ -145,3 +146,5 @@ ggsave("../plots/volcano_plots_droplet_part1.eps",
        plot_grid(p1,p2,p3,p4,p5,p6,nrow = 2,ncol = 3),
 	   height = 7,width = 12.5)
 ```
+
+TO DO: Create interactive volcano plots.
