@@ -132,8 +132,7 @@ topics capture tuft cells (topic 1), neuroendocrine cells (topic 2)
 and ciliated cells (topics 3 + 4).
 
 Meanwhile, from the structure plot above, we see that topics 3 and 4
-capture continuous variation in the ciliated cells. The most
-distinctive genes in these two topics suggest...
+capture continuous variation in the ciliated cells:
 
 ```{r volcano-plots-2, fig.height=3.5, fig.width=8}
 p5 <- volcano_plot(de,k = "k3",ymax = 50)
@@ -147,4 +146,40 @@ ggsave("../plots/volcano_plots_droplet_rare.eps",
 	   height = 7,width = 12.5)
 ```
 
-TO DO: Create interactive volcano plots.
+These same results can also be explored in interactive volcano plots:
+
+```{r volcano-plotly, results="hide", warning=FALSE}
+volcano_plotly(de_merged,k = "k1",ymax = 50,
+               file = "volcano_plot_droplet_rare_tuft.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k2",ymax = 100,
+               file = "volcano_plot_droplet_rare_neuroendocrine.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k3+k4",ymax = 100,
+               file = "volcano_plot_droplet_rare_ciliated.html",
+               width = 600,height = 600)
+volcano_plotly(de_merged,k = "k5",ymax = 100,
+               file = "volcano_plot_droplet_rare_k5.html",
+               width = 600,height = 600)
+volcano_plotly(de,k = "k3",ymax = 50,
+               file = "volcano_plot_droplet_rare_k3.html",
+               width = 600,height = 600)
+volcano_plotly(de,k = "k4",ymax = 200,
+               file = "volcano_plot_droplet_rare_k4.html",
+               width = 600,height = 600)
+```
+
+You can explore these interactive volcano plots by following these
+links:
+
++ [topic 1 (tuft cells)](volcano_plots/volcano_plot_droplet_rare_tuft.html)
+
++ [topic 2 (neuroendocrine cells)](volcano_plots/volcano_plot_droplet_rare_neuroendocrine.html)
+
++ [topics 3 + 4 (ciliated cells)](volcano_plots/volcano_plot_droplet_rare_ciliated.html)
+
++ [topic 3](volcano_plots/volcano_plot_droplet_rare_k3.html)
+
++ [topic 4](volcano_plots/volcano_plot_droplet_rare_k4.html)
+
++ [topic 5](volcano_plots/volcano_plot_droplet_rare_k5.html)
