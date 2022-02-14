@@ -99,7 +99,7 @@ links:
 
 + [topic 4 (hillock cells)](volcano_plots/volcano_plot_droplet_hillock.html)
 
-+ [topic 5 + 7 (club cells)](volcano_plots/volcano_plot_droplet_club.html)
++ [topics 5 + 7 (club cells)](volcano_plots/volcano_plot_droplet_club.html)
 
 + [topic 6 (rare cell types)](volcano_plots/volcano_plot_droplet_rare.html)
 
