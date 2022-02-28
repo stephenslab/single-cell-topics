@@ -1,6 +1,7 @@
 # See stephenslab.github.io/count-clustering/project/src/
 # deng_cluster_annotations.html
 # Download .rda files from
+# github.com/kkdey/singleCellRNASeqMouseDeng2014/tree/master/data
 # github.com/stephenslab/count-clustering/tree/master/project/rdas
 library(Biobase)
 library(fastTopics)
