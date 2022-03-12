@@ -36,8 +36,6 @@ data sets for topic modeling analysis.
 
 + [Droplet](prepare_droplet.html)
 
-+ [Pulse-seq](prepare_pulseseq.html)
-
 Assess Poisson NMF model fits
 -----------------------------
 
@@ -49,8 +47,6 @@ with different settings for $K$.
 
 + [Droplet](assess_fits_droplet.html)
 
-+ [Pulse-seq](assess_fits_pulseseq.html)
-
 Identify clusters
 -----------------
 
@@ -60,8 +56,6 @@ proportions.
 + [PBMC](clusters_purified_pbmc.html)
 
 + [Droplet](clusters_droplet.html)
-
-+ [Pulse-seq](clusters_pulseseq.html)
 
 Visualize and annotate topics
 -----------------------------
