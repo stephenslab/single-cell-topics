@@ -292,7 +292,7 @@ $(document).ready(function () {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-02-10
+<strong>Last updated:</strong> 2022-03-11
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -323,16 +323,16 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreead0daeecd17120c05d791439b57a7292bf9d33fftargetblankad0daeea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/ad0daeecd17120c05d791439b57a7292bf9d33ff" target="_blank">ad0daee</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreedd4b21a57765be0c8be4e18b89f18950578683cftargetblankdd4b21aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/stephenslab/single-cell-topics/tree/dd4b21a57765be0c8be4e18b89f18950578683cf" target="_blank">dd4b21a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreead0daeecd17120c05d791439b57a7292bf9d33fftargetblankad0daeea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomstephenslabsinglecelltopicstreedd4b21a57765be0c8be4e18b89f18950578683cftargetblankdd4b21aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/ad0daeecd17120c05d791439b57a7292bf9d33ff" target="_blank">ad0daee</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/stephenslab/single-cell-topics/tree/dd4b21a57765be0c8be4e18b89f18950578683cf" target="_blank">dd4b21a</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -340,27 +340,18 @@ Note that you need to be careful to ensure that all relevant files for the analy
 <pre><code>
 Ignored files:
     Ignored:    data/droplet.RData
-    Ignored:    data/pbmc_68k.RData
     Ignored:    data/pbmc_purified.RData
-    Ignored:    data/pulseseq.RData
     Ignored:    output/droplet/diff-count-droplet.RData
     Ignored:    output/droplet/fits-droplet.RData
     Ignored:    output/droplet/rds/
     Ignored:    output/pbmc-purified/fits-pbmc-purified.RData
     Ignored:    output/pbmc-purified/rds/
-    Ignored:    output/pulseseq/diff-count-pulseseq.RData
-    Ignored:    output/pulseseq/fits-pulseseq.RData
-    Ignored:    output/pulseseq/rds/
     Ignored:    output/sims/
 
 Untracked files:
     Untracked:  analysis/de_analysis_detailed_look_cache/
     Untracked:  analysis/de_analysis_detailed_look_more_cache/
-    Untracked:  analysis/structure-plot-pulseseq-merged.png
     Untracked:  plots/
-
-Unstaged changes:
-    Modified:   analysis/temp.R
 
 </code></pre>
 <p>
@@ -399,6 +390,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/stephenslab/single-cell-topics/blob/dd4b21a57765be0c8be4e18b89f18950578683cf/analysis/index.Rmd" target="_blank">dd4b21a</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-03-11
+</td>
+<td>
+Removed analyses relating to pulseseq data.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/stephenslab/single-cell-topics/271518c8015da204bd2e8b7ff7ab953bf8b5b804/docs/index.html" target="_blank">271518c</a>
+</td>
+<td>
+Peter Carbonetto
+</td>
+<td>
+2022-02-10
+</td>
+<td>
+Added another link to overview page.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1736,7 +1761,6 @@ Added workflowr files.
 <ul>
 <li><p><a href="prepare_purified_pbmc.html">PBMC</a></p></li>
 <li><p><a href="prepare_droplet.html">Droplet</a></p></li>
-<li><p><a href="prepare_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
 <div id="assess-poisson-nmf-model-fits" class="section level2">
@@ -1745,7 +1769,6 @@ Added workflowr files.
 <ul>
 <li><p><a href="assess_fits_purified_pbmc.html">PBMC</a></p></li>
 <li><p><a href="assess_fits_droplet.html">Droplet</a></p></li>
-<li><p><a href="assess_fits_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
 <div id="identify-clusters" class="section level2">
@@ -1754,7 +1777,6 @@ Added workflowr files.
 <ul>
 <li><p><a href="clusters_purified_pbmc.html">PBMC</a></p></li>
 <li><p><a href="clusters_droplet.html">Droplet</a></p></li>
-<li><p><a href="clusters_pulseseq.html">Pulse-seq</a></p></li>
 </ul>
 </div>
 <div id="visualize-and-annotate-topics" class="section level2">
