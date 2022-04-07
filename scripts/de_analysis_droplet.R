@@ -14,6 +14,7 @@ library(fastTopics)
 
 # Set to either "ash" or "none".
 shrink.method <- "none"
+outfile <- "de-droplet-noshrink.RData"
 
 # Initialize the sequence of pseudorandom numbers.
 set.seed(1)
@@ -48,5 +49,5 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 #      file = "de-droplet.RData")
 # resaveRdaFiles("de-droplet.RData")
 save(list = c("de","de_merged"),
-     file = "de-droplet-noshrink.RData")
-resaveRdaFiles("de-droplet-noshrink.RData")
+     file = outfile)
+resaveRdaFiles(outfile)
