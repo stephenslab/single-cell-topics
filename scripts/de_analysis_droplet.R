@@ -12,6 +12,9 @@ library(tools)
 library(Matrix)
 library(fastTopics)
 
+# Set to either "ash" or "none".
+shrink.method <- "none"
+
 # Initialize the sequence of pseudorandom numbers.
 set.seed(1)
 
@@ -24,7 +27,7 @@ fit <- poisson2multinom(fit)
 
 # Perform the DE analysis.
 t0 <- proc.time()
-de <- de_analysis(fit,counts,pseudocount = 0.1,
+de <- de_analysis(fit,counts,shrink.method = shrink.method,pseudocount = 0.1,
                   control = list(ns = 1e5,nc = 20,nsplit = 1000))
 t1 <- proc.time()
 timing <- t1 - t0
@@ -33,13 +36,17 @@ cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 # Perform a second DE analysis after merging topics 5 and 7.
 t0 <- proc.time()
 fit_merged <- merge_topics(fit,c("k5","k7"))
-de_merged <- de_analysis(fit_merged,counts,pseudocount = 0.1,
+de_merged <- de_analysis(fit_merged,counts,shrink.method = shrink.method,
+                         pseudocount = 0.1,
                          control = list(ns = 1e5,nc = 20,nsplit = 1000))
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results.
+# save(list = c("de","de_merged"),
+#      file = "de-droplet.RData")
+# resaveRdaFiles("de-droplet.RData")
 save(list = c("de","de_merged"),
-     file = "de-droplet.RData")
-resaveRdaFiles("de-droplet.RData")
+     file = "de-droplet-noshrink.RData")
+resaveRdaFiles("de-droplet-noshrink.RData")
