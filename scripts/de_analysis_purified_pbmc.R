@@ -16,8 +16,10 @@ library(fastTopics)
 
 # Initialize the sequence of pseudorandom numbers.
 seed <- 1
-outfile <- "de-pbmc-purified-seed=1.RData"
+shrink.method <- "none"
+outfile <- "de-pbmc-purified-noshrink.RData"
 print(seed)
+print(shrink.method)
 print(outfile)
 set.seed(seed)
 
@@ -31,7 +33,7 @@ fit <- poisson2multinom(fit)
 
 # Perform the DE analysis.
 t0 <- proc.time()
-de <- de_analysis(fit,counts,pseudocount = 0.1,
+de <- de_analysis(fit,counts,shrink.method = shrink.method,pseudocount = 0.1,
                   control = list(ns = 1e5,nc = 20,nsplit = 1000))
 t1 <- proc.time()
 timing <- t1 - t0
