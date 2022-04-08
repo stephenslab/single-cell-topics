@@ -36,7 +36,7 @@ plot_grid(p1,p2,nrow = 2,ncol = 1)
 de <- de_analysis(fit2,counts,pseudocount = 0.1,
                   control = list(nc = 4,nc = 1e4))
 
-# See Fiig. 7 of Guo et al (2010)
+# See Fig. 7 of Guo et al (2010)
 volcano_plot(de,k = 5,ymax = 500) # primitive endoderm (Cdx2, Gata3)
 volcano_plot(de,k = 7,ymax = 500) # Tdgf1 = cripto, Sox2, Esrrb, Klf4 (inner cells)
 volcano_plot(de,k = 8,ymax = 1000) # Id2, Mbnl3 (outer cells)
