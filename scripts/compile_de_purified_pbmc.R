@@ -1,4 +1,6 @@
-# TO DO: Explain here what this script is for, and how to use it.
+# A short script to compile a CSV file containing the results of the
+# grade-of-membership differential expression (GoM DE) analysis for
+# the mixture of purified PBMC data.
 library(fastTopics)
 
 # Load the results of the topic-model-based DE analysis.
