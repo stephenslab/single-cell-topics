@@ -47,11 +47,59 @@ t0 <- proc.time()
 for (i in 1:k)
   gsea[[i]] <- susie(X,Y[,i],L = 10,intercept = TRUE,standardize = FALSE,
                      estimate_residual_variance = TRUE,refine = FALSE,
-                     compute_univariate_zscore = FALSE,verbose = TRUE)
+                     compute_univariate_zscore = FALSE,verbose = TRUE,
+                     min_abs_corr = 0)
 t1 <- proc.time()
 timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
+# Compile the susie GSEA results into a table.
+#
+# TO DO: Add effect estimates.
+#
+gsea_table <- NULL
+for (i in 1:k) {
+  cs  <- gsea[[i]]$sets$cs
+  lbf <- gsea[[i]]$lbf
+  pip <- gsea[[i]]$alpha
+  n   <- length(lbf)
+  names(lbf) <- paste0("L",1:n)
+  rownames(pip) <- paste0("L",1:n)
+  for (j in names(cs)) {
+    ids <- colnames(X)[cs[[j]]]
+    n   <- length(ids)
+    dat <- cbind(data.frame(topic = rep(i,n),
+                            CS = rep(j,n),
+                            lbf = rep(round(lbf[j],digits = 2),n),
+                            pip = pip[j,ids],
+                            stringsAsFactors = FALSE),
+                 subset(gene_sets_human$gene_set_info,is.element(id,ids)))
+    gsea_table <- rbind(gsea_table,dat)
+  }
+}
+gsea_table <- transform(gsea_table,
+                        topic = factor(topic),
+                        CS    = factor(CS))
+gsea_table <- gsea_table[with(gsea_table,order(topic,-lbf)),]
+
+# Add "top genes" to the table.
+n <- nrow(gsea_table)
+rownames(genes) <- genes$ensembl
+gsea_table <- cbind(gsea_table,
+                    data.frame(genes = rep(as.character(NA),n),
+                               stringsAsFactors = FALSE))
+for (i in 1:n) {
+  k  <- gsea_table[i,"topic"]
+  id <- gsea_table[i,"id"]
+  j  <- which(X[,id] > 0)
+  j  <- j[order(Y[j,k],decreasing = TRUE)]
+  j  <- j[1:10]
+  j  <- rownames(Y)[j]
+  x  <- paste(genes[j,"symbol"]," (",round(Y[j,k],digits = 2),") ",sep = "")
+  gsea_table[i,"genes"] <- paste(x,collapse = "")
+}
+
 # Save the results to file.
+write.csv(gsea_table,"gsea_pbmc_purified.csv",row.names = FALSE)
 save(list = "gsea",file = "gsea-pbmc-purified.RData")
 resaveRdaFiles("gsea-pbmc-purified.RData")
