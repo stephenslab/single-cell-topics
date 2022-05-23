@@ -2,6 +2,7 @@
 # grade-of-membership differential expression (GoM DE) analysis for
 # the mixture of purified PBMC data.
 library(fastTopics)
+source("../code/de.R")
 
 # Load the results of the topic-model-based DE analysis.
 load("../output/pbmc-purified/de-pbmc-purified-seed=1.RData")
@@ -19,32 +20,33 @@ de$lfsr[i]     <- de$lfsr[i]
 
 # Reorder the topics to correspond to the ordering used in the
 # manuscript.
-topics      <- c(3,2,5,4,1,6)
+topics      <- c("k3","k2","k5","k4","k1","k6")
 de$postmean <- de$postmean[,topics]
 de$z        <- de$z[,topics]
 de$lfsr     <- de$lfsr[,topics]
-    
+colnames(de$postmean) <- paste0("k",1:6)
+colnames(de$z)        <- paste0("k",1:6)
+colnames(de$lfsr)     <- paste0("k",1:6)
+
 # Compile the DE results for all topics into a single table.
-dat <- NULL
-k <- ncol(de$z)
-for (i in 1:k) {
-  x <- data.frame(topic   = i,
-                  gene    = genes$symbol,
-                  ensembl = genes$ensembl,
-                  lfc     = de$postmean[,i],
-                  z       = de$z[,i],
-                  lfsr    = de$lfsr[,i],
-                  stringsAsFactors = FALSE)
-  dat <- rbind(dat,x)
-}
+dat <- compile_de_table(de)
+
+# Add the gene symbols.
+ids <- dat$gene
+rownames(genes) <- genes$ensembl
+dat <- cbind(dat["topic"],genes[ids,],dat[c("lfc","z","lfsr")])
 
 # Filter out genes with lfsr >= 0.01.
 dat <- subset(dat,lfsr < 0.01)
 
-# Write the data frame to a CSV file. Here we have
-dat <- transform(dat,
-                 topic = factor(topic),
-                 lfc   = round(lfc,digits = 3),
-                 z     = round(z,digits = 3),
-                 lfsr  = format(lfsr,digits = 3,trim = TRUE))
+# Reorder the genes by topic, then by LFC.
+rows <- with(dat,order(topic,-lfc))
+dat  <- dat[rows,]
+
+# Write the data frame to a CSV file.
+dat <-
+  transform(dat,
+            lfc = format(round(lfc,digits = 3),trim = TRUE,scientific = FALSE),
+            z = format(round(z,digits = 3),trim = TRUE,scientific = FALSE),
+            lfsr = format(lfsr,digits = 3,trim = TRUE,scientific = TRUE))
 write.csv(dat,"de_purified_pbmc.csv",quote = FALSE,row.names = FALSE)
