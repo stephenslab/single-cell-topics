@@ -20,7 +20,7 @@ de$lfsr[i]     <- de$lfsr[i]
 
 # Reorder the topics to correspond to the ordering used in the
 # manuscript.
-topics      <- c("k3","k2","k5","k4","k1","k6")
+topics <- c("k3","k2","k5","k4","k1","k6")
 de$postmean <- de$postmean[,topics]
 de$z        <- de$z[,topics]
 de$lfsr     <- de$lfsr[,topics]
