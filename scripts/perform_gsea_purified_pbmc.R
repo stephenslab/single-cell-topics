@@ -57,6 +57,7 @@ for (i in topics) {
                estimate_residual_variance = TRUE,refine = FALSE,
                compute_univariate_zscore = FALSE,verbose = TRUE,
                min_abs_corr = 0)
+  gsea[[i]] <- out[c("KL","lbf","sigma2","V","elbo","sets","pip","alpha","mu")]
 }
 t1 <- proc.time()
 timing <- t1 - t0
