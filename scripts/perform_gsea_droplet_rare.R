@@ -16,7 +16,7 @@ X <- gene_sets_mouse$gene_sets
 out <- readRDS("../output/droplet/refit-droplet.rds")
 
 # Compile the DE results for all topics into a single matrix.
-Y <- cbind(de_merged$postmean,de$postmean[,c("k5","k7")])
+Y <- cbind(out$de_merged$postmean,out$de$postmean[,c("k3","k4")])
 
 # Remove gene sets in several MSigDB collections that clearly aren't
 # relevant.
