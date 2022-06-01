@@ -27,8 +27,7 @@ de$postmean[i] <- de2$postmean[i]
 de$z[i]        <- de2$z[i]
 Y              <- de$postmean
 
-# Remove gene sets in several MSigDB collections that clearly aren't
-# relevant.
+# Remove gene sets that aren't relevant.
 dat <- gene_sets_human$gene_set_info
 i <- which(with(dat,
                 grepl("BioSystems-",database,fixed = TRUE) |

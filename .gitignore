@@ -33,7 +33,9 @@ output/pbmc-purified/gsea-pbmc-purified.RData
 output/pbmc-purified/gsea-pbmc-purified-curated-only.RData
 output/droplet/diff-count-droplet.RData
 output/droplet/gsea-droplet.RData
+output/droplet/gsea-droplet-curated-only.RData
 output/droplet/gsea-droplet-rare.RData
+output/droplet/gsea-droplet-rare-curated-only.RData
 output/pulseseq/fits-pulseseq.RData
 output/pulseseq/diff-count-pulseseq.RData
 output/sims/sims-k=2.RData

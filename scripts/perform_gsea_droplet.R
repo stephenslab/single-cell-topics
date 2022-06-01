@@ -18,11 +18,14 @@ load("../output/droplet/de-droplet.RData")
 # Compile the DE results for all topics into a single matrix.
 Y <- cbind(de_merged$postmean,de$postmean[,c("k5","k7")])
 
-# Remove gene sets in several MSigDB collections that clearly aren't
-# relevant.
-i <- which(!is.element(gene_sets_mouse$gene_set_info$database,
-                       c("MSigDB-ARCHIVED","MSigDB-C1","MSigDB-C3",
-                         "MSigDB-C4","MSigDB-C6")))
+# Remove gene sets that aren't relevant.
+dat <- gene_sets_mouse$gene_set_info
+i <- which(with(dat,
+                grepl("BioSystems-",database,fixed = TRUE) |
+                (database == "MSigDB-C2" &
+                 grepl("CP",sub_category_code,fixed = TRUE)) |
+                (database == "MSigDB-C5" &
+                 grepl("GO",sub_category_code,fixed = TRUE))))
 X <- X[,i]
 
 # Align the gene-set data with the gene-wise statistics.
@@ -56,5 +59,5 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
-save(list = c("X","Y","gsea"),file = "gsea-droplet.RData")
-resaveRdaFiles("gsea-droplet.RData")
+save(list = c("X","Y","gsea"),file = "gsea-droplet-curated-only.RData")
+resaveRdaFiles("gsea-droplet-curated-only.RData")
