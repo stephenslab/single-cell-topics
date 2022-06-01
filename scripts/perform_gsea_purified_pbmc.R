@@ -29,10 +29,14 @@ Y              <- de$postmean
 
 # Remove gene sets in several MSigDB collections that clearly aren't
 # relevant.
-t <- gene_sets_human$gene_set_info$database
-i <- which(grepl("BioSystems-",t,fixed = TRUE) |
-           grepl("PC-",t,fixed = TRUE) |
-           is.element(t,c("MSigDB-C2","MSigDB-C5")))
+dat <- gene_sets_human$gene_set_info
+i <- which(with(dat,
+                grepl("BioSystems-",database,fixed = TRUE) |
+                grepl("PC-",database,fixed = TRUE) |
+                (database == "MSigDB-C2" &
+                 grepl("CP",sub_category_code,fixed = TRUE)) |
+                (database == "MSigDB-C5" &
+                 grepl("GO",sub_category_code,fixed = TRUE))))
 X <- X[,i]
 
 # Align the gene-set data with the gene-wise statistics.
