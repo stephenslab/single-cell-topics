@@ -29,9 +29,10 @@ Y              <- de$postmean
 
 # Remove gene sets in several MSigDB collections that clearly aren't
 # relevant.
-i <- which(!is.element(gene_sets_human$gene_set_info$database,
-                       c("MSigDB-ARCHIVED","MSigDB-C1","MSigDB-C3",
-                         "MSigDB-C4","MSigDB-C6")))
+t <- gene_sets_human$gene_set_info$database
+i <- which(grepl("BioSystems-",t,fixed = TRUE) |
+           grepl("PC-",t,fixed = TRUE) |
+           is.element(t,c("MSigDB-C2","MSigDB-C5")))
 X <- X[,i]
 
 # Align the gene-set data with the gene-wise statistics.
@@ -64,5 +65,6 @@ timing <- t1 - t0
 cat(sprintf("Computation took %0.2f seconds.\n",timing["elapsed"]))
 
 # Save the results to file.
-save(list = c("X","Y","gsea"),file = "gsea-pbmc-purified.RData")
-resaveRdaFiles("gsea-pbmc-purified.RData")
+save(list = c("X","Y","gsea"),
+     file = "gsea-pbmc-purified-curated-only.RData")
+resaveRdaFiles("gsea-pbmc-purified-curated-only.RData")
