@@ -18,10 +18,12 @@ data/pulseseq.RData
 output/droplet/rds/prefit-droplet-k=*.rds
 output/droplet/rds/fit-droplet-*.rds
 output/droplet/rds/refit-droplet-*.rds
+output/droplet/de-droplet-noshrink.RData
 output/pbmc-68k/rds/prefit-pbmc-68k-k=*.rds
 output/pbmc-68k/rds/fit-pbmc-68k-*.rds
 output/pbmc-purified/rds/prefit-pbmc-purified-k=*.rds
 output/pbmc-purified/rds/fit-pbmc-purified-*.rds
+output/pbmc-purified/de-pbmc-purified-noshrink.RData
 output/pulseseq/rds/prefit-pulseseq-k=*.rds
 output/pulseseq/rds/fit-pulseseq-*.rds
 output/pulseseq/rds/refit-pulseseq-*.rds
